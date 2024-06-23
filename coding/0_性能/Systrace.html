@@ -1,0 +1,2635 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Systrace · Kent的博客</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-toggle-chapters/toggle.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-page-treeview/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-sidebar-style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-auto-scroll-table/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-click-reveal/click_reveal.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-accordion/accordion.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-pageview-count/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="内存.html" />
+    
+    
+    <link rel="prev" href="profiler.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../../0_图形系统/">
+            
+                <a href="../../0_图形系统/">
+            
+                    
+                    0_图形系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../../0_图形系统/0_Graphic系统总论/0_Graphic系统总论.html">
+            
+                <a href="../../0_图形系统/0_Graphic系统总论/0_Graphic系统总论.html">
+            
+                    
+                    0_Graphic系统总论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../../0_图形系统/1_Render系统/">
+            
+                <a href="../../0_图形系统/1_Render系统/">
+            
+                    
+                    1_Render系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="../../0_图形系统/1_Render系统/opengl.html">
+            
+                <a href="../../0_图形系统/1_Render系统/opengl.html">
+            
+                    
+                    Opengl
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../../0_图形系统/3_Display系统/">
+            
+                <a href="../../0_图形系统/3_Display系统/">
+            
+                    
+                    3_Display系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.1" data-path="../../0_图形系统/3_Display系统/Display系统.html">
+            
+                <a href="../../0_图形系统/3_Display系统/Display系统.html">
+            
+                    
+                    Display系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="../../0_图形系统/3_Display系统/sf特效.html">
+            
+                <a href="../../0_图形系统/3_Display系统/sf特效.html">
+            
+                    
+                    sf特效
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.3" data-path="../../0_图形系统/3_Display系统/合成器surfaceFlinger.html">
+            
+                <a href="../../0_图形系统/3_Display系统/合成器surfaceFlinger.html">
+            
+                    
+                    合成器surfaceFlinger
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../../0_图形系统/其他/">
+            
+                <a href="../../0_图形系统/其他/">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.4.1" data-path="../../0_图形系统/其他/QT.html">
+            
+                <a href="../../0_图形系统/其他/QT.html">
+            
+                    
+                    QT
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.2" data-path="../../0_图形系统/其他/多屏显示分析.html">
+            
+                <a href="../../0_图形系统/其他/多屏显示分析.html">
+            
+                    
+                    多屏显示分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../../0_输入系统/">
+            
+                <a href="../../0_输入系统/">
+            
+                    
+                    0_输入系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../../0_输入系统/Input.html">
+            
+                <a href="../../0_输入系统/Input.html">
+            
+                    
+                    Input
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../../0_输入系统/全局手势.html">
+            
+                <a href="../../0_输入系统/全局手势.html">
+            
+                    
+                    全局手势
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../../0_进程管理/">
+            
+                <a href="../../0_进程管理/">
+            
+                    
+                    0_进程管理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../../0_进程管理/0_AMS.html">
+            
+                <a href="../../0_进程管理/0_AMS.html">
+            
+                    
+                    0 AMS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../../0_进程管理/App保活的方式.html">
+            
+                <a href="../../0_进程管理/App保活的方式.html">
+            
+                    
+                    App保活的方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../../0_进程管理/后台杀进程.html">
+            
+                <a href="../../0_进程管理/后台杀进程.html">
+            
+                    
+                    后台杀进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../../0_进程管理/杀进程原理.html">
+            
+                <a href="../../0_进程管理/杀进程原理.html">
+            
+                    
+                    杀进程原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../../0_进程管理/进程与子进程.html">
+            
+                <a href="../../0_进程管理/进程与子进程.html">
+            
+                    
+                    进程与子进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../../0_进程管理/进程管理系列0_总论.html">
+            
+                <a href="../../0_进程管理/进程管理系列0_总论.html">
+            
+                    
+                    进程管理系列0_总论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../../0_进程管理/进程管理系列1之进程的创建.html">
+            
+                <a href="../../0_进程管理/进程管理系列1之进程的创建.html">
+            
+                    
+                    进程管理系列1之进程的创建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../../0_进程管理/进程管理系列2之进程的优先级.html">
+            
+                <a href="../../0_进程管理/进程管理系列2之进程的优先级.html">
+            
+                    
+                    进程管理系列2之进程的优先级
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="../../0_进程管理/进程管理系列3之内存回收.html">
+            
+                <a href="../../0_进程管理/进程管理系列3之内存回收.html">
+            
+                    
+                    进程管理系列3之内存回收
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../../Andriod/">
+            
+                <a href="../../Andriod/">
+            
+                    
+                    Andriod
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../../Andriod/关键流程/">
+            
+                <a href="../../Andriod/关键流程/">
+            
+                    
+                    关键流程
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="../../Andriod/关键流程/InitSystem.html">
+            
+                <a href="../../Andriod/关键流程/InitSystem.html">
+            
+                    
+                    Init System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="../../Andriod/关键流程/startAPP.html">
+            
+                <a href="../../Andriod/关键流程/startAPP.html">
+            
+                    
+                    Start APP
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../../Andriod/其他核心服务/">
+            
+                <a href="../../Andriod/其他核心服务/">
+            
+                    
+                    其他核心服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="../../Andriod/其他核心服务/1_InputMethod.html">
+            
+                <a href="../../Andriod/其他核心服务/1_InputMethod.html">
+            
+                    
+                    1 Input Method
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="../../Andriod/其他核心服务/multi-client-ime.html">
+            
+                <a href="../../Andriod/其他核心服务/multi-client-ime.html">
+            
+                    
+                    Multi Client Ime
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="../../Andriod/其他核心服务/无障碍_.html">
+            
+                <a href="../../Andriod/其他核心服务/无障碍_.html">
+            
+                    
+                    无障碍_
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../../Andriod/0_AndriodSystem.html">
+            
+                <a href="../../Andriod/0_AndriodSystem.html">
+            
+                    
+                    0 Andriod System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../../Andriod/log框架.html">
+            
+                <a href="../../Andriod/log框架.html">
+            
+                    
+                    log框架
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../../Andriod/permissions.html">
+            
+                <a href="../../Andriod/permissions.html">
+            
+                    
+                    Permissions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../../Andriod/模型.html">
+            
+                <a href="../../Andriod/模型.html">
+            
+                    
+                    模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Coding
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../0_computorBase/">
+            
+                <a href="../0_computorBase/">
+            
+                    
+                    0 Computor Base
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1.1" data-path="../0_computorBase/DesignPattern.html">
+            
+                <a href="../0_computorBase/DesignPattern.html">
+            
+                    
+                    Design Pattern
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.2" data-path="../0_computorBase/HowToReadCode.html">
+            
+                <a href="../0_computorBase/HowToReadCode.html">
+            
+                    
+                    How To Read Code
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.3" data-path="../0_computorBase/HowWritecode.html">
+            
+                <a href="../0_computorBase/HowWritecode.html">
+            
+                    
+                    How Writecode
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.4" data-path="../0_computorBase/linux.html">
+            
+                <a href="../0_computorBase/linux.html">
+            
+                    
+                    Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.5" data-path="../0_computorBase/linux文件系统.html">
+            
+                <a href="../0_computorBase/linux文件系统.html">
+            
+                    
+                    linux文件系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.6" data-path="../0_computorBase/OperateSystem.html">
+            
+                <a href="../0_computorBase/OperateSystem.html">
+            
+                    
+                    Operate System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.7" data-path="../0_computorBase/refactor.html">
+            
+                <a href="../0_computorBase/refactor.html">
+            
+                    
+                    Refactor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.8" data-path="../0_computorBase/用户_用户组.html">
+            
+                <a href="../0_computorBase/用户_用户组.html">
+            
+                    
+                    用户_用户组
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.9" data-path="../0_computorBase/解耦.html">
+            
+                <a href="../0_computorBase/解耦.html">
+            
+                    
+                    解耦
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../0_IPC/">
+            
+                <a href="../0_IPC/">
+            
+                    
+                    0 IPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.2.1" data-path="../0_IPC/AndriodIPC.html">
+            
+                <a href="../0_IPC/AndriodIPC.html">
+            
+                    
+                    Andriod IPC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.2" data-path="../0_IPC/IPC前提_序列化.html">
+            
+                <a href="../0_IPC/IPC前提_序列化.html">
+            
+                    
+                    IPC前提_序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.3" data-path="../0_IPC/socket.html">
+            
+                <a href="../0_IPC/socket.html">
+            
+                    
+                    Socket
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.4" data-path="../0_IPC/线程间通信.html">
+            
+                <a href="../0_IPC/线程间通信.html">
+            
+                    
+                    线程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    0_性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.3.1" data-path="profiler.html">
+            
+                <a href="profiler.html">
+            
+                    
+                    Profiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6.3.2" data-path="Systrace.html">
+            
+                <a href="Systrace.html">
+            
+                    
+                    Systrace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.3" data-path="内存.html">
+            
+                <a href="内存.html">
+            
+                    
+                    内存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.4" data-path="性能_.html">
+            
+                <a href="性能_.html">
+            
+                    
+                    性能_
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../1_稳定性/">
+            
+                <a href="../1_稳定性/">
+            
+                    
+                    1_稳定性
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.4.1" data-path="../1_稳定性/ANR.html">
+            
+                <a href="../1_稳定性/ANR.html">
+            
+                    
+                    ANR
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4.2" data-path="../1_稳定性/WatchDog.html">
+            
+                <a href="../1_稳定性/WatchDog.html">
+            
+                    
+                    Watch Dog
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../AndriodCar/">
+            
+                <a href="../AndriodCar/">
+            
+                    
+                    Andriod Car
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.5.1" data-path="../AndriodCar/CarService.html">
+            
+                <a href="../AndriodCar/CarService.html">
+            
+                    
+                    Car Service
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="../AndroidTool/">
+            
+                <a href="../AndroidTool/">
+            
+                    
+                    Android Tool
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.6.1" data-path="../AndroidTool/HierarchyView.html">
+            
+                <a href="../AndroidTool/HierarchyView.html">
+            
+                    
+                    Hierarchy View
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="../App/">
+            
+                <a href="../App/">
+            
+                    
+                    App
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.7.1" data-path="../App/APK_64bit_32bit.html">
+            
+                <a href="../App/APK_64bit_32bit.html">
+            
+                    
+                    APK 64 Bit 32 Bit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.2" data-path="../App/APP开发.html">
+            
+                <a href="../App/APP开发.html">
+            
+                    
+                    APP开发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.3" data-path="../App/launcher3.html">
+            
+                <a href="../App/launcher3.html">
+            
+                    
+                    Launcher 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.4" data-path="../App/SystemUI.html">
+            
+                <a href="../App/SystemUI.html">
+            
+                    
+                    System UI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.5" data-path="../App/小程序.html">
+            
+                <a href="../App/小程序.html">
+            
+                    
+                    小程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8" data-path="../CodingLanguage/">
+            
+                <a href="../CodingLanguage/">
+            
+                    
+                    Coding Language
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.8.1" data-path="../CodingLanguage/c_cpp_java.html">
+            
+                <a href="../CodingLanguage/c_cpp_java.html">
+            
+                    
+                    C Cpp Java
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.2" data-path="../CodingLanguage/java反射.html">
+            
+                <a href="../CodingLanguage/java反射.html">
+            
+                    
+                    java反射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.3" data-path="../CodingLanguage/JNI.html">
+            
+                <a href="../CodingLanguage/JNI.html">
+            
+                    
+                    JNI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.4" data-path="../CodingLanguage/js.html">
+            
+                <a href="../CodingLanguage/js.html">
+            
+                    
+                    Js
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.5" data-path="../CodingLanguage/python.html">
+            
+                <a href="../CodingLanguage/python.html">
+            
+                    
+                    Python
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.6" data-path="../CodingLanguage/R.html">
+            
+                <a href="../CodingLanguage/R.html">
+            
+                    
+                    R
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9" data-path="../Features/">
+            
+                <a href="../Features/">
+            
+                    
+                    Features
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.9.1" data-path="../Features/其他特性.html">
+            
+                <a href="../Features/其他特性.html">
+            
+                    
+                    其他特性
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.2" data-path="../Features/多用户.html">
+            
+                <a href="../Features/多用户.html">
+            
+                    
+                    多用户
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.10" >
+            
+                <span>
+            
+                    
+                    Kde
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.10.1" data-path="../kde/kwin.html">
+            
+                <a href="../kde/kwin.html">
+            
+                    
+                    Kwin
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.11" data-path="../other%20OS/README.md">
+            
+                <span>
+            
+                    
+                    Other OS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.11.1" data-path="../other%20OS/OpenHarmony.md">
+            
+                <span>
+            
+                    
+                    Open Harmony
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.11.2" data-path="../other%20OS/otherOS.md">
+            
+                <span>
+            
+                    
+                    Other OS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12" data-path="../Tool/">
+            
+                <a href="../Tool/">
+            
+                    
+                    Tool
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.12.1" data-path="../Tool/aospBuilding.html">
+            
+                <a href="../Tool/aospBuilding.html">
+            
+                    
+                    Aosp Building
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.2" data-path="../Tool/AS.html">
+            
+                <a href="../Tool/AS.html">
+            
+                    
+                    AS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.3" data-path="../Tool/building.html">
+            
+                <a href="../Tool/building.html">
+            
+                    
+                    Building
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.4" data-path="../Tool/chroot.html">
+            
+                <a href="../Tool/chroot.html">
+            
+                    
+                    Chroot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.5" data-path="../Tool/clion.html">
+            
+                <a href="../Tool/clion.html">
+            
+                    
+                    Clion
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.6" data-path="../Tool/command.html">
+            
+                <a href="../Tool/command.html">
+            
+                    
+                    Command
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.7" data-path="../Tool/debugSkills.html">
+            
+                <a href="../Tool/debugSkills.html">
+            
+                    
+                    Debug Skills
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.8" data-path="../Tool/Docker.html">
+            
+                <a href="../Tool/Docker.html">
+            
+                    
+                    Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.9" data-path="../Tool/gdb.html">
+            
+                <a href="../Tool/gdb.html">
+            
+                    
+                    Gdb
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.10" data-path="../Tool/git.html">
+            
+                <a href="../Tool/git.html">
+            
+                    
+                    Git
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.11" data-path="../Tool/phoneCommand.html">
+            
+                <a href="../Tool/phoneCommand.html">
+            
+                    
+                    Phone Command
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.12" data-path="../Tool/search.html">
+            
+                <a href="../Tool/search.html">
+            
+                    
+                    Search
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.13" data-path="../Tool/software_pcSettings.html">
+            
+                <a href="../Tool/software_pcSettings.html">
+            
+                    
+                    Software Pc Settings
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.14" data-path="../Tool/sourceInsight.html">
+            
+                <a href="../Tool/sourceInsight.html">
+            
+                    
+                    Source Insight
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.15" data-path="../Tool/tmux_linux.html">
+            
+                <a href="../Tool/tmux_linux.html">
+            
+                    
+                    Tmux Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.16" data-path="../Tool/编译.html">
+            
+                <a href="../Tool/编译.html">
+            
+                    
+                    编译
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.13" data-path="../多线程/">
+            
+                <a href="../多线程/">
+            
+                    
+                    多线程
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.13.1" data-path="../多线程/多线程的模型.html">
+            
+                <a href="../多线程/多线程的模型.html">
+            
+                    
+                    多线程的模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.13.2" data-path="../多线程/线程池与binder线程池.html">
+            
+                <a href="../多线程/线程池与binder线程池.html">
+            
+                    
+                    线程池与binder线程池
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.14" data-path="../文件系统结构/文件系统结构.html">
+            
+                <a href="../文件系统结构/文件系统结构.html">
+            
+                    
+                    文件系统结构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.15" data-path="../虚拟化/虚拟化.html">
+            
+                <a href="../虚拟化/虚拟化.html">
+            
+                    
+                    虚拟化
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../../communication/communication.html">
+            
+                <a href="../../communication/communication.html">
+            
+                    
+                    Communication
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../../English/English.html">
+            
+                <a href="../../English/English.html">
+            
+                    
+                    English
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../../Investment/Investment.html">
+            
+                <a href="../../Investment/Investment.html">
+            
+                    
+                    Investment
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../../Naturalaw/">
+            
+                <a href="../../Naturalaw/">
+            
+                    
+                    Naturalaw
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../../Naturalaw/ReadingAndThinking.html">
+            
+                <a href="../../Naturalaw/ReadingAndThinking.html">
+            
+                    
+                    Reading And Thinking
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../../Naturalaw/修.html">
+            
+                <a href="../../Naturalaw/修.html">
+            
+                    
+                    修
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../../Scriptures/">
+            
+                <a href="../../Scriptures/">
+            
+                    
+                    Scriptures
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../../Scriptures/金刚经.html">
+            
+                <a href="../../Scriptures/金刚经.html">
+            
+                    
+                    金刚经
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../../CheckList.html">
+            
+                <a href="../../CheckList.html">
+            
+                    
+                    Check List
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Systrace</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x76EE;&#x5F55;"><b>1. </b>&#x76EE;&#x5F55;</a></li><li><span class="title-icon "></span><a href="#android&#x7CFB;&#x7EDF;&#x6027;&#x80FD;&#x8C03;&#x4F18;&#x5DE5;&#x5177;&#x4ECB;&#x7ECD;"><b>2. </b>Android&#x7CFB;&#x7EDF;&#x6027;&#x80FD;&#x8C03;&#x4F18;&#x5DE5;&#x5177;&#x4ECB;&#x7ECD;</a></li><li><span class="title-icon "></span><a href="#traceview---&#x53EF;&#x4EE5;&#x770B;&#x8C03;&#x7528;&#x6808;"><b>3. </b>TraceView---&#x53EF;&#x4EE5;&#x770B;&#x8C03;&#x7528;&#x6808;</a></li><ul><li><span class="title-icon "></span><a href="#traceview&#x5E94;&#x7528;&#x573A;&#x666F;"><b>3.1. </b>TraceView&#x5E94;&#x7528;&#x573A;&#x666F;</a></li><li><span class="title-icon "></span><a href="#traceview&#x5DE5;&#x5177;&#x7684;&#x4F7F;&#x7528;"><b>3.2. </b>TraceView&#x5DE5;&#x5177;&#x7684;&#x4F7F;&#x7528;</a></li><ul><li><span class="title-icon "></span><a href="#&#x5DE5;&#x5177;&#x539F;&#x7406;"><b>3.2.1. </b>&#x5DE5;&#x5177;&#x539F;&#x7406;</a></li></ul></ul><li><span class="title-icon "></span><a href="#systrace"><b>4. </b>Systrace</a></li><ul><li><span class="title-icon "></span><a href="#systrace&#x573A;&#x666F;"><b>4.1. </b>Systrace&#x573A;&#x666F;</a></li><li><span class="title-icon "></span><a href="#systrace&#x5DE5;&#x5177;&#x7684;&#x4F7F;&#x7528;"><b>4.2. </b>Systrace&#x5DE5;&#x5177;&#x7684;&#x4F7F;&#x7528;</a></li><ul><li><span class="title-icon "></span><a href="#&#x4EE3;&#x7801;&#x4E2D;&#x89E6;&#x53D1;"><b>4.2.1. </b>&#x4EE3;&#x7801;&#x4E2D;&#x89E6;&#x53D1;</a></li><li><span class="title-icon "></span><a href="#&#x547D;&#x4EE4;&#x884C;"><b>4.2.2. </b>&#x547D;&#x4EE4;&#x884C;</a></li><li><span class="title-icon "></span><a href="#&#x952E;&#x76D8;&#x5FEB;&#x6377;&#x952E;"><b>4.2.3. </b>&#x952E;&#x76D8;&#x5FEB;&#x6377;&#x952E;</a></li><li><span class="title-icon "></span><a href="#&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x884C;&#x6355;&#x83B7;systreace&#x62A5;&#x544A;&#x6587;&#x4EF6;"><b>4.2.4. </b>&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x884C;&#x6355;&#x83B7;Systreace&#x62A5;&#x544A;&#x6587;&#x4EF6;</a></li><li><span class="title-icon "></span><a href="#&#x6A21;&#x62DF;&#x5668;-perfetto&#x547D;&#x4EE4;-&#x6293;&#x53D6;-trace"><b>4.2.5. </b>&#x6A21;&#x62DF;&#x5668; perfetto&#x547D;&#x4EE4; &#x6293;&#x53D6; trace</a></li><li><span class="title-icon "></span><a href="#atrace"><b>4.2.6. </b>atrace</a></li><li><span class="title-icon "></span><a href="#perfetto"><b>4.2.7. </b>perfetto</a></li></ul><li><span class="title-icon "></span><a href="#&#x9605;&#x8BFB;&#x62A5;&#x544A;"><b>4.3. </b>&#x9605;&#x8BFB;&#x62A5;&#x544A;</a></li><ul><li><span class="title-icon "></span><a href="#&#x9875;&#x9762;&#x7ED3;&#x6784;"><b>4.3.1. </b>&#x9875;&#x9762;&#x7ED3;&#x6784;</a></li><li><span class="title-icon "></span><a href="#&#x7EBF;&#x7A0B;&#x7684;&#x4E0D;&#x540C;&#x72B6;&#x6001;-------&#x989C;&#x8272;&#xFF1A;"><b>4.3.2. </b>&#x7EBF;&#x7A0B;&#x7684;&#x4E0D;&#x540C;&#x72B6;&#x6001;-------&#x989C;&#x8272;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;---atrace"><b>4.3.3. </b>&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;---atrace</a></li><li><span class="title-icon "></span><a href="#&#x7EBF;&#x7A0B;&#x72B6;&#x6001;&#x5207;&#x6362;&#x4E4B;-runnable-------running"><b>4.3.4. </b>&#x7EBF;&#x7A0B;&#x72B6;&#x6001;&#x5207;&#x6362;&#x4E4B; Runnable -----&gt; Running</a></li><li><span class="title-icon "></span><a href="#&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;sleep----running-&#x51FD;&#x6570;&#x8C03;&#x7528;&#x8005;&#x5206;&#x6790;----perfetto"><b>4.3.5. </b>&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;sleep---&gt; Running (&#x51FD;&#x6570;&#x8C03;&#x7528;&#x8005;&#x5206;&#x6790;)----perfetto</a></li><li><span class="title-icon "></span><a href="#binder&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;----perfetto"><b>4.3.6. </b>binder&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;----perfetto</a></li><li><span class="title-icon "></span><a href="#&#x5982;&#x4F55;&#x627E;&#x5524;&#x9192;&#x8FC7;&#x7A0B;&#x5BF9;&#x5E94;&#x7684;&#x4EE3;&#x7801;&#x7EA7;&#x5462;&#xFF1F;"><b>4.3.7. </b>&#x5982;&#x4F55;&#x627E;&#x5524;&#x9192;&#x8FC7;&#x7A0B;&#x5BF9;&#x5E94;&#x7684;&#x4EE3;&#x7801;&#x7EA7;&#x5462;&#xFF1F;</a></li><li><span class="title-icon "></span><a href="#mark&#x6807;&#x5C3A;&#xFF1A;&#x5FEB;&#x6377;&#x952E;m"><b>4.3.8. </b>mark&#x6807;&#x5C3A;&#xFF1A;&#x5FEB;&#x6377;&#x952E;m</a></li><li><span class="title-icon "></span><a href="#&#x5173;&#x4E8E;log&#xFF08;&#x6B21;&#x8981;&#xFF09;"><b>4.3.9. </b>&#x5173;&#x4E8E;log&#xFF08;&#x6B21;&#x8981;&#xFF09;</a></li><li><span class="title-icon "></span><a href="#&#x9009;&#x4E2D;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x4E3A;base"><b>4.3.10. </b>&#x9009;&#x4E2D;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x4E3A;base</a></li></ul><li><span class="title-icon "></span><a href="#&#x9AD8;&#x9636;---sql&#x8BED;&#x8A00;&#x7EDF;&#x8BA1;&#x4FE1;&#x606F;"><b>4.4. </b>&#x9AD8;&#x9636;---SQL&#x8BED;&#x8A00;&#x7EDF;&#x8BA1;&#x4FE1;&#x606F;</a></li><ul><li><span class="title-icon "></span><a href="#google&#x5DF2;&#x7ECF;&#x6DFB;&#x52A0;&#x7684;sample"><b>4.4.1. </b>google&#x5DF2;&#x7ECF;&#x6DFB;&#x52A0;&#x7684;sample</a></li><li><span class="title-icon "></span><a href="#&#x7EDF;&#x8BA1;&#x5404;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;-&#x603B;&#x5360;&#x65F6;&#xFF0C;&#x4E14;&#x6392;&#x5E8F;&#xFF1A;"><b>4.4.2. </b>&#x7EDF;&#x8BA1;&#x5404;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684; &#x603B;&#x5360;&#x65F6;&#xFF0C;&#x4E14;&#x6392;&#x5E8F;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#&#x7EDF;&#x8BA1;&#x5404;&#x4E2A;&#x7EBF;&#x7A0B;&#x7684;-&#x603B;&#x5360;&#x65F6;&#xFF0C;&#x4E14;&#x6392;&#x5E8F;&#xFF1A;"><b>4.4.3. </b>&#x7EDF;&#x8BA1;&#x5404;&#x4E2A;&#x7EBF;&#x7A0B;&#x7684; &#x603B;&#x5360;&#x65F6;&#xFF0C;&#x4E14;&#x6392;&#x5E8F;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#&#x67E5;&#x8BE2;&#x4E0E;&#x67D0;&#x4E00;&#x7EBF;&#x7A0B;-&#x6709;&#x76F8;&#x5173;&#x8C03;&#x7528;&#x7684;&#x7EBF;&#x7A0B;"><b>4.4.4. </b>&#x67E5;&#x8BE2;&#x4E0E;&#x67D0;&#x4E00;&#x7EBF;&#x7A0B; &#x6709;&#x76F8;&#x5173;&#x8C03;&#x7528;&#x7684;&#x7EBF;&#x7A0B;</a></li><li><span class="title-icon "></span><a href="#todo-&#x7406;&#x89E3;sql&#x8BED;&#x53E5;&#x542B;&#x4E49;"><b>4.4.5. </b>TODO: &#x7406;&#x89E3;SQL&#x8BED;&#x53E5;&#x542B;&#x4E49;</a></li></ul><li><span class="title-icon "></span><a href="#binder&#x8DE8;&#x8FDB;&#x7A0B;&#x8C03;&#x7528;"><b>4.5. </b>binder&#x8DE8;&#x8FDB;&#x7A0B;&#x8C03;&#x7528;</a></li><ul><li><span class="title-icon "></span><a href="#&#x8C03;&#x7528;&#x70B9;&#x8DF3;&#x8F6C;&#xFF08;&#x56DE;&#x8DF3;&#xFF09;&#xFF1A;"><b>4.5.1. </b>&#x8C03;&#x7528;&#x70B9;&#x8DF3;&#x8F6C;&#xFF08;&#x56DE;&#x8DF3;&#xFF09;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#&#x4E24;&#x79CD;binder&#x8C03;&#x7528;&#x7684;&#x753B;&#x6CD5;&#x4E0D;&#x540C;"><b>4.5.2. </b>&#x4E24;&#x79CD;binder&#x8C03;&#x7528;&#x7684;&#x753B;&#x6CD5;&#x4E0D;&#x540C;</a></li></ul><li><span class="title-icon "></span><a href="#&#x7EBF;&#x7A0B;-&#x4E4B;&#x95F4;-&#x540C;&#x6B65;&#xFF08;&#x540C;&#x8FDB;&#x7A0B;&#xFF09;"><b>4.6. </b>&#x7EBF;&#x7A0B; &#x4E4B;&#x95F4; &#x540C;&#x6B65;&#xFF08;&#x540C;&#x8FDB;&#x7A0B;&#xFF09;</a></li><li><span class="title-icon "></span><a href="#&#x9501;&#x7ADE;&#x4E89;lock-contention"><b>4.7. </b>&#x9501;&#x7ADE;&#x4E89;(lock contention)</a></li><li><span class="title-icon "></span><a href="#&#x5DF2;&#x77E5;"><b>4.8. </b>&#x5DF2;&#x77E5;</a></li><ul><li><span class="title-icon "></span><a href="#&#x951A;&#x70B9;"><b>4.8.1. </b>&#x951A;&#x70B9;</a></li><li><span class="title-icon "></span><a href="#buffertx"><b>4.8.2. </b>bufferTX</a></li></ul><li><span class="title-icon "></span><a href="#&#x5C0F;&#x6280;&#x5DE7;&#xFF1A;"><b>4.9. </b>&#x5C0F;&#x6280;&#x5DE7;&#xFF1A;</a></li><ul><li><span class="title-icon "></span><a href="#&#x6D4F;&#x89C8;&#x5668;&#x5168;&#x5C4F;f11"><b>4.9.1. </b>&#x6D4F;&#x89C8;&#x5668;&#x5168;&#x5C4F;F11</a></li><li><span class="title-icon "></span><a href="#&#x4E24;&#x4E2A;&#x641C;&#x7D22;&#x8054;&#x5408;&#x4F7F;&#x7528;&#xFF1A;"><b>4.9.2. </b>&#x4E24;&#x4E2A;&#x641C;&#x7D22;&#x8054;&#x5408;&#x4F7F;&#x7528;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#&#x7ACB;&#x5373;&#x4FDD;&#x5B58;ps&#x4FE1;&#x606F;"><b>4.9.3. </b>&#x7ACB;&#x5373;&#x4FDD;&#x5B58;ps&#x4FE1;&#x606F;</a></li></ul><li><span class="title-icon "></span><a href="#&#x7EC8;&#x6781;&#x76EE;&#x6807;&#xFF1A;&#x62FC;&#x56FE;"><b>4.10. </b>&#x7EC8;&#x6781;&#x76EE;&#x6807;&#xFF1A;&#x62FC;&#x56FE;</a></li><li><span class="title-icon "></span><a href="#&#x5B9E;&#x6218;"><b>4.11. </b>&#x5B9E;&#x6218;</a></li><ul><li><span class="title-icon "></span><a href="#&#x5E94;&#x7528;&#x51B7;&#x542F;&#x52A8;--&#x4EE5;launch&#x70B9;&#x51FB;&#x5E94;&#x7528;&#x56FE;&#x6807;&#x4E3A;&#x4F8B;"><b>4.11.1. </b>&#x5E94;&#x7528;&#x51B7;&#x542F;&#x52A8;--&#x4EE5;Launch&#x70B9;&#x51FB;&#x5E94;&#x7528;&#x56FE;&#x6807;&#x4E3A;&#x4F8B;</a></li><li><span class="title-icon "></span><a href="#todo--&#x5176;&#x4ED6;&#x7AE0;&#x8282;&#x7528;systrace&#x6765;&#x5206;&#x6790;"><b>4.11.2. </b>TODO:  &#x5176;&#x4ED6;&#x7AE0;&#x8282;&#x7528;systrace&#x6765;&#x5206;&#x6790;</a></li></ul><li><span class="title-icon "></span><a href="#systrace&#x7684;&#x539F;&#x7406;"><b>4.12. </b>Systrace&#x7684;&#x539F;&#x7406;</a></li><ul><li><span class="title-icon "></span><a href="#&#x5F00;&#x6E90;&#x4EE3;&#x7801;"><b>4.12.1. </b>&#x5F00;&#x6E90;&#x4EE3;&#x7801;</a></li></ul><li><span class="title-icon "></span><a href="#perfetto&#x5FEB;&#x6377;&#x952E;"><b>4.13. </b>Perfetto&#x5FEB;&#x6377;&#x952E;</a></li><ul><li><span class="title-icon "></span><a href="#&#x6280;&#x5DE7;&#xFF1A;"><b>4.13.1. </b>&#x6280;&#x5DE7;&#xFF1A;</a></li></ul><li><span class="title-icon "></span><a href="#&#x9047;&#x5230;&#x7684;&#x5751;&#xFF1A;"><b>4.14. </b>&#x9047;&#x5230;&#x7684;&#x5751;&#xFF1A;</a></li><ul><li><span class="title-icon "></span><a href="#platform-tools&#x4E0B;&#x627E;&#x4E0D;&#x5230;systrace&#x6587;&#x4EF6;&#x5939;"><b>4.14.1. </b>platform-tools&#x4E0B;&#x627E;&#x4E0D;&#x5230;systrace&#x6587;&#x4EF6;&#x5939;</a></li><li><span class="title-icon "></span><a href="#&#x6CA1;&#x6709;&#x5199;&#x5165;&#x6743;&#x9650;&#xFF1A;"><b>4.14.2. </b>&#x6CA1;&#x6709;&#x5199;&#x5165;&#x6743;&#x9650;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#&#x8D85;&#x957F;slice"><b>4.14.3. </b>&#x8D85;&#x957F;slice.</a></li></ul><li><span class="title-icon "></span><a href="#&#x53C2;&#x8003;&#xFF1A;"><b>4.15. </b>&#x53C2;&#x8003;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#todo"><b>4.16. </b>TODO:</a></li></ul><li><span class="title-icon "></span><a href="#atrace_1"><b>5. </b>atrace</a></li><ul><li><span class="title-icon "></span><a href="#&#x8F6C;html&#xFF08;perfetto&#x7F51;&#x7AD9;&#x67E5;&#x770B;&#xFF09;"><b>5.1. </b>&#x8F6C;html&#xFF08;perfetto&#x7F51;&#x7AD9;&#x67E5;&#x770B;&#xFF09;</a></li><li><span class="title-icon "></span><a href="#&#x6280;&#x5DE7;&#x4E4B;--&#x6CA1;&#x6709;process&#x540D;&#x5982;&#x4F55;&#x67E5;&#x770B;"><b>5.2. </b>&#x6280;&#x5DE7;&#x4E4B;  &#x6CA1;&#x6709;process&#x540D;&#x5982;&#x4F55;&#x67E5;&#x770B;</a></li></ul><li><span class="title-icon "></span><a href="#oprofile"><b>6. </b>Oprofile</a></li><li><span class="title-icon "></span><a href="#layout-inspector"><b>7. </b>Layout Inspector</a></li><li><span class="title-icon "></span><a href="#winscope&#x5FEB;&#x7167;---&#x95EA;&#x5C4F;&#x95EE;&#x9898;"><b>8. </b>winscope(&#x5FEB;&#x7167;)---&#x95EA;&#x5C4F;&#x95EE;&#x9898;</a></li><ul><li><span class="title-icon "></span><a href="#&#x53C2;&#x8003;&#xFF1A;_1"><b>8.1. </b>&#x53C2;&#x8003;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#&#x5B98;&#x65B9;&#x6587;&#x6863;"><b>8.2. </b>&#x5B98;&#x65B9;&#x6587;&#x6863;</a></li></ul><li><span class="title-icon "></span><a href="#&#x4E00;&#x4E9B;&#x73AF;&#x5883;&#x4F7F;&#x7528;&#x539F;&#x5219;&#xFF1A;"><b>9. </b>&#x4E00;&#x4E9B;&#x73AF;&#x5883;&#x4F7F;&#x7528;&#x539F;&#x5219;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#&#x53C2;&#x8003;"><b>10. </b>&#x53C2;&#x8003;</a></li><li><span class="title-icon "></span><a href="#&#x8865;&#x5145;&#xFF0C;&#x811A;&#x672C;"><b>11. </b>&#x8865;&#x5145;&#xFF0C;&#x811A;&#x672C;</a></li><li><span class="title-icon "></span><a href="#todo_1"><b>12. </b>TODO:</a></li></ul></div><a href="#&#x76EE;&#x5F55;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><div class="treeview__container"><ul>
+<li><div><a href="#&#x76EE;&#x5F55;">&#x76EE;&#x5F55;</a><i></i></div></li>
+<li><div><a href="#android&#x7CFB;&#x7EDF;&#x6027;&#x80FD;&#x8C03;&#x4F18;&#x5DE5;&#x5177;&#x4ECB;&#x7ECD;">Android&#x7CFB;&#x7EDF;&#x6027;&#x80FD;&#x8C03;&#x4F18;&#x5DE5;&#x5177;&#x4ECB;&#x7ECD;</a><i></i></div></li>
+<li><div><a href="#traceview---&#x53EF;&#x4EE5;&#x770B;&#x8C03;&#x7528;&#x6808;">TraceView---&#x53EF;&#x4EE5;&#x770B;&#x8C03;&#x7528;&#x6808;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#traceview&#x5E94;&#x7528;&#x573A;&#x666F;">TraceView&#x5E94;&#x7528;&#x573A;&#x666F;</a><i></i></div></li>
+<li><div><a href="#traceview&#x5DE5;&#x5177;&#x7684;&#x4F7F;&#x7528;">TraceView&#x5DE5;&#x5177;&#x7684;&#x4F7F;&#x7528;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x5DE5;&#x5177;&#x539F;&#x7406;">&#x5DE5;&#x5177;&#x539F;&#x7406;</a><i></i></div></li>
+</ul></li>
+</ul></li>
+<li><div><a href="#systrace">Systrace</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#systrace&#x573A;&#x666F;">Systrace&#x573A;&#x666F;</a><i></i></div></li>
+<li><div><a href="#systrace&#x5DE5;&#x5177;&#x7684;&#x4F7F;&#x7528;">Systrace&#x5DE5;&#x5177;&#x7684;&#x4F7F;&#x7528;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x4EE3;&#x7801;&#x4E2D;&#x89E6;&#x53D1;">&#x4EE3;&#x7801;&#x4E2D;&#x89E6;&#x53D1;</a><i></i></div></li>
+<li><div><a href="#&#x547D;&#x4EE4;&#x884C;">&#x547D;&#x4EE4;&#x884C;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#options">[options]</a><i></i></div></li>
+<li><div><a href="#categories--&#x54EA;&#x4E9B;&#x6A21;&#x5757;">[categories]  &#x54EA;&#x4E9B;&#x6A21;&#x5757;</a><i></i></div></li>
+<li><div><a href="#perfetto&#x547D;&#x4EE4;&#x884C;">perfetto&#x547D;&#x4EE4;&#x884C;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x952E;&#x76D8;&#x5FEB;&#x6377;&#x952E;">&#x952E;&#x76D8;&#x5FEB;&#x6377;&#x952E;</a><i></i></div></li>
+<li><div><a href="#&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x884C;&#x6355;&#x83B7;systreace&#x62A5;&#x544A;&#x6587;&#x4EF6;">&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x884C;&#x6355;&#x83B7;Systreace&#x62A5;&#x544A;&#x6587;&#x4EF6;</a><i></i></div></li>
+<li><div><a href="#&#x6A21;&#x62DF;&#x5668;-perfetto&#x547D;&#x4EE4;-&#x6293;&#x53D6;-trace">&#x6A21;&#x62DF;&#x5668; perfetto&#x547D;&#x4EE4; &#x6293;&#x53D6; trace</a><i></i></div></li>
+<li><div><a href="#atrace">atrace</a><i></i></div></li>
+<li><div><a href="#perfetto">perfetto</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x9605;&#x8BFB;&#x62A5;&#x544A;">&#x9605;&#x8BFB;&#x62A5;&#x544A;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x9875;&#x9762;&#x7ED3;&#x6784;">&#x9875;&#x9762;&#x7ED3;&#x6784;</a><i></i></div></li>
+<li><div><a href="#&#x7EBF;&#x7A0B;&#x7684;&#x4E0D;&#x540C;&#x72B6;&#x6001;-------&#x989C;&#x8272;&#xFF1A;">&#x7EBF;&#x7A0B;&#x7684;&#x4E0D;&#x540C;&#x72B6;&#x6001;-------&#x989C;&#x8272;&#xFF1A;</a><i></i></div></li>
+<li><div><a href="#&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;---atrace">&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;---atrace</a><i></i></div></li>
+<li><div><a href="#&#x7EBF;&#x7A0B;&#x72B6;&#x6001;&#x5207;&#x6362;&#x4E4B;-runnable------gt-running">&#x7EBF;&#x7A0B;&#x72B6;&#x6001;&#x5207;&#x6362;&#x4E4B; Runnable -----&gt; Running</a><i></i></div></li>
+<li><div><a href="#&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;sleep---gt-running-&#x51FD;&#x6570;&#x8C03;&#x7528;&#x8005;&#x5206;&#x6790;----perfetto">&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;sleep---&gt; Running (&#x51FD;&#x6570;&#x8C03;&#x7528;&#x8005;&#x5206;&#x6790;)----perfetto</a><i></i></div></li>
+<li><div><a href="#binder&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;----perfetto">binder&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;----perfetto</a><i></i></div></li>
+<li><div><a href="#&#x5982;&#x4F55;&#x627E;&#x5524;&#x9192;&#x8FC7;&#x7A0B;&#x5BF9;&#x5E94;&#x7684;&#x4EE3;&#x7801;&#x7EA7;&#x5462;&#xFF1F;">&#x5982;&#x4F55;&#x627E;&#x5524;&#x9192;&#x8FC7;&#x7A0B;&#x5BF9;&#x5E94;&#x7684;&#x4EE3;&#x7801;&#x7EA7;&#x5462;&#xFF1F;</a><i></i></div></li>
+<li><div><a href="#mark&#x6807;&#x5C3A;&#xFF1A;&#x5FEB;&#x6377;&#x952E;m">mark&#x6807;&#x5C3A;&#xFF1A;&#x5FEB;&#x6377;&#x952E;m</a><i></i></div></li>
+<li><div><a href="#&#x5173;&#x4E8E;log&#xFF08;&#x6B21;&#x8981;&#xFF09;">&#x5173;&#x4E8E;log&#xFF08;&#x6B21;&#x8981;&#xFF09;</a><i></i></div></li>
+<li><div><a href="#&#x9009;&#x4E2D;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x4E3A;base">&#x9009;&#x4E2D;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x4E3A;base</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x5982;&#x4F55;&#x9009;&#x4E2D;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#xFF1F;">&#x5982;&#x4F55;&#x9009;&#x4E2D;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#xFF1F;</a><i></i></div></li>
+<li><div><a href="#&#x57FA;&#x4E8E;&#x9009;&#x4E2D;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x770B;&#x5404;&#x4E2A;&#x7EDF;&#x8BA1;&#x91CF;">&#x57FA;&#x4E8E;&#x9009;&#x4E2D;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x770B;&#x5404;&#x4E2A;&#x7EDF;&#x8BA1;&#x91CF;</a><i></i></div></li>
+<li><div><a href="#&#x524D;&#x4E09;&#x4E2A;cpu&#x7684;-&#x7EDF;&#x8BA1;&#xFF1A;">&#x524D;&#x4E09;&#x4E2A;cpu&#x7684; &#x7EDF;&#x8BA1;&#xFF1A;</a><i></i></div></li>
+<li><div><a href="#binder&#x6D41;&#x7684;&#x6570;&#x91CF;">Binder&#x6D41;&#x7684;&#x6570;&#x91CF;</a><i></i></div></li>
+</ul></li>
+</ul></li>
+<li><div><a href="#&#x9AD8;&#x9636;---sql&#x8BED;&#x8A00;&#x7EDF;&#x8BA1;&#x4FE1;&#x606F;">&#x9AD8;&#x9636;---SQL&#x8BED;&#x8A00;&#x7EDF;&#x8BA1;&#x4FE1;&#x606F;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#google&#x5DF2;&#x7ECF;&#x6DFB;&#x52A0;&#x7684;sample">google&#x5DF2;&#x7ECF;&#x6DFB;&#x52A0;&#x7684;sample</a><i></i></div></li>
+<li><div><a href="#&#x7EDF;&#x8BA1;&#x5404;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;-&#x603B;&#x5360;&#x65F6;&#xFF0C;&#x4E14;&#x6392;&#x5E8F;&#xFF1A;">&#x7EDF;&#x8BA1;&#x5404;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684; &#x603B;&#x5360;&#x65F6;&#xFF0C;&#x4E14;&#x6392;&#x5E8F;&#xFF1A;</a><i></i></div></li>
+<li><div><a href="#&#x7EDF;&#x8BA1;&#x5404;&#x4E2A;&#x7EBF;&#x7A0B;&#x7684;-&#x603B;&#x5360;&#x65F6;&#xFF0C;&#x4E14;&#x6392;&#x5E8F;&#xFF1A;">&#x7EDF;&#x8BA1;&#x5404;&#x4E2A;&#x7EBF;&#x7A0B;&#x7684; &#x603B;&#x5360;&#x65F6;&#xFF0C;&#x4E14;&#x6392;&#x5E8F;&#xFF1A;</a><i></i></div></li>
+<li><div><a href="#&#x67E5;&#x8BE2;&#x4E0E;&#x67D0;&#x4E00;&#x7EBF;&#x7A0B;-&#x6709;&#x76F8;&#x5173;&#x8C03;&#x7528;&#x7684;&#x7EBF;&#x7A0B;">&#x67E5;&#x8BE2;&#x4E0E;&#x67D0;&#x4E00;&#x7EBF;&#x7A0B; &#x6709;&#x76F8;&#x5173;&#x8C03;&#x7528;&#x7684;&#x7EBF;&#x7A0B;</a><i></i></div></li>
+<li><div><a href="#todo-&#x7406;&#x89E3;sql&#x8BED;&#x53E5;&#x542B;&#x4E49;">TODO: &#x7406;&#x89E3;SQL&#x8BED;&#x53E5;&#x542B;&#x4E49;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#binder&#x8DE8;&#x8FDB;&#x7A0B;&#x8C03;&#x7528;">binder&#x8DE8;&#x8FDB;&#x7A0B;&#x8C03;&#x7528;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x8C03;&#x7528;&#x70B9;&#x8DF3;&#x8F6C;&#xFF08;&#x56DE;&#x8DF3;&#xFF09;&#xFF1A;">&#x8C03;&#x7528;&#x70B9;&#x8DF3;&#x8F6C;&#xFF08;&#x56DE;&#x8DF3;&#xFF09;&#xFF1A;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x9009;&#x4E2D;&#x7BAD;&#x5934;&#xFF0C;&#x7136;&#x540E;&#x70B9;flows&#x7684;&#x8DF3;&#x8F6C;&#x7BAD;&#x5934;">&#x9009;&#x4E2D;&#x7BAD;&#x5934;&#xFF0C;&#x7136;&#x540E;&#x70B9;Flows&#x7684;&#x8DF3;&#x8F6C;&#x7BAD;&#x5934;</a><i></i></div></li>
+<li><div><a href="#&#x5BF9;&#x5E94;&#x7684;binder&#x6D41;&#xFF1A;--&#x8017;&#x65F6;&#xFF0C;&#x8C03;&#x7528;&#x8005;&#xFF0C;&#x88AB;&#x8C03;&#x7528;&#x8005;">-&#x5BF9;&#x5E94;&#x7684;binder&#x6D41;&#xFF1A;  &#x8017;&#x65F6;&#xFF0C;&#x8C03;&#x7528;&#x8005;&#xFF0C;&#x88AB;&#x8C03;&#x7528;&#x8005;</a><i></i></div></li>
+<li><div><a href="#&#x7279;&#x70B9;">&#x7279;&#x70B9;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x4E24;&#x79CD;binder&#x8C03;&#x7528;&#x7684;&#x753B;&#x6CD5;&#x4E0D;&#x540C;">&#x4E24;&#x79CD;binder&#x8C03;&#x7528;&#x7684;&#x753B;&#x6CD5;&#x4E0D;&#x540C;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x7EBF;&#x7A0B;-&#x4E4B;&#x95F4;-&#x540C;&#x6B65;&#xFF08;&#x540C;&#x8FDB;&#x7A0B;&#xFF09;">&#x7EBF;&#x7A0B; &#x4E4B;&#x95F4; &#x540C;&#x6B65;&#xFF08;&#x540C;&#x8FDB;&#x7A0B;&#xFF09;</a><i></i></div></li>
+<li><div><a href="#&#x9501;&#x7ADE;&#x4E89;lock-contention">&#x9501;&#x7ADE;&#x4E89;(lock contention)</a><i></i></div></li>
+<li><div><a href="#&#x5DF2;&#x77E5;">&#x5DF2;&#x77E5;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x951A;&#x70B9;">&#x951A;&#x70B9;</a><i></i></div></li>
+<li><div><a href="#buffertx">bufferTX</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x5C0F;&#x6280;&#x5DE7;&#xFF1A;">&#x5C0F;&#x6280;&#x5DE7;&#xFF1A;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x6D4F;&#x89C8;&#x5668;&#x5168;&#x5C4F;f11">&#x6D4F;&#x89C8;&#x5668;&#x5168;&#x5C4F;F11</a><i></i></div></li>
+<li><div><a href="#&#x4E24;&#x4E2A;&#x641C;&#x7D22;&#x8054;&#x5408;&#x4F7F;&#x7528;&#xFF1A;">&#x4E24;&#x4E2A;&#x641C;&#x7D22;&#x8054;&#x5408;&#x4F7F;&#x7528;&#xFF1A;</a><i></i></div></li>
+<li><div><a href="#&#x7ACB;&#x5373;&#x4FDD;&#x5B58;ps&#x4FE1;&#x606F;">&#x7ACB;&#x5373;&#x4FDD;&#x5B58;ps&#x4FE1;&#x606F;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x7EC8;&#x6781;&#x76EE;&#x6807;&#xFF1A;&#x62FC;&#x56FE;">&#x7EC8;&#x6781;&#x76EE;&#x6807;&#xFF1A;&#x62FC;&#x56FE;</a><i></i></div></li>
+<li><div><a href="#&#x5B9E;&#x6218;">&#x5B9E;&#x6218;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x5E94;&#x7528;&#x51B7;&#x542F;&#x52A8;--&#x4EE5;launch&#x70B9;&#x51FB;&#x5E94;&#x7528;&#x56FE;&#x6807;&#x4E3A;&#x4F8B;">&#x5E94;&#x7528;&#x51B7;&#x542F;&#x52A8;--&#x4EE5;Launch&#x70B9;&#x51FB;&#x5E94;&#x7528;&#x56FE;&#x6807;&#x4E3A;&#x4F8B;</a><i></i></div></li>
+<li><div><a href="#todo--&#x5176;&#x4ED6;&#x7AE0;&#x8282;&#x7528;systrace&#x6765;&#x5206;&#x6790;">TODO:  &#x5176;&#x4ED6;&#x7AE0;&#x8282;&#x7528;systrace&#x6765;&#x5206;&#x6790;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#systrace&#x7684;&#x539F;&#x7406;">Systrace&#x7684;&#x539F;&#x7406;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x5F00;&#x6E90;&#x4EE3;&#x7801;">&#x5F00;&#x6E90;&#x4EE3;&#x7801;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#perfetto&#x5FEB;&#x6377;&#x952E;">Perfetto&#x5FEB;&#x6377;&#x952E;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x6280;&#x5DE7;&#xFF1A;">&#x6280;&#x5DE7;&#xFF1A;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x9047;&#x5230;&#x7684;&#x5751;&#xFF1A;">&#x9047;&#x5230;&#x7684;&#x5751;&#xFF1A;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#platform-tools&#x4E0B;&#x627E;&#x4E0D;&#x5230;systrace&#x6587;&#x4EF6;&#x5939;">platform-tools&#x4E0B;&#x627E;&#x4E0D;&#x5230;systrace&#x6587;&#x4EF6;&#x5939;</a><i></i></div></li>
+<li><div><a href="#&#x6CA1;&#x6709;&#x5199;&#x5165;&#x6743;&#x9650;&#xFF1A;">&#x6CA1;&#x6709;&#x5199;&#x5165;&#x6743;&#x9650;&#xFF1A;</a><i></i></div></li>
+<li><div><a href="#&#x8D85;&#x957F;slice">&#x8D85;&#x957F;slice.</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x53C2;&#x8003;&#xFF1A;">&#x53C2;&#x8003;&#xFF1A;</a><i></i></div></li>
+<li><div><a href="#todo">TODO:</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#atrace">atrace</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x8F6C;html&#xFF08;perfetto&#x7F51;&#x7AD9;&#x67E5;&#x770B;&#xFF09;">&#x8F6C;html&#xFF08;perfetto&#x7F51;&#x7AD9;&#x67E5;&#x770B;&#xFF09;</a><i></i></div></li>
+<li><div><a href="#&#x6280;&#x5DE7;&#x4E4B;--&#x6CA1;&#x6709;process&#x540D;&#x5982;&#x4F55;&#x67E5;&#x770B;">&#x6280;&#x5DE7;&#x4E4B;  &#x6CA1;&#x6709;process&#x540D;&#x5982;&#x4F55;&#x67E5;&#x770B;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#oprofile">Oprofile</a><i></i></div></li>
+<li><div><a href="#layout-inspector">Layout Inspector</a><i></i></div></li>
+<li><div><a href="#winscope&#x5FEB;&#x7167;---&#x95EA;&#x5C4F;&#x95EE;&#x9898;">winscope(&#x5FEB;&#x7167;)---&#x95EA;&#x5C4F;&#x95EE;&#x9898;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x53C2;&#x8003;&#xFF1A;">&#x53C2;&#x8003;&#xFF1A;</a><i></i></div></li>
+<li><div><a href="#&#x5B98;&#x65B9;&#x6587;&#x6863;">&#x5B98;&#x65B9;&#x6587;&#x6863;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x4E00;&#x4E9B;&#x73AF;&#x5883;&#x4F7F;&#x7528;&#x539F;&#x5219;&#xFF1A;">&#x4E00;&#x4E9B;&#x73AF;&#x5883;&#x4F7F;&#x7528;&#x539F;&#x5219;&#xFF1A;</a><i></i></div></li>
+<li><div><a href="#&#x53C2;&#x8003;">&#x53C2;&#x8003;</a><i></i></div></li>
+<li><div><a href="#&#x8865;&#x5145;&#xFF0C;&#x811A;&#x672C;">&#x8865;&#x5145;&#xFF0C;&#x811A;&#x672C;</a><i></i></div></li>
+<li><div><a href="#todo">TODO:</a><i></i></div></li>
+</ul>
+</div>
+
+
+
+<h1 id="&#x76EE;&#x5F55;"><a name="&#x76EE;&#x5F55;" class="anchor-navigation-ex-anchor" href="#&#x76EE;&#x5F55;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x76EE;&#x5F55;</h1>
+<h1 id="android&#x7CFB;&#x7EDF;&#x6027;&#x80FD;&#x8C03;&#x4F18;&#x5DE5;&#x5177;&#x4ECB;&#x7ECD;"><a name="android&#x7CFB;&#x7EDF;&#x6027;&#x80FD;&#x8C03;&#x4F18;&#x5DE5;&#x5177;&#x4ECB;&#x7ECD;" class="anchor-navigation-ex-anchor" href="#android&#x7CFB;&#x7EDF;&#x6027;&#x80FD;&#x8C03;&#x4F18;&#x5DE5;&#x5177;&#x4ECB;&#x7ECD;"><i class="fa fa-link" aria-hidden="true"></i></a>2. Android&#x7CFB;&#x7EDF;&#x6027;&#x80FD;&#x8C03;&#x4F18;&#x5DE5;&#x5177;&#x4ECB;&#x7ECD;</h1>
+<p>TraceView&#x3001;Systrace&#x3001;Oprofile</p>
+<h1 id="traceview---&#x53EF;&#x4EE5;&#x770B;&#x8C03;&#x7528;&#x6808;"><a name="traceview---&#x53EF;&#x4EE5;&#x770B;&#x8C03;&#x7528;&#x6808;" class="anchor-navigation-ex-anchor" href="#traceview---&#x53EF;&#x4EE5;&#x770B;&#x8C03;&#x7528;&#x6808;"><i class="fa fa-link" aria-hidden="true"></i></a>3. TraceView---&#x53EF;&#x4EE5;&#x770B;&#x8C03;&#x7528;&#x6808;</h1>
+<h2 id="traceview&#x5E94;&#x7528;&#x573A;&#x666F;"><a name="traceview&#x5E94;&#x7528;&#x573A;&#x666F;" class="anchor-navigation-ex-anchor" href="#traceview&#x5E94;&#x7528;&#x573A;&#x666F;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. TraceView&#x5E94;&#x7528;&#x573A;&#x666F;</h2>
+<h2 id="traceview&#x5DE5;&#x5177;&#x7684;&#x4F7F;&#x7528;"><a name="traceview&#x5DE5;&#x5177;&#x7684;&#x4F7F;&#x7528;" class="anchor-navigation-ex-anchor" href="#traceview&#x5DE5;&#x5177;&#x7684;&#x4F7F;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. TraceView&#x5DE5;&#x5177;&#x7684;&#x4F7F;&#x7528;</h2>
+<p><a href="https://www.jianshu.com/p/a14bfdc4109a?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation" target="_blank">https://www.jianshu.com/p/a14bfdc4109a?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation</a></p>
+<p>&#x5F62;&#x6210;&#x4E00;&#x4E2A;&#x56FE;&#x8868;&#xFF0C;&#x4ECE;&#x4E2D;&#x53EF;&#x4EE5;&#x5206;&#x6790;&#x51FA;&#x6BCF;&#x4E2A;&#x65B9;&#x6CD5;&#x7684;&#x6267;&#x884C;&#x65F6;&#x95F4;</p>
+<p><img src="Systrace.assets/image-20221122231133985.png" alt="image-20221122231133985"></p>
+<h3 id="&#x5DE5;&#x5177;&#x539F;&#x7406;"><a name="&#x5DE5;&#x5177;&#x539F;&#x7406;" class="anchor-navigation-ex-anchor" href="#&#x5DE5;&#x5177;&#x539F;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2.1. &#x5DE5;&#x5177;&#x539F;&#x7406;</h3>
+<h1 id="systrace"><a name="systrace" class="anchor-navigation-ex-anchor" href="#systrace"><i class="fa fa-link" aria-hidden="true"></i></a>4. Systrace</h1>
+<h2 id="systrace&#x573A;&#x666F;"><a name="systrace&#x573A;&#x666F;" class="anchor-navigation-ex-anchor" href="#systrace&#x573A;&#x666F;"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. Systrace&#x573A;&#x666F;</h2>
+<p>&#x5305;&#x542B;&#x7684;&#x4FE1;&#x606F;&#x5185;&#x5BB9;&#xFF1A;</p>
+<blockquote>
+<p>&#x5DE5;&#x4F5C;<strong>&#x7EBF;&#x7A0B;</strong>&#xFF1A;&#x5185;&#x6838;+&#x6846;&#x67B6;+&#x5E94;&#x7528;</p>
+<p> &#x7CFB;&#x7EDF;&#x6A21;&#x5757;<strong>&#x72B6;&#x6001;</strong> &#xFF1A;<strong>CPU&#x9891;&#x7387;/GPU&#x9891;&#x7387;</strong>/system property &#x8D4B;&#x503C;/frame buffer&#x961F;&#x5217;.</p>
+</blockquote>
+<p>&#x4F18;&#x70B9;&#xFF1A;</p>
+<blockquote>
+<p>1&#x3001;<font color="red">&#x56FE;&#x5F62;&#x5316;</font>   ----&gt;  <strong>&#x6280;&#x5DE7;&#xFF1A;</strong>  &#x81EA;&#x5DF1;&#x505A;&#x5DE5;&#x5177;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x505A;</p>
+<p>2&#x3001;&#x6309;&#x7167;&#x65F6;&#x95F4;&#x94FA;&#x5F00;</p>
+</blockquote>
+<p>&#x5173;&#x6CE8;&#x70B9;&#xFF1A;</p>
+<blockquote>
+<p>&#x8FD0;&#x884C;&#x65F6;&#x95F4;</p>
+<p>&#x7EBF;&#x7A0B;</p>
+<p>CPU&#x5DE5;&#x4F5C;&#x9891;&#x7387;</p>
+<p>CPU &#x62A2;&#x5360;</p>
+</blockquote>
+<h2 id="systrace&#x5DE5;&#x5177;&#x7684;&#x4F7F;&#x7528;"><a name="systrace&#x5DE5;&#x5177;&#x7684;&#x4F7F;&#x7528;" class="anchor-navigation-ex-anchor" href="#systrace&#x5DE5;&#x5177;&#x7684;&#x4F7F;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>4.2. Systrace&#x5DE5;&#x5177;&#x7684;&#x4F7F;&#x7528;</h2>
+<h3 id="&#x4EE3;&#x7801;&#x4E2D;&#x89E6;&#x53D1;"><a name="&#x4EE3;&#x7801;&#x4E2D;&#x89E6;&#x53D1;" class="anchor-navigation-ex-anchor" href="#&#x4EE3;&#x7801;&#x4E2D;&#x89E6;&#x53D1;"><i class="fa fa-link" aria-hidden="true"></i></a>4.2.1. &#x4EE3;&#x7801;&#x4E2D;&#x89E6;&#x53D1;</h3>
+<p>&#x6709;&#x4E9B;&#x8981;&#x770B;&#x7684;&#x5185;&#x5BB9;&#x6CA1;&#x6709;&#x5728;&#x73B0;&#x6709;&#x7684;trace&#x91CC;&#xFF0C;<font color="red">&#x4E0D;&#x591F;&#x9700;&#x8981;&#x81EA;&#x5DF1;&#x52A0;TAG&#xFF1A;</font></p>
+<p>java&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token comment">//</span>
+<span class="token class-name">Trace</span><span class="token punctuation">.</span><span class="token function">traceBegin</span><span class="token punctuation">(</span><span class="token class-name">Trace</span><span class="token punctuation">.</span><span class="token constant">TRACE_TAG_VIEW</span><span class="token punctuation">,</span> <span class="token string">&quot;onCreate&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token class-name">Trace</span><span class="token punctuation">.</span><span class="token function">traceEnd</span><span class="token punctuation">(</span><span class="token class-name">Trace</span><span class="token punctuation">.</span><span class="token constant">TRACE_TAG_VIEW</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+
+<span class="token comment">//</span>
+<span class="token class-name">Trace</span><span class="token punctuation">.</span>beginsection <span class="token punctuation">(</span><span class="token string">&quot;onConfigurationChanged&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// systemTrace, &#x6027;&#x80FD;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token class-name">Trace</span><span class="token punctuation">.</span><span class="token function">endSection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">//</span>
+<span class="token class-name">Trace</span><span class="token punctuation">.</span>asyncTraceBegin
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token class-name">Trace</span><span class="token punctuation">.</span>asyncTraceEnd
+</code></pre>
+<p>framework native&#x6DFB;&#x52A0;&#xFF1A;</p>
+<pre class="language-"><code class="lang-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">ATRACE_TAG</span> <span class="token expression">ATRACE_TAG_VIEW</span></span>
+<span class="token function">ATRACE_NAME</span><span class="token punctuation">(</span>base<span class="token double-colon punctuation">::</span><span class="token function">StringPrintf</span><span class="token punctuation">(</span><span class="token string">&quot;LoadApkAssets(%s)&quot;</span><span class="token punctuation">,</span> path<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+<span class="token function">ATRACE_CALL</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//</span>
+</code></pre>
+<p>&#x6216;&#xFF1A;</p>
+<pre class="language-"><code class="lang-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cutils/trace.h&gt;</span></span>
+
+<span class="token function">ATRACE_BEGIN</span><span class="token punctuation">(</span>trace<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token function">ATRACE_END</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="&#x547D;&#x4EE4;&#x884C;"><a name="&#x547D;&#x4EE4;&#x884C;" class="anchor-navigation-ex-anchor" href="#&#x547D;&#x4EE4;&#x884C;"><i class="fa fa-link" aria-hidden="true"></i></a>4.2.2. &#x547D;&#x4EE4;&#x884C;</h3>
+<p>python systrace.py [options] [categories]</p>
+<p>&#x76EE;&#x5F55;: </p>
+<pre class="language-"><code class="lang-java">&#x202A;<span class="token class-name">E</span><span class="token operator">:</span>\softWare\softWare\systrace\platform<span class="token operator">-</span>tools_r33<span class="token punctuation">.</span><span class="token number">0.0</span><span class="token operator">-</span>windows\platform<span class="token operator">-</span>tools\systrace\systrace<span class="token punctuation">.</span>py
+</code></pre>
+<h4 id="options"><a name="options" class="anchor-navigation-ex-anchor" href="#options"><i class="fa fa-link" aria-hidden="true"></i></a>[options]</h4>
+<p><img src="Systrace.assets/20201104191919334.png" alt="&#x5728;&#x8FD9;&#x91CC;&#x63D2;&#x5165;&#x56FE;&#x7247;&#x63CF;&#x8FF0;"></p>
+<h4 id="categories--&#x54EA;&#x4E9B;&#x6A21;&#x5757;"><a name="categories--&#x54EA;&#x4E9B;&#x6A21;&#x5757;" class="anchor-navigation-ex-anchor" href="#categories--&#x54EA;&#x4E9B;&#x6A21;&#x5757;"><i class="fa fa-link" aria-hidden="true"></i></a>[categories]  &#x54EA;&#x4E9B;&#x6A21;&#x5757;</h4>
+<p><img src="Systrace.assets/2020110419195148.png" alt="&#x5728;&#x8FD9;&#x91CC;&#x63D2;&#x5165;&#x56FE;&#x7247;&#x63CF;&#x8FF0;"></p>
+<pre class="language-"><code class="lang-java">
+my&#x4F8B;&#x5B50;&#xFF1A;
+python systrace<span class="token punctuation">.</span>py <span class="token operator">-</span>o mynewtrace<span class="token punctuation">.</span>html  \
+<span class="token operator">-</span>a com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>aospsourcecode2 com<span class="token punctuation">.</span>android<span class="token punctuation">.</span>launcher3    \
+sched freq idle  am  wm sm input view
+</code></pre>
+<h4 id="perfetto&#x547D;&#x4EE4;&#x884C;"><a name="perfetto&#x547D;&#x4EE4;&#x884C;" class="anchor-navigation-ex-anchor" href="#perfetto&#x547D;&#x4EE4;&#x884C;"><i class="fa fa-link" aria-hidden="true"></i></a>perfetto&#x547D;&#x4EE4;&#x884C;</h4>
+<p>adb shell perfetto -h             <a href="https://juejin.cn/post/6974368361283059719" target="_blank">https://juejin.cn/post/6974368361283059719</a></p>
+<h3 id="&#x952E;&#x76D8;&#x5FEB;&#x6377;&#x952E;"><a name="&#x952E;&#x76D8;&#x5FEB;&#x6377;&#x952E;" class="anchor-navigation-ex-anchor" href="#&#x952E;&#x76D8;&#x5FEB;&#x6377;&#x952E;"><i class="fa fa-link" aria-hidden="true"></i></a>4.2.3. &#x952E;&#x76D8;&#x5FEB;&#x6377;&#x952E;</h3>
+<p><a href="https://www.jianshu.com/p/a14bfdc4109a?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation" target="_blank">https://www.jianshu.com/p/a14bfdc4109a?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation</a></p>
+<p><img src="Systrace.assets/20201104192158742.png" alt="&#x5728;&#x8FD9;&#x91CC;&#x63D2;&#x5165;&#x56FE;&#x7247;&#x63CF;&#x8FF0;"></p>
+<h3 id="&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x884C;&#x6355;&#x83B7;systreace&#x62A5;&#x544A;&#x6587;&#x4EF6;"><a name="&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x884C;&#x6355;&#x83B7;systreace&#x62A5;&#x544A;&#x6587;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x884C;&#x6355;&#x83B7;systreace&#x62A5;&#x544A;&#x6587;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>4.2.4. &#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x884C;&#x6355;&#x83B7;Systreace&#x62A5;&#x544A;&#x6587;&#x4EF6;</h3>
+<h3 id="&#x6A21;&#x62DF;&#x5668;-perfetto&#x547D;&#x4EE4;-&#x6293;&#x53D6;-trace"><a name="&#x6A21;&#x62DF;&#x5668;-perfetto&#x547D;&#x4EE4;-&#x6293;&#x53D6;-trace" class="anchor-navigation-ex-anchor" href="#&#x6A21;&#x62DF;&#x5668;-perfetto&#x547D;&#x4EE4;-&#x6293;&#x53D6;-trace"><i class="fa fa-link" aria-hidden="true"></i></a>4.2.5. &#x6A21;&#x62DF;&#x5668; perfetto&#x547D;&#x4EE4; &#x6293;&#x53D6; trace</h3>
+<p><a href="https://blog.csdn.net/Redmoon955331/article/details/129736238" target="_blank">https://blog.csdn.net/Redmoon955331/article/details/129736238</a></p>
+<p><a href="https://blog.csdn.net/tyearlin/article/details/123426616" target="_blank">https://blog.csdn.net/tyearlin/article/details/123426616</a></p>
+<h3 id="atrace"><a name="atrace" class="anchor-navigation-ex-anchor" href="#atrace"><i class="fa fa-link" aria-hidden="true"></i></a>4.2.6. atrace</h3>
+<p>&#x89C1;&#x300A;atrace&#x7AE0;&#x8282;&#x300B;</p>
+<h3 id="perfetto"><a name="perfetto" class="anchor-navigation-ex-anchor" href="#perfetto"><i class="fa fa-link" aria-hidden="true"></i></a>4.2.7. perfetto</h3>
+<p>&#x4F18;&#x70B9;&#xFF1A;</p>
+<p>-<font color="red">&#x53EF;&#x89C6;&#x5316;&#x505A;&#x7684;&#x66F4;&#x597D;</font>&#x3002;&#x53EF;&#x4EE5;&#x8DF3;&#x8F6C;&#xFF0C;&#x6709;&#x7BAD;&#x5934;&#x94FE;&#x63A5; </p>
+<h2 id="&#x9605;&#x8BFB;&#x62A5;&#x544A;"><a name="&#x9605;&#x8BFB;&#x62A5;&#x544A;" class="anchor-navigation-ex-anchor" href="#&#x9605;&#x8BFB;&#x62A5;&#x544A;"><i class="fa fa-link" aria-hidden="true"></i></a>4.3. &#x9605;&#x8BFB;&#x62A5;&#x544A;</h2>
+<p>&#x9605;&#x8BFB;&#x7F51;&#x7AD9;&#xFF1A;</p>
+<blockquote>
+<p>&#x65B9;&#x6CD5;&#x4E00;&#xFF1A;<del>&#x4F7F;&#x7528; chrome://tracing/</del> </p>
+<p>&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;<del>&#x76F4;&#x63A5;&#x70B9;html&#xFF0C;&#x8FD9;&#x6837;&#x6709;&#x8FDB;&#x7A0B;&#x540D;</del>&#xFF0C;&#x66F4;&#x4F18;</p>
+<p><img src="Systrace.assets/image-20221125005831779.png" alt="image-20221125005831779"></p>
+<p>&#x65B9;&#x6CD5;&#x4E09;&#xFF1A;&#x4F18;&#x9009;</p>
+<blockquote>
+<p><a href="https://ui.perfetto.dev/" target="_blank">https://ui.perfetto.dev/</a></p>
+</blockquote>
+</blockquote>
+<h3 id="&#x9875;&#x9762;&#x7ED3;&#x6784;"><a name="&#x9875;&#x9762;&#x7ED3;&#x6784;" class="anchor-navigation-ex-anchor" href="#&#x9875;&#x9762;&#x7ED3;&#x6784;"><i class="fa fa-link" aria-hidden="true"></i></a>4.3.1. &#x9875;&#x9762;&#x7ED3;&#x6784;</h3>
+<p><img src="Systrace.assets/image-20230812141848274.png" alt="image-20230812141848274"></p>
+<p>CPU&#x5927;&#x7EB2;&#xFF1A;&#x7EA2;&#x8272;&#x4EE3;&#x8868;cpu<font color="red">&#x6838;&#x5FC3;&#x8D1F;&#x8F7D;&#x9AD8;</font></p>
+<p>CPU&#x4F7F;&#x7528;&#x5177;&#x4F53;&#x9875;&#x9762;&#x5C55;&#x5F00;&#xFF1A;</p>
+<p>&#x200B;                                  1&#x3001;&#x6BCF;&#x4E2A;cpu&#x5728;&#x505A;&#x54EA;&#x4E9B;&#x5DE5;&#x4F5C;</p>
+<p>&#x200B;                                 2&#x3001;&#x989C;&#x8272;&#x4EE3;&#x8868;  <font color="red">&#x7EBF;&#x7A0B;&#x72B6;&#x6001;</font> &#xFF08;&#x89C1;&#x4E0B;&#xFF09; -------&gt;<font color="green"> &#x9519;&#x8BEF;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#x8FD9;&#x91CC;&#x662F;cpu&#x7684;&#xFF0C;&#x4E0D;&#x662F;&#x7EBF;&#x7A0B;&#xFF01;&#xFF01;&#xFF01;</font></p>
+<p>&#x4E8B;&#x4EF6;&#xFF1A;</p>
+<h3 id="&#x7EBF;&#x7A0B;&#x7684;&#x4E0D;&#x540C;&#x72B6;&#x6001;-------&#x989C;&#x8272;&#xFF1A;"><a name="&#x7EBF;&#x7A0B;&#x7684;&#x4E0D;&#x540C;&#x72B6;&#x6001;-------&#x989C;&#x8272;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x7EBF;&#x7A0B;&#x7684;&#x4E0D;&#x540C;&#x72B6;&#x6001;-------&#x989C;&#x8272;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>4.3.2. &#x7EBF;&#x7A0B;&#x7684;&#x4E0D;&#x540C;&#x72B6;&#x6001;-------&#x989C;&#x8272;&#xFF1A;</h3>
+<p>&#x53C2;&#x8003;&#xFF1A; <a href="https://www.androidperformance.com/2019/07/23/Android-Systrace-Pre/#/%E6%AD%A3%E6%96%87" target="_blank">https://www.androidperformance.com/2019/07/23/Android-Systrace-Pre/#/%E6%AD%A3%E6%96%87</a></p>
+<blockquote>
+<p><del>&#x7EFF;&#x8272; --&gt; &#x8FD0;&#x884C;&#x4E2D; Running</del></p>
+<p>&#x5BF9;&#x4E8E;&#x5728;CPU&#x4E0A;&#x6267;&#x884C;&#x7684;&#x8FDB;&#x7A0B;&#xFF0C;&#x9700;&#x8981;&#x67E5;&#x770B;&#x5176;&#x8FD0;&#x884C;&#x65F6;&#x95F4;&#x3001;&#x662F;&#x5426;&#x8DD1;&#x5728;&#x8BE5;&#x8DD1;&#x7684;&#x6838;&#x4E0A;&#x3001;&#x9891;&#x7387;&#x662F;&#x5426;&#x591F;&#x7B49;&#x3002;</p>
+<p>&#x84DD;&#x8272; --&gt; &#x53EF;&#x8FD0;&#x884C; Runnable</p>
+<p>&#x5BF9;&#x4E8E;&#x5728;&#x7B49;&#x5F85;&#x5E8F;&#x5217;&#x4E2D;&#x7684;&#x8FDB;&#x7A0B;&#xFF0C;&#x9700;&#x8981;&#x67E5;&#x770B;&#x662F;&#x5426;&#x6709;&#x8FC7;&#x591A;&#x4EFB;&#x52A1;&#x5728;&#x7B49;&#x5F85;&#x3001;&#x7B49;&#x5F85;&#x65F6;&#x95F4;&#x662F;&#x5426;&#x8FC7;&#x957F;&#x7B49;&#x3002;</p>
+<p>&#x767D;&#x8272; --&gt; &#x4F11;&#x7720;&#x4E2D; Sleeping&#xFF1A; &#x8FD9;&#x91CC;&#x4E00;&#x822C;&#x662F;&#x5728;&#x7B49;&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x3002;</p>
+<p>&#x6A58;&#x8272; --&gt; &#x4E0D;&#x53EF;&#x4E2D;&#x65AD;&#x7684;&#x7761;&#x7720;&#x6001;_IO_Block Uninterruptible Sleep | WakeKill - Block I/O</p>
+<p>&#x7EBF;&#x7A0B;&#x5728;I / O&#x4E0A;&#x88AB;&#x963B;&#x585E;&#x6216;&#x7B49;&#x5F85;&#x78C1;&#x76D8;&#x64CD;&#x4F5C;&#x5B8C;&#x6210;&#x3002;</p>
+<p>&#x7D2B;&#x8272; --&gt; &#x4E0D;&#x53EF;&#x4E2D;&#x65AD;&#x7684;&#x7761;&#x7720;&#x6001; Uninterruptible Sleep</p>
+<p>&#x7EBF;&#x7A0B;&#x5728;&#x53E6;&#x4E00;&#x4E2A;&#x5185;&#x6838;&#x64CD;&#x4F5C;&#xFF08;&#x901A;&#x5E38;&#x662F;&#x5185;&#x5B58;&#x7BA1;&#x7406;&#xFF09;&#x4E0A;&#x88AB;&#x963B;&#x585E;&#x3002;</p>
+</blockquote>
+<p>-<font color="red">&#x4E0A;&#x8FF0;&#x81EA;&#x7136;</font>&#xFF0C;&#x751F;&#x6D3B;&#x5316;&#x6A21;&#x578B;&#xFF1A;&#x989C;&#x8272;- &#x7EA2;&#x7EFF;&#x706F;&#x989C;&#x8272;</p>
+<p>&#x6CE8;,&#x4E5F;&#x53EF;&#x4EE5;&#x70B9;&#x51FB;&#x7EBF;&#x7A0B;&#x4F4D;&#x7F6E;,&#x770B;</p>
+<p><img src="Systrace.assets/image-20221125010038993.png" alt="image-20221125010038993"></p>
+<h3 id="&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;---atrace"><a name="&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;---atrace" class="anchor-navigation-ex-anchor" href="#&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;---atrace"><i class="fa fa-link" aria-hidden="true"></i></a>4.3.3. &#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;---atrace</h3>
+<p>&#x6CE8;&#x610F;:  &#x770B;&#x4F3C;&#x51FD;&#x6570;&#x4E00;&#x76F4;&#x5728;&#x8D70;,&#x4F46;&#x662F;&#x7EBF;&#x7A0B;&#x5DF2;&#x7ECF; sleep&#x4E86;.  &#x8BF4;&#x660E;&#x51FD;&#x6570;&#x8FD0;&#x884C; sleep&#x4E86;.</p>
+<p><img src="Systrace.assets/image-20221125011041347.png" alt="image-20221125011041347"></p>
+<p>&#x7EC6;&#x957F;&#x6761;&#x4EE3;&#x8868;&#x7EBF;&#x7A0B;&#x8FD0;&#x884C;&#x3002;&#x767D;&#x8272;&#x8868;&#x793A;sleep<strong>&#x4E86;</strong></p>
+<p><strong>&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;:</strong> 
+&#x56FE;&#x4E2D;:  &#x524D;&#x84DD;&#x540E;&#x7EFF;&#x90E8;&#x5206;,&#x5F88;&#x77ED;&#x6682; </p>
+<p><img src="Systrace.assets/image-20221125230806835.png" alt="image-20221125230806835"></p>
+<p><strong>&#x5982;&#x4F55;&#x627E;&#x54EA;&#x4E2A;&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8BE5;&#x7EBF;&#x7A0B;&#x7684;&#xFF1F;</strong>&#x64CD;&#x4F5C;&#xFF1A;
+&#x6807;&#x5C3A;&#x56FA;&#x5B9A;&#x65F6;&#x95F4;&#x6BB5;,  &#x627E;&#x5230;cpu&#x5BF9;&#x5E94;&#x8FD9;&#x4E2A;&#x5BBD;&#x5EA6;&#x7684;task&#xFF1A;&#x5FC5;&#x7136;&#x662F;&#x56DB;&#x4E2A;&#x5F53;&#x4E2D;&#x4E00;&#x4E2A;</p>
+<p>&#x901A;&#x8FC7;&#x770B;tid 17889&#x786E;&#x5B9A;  ---&gt;  &#x662F;launcher&#x7684;render&#x7EBF;&#x7A0B;&#x505A;&#x7684;</p>
+<p>&#x5373;&#x7ED3;&#x8BBA;&#xFF1A;render&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x4E86;ui&#x7EBF;&#x7A0B;</p>
+<p><img src="Systrace.assets/image-20221125230430679.png" alt="image-20221125230430679"></p>
+<h3 id="&#x7EBF;&#x7A0B;&#x72B6;&#x6001;&#x5207;&#x6362;&#x4E4B;-runnable-------running"><a name="&#x7EBF;&#x7A0B;&#x72B6;&#x6001;&#x5207;&#x6362;&#x4E4B;-runnable-------running" class="anchor-navigation-ex-anchor" href="#&#x7EBF;&#x7A0B;&#x72B6;&#x6001;&#x5207;&#x6362;&#x4E4B;-runnable-------running"><i class="fa fa-link" aria-hidden="true"></i></a>4.3.4. &#x7EBF;&#x7A0B;&#x72B6;&#x6001;&#x5207;&#x6362;&#x4E4B; Runnable -----&gt; Running</h3>
+<p><img src="Systrace.assets/image-20230910172048299.png" alt="image-20230910172048299"></p>
+<p>&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;</p>
+<blockquote>
+<p> Runnable -----&gt; Running  &#x4E00;&#x822C;&#x90FD;&#x662F;cpu&#x8C03;&#x5EA6;&#xFF08;&#x65F6;&#x95F4;&#x7247;&#x8F6E;&#x8F6C;&#xFF09;&#x9020;&#x6210;&#x7684;&#x3002;<font color="red">&#x4E0D;&#x662F;&#x5F00;&#x53D1;&#x8005;&#x4EE3;&#x7801;&#x5F15;&#x8D77;&#x7684;</font></p>
+<p>sleep ----&gt;   Running   &#x7EBF;&#x7A0B;&#x89D2;&#x5EA6;&#xFF1A; &#x7EBF;&#x7A0B;&#x5524;&#x9192;      &#x4EE3;&#x7801;&#x89D2;&#x5EA6;&#xFF1A;<font color="red">&#x5F00;&#x53D1;&#x8005;&#x4EE3;&#x7801; &#x540C;&#x6B65;&#x8C03;&#x7528; &#x7ED3;&#x675F;</font></p>
+</blockquote>
+<p>&#x6CE8;&#xFF1A;&#x540C;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;&#x7531;&#x4E8E;&#x8C03;&#x5EA6;&#xFF0C;&#x4E00;&#x4F1A;&#x513F;&#x5728;cpu1&#x8FD0;&#x884C;&#xFF0C;&#x4E00;&#x4F1A;&#x513F;&#x5728;cpu2&#x8FD0;&#x884C;</p>
+<h3 id="&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;sleep----running-&#x51FD;&#x6570;&#x8C03;&#x7528;&#x8005;&#x5206;&#x6790;----perfetto"><a name="&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;sleep----running-&#x51FD;&#x6570;&#x8C03;&#x7528;&#x8005;&#x5206;&#x6790;----perfetto" class="anchor-navigation-ex-anchor" href="#&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;sleep----running-&#x51FD;&#x6570;&#x8C03;&#x7528;&#x8005;&#x5206;&#x6790;----perfetto"><i class="fa fa-link" aria-hidden="true"></i></a>4.3.5. &#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;sleep---&gt; Running (&#x51FD;&#x6570;&#x8C03;&#x7528;&#x8005;&#x5206;&#x6790;)----perfetto</h3>
+<p>&#x4F8B;&#x5B50;&#xFF1A;</p>
+<p>&#x627E;System_server&#x4E2D;startActivityInner&#x662F;&#x8C01;&#x8C03;&#x7528;&#x7684;&#xFF1F;&#xFF08;<font color="red">&#x5982;&#x4F55;&#x67E5;&#x627E;&#x8C03;&#x7528;&#x8005;&#x95EE;&#x9898;</font>&#xFF09;</p>
+<p>&lt;-----------&gt; &#x7B49;&#x4EF7;&#x547D;&#x9898;&#xFF1A;&#x5373; &#x8FD9;&#x4E2A;&#x7EBF;&#x7A0B;&#x662F;&#x8C01;&#x5524;&#x9192;&#x7684;&#xFF1F;&#xFF08;<font color="red">&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x95EE;&#x9898;</font>&#xFF09;</p>
+<p>&#x200B;                                   &#x5373;&#xFF1A;<strong>&#x7EBF;&#x7A0B;&#x72B6;&#x6001;&#x600E;&#x4E48;&#x8F6C;&#x6210;Running&#xFF1F;</strong></p>
+<p><img src="Systrace.assets/image-20230814012659358.png" alt="image-20230814012659358"></p>
+<p>&#x6B65;&#x9AA4;&#xFF1A;</p>
+<p>1&#x3001;&#x9009;&#x4E2D;Running  slice</p>
+<p>&#x6CE8;&#xFF1A;<strong>&#x5C0F;&#x7684;Runnable&#x53EF;&#x80FD;&#x8DDF;&#x9501;&#x6709;&#x5173;&#xFF0C;&#x5148;&#x4E0D;&#x7BA1;</strong>  -----&gt; <font color="red">TODO</font></p>
+<p><img src="Systrace.assets/image-20230814013551792.png" alt="image-20230814013551792"></p>
+<p>&#x9009;&#x62E9;&#x5927;&#x7684;Runnable&#x540E;&#x9762;&#x7684;slice</p>
+<p><img src="Systrace.assets/image-20230814013753767.png" alt="image-20230814013753767"></p>
+<p>2&#x3001;Running on CPU 1  &#x8DF3;&#x8F6C;CPU1</p>
+<p>&#x88AB;cpu0&#x7684; com.android.launcher3 1101&#x5524;&#x9192;</p>
+<p><img src="Systrace.assets/image-20230814014026896.png" alt="image-20230814014026896"></p>
+<p>&#x603B;&#x4E4B;&#xFF1A;</p>
+<blockquote>
+<font color="red">&#x6CA1;&#x6709;&#x770B;&#x4EE3;&#x7801;&#xFF0C;&#x5B8C;&#x5168;&#x4F9D;&#x7167;&#x56FE;&#x5F62;&#xFF0C;&#x627E;&#x5230;&#x4E86;&#x51FD;&#x6570;&#x7684;&#x8C03;&#x7528;&#x8005;</font>
+
+
+
+
+
+</blockquote>
+<p>-<strong><font color="red">&#x6838;&#x5FC3;&#x601D;&#x60F3;&#xFF1A;</font></strong></p>
+<blockquote>
+<p>&#x901A;&#x8FC7;CPU&#x4E4B;&#x95F4;&#x7684;&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;  -----&gt;  &#x627E;&#x5230;&#x7EBF;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x8C03;&#x7528;&#x5173;&#x7CFB;</p>
+<p><img src="Systrace.assets/image-20230910170832885.png" alt="image-20230910170832885"></p>
+<p>&#x53EF;&#x4EE5;&#x662F;<font color="red">&#x4E24;&#x4E2A;&#x8FDB;&#x7A0B;</font>&#x7684;&#x4E24;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF08;binder&#x8C03;&#x7528;&#xFF09;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;<font color="red">&#x540C;&#x8FDB;&#x7A0B;</font></p>
+</blockquote>
+<p><strong>&#x6280;&#x5DE7;&#xFF0C;&#x56DE;&#x8DF3;&#xFF1A;</strong></p>
+<p><img src="Systrace.assets/image-20230814014238341.png" alt="image-20230814014238341"></p>
+<h3 id="binder&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;----perfetto"><a name="binder&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;----perfetto" class="anchor-navigation-ex-anchor" href="#binder&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;----perfetto"><i class="fa fa-link" aria-hidden="true"></i></a>4.3.6. binder&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;----perfetto</h3>
+<p>1&#x3001;binder&#x7EBF;&#x7A0B;&#x4E0D;&#x7528;&#x50CF;&#x975E;binder&#x7EBF;&#x7A0B;&#x90A3;&#x4E48;&#x9EBB;&#x70E6;&#xFF0C;<font color="red">&#x56E0;&#x4E3A;&#x53EA;&#x8981;&#x70B9;&#x51FB;slice</font>&#xFF08;<font color="red">binder  transaction</font>&#x6216;&#x8005; <font color="red">binder reply</font>&#xFF09;&#xFF0C;&#x5C31;&#x4F1A;&#x6709;&#x8C03;&#x7528;&#x8FDE;&#x7EBF;:</p>
+<p><img src="Systrace.assets/image-20230816000734724.png" alt="image-20230816000734724"></p>
+<p>2&#x3001;&#x6CE8;&#xFF1A;&#x7BAD;&#x5934;&#x63CF;&#x8FF0;&#x7684;&#x8C03;&#x7528;&#xFF0C;&#x65F6;&#x95F4;&#x662F;&#x4E0D;&#x51C6;&#x786E;&#x7684;&#xFF1A;</p>
+<h3 id="&#x5982;&#x4F55;&#x627E;&#x5524;&#x9192;&#x8FC7;&#x7A0B;&#x5BF9;&#x5E94;&#x7684;&#x4EE3;&#x7801;&#x7EA7;&#x5462;&#xFF1F;"><a name="&#x5982;&#x4F55;&#x627E;&#x5524;&#x9192;&#x8FC7;&#x7A0B;&#x5BF9;&#x5E94;&#x7684;&#x4EE3;&#x7801;&#x7EA7;&#x5462;&#xFF1F;" class="anchor-navigation-ex-anchor" href="#&#x5982;&#x4F55;&#x627E;&#x5524;&#x9192;&#x8FC7;&#x7A0B;&#x5BF9;&#x5E94;&#x7684;&#x4EE3;&#x7801;&#x7EA7;&#x5462;&#xFF1F;"><i class="fa fa-link" aria-hidden="true"></i></a>4.3.7. &#x5982;&#x4F55;&#x627E;&#x5524;&#x9192;&#x8FC7;&#x7A0B;&#x5BF9;&#x5E94;&#x7684;&#x4EE3;&#x7801;&#x7EA7;&#x5462;&#xFF1F;</h3>
+<h3 id="mark&#x6807;&#x5C3A;&#xFF1A;&#x5FEB;&#x6377;&#x952E;m"><a name="mark&#x6807;&#x5C3A;&#xFF1A;&#x5FEB;&#x6377;&#x952E;m" class="anchor-navigation-ex-anchor" href="#mark&#x6807;&#x5C3A;&#xFF1A;&#x5FEB;&#x6377;&#x952E;m"><i class="fa fa-link" aria-hidden="true"></i></a>4.3.8. mark&#x6807;&#x5C3A;&#xFF1A;&#x5FEB;&#x6377;&#x952E;m</h3>
+<p>1&#x3001;&#x65B9;&#x6CD5;&#x4E00;&#xFF1A;&#x9009;&#x4E2D;<strong>&#x67D0;&#x4E00;slice</strong>&#xFF0C;m</p>
+<blockquote>
+<p>&#x5C31;&#x6709;&#x4E86;&#x4ECE;&#x4E0A;&#x81F3;&#x4E0B;&#x7684;&#x6807;&#x5C3A; -----&gt; <font color="red">&#x4F5C;&#x7528;&#xFF1A;&#x7EDF;&#x4E00;&#x65F6;&#x95F4;&#x6BB5;&#x89C2;&#x5BDF;</font></p>
+<p><img src="Systrace.assets/image-20230813142935457.png" alt="image-20230813142935457"></p>
+</blockquote>
+<p>&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A; &#x70B9;&#x51FB;&#x7A7A;&#x767D;&#x533A;&#x57DF;&#xFF0C;&#x4EFB;&#x610F;&#x65B0;&#x589E;mark&#x6807;&#x5C3A;</p>
+<blockquote>
+<p><img src="Systrace.assets/image-20230813194848752.png" alt="image-20230813194848752"></p>
+</blockquote>
+<p>&#x6807;&#x5C3A;&#x7684;&#x5220;&#x9664;&#xFF0C;&#x4E0E;&#x6539;&#x53D8;&#x989C;&#x8272;&#xFF1A;</p>
+<blockquote>
+<p>&#x5148;&#x9009;&#x4E2D;&#xFF1A;</p>
+<p><img src="Systrace.assets/image-20230813144954267.png" alt="image-20230813144954267"></p>
+</blockquote>
+<h3 id="&#x5173;&#x4E8E;log&#xFF08;&#x6B21;&#x8981;&#xFF09;"><a name="&#x5173;&#x4E8E;log&#xFF08;&#x6B21;&#x8981;&#xFF09;" class="anchor-navigation-ex-anchor" href="#&#x5173;&#x4E8E;log&#xFF08;&#x6B21;&#x8981;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>4.3.9. &#x5173;&#x4E8E;log&#xFF08;&#x6B21;&#x8981;&#xFF09;</h3>
+<p>1&#x3001;&#x9009;&#x4E2D;log&#xFF0C;<font color="red">&#x7ED9;&#x51FA;log&#x56FE;&#x5F62;&#x5316;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x53EF;&#x4EE5;&#x548C;&#x5176;&#x4ED6;&#x94FE;&#x63A5;&#x8D77;&#x6765;</font></p>
+<p>2&#x3001;&#x53EF;&#x4EE5;&#x8FC7;&#x6EE4;</p>
+<p><img src="Systrace.assets/image-20230813144633124.png" alt="image-20230813144633124"></p>
+<h3 id="&#x9009;&#x4E2D;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x4E3A;base"><a name="&#x9009;&#x4E2D;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x4E3A;base" class="anchor-navigation-ex-anchor" href="#&#x9009;&#x4E2D;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x4E3A;base"><i class="fa fa-link" aria-hidden="true"></i></a>4.3.10. &#x9009;&#x4E2D;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x4E3A;base</h3>
+<h4 id="&#x5982;&#x4F55;&#x9009;&#x4E2D;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#xFF1F;"><a name="&#x5982;&#x4F55;&#x9009;&#x4E2D;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#xFF1F;" class="anchor-navigation-ex-anchor" href="#&#x5982;&#x4F55;&#x9009;&#x4E2D;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#xFF1F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5982;&#x4F55;&#x9009;&#x4E2D;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#xFF1F;</h4>
+<blockquote>
+<p><img src="Systrace.assets/image-20230813144422987.png" alt="image-20230813144422987"></p>
+<p>&#x6216;&#x8005;&#x5728;&#x5927;&#x7EB2;&#x91CC;&#x9009;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;</p>
+<p>&#x6216;&#x8005;&#x5728;&#x5185;&#x5BB9;&#x4E2D;&#x6846;&#x9009;</p>
+<p><img src="Systrace.assets/image-20230813163503405.png" alt="image-20230813163503405"></p>
+</blockquote>
+<p>&#x5982;&#x4F55;&#x53CD;&#x9009;&#xFF1F;</p>
+<blockquote>
+<p>&#x9F20;&#x6807;&#x5DE6;&#x952E;&#x3002;<strong>&#x9009;&#x4E2D;&#x65F6;&#x95F4;&#xFF0C;&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x4E34;&#x65F6;&#x9009;&#x4E2D;</strong></p>
+</blockquote>
+<p>TODO: &#x80FD;&#x5426;&#x6709;&#x6807;&#x5C3A;&#xFF1F;</p>
+<h4 id="&#x57FA;&#x4E8E;&#x9009;&#x4E2D;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x770B;&#x5404;&#x4E2A;&#x7EDF;&#x8BA1;&#x91CF;"><a name="&#x57FA;&#x4E8E;&#x9009;&#x4E2D;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x770B;&#x5404;&#x4E2A;&#x7EDF;&#x8BA1;&#x91CF;" class="anchor-navigation-ex-anchor" href="#&#x57FA;&#x4E8E;&#x9009;&#x4E2D;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x770B;&#x5404;&#x4E2A;&#x7EDF;&#x8BA1;&#x91CF;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x57FA;&#x4E8E;&#x9009;&#x4E2D;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x770B;&#x5404;&#x4E2A;&#x7EDF;&#x8BA1;&#x91CF;</h4>
+<p>&#x8FD9;&#x6BB5;&#x65F6;&#x95F4;&#x7684;log&#xFF1A;</p>
+<blockquote>
+<p><img src="Systrace.assets/image-20230813144525597.png" alt="image-20230813144525597"></p>
+</blockquote>
+<h4 id="&#x524D;&#x4E09;&#x4E2A;cpu&#x7684;-&#x7EDF;&#x8BA1;&#xFF1A;"><a name="&#x524D;&#x4E09;&#x4E2A;cpu&#x7684;-&#x7EDF;&#x8BA1;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x524D;&#x4E09;&#x4E2A;cpu&#x7684;-&#x7EDF;&#x8BA1;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x524D;&#x4E09;&#x4E2A;cpu&#x7684; &#x7EDF;&#x8BA1;&#xFF1A;</h4>
+<p>&#x671F;&#x95F4;&#xFF0C;&#x524D;&#x4E09;&#x4E2A;cpu&#x7684; &#x6709;&#x54EA;&#x4E9B;&#x7EBF;&#x7A0B;&#x3001;&#x8FDB;&#x7A0B;</p>
+<p><img src="Systrace.assets/image-20230813170904694.png" alt="image-20230813170904694"></p>
+<h4 id="binder&#x6D41;&#x7684;&#x6570;&#x91CF;"><a name="binder&#x6D41;&#x7684;&#x6570;&#x91CF;" class="anchor-navigation-ex-anchor" href="#binder&#x6D41;&#x7684;&#x6570;&#x91CF;"><i class="fa fa-link" aria-hidden="true"></i></a>Binder&#x6D41;&#x7684;&#x6570;&#x91CF;</h4>
+<p>&#x5F53;&#x524D;&#x65F6;&#x95F4; + &#x9009;&#x4E2D;&#x7684;&#x8FDB;&#x7A0B;&#x7684;&#xFF1A;</p>
+<blockquote>
+<p><img src="Systrace.assets/image-20230813171625769.png" alt="image-20230813171625769"></p>
+</blockquote>
+<h2 id="&#x9AD8;&#x9636;---sql&#x8BED;&#x8A00;&#x7EDF;&#x8BA1;&#x4FE1;&#x606F;"><a name="&#x9AD8;&#x9636;---sql&#x8BED;&#x8A00;&#x7EDF;&#x8BA1;&#x4FE1;&#x606F;" class="anchor-navigation-ex-anchor" href="#&#x9AD8;&#x9636;---sql&#x8BED;&#x8A00;&#x7EDF;&#x8BA1;&#x4FE1;&#x606F;"><i class="fa fa-link" aria-hidden="true"></i></a>4.4. &#x9AD8;&#x9636;---SQL&#x8BED;&#x8A00;&#x7EDF;&#x8BA1;&#x4FE1;&#x606F;</h2>
+<h3 id="google&#x5DF2;&#x7ECF;&#x6DFB;&#x52A0;&#x7684;sample"><a name="google&#x5DF2;&#x7ECF;&#x6DFB;&#x52A0;&#x7684;sample" class="anchor-navigation-ex-anchor" href="#google&#x5DF2;&#x7ECF;&#x6DFB;&#x52A0;&#x7684;sample"><i class="fa fa-link" aria-hidden="true"></i></a>4.4.1. google&#x5DF2;&#x7ECF;&#x6DFB;&#x52A0;&#x7684;sample</h3>
+<blockquote>
+<p>&#xFF08;1&#xFF09;&#x6240;&#x6709;&#x8FDB;&#x7A0B;&#xFF1A;</p>
+<p><img src="Systrace.assets/image-20230813173535260.png" alt="image-20230813173535260"></p>
+<p>&#xFF08;2&#xFF09;&#x8FDB;&#x7A0B;&#x5360;&#x7528;&#x7684;cpu&#x65F6;&#x95F4;&#xFF1A;</p>
+<p><img src="Systrace.assets/image-20230813174228247.png" alt="image-20230813174228247"></p>
+</blockquote>
+<h3 id="&#x7EDF;&#x8BA1;&#x5404;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;-&#x603B;&#x5360;&#x65F6;&#xFF0C;&#x4E14;&#x6392;&#x5E8F;&#xFF1A;"><a name="&#x7EDF;&#x8BA1;&#x5404;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;-&#x603B;&#x5360;&#x65F6;&#xFF0C;&#x4E14;&#x6392;&#x5E8F;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x7EDF;&#x8BA1;&#x5404;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;-&#x603B;&#x5360;&#x65F6;&#xFF0C;&#x4E14;&#x6392;&#x5E8F;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>4.4.2. &#x7EDF;&#x8BA1;&#x5404;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684; &#x603B;&#x5360;&#x65F6;&#xFF0C;&#x4E14;&#x6392;&#x5E8F;&#xFF1A;</h3>
+<pre class="language-"><code class="lang-java">select
+  process<span class="token punctuation">.</span>pid<span class="token punctuation">,</span>
+  process<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token function">sum</span><span class="token punctuation">(</span>dur<span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">1e9</span> as cpu_sec
+from sched
+join thread using <span class="token punctuation">(</span>utid<span class="token punctuation">)</span>
+join process using <span class="token punctuation">(</span>upid<span class="token punctuation">)</span>
+group by upid<span class="token punctuation">,</span> pid order by cpu_sec desc<span class="token punctuation">;</span>
+</code></pre>
+<p>&#x53EF;&#x89C1;&#xFF0C;&#x524D;&#x51E0;&#x540D;&#x8017;&#x65F6;&#x7684;&#x662F;audioserer&#x3001;allocator&#x3001;..............</p>
+<p><img src="Systrace.assets/image-20230813175040323.png" alt="image-20230813175040323"></p>
+<p>-<font color="red">cpu&#x5360;&#x7528;&#x7387;&#x8BA1;&#x7B97;</font>&#xFF08;&#x4EE5;system_server&#x4E3A;&#x4F8B;&#x5B50;&#xFF09;&#xFF1A;</p>
+<blockquote>
+<p>0.282787991/10s&#x7684;trace*4&#x4E2A;cpu&#x6838;  = 0.0028</p>
+</blockquote>
+<p>-<font color="red">cpu&#x6838;&#x5FC3;&#x7A7A;&#x95F2;&#x65F6;&#x957F;&#xFF1A;</font> swapper&#x662F;CPU&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x673A;&#x5236;</p>
+<blockquote>
+<p>pid = 0 &#x5360;&#x7528;&#x4E86;34s  -------&gt; swapper&#x662F;&#x5360;&#x7A7A;&#x7684;&#xFF1F;&#x4E5F;&#x5C31;&#x662F;40s&#x5185;&#xFF0C;&#x6709;34s cpu&#x6838;&#x5FC3;&#x662F;&#x6CA1;&#x6709;&#x7528;&#x7684;</p>
+</blockquote>
+<h3 id="&#x7EDF;&#x8BA1;&#x5404;&#x4E2A;&#x7EBF;&#x7A0B;&#x7684;-&#x603B;&#x5360;&#x65F6;&#xFF0C;&#x4E14;&#x6392;&#x5E8F;&#xFF1A;"><a name="&#x7EDF;&#x8BA1;&#x5404;&#x4E2A;&#x7EBF;&#x7A0B;&#x7684;-&#x603B;&#x5360;&#x65F6;&#xFF0C;&#x4E14;&#x6392;&#x5E8F;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x7EDF;&#x8BA1;&#x5404;&#x4E2A;&#x7EBF;&#x7A0B;&#x7684;-&#x603B;&#x5360;&#x65F6;&#xFF0C;&#x4E14;&#x6392;&#x5E8F;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>4.4.3. &#x7EDF;&#x8BA1;&#x5404;&#x4E2A;&#x7EBF;&#x7A0B;&#x7684; &#x603B;&#x5360;&#x65F6;&#xFF0C;&#x4E14;&#x6392;&#x5E8F;&#xFF1A;</h3>
+<pre class="language-"><code class="lang-java">select
+  thread<span class="token punctuation">.</span>name as threadname<span class="token punctuation">,</span>
+  thread<span class="token punctuation">.</span> tid as tid<span class="token punctuation">,</span>
+round <span class="token punctuation">(</span><span class="token function">sum</span><span class="token punctuation">(</span>dur<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1e9</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span> as cpu_sec
+from sched
+inner join thread using <span class="token punctuation">(</span>utid<span class="token punctuation">)</span> group by threadname<span class="token punctuation">,</span> tid
+order by cpu_sec desc
+</code></pre>
+<p>&#x53EF;&#x89C1;&#xFF0C;<strong>Render&#x7EBF;&#x7A0B;&#x8FD8;&#x662F;&#x5F88;&#x8017;&#x65F6;&#x7684;</strong>&#x3002;&#x800C;&#x4E14;&#x6BCF;&#x4E2A;&#x5E94;&#x7528;&#x4E00;&#x4E2A;render&#x7EBF;&#x7A0B;</p>
+<p><img src="Systrace.assets/image-20230813190353998.png" alt="image-20230813190353998"></p>
+<p>cpu&#x5360;&#x6709;&#x7387;&#x8BA1;&#x7B97;&#xFF0C;&#x540C;&#x4E0A;</p>
+<h3 id="&#x67E5;&#x8BE2;&#x4E0E;&#x67D0;&#x4E00;&#x7EBF;&#x7A0B;-&#x6709;&#x76F8;&#x5173;&#x8C03;&#x7528;&#x7684;&#x7EBF;&#x7A0B;"><a name="&#x67E5;&#x8BE2;&#x4E0E;&#x67D0;&#x4E00;&#x7EBF;&#x7A0B;-&#x6709;&#x76F8;&#x5173;&#x8C03;&#x7528;&#x7684;&#x7EBF;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#&#x67E5;&#x8BE2;&#x4E0E;&#x67D0;&#x4E00;&#x7EBF;&#x7A0B;-&#x6709;&#x76F8;&#x5173;&#x8C03;&#x7528;&#x7684;&#x7EBF;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>4.4.4. &#x67E5;&#x8BE2;&#x4E0E;&#x67D0;&#x4E00;&#x7EBF;&#x7A0B; &#x6709;&#x76F8;&#x5173;&#x8C03;&#x7528;&#x7684;&#x7EBF;&#x7A0B;</h3>
+<p>&#x5373;&#xFF1A;&#x5F04;&#x6E05;&#x695A;&#x7EBF;&#x7A0B;&#x7684;&#x4EA4;&#x4E92;&#x5173;&#x7CFB;</p>
+<p>TODO: &#x6CA1;&#x5F04;&#x61C2;&#xFF0C;&#x5982;&#x4F55;&#x627E;&#x5230;waker.name&#xFF1F;</p>
+<p>&#x6BD4;&#x5982;&#xFF1A;<strong>&#x67E5;&#x627E;InputDispatcher&#x7EBF;&#x7A0B;  &#x5524;&#x9192; &#x54EA;&#x4E9B;&#x7EBF;&#x7A0B;&#xFF1F;</strong></p>
+<pre class="language-"><code class="lang-java"><span class="token constant">DROP</span> <span class="token constant">VIEW</span> <span class="token constant">IF</span> <span class="token class-name">EXISTS</span> wakee_table<span class="token punctuation">;</span> 
+<span class="token constant">CREATE</span> <span class="token constant">VIEW</span> wakee_table <span class="token constant">AS</span>
+<span class="token constant">SELECT</span>
+  waker<span class="token punctuation">.</span>tid as waker_tid<span class="token punctuation">,</span> wakee_runnable<span class="token punctuation">.</span>utid as wakee_utid
+<span class="token constant">FROM</span> thread <span class="token constant">AS</span> waker
+<span class="token constant">JOIN</span> thread_state <span class="token constant">AS</span> wakee_runnable <span class="token constant">ON</span> waker<span class="token punctuation">.</span>utid <span class="token operator">=</span> wakee_runnable<span class="token punctuation">.</span>waker_utid 
+    <span class="token constant">WHERE</span> waker<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">&quot;InputDispatcher&quot;</span><span class="token punctuation">;</span>
+
+<span class="token class-name">SELECT</span> waker_tid<span class="token punctuation">,</span> thread<span class="token punctuation">.</span> tid<span class="token punctuation">,</span> thread<span class="token punctuation">.</span>name
+<span class="token constant">FROM</span> wakee_table
+<span class="token constant">JOIN</span> thread <span class="token constant">ON</span> thread<span class="token punctuation">.</span> utid<span class="token operator">=</span>wakee_table<span class="token punctuation">.</span>wakee_utid<span class="token punctuation">;</span>
+</code></pre>
+<p>&#x5524;&#x9192;&#x7684;&#xFF1A;</p>
+<p><img src="Systrace.assets/image-20230814005438004.png" alt="image-20230814005438004"></p>
+<h3 id="todo-&#x7406;&#x89E3;sql&#x8BED;&#x53E5;&#x542B;&#x4E49;"><a name="todo-&#x7406;&#x89E3;sql&#x8BED;&#x53E5;&#x542B;&#x4E49;" class="anchor-navigation-ex-anchor" href="#todo-&#x7406;&#x89E3;sql&#x8BED;&#x53E5;&#x542B;&#x4E49;"><i class="fa fa-link" aria-hidden="true"></i></a>4.4.5. TODO: &#x7406;&#x89E3;SQL&#x8BED;&#x53E5;&#x542B;&#x4E49;</h3>
+<p>&#x540E;&#x9762;&#x5199;&#x81EA;&#x5DF1;&#x7684;&#x8BED;&#x53E5;</p>
+<h2 id="binder&#x8DE8;&#x8FDB;&#x7A0B;&#x8C03;&#x7528;"><a name="binder&#x8DE8;&#x8FDB;&#x7A0B;&#x8C03;&#x7528;" class="anchor-navigation-ex-anchor" href="#binder&#x8DE8;&#x8FDB;&#x7A0B;&#x8C03;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>4.5. binder&#x8DE8;&#x8FDB;&#x7A0B;&#x8C03;&#x7528;</h2>
+<h3 id="&#x8C03;&#x7528;&#x70B9;&#x8DF3;&#x8F6C;&#xFF08;&#x56DE;&#x8DF3;&#xFF09;&#xFF1A;"><a name="&#x8C03;&#x7528;&#x70B9;&#x8DF3;&#x8F6C;&#xFF08;&#x56DE;&#x8DF3;&#xFF09;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x8C03;&#x7528;&#x70B9;&#x8DF3;&#x8F6C;&#xFF08;&#x56DE;&#x8DF3;&#xFF09;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>4.5.1. &#x8C03;&#x7528;&#x70B9;&#x8DF3;&#x8F6C;&#xFF08;&#x56DE;&#x8DF3;&#xFF09;&#xFF1A;</h3>
+<p>&#x56FE;&#x5F62;&#x5316;&#x7684;&#x597D;&#x5904;&#xFF0C;&#x53EF;&#x4EE5;&#x70B9;&#x51FB;&#x8DF3;&#x8F6C;&#xFF0C;&#x65B9;&#x4FBF;</p>
+<h4 id="&#x9009;&#x4E2D;&#x7BAD;&#x5934;&#xFF0C;&#x7136;&#x540E;&#x70B9;flows&#x7684;&#x8DF3;&#x8F6C;&#x7BAD;&#x5934;"><a name="&#x9009;&#x4E2D;&#x7BAD;&#x5934;&#xFF0C;&#x7136;&#x540E;&#x70B9;flows&#x7684;&#x8DF3;&#x8F6C;&#x7BAD;&#x5934;" class="anchor-navigation-ex-anchor" href="#&#x9009;&#x4E2D;&#x7BAD;&#x5934;&#xFF0C;&#x7136;&#x540E;&#x70B9;flows&#x7684;&#x8DF3;&#x8F6C;&#x7BAD;&#x5934;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x9009;&#x4E2D;&#x7BAD;&#x5934;&#xFF0C;&#x7136;&#x540E;&#x70B9;Flows&#x7684;&#x8DF3;&#x8F6C;&#x7BAD;&#x5934;</h4>
+<blockquote>
+<p>binder async rcv : <font color="red">&#x5F02;&#x6B65;&#x63A5;&#x6536;&#x7AEF;</font> </p>
+<p><img src="Systrace.assets/image-20230813193109269.png" alt="image-20230813193109269"></p>
+</blockquote>
+<p>&#x540C;&#x7406;&#xFF0C;<font color="red">binder transaction async &#x5F02;&#x6B65;&#x8C03;&#x7528;&#x7AEF;</font>&#xFF0C;&#x70B9;&#x51FB;&#x7BAD;&#x5934;&#xFF0C;<strong>&#x56DE;&#x8DF3;</strong></p>
+<p><img src="Systrace.assets/image-20230813193345048.png" alt="image-20230813193345048"></p>
+<p><img src="Systrace.assets/image-20230813193551418.png" alt="image-20230813193551418"></p>
+<p>------------&gt;  &#x6CA1;&#x6709;return&#x7684;one-way&#x8C03;&#x7528;</p>
+<h4 id="&#x5BF9;&#x5E94;&#x7684;binder&#x6D41;&#xFF1A;--&#x8017;&#x65F6;&#xFF0C;&#x8C03;&#x7528;&#x8005;&#xFF0C;&#x88AB;&#x8C03;&#x7528;&#x8005;"><a name="&#x5BF9;&#x5E94;&#x7684;binder&#x6D41;&#xFF1A;--&#x8017;&#x65F6;&#xFF0C;&#x8C03;&#x7528;&#x8005;&#xFF0C;&#x88AB;&#x8C03;&#x7528;&#x8005;" class="anchor-navigation-ex-anchor" href="#&#x5BF9;&#x5E94;&#x7684;binder&#x6D41;&#xFF1A;--&#x8017;&#x65F6;&#xFF0C;&#x8C03;&#x7528;&#x8005;&#xFF0C;&#x88AB;&#x8C03;&#x7528;&#x8005;"><i class="fa fa-link" aria-hidden="true"></i></a>-<font color="red">&#x5BF9;&#x5E94;&#x7684;binder&#x6D41;&#xFF1A;</font>  &#x8017;&#x65F6;&#xFF0C;&#x8C03;&#x7528;&#x8005;&#xFF0C;&#x88AB;&#x8C03;&#x7528;&#x8005;</h4>
+<blockquote>
+<p><img src="Systrace.assets/image-20230813193707026.png" alt="image-20230813193707026"></p>
+</blockquote>
+<p>&#x5BF9;&#x4E8E;trace&#x770B;binder&#x8C03;&#x7528;&#x7684;&#x4F18;&#x70B9;&#xFF1A;</p>
+<blockquote>
+<p>&#x8DE8;&#x8FDB;&#x7A0B;binder&#x8C03;&#x7528;&#xFF0C;&#x6BD4;&#x540C;&#x8FDB;&#x7A0B;&#x8C03;&#x7528;&#xFF08;&#x5F88;&#x591A;&#x65F6;&#x5019;&#xFF0C;&#x6CA1;&#x6709;&#x6DFB;&#x52A0;&#xFF09;&#xFF0C;&#x66F4;&#x5BB9;&#x6613;&#x53D1;&#x73B0;&#x4E00;&#x4E9B;</p>
+</blockquote>
+<h4 id="&#x7279;&#x70B9;"><a name="&#x7279;&#x70B9;" class="anchor-navigation-ex-anchor" href="#&#x7279;&#x70B9;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7279;&#x70B9;</h4>
+<p>-<font color="red">trace&#x76D1;&#x63A7;&#x4E86;&#x6240;&#x6709;&#x7684;binder&#x8C03;&#x7528;&#x3002;</font></p>
+<p>&#x5728;binder&#x5C42;&#x9762;&#x505A;&#x7684;&#x76D1;&#x63A7; -----&gt; &#x6240;&#x4EE5;&#x6CA1;&#x6709;&#x540D;&#x5B57;</p>
+<p><strong>&#x63A8;&#x8BBA;&#xFF1A;</strong></p>
+<blockquote>
+<p>&#x6240;&#x6709;&#x7684;&#x8DE8;&#x8FDB;&#x7A0B;&#x8C03;&#x7528;&#xFF0C;&#x90FD;&#x4F1A;&#x5728;trace&#x4E2D;&#x4F53;&#x73B0; --------&gt; &#x95EE;&#x9898;&#x5728;&#x4E8E;&#xFF0C;<font color="red">TODO&#xFF1A;&#x5982;&#x4F55;&#x548C;&#x4EE3;&#x7801;&#x5BF9;&#x5E94;&#xFF1F;</font></p>
+</blockquote>
+<h3 id="&#x4E24;&#x79CD;binder&#x8C03;&#x7528;&#x7684;&#x753B;&#x6CD5;&#x4E0D;&#x540C;"><a name="&#x4E24;&#x79CD;binder&#x8C03;&#x7528;&#x7684;&#x753B;&#x6CD5;&#x4E0D;&#x540C;" class="anchor-navigation-ex-anchor" href="#&#x4E24;&#x79CD;binder&#x8C03;&#x7528;&#x7684;&#x753B;&#x6CD5;&#x4E0D;&#x540C;"><i class="fa fa-link" aria-hidden="true"></i></a>4.5.2. &#x4E24;&#x79CD;binder&#x8C03;&#x7528;&#x7684;&#x753B;&#x6CD5;&#x4E0D;&#x540C;</h3>
+<p>1&#x3001;oneway&#x5F62;&#x5F0F;&#x7684;&#xFF08;&#x6CA1;&#x6709;&#x8FD4;&#x56DE;&#xFF09;&#xFF1A;</p>
+<blockquote>
+<p>-<font color="red">&#x56FE;&#x4E2D;&#x7279;&#x5F81;&#xFF1A;</font></p>
+<p>&#xFF08;1&#xFF09;<font color="red">&#x6709;&#x5C0F;&#x7BAD;&#x5934;</font></p>
+<p>&#xFF08;2&#xFF09;&#x3001;&#x8C03;&#x7528;&#x70B9;&#x4E00;&#x5B9A;&#x5728;&#x88AB;&#x8C03;&#x7528;&#x4E4B;&#x524D;</p>
+<p><img src="Systrace.assets/image-20230816231614226.png" alt="image-20230816231614226"></p>
+</blockquote>
+<p>2&#x3001;&#x6709;&#x8FD4;&#x56DE;&#x503C;&#x7684;</p>
+<p>&#x5373;&#x540C;&#x6B65;&#x8C03;&#x7528;</p>
+<p>-<font color="red">&#x56FE;&#x4E2D;&#x7279;&#x5F81;&#xFF1A;</font></p>
+<p>&#xFF08;1&#xFF09;<font color="red">binder transaction  &amp; binder reply</font></p>
+<p>&#xFF08;2&#xFF09;&#x56FE;&#x4E2D;&#x753B;&#x7EBF;&#x8C03;&#x7528;&#x70B9;&#x5728;&#x88AB;&#x8C03;&#x7528;&#x4E4B;&#x540E;&#xFF08;<font color="green">&#x753B;&#x7684;&#x6709;&#x95EE;&#x9898;&#xFF1F;</font>&#xFF09;&#xFF0C;&#x4F46;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;</p>
+<blockquote>
+<p>-<font color="red">A&#x3001;&#x8C03;&#x7528;&#x70B9;&#x4E3A;&#x7EA2;&#x8272;&#x6846;&#x70B9;&#xFF1B;</font></p>
+<p>-<font color="red">B&#x3001;&#x8FD4;&#x56DE;&#x70B9;&#x662F;binder transaction&#x7ED3;&#x675F;&#x70B9;&#xFF08;&#x6B64;&#x65F6;&#x62FF;&#x5230;&#x8FD4;&#x56DE;&#x503C;&#xFF09;</font></p>
+</blockquote>
+<p><img src="Systrace.assets/image-20230817001843797.png" alt="image-20230817001843797"></p>
+<h2 id="&#x7EBF;&#x7A0B;-&#x4E4B;&#x95F4;-&#x540C;&#x6B65;&#xFF08;&#x540C;&#x8FDB;&#x7A0B;&#xFF09;"><a name="&#x7EBF;&#x7A0B;-&#x4E4B;&#x95F4;-&#x540C;&#x6B65;&#xFF08;&#x540C;&#x8FDB;&#x7A0B;&#xFF09;" class="anchor-navigation-ex-anchor" href="#&#x7EBF;&#x7A0B;-&#x4E4B;&#x95F4;-&#x540C;&#x6B65;&#xFF08;&#x540C;&#x8FDB;&#x7A0B;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>4.6. &#x7EBF;&#x7A0B; &#x4E4B;&#x95F4; &#x540C;&#x6B65;&#xFF08;&#x540C;&#x8FDB;&#x7A0B;&#xFF09;</h2>
+<p>&#x539F;&#x7406;&#x89C1;&#xFF1A;&#x300A;&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x8005;&#x5206;&#x6790;(&#x51FD;&#x6570;&#x8C03;&#x7528;&#x8005;&#x5206;&#x6790;)----perfetto&#x300B;</p>
+<p><strong>&#x7B49;&#x4EF7;&#x4E8E;&#xFF1A; &#x7EBF;&#x7A0B;&#x72B6;&#x6001; sleep---&gt; Running</strong></p>
+<p>&#x7279;&#x5F81;&#xFF1A;</p>
+<p><strong>1&#x3001;&#x4F1A;&#x6709;&#x7CFB;&#x7EDF;&#x8C03;&#x7528; sys_futex</strong></p>
+<p><img src="Systrace.assets/image-20230910170138078.png" alt="image-20230910170138078"></p>
+<p>2&#x3001;<strong>&#x5728;sys_futex&#x4E0A;&#x65B9;&#xFF0C;&#x7EBF;&#x7A0B;&#x662F;sleep&#x72B6;&#x6001;</strong>&#xFF0C;&#x6CA1;&#x6709;&#x6267;&#x884C;</p>
+<p><img src="Systrace.assets/image-20230910170323296.png" alt="image-20230910170323296"></p>
+<p>3&#x3001;&#x88AB;&#x8C03;&#x7528;&#x7EBF;&#x7A0B;&#x5728;&#x7ED3;&#x675F;&#x65F6;&#xFF0C;&#x4E5F;&#x4F1A;&#x6709;sys_futex&#xFF1A;</p>
+<p><img src="Systrace.assets/image-20230910172825127.png" alt="image-20230910172825127"></p>
+<p>&#x5982;&#x4F55;&#x627E;&#x4E3B;&#x7EBF;&#x7A0B;&#x5728;&#x7B49;&#x5F85;&#x54EA;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF1F; &lt;--------&gt;   &#x5373; &#x4E3B;&#x7EBF;&#x7A0B;&#x8C03;&#x7528;&#x4E86;&#x54EA;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF1F;  &lt;--------&gt;   &#x5373; &#x4E3B;&#x7EBF;&#x7A0B; &#x88AB; &#x54EA;&#x4E2A;&#x7EBF;&#x7A0B;&#x963B;&#x585E;&#x4F4F;&#x4E86;&#xFF1F;  &lt;--------&gt;  &#x5373; &#x4E3B;&#x7EBF;&#x7A0B;</p>
+<p>---<font color="red">&#x6027;&#x80FD;&#x4F18;&#x5316;&#x7ECF;&#x9A8C;&#xFF1A;</font></p>
+<blockquote>
+<p>&#x4E00;&#x65E6; &#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x963B;&#x585E;&#x4E86;&#x53E6;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;&#x5927;&#x6982;&#x7387;&#x662F;&#x6709;&#x4F18;&#x5316;&#x7A7A;&#x95F4;&#x7684;</p>
+</blockquote>
+<h2 id="&#x9501;&#x7ADE;&#x4E89;lock-contention"><a name="&#x9501;&#x7ADE;&#x4E89;lock-contention" class="anchor-navigation-ex-anchor" href="#&#x9501;&#x7ADE;&#x4E89;lock-contention"><i class="fa fa-link" aria-hidden="true"></i></a>4.7. &#x9501;&#x7ADE;&#x4E89;(lock contention)</h2>
+<p><a href="https://blog.csdn.net/SOHU_TECH/article/details/131118616" target="_blank">https://blog.csdn.net/SOHU_TECH/article/details/131118616</a></p>
+<h2 id="&#x5DF2;&#x77E5;"><a name="&#x5DF2;&#x77E5;" class="anchor-navigation-ex-anchor" href="#&#x5DF2;&#x77E5;"><i class="fa fa-link" aria-hidden="true"></i></a>4.8. &#x5DF2;&#x77E5;</h2>
+<h3 id="&#x951A;&#x70B9;"><a name="&#x951A;&#x70B9;" class="anchor-navigation-ex-anchor" href="#&#x951A;&#x70B9;"><i class="fa fa-link" aria-hidden="true"></i></a>4.8.1. &#x951A;&#x70B9;</h3>
+<p>google&#x5DF2;&#x7ECF;&#x4E3A;&#x6211;&#x4EEC;&#x51C6;&#x5907;&#x597D;&#x4E86;&#x4E00;&#x4E9B;&#x951A;&#x70B9;-----&gt; &#x5927;&#x7684;TAG&#xFF1A;</p>
+<p>-<font color="red">&#x4EE5;&#x8FD9;&#x4E9B;&#x4E3A;&#x951A;&#x70B9;&#xFF0C;&#x627E;&#x5176;&#x4ED6;&#x7684;</font></p>
+<p>1&#x3001;Andriod App Startups</p>
+<p><img src="Systrace.assets/image-20230813225647711.png" alt="image-20230813225647711"></p>
+<p>&#x8FD9;&#x6BB5;&#x505A;&#x4E86;&#x5565;&#x4E8B;&#x60C5;&#xFF1F;</p>
+<blockquote>
+<p>&#x4ECE;&#x8FDB;&#x7A0B;&#x8D77;&#x6765;----&gt;  &#x5230; &#x7B2C;&#x4E00;&#x5E27;&#x7ED8;&#x51FA;&#x6765;</p>
+<p><img src="Systrace.assets/image-20230813230045763.png" alt="image-20230813230045763"></p>
+</blockquote>
+<p>-----------&gt; <strong>&#x6CE8;&#x610F;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;APP&#x51B7;&#x542F;&#x52A8;&#x65F6;&#x95F4;</strong></p>
+<h3 id="buffertx"><a name="buffertx" class="anchor-navigation-ex-anchor" href="#buffertx"><i class="fa fa-link" aria-hidden="true"></i></a>4.8.2. bufferTX</h3>
+<p>&#x7EDF;&#x8BA1;surfaceFlinger&#x4E2D;&#x6BCF;&#x4E00;&#x4E2A;layer</p>
+<h2 id="&#x5C0F;&#x6280;&#x5DE7;&#xFF1A;"><a name="&#x5C0F;&#x6280;&#x5DE7;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x5C0F;&#x6280;&#x5DE7;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>4.9. &#x5C0F;&#x6280;&#x5DE7;&#xFF1A;</h2>
+<h3 id="&#x6D4F;&#x89C8;&#x5668;&#x5168;&#x5C4F;f11"><a name="&#x6D4F;&#x89C8;&#x5668;&#x5168;&#x5C4F;f11" class="anchor-navigation-ex-anchor" href="#&#x6D4F;&#x89C8;&#x5668;&#x5168;&#x5C4F;f11"><i class="fa fa-link" aria-hidden="true"></i></a>4.9.1. &#x6D4F;&#x89C8;&#x5668;&#x5168;&#x5C4F;F11</h3>
+<p>&#x770B;trace<strong>&#x7EB5;&#x5411;&#x662F;&#x7A00;&#x7F3A;&#x8D44;&#x6E90;</strong> &#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x6D4F;&#x89C8;&#x5668;&#x5168;&#x5C4F;F11</p>
+<h3 id="&#x4E24;&#x4E2A;&#x641C;&#x7D22;&#x8054;&#x5408;&#x4F7F;&#x7528;&#xFF1A;"><a name="&#x4E24;&#x4E2A;&#x641C;&#x7D22;&#x8054;&#x5408;&#x4F7F;&#x7528;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x4E24;&#x4E2A;&#x641C;&#x7D22;&#x8054;&#x5408;&#x4F7F;&#x7528;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>4.9.2. &#x4E24;&#x4E2A;&#x641C;&#x7D22;&#x8054;&#x5408;&#x4F7F;&#x7528;&#xFF1A;</h3>
+<p><img src="Systrace.assets/image-20230814004954130.png" alt="image-20230814004954130"></p>
+<h3 id="&#x7ACB;&#x5373;&#x4FDD;&#x5B58;ps&#x4FE1;&#x606F;"><a name="&#x7ACB;&#x5373;&#x4FDD;&#x5B58;ps&#x4FE1;&#x606F;" class="anchor-navigation-ex-anchor" href="#&#x7ACB;&#x5373;&#x4FDD;&#x5B58;ps&#x4FE1;&#x606F;"><i class="fa fa-link" aria-hidden="true"></i></a>4.9.3. &#x7ACB;&#x5373;&#x4FDD;&#x5B58;ps&#x4FE1;&#x606F;</h3>
+<p>atrace&#x4E0B;</p>
+<h2 id="&#x7EC8;&#x6781;&#x76EE;&#x6807;&#xFF1A;&#x62FC;&#x56FE;"><a name="&#x7EC8;&#x6781;&#x76EE;&#x6807;&#xFF1A;&#x62FC;&#x56FE;" class="anchor-navigation-ex-anchor" href="#&#x7EC8;&#x6781;&#x76EE;&#x6807;&#xFF1A;&#x62FC;&#x56FE;"><i class="fa fa-link" aria-hidden="true"></i></a>4.10. &#x7EC8;&#x6781;&#x76EE;&#x6807;&#xFF1A;&#x62FC;&#x56FE;</h2>
+<p>-<font color="red">&#x632A;&#x52A8;&#x7EBF;&#x7A0B;&#x5230;&#x4E00;&#x8D77;&#xFF0C;&#x4E32;&#x70B9;&#x6210;&#x7EBF;&#xFF1A;</font></p>
+<p>-------------&gt;   <font color="red">TODO: &#x8FD9;&#x4E2A;&#x662F;&#x9605;&#x8BFB;trace&#x7684;&#x552F;&#x4E00;&#x76EE;&#x6807;&#xFF1F;</font></p>
+<p>&#x6807;&#x51C6;&#xFF1A;</p>
+<blockquote>
+<p>&#x6CA1;&#x6709;&#x7A7A;&#x767D;&#xFF1B; </p>
+<p>binder&#x8C03;&#x7528;&#x94FE;&#x6761;&#x5B8C;&#x6574;</p>
+</blockquote>
+<p>&#x4F5C;&#x7528;&#xFF1A;</p>
+<blockquote>
+<p>&#x903B;&#x8F91;&#x4E0A;&#x5B8C;&#x6574;</p>
+<p><strong>&#x51CF;&#x5C11;&#x4E0A;&#x4E0B;&#x7684;&#x6EDA;&#x52A8;</strong>  ------&gt;  <font color="red">&#x7F8E;&#x597D;</font></p>
+</blockquote>
+<p><img src="Systrace.assets/image-20230813232307253.png" alt="image-20230813232307253"></p>
+<p>&#x5173;&#x8054;&#x6CD5;&#xFF1A;</p>
+<blockquote>
+<p><font color="red">&#x629B;&#x5F00;&#x4EE3;&#x7801;&#xFF0C;</font>&#x53BB;&#x8FDE;&#x56FE;  -------&gt;  &#x642D;&#x5EFA;&#x6846;&#x67B6;</p>
+<p><font color="red">&#x6781;&#x4F18;&#xFF1A;&#x4E0D;&#x4F9D;&#x8D56;&#x4E8E;&#x4EE3;&#x7801;&#x77E5;&#x8BC6;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;</font> --------&gt;  &#x6240;&#x4EE5;&#xFF0C;<strong>&#x4E0D;&#x9700;&#x8981;&#x770B;&#x4EE3;&#x7801;&#xFF0C;&#x800C;&#x662F;&#x770B;&#x56FE;&#x8BF4;&#x8BDD;</strong></p>
+</blockquote>
+<p>&#x6280;&#x5DE7;&#xFF1A;</p>
+<blockquote>
+<p>&#x52A8;&#x6001;&#x8C03;&#x6574;</p>
+</blockquote>
+<p>&#x6B65;&#x9AA4;&#xFF1A;</p>
+<p>1&#x3001;&#x6309;&#x7167;&#x5927;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x628A;&#x5404;&#x4E2A;&#x5927;&#x6A21;&#x5757;&#x51D1;&#x8D77;&#x6765;&#xFF1A;-------&gt; &#x5B58;&#x5728;&#x5F88;&#x591A;&#x7A7A;&#x7F3A;&#x3002;<font color="red">&#x540E;&#x9762;&#x5DE5;&#x4F5C;&#x5C31;&#x662F;&#x586B;&#x8865;&#x7A7A;&#x7F3A;&#x601D;&#x60F3;</font></p>
+<p>2&#x3001;&#x628A;&#x8FD9;&#x4E2A;&#x5927;&#x6A21;&#x5757;&#x94FE;&#x63A5;&#x8D77;&#x6765;  ----&gt;  &#x5F53;&#x7136;&#x662F;Binder&#x94FE;&#x63A5;&#x3002;&#x3002;<font color="red">&#x4E0D;&#x80FD;&#x4F9D;&#x8D56;&#x4E8E;&#x4EE3;&#x7801;</font></p>
+<p> TODO:  &#x6B65;&#x9AA4;</p>
+<p>&#x200B;            </p>
+<p>3&#x3001;&#x5C06;&#x65B0;&#x7684;&#x7EBF;&#x7A0B;&#xFF08;<strong>&#x6839;&#x636E;2&#x4E2D;&#x7684;&#x94FE;&#x63A5;</strong>&#xFF09;&#x5B9E;&#x65F6;&#x5F80;pin&#x91CC;&#x6DFB;&#x52A0;</p>
+<h2 id="&#x5B9E;&#x6218;"><a name="&#x5B9E;&#x6218;" class="anchor-navigation-ex-anchor" href="#&#x5B9E;&#x6218;"><i class="fa fa-link" aria-hidden="true"></i></a>4.11. &#x5B9E;&#x6218;</h2>
+<h3 id="&#x5E94;&#x7528;&#x51B7;&#x542F;&#x52A8;--&#x4EE5;launch&#x70B9;&#x51FB;&#x5E94;&#x7528;&#x56FE;&#x6807;&#x4E3A;&#x4F8B;"><a name="&#x5E94;&#x7528;&#x51B7;&#x542F;&#x52A8;--&#x4EE5;launch&#x70B9;&#x51FB;&#x5E94;&#x7528;&#x56FE;&#x6807;&#x4E3A;&#x4F8B;" class="anchor-navigation-ex-anchor" href="#&#x5E94;&#x7528;&#x51B7;&#x542F;&#x52A8;--&#x4EE5;launch&#x70B9;&#x51FB;&#x5E94;&#x7528;&#x56FE;&#x6807;&#x4E3A;&#x4F8B;"><i class="fa fa-link" aria-hidden="true"></i></a>4.11.1. &#x5E94;&#x7528;&#x51B7;&#x542F;&#x52A8;--&#x4EE5;Launch&#x70B9;&#x51FB;&#x5E94;&#x7528;&#x56FE;&#x6807;&#x4E3A;&#x4F8B;</h3>
+<p>&#x300A;&#x89C1;startApp&#x300B;</p>
+<h3 id="todo--&#x5176;&#x4ED6;&#x7AE0;&#x8282;&#x7528;systrace&#x6765;&#x5206;&#x6790;"><a name="todo--&#x5176;&#x4ED6;&#x7AE0;&#x8282;&#x7528;systrace&#x6765;&#x5206;&#x6790;" class="anchor-navigation-ex-anchor" href="#todo--&#x5176;&#x4ED6;&#x7AE0;&#x8282;&#x7528;systrace&#x6765;&#x5206;&#x6790;"><i class="fa fa-link" aria-hidden="true"></i></a>4.11.2. TODO:  &#x5176;&#x4ED6;&#x7AE0;&#x8282;&#x7528;systrace&#x6765;&#x5206;&#x6790;</h3>
+<h2 id="systrace&#x7684;&#x539F;&#x7406;"><a name="systrace&#x7684;&#x539F;&#x7406;" class="anchor-navigation-ex-anchor" href="#systrace&#x7684;&#x539F;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>4.12. Systrace&#x7684;&#x539F;&#x7406;</h2>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<p><a href="https://blog.csdn.net/feelabclihu/article/details/106247862" target="_blank">https://blog.csdn.net/feelabclihu/article/details/106247862</a>  &#x597D;&#x6587;</p>
+<p>&#x7B80;&#x6613;&#x7684;&#x6D41;&#x7A0B;&#x56FE;&#xFF1A;</p>
+<p><img src="Systrace.assets/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9kNGhvWUpseE9qT3BxZTc0Z2hYaWNVdklsOEZmaWFDV0xBSnE2UUZVb01RSmxhSDRzUGVXamliblE4TWNhU2ExaGZvYVhySlpBMlFHRjBCanp2VVI2QWV1Zy82NDA" alt="img"></p>
+<p><strong>&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#xFF1A;</strong></p>
+<p><img src="Systrace.assets/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9kNGhvWUpseE9qT3BxZTc0Z2hYaWNVdklsOEZmaWFDV0xBaWNseUdaMG5pY2JuT085UDBXaWJaQnMydHRwa0ZmZVJJb050a05aN1FEYzNpYm1vdmxETDNaczNqQS82NDA" alt="img"></p>
+<p>Systrace&#x6293;&#x53D6;&#x7684;trace&#x6570;&#x636E;&#xFF0C;&#x603B;&#x4F53;&#x4E0A;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4E24;&#x7C7B;&#xFF1A;
+&#x4E00;&#x7C7B;&#x662F;Java&#x548C;Native&#x5728;&#x7528;&#x6237;&#x5C42;&#x53D1;&#x751F;&#x7684;&#x51FD;&#x6570;&#x8C03;&#x7528;&#xFF0C;&#x4E00;&#x7C7B;&#x662F;&#x5185;&#x6838;&#x6001;&#x7684;&#x4E8B;&#x4EF6;&#x4FE1;&#x606F;&#x3002;</p>
+<h3 id="&#x5F00;&#x6E90;&#x4EE3;&#x7801;"><a name="&#x5F00;&#x6E90;&#x4EE3;&#x7801;" class="anchor-navigation-ex-anchor" href="#&#x5F00;&#x6E90;&#x4EE3;&#x7801;"><i class="fa fa-link" aria-hidden="true"></i></a>4.12.1. &#x5F00;&#x6E90;&#x4EE3;&#x7801;</h3>
+<p>systrace&#x7684;&#x751F;&#x6BCD;&#xFF0C;&#x8C37;&#x6B4C;&#x5F00;&#x6E90;&#x9879;&#x76EE;<a href="https://chromium.googlesource.com/catapult&#x3002;" target="_blank">https://chromium.googlesource.com/catapult&#x3002;</a></p>
+<h2 id="perfetto&#x5FEB;&#x6377;&#x952E;"><a name="perfetto&#x5FEB;&#x6377;&#x952E;" class="anchor-navigation-ex-anchor" href="#perfetto&#x5FEB;&#x6377;&#x952E;"><i class="fa fa-link" aria-hidden="true"></i></a>4.13. Perfetto&#x5FEB;&#x6377;&#x952E;</h2>
+<p><img src="Systrace.assets/e0e45471107bc0cb6fef9655e7ee897d.png" alt="e0e45471107bc0cb6fef9655e7ee897d.png"></p>
+<p>&#x6280;&#x5DE7;&#xFF1A;</p>
+<blockquote>
+<p>&#x7528;a&#x4E0E;d &#x653E;&#x5927;&#x7F29;&#x5C0F;&#x65F6;&#xFF0C;<strong>&#x9F20;&#x6807;&#x5DE6;&#x952E;&#x70B9;&#x51FB;&#xFF08;&#x6216;&#x8005;<font color="red">&#x9F20;&#x6807;&#x60AC;&#x505C;</font>&#xFF09;&#xFF0C;&#x6210;&#x4E3A;&#x653E;&#x7F29;&#x7684;&#x4E2D;&#x5FC3;</strong></p>
+</blockquote>
+<h3 id="&#x6280;&#x5DE7;&#xFF1A;"><a name="&#x6280;&#x5DE7;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x6280;&#x5DE7;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>4.13.1. &#x6280;&#x5DE7;&#xFF1A;</h3>
+<ol>
+<li><p>&#x901A;&#x8FC7;&#x5728;&#x65F6;&#x95F4;&#x95F4;&#x9694;&#x5468;&#x56F4;&#x7ED8;&#x5236;&#x4E00;&#x4E2A;&#x77E9;&#x5F62;&#x6765;&#x9009;&#x62E9;&#x6240;&#x9700;&#x7684;&#x65F6;&#x95F4;&#x95F4;&#x9694;&#x3002;</p>
+</li>
+<li><p>&#x4F7F;&#x7528;&#x6807;&#x5C3A;&#x5DE5;&#x5177;&#x6807;&#x8BB0;&#x6216;&#x7A81;&#x51FA;&#x663E;&#x793A;&#x95EE;&#x9898;&#x533A;&#x57DF;&#x3002;</p>
+</li>
+<li><p>&#x4F9D;&#x6B21;&#x70B9;&#x51FB; View Options &gt; Highlight VSync&#xFF0C;&#x4EE5;&#x663E;&#x793A;&#x6BCF;&#x9879;&#x663E;&#x793A;&#x5C4F;&#x5237;&#x65B0;&#x64CD;&#x4F5C;-------&gt;  &#x6807;&#x51FA;&#x4E00;&#x5E27;</p>
+<p><img src="Systrace.assets/image-20221124003138390.png" alt="image-20221124003138390"></p>
+</li>
+<li><p>&#x7B5B;&#x9009;Processes
+<img src="Systrace.assets/image-20221124002917715.png" alt="image-20221124002917715"></p>
+</li>
+</ol>
+<p>5&#x3001;&#x52A0;&#x4E86;&#x754C;&#x9650;&#x540E;&#xFF0C;&#x7ACB;&#x9A6C;&#x5207;&#x6362;&#x5176;&#x4ED6;&#x6A21;&#x5F0F;  ----&gt;  &#x8FD9;&#x6837;&#x754C;&#x7EBF;&#x53EF;&#x4EE5;&#x957F;&#x4E45;&#x4FDD;&#x5B58;</p>
+<p><img src="Systrace.assets/image-20221125010842627.png" alt="image-20221125010842627"></p>
+<h2 id="&#x9047;&#x5230;&#x7684;&#x5751;&#xFF1A;"><a name="&#x9047;&#x5230;&#x7684;&#x5751;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x9047;&#x5230;&#x7684;&#x5751;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>4.14. &#x9047;&#x5230;&#x7684;&#x5751;&#xFF1A;</h2>
+<h3 id="platform-tools&#x4E0B;&#x627E;&#x4E0D;&#x5230;systrace&#x6587;&#x4EF6;&#x5939;"><a name="platform-tools&#x4E0B;&#x627E;&#x4E0D;&#x5230;systrace&#x6587;&#x4EF6;&#x5939;" class="anchor-navigation-ex-anchor" href="#platform-tools&#x4E0B;&#x627E;&#x4E0D;&#x5230;systrace&#x6587;&#x4EF6;&#x5939;"><i class="fa fa-link" aria-hidden="true"></i></a>4.14.1. platform-tools&#x4E0B;&#x627E;&#x4E0D;&#x5230;systrace&#x6587;&#x4EF6;&#x5939;</h3>
+<p>  <a href="https://www.jianshu.com/p/626eaebaa6a8" target="_blank">https://www.jianshu.com/p/626eaebaa6a8</a></p>
+<h3 id="&#x6CA1;&#x6709;&#x5199;&#x5165;&#x6743;&#x9650;&#xFF1A;"><a name="&#x6CA1;&#x6709;&#x5199;&#x5165;&#x6743;&#x9650;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x6CA1;&#x6709;&#x5199;&#x5165;&#x6743;&#x9650;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>4.14.2. &#x6CA1;&#x6709;&#x5199;&#x5165;&#x6743;&#x9650;&#xFF1A;</h3>
+<blockquote>
+<p>&#xFF08;1&#xFF09;&#x4E3B;&#x8981;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#x4E0D;&#x80FD;&#x5220;&#x9664;</p>
+<p>&#xFF08;2&#xFF09;&#x8FD9;&#x4E2A;&#x8DEF;&#x5F84;&#x662F;&#x4E13;&#x95E8;&#x4E3A;trace&#x51C6;&#x5907;&#x7684;&#x3002;&#x7ED3;&#x679C;&#x4E0D;&#x80FD;&#x5B58;&#x653E;&#x5728;&#x5176;&#x4ED6;&#x76EE;&#x5F55;</p>
+</blockquote>
+<p><img src="Systrace.assets/image-20230816005817965.png" alt="image-20230816005817965"></p>
+<p>&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#xFF1A;</p>
+<blockquote>
+<p>&#x65B9;&#x6CD5;&#x4E00;&#xFF1A;&#x91CD;&#x65B0;&#x5237;&#x673A;</p>
+<p>&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;&#x6A21;&#x62DF;&#x5668;&#xFF0C;&#x91CD;&#x65B0;&#x66FF;&#x6362;img</p>
+<p>&#x65B9;&#x6CD5;&#x4E09;&#xFF08;<font color="red">&#x4F18;</font>&#xFF09;&#xFF1A;adb shell setenforce 0           ------&gt; &#x5B9E;&#x9645;&#x4E0A;&#x5C31;&#x662F;&#x5173;&#x95ED;<strong>Selinux&#x6743;&#x9650;</strong>     </p>
+<p>&#x53C2;&#x8003;&#xFF1A;<a href="https://blog.csdn.net/qq_19004627/article/details/119612924" target="_blank">https://blog.csdn.net/qq_19004627/article/details/119612924</a></p>
+</blockquote>
+<pre class="language-"><code class="lang-java">&#x4F7F;&#x7528;setenforce &#x547D;&#x4EE4;&#x8FDB;&#x884C;&#x8BBE;&#x7F6E;<span class="token operator">:</span>
+adb shell setenforce <span class="token number">0</span> <span class="token comment">//&#x8BBE;&#x7F6E;&#x6210;permissive &#x6A21;&#x5F0F;</span>
+adb shell setenforce <span class="token number">1</span> <span class="token comment">//&#x8BBE;&#x7F6E;&#x6210;enforce &#x6A21;&#x5F0F;</span>
+</code></pre>
+<h3 id="&#x8D85;&#x957F;slice"><a name="&#x8D85;&#x957F;slice" class="anchor-navigation-ex-anchor" href="#&#x8D85;&#x957F;slice"><i class="fa fa-link" aria-hidden="true"></i></a>4.14.3. &#x8D85;&#x957F;slice.</h3>
+<p>&#x539F;&#x56E0;&#xFF1A;</p>
+<blockquote>
+<p>(1)&#x3001;&#x6CA1;&#x6709;&#x52A0;&#x6210;&#x5BF9;&#x7684;tag</p>
+<p>&#xFF08;2&#xFF09;&#x3001;&#x5F88;&#x591A;&#x7684;&#x8D85;&#x957F;slice  -----&gt;  buffer&#x4E0D;&#x591F;&#xFF0C;tag&#x6389;&#x4E86;</p>
+</blockquote>
+<p><img src="Systrace.assets/image-20230816232506223.png" alt="image-20230816232506223"></p>
+<h2 id="&#x53C2;&#x8003;&#xFF1A;"><a name="&#x53C2;&#x8003;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x53C2;&#x8003;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>4.15. &#x53C2;&#x8003;&#xFF1A;</h2>
+<p><a href="https://www.androidperformance.com/2019/05/28/Android-Systrace-About/#/%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0%E7%9B%AE%E5%BD%95" target="_blank">https://www.androidperformance.com/2019/05/28/Android-Systrace-About/#/%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0%E7%9B%AE%E5%BD%95</a>       </p>
+<p><img src="Systrace.assets/image-20230802004751045.png" alt="image-20230802004751045"></p>
+<p><a href="https://www.jianshu.com/p/a14bfdc4109a?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation" target="_blank">https://www.jianshu.com/p/a14bfdc4109a?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation</a>  </p>
+<p><a href="https://blog.csdn.net/qq_23452385/article/details/131567881" target="_blank">https://blog.csdn.net/qq_23452385/article/details/131567881</a>  Perfetto &#x547D;&#x4EE4;&#x884C;&#x5DE5;&#x5177;&#xFF08;Android 10 &#x53CA;&#x66F4;&#x9AD8;&#x7248;&#x672C;&#xFF09;_android perfetto_xhBruce&#x7684;&#x535A;&#x5BA2;-CSDN&#x535A;&#x5BA2;</p>
+<p><a href="https://perfetto.dev/docs/data-sources/cpu-scheduling" target="_blank">https://perfetto.dev/docs/data-sources/cpu-scheduling</a>   <font color="red">perfetto&#x7684;&#x5B98;&#x65B9;&#x6587;&#x6863; </font></p>
+<p><a href="https://huaweicloud.csdn.net/63563dbad3efff3090b5be9c.html?spm=1001.2101.3001.6650.7&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-7-126672666-blog-129736238.235%5Ev38%5Epc_relevant_anti_t3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-7-126672666-blog-129736238.235%5Ev38%5Epc_relevant_anti_t3&amp;utm_relevant_index=8" target="_blank">https://huaweicloud.csdn.net/63563dbad3efff3090b5be9c.html?spm=1001.2101.3001.6650.7&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-7-126672666-blog-129736238.235%5Ev38%5Epc_relevant_anti_t3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-7-126672666-blog-129736238.235%5Ev38%5Epc_relevant_anti_t3&amp;utm_relevant_index=8</a>    &#x9AD8;&#x9636;</p>
+<h2 id="todo"><a name="todo" class="anchor-navigation-ex-anchor" href="#todo"><i class="fa fa-link" aria-hidden="true"></i></a>4.16. TODO:</h2>
+<p>&#x901A;&#x8FC7;transactionid&#x627E;&#x5BF9;&#x5E94;&#x7684;&#x65B9;&#x6CD5;WW</p>
+<p><img src="Systrace.assets/image-20230813093339758.png" alt="image-20230813093339758"></p>
+<p>2&#x3001;&#x5982;&#x4F55;&#x628A;&#x7AD6;&#x5411;&#x5F04;&#x7A84;&#x4E00;&#x70B9;&#x513F;&#xFF1F;</p>
+<p>3&#x3001;binder Traction&#x8C03;&#x7528;&#xFF0C;&#x65F6;&#x95F4;&#x8F74;&#x4E0A;&#x662F;&#x5F80;&#x56DE;&#x7684;&#x5462;&#xFF1F;</p>
+<p>4&#x3001;&#x591A;&#x770B;&#x51E0;&#x6B21;&#x89C6;&#x9891;&#xFF0C;&#x5B66;&#x4F1A;&#x7CBE;&#x9AD3;</p>
+<p>5&#x3001;&#x666E;&#x901A;trace&#x4E0E;perfetto&#x7684;&#x8F6C;&#x6362;</p>
+<h1 id="atrace_1"><a name="atrace_1" class="anchor-navigation-ex-anchor" href="#atrace_1"><i class="fa fa-link" aria-hidden="true"></i></a>5. atrace</h1>
+<p>adb shell atrace sched freq idle am wm gfx view sync ss power rs res binder driver binder _lock input hal camera aidl disk -b 96000 -t 5</p>
+<p>atrace&#x4F18;&#x70B9;&#xFF1A;<font color="red">&#x4E00;&#x5B9A;&#x80FD;&#x7528;&#xFF1A;</font></p>
+<blockquote>
+<p>&#x5B89;&#x5353;&#x65B0;&#x8001;&#x7248;&#x672C;&#x90FD;&#x80FD; &#x4F7F;&#x7528;</p>
+</blockquote>
+<p>&#x8BE6;&#x89E3;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java">adb shell atrace  \
+sched freq idle \  <span class="token constant">CPU</span>&#x7684;&#x6392;&#x7A0B;&#x548C;&#x9891;&#x7387;
+am wm gfx view sync ss power rs res \framework&#x5C42;
+binder driver binder _lock \binder&#x8C03;&#x7528;&#x5173;&#x7CFB;
+input hal camera aidl disk \&#x9A71;&#x52A8;&#xFF1A;&#x8F93;&#x5165;&#x3001;&#x76F8;&#x673A;
+<span class="token operator">-</span>b <span class="token number">96000</span> <span class="token operator">-</span>t <span class="token number">5</span>    \ buffer&#x5927;&#x5C0F;<span class="token number">10</span>M&#x5DE6;&#x53F3;&#xFF0C;&#x65F6;&#x95F4;<span class="token number">5</span>s
+</code></pre>
+<h2 id="&#x8F6C;html&#xFF08;perfetto&#x7F51;&#x7AD9;&#x67E5;&#x770B;&#xFF09;"><a name="&#x8F6C;html&#xFF08;perfetto&#x7F51;&#x7AD9;&#x67E5;&#x770B;&#xFF09;" class="anchor-navigation-ex-anchor" href="#&#x8F6C;html&#xFF08;perfetto&#x7F51;&#x7AD9;&#x67E5;&#x770B;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>5.1. &#x8F6C;html&#xFF08;perfetto&#x7F51;&#x7AD9;&#x67E5;&#x770B;&#xFF09;</h2>
+<p>TODO</p>
+<p>atrace.out  &#x8F6C;   perfetto&#x663E;&#x793A;</p>
+<pre class="language-"><code class="lang-java"> python systrace<span class="token punctuation">.</span>py <span class="token operator">--</span>from<span class="token operator">-</span>file atrace<span class="token punctuation">.</span>out <span class="token operator">-</span>o atraceout2<span class="token punctuation">.</span>html
+</code></pre>
+<p>--------&gt; atraceout2.html&#x53EF;&#x4EE5;&#x52A0;&#x8F7D;&#x5230; perfetto&#x754C;&#x9762;</p>
+<h2 id="&#x6280;&#x5DE7;&#x4E4B;--&#x6CA1;&#x6709;process&#x540D;&#x5982;&#x4F55;&#x67E5;&#x770B;"><a name="&#x6280;&#x5DE7;&#x4E4B;--&#x6CA1;&#x6709;process&#x540D;&#x5982;&#x4F55;&#x67E5;&#x770B;" class="anchor-navigation-ex-anchor" href="#&#x6280;&#x5DE7;&#x4E4B;--&#x6CA1;&#x6709;process&#x540D;&#x5982;&#x4F55;&#x67E5;&#x770B;"><i class="fa fa-link" aria-hidden="true"></i></a>5.2. &#x6280;&#x5DE7;&#x4E4B;  &#x6CA1;&#x6709;process&#x540D;&#x5982;&#x4F55;&#x67E5;&#x770B;</h2>
+<p>&#x5173;&#x4E8E; &#x5404;&#x79CD;  Process 878 &#x7B49;&#x6CA1;&#x6709;&#x8FDB;&#x7A0B;&#x540D;&#xFF1A;</p>
+<p>&#x6CD5;&#x4E00;&#xFF1A;  &#x9700;&#x8981;&#x811A;&#x672C;&#x914D;&#x7F6E;</p>
+<p>&#x6CD5;&#x4E8C;&#xFF1A; &#x70B9;&#x51FB;&#x6240;&#x6709;&#x8FDB;&#x7A0B;&#x5C55;&#x5F00;      &#x7136;&#x540E;Chrome&#x641C;&#x7D22;</p>
+<p> <img src="Systrace.assets/image-20231224010448939.png" alt="image-20231224010448939"></p>
+<p>&#x6CD5;&#x4E09;&#xFF1A;systrace</p>
+<h1 id="oprofile"><a name="oprofile" class="anchor-navigation-ex-anchor" href="#oprofile"><i class="fa fa-link" aria-hidden="true"></i></a>6. Oprofile</h1>
+<h1 id="layout-inspector"><a name="layout-inspector" class="anchor-navigation-ex-anchor" href="#layout-inspector"><i class="fa fa-link" aria-hidden="true"></i></a>7. Layout Inspector</h1>
+<p>&#x6700;&#x4F18;&#x89C2;&#x5BDF;viewTree&#x7684;&#x5DE5;&#x5177;</p>
+<p>-<font color="red">&#x4F18;&#x70B9;&#xFF1A;</font></p>
+<p>&#xFF08;1&#xFF09;&#x56FE;&#x5F62;&#x5316; &#xFF0C;&#x66F4;&#x6DF1;&#x523B;  </p>
+<p>&#xFF08;2&#xFF09;&#x56FE;&#x5F62;&#x4E0E; &#x6587;&#x5B57;&#x76F8;&#x7ED3;&#x5408;&#xFF0C;&#x5E76;&#x4E14;&#x53EF;&#x4EE5;&#x70B9;&#x51FB;&#x4E92;&#x52A8; -----&gt; <strong>&#x64CD;&#x4F5C;&#x65B9;&#x4FBF;</strong>&#xFF0C;<strong>&#x5BF9;&#x5E94;&#x5173;&#x7CFB;&#x975E;&#x5E38;&#x660E;&#x786E;</strong></p>
+<p>&#xFF08;3&#xFF09;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x663E;&#x793A;&#x7684;&#x6570;&#x636E; &#x6BD4;xml&#x663E;&#x793A;&#x7684;&#x66F4;&#x52A0;&#x5B8C;&#x6574;&#x3002;&#x6BD4;&#x5982;&#x8FD9;&#x91CC;&#xFF0C;&#x663E;&#x793A;&#x4E86;  &#x201C;&#x5FAE;&#x535A;&#x70ED;&#x641C;&#x201D;&#x7684;&#x5C0F;&#x7A0B;&#x5E8F;&#x6309;&#x94AE;&#x3002;&#x3002;&#x3002;&#x3002;xml&#x6CA1;&#x6709;&#x4F53;&#x73B0;</p>
+<p><img src="Systrace.assets/image-20230622145217508.png" alt="image-20230622145217508"></p>
+<p>&#xFF08;4&#xFF09;&#x53EF;&#x4EE5;&#x5728;&#x5DE6;&#x8FB9;&#x641C;&#x7D22;&#x3002;&#x3002;&#x3002;&#x3002;&#x5F53;&#x9875;&#x9762; view&#x8FC7;&#x591A;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x7CBE;&#x786E;&#x533A;&#x5206;&#xFF08;&#x56FE;&#x5F62;&#x533A;&#x57DF;&#x4E0D;&#x5BB9;&#x6613;&#x533A;&#x5206;&#xFF09;</p>
+<p>&#xFF08;5&#xFF09;&#x540C;dump&#x4E00;&#x6837;&#xFF0C;&#x53EF;&#x4EE5;&#x77E5;&#x9053; TextView &#x5177;&#x4F53;&#x7684;&#x7C7B;</p>
+<h1 id="winscope&#x5FEB;&#x7167;---&#x95EA;&#x5C4F;&#x95EE;&#x9898;"><a name="winscope&#x5FEB;&#x7167;---&#x95EA;&#x5C4F;&#x95EE;&#x9898;" class="anchor-navigation-ex-anchor" href="#winscope&#x5FEB;&#x7167;---&#x95EA;&#x5C4F;&#x95EE;&#x9898;"><i class="fa fa-link" aria-hidden="true"></i></a>8. winscope(&#x5FEB;&#x7167;)---&#x95EA;&#x5C4F;&#x95EE;&#x9898;</h1>
+<p><strong>winscope&#x672C;&#x8D28;&#xFF1A;</strong></p>
+<blockquote>
+<p>-<font color="red">&#x6BCF;&#x4E00;&#x5E27;</font>&#xFF0C;<strong>&#x90FD;&#x7ED9;&#x6574;&#x4E2A;&#x7CFB;&#x7EDF;&#x62CD;&#x5FEB;&#x7167;</strong>  ----&gt; &#x8FD9;&#x4E5F;&#x662F;&#x7406;&#x89E3;&#x590D;&#x6742;&#x7CFB;&#x7EDF;&#x7684;&#x5173;&#x952E;</p>
+</blockquote>
+<p>---------------&gt;  <font color="red">&#x57FA;&#x4E8E;&#x5E27;&#xFF0C;</font>1&#x3001;&#x6240;&#x4EE5;&#xFF0C;&#x624D;&#x53EF;&#x4EE5;&#x89E3;&#x51B3;&#x95EA;&#x5C4F;&#x95EE;&#x9898;</p>
+<p>&#x200B;                                     2&#x3001;TODO: &#x80AF;&#x5B9A;&#x53EF;&#x4EE5;&#x89E3;&#x51B3;&#x5176;&#x4ED6;&#x5F88;&#x591A;&#x95EE;&#x9898;</p>
+<p>&#x65B9;&#x6CD5;&#x4E00;&#xFF1A;</p>
+<blockquote>
+<p>winscope.html + winscope_proxy.py  ----&gt; &#x76F4;&#x63A5;&#x83B7;&#x53D6;&#xFF08;&#x5C01;&#x88C5;&#x7684;adb&#x547D;&#x4EE4;&#xFF09;</p>
+</blockquote>
+<p>&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;&#x76F4;&#x63A5;&#x4F7F;&#x7528;adb&#x547D;&#x4EE4;&#xFF0C;&#x89C1;&#x4E0B;&#xFF0C;&#x5B98;&#x65B9;&#x6587;&#x6863;</p>
+<p>TODO:</p>
+<p>&#x95EE;&#x9898;&#x7684;&#x5173;&#x952E;&#x5728;&#x4E8E;&#xFF0C;&#x5982;&#x4F55;&#x770B;&#xFF1F;</p>
+<blockquote>
+<p>1&#x3001;&#x6BCF;&#x4E2A;Task&#x6709;&#x4E2A;Z&#x503C;&#xFF0C;&#x662F;&#x5C42;&#x7EA7;</p>
+</blockquote>
+<h2 id="&#x53C2;&#x8003;&#xFF1A;_1"><a name="&#x53C2;&#x8003;&#xFF1A;_1" class="anchor-navigation-ex-anchor" href="#&#x53C2;&#x8003;&#xFF1A;_1"><i class="fa fa-link" aria-hidden="true"></i></a>8.1. &#x53C2;&#x8003;&#xFF1A;</h2>
+<p><a href="https://source.android.com/docs/core/graphics/tracing-win-transitions?hl=zh-cn" target="_blank">https://source.android.com/docs/core/graphics/tracing-win-transitions?hl=zh-cn</a>    &#x5B98;&#x65B9;&#x6587;&#x6863;</p>
+<p><a href="https://www.jianshu.com/p/c28a81dc3a65" target="_blank">https://www.jianshu.com/p/c28a81dc3a65</a></p>
+<h2 id="&#x5B98;&#x65B9;&#x6587;&#x6863;"><a name="&#x5B98;&#x65B9;&#x6587;&#x6863;" class="anchor-navigation-ex-anchor" href="#&#x5B98;&#x65B9;&#x6587;&#x6863;"><i class="fa fa-link" aria-hidden="true"></i></a>8.2. &#x5B98;&#x65B9;&#x6587;&#x6863;</h2>
+<p><a href="https://developer.android.com/studio/debug/layout-inspector" target="_blank">https://developer.android.com/studio/debug/layout-inspector</a></p>
+<h1 id="&#x4E00;&#x4E9B;&#x73AF;&#x5883;&#x4F7F;&#x7528;&#x539F;&#x5219;&#xFF1A;"><a name="&#x4E00;&#x4E9B;&#x73AF;&#x5883;&#x4F7F;&#x7528;&#x539F;&#x5219;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x4E00;&#x4E9B;&#x73AF;&#x5883;&#x4F7F;&#x7528;&#x539F;&#x5219;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>9. &#x4E00;&#x4E9B;&#x73AF;&#x5883;&#x4F7F;&#x7528;&#x539F;&#x5219;&#xFF1A;</h1>
+<p>&#x4F7F;&#x7528;linux&#x4E0B;as&#x8C03;&#x8BD5;&#x6216;trace&#xFF0C;&#x5C31;&#x4E0D;&#x80FD;&#x7528;win&#x4E0B;As</p>
+<p>ADB&#x4E4B;&#x95F4;&#x5F71;&#x54CD;</p>
+<h1 id="&#x53C2;&#x8003;"><a name="&#x53C2;&#x8003;" class="anchor-navigation-ex-anchor" href="#&#x53C2;&#x8003;"><i class="fa fa-link" aria-hidden="true"></i></a>10. &#x53C2;&#x8003;</h1>
+<p><a href="https://blog.csdn.net/innost/article/details/9008691" target="_blank">https://blog.csdn.net/innost/article/details/9008691</a></p>
+<p><a href="https://blog.csdn.net/u011578734/article/details/109497064" target="_blank">https://blog.csdn.net/u011578734/article/details/109497064</a></p>
+<h1 id="&#x8865;&#x5145;&#xFF0C;&#x811A;&#x672C;"><a name="&#x8865;&#x5145;&#xFF0C;&#x811A;&#x672C;" class="anchor-navigation-ex-anchor" href="#&#x8865;&#x5145;&#xFF0C;&#x811A;&#x672C;"><i class="fa fa-link" aria-hidden="true"></i></a>11. &#x8865;&#x5145;&#xFF0C;&#x811A;&#x672C;</h1>
+<pre class="language-"><code class="lang-java">adb shell perfetto <span class="token operator">-</span>o <span class="token operator">/</span>data<span class="token operator">/</span>misc<span class="token operator">/</span>perfetto<span class="token operator">-</span>traces<span class="token operator">/</span>trace_file<span class="token punctuation">.</span>perfetto<span class="token operator">-</span>trace <span class="token operator">-</span>t <span class="token number">20</span>s sched freq idle am wm gfx view binder_driver hal dalvik camera input res memory
+&#x7F51;&#x7AD9;<span class="token operator">:</span> https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>ui<span class="token punctuation">.</span>perfetto<span class="token punctuation">.</span>dev<span class="token operator">/</span>#<span class="token operator">!</span><span class="token operator">/</span>
+</code></pre>
+<p>&#x505A;&#x7CFB;&#x7EDF;&#x7A33;&#x5B9A;&#x6027;&#x95EE;&#x9898;&#x5206;&#x6790;&#xFF0C;&#x5F53;&#x9047;&#x5230;&#x7CFB;&#x7EDF;&#x5361;&#x6B7B;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x7ECF;&#x5E38;&#x8981;&#x4F7F;&#x7528;&#x201C;kill -3 pid&#x201D;&#x6765;&#x6253;&#x5370;System_Server&#x8FDB;&#x7A0B;&#x5404;&#x4E2A;&#x7EBF;&#x7A0B;&#x7684;Java&#x8C03;&#x7528;&#x6808;&#xFF0C;&#x6839;&#x636E;&#x7EBF;&#x7A0B;&#x72B6;&#x6001;&#x53CA;&#x8C03;&#x7528;&#x6808;&#x6765;&#x66F4;&#x8FDB;&#x4E00;&#x6B65;&#x5B9A;&#x4F4D;&#x95EE;&#x9898;&#x70B9;&#xFF0C;&#x5F53;&#x7136;&#x67D0;&#x4E2A;&#x5E94;&#x8BE5;&#x754C;&#x9762;&#x5361;&#x987F;&#x65F6;&#x95F4;&#x957F;&#x65F6;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x6765;&#x6293;&#x53D6;Java&#x8C03;&#x7528;&#x6808;&#x8FDB;&#x884C;&#x5206;&#x6790;&#x3002;
+&#x6CE8;&#x610F;native&#x8FDB;&#x7A0B;&#x662F;&#x4E0D;&#x80FD;&#x7528;kill -3&#x6765;&#x6253;trace&#x7684;&#xFF0C;&#x800C;&#x662F;&#x4F7F;&#x7528;debuggerd.</p>
+<p><a href="https://droid10.com/Android/Android%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" target="_blank">https://droid10.com/Android/Android%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</a></p>
+<h1 id="todo_1"><a name="todo_1" class="anchor-navigation-ex-anchor" href="#todo_1"><i class="fa fa-link" aria-hidden="true"></i></a>12. TODO:</h1>
+<p><a href="https://zhuanlan.zhihu.com/p/348548041" target="_blank">https://zhuanlan.zhihu.com/p/348548041</a>  Android&#x6027;&#x80FD;&#x4F18;&#x5316;&#x673A;&#x5236;-&#x4F18;&#x5148;&#x7EA7;&#x53CD;&#x8F6C;&#x95EE;&#x9898;</p>
+<p><a href="https://pyautogui.readthedocs.io/en/latest/index.html" target="_blank">https://pyautogui.readthedocs.io/en/latest/index.html</a>    pyautogui&#x64CD;&#x4F5C;&#x7535;&#x8111;</p>
+<p><a href="https://blog.csdn.net/toopoo/article/details/124660769?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-5-124660769-blog-112331887.235^v38^pc_relevant_anti_t3&amp;spm=1001.2101.3001.4242.4&amp;utm_relevant_index=6" target="_blank">https://blog.csdn.net/toopoo/article/details/124660769?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-5-124660769-blog-112331887.235^v38^pc_relevant_anti_t3&amp;spm=1001.2101.3001.4242.4&amp;utm_relevant_index=6</a>     </p>
+
+<script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="profiler.html" class="navigation navigation-prev " aria-label="Previous page: Profiler">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="内存.html" class="navigation navigation-next " aria-label="Next page: 内存">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Systrace","level":"1.6.3.2","depth":3,"next":{"title":"内存","level":"1.6.3.3","depth":3,"path":"coding/0_性能/内存.md","ref":"coding/0_性能/内存.md","articles":[]},"previous":{"title":"Profiler","level":"1.6.3.1","depth":3,"path":"coding/0_性能/profiler.md","ref":"coding/0_性能/profiler.md","articles":[]},"dir":"ltr"},"config":{"//":["这是多行注释：    anchor-navigation-ex 是","anchor-navigation-ex 是","click-reveal 本地使用ok，但是github在build pages时，不识别click-reveal","accordion 也是折叠代码段","anchor-navigation-ex 是"],"plugins":["anchor-navigation-ex","toggle-chapters","expandable-chapters-small","splitter","code","page-treeview","popup","-search","-lunr","sidebar-style","auto-scroll-table","click-reveal","accordion","pageview-count","search-pro","prism","prism-themes","-highlight"],"root":"./markdownsFiles","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"Kent","title":"《prove》"},"tbfed-pagefooter":{"copyright":"Copyright &copy ershouche-FE 2019","modify_label":"文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"page-treeview":{"collapsed":false,"copyright":"Copyright © aleen42","minHeaderCount":"1","minHeaderDeep":"1"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"disqus":{"shortName":"gitbookuse"},"splitter":{},"search-pro":{},"accordion":{},"auto-scroll-table":{},"popup":{},"lunr":{"maxIndexSize":400000},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"click-reveal":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"pageview-count":{},"prism-themes":{},"expandable-chapters-small":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"toggle-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"bookname":"笔记","variables":{},"title":"Kent的博客","gitbook":"*"},"file":{"path":"coding/0_性能/Systrace.md","mtime":"2024-04-21T15:56:24.390Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-06-23T17:37:04.640Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-toggle-chapters/toggle.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sidebar-style/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-auto-scroll-table/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-click-reveal/click_reveal.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-accordion/accordionSelector.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-pageview-count/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

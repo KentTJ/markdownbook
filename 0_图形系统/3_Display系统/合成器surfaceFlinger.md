@@ -299,3 +299,34 @@ https://www.bilibili.com/video/BV1py411q7BV?t=5924.9
 
 
 
+![image-20240626003622816](合成器surfaceFlinger.assets/image-20240626003622816.png)
+
+
+
+![image-20240626003752374](合成器surfaceFlinger.assets/image-20240626003752374.png)
+
+
+
+![image-20240626003928366](合成器surfaceFlinger.assets/image-20240626003928366.png)
+
+![image-20240626004003396](合成器surfaceFlinger.assets/image-20240626004003396.png)
+
+
+
+![image-20240626004110802](合成器surfaceFlinger.assets/image-20240626004110802.png)
+
+
+
+![image-20240626004216215](合成器surfaceFlinger.assets/image-20240626004216215.png)
+
+
+
+![image-20240626004538526](合成器surfaceFlinger.assets/image-20240626004538526.png)
+
+
+
+shader:
+
+![image-20240626004451773](合成器surfaceFlinger.assets/image-20240626004451773.png)
+
+--------> 对高频shader检测

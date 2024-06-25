@@ -286,3 +286,16 @@ Android graphic系列文章： https://blog.csdn.net/tkwxty/category_11464526.ht
 补充 surfaceFlinger 图：
 
 >   https://blog.csdn.net/gzzaigcnforever/article/details/22175829#:~:text=解释SurfaceFlinger从应用层到底层的整个绘图，显示的大致流程。
+
+
+
+
+
+
+
+#  TODO: HM的图形
+
+https://www.bilibili.com/video/BV1py411q7BV?t=5924.9
+
+
+

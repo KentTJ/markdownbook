@@ -1135,6 +1135,32 @@ sudo nmcli device wifi hotspot
 
 
 
+## [Linux系统连接手机USB网络共享后无法联网](https://www.cnblogs.com/Mxy-cnblog/p/18086611)
+
+现象：
+
+> 看到有新增的适配器，但是没有新增ip
+
+办法：
+
+> sudo dhclient usb0 
+>
+> https://www.cnblogs.com/Mxy-cnblog/p/18086611
+
+------------------->   验证ok
+
+适用条件：
+
+>   纯linux系统，虚拟机linux
+
+## Ubuntu换源
+
+20.04:  https://blog.csdn.net/weixin_53000184/article/details/130782900
+
+
+
+
+
 # vim
 
 搜索：  /

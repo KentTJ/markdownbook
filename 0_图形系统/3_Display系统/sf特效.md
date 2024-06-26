@@ -100,7 +100,7 @@ t.apply()
 
 处理事务流程图：
 
->   ![img](sf特效.assets/aaa15735018c45c58a6a55e0e4562123.png)
+>   ![aaa15735018c45c58a6a55e0e4562123](sf特效.assets/aaa15735018c45c58a6a55e0e4562123-1719420821433.png)
 >
 >   [图来源](https://blog.csdn.net/fengchaochao123/article/details/135129439#:~:text=%E6%98%AF%E5%A4%84%E7%90%86%E4%BA%8B%E5%8A%A1%EF%BC%9A-,%E5%A4%A7%E8%87%B4%E6%B5%81%E7%A8%8B%E5%A6%82%E4%B8%8B%E5%9B%BE%EF%BC%9A,-flushTransactionQueues%E4%BC%9A%E5%B0%86)
 

@@ -43,6 +43,18 @@ aptitude   install gcc gcc-c++
 
 
 
+### repo下载安装
+
+```java
+git clone https://mirrors.tuna.tsinghua.edu.cn/git/git-repo
+```
+
+
+
+
+
+
+
 ## 下载aosp
 
 ### 下载aosp source
@@ -127,7 +139,15 @@ https://source.android.com/docs/setup/reference/build-numbers#source-code-tags-a
 
 安卓14使用版本：
 
-![image-20240406151301431](aospBuilding.assets/image-20240406151301431.png)
+![image-20240627004946140](aospBuilding.assets/image-20240627004946140.png)
+
+
+
+
+
+
+
+
 
 ## **AOSP编译刷入Pixel**
 
@@ -380,6 +400,8 @@ framework.jar原始没有打包加密的jar路径：
 1、单独编译so库文件，将它push到手机的system/lib目录下， 在java程序中通过loadLibrary加载so库。
 2、使用NDK工具进行编译，需要配置NDK环境，然后通过Android Studio将其打包打APK中。
 3、在Android源码环境中使用mm，so文件就能够打包到APK文件中，随着APK一起发布，而不是将so文件放到系统目录中。
+
+
 
 
 
@@ -967,7 +989,80 @@ https://blog.csdn.net/iamdy/article/details/111272854?spm=1001.2014.3001.5501
 
 # 编译AAOS 到pixel5
 
-https://juejin.cn/post/7316695933739089920            
+https://juejin.cn/post/7316695933739089920         
+
+
+
+
+
+# Android Automotive 14 编译模拟器
+
+```java
+cd aosp
+source build/envsetup.sh
+lunch sdk_car_x86_64-userdebug
+make -j18
+
+emulator
+```
+
+---------->  验证ok
+
+
+
+~~参考：https://blog.csdn.net/ikunaaaaa/article/details/135659832~~
+
+报错 & 解决： ~~[报错 This user doesn‘t have permissions to use KVM (/dev/kvm)](https://blog.csdn.net/Sqq_yj/article/details/137143663)~~
+
+
+
+
+
+
+
+TODO:   解决一个屏幕问题，技巧：浏览器，连ip+端口 clound Android
+
+--------->  本质：显示可以放到任意一个地方
+
+> https://zhuanlan.zhihu.com/p/686142622   Android Cuttlefish模拟器（Android Automotive）
+
+
+
+   
+
+# Cuttlefish ---- 未成功
+
+主要参考：
+
+https://blog.csdn.net/uestczhangyao/article/details/138612806?spm=1001.2101.3001.6650.4&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-4-138612806-blog-136032910.235%5Ev43%5Epc_blog_bottom_relevance_base7&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-4-138612806-blog-136032910.235%5Ev43%5Epc_blog_bottom_relevance_base7&utm_relevant_index=6
+
+
+
+https://blog.csdn.net/weixin_41678668/article/details/136032910   从0到1学Binder-环境准备
+
+https://www.jianshu.com/p/9e5fb290e6d0    
+
+https://github.com/aosp-riscv/working-group/blob/master/articles/20230111-cuttlefish-setup.md    **搭建 Cuttlefish 运行环境**
+
+https://zhuanlan.zhihu.com/p/686142622         Android Cuttlefish模拟器（Android Automotive）
+
+
+
+## 安装报错
+
+golang代理超时报错”https://proxy.golang.org/github.com/********** host has failed to respond
+
+```java
+vim frontend/src/goutil
+
+修改为
+export GO111MODULE=on
+export GOPROXY=https://goproxy.cn
+```
+
+---------> 验证OK
+
+
 
 # **问题：**
 

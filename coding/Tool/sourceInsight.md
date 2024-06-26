@@ -450,6 +450,14 @@ https://zhuanlan.zhihu.com/p/33000424
 >
 > ![image-20230723093741577](sourceInsight.assets/image-20230723093741577.png)
 
+## 跳转 之 Bookmarks
+
+修改快捷键：
+
+```java
+<item Command="Bookmark..." Keycode="(C)B" />
+```
+
 
 
 ##  大纲 ------- 代码 相互快速跳转

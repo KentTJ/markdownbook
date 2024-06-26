@@ -558,6 +558,10 @@ TODO: 多个**`EGLContext`**
 
 
 
+
+
+
+
 ## 内建变量
 
 大全 ： [GLSL内置变量和内置函数](https://blog.csdn.net/danshiming/article/details/131511445)
@@ -621,6 +625,14 @@ y = smoothstep(0.0,1.0,x);
 **作用：将step的突变，优化成渐变**  ------->  用于抗锯齿
 
 ![img](opengl.assets/2ffd0d5428874b2cb37f753ee21b2e7d.png)
+
+### smoothstep 和自定义的 linearstep
+
+参数意义相同，<font color='red'>完全可以等价替换</font>
+
+
+
+
 
 
 
@@ -800,6 +812,141 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 [OpenGL之深入解析坐标系统_OpenGL ES-CSDN专栏](https://download.csdn.net/blog/column/10158151/107103061)
 
 左下是原点？？？
+
+### 画布坐标系（站在画布上看）
+
+参考: https://zhuanlan.zhihu.com/p/35973705  Shadertoy 的坐标转换
+
+结论：shader内变量 是基于画布坐标系的
+
+
+
+原始画布坐标系：
+
+> 原点：位于画布左下角
+>
+> 自然：
+>
+> > ~~方向： x正向向右，y正向向上~~       
+> >
+> > ~~坐标范围：[0, 0]  -----> iResolution.xy~~
+
+画图：TODO
+
+归一化后画布坐标系：
+
+> 原点：位于画布中间
+>
+> 自然：
+>
+> > ~~方向： x正向向右，y正向向上~~       
+> >
+> > ~~坐标范围：[-1, -1]  -----> [1,  1]~~
+
+画图：TODO
+
+![image-20240618144154616](opengl.assets/image-20240618144154616.png)
+
+
+
+例子：
+
+```java
+float drawBox( in vec2 p, in vec2 b ){  // 矩形的距离函数
+    vec2 d = abs(p)-b;
+    return length(max(d,0.0)) + min(max(d.x,d.y), 0.0);
+}
+
+float opRound( in vec2 p, in float weight, in float height, in float r )  // r  圆角; weight，归一化的 
+{
+  return drawBox(p, vec2(weight-1.0*r, height-1.0*r)) - r;  // 1.0*r：内矩形  到 目标矩形的距离 = 圆角半径 
+}                                                     // 0.4、0.3 矩形大小
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+    // 【1】归一化短边坐标为[-1, 1], 中央为原点（其中，iResolution.xy是画布大小）
+    // 画布长边对应放缩，不是[-1, 1]
+    vec2 uv = (2.0*fragCoord-iResolution.xy)/min(iResolution.y, iResolution.x); 
+    
+    
+    // 待画矩形的尺寸
+    float weight = 200.0/min(iResolution.y, iResolution.x);  // 200是真实尺寸,px
+    float height = 200.0/min(iResolution.y, iResolution.x);
+    
+    // 待画矩形的中心(以画布左下角为原点)
+    vec2 O1 = vec2(300.0, 300.0); // 真实
+    O1 = (2.0*O1-iResolution.xy)/min(iResolution.y, iResolution.x);
+    uv = uv - O1;
+    //uv = uv - vec2(-1.0, -1.0); // 移动矩形位置（其中 -1.0，是向左移动一半的画布距离）
+
+    vec3 col = vec3(0,2,4); 
+    col = mix(col,vec3(0.0),step(0.0, opRound(uv, weight,height,0.05)));
+    // Output to screen
+    fragColor = vec4(col,1.0);
+}
+```
+
+### 优化之限制局部区域绘制 glScissors
+
+glScissors是OpenGL中的一个函数，用于定义一个矩形区域，只有在该区域内的像素才会被绘制。
+
+
+
+[参考](https://cloud.tencent.com/developer/information/OpenGL%20glScissors%E5%9D%90%E6%A0%87%E7%B3%BB%E7%9A%84%E4%B8%AD%E5%BF%83-ask)
+
+
+
+### 窗口坐标系（站在屏幕，看画布）
+
+已经验证的结论：
+
+> **Rect的计算**是屏幕坐标系：
+>
+> **即 以 左上角为原点**
+
+### void glViewport(GLint x, GLint y, GLsizei width, GLsizei height);
+
+参考：https://cloud.tencent.com/developer/article/2323370  OpenGL 学了那么久了，glViewport 你真的会用吗？
+
+站在屏幕角度（**左下为原点**）：划出一个矩形，作为 渲染区域  
+
+结论：
+
+1、可见，与窗口无关！！！！！！只与屏幕有关
+
+
+
+
+
+TODO:
+
+glViewport<font color='red'>本质是映射</font>！！！！！！
+
+>   （1）将纹理的（0,0,2,2）   映射到    屏幕的 (GLint x, GLint y, GLsizei width, GLsizei height)区域
+>
+>   （2）注意：<font color='red'>纹理永恒不变</font>，<font color='red'>始终一张完整</font>的图
+
+[见](https://cloud.tencent.com/developer/article/2323370#:~:text=%E7%B4%A0%E7%9A%84%E5%AE%BD%EF%BC%8C-,x%E6%96%B9%E5%90%91%E8%B6%85%E5%87%BA%E9%83%A8%E5%88%86%E5%B0%86%E4%B8%8D%E6%98%BE%E7%A4%BA%E3%80%82,-%E5%8F%AA%E6%94%B9%E5%8F%98%20y)
+
+
+
+
+
+
+
+左下为原点：
+
+> 自然，~~向右，x正向~~
+>
+> ​           ~~向上，y正向~~
+
+
+
+拉伸weston桌面，可以改变 glViewport的宽高
+
+但是移动，为啥x, y不变？？？
+
+
 
 ## OpenGL裁剪
 
@@ -1229,6 +1376,42 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
     fragColor = mix(layer1, layer2, layer2.a);
 }
 ```
+
+
+
+
+
+## shade调试技巧
+
+1、shader中数值判断：
+
+```
+if ( 待判断数值 >  250.0) {
+	// 改变颜色
+	 color = ................
+}
+```
+
+逼出来待判断数值：  ~~调整 250.0这个数值~~
+
+2、用固定值 替代 非固定值：
+
+对比两者
+
+```java
+//vec2 iResolution = vec2(1024.0, 600.0);                        
+vec2 iResolution = univiewPortSize;                                   
+```
+
+3、多个窗口，选择一个观看即可
+
+
+
+
+
+解构的万能方法：
+
+> 多个变量中，取一个为固定值
 
 
 

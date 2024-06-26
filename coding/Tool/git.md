@@ -577,6 +577,22 @@ fatal: unable to access 'https://github.com/KentTJ/-book.git/': error setting ce
 
 参考： [【完美解决】使用git时候出现error setting certificate verify locations: CAfile:问题_error setting certificate file-CSDN博客](https://blog.csdn.net/weixin_43639180/article/details/126502168)
 
+
+
+### 问题：chmod之后，git status显示修改了大量文件（并不是自己修改的文件）
+
+办法： 忽略filemode
+
+> ```java
+> git config --add core.filemode false
+> ```
+>
+> --------> 验证有效
+
+[参考](https://blog.csdn.net/pbx6666/article/details/106550706/)
+
+
+
 # 参考：
 
 https://blog.csdn.net/renfeideboke/article/details/130930418?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-130930418-blog-120540819.235%5Ev38%5Epc_relevant_anti_t3&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-130930418-blog-120540819.235%5Ev38%5Epc_relevant_anti_t3&utm_relevant_index=1      Git创建本地分支并关联远程分支

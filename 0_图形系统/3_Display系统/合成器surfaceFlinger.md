@@ -64,6 +64,241 @@ TODO:
 
 
 
+
+
+
+
+
+
+
+
+# 合成
+
+
+
+## 合成策略
+
+
+
+合成策略，图：
+
+> 
+>
+> ![image-20240627013307139](合成器surfaceFlinger.assets/image-20240627013307139.png)
+>
+> 其中①和②
+>
+> [图来源：](https://www.cnblogs.com/hellokitty2/p/17637480.html#:~:text=%E5%9B%BE%E6%89%80%E7%A4%BA%EF%BC%8C-,%E6%AD%A4%E5%9B%BE%E6%9D%A5%E6%BA%90%E4%BA%8EAndrod%E5%AE%98%E7%BD%91,-%EF%BC%9A)：
+
+~~即：~~
+
+> 1、~~SF合成：重新draw（即SF 的client方式）~~ ------ 最终GPU承载（~~软件部分：sf的openGl调用~~） 
+>
+> 2、~~硬件合成（即SF 的device方式）~~ ------ 最终显示硬件DPU承载（~~软部分：sf转发给<font color='red'>hwc-drm</font>，最终<font color='red'>DPU</font>计算~~）
+
+
+
+优缺点：
+
+> 1、硬件合成：
+>
+> ​           效率更高（不占GPU资源）
+>
+> ​           **但是有四层的限制**
+>
+> 2、sf合成：
+>
+> ​       ~~自然~~
+
+
+
+代码证明：
+
+https://www.cnblogs.com/hellokitty2/p/17637480.html Android P 图形显示系统（一）硬件合成HWC2  
+
+
+
+
+
+
+
+
+
+TODO:
+
+> 用哪一种，判断准则：
+>
+> 代码证明
+
+
+
+
+
+参考:  [[096\]图解HWC的合成策略 - 简书 (jianshu.com)](https://www.jianshu.com/p/c6d46efd84f9)  
+
+假设该屏幕支持4个Planes：
+
+> client合成，会占用一个屏幕 Plane
+>
+> 剩余 ---->  直接硬件合成
+
+
+
+
+
+## 渲染与显示分离-----HWC
+
+图，同上。
+
+> ![img](合成器surfaceFlinger.assets/1117305-20230817140910580-821209824.webp)
+>
+> [图来源：](https://www.cnblogs.com/hellokitty2/p/17637480.html#:~:text=%E5%9B%BE%E6%89%80%E7%A4%BA%EF%BC%8C-,%E6%AD%A4%E5%9B%BE%E6%9D%A5%E6%BA%90%E4%BA%8EAndrod%E5%AE%98%E7%BD%91,-%EF%BC%9A)：
+
+有没有分离的判断标志-------------即有没有
+
+> 上面一条路：GPU渲染完，直接到Display   -----> 未分离
+>
+> ​                     GPU渲染完，回到sf 给到Dpu（HWC）进一步合成
+
+**分离的必要性**：降低GPU功耗
+
+
+
+![image-20240627012931158](合成器surfaceFlinger.assets/image-20240627012931158.png)
+
+
+
+### weston一模一样：
+
+硬件合成  ---> weston_plane相关流程
+
+
+
+
+
+## 从vsync角度来看  渲染 与合成
+
+图：
+
+![img](合成器surfaceFlinger.assets/4525ee02ce6e6ebd0b5b76192a356e8d.webp)
+
+[图来源：](https://blog.csdn.net/tkwxty/article/details/136154204#:~:text=%E4%B8%AD%2CSF%E6%89%A7%E8%A1%8C-,%E7%9A%84%E4%B8%BB%E8%A6%81%E9%80%BB%E8%BE%91%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F,-%E4%B8%80.%E4%BB%8Edumpsys)
+
+TODO:
+
+> 没懂 VSYNC   OFFSET 与  DrawCallback
+
+
+
+
+
+## 跨空间跨设备的同步机制-----Fence
+
+图：
+https://zhuanlan.zhihu.com/p/543222402#:~:text=%E8%B7%A8%E8%AE%BE%E5%A4%87%E6%8C%87%E7%9A%84%E6%98%AF%E4%B8%A4%E4%B8%AA%E8%AE%BE%E5%A4%87%E7%9A%84%E9%A9%B1%E5%8A%A8%E4%B9%8B%E9%97%B4%E6%88%96%E8%80%85%E9%A9%B1%E5%8A%A8%E4%B8%8E%E8%BF%9B%E7%A8%8B
+
+
+
+
+
+## 维测
+
+
+
+# 选取什么引擎来render（~~RenderEngineType~~）
+
+
+
+参考：~~[RenderEngineType简介](https://cloud.tencent.com/developer/article/2002551)~~
+
+时机：自然， ~~sf 初始化~~
+
+> %accordion%sf 初始化 代码%accordion%
+>
+> ```java
+> SurfaceFlinger::init() 
+> 	if (auto type = chooseRenderEngineTypeViaSysProp()) {
+>   builder.setRenderEngineType(type.value());
+> }
+> mRenderEngine = renderengine::RenderEngine::create(builder.build());
+> mCompositionEngine->setRenderEngine(mRenderEngine.get());
+> ```
+>
+> %/accordion%
+
+RenderEngineType 配置：
+
+> 1、初始化配置： ~~自然，配置文件~~ 
+>
+> 2、动态配置：
+>
+> ```java
+> adb root && adb remount
+> adb shell setprop  debug.renderengine.backend  threaded
+> adb shell getprop | grep renderengine
+> ```
+>
+> https://gitcode.csdn.net/65ec51a41a836825ed798396.html?dp_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NDUyNjk2LCJleHAiOjE3MTgxMTIxNTAsImlhdCI6MTcxNzUwNzM1MCwidXNlcm5hbWUiOiJ3ZWl4aW5fMzgxOTkzODEifQ.Ez_sTs8Ke3zT7X6a7aHgIG0OpQxQHIv9tX_xybwUqH8
+
+具体类型：
+
+> ```java
+> enum class RenderEngineType {
+> GLES = 1, //opengl
+> THREADED = 2, //opengl异步线程
+> SKIA_GL = 3, //skia
+> SKIA_GL_THREADED = 4, //skia异步线程
+> SKIA_VK = 5,  // vulkan
+> SKIA_VK_THREADED = 6,
+> };
+> ```
+>
+> 即：
+>
+> |        | 同步     | 异步             |
+> | :----- | :------- | ---------------- |
+> | skia   | SKIA_GL  | SKIA_GL_THREADED |
+> | opengl | GLES     | THREADED         |
+> | vulkan | ........ | ..........       |
+
+
+
+
+
+承载的类，继承关系：
+
+```java
+RenderEngine	------>  承载合成能力
+	├─SkiaRenderEngine		
+	│	└─SkiaVkRenderEngine		
+	├─RenderEngineThreaded		
+	└─GLESRenderEngine	
+```
+
+
+
+
+
+
+
+App侧：
+
+> 渲染用的  SkiaOpenGLPipeline  和  SkiaVulkanPipeline  ------->  作用：RenderNode（view）转化成  绘图指令  最后送给GPU
+
+目录：
+
+> frameworks/base/libs<font color='red'>/hwui</font>/pipeline/skia/SkiaPipeline.cpp  
+>
+> **hwui是目录**
+
+
+
+
+
+
+
+
+
 # SF合成之GPU合成
 
 https://blog.csdn.net/tkwxty/article/details/136154204         Android下SF合成流程重学习之GPU合成
@@ -259,6 +494,35 @@ drawMesh  画网格，来理解opengl：
 
 
 
+# 补充sf  贴图过程
+
+**必然有**，**贴图过程**（~~把client的图，贴到frameBuffer上~~）：
+
+```java
+status_t GLESRenderEngine::drawLayers(
+     if (layer->source.buffer.buffer != nullptr) {
+			.................
+            sp<GraphicBuffer> gBuf = layer->source.buffer.buffer->getBuffer(); // 获取client的buffer
+            .................
+            bindExternalTextureBuffer(layer->source.buffer.textureName, gBuf,
+                                      layer->source.buffer.fence);
+         	Texture texture(Texture::TEXTURE_EXTERNAL, layer->source.buffer.textureName); // 【】 贴图
+```
+
+
+
+
+
+
+
+weston的贴图：
+
+> gl_shader_config_set_input_textures  // 配置输入纹理的着色器
+>
+> [参考：](https://blog.csdn.net/qqzhaojianbiao/article/details/129789575)
+
+
+
 
 
 # 参考
@@ -309,6 +573,18 @@ https://www.bilibili.com/video/BV1py411q7BV?t=5924.9
 
 ![image-20240626003928366](合成器surfaceFlinger.assets/image-20240626003928366.png)
 
+[图片来源](https://www.bilibili.com/video/BV1py411q7BV?t=471.6)
+
+
+
+
+
+
+
+
+
+
+
 ![image-20240626004003396](合成器surfaceFlinger.assets/image-20240626004003396.png)
 
 
@@ -330,3 +606,5 @@ shader:
 ![image-20240626004451773](合成器surfaceFlinger.assets/image-20240626004451773.png)
 
 --------> 对高频shader检测
+
+**GPU的效率   *≈*     shader的编译与执行 的效率**

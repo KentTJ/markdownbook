@@ -152,7 +152,7 @@ TODO:
 
 > ![img](合成器surfaceFlinger.assets/1117305-20230817140910580-821209824.webp)
 >
-> [图来源：](https://www.cnblogs.com/hellokitty2/p/17637480.html#:~:text=%E5%9B%BE%E6%89%80%E7%A4%BA%EF%BC%8C-,%E6%AD%A4%E5%9B%BE%E6%9D%A5%E6%BA%90%E4%BA%8EAndrod%E5%AE%98%E7%BD%91,-%EF%BC%9A)：
+> [图来源](https://www.cnblogs.com/hellokitty2/p/17637480.html#:~:text=%E5%9B%BE%E6%89%80%E7%A4%BA%EF%BC%8C-,%E6%AD%A4%E5%9B%BE%E6%9D%A5%E6%BA%90%E4%BA%8EAndrod%E5%AE%98%E7%BD%91,-%EF%BC%9A)
 
 有没有分离的判断标志-------------即有没有
 
@@ -364,113 +364,121 @@ Framebuffer 与 GPU交互，熟悉的味道：
 
 >   输入buffer  ----> 生成纹理（贴图）  --->  shader贴图（纹理）到最终的FrameBuffer上（glDrawArrays）
 >
->   详细：
+>   %accordion%详细代码：GLESRenderEngine::drawLayers %accordion%
+>
+>   
 >
 >   ```java
 >   文件：frameworks/native/libs/renderengine/gl/GLESRenderEngine.cpp
 >   
 >   status_t GLESRenderEngine::drawLayers(const DisplaySettings& display,
->                                         const std::vector<const LayerSettings*>& layers,
->                                         ANativeWindowBuffer* const buffer,
->                                         const bool useFramebufferCache, base::unique_fd&& bufferFence,
->                                         base::unique_fd* drawFence) {
->            ...
->            // 设置顶点和纹理坐标的size
->            Mesh mesh = Mesh::Builder()
->                           .setPrimitive(Mesh::TRIANGLE_FAN)
->                           .setVertices(4 /* count */, 2 /* size */)
->                           .setTexCoords(2 /* size */)
->                           .setCropCoords(2 /* size */)
->                           .build();
->            for (auto const layer : layers) {
->             //遍历outputlayer
->                ...
->             //获取layer的大小
->           const FloatRect bounds = layer->geometry.boundaries;
->           Mesh::VertexArray<vec2> position(mesh.getPositionArray<vec2>());
->           // 设置顶点的坐标，逆时针方向
->           position[0] = vec2(bounds.left, bounds.top);
->           position[1] = vec2(bounds.left, bounds.bottom);
->           position[2] = vec2(bounds.right, bounds.bottom);
->           position[3] = vec2(bounds.right, bounds.top);
->            //设置crop的坐标
->           setupLayerCropping(*layer, mesh);
->           // 设置颜色矩阵
->           setColorTransform(display.colorTransform * layer->colorTransform);
+>                                        const std::vector<const LayerSettings*>& layers,
+>                                        ANativeWindowBuffer* const buffer,
+>                                        const bool useFramebufferCache, base::unique_fd&& bufferFence,
+>                                        base::unique_fd* drawFence) {
 >           ...
->           // Buffer相关设置
->           if (layer->source.buffer.buffer != nullptr) {
->               disableTexture = false;
->               isOpaque = layer->source.buffer.isOpaque;
->                // layer的buffer，理解为输入的buffer
->               sp<GraphicBuffer> gBuf = layer->source.buffer.buffer;
->               // textureName是创建BufferQueuelayer时生成的，用来标识这个layer，
->               // fence是acquire fence
->               bindExternalTextureBuffer(layer->source.buffer.textureName, gBuf,  // 【】
->                                         layer->source.buffer.fence);
->   
+>           // 设置顶点和纹理坐标的size
+>           Mesh mesh = Mesh::Builder()
+>                          .setPrimitive(Mesh::TRIANGLE_FAN)
+>                          .setVertices(4 /* count */, 2 /* size */)
+>                          .setTexCoords(2 /* size */)
+>                          .setCropCoords(2 /* size */)
+>                          .build();
+>           for (auto const layer : layers) {
+>            //遍历outputlayer
 >               ...
->               // 设置纹理坐标，也是逆时针
->               renderengine::Mesh::VertexArray<vec2> texCoords(mesh.getTexCoordArray<vec2>());
->               texCoords[0] = vec2(0.0, 0.0);
->               texCoords[1] = vec2(0.0, 1.0);
->               texCoords[2] = vec2(1.0, 1.0);
->               texCoords[3] = vec2(1.0, 0.0);
->              // 设置纹理的参数，glTexParameteri
->               setupLayerTexturing(texture);
->           }
+>            //获取layer的大小
+>          const FloatRect bounds = layer->geometry.boundaries;
+>          Mesh::VertexArray<vec2> position(mesh.getPositionArray<vec2>());
+>          // 设置顶点的坐标，逆时针方向
+>          position[0] = vec2(bounds.left, bounds.top);
+>          position[1] = vec2(bounds.left, bounds.bottom);
+>          position[2] = vec2(bounds.right, bounds.bottom);
+>          position[3] = vec2(bounds.right, bounds.top);
+>           //设置crop的坐标
+>          setupLayerCropping(*layer, mesh);
+>          // 设置颜色矩阵
+>          setColorTransform(display.colorTransform * layer->colorTransform);
+>          ...
+>          // Buffer相关设置
+>          if (layer->source.buffer.buffer != nullptr) {
+>              disableTexture = false;
+>              isOpaque = layer->source.buffer.isOpaque;
+>               // layer的buffer，理解为输入的buffer
+>              sp<GraphicBuffer> gBuf = layer->source.buffer.buffer;
+>              // textureName是创建BufferQueuelayer时生成的，用来标识这个layer，
+>              // fence是acquire fence
+>              bindExternalTextureBuffer(layer->source.buffer.textureName, gBuf,  // 【】
+>                                        layer->source.buffer.fence);
 >   
->           // 【】处理圆角
->           if (radius > 0.0 && color.a >= 1.0f && isOpaque) {
->               handleRoundedCorners(display, layer, mesh);
->           } else {
->               drawMesh(mesh);
->           }
+>              ...
+>              // 设置纹理坐标，也是逆时针
+>              renderengine::Mesh::VertexArray<vec2> texCoords(mesh.getTexCoordArray<vec2>());
+>              texCoords[0] = vec2(0.0, 0.0);
+>              texCoords[1] = vec2(0.0, 1.0);
+>              texCoords[2] = vec2(1.0, 1.0);
+>              texCoords[3] = vec2(1.0, 0.0);
+>             // 设置纹理的参数，glTexParameteri
+>              setupLayerTexturing(texture);
+>          }
+>   
+>          // 【】处理圆角
+>          if (radius > 0.0 && color.a >= 1.0f && isOpaque) {
+>              handleRoundedCorners(display, layer, mesh);
+>          } else {
+>              drawMesh(mesh);
+>          }
 >   
 >   
 >   status_t GLESRenderEngine::bindExternalTextureBuffer(uint32_t texName,
->                                                        const sp<GraphicBuffer>& buffer,
->                                                        const sp<Fence>& bufferFence) {
->       ..............
+>                                                       const sp<GraphicBuffer>& buffer,
+>                                                       const sp<Fence>& bufferFence) {
+>      ..............
 >   
->       bool found = false;
->       {
->           // 在ImageCache里面找有没有相同的buffer
->           std::lock_guard<std::mutex> lock(mRenderingMutex);
->           auto cachedImage = mImageCache.find(buffer->getId());
->           found = (cachedImage != mImageCache.end());
->       }
+>      bool found = false;
+>      {
+>          // 在ImageCache里面找有没有相同的buffer
+>          std::lock_guard<std::mutex> lock(mRenderingMutex);
+>          auto cachedImage = mImageCache.find(buffer->getId());
+>          found = (cachedImage != mImageCache.end());
+>      }
 >   
->       // If we couldn't find the image in the cache at this time, then either
->       // SurfaceFlinger messed up registering the buffer ahead of time or we got
->       // backed up creating other EGLImages.
->       if (!found) {
->           //【】如果ImageCache里面没有则需要重新创建一个EGLImage，创建输入的EGLImage是在ImageManager线程里面，利用notify唤醒机制
->           status_t cacheResult = mImageManager->cache(buffer);
->           if (cacheResult != NO_ERROR) {
->               return cacheResult;
->           }
->       }
+>      // If we couldn't find the image in the cache at this time, then either
+>      // SurfaceFlinger messed up registering the buffer ahead of time or we got
+>      // backed up creating other EGLImages.
+>      if (!found) {
+>          //【】如果ImageCache里面没有则需要重新创建一个EGLImage，创建输入的EGLImage是在ImageManager线程里面，利用notify唤醒机制
+>          status_t cacheResult = mImageManager->cache(buffer);
+>          if (cacheResult != NO_ERROR) {
+>              return cacheResult;
+>          }
+>      }
 >   
->       ...
->           //【】把EGLImage转换成纹理，类型为GL_TEXTURE_EXTERNAL_OES
->           bindExternalTextureImage(texName, *cachedImage->second);
->           mTextureView.insert_or_assign(texName, buffer->getId());
->       }
+>      ...
+>          //【】把EGLImage转换成纹理，类型为GL_TEXTURE_EXTERNAL_OES
+>          bindExternalTextureImage(texName, *cachedImage->second);
+>          mTextureView.insert_or_assign(texName, buffer->getId());
+>      }
 >   }
 >   
 >   void GLESRenderEngine::bindExternalTextureImage(uint32_t texName, const Image& image) {
->       ATRACE_CALL();
->       const GLImage& glImage = static_cast<const GLImage&>(image);
->       const GLenum target = GL_TEXTURE_EXTERNAL_OES;
->        //绑定纹理，纹理ID为texName
->       glBindTexture(target, texName);
->       if (glImage.getEGLImage() != EGL_NO_IMAGE_KHR) {
->           // 把EGLImage转换成纹理，纹理ID为texName
->           glEGLImageTargetTexture2DOES(target, static_cast<GLeglImageOES>(glImage.getEGLImage()));
->       }
+>      ATRACE_CALL();
+>      const GLImage& glImage = static_cast<const GLImage&>(image);
+>      const GLenum target = GL_TEXTURE_EXTERNAL_OES;
+>       //绑定纹理，纹理ID为texName
+>      glBindTexture(target, texName);
+>      if (glImage.getEGLImage() != EGL_NO_IMAGE_KHR) {
+>          // 把EGLImage转换成纹理，纹理ID为texName
+>          glEGLImageTargetTexture2DOES(target, static_cast<GLeglImageOES>(glImage.getEGLImage()));
+>      }
 >   }
 >   ```
+>
+>   
+>
+>   %/accordion%
+
+
 
 生活化模型---------见weixin
 

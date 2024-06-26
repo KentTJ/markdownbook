@@ -238,7 +238,7 @@ RenderEngineType 配置：
 > adb shell getprop | grep renderengine
 > ```
 >
-> https://gitcode.csdn.net/65ec51a41a836825ed798396.html?dp_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NDUyNjk2LCJleHAiOjE3MTgxMTIxNTAsImlhdCI6MTcxNzUwNzM1MCwidXNlcm5hbWUiOiJ3ZWl4aW5fMzgxOTkzODEifQ.Ez_sTs8Ke3zT7X6a7aHgIG0OpQxQHIv9tX_xybwUqH8
+> [Android实用技巧之adb命令：getprop,setprop命令使用](https://gitcode.csdn.net/65ec51a41a836825ed798396.html?dp_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NDUyNjk2LCJleHAiOjE3MTgxMTIxNTAsImlhdCI6MTcxNzUwNzM1MCwidXNlcm5hbWUiOiJ3ZWl4aW5fMzgxOTkzODEifQ.Ez_sTs8Ke3zT7X6a7aHgIG0OpQxQHIv9tX_xybwUqH8)
 
 具体类型：
 
@@ -364,7 +364,7 @@ Framebuffer 与 GPU交互，熟悉的味道：
 
 >   输入buffer  ----> 生成纹理（贴图）  --->  shader贴图（纹理）到最终的FrameBuffer上（glDrawArrays）
 >
->   %accordion%详细代码：GLESRenderEngine::drawLayers %accordion%
+>   %accordion%详细代码：**GLESRenderEngine::drawLayers** %accordion%
 >
 >   
 >

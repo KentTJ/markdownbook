@@ -1,0 +1,2782 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>sf特效 · Kent的博客</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-toggle-chapters/toggle.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-page-treeview/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-sidebar-style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-auto-scroll-table/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-click-reveal/click_reveal.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-accordion/accordion.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-pageview-count/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="合成器surfaceFlinger.html" />
+    
+    
+    <link rel="prev" href="Display系统.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    0_图形系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../0_Graphic系统总论/0_Graphic系统总论.html">
+            
+                <a href="../0_Graphic系统总论/0_Graphic系统总论.html">
+            
+                    
+                    0_Graphic系统总论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../1_Render系统/">
+            
+                <a href="../1_Render系统/">
+            
+                    
+                    1_Render系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="../1_Render系统/opengl.html">
+            
+                <a href="../1_Render系统/opengl.html">
+            
+                    
+                    Opengl
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    3_Display系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.1" data-path="Display系统.html">
+            
+                <a href="Display系统.html">
+            
+                    
+                    Display系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.3.2" data-path="sf特效.html">
+            
+                <a href="sf特效.html">
+            
+                    
+                    sf特效
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.3" data-path="合成器surfaceFlinger.html">
+            
+                <a href="合成器surfaceFlinger.html">
+            
+                    
+                    合成器surfaceFlinger
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../其他/">
+            
+                <a href="../其他/">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.4.1" data-path="../其他/QT.html">
+            
+                <a href="../其他/QT.html">
+            
+                    
+                    QT
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.2" data-path="../其他/多屏显示分析.html">
+            
+                <a href="../其他/多屏显示分析.html">
+            
+                    
+                    多屏显示分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../../0_输入系统/">
+            
+                <a href="../../0_输入系统/">
+            
+                    
+                    0_输入系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../../0_输入系统/Input.html">
+            
+                <a href="../../0_输入系统/Input.html">
+            
+                    
+                    Input
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../../0_输入系统/全局手势.html">
+            
+                <a href="../../0_输入系统/全局手势.html">
+            
+                    
+                    全局手势
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../../0_进程管理/">
+            
+                <a href="../../0_进程管理/">
+            
+                    
+                    0_进程管理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../../0_进程管理/0_AMS.html">
+            
+                <a href="../../0_进程管理/0_AMS.html">
+            
+                    
+                    0 AMS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../../0_进程管理/App保活的方式.html">
+            
+                <a href="../../0_进程管理/App保活的方式.html">
+            
+                    
+                    App保活的方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../../0_进程管理/后台杀进程.html">
+            
+                <a href="../../0_进程管理/后台杀进程.html">
+            
+                    
+                    后台杀进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../../0_进程管理/杀进程原理.html">
+            
+                <a href="../../0_进程管理/杀进程原理.html">
+            
+                    
+                    杀进程原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../../0_进程管理/进程与子进程.html">
+            
+                <a href="../../0_进程管理/进程与子进程.html">
+            
+                    
+                    进程与子进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../../0_进程管理/进程管理系列0_总论.html">
+            
+                <a href="../../0_进程管理/进程管理系列0_总论.html">
+            
+                    
+                    进程管理系列0_总论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../../0_进程管理/进程管理系列1之进程的创建.html">
+            
+                <a href="../../0_进程管理/进程管理系列1之进程的创建.html">
+            
+                    
+                    进程管理系列1之进程的创建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../../0_进程管理/进程管理系列2之进程的优先级.html">
+            
+                <a href="../../0_进程管理/进程管理系列2之进程的优先级.html">
+            
+                    
+                    进程管理系列2之进程的优先级
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="../../0_进程管理/进程管理系列3之内存回收.html">
+            
+                <a href="../../0_进程管理/进程管理系列3之内存回收.html">
+            
+                    
+                    进程管理系列3之内存回收
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../../Andriod/">
+            
+                <a href="../../Andriod/">
+            
+                    
+                    Andriod
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../../Andriod/关键流程/">
+            
+                <a href="../../Andriod/关键流程/">
+            
+                    
+                    关键流程
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="../../Andriod/关键流程/InitSystem.html">
+            
+                <a href="../../Andriod/关键流程/InitSystem.html">
+            
+                    
+                    Init System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="../../Andriod/关键流程/startAPP.html">
+            
+                <a href="../../Andriod/关键流程/startAPP.html">
+            
+                    
+                    Start APP
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../../Andriod/其他核心服务/">
+            
+                <a href="../../Andriod/其他核心服务/">
+            
+                    
+                    其他核心服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="../../Andriod/其他核心服务/1_InputMethod.html">
+            
+                <a href="../../Andriod/其他核心服务/1_InputMethod.html">
+            
+                    
+                    1 Input Method
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="../../Andriod/其他核心服务/multi-client-ime.html">
+            
+                <a href="../../Andriod/其他核心服务/multi-client-ime.html">
+            
+                    
+                    Multi Client Ime
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="../../Andriod/其他核心服务/无障碍_.html">
+            
+                <a href="../../Andriod/其他核心服务/无障碍_.html">
+            
+                    
+                    无障碍_
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../../Andriod/0_AndriodSystem.html">
+            
+                <a href="../../Andriod/0_AndriodSystem.html">
+            
+                    
+                    0 Andriod System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../../Andriod/log框架.html">
+            
+                <a href="../../Andriod/log框架.html">
+            
+                    
+                    log框架
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../../Andriod/permissions.html">
+            
+                <a href="../../Andriod/permissions.html">
+            
+                    
+                    Permissions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../../Andriod/模型.html">
+            
+                <a href="../../Andriod/模型.html">
+            
+                    
+                    模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../../coding/">
+            
+                <a href="../../coding/">
+            
+                    
+                    Coding
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../../coding/0_computorBase/">
+            
+                <a href="../../coding/0_computorBase/">
+            
+                    
+                    0 Computor Base
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1.1" data-path="../../coding/0_computorBase/DesignPattern.html">
+            
+                <a href="../../coding/0_computorBase/DesignPattern.html">
+            
+                    
+                    Design Pattern
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.2" data-path="../../coding/0_computorBase/HowToReadCode.html">
+            
+                <a href="../../coding/0_computorBase/HowToReadCode.html">
+            
+                    
+                    How To Read Code
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.3" data-path="../../coding/0_computorBase/HowWritecode.html">
+            
+                <a href="../../coding/0_computorBase/HowWritecode.html">
+            
+                    
+                    How Writecode
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.4" data-path="../../coding/0_computorBase/linux.html">
+            
+                <a href="../../coding/0_computorBase/linux.html">
+            
+                    
+                    Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.5" data-path="../../coding/0_computorBase/linux文件系统.html">
+            
+                <a href="../../coding/0_computorBase/linux文件系统.html">
+            
+                    
+                    linux文件系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.6" data-path="../../coding/0_computorBase/OperateSystem.html">
+            
+                <a href="../../coding/0_computorBase/OperateSystem.html">
+            
+                    
+                    Operate System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.7" data-path="../../coding/0_computorBase/refactor.html">
+            
+                <a href="../../coding/0_computorBase/refactor.html">
+            
+                    
+                    Refactor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.8" data-path="../../coding/0_computorBase/用户_用户组.html">
+            
+                <a href="../../coding/0_computorBase/用户_用户组.html">
+            
+                    
+                    用户_用户组
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.9" data-path="../../coding/0_computorBase/解耦.html">
+            
+                <a href="../../coding/0_computorBase/解耦.html">
+            
+                    
+                    解耦
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../../coding/0_IPC/">
+            
+                <a href="../../coding/0_IPC/">
+            
+                    
+                    0 IPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.2.1" data-path="../../coding/0_IPC/AndriodIPC.html">
+            
+                <a href="../../coding/0_IPC/AndriodIPC.html">
+            
+                    
+                    Andriod IPC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.2" data-path="../../coding/0_IPC/IPC前提_序列化.html">
+            
+                <a href="../../coding/0_IPC/IPC前提_序列化.html">
+            
+                    
+                    IPC前提_序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.3" data-path="../../coding/0_IPC/socket.html">
+            
+                <a href="../../coding/0_IPC/socket.html">
+            
+                    
+                    Socket
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.4" data-path="../../coding/0_IPC/线程间通信.html">
+            
+                <a href="../../coding/0_IPC/线程间通信.html">
+            
+                    
+                    线程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../../coding/0_性能/">
+            
+                <a href="../../coding/0_性能/">
+            
+                    
+                    0_性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.3.1" data-path="../../coding/0_性能/profiler.html">
+            
+                <a href="../../coding/0_性能/profiler.html">
+            
+                    
+                    Profiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.2" data-path="../../coding/0_性能/Systrace.html">
+            
+                <a href="../../coding/0_性能/Systrace.html">
+            
+                    
+                    Systrace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.3" data-path="../../coding/0_性能/内存.html">
+            
+                <a href="../../coding/0_性能/内存.html">
+            
+                    
+                    内存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.4" data-path="../../coding/0_性能/性能_.html">
+            
+                <a href="../../coding/0_性能/性能_.html">
+            
+                    
+                    性能_
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../../coding/1_稳定性/">
+            
+                <a href="../../coding/1_稳定性/">
+            
+                    
+                    1_稳定性
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.4.1" data-path="../../coding/1_稳定性/ANR.html">
+            
+                <a href="../../coding/1_稳定性/ANR.html">
+            
+                    
+                    ANR
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4.2" data-path="../../coding/1_稳定性/WatchDog.html">
+            
+                <a href="../../coding/1_稳定性/WatchDog.html">
+            
+                    
+                    Watch Dog
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../../coding/AndriodCar/">
+            
+                <a href="../../coding/AndriodCar/">
+            
+                    
+                    Andriod Car
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.5.1" data-path="../../coding/AndriodCar/CarService.html">
+            
+                <a href="../../coding/AndriodCar/CarService.html">
+            
+                    
+                    Car Service
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="../../coding/AndroidTool/">
+            
+                <a href="../../coding/AndroidTool/">
+            
+                    
+                    Android Tool
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.6.1" data-path="../../coding/AndroidTool/HierarchyView.html">
+            
+                <a href="../../coding/AndroidTool/HierarchyView.html">
+            
+                    
+                    Hierarchy View
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="../../coding/App/">
+            
+                <a href="../../coding/App/">
+            
+                    
+                    App
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.7.1" data-path="../../coding/App/APK_64bit_32bit.html">
+            
+                <a href="../../coding/App/APK_64bit_32bit.html">
+            
+                    
+                    APK 64 Bit 32 Bit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.2" data-path="../../coding/App/APP开发.html">
+            
+                <a href="../../coding/App/APP开发.html">
+            
+                    
+                    APP开发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.3" data-path="../../coding/App/launcher3.html">
+            
+                <a href="../../coding/App/launcher3.html">
+            
+                    
+                    Launcher 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.4" data-path="../../coding/App/SystemUI.html">
+            
+                <a href="../../coding/App/SystemUI.html">
+            
+                    
+                    System UI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.5" data-path="../../coding/App/小程序.html">
+            
+                <a href="../../coding/App/小程序.html">
+            
+                    
+                    小程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8" data-path="../../coding/CodingLanguage/">
+            
+                <a href="../../coding/CodingLanguage/">
+            
+                    
+                    Coding Language
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.8.1" data-path="../../coding/CodingLanguage/c_cpp_java.html">
+            
+                <a href="../../coding/CodingLanguage/c_cpp_java.html">
+            
+                    
+                    C Cpp Java
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.2" data-path="../../coding/CodingLanguage/java反射.html">
+            
+                <a href="../../coding/CodingLanguage/java反射.html">
+            
+                    
+                    java反射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.3" data-path="../../coding/CodingLanguage/JNI.html">
+            
+                <a href="../../coding/CodingLanguage/JNI.html">
+            
+                    
+                    JNI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.4" data-path="../../coding/CodingLanguage/js.html">
+            
+                <a href="../../coding/CodingLanguage/js.html">
+            
+                    
+                    Js
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.5" data-path="../../coding/CodingLanguage/python.html">
+            
+                <a href="../../coding/CodingLanguage/python.html">
+            
+                    
+                    Python
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.6" data-path="../../coding/CodingLanguage/R.html">
+            
+                <a href="../../coding/CodingLanguage/R.html">
+            
+                    
+                    R
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9" data-path="../../coding/Features/">
+            
+                <a href="../../coding/Features/">
+            
+                    
+                    Features
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.9.1" data-path="../../coding/Features/其他特性.html">
+            
+                <a href="../../coding/Features/其他特性.html">
+            
+                    
+                    其他特性
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.2" data-path="../../coding/Features/多用户.html">
+            
+                <a href="../../coding/Features/多用户.html">
+            
+                    
+                    多用户
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.10" >
+            
+                <span>
+            
+                    
+                    Kde
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.10.1" data-path="../../coding/kde/kwin.html">
+            
+                <a href="../../coding/kde/kwin.html">
+            
+                    
+                    Kwin
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.11" data-path="../../coding/other%20OS/README.md">
+            
+                <span>
+            
+                    
+                    Other OS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.11.1" data-path="../../coding/other%20OS/OpenHarmony.md">
+            
+                <span>
+            
+                    
+                    Open Harmony
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.11.2" data-path="../../coding/other%20OS/otherOS.md">
+            
+                <span>
+            
+                    
+                    Other OS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12" data-path="../../coding/多线程/">
+            
+                <a href="../../coding/多线程/">
+            
+                    
+                    多线程
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.12.1" data-path="../../coding/多线程/多线程的模型.html">
+            
+                <a href="../../coding/多线程/多线程的模型.html">
+            
+                    
+                    多线程的模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.2" data-path="../../coding/多线程/线程池与binder线程池.html">
+            
+                <a href="../../coding/多线程/线程池与binder线程池.html">
+            
+                    
+                    线程池与binder线程池
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.13" data-path="../../coding/文件系统结构/文件系统结构.html">
+            
+                <a href="../../coding/文件系统结构/文件系统结构.html">
+            
+                    
+                    文件系统结构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.14" data-path="../../coding/虚拟化/虚拟化.html">
+            
+                <a href="../../coding/虚拟化/虚拟化.html">
+            
+                    
+                    虚拟化
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../../communication/communication.html">
+            
+                <a href="../../communication/communication.html">
+            
+                    
+                    Communication
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../../English/English.html">
+            
+                <a href="../../English/English.html">
+            
+                    
+                    English
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../../Investment/Investment.html">
+            
+                <a href="../../Investment/Investment.html">
+            
+                    
+                    Investment
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../../Naturalaw/">
+            
+                <a href="../../Naturalaw/">
+            
+                    
+                    Naturalaw
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../../Naturalaw/ReadingAndThinking.html">
+            
+                <a href="../../Naturalaw/ReadingAndThinking.html">
+            
+                    
+                    Reading And Thinking
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../../Naturalaw/修.html">
+            
+                <a href="../../Naturalaw/修.html">
+            
+                    
+                    修
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../../Scriptures/">
+            
+                <a href="../../Scriptures/">
+            
+                    
+                    Scriptures
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../../Scriptures/金刚经.html">
+            
+                <a href="../../Scriptures/金刚经.html">
+            
+                    
+                    金刚经
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../../Tool/">
+            
+                <a href="../../Tool/">
+            
+                    
+                    Tool
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../../Tool/aospBuilding.html">
+            
+                <a href="../../Tool/aospBuilding.html">
+            
+                    
+                    Aosp Building
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="../../Tool/AS.html">
+            
+                <a href="../../Tool/AS.html">
+            
+                    
+                    AS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="../../Tool/building.html">
+            
+                <a href="../../Tool/building.html">
+            
+                    
+                    Building
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="../../Tool/chroot.html">
+            
+                <a href="../../Tool/chroot.html">
+            
+                    
+                    Chroot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="../../Tool/clion.html">
+            
+                <a href="../../Tool/clion.html">
+            
+                    
+                    Clion
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.6" data-path="../../Tool/command.html">
+            
+                <a href="../../Tool/command.html">
+            
+                    
+                    Command
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.7" data-path="../../Tool/debugSkills.html">
+            
+                <a href="../../Tool/debugSkills.html">
+            
+                    
+                    Debug Skills
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.8" data-path="../../Tool/Docker.html">
+            
+                <a href="../../Tool/Docker.html">
+            
+                    
+                    Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.9" data-path="../../Tool/gdb.html">
+            
+                <a href="../../Tool/gdb.html">
+            
+                    
+                    Gdb
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.10" data-path="../../Tool/git.html">
+            
+                <a href="../../Tool/git.html">
+            
+                    
+                    Git
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.11" data-path="../../Tool/phoneCommand.html">
+            
+                <a href="../../Tool/phoneCommand.html">
+            
+                    
+                    Phone Command
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.12" data-path="../../Tool/search.html">
+            
+                <a href="../../Tool/search.html">
+            
+                    
+                    Search
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.13" data-path="../../Tool/software_pcSettings.html">
+            
+                <a href="../../Tool/software_pcSettings.html">
+            
+                    
+                    Software Pc Settings
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.14" data-path="../../Tool/sourceInsight.html">
+            
+                <a href="../../Tool/sourceInsight.html">
+            
+                    
+                    Source Insight
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.15" data-path="../../Tool/tmux_linux.html">
+            
+                <a href="../../Tool/tmux_linux.html">
+            
+                    
+                    Tmux Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.16" data-path="../../Tool/编译.html">
+            
+                <a href="../../Tool/编译.html">
+            
+                    
+                    编译
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../../02-编译weston.html">
+            
+                <a href="../../02-编译weston.html">
+            
+                    
+                    02-编译weston
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../../CheckList.html">
+            
+                <a href="../../CheckList.html">
+            
+                    
+                    Check List
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >sf特效</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x76EE;&#x5F55;"><b>1. </b>&#x76EE;&#x5F55;</a></li><li><span class="title-icon "></span><a href="#&#x7A97;&#x53E3;&#x7684;&#x9634;&#x5F71;&#x548C;&#x5706;&#x89D2;"><b>2. </b>&#x7A97;&#x53E3;&#x7684;&#x9634;&#x5F71;&#x548C;&#x5706;&#x89D2;</a></li><li><span class="title-icon "></span><a href="#&#x5BF9;&#x5E94;&#x7684;shader"><b>3. </b>&#x5BF9;&#x5E94;&#x7684;shader</a></li><ul><li><span class="title-icon "></span><a href="#&#x65B9;&#x6CD5;&#x4E00;-&#x5B89;&#x5353;&#x7684;shader&#xFF1A;"><b>3.1. </b>&#x65B9;&#x6CD5;&#x4E00; &#x5B89;&#x5353;&#x7684;shader&#xFF1A;</a></li><ul><li><span class="title-icon "></span><a href="#&#x4E3B;&#x8981;&#x6D41;&#x7A0B;&#xFF1A;"><b>3.1.1. </b>&#x4E3B;&#x8981;&#x6D41;&#x7A0B;&#xFF1A;</a></li></ul><li><span class="title-icon "></span><a href="#&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;"><b>3.2. </b>&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#weston-&#x7684;shaderh-&#x975E;-shadow&#xFF1F;"><b>3.3. </b>weston &#x7684;shader.h &#x975E; shadow&#xFF1F;</a></li><ul><li><span class="title-icon "></span><a href="#weston&#x7684;shadow-&#x4E0E;-fromblendtooutput&#x5173;&#x7CFB;"><b>3.3.1. </b>weston&#x7684;shadow &#x4E0E; from_blend_to_output&#x5173;&#x7CFB;</a></li></ul><li><span class="title-icon "></span><a href="#&#x7D20;&#x6750;&#x5408;&#x96C6;"><b>3.4. </b>&#x7D20;&#x6750;&#x5408;&#x96C6;</a></li></ul><li><span class="title-icon "></span><a href="#&#x8865;&#x5145;&#xFF1A;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;"><b>4. </b>&#x8865;&#x5145;&#xFF1A;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;</a></li><li><span class="title-icon "></span><a href="#todo&#x5B89;&#x5353;&#x622A;&#x5C4F;"><b>5. </b>todo:&#x5B89;&#x5353;&#x622A;&#x5C4F;</a></li><li><span class="title-icon "></span><a href="#todo&#x9006;&#x5411;"><b>6. </b>TODO:&#x9006;&#x5411;</a></li><li><span class="title-icon "></span><a href="#todo-&#x52A8;&#x753B;&#x4E0E;sf"><b>7. </b>TODO: &#x52A8;&#x753B;&#x4E0E;sf</a></li></ul></div><a href="#&#x76EE;&#x5F55;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><div class="treeview__container"><ul>
+<li><div><a href="#&#x76EE;&#x5F55;">&#x76EE;&#x5F55;</a><i></i></div></li>
+<li><div><a href="#&#x7A97;&#x53E3;&#x7684;&#x9634;&#x5F71;&#x548C;&#x5706;&#x89D2;">&#x7A97;&#x53E3;&#x7684;&#x9634;&#x5F71;&#x548C;&#x5706;&#x89D2;</a><i></i></div></li>
+<li><div><a href="#&#x5BF9;&#x5E94;&#x7684;shader">&#x5BF9;&#x5E94;&#x7684;shader</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x65B9;&#x6CD5;&#x4E00;-&#x5B89;&#x5353;&#x7684;shader&#xFF1A;">&#x65B9;&#x6CD5;&#x4E00; &#x5B89;&#x5353;&#x7684;shader&#xFF1A;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x4E3B;&#x8981;&#x6D41;&#x7A0B;&#xFF1A;">&#x4E3B;&#x8981;&#x6D41;&#x7A0B;&#xFF1A;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;">&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;</a><i></i></div></li>
+<li><div><a href="#weston-&#x7684;shaderh-&#x975E;-shadow&#xFF1F;">weston &#x7684;shader.h &#x975E; shadow&#xFF1F;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#weston&#x7684;shadow-&#x4E0E;-fromblendtooutput&#x5173;&#x7CFB;">weston&#x7684;shadow &#x4E0E; from_blend_to_output&#x5173;&#x7CFB;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x7D20;&#x6750;&#x5408;&#x96C6;">&#x7D20;&#x6750;&#x5408;&#x96C6;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x8865;&#x5145;&#xFF1A;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;">&#x8865;&#x5145;&#xFF1A;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;</a><i></i></div></li>
+<li><div><a href="#todo&#x5B89;&#x5353;&#x622A;&#x5C4F;">todo:&#x5B89;&#x5353;&#x622A;&#x5C4F;</a><i></i></div></li>
+<li><div><a href="#todo&#x9006;&#x5411;">TODO:&#x9006;&#x5411;</a><i></i></div></li>
+<li><div><a href="#todo-&#x52A8;&#x753B;&#x4E0E;sf">TODO: &#x52A8;&#x753B;&#x4E0E;sf</a><i></i></div></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+<h1 id="&#x76EE;&#x5F55;"><a name="&#x76EE;&#x5F55;" class="anchor-navigation-ex-anchor" href="#&#x76EE;&#x5F55;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x76EE;&#x5F55;</h1>
+<h1 id="&#x7A97;&#x53E3;&#x7684;&#x9634;&#x5F71;&#x548C;&#x5706;&#x89D2;"><a name="&#x7A97;&#x53E3;&#x7684;&#x9634;&#x5F71;&#x548C;&#x5706;&#x89D2;" class="anchor-navigation-ex-anchor" href="#&#x7A97;&#x53E3;&#x7684;&#x9634;&#x5F71;&#x548C;&#x5706;&#x89D2;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x7A97;&#x53E3;&#x7684;&#x9634;&#x5F71;&#x548C;&#x5706;&#x89D2;</h1>
+<p>&#x9634;&#x5F71;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"> <span class="token class-name">SurfaceControl</span><span class="token punctuation">.</span><span class="token function">setGlobalShadowSettings</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Size</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token keyword">float</span><span class="token punctuation">[</span><span class="token punctuation">]</span> ambientColor<span class="token punctuation">,</span>
+             <span class="token annotation punctuation">@Size</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token keyword">float</span><span class="token punctuation">[</span><span class="token punctuation">]</span> spotColor<span class="token punctuation">,</span> <span class="token keyword">float</span> lightPosY<span class="token punctuation">,</span> <span class="token keyword">float</span> lightPosZ<span class="token punctuation">,</span> <span class="token keyword">float</span> lightRadius<span class="token punctuation">)</span>
+
+ <span class="token comment">// &#x4FE1;&#x606F;&#x6D41;</span>
+ <span class="token class-name">SurfaceControl</span><span class="token punctuation">.</span>setShadowRadius <span class="token operator">--</span><span class="token operator">-&gt;</span>nativeSetShadowRadius <span class="token operator">--</span><span class="token operator">-&gt;</span>  <span class="token class-name">SurfaceComposerClient</span><span class="token operator">::</span><span class="token class-name">Transaction</span><span class="token operator">::</span><span class="token function">setShadowRadius</span>
+      struct layer_state_t <span class="token punctuation">{</span>shadowRadius<span class="token punctuation">,</span> cornerRadius<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span>  <span class="token comment">//&#x3010;&#x3011; &#x76EE;&#x524D;&#x8FD8;&#x662F;&#x5E94;&#x7528;&#x8FDB;&#x7A0B;</span>
+           <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-&gt;</span> <span class="token constant">TODO</span><span class="token operator">:</span> &#x6700;&#x7EC8;&#x751F;&#x6548;&#x7ED9;&#x8C01;&#x4E86;&#xFF1F;&#x5982;&#x4F55;&#x6D41;&#x5411;sf&#x7684;&#xFF1F; <span class="token operator">&lt;</span>https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>blog<span class="token punctuation">.</span>csdn<span class="token punctuation">.</span>net<span class="token operator">/</span>learnframework<span class="token operator">/</span>article<span class="token operator">/</span>details<span class="token operator">/</span><span class="token number">135076600</span><span class="token operator">&gt;</span>
+</code></pre>
+<p>&#x5B89;&#x5353;&#x63A7;&#x4EF6;&#x9634;&#x5F71;&#xFF1A;</p>
+<blockquote>
+<p>  Android&#x5F00;&#x53D1;&#x4E2D;&#x9634;&#x5F71;&#x6548;&#x679C;&#x7684;&#x5B9E;&#x73B0; - &#x6398;&#x91D1; (<a href="http://juejin.cn" target="_blank">juejin.cn</a>)         --------&gt;  TODO: &#x753B;&#x5728;&#x54EA;&#x4E2A;&#x5730;&#x65B9;&#xFF1F;</p>
+</blockquote>
+<p>Android&#x663E;&#x793A;&#x7CFB;&#x7EDF;&#x2014;&#x2014;Transaction&#x57FA;&#x7840;&#x529F;&#x80FD;&#xFF1A;</p>
+<blockquote>
+<p>  TODO:  Transaction&#x662F;&#x5E94;&#x7528;&#x7CFB;&#x7EDF;&#x6846;&#x67B6;&#x5C42;  &#x4E0E;  SurfaceFlinger&#x4EA4;&#x6D41;&#x7684;&#x65B9;&#x5F0F;&#x4E4B;&#x4E00;</p>
+<p>  &#x200B;                <a href="https://www.cnblogs.com/tsts/p/17537595.html" target="_blank">Android&#x663E;&#x793A;&#x7CFB;&#x7EDF;&#x2014;&#x2014;Transaction&#x57FA;&#x7840;&#x529F;&#x80FD;</a></p>
+<p>  TODO:  &#x4E86;&#x89E3;surfaceControl&#x6240;&#x6709;&#x63A5;&#x53E3;</p>
+</blockquote>
+<p>SurfaceComposerClient_cpp:    sf &#x5728;&#x7528;&#x6237;&#x4FA7;&#x7684;&#x4EE3;&#x7406;</p>
+<p>SurfaceControl&#xFF08;client&#x4E0E;sf&#x7684;&#x6865;&#x6881;&#xFF09;&#x63A5;&#x53E3;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java">captureLayers  &#x622A;&#x56FE; 
+
+setCornerRadius &#x8BBE;&#x7F6E;&#x5706;&#x89D2; 
+
+setGlobalShadowSettings &#x8BBE;&#x7F6E;&#x9634;&#x5F71;
+</code></pre>
+<p>&#x5176;&#x4E2D;&#xFF0C;&#x4E8B;&#x52A1;&#xFF08;&#x5143;&#xFF09;Transaction&#xFF1A; </p>
+<pre class="language-"><code class="lang-java">&#xFF08;<span class="token number">1</span>&#xFF09;&#x4E8B;&#x52A1;&#x5143;&#xFF0C;&#x662F;&#x539F;&#x64CD;&#x4F5C;&#xFF0C;setXXX&#x64CD;&#x4F5C;
+&#xFF08;<span class="token number">2</span>&#xFF09;&#x591A;&#x4E2A;&#x539F;&#x64CD;&#x4F5C;&#xFF0C;&#x4E4B;&#x540E;&#xFF0C;&#x4E00;&#x7B14;commit&#x624D;&#x751F;&#x6548;  t<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+setCornerRadius 
+<span class="token operator">-&gt;</span>nativeSetCornerRadius
+  <span class="token operator">-&gt;</span><span class="token class-name">SurfaceComposerClient</span><span class="token operator">::</span><span class="token class-name">Transaction</span> &#x83B7;&#x53D6;&#x5BF9;&#x5E94;&#x7684; layer_state_t&#x3002;&#x8BBE;&#x7F6E;&#x5C5E;&#x6027;
+    <span class="token operator">-&gt;</span> s<span class="token operator">-&gt;</span>cornerRadius <span class="token operator">=</span> cornerRadius
+</code></pre>
+<p>&#x751F;&#x6548;&#x5728;apply()&#x540E;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java">t<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ <span class="token operator">-&gt;</span> <span class="token class-name">SurfaceComposerClient</span><span class="token operator">::</span><span class="token class-name">Transaction</span><span class="token operator">::</span><span class="token function">apply</span>
+    <span class="token operator">-&gt;</span><span class="token class-name">ISurfaceComposer</span><span class="token operator">-&gt;</span>setTransactionState
+       <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>&#x8DE8;&#x8FDB;&#x7A0B;<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>
+       <span class="token operator">-&gt;</span> sf<span class="token operator">-&gt;</span>setTransactionState  
+          <span class="token function">queueTransaction</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// sf &#x7F13;&#x5B58;&#x4E8B;&#x52A1;</span>
+</code></pre>
+<p>&#x4E8B;&#x52A1;&#x6D41;&#x8F6C;&#x56FE;&#xFF1A;</p>
+<blockquote>
+<p>  <img src="sf&#x7279;&#x6548;.assets/3d85ba9d5d0142068ac80034f45e7d2a.png" alt="img"></p>
+<p>  <a href="https://blog.csdn.net/fengchaochao123/article/details/134252907#:~:text=%E4%B9%8B%E5%90%8E%E6%9D%A5%E5%8F%96%E3%80%82-,%E7%94%BB%E4%B8%AA%E5%9B%BE%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%EF%BC%9A,-%E4%BB%8E%E4%BB%A3%E7%A0%81%E7%9C%8Bhttps://blog.csdn.net/fengchaochao123/article/details/134252907" target="_blank">&#x56FE;&#x6765;&#x6E90;</a></p>
+</blockquote>
+<p>&#x4E0B;&#x4E00;&#x5E27;vsync&#x540E;&#xFF1A; SurfaceFlinger&#x5904;&#x7406;&#x4E8B;&#x52A1;&#xFF08;onMessageInvalidate&#x51FD;&#x6570;&#xFF09;&#xFF1A; </p>
+<p>1&#x3001;&#x5904;&#x7406;&#x4E8B;&#x52A1;</p>
+<p> 2&#x3001;&#x81EA;&#x7136;&#xFF0C;<del>&#x5237;&#x65B0;&#x56FE;&#x50CF;</del></p>
+<p>&#x5904;&#x7406;&#x4E8B;&#x52A1;&#x6D41;&#x7A0B;&#x56FE;&#xFF1A;</p>
+<blockquote>
+<p>  <img src="sf&#x7279;&#x6548;.assets/aaa15735018c45c58a6a55e0e4562123-1719420821433.png" alt="aaa15735018c45c58a6a55e0e4562123"></p>
+<p>  <a href="https://blog.csdn.net/fengchaochao123/article/details/135129439#:~:text=%E6%98%AF%E5%A4%84%E7%90%86%E4%BA%8B%E5%8A%A1%EF%BC%9A-,%E5%A4%A7%E8%87%B4%E6%B5%81%E7%A8%8B%E5%A6%82%E4%B8%8B%E5%9B%BE%EF%BC%9A,-flushTransactionQueues%E4%BC%9A%E5%B0%86" target="_blank">&#x56FE;&#x6765;&#x6E90;</a></p>
+</blockquote>
+<p>&#x56FE;&#x50CF;&#x5408;&#x6210;&#x5E76;&#x5237;&#x65B0;&#x56FE;&#xFF1A;</p>
+<blockquote>
+<p>  <img src="sf&#x7279;&#x6548;.assets/d5862564ce6241f2a307623b7708706a.png" alt="img"></p>
+<p>  <a href="https://blog.csdn.net/fengchaochao123/article/details/135129439#:~:text=%E9%95%BF%EF%BC%8C%E8%B4%B4%E4%BB%A3%E7%A0%81-,%E6%9C%89%E7%82%B9%E5%A4%AA%E7%B9%81%E7%90%90%EF%BC%8C%E6%9D%A5%E5%BC%A0%E5%9B%BE,-%E4%B8%AA%E4%BA%BA%E8%BF%99%E9%87%8C%E6%9C%89" target="_blank">&#x56FE;</a></p>
+</blockquote>
+<p>&#x603B;&#x4E4B;&#xFF0C; </p>
+<p>&#x8BBE;&#x7F6E;&#x5706;&#x89D2;&#xFF1A;&#x4E00;&#x884C;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"> <span class="token class-name">GLESRenderEngine</span><span class="token operator">::</span><span class="token function">drawMesh</span>
+
+ fragmentShader&#x91CC;&#x9762;&#x6839;&#x636E;&#x5706;&#x89D2;&#x7684;&#x534A;&#x5F84;&#x8BA1;&#x7B97;&#x5C06;&#x5728;&#x5706;&#x89D2;&#x4E4B;&#x5916;&#x7684;&#x90E8;&#x5206;&#x7684;alpha&#x8BBE;&#x4E3A;<span class="token number">0</span>&#x4F7F;&#x4E4B;&#x5B8C;&#x5168;&#x900F;&#x660E;&#xFF1A; 
+
+&#x4F4D;&#x7F6E;&#xFF1A;<span class="token class-name">String8</span> <span class="token class-name">ProgramCache</span><span class="token operator">::</span><span class="token function">generateFragmentShader</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token class-name">Key</span><span class="token operator">&amp;</span> needs<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+         gl_FragColor<span class="token punctuation">.</span>a <span class="token operator">*=</span> <span class="token function">applyCornerRadius</span><span class="token punctuation">(</span>outCropCoords<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x3010;&#x3011;&#x5939;&#x5B50;&#x51FD;&#x6570;&#xFF0C;&#x8D85;&#x8FC7;&#x8BBE;&#x7F6E;&#x900F;&#x660E; </span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x53C2;&#x8003;&#xFF1A;<a href="https://blog.csdn.net/SSSxCCC/article/details/119253569" target="_blank">&#x5706;&#x89D2;&#x7ED8;&#x5236; - &#x5B89;&#x5353;R</a></p>
+<p>TODO:</p>
+<p>sf&#x7CFB;&#x5217;&#x6587;&#x7AE0;&#xFF1A; <a href="https://blog.csdn.net/fengchaochao123/category_12467586.html" target="_blank">https://blog.csdn.net/fengchaochao123/category_12467586.html</a></p>
+<p>&#x663E;&#x793A;&#x9A71;&#x52A8;&#x7CFB;&#x5217;&#x6587;&#x7AE0;&#xFF1A; <a href="https://blog.csdn.net/fengchaochao123/category_11733379.html" target="_blank">https://blog.csdn.net/fengchaochao123/category_11733379.html</a></p>
+<p>Bpxxx/Bnxxx&#xFF1A;</p>
+<pre class="language-"><code class="lang-java">https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>blog<span class="token punctuation">.</span>csdn<span class="token punctuation">.</span>net<span class="token operator">/</span>fengchaochao123<span class="token operator">/</span>article<span class="token operator">/</span>details<span class="token operator">/</span><span class="token number">134020217</span><span class="token operator">?</span>spm<span class="token operator">=</span><span class="token number">1001.2014</span><span class="token number">.3001</span><span class="token number">.5502</span>#<span class="token operator">:</span><span class="token operator">~</span><span class="token operator">:</span>text<span class="token operator">=</span><span class="token operator">%</span><span class="token constant">E6</span><span class="token operator">%</span><span class="token constant">A2</span><span class="token operator">%</span><span class="token constant">B3</span><span class="token operator">%</span><span class="token constant">E7</span><span class="token operator">%</span><span class="token number">90</span><span class="token operator">%</span><span class="token number">86</span><span class="token operator">%</span><span class="token constant">E4</span><span class="token operator">%</span><span class="token constant">BA</span><span class="token operator">%</span><span class="token number">86</span><span class="token operator">%</span><span class="token constant">E4</span><span class="token operator">%</span><span class="token constant">B8</span><span class="token operator">%</span><span class="token number">80</span><span class="token operator">%</span><span class="token constant">E4</span><span class="token operator">%</span><span class="token constant">B8</span><span class="token operator">%</span><span class="token number">8</span>B<span class="token operator">-</span><span class="token punctuation">,</span>waitForService<span class="token operator">%</span><span class="token constant">E7</span><span class="token operator">%</span><span class="token number">9</span>A<span class="token operator">%</span><span class="token number">84</span><span class="token operator">%</span><span class="token constant">E5</span><span class="token operator">%</span><span class="token number">86</span><span class="token operator">%</span><span class="token number">85</span><span class="token operator">%</span><span class="token constant">E9</span><span class="token operator">%</span><span class="token number">83</span><span class="token operator">%</span><span class="token constant">A8</span><span class="token operator">%</span><span class="token constant">E6</span><span class="token operator">%</span><span class="token number">9</span>C<span class="token operator">%</span><span class="token constant">BA</span><span class="token operator">%</span><span class="token constant">E5</span><span class="token operator">%</span><span class="token number">88</span><span class="token operator">%</span><span class="token constant">B6</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token operator">%</span><span class="token constant">EF</span><span class="token operator">%</span><span class="token constant">BC</span><span class="token operator">%</span><span class="token number">8</span>C<span class="token operator">%</span><span class="token constant">E5</span><span class="token operator">%</span><span class="token number">92</span><span class="token operator">%</span><span class="token number">8</span>CBpxxx<span class="token operator">/</span><span class="token class-name">Bnxxx</span>
+</code></pre>
+<p>&#x7CFB;&#x5217;&#x597D;&#x6587;&#xFF1A;</p>
+<blockquote>
+<p>  <a href="https://blog.csdn.net/sssxccc/category_11248337.html" target="_blank">https://blog.csdn.net/sssxccc/category_11248337.html</a>    &#x5B89;&#x5353;Framework</p>
+<p>  <a href="https://blog.csdn.net/SSSxCCC/article/details/119253947" target="_blank">https://blog.csdn.net/SSSxCCC/article/details/119253947</a>    &#x5F55;&#x5C4F;&#x6D41;&#x7A0B; - &#x5B89;&#x5353;R</p>
+</blockquote>
+<p><a href="https://blog.csdn.net/SSSxCCC/article/details/119324066" target="_blank">https://blog.csdn.net/SSSxCCC/article/details/119324066</a>    &#x8F6C;&#x5C4F;&#x52A8;&#x753B; - &#x5B89;&#x5353;R</p>
+<p><a href="https://blog.csdn.net/SSSxCCC/article/details/119324081" target="_blank">https://blog.csdn.net/SSSxCCC/article/details/119324081</a>   &#x8FC7;&#x6E21;&#x52A8;&#x753B; - &#x5B89;&#x5353;R</p>
+<h1 id="&#x5BF9;&#x5E94;&#x7684;shader"><a name="&#x5BF9;&#x5E94;&#x7684;shader" class="anchor-navigation-ex-anchor" href="#&#x5BF9;&#x5E94;&#x7684;shader"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x5BF9;&#x5E94;&#x7684;shader</h1>
+<p>shader&#x7ED3;&#x6784;&#xFF1A;</p>
+<blockquote>
+<p>  &#x7EA7;&#x522B;&#xFF1A;surfaceFlinger&#x7EA7;&#x522B;&#x7684;</p>
+<p>  &#xFF08;&#x81EA;&#x7136;&#xFF1A;&#x751F;&#x6210;&#x65F6;&#x673A;&#xFF1A;&#x4E00;&#x6B21;&#x6027;&#x751F;&#x6210;&#xFF09;</p>
+<p>  &#x4F7F;&#x7528;&#x65F6;&#x673A;&#xFF1A; &#x6709;&#x5706;&#x89D2; &amp;  &#x6709;&#x53D8;&#x5316; &amp;  &#x6BCF;&#x4E00;&#x5E27;</p>
+</blockquote>
+<p>shader&#x5177;&#x4F53;&#x5185;&#x5BB9;&#x8BE6;&#x89E3;&#xFF1A;</p>
+<h2 id="&#x65B9;&#x6CD5;&#x4E00;-&#x5B89;&#x5353;&#x7684;shader&#xFF1A;"><a name="&#x65B9;&#x6CD5;&#x4E00;-&#x5B89;&#x5353;&#x7684;shader&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x65B9;&#x6CD5;&#x4E00;-&#x5B89;&#x5353;&#x7684;shader&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x65B9;&#x6CD5;&#x4E00; &#x5B89;&#x5353;&#x7684;shader&#xFF1A;</h2>
+<p>1&#x3001;VertexShader</p>
+<pre class="language-"><code class="lang-java">attribute lowp vec4 cropCoords<span class="token punctuation">;</span>   <span class="token comment">// &#x5165;&#x53C2;&#xFF1A; &#x88C1;&#x526A;&#x5750;&#x6807;&#xFF0C; TODO: &#x6765;&#x6E90;&#x54EA;&#x91CC;&#xFF1F;&#xFF1F;&#xFF1F;</span>
+varying lowp vec2 outCropCoords<span class="token punctuation">;</span> <span class="token comment">// &#x51FA;&#x53C2;&#xFF1A; &#x5C06;&#x8981;&#x4F20;&#x9012;&#x7ED9; Fragment&#x7684; &#x88C1;&#x526A;&#x5750;&#x6807;</span>
+attribute vec4 position<span class="token punctuation">;</span>  <span class="token comment">// &#x3010;&#x3011;&#x5165;&#x53C2;&#xFF1A;&#x4EFB;&#x610F;&#x70B9;&#x5750;&#x6807;&#xFF08;&#x81EA;&#x5E26;&#xFF09;</span>
+uniform mat4 projection<span class="token punctuation">;</span> <span class="token comment">// &#x5165;&#x53C2;&#xFF1A; &#x9876;&#x70B9;&#x53D8;&#x5316;&#x77E9;&#x9635;&#xFF0C;&#x6765;&#x6E90;cpp</span>
+uniform mat4 texture<span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    gl_Position <span class="token operator">=</span> projection <span class="token operator">*</span> position<span class="token punctuation">;</span>
+    outCropCoords <span class="token operator">=</span> cropCoords<span class="token punctuation">.</span>st<span class="token punctuation">;</span>   <span class="token comment">// &#x3010;&#x3011; &#x5706;&#x89D2;&#x76F8;&#x5173;&#x7684;&#xFF0C;&#x5373;&#x88C1;&#x526A;&#x90E8;&#x5206;&#xFF08;st&#x662F;&#x6C34;&#x5E73;&#x548C;&#x5782;&#x76F4;&#x5750;&#x6807;&#xFF09;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4FE1;&#x606F;&#x6D41;&#xFF1A;</p>
+<blockquote>
+<p>  cpp&#x4EFB;&#x610F;&#x70B9;&#x5750;&#x6807;position                           --------&gt;             &#x53D8;&#x6362;&#x540E;&#x5750;&#x6807; gl_Position</p>
+<p>  cpp &#x9876;&#x70B9;&#x53D8;&#x6362;&#x77E9;&#x9635;                                                       &#x4F20;&#x9012;&#x7ED9; Fragment&#x7684; &#x88C1;&#x526A;&#x5750;&#x6807;</p>
+</blockquote>
+<p>2&#x3001;FragmentShader</p>
+<pre class="language-"><code class="lang-java">
+precision mediump <span class="token keyword">float</span><span class="token punctuation">;</span>     <span class="token comment">// &#x6D6E;&#x70B9;&#x8FD0;&#x7B97;&#x7684;&#x7CBE;&#x5EA6;&#x4E3A;&#x4E2D;&#x7B49;</span>
+
+uniform <span class="token keyword">float</span> cornerRadius<span class="token punctuation">;</span>    <span class="token comment">// &#x5165;&#x53C2;&#xFF1A;&#x5706;&#x89D2;&#x534A;&#x5F84;&#xFF0C;&#x6765;&#x6E90;cpp</span>
+uniform vec2 cropCenter<span class="token punctuation">;</span>       <span class="token comment">// &#x5165;&#x53C2;&#xFF1A;&#x88C1;&#x526A;&#x4E2D;&#x5FC3;&#xFF0C;&#x6765;&#x6E90;cpp</span>
+varying vec2 outCropCoords<span class="token punctuation">;</span>    <span class="token comment">// &#x5165;&#x53C2;&#xFF1A;&#x88C1;&#x526A;&#x5750;&#x6807;&#xFF0C;&#x6765;&#x6E90; VertexShader</span>
+<span class="token comment">/**
+ * This function takes the current crop coordinates and calculates an alpha value based
+ * on the corner radius and distance from the crop center.
+ */</span>
+<span class="token keyword">float</span> <span class="token function">applyCornerRadius</span><span class="token punctuation">(</span>vec2 cropCoords<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    vec2 position <span class="token operator">=</span> cropCoords <span class="token operator">-</span> cropCenter<span class="token punctuation">;</span>  <span class="token comment">// &#x57FA;&#x4E8E;&#x5706;&#x5FC3;&#x7684;&#x5750;&#x6807;</span>
+    <span class="token comment">// Scale down the dist vector here, as otherwise large corner</span>
+    <span class="token comment">// radii can cause floating point issues when computing the norm</span>
+    vec2 dist <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token function">abs</span><span class="token punctuation">(</span>position<span class="token punctuation">)</span> <span class="token operator">-</span> cropCenter <span class="token operator">+</span> <span class="token function">vec2</span><span class="token punctuation">(</span>cornerRadius<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">16.0</span><span class="token punctuation">;</span>  <span class="token comment">// &#x3010;&#x3011; TODO:abs(position)&#x662F;&#x4E00;&#x4E2A;&#x4E8C;&#x7EF4;&#x7684;&#xFF0C;&#x5206;&#x91CF;&#x6C42;&#x7EDD;&#x5BF9;&#x503C;</span>
+    <span class="token comment">// Once we&apos;ve found the norm, then scale back up.</span>
+    <span class="token keyword">float</span> plane <span class="token operator">=</span> <span class="token function">length</span><span class="token punctuation">(</span><span class="token function">max</span><span class="token punctuation">(</span>dist<span class="token punctuation">,</span> <span class="token function">vec2</span><span class="token punctuation">(</span><span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">16.0</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">1.0</span> <span class="token operator">-</span> <span class="token function">clamp</span><span class="token punctuation">(</span>plane <span class="token operator">-</span> cornerRadius<span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+uniform vec4 color<span class="token punctuation">;</span>  <span class="token comment">// &#x5165;&#x53C2;&#xFF1A; &#x4E3B;&#x8981;&#x8BBE;&#x7F6E;color&#x7684;a&#x503C;&#x3002;&#x3002;&#x3002;&#x3002;&#x3002;&#x8FD9;&#x91CC;&#x6CA1;&#x770B;&#x61C2;&#xFF01;&#xFF01;&#xFF01;</span>
+<span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  gl_FragColor<span class="token punctuation">.</span>rgb <span class="token operator">=</span> color<span class="token punctuation">.</span>rgb<span class="token punctuation">;</span>
+  gl_FragColor<span class="token punctuation">.</span>a <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">;</span>
+  gl_FragColor <span class="token operator">*=</span> color<span class="token punctuation">.</span>a<span class="token punctuation">;</span>  <span class="token comment">// c&#x4E58;&#x4EE5;</span>
+  gl_FragColor <span class="token operator">*=</span> <span class="token function">vec4</span><span class="token punctuation">(</span><span class="token function">applyCornerRadius</span><span class="token punctuation">(</span>outCropCoords<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x4E58;&#x4EE5; 1 &#x6216; 0 -----&gt; 0&#x5373;&#x88AB;&#x88C1;&#x526A;&#xFF01;&#xFF01;&#xFF01;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><a href="https://www.cnblogs.com/keguniang/p/9873052.html#:~:text=glGetUniformLocation(shaderProgram%2C" title="ourColor" target="_blank">&#x5173;&#x4E8E;&#x7684;&#x4F7F;&#x7528;&#xFF1A;</a>%3B)</p>
+<p><a href="https://note.nxcloud.club:12270/blog/post/agile/Shader&#x4E2D;&#x4F7F;&#x7528;&#x8DDD;&#x79BB;&#x51FD;&#x6570;&#xFF08;Distance-Function&#xFF09;&#x7ED8;&#x5236;&#x4E8C;&#x7EF4;&#x56FE;&#x5F62;" target="_blank">https://note.nxcloud.club:12270/blog/post/agile/Shader&#x4E2D;&#x4F7F;&#x7528;&#x8DDD;&#x79BB;&#x51FD;&#x6570;&#xFF08;Distance-Function&#xFF09;&#x7ED8;&#x5236;&#x4E8C;&#x7EF4;&#x56FE;&#x5F62;</a></p>
+<p>Shader&#x4E2D;&#x4F7F;&#x7528;&#x8DDD;&#x79BB;&#x51FD;&#x6570;&#xFF08;Distance Function&#xFF09;&#x7ED8;&#x5236;&#x4E8C;&#x7EF4;&#x56FE;&#x5F62;</p>
+<h3 id="&#x4E3B;&#x8981;&#x6D41;&#x7A0B;&#xFF1A;"><a name="&#x4E3B;&#x8981;&#x6D41;&#x7A0B;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x4E3B;&#x8981;&#x6D41;&#x7A0B;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1.1. &#x4E3B;&#x8981;&#x6D41;&#x7A0B;&#xFF1A;</h3>
+<p>&#x53C2;&#x8003;&#xFF1A; <a href="https://blog.csdn.net/SSSxCCC/article/details/119253569" target="_blank">https://blog.csdn.net/SSSxCCC/article/details/119253569</a>    &#x5706;&#x89D2;&#x7ED8;&#x5236; - &#x5B89;&#x5353;R</p>
+<pre class="language-"><code class="lang-java">
+status_t <span class="token class-name">GLESRenderEngine</span><span class="token operator">::</span><span class="token function">drawLayers</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token class-name">DisplaySettings</span><span class="token operator">&amp;</span> display<span class="token punctuation">,</span>
+                                      <span class="token keyword">const</span> std<span class="token operator">::</span><span class="token function">vector</span><span class="token operator">&lt;</span><span class="token keyword">const</span> <span class="token class-name">LayerSettings</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">&amp;</span> layers<span class="token punctuation">,</span>
+                                      <span class="token class-name">ANativeWindowBuffer</span><span class="token operator">*</span> <span class="token keyword">const</span> buffer<span class="token punctuation">,</span>
+                                      <span class="token keyword">const</span> bool useFramebufferCache<span class="token punctuation">,</span> base<span class="token operator">::</span><span class="token function">unique_fd</span><span class="token operator">&amp;&amp;</span> bufferFence<span class="token punctuation">,</span>
+                                      base<span class="token operator">::</span><span class="token function">unique_fd</span><span class="token operator">*</span> drawFence<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>auto <span class="token keyword">const</span> layer <span class="token operator">:</span> layers<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// &#x904D;&#x5386;layers</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token comment">// We only want to do a special handling for rounded corners when having rounded corners</span>
+        <span class="token comment">// is the only reason it needs to turn on blending, otherwise, we handle it like the</span>
+        <span class="token comment">// usual way since it needs to turn on blending anyway.</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>layer<span class="token operator">-&gt;</span>geometry<span class="token punctuation">.</span>roundedCornersRadius <span class="token operator">&gt;</span> <span class="token number">0.0</span> <span class="token operator">&amp;&amp;</span> color<span class="token punctuation">.</span>a <span class="token operator">&gt;=</span> <span class="token number">1.0f</span> <span class="token operator">&amp;&amp;</span> isOpaque<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">handleRoundedCorners</span><span class="token punctuation">(</span>display<span class="token punctuation">,</span> <span class="token operator">*</span>layer<span class="token punctuation">,</span> mesh<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token function">drawMesh</span><span class="token punctuation">(</span>mesh<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">}</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;"><a name="&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. &#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;</h2>
+<h2 id="weston-&#x7684;shaderh-&#x975E;-shadow&#xFF1F;"><a name="weston-&#x7684;shaderh-&#x975E;-shadow&#xFF1F;" class="anchor-navigation-ex-anchor" href="#weston-&#x7684;shaderh-&#x975E;-shadow&#xFF1F;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. weston &#x7684;shader.h &#x975E; shadow&#xFF1F;</h2>
+<p>&#x6838;&#x5FC3;&#x4E00;&#x884C;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java">gl_renderer_use_program
+</code></pre>
+<p>vertex-shader.h</p>
+<pre class="language-"><code class="lang-java">
+<span class="token comment">/*
+ * Copyright 2012 Intel Corporation
+ * Copyright 2015,2019 Collabora, Ltd.
+ * Copyright 2016 NVIDIA Corporation
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * &quot;Software&quot;), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice (including the
+ * next paragraph) shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+ * BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */</span>
+
+<span class="token comment">/* enum gl_shader_texcoord_input */</span>
+#define <span class="token constant">SHADER_TEXCOORD_INPUT_ATTRIB</span>  <span class="token number">0</span>
+#define <span class="token constant">SHADER_TEXCOORD_INPUT_SURFACE</span> <span class="token number">1</span>
+
+<span class="token comment">/* Always use high-precision for vertex calculations */</span>
+precision highp <span class="token keyword">float</span><span class="token punctuation">;</span>
+
+#ifdef <span class="token constant">GL_FRAGMENT_PRECISION_HIGH</span>
+#define <span class="token constant">FRAG_PRECISION</span> highp
+#<span class="token keyword">else</span>
+#define <span class="token constant">FRAG_PRECISION</span> mediump
+#endif
+
+uniform mat4 proj<span class="token punctuation">;</span>
+uniform mat4 surface_to_buffer<span class="token punctuation">;</span>
+
+attribute vec2 position<span class="token punctuation">;</span>
+attribute vec2 texcoord<span class="token punctuation">;</span>
+
+<span class="token comment">/* Match the varying precision to the fragment shader */</span>
+varying <span class="token constant">FRAG_PRECISION</span> vec2 v_texcoord<span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    gl_Position <span class="token operator">=</span> proj <span class="token operator">*</span> <span class="token function">vec4</span><span class="token punctuation">(</span>position<span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+#<span class="token keyword">if</span> <span class="token constant">DEF_TEXCOORD_INPUT</span> <span class="token operator">==</span> <span class="token class-name">SHADER_TEXCOORD_INPUT_ATTRIB</span>
+    v_texcoord <span class="token operator">=</span> texcoord<span class="token punctuation">;</span>
+#elif <span class="token constant">DEF_TEXCOORD_INPUT</span> <span class="token operator">==</span> <span class="token class-name">SHADER_TEXCOORD_INPUT_SURFACE</span>
+    v_texcoord <span class="token operator">=</span> <span class="token function">vec2</span><span class="token punctuation">(</span>surface_to_buffer <span class="token operator">*</span> <span class="token function">vec4</span><span class="token punctuation">(</span>position<span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+#endif
+<span class="token punctuation">}</span>
+</code></pre>
+<p>fragmentShader</p>
+<pre class="language-"><code class="lang-java">
+<span class="token comment">/*
+ * Copyright 2012 Intel Corporation
+ * Copyright 2015,2019,2021 Collabora, Ltd.
+ * Copyright 2016 NVIDIA Corporation
+ * Copyright 2021 Advanced Micro Devices, Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * &quot;Software&quot;), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice (including the
+ * next paragraph) shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+ * BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */</span>
+
+<span class="token comment">/* GLSL version 1.00 ES, defined in gl-shaders.c */</span>
+
+<span class="token comment">/* For annotating shader compile-time constant arguments */</span>
+#define compile_const <span class="token keyword">const</span>
+
+<span class="token comment">/*
+ * Enumeration of shader variants, must match enum gl_shader_texture_variant.
+ */</span>
+#define <span class="token constant">SHADER_VARIANT_RGBX</span>     <span class="token number">1</span>
+#define <span class="token constant">SHADER_VARIANT_RGBA</span>     <span class="token number">2</span>
+#define <span class="token constant">SHADER_VARIANT_Y_U_V</span>    <span class="token number">3</span>
+#define <span class="token constant">SHADER_VARIANT_Y_UV</span>     <span class="token number">4</span>
+#define <span class="token constant">SHADER_VARIANT_Y_XUXV</span>   <span class="token number">5</span>
+#define <span class="token constant">SHADER_VARIANT_XYUV</span>     <span class="token number">6</span>
+#define <span class="token constant">SHADER_VARIANT_SOLID</span>    <span class="token number">7</span>
+#define <span class="token constant">SHADER_VARIANT_EXTERNAL</span> <span class="token number">8</span>
+
+<span class="token comment">/* enum gl_shader_color_curve */</span>
+#define <span class="token constant">SHADER_COLOR_CURVE_IDENTITY</span> <span class="token number">0</span>
+#define <span class="token class-name">SHADER_COLOR_CURVE_LUT_3x1D</span> <span class="token number">1</span>
+#define <span class="token constant">SHADER_COLOR_CURVE_LINPOW</span> <span class="token number">2</span>
+#define <span class="token constant">SHADER_COLOR_CURVE_POWLIN</span> <span class="token number">3</span>
+
+<span class="token comment">/* enum gl_shader_color_mapping */</span>
+#define <span class="token constant">SHADER_COLOR_MAPPING_IDENTITY</span> <span class="token number">0</span>
+#define <span class="token constant">SHADER_COLOR_MAPPING_3DLUT</span> <span class="token number">1</span>
+#define <span class="token constant">SHADER_COLOR_MAPPING_MATRIX</span> <span class="token number">2</span>
+
+#<span class="token keyword">if</span> <span class="token constant">DEF_VARIANT</span> <span class="token operator">==</span> <span class="token constant">SHADER_VARIANT_EXTERNAL</span>
+#extension <span class="token class-name">GL_OES_EGL_image_external</span> <span class="token operator">:</span> require
+#endif
+
+#<span class="token keyword">if</span> <span class="token constant">DEF_COLOR_MAPPING</span> <span class="token operator">==</span> <span class="token constant">SHADER_COLOR_MAPPING_3DLUT</span>
+#extension <span class="token class-name">GL_OES_texture_3D</span> <span class="token operator">:</span> require
+#endif
+
+
+#ifdef <span class="token constant">GL_FRAGMENT_PRECISION_HIGH</span>
+#define <span class="token constant">HIGHPRECISION</span> highp
+#<span class="token keyword">else</span>
+#define <span class="token constant">HIGHPRECISION</span> mediump
+#endif
+
+precision <span class="token class-name">HIGHPRECISION</span> <span class="token keyword">float</span><span class="token punctuation">;</span>
+
+<span class="token comment">/*
+ * These undeclared identifiers will be #defined by a runtime generated code
+ * snippet.
+ */</span>
+compile_const <span class="token keyword">int</span> c_variant <span class="token operator">=</span> <span class="token constant">DEF_VARIANT</span><span class="token punctuation">;</span>
+compile_const bool c_input_is_premult <span class="token operator">=</span> <span class="token constant">DEF_INPUT_IS_PREMULT</span><span class="token punctuation">;</span>
+compile_const bool c_green_tint <span class="token operator">=</span> <span class="token constant">DEF_GREEN_TINT</span><span class="token punctuation">;</span>
+compile_const <span class="token keyword">int</span> c_color_pre_curve <span class="token operator">=</span> <span class="token constant">DEF_COLOR_PRE_CURVE</span><span class="token punctuation">;</span>
+compile_const <span class="token keyword">int</span> c_color_mapping <span class="token operator">=</span> <span class="token constant">DEF_COLOR_MAPPING</span><span class="token punctuation">;</span>
+compile_const <span class="token keyword">int</span> c_color_post_curve <span class="token operator">=</span> <span class="token constant">DEF_COLOR_POST_CURVE</span><span class="token punctuation">;</span>
+
+compile_const bool c_need_color_pipeline <span class="token operator">=</span>
+    c_color_pre_curve <span class="token operator">!=</span> <span class="token constant">SHADER_COLOR_CURVE_IDENTITY</span> <span class="token operator">||</span>
+    c_color_mapping <span class="token operator">!=</span> <span class="token constant">SHADER_COLOR_MAPPING_IDENTITY</span> <span class="token operator">||</span>
+    c_color_post_curve <span class="token operator">!=</span> <span class="token constant">SHADER_COLOR_CURVE_IDENTITY</span><span class="token punctuation">;</span>
+
+vec
+<span class="token function">yuva2rgba</span><span class="token punctuation">(</span>vec4 yuva<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    vec4 color_out<span class="token punctuation">;</span>
+    <span class="token keyword">float</span> <span class="token class-name">Y</span><span class="token punctuation">,</span> su<span class="token punctuation">,</span> sv<span class="token punctuation">;</span>
+
+    <span class="token comment">/* ITU-R BT.601 &amp; BT.709 quantization (limited range) */</span>
+
+    <span class="token comment">/* Y = 255/219 * (x - 16/256) */</span>
+    <span class="token class-name">Y</span> <span class="token operator">=</span> <span class="token number">1.16438356</span> <span class="token operator">*</span> <span class="token punctuation">(</span>yuva<span class="token punctuation">.</span>x <span class="token operator">-</span> <span class="token number">0.0625</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/* Remove offset 128/256, but the 255/224 multiplier comes later */</span>
+    su <span class="token operator">=</span> yuva<span class="token punctuation">.</span>y <span class="token operator">-</span> <span class="token number">0.5</span><span class="token punctuation">;</span>
+    sv <span class="token operator">=</span> yuva<span class="token punctuation">.</span>z <span class="token operator">-</span> <span class="token number">0.5</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/*
+     * ITU-R BT.601 encoding coefficients (inverse), with the
+     * 255/224 limited range multiplier already included in the
+     * factors for su (Cb) and sv (Cr).
+     */</span>
+    color_out<span class="token punctuation">.</span>r <span class="token operator">=</span> <span class="token class-name">Y</span>                   <span class="token operator">+</span> <span class="token number">1.59602678</span> <span class="token operator">*</span> sv<span class="token punctuation">;</span>
+    color_out<span class="token punctuation">.</span>g <span class="token operator">=</span> <span class="token class-name">Y</span> <span class="token operator">-</span> <span class="token number">0.39176229</span> <span class="token operator">*</span> su <span class="token operator">-</span> <span class="token number">0.81296764</span> <span class="token operator">*</span> sv<span class="token punctuation">;</span>
+    color_out<span class="token punctuation">.</span>b <span class="token operator">=</span> <span class="token class-name">Y</span> <span class="token operator">+</span> <span class="token number">2.01723214</span> <span class="token operator">*</span> su<span class="token punctuation">;</span>
+
+    color_out<span class="token punctuation">.</span>a <span class="token operator">=</span> yuva<span class="token punctuation">.</span>w<span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> color_out<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+#<span class="token keyword">if</span> <span class="token constant">DEF_VARIANT</span> <span class="token operator">==</span> <span class="token constant">SHADER_VARIANT_EXTERNAL</span>
+uniform samplerExternalOES tex<span class="token punctuation">;</span>
+#<span class="token keyword">else</span>
+uniform sampler2D tex<span class="token punctuation">;</span>
+#endif
+
+varying <span class="token constant">HIGHPRECISION</span> vec2 v_texcoord<span class="token punctuation">;</span>
+uniform sampler2D tex1<span class="token punctuation">;</span>
+uniform sampler2D tex2<span class="token punctuation">;</span>
+uniform <span class="token keyword">float</span> view_alpha<span class="token punctuation">;</span>
+uniform vec4 unicolor<span class="token punctuation">;</span>
+
+#define <span class="token constant">MAX_CURVE_PARAMS</span> <span class="token number">10</span>
+#define <span class="token constant">MAX_CURVESET_PARAMS</span> <span class="token punctuation">(</span><span class="token constant">MAX_CURVE_PARAMS</span> <span class="token operator">*</span> <span class="token number">3</span><span class="token punctuation">)</span>
+
+uniform <span class="token constant">HIGHPRECISION</span> sampler2D color_pre_curve_lut_2d<span class="token punctuation">;</span>
+uniform <span class="token constant">HIGHPRECISION</span> vec2 color_pre_curve_lut_scale_offset<span class="token punctuation">;</span>
+uniform <span class="token constant">HIGHPRECISION</span> <span class="token keyword">float</span> color_pre_curve_params<span class="token punctuation">[</span><span class="token constant">MAX_CURVESET_PARAMS</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+uniform bool color_pre_curve_clamped_input<span class="token punctuation">;</span>
+
+uniform <span class="token constant">HIGHPRECISION</span> sampler2D color_post_curve_lut_2d<span class="token punctuation">;</span>
+uniform <span class="token constant">HIGHPRECISION</span> vec2 color_post_curve_lut_scale_offset<span class="token punctuation">;</span>
+uniform <span class="token constant">HIGHPRECISION</span> <span class="token keyword">float</span> color_post_curve_params<span class="token punctuation">[</span><span class="token constant">MAX_CURVESET_PARAMS</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+uniform bool color_post_curve_clamped_input<span class="token punctuation">;</span>
+
+#<span class="token keyword">if</span> <span class="token constant">DEF_COLOR_MAPPING</span> <span class="token operator">==</span> <span class="token constant">SHADER_COLOR_MAPPING_3DLUT</span>
+uniform <span class="token constant">HIGHPRECISION</span> sampler3D color_mapping_lut_3d<span class="token punctuation">;</span>
+uniform <span class="token constant">HIGHPRECISION</span> vec2 color_mapping_lut_scale_offset<span class="token punctuation">;</span>
+#endif
+uniform <span class="token constant">HIGHPRECISION</span> mat3 color_mapping_matrix<span class="token punctuation">;</span>
+
+vec4
+<span class="token function">sample_input_texture</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    vec4 yuva <span class="token operator">=</span> <span class="token function">vec4</span><span class="token punctuation">(</span><span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/* Producing RGBA directly */</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>c_variant <span class="token operator">==</span> <span class="token constant">SHADER_VARIANT_SOLID</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> unicolor<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>c_variant <span class="token operator">==</span> <span class="token constant">SHADER_VARIANT_RGBA</span> <span class="token operator">||</span>
+        c_variant <span class="token operator">==</span> <span class="token constant">SHADER_VARIANT_EXTERNAL</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">texture2D</span><span class="token punctuation">(</span>tex<span class="token punctuation">,</span> v_texcoord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>c_variant <span class="token operator">==</span> <span class="token constant">SHADER_VARIANT_RGBX</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token function">vec4</span><span class="token punctuation">(</span><span class="token function">texture2D</span><span class="token punctuation">(</span>tex<span class="token punctuation">,</span> v_texcoord<span class="token punctuation">)</span><span class="token punctuation">.</span>rgb<span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/* Requires conversion to RGBA */</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>c_variant <span class="token operator">==</span> <span class="token constant">SHADER_VARIANT_Y_U_V</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        yuva<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token function">texture2D</span><span class="token punctuation">(</span>tex<span class="token punctuation">,</span> v_texcoord<span class="token punctuation">)</span><span class="token punctuation">.</span>x<span class="token punctuation">;</span>
+        yuva<span class="token punctuation">.</span>y <span class="token operator">=</span> <span class="token function">texture2D</span><span class="token punctuation">(</span>tex1<span class="token punctuation">,</span> v_texcoord<span class="token punctuation">)</span><span class="token punctuation">.</span>x<span class="token punctuation">;</span>
+        yuva<span class="token punctuation">.</span>z <span class="token operator">=</span> <span class="token function">texture2D</span><span class="token punctuation">(</span>tex2<span class="token punctuation">,</span> v_texcoord<span class="token punctuation">)</span><span class="token punctuation">.</span>x<span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>c_variant <span class="token operator">==</span> <span class="token constant">SHADER_VARIANT_Y_UV</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        yuva<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token function">texture2D</span><span class="token punctuation">(</span>tex<span class="token punctuation">,</span> v_texcoord<span class="token punctuation">)</span><span class="token punctuation">.</span>x<span class="token punctuation">;</span>
+        yuva<span class="token punctuation">.</span>yz <span class="token operator">=</span> <span class="token function">texture2D</span><span class="token punctuation">(</span>tex1<span class="token punctuation">,</span> v_texcoord<span class="token punctuation">)</span><span class="token punctuation">.</span>rg<span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>c_variant <span class="token operator">==</span> <span class="token constant">SHADER_VARIANT_Y_XUXV</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        yuva<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token function">texture2D</span><span class="token punctuation">(</span>tex<span class="token punctuation">,</span> v_texcoord<span class="token punctuation">)</span><span class="token punctuation">.</span>x<span class="token punctuation">;</span>
+        yuva<span class="token punctuation">.</span>yz <span class="token operator">=</span> <span class="token function">texture2D</span><span class="token punctuation">(</span>tex1<span class="token punctuation">,</span> v_texcoord<span class="token punctuation">)</span><span class="token punctuation">.</span>ga<span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>c_variant <span class="token operator">==</span> <span class="token constant">SHADER_VARIANT_XYUV</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        yuva<span class="token punctuation">.</span>xyz <span class="token operator">=</span> <span class="token function">texture2D</span><span class="token punctuation">(</span>tex<span class="token punctuation">,</span> v_texcoord<span class="token punctuation">)</span><span class="token punctuation">.</span>bgr<span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token comment">/* Never reached, bad variant value. */</span>
+        <span class="token keyword">return</span> <span class="token function">vec4</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">0.3</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token function">yuva2rgba</span><span class="token punctuation">(</span>yuva<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/*
+ * Sample a 1D LUT which is a single row of a 2D texture. The 2D texture has
+ * four rows so that the centers of texels have precise y-coordinates.
+ *
+ * Texture coordinates go from 0.0 to 1.0 corresponding to texture edges.
+ * When we do LUT look-ups with linear filtering, the correct range to sample
+ * from is not from edge to edge, but center of first texel to center of last
+ * texel. This follows because with LUTs, you have the exact end points given,
+ * you never extrapolate but only interpolate.
+ * The scale and offset are precomputed to achieve this mapping.
+ */</span>
+<span class="token keyword">float</span>
+<span class="token function">sample_lut_1d</span><span class="token punctuation">(</span><span class="token constant">HIGHPRECISION</span> sampler2D lut<span class="token punctuation">,</span> vec2 scale_offset<span class="token punctuation">,</span>
+          <span class="token keyword">float</span> x<span class="token punctuation">,</span> compile_const <span class="token keyword">int</span> row<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">float</span> tx <span class="token operator">=</span> x <span class="token operator">*</span> scale_offset<span class="token punctuation">.</span>s <span class="token operator">+</span> scale_offset<span class="token punctuation">.</span>t<span class="token punctuation">;</span>
+    <span class="token keyword">float</span> ty <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">(</span>row<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">0.5</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">4.0</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token function">texture2D</span><span class="token punctuation">(</span>lut<span class="token punctuation">,</span> <span class="token function">vec2</span><span class="token punctuation">(</span>tx<span class="token punctuation">,</span> ty<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>x<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+vec3
+<span class="token function">sample_lut_3x1d</span><span class="token punctuation">(</span><span class="token constant">HIGHPRECISION</span> sampler2D lut<span class="token punctuation">,</span> vec2 scale_offset<span class="token punctuation">,</span> vec3 color<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">vec3</span><span class="token punctuation">(</span><span class="token function">sample_lut_1d</span><span class="token punctuation">(</span>lut<span class="token punctuation">,</span> scale_offset<span class="token punctuation">,</span> color<span class="token punctuation">.</span>r<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token function">sample_lut_1d</span><span class="token punctuation">(</span>lut<span class="token punctuation">,</span> scale_offset<span class="token punctuation">,</span> color<span class="token punctuation">.</span>g<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token function">sample_lut_1d</span><span class="token punctuation">(</span>lut<span class="token punctuation">,</span> scale_offset<span class="token punctuation">,</span> color<span class="token punctuation">.</span>b<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+vec3
+<span class="token function">lut_texcoord</span><span class="token punctuation">(</span>vec3 pos<span class="token punctuation">,</span> vec2 scale_offset<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> pos <span class="token operator">*</span> scale_offset<span class="token punctuation">.</span>s <span class="token operator">+</span> scale_offset<span class="token punctuation">.</span>t<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">float</span>
+<span class="token function">linpow</span><span class="token punctuation">(</span><span class="token keyword">float</span> x<span class="token punctuation">,</span> <span class="token keyword">float</span> g<span class="token punctuation">,</span> <span class="token keyword">float</span> a<span class="token punctuation">,</span> <span class="token keyword">float</span> b<span class="token punctuation">,</span> <span class="token keyword">float</span> c<span class="token punctuation">,</span> <span class="token keyword">float</span> d<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">/* See WESTON_COLOR_CURVE_TYPE_LINPOW for details about LINPOW. */</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>x <span class="token operator">&gt;=</span> d<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token function">pow</span><span class="token punctuation">(</span><span class="token punctuation">(</span>a <span class="token operator">*</span> x<span class="token punctuation">)</span> <span class="token operator">+</span> b<span class="token punctuation">,</span> g<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> c <span class="token operator">*</span> x<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">float</span>
+<span class="token function">sample_linpow</span><span class="token punctuation">(</span><span class="token keyword">float</span> params<span class="token punctuation">[</span><span class="token constant">MAX_CURVESET_PARAMS</span><span class="token punctuation">]</span><span class="token punctuation">,</span> bool must_clamp<span class="token punctuation">,</span>
+          <span class="token keyword">float</span> x<span class="token punctuation">,</span> compile_const <span class="token keyword">int</span> color_channel<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">float</span> g<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">;</span>
+
+    <span class="token comment">/*
+     * For each color channel we have MAX_CURVE_PARAMS parameters.
+     * The parameters for the three curves are stored in RGB order.
+     */</span>
+    g <span class="token operator">=</span> params<span class="token punctuation">[</span><span class="token number">0</span> <span class="token operator">+</span> color_channel <span class="token operator">*</span> <span class="token constant">MAX_CURVE_PARAMS</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    a <span class="token operator">=</span> params<span class="token punctuation">[</span><span class="token number">1</span> <span class="token operator">+</span> color_channel <span class="token operator">*</span> <span class="token constant">MAX_CURVE_PARAMS</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    b <span class="token operator">=</span> params<span class="token punctuation">[</span><span class="token number">2</span> <span class="token operator">+</span> color_channel <span class="token operator">*</span> <span class="token constant">MAX_CURVE_PARAMS</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    c <span class="token operator">=</span> params<span class="token punctuation">[</span><span class="token number">3</span> <span class="token operator">+</span> color_channel <span class="token operator">*</span> <span class="token constant">MAX_CURVE_PARAMS</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    d <span class="token operator">=</span> params<span class="token punctuation">[</span><span class="token number">4</span> <span class="token operator">+</span> color_channel <span class="token operator">*</span> <span class="token constant">MAX_CURVE_PARAMS</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>must_clamp<span class="token punctuation">)</span>
+        x <span class="token operator">=</span> <span class="token function">clamp</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/* We use mirroring for negative input values. */</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>x <span class="token operator">&lt;</span> <span class="token number">0.0</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token function">linpow</span><span class="token punctuation">(</span><span class="token operator">-</span>x<span class="token punctuation">,</span> g<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token function">linpow</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> g<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+vec3
+<span class="token function">sample_linpow_vec3</span><span class="token punctuation">(</span><span class="token keyword">float</span> params<span class="token punctuation">[</span><span class="token constant">MAX_CURVESET_PARAMS</span><span class="token punctuation">]</span><span class="token punctuation">,</span> bool must_clamp<span class="token punctuation">,</span>
+           vec3 color<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">vec3</span><span class="token punctuation">(</span><span class="token function">sample_linpow</span><span class="token punctuation">(</span>params<span class="token punctuation">,</span> must_clamp<span class="token punctuation">,</span> color<span class="token punctuation">.</span>r<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token function">sample_linpow</span><span class="token punctuation">(</span>params<span class="token punctuation">,</span> must_clamp<span class="token punctuation">,</span> color<span class="token punctuation">.</span>g<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token function">sample_linpow</span><span class="token punctuation">(</span>params<span class="token punctuation">,</span> must_clamp<span class="token punctuation">,</span> color<span class="token punctuation">.</span>b<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">float</span>
+<span class="token function">powlin</span><span class="token punctuation">(</span><span class="token keyword">float</span> x<span class="token punctuation">,</span> <span class="token keyword">float</span> g<span class="token punctuation">,</span> <span class="token keyword">float</span> a<span class="token punctuation">,</span> <span class="token keyword">float</span> b<span class="token punctuation">,</span> <span class="token keyword">float</span> c<span class="token punctuation">,</span> <span class="token keyword">float</span> d<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">/* See WESTON_COLOR_CURVE_TYPE_POWLIN for details about POWLIN. */</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>x <span class="token operator">&gt;=</span> d<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> a <span class="token operator">*</span> <span class="token function">pow</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> g<span class="token punctuation">)</span> <span class="token operator">+</span> b<span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> c <span class="token operator">*</span> x<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">float</span>
+<span class="token function">sample_powlin</span><span class="token punctuation">(</span><span class="token keyword">float</span> params<span class="token punctuation">[</span><span class="token constant">MAX_CURVESET_PARAMS</span><span class="token punctuation">]</span><span class="token punctuation">,</span> bool must_clamp<span class="token punctuation">,</span>
+          <span class="token keyword">float</span> x<span class="token punctuation">,</span> compile_const <span class="token keyword">int</span> color_channel<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">float</span> g<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">;</span>
+
+    <span class="token comment">/*
+     * For each color channel we have MAX_CURVE_PARAMS parameters.
+     * The parameters for the three curves are stored in RGB order.
+     */</span>
+    g <span class="token operator">=</span> params<span class="token punctuation">[</span><span class="token number">0</span> <span class="token operator">+</span> color_channel <span class="token operator">*</span> <span class="token constant">MAX_CURVE_PARAMS</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    a <span class="token operator">=</span> params<span class="token punctuation">[</span><span class="token number">1</span> <span class="token operator">+</span> color_channel <span class="token operator">*</span> <span class="token constant">MAX_CURVE_PARAMS</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    b <span class="token operator">=</span> params<span class="token punctuation">[</span><span class="token number">2</span> <span class="token operator">+</span> color_channel <span class="token operator">*</span> <span class="token constant">MAX_CURVE_PARAMS</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    c <span class="token operator">=</span> params<span class="token punctuation">[</span><span class="token number">3</span> <span class="token operator">+</span> color_channel <span class="token operator">*</span> <span class="token constant">MAX_CURVE_PARAMS</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    d <span class="token operator">=</span> params<span class="token punctuation">[</span><span class="token number">4</span> <span class="token operator">+</span> color_channel <span class="token operator">*</span> <span class="token constant">MAX_CURVE_PARAMS</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>must_clamp<span class="token punctuation">)</span>
+        x <span class="token operator">=</span> <span class="token function">clamp</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/* We use mirroring for negative input values. */</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>x <span class="token operator">&lt;</span> <span class="token number">0.0</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token function">powlin</span><span class="token punctuation">(</span><span class="token operator">-</span>x<span class="token punctuation">,</span> g<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token function">powlin</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> g<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+vec3
+<span class="token function">sample_powlin_vec3</span><span class="token punctuation">(</span><span class="token keyword">float</span> params<span class="token punctuation">[</span><span class="token constant">MAX_CURVESET_PARAMS</span><span class="token punctuation">]</span><span class="token punctuation">,</span> bool must_clamp<span class="token punctuation">,</span>
+           vec3 color<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">vec3</span><span class="token punctuation">(</span><span class="token function">sample_powlin</span><span class="token punctuation">(</span>params<span class="token punctuation">,</span> must_clamp<span class="token punctuation">,</span> color<span class="token punctuation">.</span>r<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token function">sample_powlin</span><span class="token punctuation">(</span>params<span class="token punctuation">,</span> must_clamp<span class="token punctuation">,</span> color<span class="token punctuation">.</span>g<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token function">sample_powlin</span><span class="token punctuation">(</span>params<span class="token punctuation">,</span> must_clamp<span class="token punctuation">,</span> color<span class="token punctuation">.</span>b<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+vec3
+<span class="token function">color_pre_curve</span><span class="token punctuation">(</span>vec3 color<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>c_color_pre_curve <span class="token operator">==</span> <span class="token constant">SHADER_COLOR_CURVE_IDENTITY</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> color<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>c_color_pre_curve <span class="token operator">==</span> <span class="token class-name">SHADER_COLOR_CURVE_LUT_3x1D</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">sample_lut_3x1d</span><span class="token punctuation">(</span>color_pre_curve_lut_2d<span class="token punctuation">,</span>
+                       color_pre_curve_lut_scale_offset<span class="token punctuation">,</span>
+                       color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>c_color_pre_curve <span class="token operator">==</span> <span class="token constant">SHADER_COLOR_CURVE_LINPOW</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">sample_linpow_vec3</span><span class="token punctuation">(</span>color_pre_curve_params<span class="token punctuation">,</span>
+                      color_pre_curve_clamped_input<span class="token punctuation">,</span>
+                      color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>c_color_pre_curve <span class="token operator">==</span> <span class="token constant">SHADER_COLOR_CURVE_POWLIN</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">sample_powlin_vec3</span><span class="token punctuation">(</span>color_pre_curve_params<span class="token punctuation">,</span>
+                      color_pre_curve_clamped_input<span class="token punctuation">,</span>
+                      color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token comment">/* Never reached, bad c_color_pre_curve. */</span>
+        <span class="token keyword">return</span> <span class="token function">vec3</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">0.3</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+vec3
+<span class="token function">sample_color_mapping_lut_3d</span><span class="token punctuation">(</span>vec3 color<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    vec3 pos<span class="token punctuation">,</span> ret <span class="token operator">=</span> <span class="token function">vec3</span><span class="token punctuation">(</span><span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+#<span class="token keyword">if</span> <span class="token constant">DEF_COLOR_MAPPING</span> <span class="token operator">==</span> <span class="token class-name">SHADER_COLOR_MAPPING_3DLUT</span>
+    pos <span class="token operator">=</span> <span class="token function">lut_texcoord</span><span class="token punctuation">(</span>color<span class="token punctuation">,</span> color_mapping_lut_scale_offset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ret <span class="token operator">=</span> <span class="token function">texture3D</span><span class="token punctuation">(</span>color_mapping_lut_3d<span class="token punctuation">,</span> pos<span class="token punctuation">)</span><span class="token punctuation">.</span>rgb<span class="token punctuation">;</span>
+#endif
+    <span class="token keyword">return</span> ret<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+vec3
+<span class="token function">color_mapping</span><span class="token punctuation">(</span>vec3 color<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>c_color_mapping <span class="token operator">==</span> <span class="token constant">SHADER_COLOR_MAPPING_IDENTITY</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> color<span class="token punctuation">;</span>
+    <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>c_color_mapping <span class="token operator">==</span> <span class="token constant">SHADER_COLOR_MAPPING_3DLUT</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token function">sample_color_mapping_lut_3d</span><span class="token punctuation">(</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>c_color_mapping <span class="token operator">==</span> <span class="token constant">SHADER_COLOR_MAPPING_MATRIX</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> color_mapping_matrix <span class="token operator">*</span> color<span class="token punctuation">.</span>rgb<span class="token punctuation">;</span>
+    <span class="token keyword">else</span> <span class="token comment">/* Never reached, bad c_color_mapping. */</span>
+        <span class="token keyword">return</span> <span class="token function">vec3</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">0.3</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+vec3
+<span class="token function">color_post_curve</span><span class="token punctuation">(</span>vec3 color<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>c_color_post_curve <span class="token operator">==</span> <span class="token constant">SHADER_COLOR_CURVE_IDENTITY</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> color<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>c_color_post_curve <span class="token operator">==</span> <span class="token class-name">SHADER_COLOR_CURVE_LUT_3x1D</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">sample_lut_3x1d</span><span class="token punctuation">(</span>color_post_curve_lut_2d<span class="token punctuation">,</span>
+                       color_post_curve_lut_scale_offset<span class="token punctuation">,</span>
+                       color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>c_color_post_curve <span class="token operator">==</span> <span class="token constant">SHADER_COLOR_CURVE_LINPOW</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">sample_linpow_vec3</span><span class="token punctuation">(</span>color_post_curve_params<span class="token punctuation">,</span>
+                      color_post_curve_clamped_input<span class="token punctuation">,</span>
+                      color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>c_color_post_curve <span class="token operator">==</span> <span class="token constant">SHADER_COLOR_CURVE_POWLIN</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">sample_powlin_vec3</span><span class="token punctuation">(</span>color_post_curve_params<span class="token punctuation">,</span>
+                      color_post_curve_clamped_input<span class="token punctuation">,</span>
+                      color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token comment">/* Never reached, bad c_color_post_curve. */</span>
+        <span class="token keyword">return</span> <span class="token function">vec3</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">0.3</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+vec4
+<span class="token function">color_pipeline</span><span class="token punctuation">(</span>vec4 color<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">/* Ensure straight alpha */</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>c_input_is_premult<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>color<span class="token punctuation">.</span>a <span class="token operator">==</span> <span class="token number">0.0</span><span class="token punctuation">)</span>
+            color<span class="token punctuation">.</span>rgb <span class="token operator">=</span> <span class="token function">vec3</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span>
+            color<span class="token punctuation">.</span>rgb <span class="token operator">*=</span> <span class="token number">1.0</span> <span class="token operator">/</span> color<span class="token punctuation">.</span>a<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    color<span class="token punctuation">.</span>rgb <span class="token operator">=</span> <span class="token function">color_pre_curve</span><span class="token punctuation">(</span>color<span class="token punctuation">.</span>rgb<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    color<span class="token punctuation">.</span>rgb <span class="token operator">=</span> <span class="token function">color_mapping</span><span class="token punctuation">(</span>color<span class="token punctuation">.</span>rgb<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    color<span class="token punctuation">.</span>rgb <span class="token operator">=</span> <span class="token function">color_post_curve</span><span class="token punctuation">(</span>color<span class="token punctuation">.</span>rgb<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> color<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token keyword">void</span>
+<span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    vec4 color<span class="token punctuation">;</span>
+    <span class="token comment">/* Electrical (non-linear) RGBA values, may be premult or not */</span>
+    color <span class="token operator">=</span> <span class="token function">sample_input_texture</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>c_need_color_pipeline<span class="token punctuation">)</span><span class="token number">417</span>
+        color <span class="token operator">=</span> <span class="token function">color_pipeline</span><span class="token punctuation">(</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* Produces straight alpha */</span>
+    <span class="token comment">/* Ensure pre-multiplied for blending */</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>c_input_is_premult <span class="token operator">||</span> c_need_color_pipeline<span class="token punctuation">)</span>
+        color<span class="token punctuation">.</span>rgb <span class="token operator">*=</span> color<span class="token punctuation">.</span>a<span class="token punctuation">;</span>
+    color <span class="token operator">*=</span> view_alpha<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>c_green_tint<span class="token punctuation">)</span>
+        color <span class="token operator">=</span> <span class="token function">vec4</span><span class="token punctuation">(</span><span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">0.3</span><span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">0.2</span><span class="token punctuation">)</span> <span class="token operator">+</span> color <span class="token operator">*</span> <span class="token number">0.8</span><span class="token punctuation">;</span>
+    gl_FragColor <span class="token operator">=</span> color<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="weston&#x7684;shadow-&#x4E0E;-fromblendtooutput&#x5173;&#x7CFB;"><a name="weston&#x7684;shadow-&#x4E0E;-fromblendtooutput&#x5173;&#x7CFB;" class="anchor-navigation-ex-anchor" href="#weston&#x7684;shadow-&#x4E0E;-fromblendtooutput&#x5173;&#x7CFB;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3.1. weston&#x7684;shadow &#x4E0E; from_blend_to_output&#x5173;&#x7CFB;</h3>
+<p>&#x4E3A;&#x5565;&#x8981;&#x6C42; from_blend_to_output&#xFF1F;--------&gt; &#x901A;&#x8FC7;&#x83B7;&#x53D6; &#x989C;&#x8272;&#x8F6C;&#x6362;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java">
+struct weston_color_transform <span class="token punctuation">{</span>
+    struct weston_color_manager <span class="token operator">*</span>cm<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> ref_count<span class="token punctuation">;</span>
+    uint32_t id<span class="token punctuation">;</span> <span class="token comment">/* For debug */</span>
+
+    <span class="token comment">/* for renderer or backend to attach their own cached objects */</span>
+    struct wl_signal destroy_signal<span class="token punctuation">;</span>
+
+    <span class="token comment">/* Color transform is the series of steps: */</span>
+
+    <span class="token comment">/** Step 1: color model change */</span>
+    <span class="token comment">/* YCbCr&#x2192;RGB conversion, but that is done elsewhere */</span>
+
+    <span class="token comment">/** Step 2: color curve before color mapping */</span>
+    struct weston_color_curve pre_curve<span class="token punctuation">;</span>
+
+    <span class="token comment">/** Step 3: color mapping */</span>
+    struct weston_color_mapping mapping<span class="token punctuation">;</span>
+
+    <span class="token comment">/** Step 4: color curve after color mapping */</span>
+    struct weston_color_curve post_curve<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="&#x7D20;&#x6750;&#x5408;&#x96C6;"><a name="&#x7D20;&#x6750;&#x5408;&#x96C6;" class="anchor-navigation-ex-anchor" href="#&#x7D20;&#x6750;&#x5408;&#x96C6;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4. &#x7D20;&#x6750;&#x5408;&#x96C6;</h2>
+<p><a href="https://iquilezles.org/articles/distfunctions2d/" target="_blank">https://iquilezles.org/articles/distfunctions2d/</a>     &#x4E8C;&#x7EF4;&#x56FE;&#x5F62;&#x7684;&#x8DDD;&#x79BB;&#x51FD;&#x6570;</p>
+<h1 id="&#x8865;&#x5145;&#xFF1A;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;"><a name="&#x8865;&#x5145;&#xFF1A;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;" class="anchor-navigation-ex-anchor" href="#&#x8865;&#x5145;&#xFF1A;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;"><i class="fa fa-link" aria-hidden="true"></i></a>4. &#x8865;&#x5145;&#xFF1A;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;</h1>
+<p><a href="https://blog.csdn.net/learnframework/article/details/130778897" target="_blank">aosp11/12/13 &#x58C1;&#x7EB8;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#xFF0C;&#x6BDB;&#x73BB;&#x7483;SurfaceFlinger&#x5C42;&#x9762;&#x539F;&#x7406;-&#x7B2C;&#x4E8C;&#x8282;&#x5343;&#x91CC;&#x9A6C;framework&#x5B9E;&#x6218;_&#x5343;&#x91CC;&#x9A6C;aosp-CSDN&#x535A;&#x5BA2;</a></p>
+<p>&#x5177;&#x4F53;&#x6D41;&#x7A0B;&#xFF0C;&#x540C;&#x5706;&#x89D2;</p>
+<pre class="language-"><code class="lang-java"><span class="token number">1</span>
+<span class="token keyword">void</span> <span class="token class-name">GLESRenderEngine</span><span class="token operator">::</span><span class="token function">drawLayersInternal</span><span class="token punctuation">(</span>
+        <span class="token keyword">const</span> std<span class="token operator">::</span><span class="token function">shared_ptr</span><span class="token operator">&lt;</span>std<span class="token operator">::</span><span class="token function">promise</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">RenderEngineResult</span><span class="token punctuation">&gt;</span></span><span class="token operator">&gt;</span><span class="token operator">&amp;&amp;</span> resultPromise<span class="token punctuation">,</span>
+        <span class="token keyword">const</span> <span class="token class-name">DisplaySettings</span><span class="token operator">&amp;</span> display<span class="token punctuation">,</span> <span class="token keyword">const</span> std<span class="token operator">::</span><span class="token function">vector</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">LayerSettings</span><span class="token punctuation">&gt;</span></span><span class="token operator">&amp;</span> layers<span class="token punctuation">,</span>
+        <span class="token keyword">const</span> std<span class="token operator">::</span><span class="token function">shared_ptr</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ExternalTexture</span><span class="token punctuation">&gt;</span></span><span class="token operator">&amp;</span> buffer<span class="token punctuation">,</span> <span class="token keyword">const</span> bool useFramebufferCache<span class="token punctuation">,</span>
+        base<span class="token operator">::</span><span class="token function">unique_fd</span><span class="token operator">&amp;&amp;</span> bufferFence<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">ATRACE_CALL</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//&#x7701;&#x7565;</span>
+    std<span class="token operator">::</span><span class="token function">deque</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token keyword">const</span> <span class="token class-name">LayerSettings</span><span class="token punctuation">&gt;</span></span> blurLayers<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">CC_LIKELY</span><span class="token punctuation">(</span>mBlurFilter <span class="token operator">!=</span> nullptr<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> auto<span class="token operator">&amp;</span> layer <span class="token operator">:</span> layers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>layer<span class="token punctuation">.</span>backgroundBlurRadius <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">//&#x904D;&#x5386;&#x51FA;&#x8FD9;&#x4E2A;backgroundBlurRadius&#x7684;layer</span>
+                blurLayers<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>layer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">const</span> auto blurLayersSize <span class="token operator">=</span> blurLayers<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//&#x7701;&#x7565;</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> auto<span class="token operator">&amp;</span> layer <span class="token operator">:</span> layers<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">//&#x904D;&#x5386;&#x6240;&#x6709;&#x56FE;&#x5C42;layer&#x8FDB;&#x884C;&#x76F8;&#x5173;&#x7684;&#x6E32;&#x67D3;,&#x6CE8;&#x610F;&#x8FD9;&#x91CC;&#x662F;&#x4ECE;&#x5E95;&#x5230;&#x9876;&#x7684;&#x987A;&#x5E8F;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>blurLayers<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> blurLayers<span class="token punctuation">.</span><span class="token function">front</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> layer<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//&#x5982;&#x679C;&#x904D;&#x5386;&#x5230;&#x4E86;&#x8BBE;&#x7F6E;&#x4E86;blurebehind&#x7684;layer</span>
+            blurLayers<span class="token punctuation">.</span><span class="token function">pop_front</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            auto status <span class="token operator">=</span> mBlurFilter<span class="token operator">-&gt;</span><span class="token function">prepare</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//&#x51C6;&#x5907;&#x76F8;&#x5173;&#x7684;&#x6A21;&#x7CCA;&#x53C2;&#x6570;</span>
+
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>blurLayers<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//&#x5047;&#x8BBE;&#x5DF2;&#x7ECF;&#x6CA1;&#x6709;&#x4E86;&#x90A3;&#x4E48;&#x5C31;&#x5F00;&#x59CB;&#x8BBE;&#x7F6E;&#x597D;&#x76F8;&#x5173;&#x7684;buffer</span>
+                <span class="token comment">//&#x8FD9;&#x91CC;&#x5F88;&#x5173;&#x952E;&#xFF0C;&#x4F1A;&#x628A;&#x5DF2;&#x7ECF;&#x7ED8;&#x5236;&#x7684;FrameBuffer&#x8FDB;&#x884C;&#x83B7;&#x53D6;&#xFF0C;&#x540E;&#x9762;&#x628A;&#x8FD9;&#x4E2A;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x5BF9;&#x5E94;&#x7684;blur</span>
+                <span class="token comment">// Done blurring, time to bind the native FBO and render our blur onto it.</span>
+                fbo <span class="token operator">=</span> std<span class="token operator">::</span><span class="token function">make_unique</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">BindNativeBufferAsFramebuffer</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token keyword">this</span><span class="token punctuation">,</span>
+                                                                      buffer<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                                                                              <span class="token operator">-&gt;</span><span class="token function">getBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                                                                              <span class="token operator">-&gt;</span><span class="token function">getNativeBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                                                                      useFramebufferCache<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                status <span class="token operator">=</span> fbo<span class="token operator">-&gt;</span><span class="token function">getStatus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">setViewportAndProjection</span><span class="token punctuation">(</span>display<span class="token punctuation">.</span>physicalDisplay<span class="token punctuation">,</span> display<span class="token punctuation">.</span>clip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+              <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+            <span class="token punctuation">}</span>
+                    <span class="token comment">//&#x8FDB;&#x884C;&#x771F;&#x7684;&#x6A21;&#x7CCA;</span>
+            status <span class="token operator">=</span> mBlurFilter<span class="token operator">-&gt;</span><span class="token function">render</span><span class="token punctuation">(</span>blurLayersSize <span class="token operator">&gt;</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+                <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>layer<span class="token punctuation">.</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>buffer <span class="token operator">!=</span> nullptr<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//&#x8FD9;&#x91CC;&#x6B63;&#x5E38;&#x7684;layer&#x6E32;&#x67D3;44</span>
+          <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token punctuation">}</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="todo&#x5B89;&#x5353;&#x622A;&#x5C4F;"><a name="todo&#x5B89;&#x5353;&#x622A;&#x5C4F;" class="anchor-navigation-ex-anchor" href="#todo&#x5B89;&#x5353;&#x622A;&#x5C4F;"><i class="fa fa-link" aria-hidden="true"></i></a>5. todo:&#x5B89;&#x5353;&#x622A;&#x5C4F;</h1>
+<p>TODO:&#x622A;&#x5C4F;&#x63A5;&#x53E3;&#x4E5F;&#x662F;&#x7B49;&#x5F85;&#x8FD4;&#x56DE;</p>
+<p>&#x622A;&#x5C4F; SurfaceControl.ScreenshotHardwareBuffer</p>
+<p>&#x8981;&#x70B9;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"> &#x622A;&#x5C4F;&#x5DE5;&#x5177;&#x7C7B;<span class="token class-name">ScreenCapture</span>
+     captureDisplay  display&#x7EF4;&#x5EA6;  &#xFF08;captureLayers   layer&#x7EF4;&#x5EA6;&#xFF09;
+         nativeCaptureDisplay
+             <span class="token class-name">ComposerService</span><span class="token operator">::</span><span class="token function">getComposerService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span>captureDisplay   <span class="token comment">// &#x3010;&#x3011; ComposerService&#xFF08;ISurfaceComposer&#xFF09;&#x662F;sf&#x7684;client&#x7AEF;</span>
+
+
+ <span class="token class-name">IServiceManager</span>
+</code></pre>
+<p>ComposerService ---&gt; sf  &#x6846;&#x67B6;&#x7684;&#x642D;&#x5EFA;&#xFF1A;</p>
+<p><a href="https://blog.csdn.net/SSSxCCC/article/details/119253965" target="_blank">https://blog.csdn.net/SSSxCCC/article/details/119253965</a>    &#x622A;&#x5C4F;&#x6D41;&#x7A0B; - &#x5B89;&#x5353;R</p>
+<p><a href="https://blog.csdn.net/SSSxCCC/article/details/119253947" target="_blank">https://blog.csdn.net/SSSxCCC/article/details/119253947</a>   &#x5F55;&#x5C4F;&#x6D41;&#x7A0B; - &#x5B89;&#x5353;R</p>
+<h1 id="todo&#x9006;&#x5411;"><a name="todo&#x9006;&#x5411;" class="anchor-navigation-ex-anchor" href="#todo&#x9006;&#x5411;"><i class="fa fa-link" aria-hidden="true"></i></a>6. TODO:&#x9006;&#x5411;</h1>
+<p>&#x5173;&#x5FC3;&#x5927;&#x7684;&#x7ED3;&#x6784;&#xFF1A;</p>
+<p>1&#x3001;&#x8FDB;&#x7A0B;&#x6811;</p>
+<p>2&#x3001;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</p>
+<p>3&#x3001;&#x5927;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;</p>
+<p>4&#x3001;&#x7A97;&#x53E3;dump</p>
+<h1 id="todo-&#x52A8;&#x753B;&#x4E0E;sf"><a name="todo-&#x52A8;&#x753B;&#x4E0E;sf" class="anchor-navigation-ex-anchor" href="#todo-&#x52A8;&#x753B;&#x4E0E;sf"><i class="fa fa-link" aria-hidden="true"></i></a>7. TODO: &#x52A8;&#x753B;&#x4E0E;sf</h1>
+<p>TODO :</p>
+<p>skia&#x7684;&#x753B;&#x5706;&#x753B;&#x7EBF;&#x7684;&#x6307;&#x4EE4;&#x96C6;  ------&gt; &#x5982;&#x4F55;&#x7ED9;&#x5230;GPU</p>
+<p>&#x4E0E; opengl&#x6709;&#x5565;&#x5173;&#x7CFB;&#xFF1F;&#x7528;&#x5230;&#x4E86;shader&#x561B;&#xFF1F;</p>
+<p>Animation&#x7684;&#x672C;&#x8D28;&#xFF1A;</p>
+<blockquote>
+<p>  &#x89C6;&#x89C9;&#x4E0A;&#x7684;&#x8FC7;&#x6E21;&#xFF08;&#x8BA9;&#x4EBA;&#x5FFD;&#x7565;&#x7A81;&#x53D8;&#xFF09;</p>
+</blockquote>
+<ul>
+<li>----------&gt; &#x6240;&#x4EE5;&#xFF0C;Animation&#x8981;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#xFF0C;&#x6E10;&#x53D8;&#xFF08;&#x5373;&#x9891;&#x7387;&#x540C;&#x4EBA;&#xFF09;</li>
+</ul>
+
+<script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Display系统.html" class="navigation navigation-prev " aria-label="Previous page: Display系统">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="合成器surfaceFlinger.html" class="navigation navigation-next " aria-label="Next page: 合成器surfaceFlinger">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"sf特效","level":"1.2.3.2","depth":3,"next":{"title":"合成器surfaceFlinger","level":"1.2.3.3","depth":3,"path":"0_图形系统/3_Display系统/合成器surfaceFlinger.md","ref":"0_图形系统/3_Display系统/合成器surfaceFlinger.md","articles":[]},"previous":{"title":"Display系统","level":"1.2.3.1","depth":3,"path":"0_图形系统/3_Display系统/Display系统.md","ref":"0_图形系统/3_Display系统/Display系统.md","articles":[]},"dir":"ltr"},"config":{"//":["这是多行注释：    anchor-navigation-ex 是","anchor-navigation-ex 是","click-reveal 本地使用ok，但是github在build pages时，不识别click-reveal","accordion 也是折叠代码段","anchor-navigation-ex 是"],"plugins":["anchor-navigation-ex","toggle-chapters","expandable-chapters-small","splitter","code","page-treeview","popup","-search","-lunr","sidebar-style","auto-scroll-table","click-reveal","accordion","pageview-count","search-pro","prism","prism-themes","-highlight"],"root":"./markdownsFiles","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"Kent","title":"《prove》"},"tbfed-pagefooter":{"copyright":"Copyright &copy ershouche-FE 2019","modify_label":"文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"page-treeview":{"collapsed":false,"copyright":"Copyright © aleen42","minHeaderCount":"1","minHeaderDeep":"1"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"disqus":{"shortName":"gitbookuse"},"splitter":{},"search-pro":{},"accordion":{},"auto-scroll-table":{},"popup":{},"lunr":{"maxIndexSize":400000},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"click-reveal":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"pageview-count":{},"prism-themes":{},"expandable-chapters-small":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"toggle-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"bookname":"笔记","variables":{},"title":"Kent的博客","gitbook":"*"},"file":{"path":"0_图形系统/3_Display系统/sf特效.md","mtime":"2024-06-26T16:53:45.229Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-06-27T16:01:01.244Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-toggle-chapters/toggle.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sidebar-style/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-auto-scroll-table/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-click-reveal/click_reveal.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-accordion/accordionSelector.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-pageview-count/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

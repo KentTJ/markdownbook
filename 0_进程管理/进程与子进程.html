@@ -1,0 +1,2225 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>进程与子进程 · Kent的博客</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-toggle-chapters/toggle.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-treeview/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-sidebar-style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-auto-scroll-table/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-click-reveal/click_reveal.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-accordion/accordion.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-pageview-count/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="进程管理系列0_总论.html" />
+    
+    
+    <link rel="prev" href="杀进程原理.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../0_图形系统/">
+            
+                <a href="../0_图形系统/">
+            
+                    
+                    0_图形系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../0_图形系统/0_Graphic系统总论/0_Graphic系统总论.html">
+            
+                <a href="../0_图形系统/0_Graphic系统总论/0_Graphic系统总论.html">
+            
+                    
+                    0_Graphic系统总论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../0_图形系统/1_Render系统/">
+            
+                <a href="../0_图形系统/1_Render系统/">
+            
+                    
+                    1_Render系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="../0_图形系统/1_Render系统/opengl.html">
+            
+                <a href="../0_图形系统/1_Render系统/opengl.html">
+            
+                    
+                    Opengl
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../0_图形系统/3_Display系统/">
+            
+                <a href="../0_图形系统/3_Display系统/">
+            
+                    
+                    3_Display系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.1" data-path="../0_图形系统/3_Display系统/Display系统.html">
+            
+                <a href="../0_图形系统/3_Display系统/Display系统.html">
+            
+                    
+                    Display系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="../0_图形系统/3_Display系统/sf特效.html">
+            
+                <a href="../0_图形系统/3_Display系统/sf特效.html">
+            
+                    
+                    sf特效
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.3" data-path="../0_图形系统/3_Display系统/合成器surfaceFlinger.html">
+            
+                <a href="../0_图形系统/3_Display系统/合成器surfaceFlinger.html">
+            
+                    
+                    合成器surfaceFlinger
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../0_图形系统/其他/">
+            
+                <a href="../0_图形系统/其他/">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.4.1" data-path="../0_图形系统/其他/QT.html">
+            
+                <a href="../0_图形系统/其他/QT.html">
+            
+                    
+                    QT
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.2" data-path="../0_图形系统/其他/多屏显示分析.html">
+            
+                <a href="../0_图形系统/其他/多屏显示分析.html">
+            
+                    
+                    多屏显示分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../0_输入系统/">
+            
+                <a href="../0_输入系统/">
+            
+                    
+                    0_输入系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../0_输入系统/Input.html">
+            
+                <a href="../0_输入系统/Input.html">
+            
+                    
+                    Input
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../0_输入系统/全局手势.html">
+            
+                <a href="../0_输入系统/全局手势.html">
+            
+                    
+                    全局手势
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    0_进程管理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="0_AMS.html">
+            
+                <a href="0_AMS.html">
+            
+                    
+                    0 AMS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="App保活的方式.html">
+            
+                <a href="App保活的方式.html">
+            
+                    
+                    App保活的方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="后台杀进程.html">
+            
+                <a href="后台杀进程.html">
+            
+                    
+                    后台杀进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="杀进程原理.html">
+            
+                <a href="杀进程原理.html">
+            
+                    
+                    杀进程原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.5" data-path="进程与子进程.html">
+            
+                <a href="进程与子进程.html">
+            
+                    
+                    进程与子进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="进程管理系列0_总论.html">
+            
+                <a href="进程管理系列0_总论.html">
+            
+                    
+                    进程管理系列0_总论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="进程管理系列1之进程的创建.html">
+            
+                <a href="进程管理系列1之进程的创建.html">
+            
+                    
+                    进程管理系列1之进程的创建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="进程管理系列2之进程的优先级.html">
+            
+                <a href="进程管理系列2之进程的优先级.html">
+            
+                    
+                    进程管理系列2之进程的优先级
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="进程管理系列3之内存回收.html">
+            
+                <a href="进程管理系列3之内存回收.html">
+            
+                    
+                    进程管理系列3之内存回收
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Andriod/">
+            
+                <a href="../Andriod/">
+            
+                    
+                    Andriod
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../Andriod/关键流程/">
+            
+                <a href="../Andriod/关键流程/">
+            
+                    
+                    关键流程
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="../Andriod/关键流程/InitSystem.html">
+            
+                <a href="../Andriod/关键流程/InitSystem.html">
+            
+                    
+                    Init System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="../Andriod/关键流程/startAPP.html">
+            
+                <a href="../Andriod/关键流程/startAPP.html">
+            
+                    
+                    Start APP
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../Andriod/其他核心服务/">
+            
+                <a href="../Andriod/其他核心服务/">
+            
+                    
+                    其他核心服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="../Andriod/其他核心服务/1_InputMethod.html">
+            
+                <a href="../Andriod/其他核心服务/1_InputMethod.html">
+            
+                    
+                    1 Input Method
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="../Andriod/其他核心服务/multi-client-ime.html">
+            
+                <a href="../Andriod/其他核心服务/multi-client-ime.html">
+            
+                    
+                    Multi Client Ime
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="../Andriod/其他核心服务/无障碍_.html">
+            
+                <a href="../Andriod/其他核心服务/无障碍_.html">
+            
+                    
+                    无障碍_
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../Andriod/0_AndriodSystem.html">
+            
+                <a href="../Andriod/0_AndriodSystem.html">
+            
+                    
+                    0 Andriod System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../Andriod/log框架.html">
+            
+                <a href="../Andriod/log框架.html">
+            
+                    
+                    log框架
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../Andriod/permissions.html">
+            
+                <a href="../Andriod/permissions.html">
+            
+                    
+                    Permissions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../Andriod/模型.html">
+            
+                <a href="../Andriod/模型.html">
+            
+                    
+                    模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../coding/">
+            
+                <a href="../coding/">
+            
+                    
+                    Coding
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../coding/0_computorBase/">
+            
+                <a href="../coding/0_computorBase/">
+            
+                    
+                    0 Computor Base
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1.1" data-path="../coding/0_computorBase/DesignPattern.html">
+            
+                <a href="../coding/0_computorBase/DesignPattern.html">
+            
+                    
+                    Design Pattern
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.2" data-path="../coding/0_computorBase/HowToReadCode.html">
+            
+                <a href="../coding/0_computorBase/HowToReadCode.html">
+            
+                    
+                    How To Read Code
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.3" data-path="../coding/0_computorBase/HowWritecode.html">
+            
+                <a href="../coding/0_computorBase/HowWritecode.html">
+            
+                    
+                    How Writecode
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.4" data-path="../coding/0_computorBase/linux.html">
+            
+                <a href="../coding/0_computorBase/linux.html">
+            
+                    
+                    Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.5" data-path="../coding/0_computorBase/linux文件系统.html">
+            
+                <a href="../coding/0_computorBase/linux文件系统.html">
+            
+                    
+                    linux文件系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.6" data-path="../coding/0_computorBase/OperateSystem.html">
+            
+                <a href="../coding/0_computorBase/OperateSystem.html">
+            
+                    
+                    Operate System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.7" data-path="../coding/0_computorBase/refactor.html">
+            
+                <a href="../coding/0_computorBase/refactor.html">
+            
+                    
+                    Refactor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.8" data-path="../coding/0_computorBase/用户_用户组.html">
+            
+                <a href="../coding/0_computorBase/用户_用户组.html">
+            
+                    
+                    用户_用户组
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.9" data-path="../coding/0_computorBase/解耦.html">
+            
+                <a href="../coding/0_computorBase/解耦.html">
+            
+                    
+                    解耦
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../coding/0_IPC/">
+            
+                <a href="../coding/0_IPC/">
+            
+                    
+                    0 IPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.2.1" data-path="../coding/0_IPC/AndriodIPC.html">
+            
+                <a href="../coding/0_IPC/AndriodIPC.html">
+            
+                    
+                    Andriod IPC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.2" data-path="../coding/0_IPC/IPC前提_序列化.html">
+            
+                <a href="../coding/0_IPC/IPC前提_序列化.html">
+            
+                    
+                    IPC前提_序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.3" data-path="../coding/0_IPC/socket.html">
+            
+                <a href="../coding/0_IPC/socket.html">
+            
+                    
+                    Socket
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.4" data-path="../coding/0_IPC/线程间通信.html">
+            
+                <a href="../coding/0_IPC/线程间通信.html">
+            
+                    
+                    线程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../coding/0_性能/">
+            
+                <a href="../coding/0_性能/">
+            
+                    
+                    0_性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.3.1" data-path="../coding/0_性能/profiler.html">
+            
+                <a href="../coding/0_性能/profiler.html">
+            
+                    
+                    Profiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.2" data-path="../coding/0_性能/Systrace.html">
+            
+                <a href="../coding/0_性能/Systrace.html">
+            
+                    
+                    Systrace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.3" data-path="../coding/0_性能/内存.html">
+            
+                <a href="../coding/0_性能/内存.html">
+            
+                    
+                    内存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.4" data-path="../coding/0_性能/性能_.html">
+            
+                <a href="../coding/0_性能/性能_.html">
+            
+                    
+                    性能_
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../coding/1_稳定性/">
+            
+                <a href="../coding/1_稳定性/">
+            
+                    
+                    1_稳定性
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.4.1" data-path="../coding/1_稳定性/ANR.html">
+            
+                <a href="../coding/1_稳定性/ANR.html">
+            
+                    
+                    ANR
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4.2" data-path="../coding/1_稳定性/WatchDog.html">
+            
+                <a href="../coding/1_稳定性/WatchDog.html">
+            
+                    
+                    Watch Dog
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../coding/AndriodCar/">
+            
+                <a href="../coding/AndriodCar/">
+            
+                    
+                    Andriod Car
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.5.1" data-path="../coding/AndriodCar/CarService.html">
+            
+                <a href="../coding/AndriodCar/CarService.html">
+            
+                    
+                    Car Service
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="../coding/AndroidTool/">
+            
+                <a href="../coding/AndroidTool/">
+            
+                    
+                    Android Tool
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.6.1" data-path="../coding/AndroidTool/HierarchyView.html">
+            
+                <a href="../coding/AndroidTool/HierarchyView.html">
+            
+                    
+                    Hierarchy View
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="../coding/App/">
+            
+                <a href="../coding/App/">
+            
+                    
+                    App
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.7.1" data-path="../coding/App/APK_64bit_32bit.html">
+            
+                <a href="../coding/App/APK_64bit_32bit.html">
+            
+                    
+                    APK 64 Bit 32 Bit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.2" data-path="../coding/App/APP开发.html">
+            
+                <a href="../coding/App/APP开发.html">
+            
+                    
+                    APP开发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.3" data-path="../coding/App/launcher3.html">
+            
+                <a href="../coding/App/launcher3.html">
+            
+                    
+                    Launcher 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.4" data-path="../coding/App/SystemUI.html">
+            
+                <a href="../coding/App/SystemUI.html">
+            
+                    
+                    System UI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.5" data-path="../coding/App/小程序.html">
+            
+                <a href="../coding/App/小程序.html">
+            
+                    
+                    小程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8" data-path="../coding/CodingLanguage/">
+            
+                <a href="../coding/CodingLanguage/">
+            
+                    
+                    Coding Language
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.8.1" data-path="../coding/CodingLanguage/c_cpp_java.html">
+            
+                <a href="../coding/CodingLanguage/c_cpp_java.html">
+            
+                    
+                    C Cpp Java
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.2" data-path="../coding/CodingLanguage/java反射.html">
+            
+                <a href="../coding/CodingLanguage/java反射.html">
+            
+                    
+                    java反射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.3" data-path="../coding/CodingLanguage/JNI.html">
+            
+                <a href="../coding/CodingLanguage/JNI.html">
+            
+                    
+                    JNI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.4" data-path="../coding/CodingLanguage/js.html">
+            
+                <a href="../coding/CodingLanguage/js.html">
+            
+                    
+                    Js
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.5" data-path="../coding/CodingLanguage/python.html">
+            
+                <a href="../coding/CodingLanguage/python.html">
+            
+                    
+                    Python
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.6" data-path="../coding/CodingLanguage/R.html">
+            
+                <a href="../coding/CodingLanguage/R.html">
+            
+                    
+                    R
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9" data-path="../coding/Features/">
+            
+                <a href="../coding/Features/">
+            
+                    
+                    Features
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.9.1" data-path="../coding/Features/其他特性.html">
+            
+                <a href="../coding/Features/其他特性.html">
+            
+                    
+                    其他特性
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.2" data-path="../coding/Features/多用户.html">
+            
+                <a href="../coding/Features/多用户.html">
+            
+                    
+                    多用户
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.10" >
+            
+                <span>
+            
+                    
+                    Kde
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.10.1" data-path="../coding/kde/kwin.html">
+            
+                <a href="../coding/kde/kwin.html">
+            
+                    
+                    Kwin
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.11" data-path="../coding/other%20OS/README.md">
+            
+                <span>
+            
+                    
+                    Other OS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.11.1" data-path="../coding/other%20OS/OpenHarmony.md">
+            
+                <span>
+            
+                    
+                    Open Harmony
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.11.2" data-path="../coding/other%20OS/otherOS.md">
+            
+                <span>
+            
+                    
+                    Other OS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12" data-path="../coding/多线程/">
+            
+                <a href="../coding/多线程/">
+            
+                    
+                    多线程
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.12.1" data-path="../coding/多线程/多线程的模型.html">
+            
+                <a href="../coding/多线程/多线程的模型.html">
+            
+                    
+                    多线程的模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.2" data-path="../coding/多线程/线程池与binder线程池.html">
+            
+                <a href="../coding/多线程/线程池与binder线程池.html">
+            
+                    
+                    线程池与binder线程池
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.13" data-path="../coding/文件系统结构/文件系统结构.html">
+            
+                <a href="../coding/文件系统结构/文件系统结构.html">
+            
+                    
+                    文件系统结构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.14" data-path="../coding/虚拟化/虚拟化.html">
+            
+                <a href="../coding/虚拟化/虚拟化.html">
+            
+                    
+                    虚拟化
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../communication/communication.html">
+            
+                <a href="../communication/communication.html">
+            
+                    
+                    Communication
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../English/English.html">
+            
+                <a href="../English/English.html">
+            
+                    
+                    English
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../Investment/Investment.html">
+            
+                <a href="../Investment/Investment.html">
+            
+                    
+                    Investment
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../Naturalaw/">
+            
+                <a href="../Naturalaw/">
+            
+                    
+                    Naturalaw
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../Naturalaw/ReadingAndThinking.html">
+            
+                <a href="../Naturalaw/ReadingAndThinking.html">
+            
+                    
+                    Reading And Thinking
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../Naturalaw/修.html">
+            
+                <a href="../Naturalaw/修.html">
+            
+                    
+                    修
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../Scriptures/">
+            
+                <a href="../Scriptures/">
+            
+                    
+                    Scriptures
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../Scriptures/金刚经.html">
+            
+                <a href="../Scriptures/金刚经.html">
+            
+                    
+                    金刚经
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../02-编译weston.html">
+            
+                <a href="../02-编译weston.html">
+            
+                    
+                    02-编译weston
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../CheckList.html">
+            
+                <a href="../CheckList.html">
+            
+                    
+                    Check List
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >进程与子进程</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x8FDB;&#x7A0B;&#x4E0E;&#x5B50;&#x8FDB;&#x7A0B;"><b>1. </b>&#x8FDB;&#x7A0B;&#x4E0E;&#x5B50;&#x8FDB;&#x7A0B;</a></li><li><span class="title-icon "></span><a href="#&#x8FDB;&#x7A0B;&#x7EC4;"><b>2. </b>&#x8FDB;&#x7A0B;&#x7EC4;</a></li><ul><li><span class="title-icon "></span><a href="#linux&#x8FDB;&#x7A0B;&#x7EC4;"><b>2.1. </b>linux&#x8FDB;&#x7A0B;&#x7EC4;</a></li><ul><li><span class="title-icon "></span><a href="#&#x7F16;&#x7A0B;&#x89D2;&#x5EA6;&#xFF1A;"><b>2.1.1. </b>&#x7F16;&#x7A0B;&#x89D2;&#x5EA6;&#xFF1A;</a></li></ul><li><span class="title-icon "></span><a href="#&#x8FDB;&#x7A0B;&#x7EC4;&#x89C6;&#x89D2;&#xFF1A;schedgroupprocessgroupschedpolicy&#x7EC4;cpuset"><b>2.2. </b>&#x8FDB;&#x7A0B;&#x7EC4;&#x89C6;&#x89D2;&#xFF1A;SCHED_GROUP/ProcessGroup/SchedPolicy&#x7EC4;/cpuset</a></li><ul><li><span class="title-icon "></span><a href="#del&#x4E34;&#x65F6;&#x6269;&#x5C55;&#xFF1A;setcpusetpolicyint-tid-schedpolicy-policy"><b>2.2.1. </b>del:&#x4E34;&#x65F6;&#x6269;&#x5C55;&#xFF1A;set_cpuset_policy(int tid, SchedPolicy policy)</a></li><li><span class="title-icon "></span><a href="#del&#x4E34;&#x65F6;&#x6269;&#x5C55;&#xFF1A;setschedpolicyint-tid-schedpolicy-policy"><b>2.2.2. </b>del:&#x4E34;&#x65F6;&#x6269;&#x5C55;&#xFF1A;set_sched_policy(int tid, SchedPolicy policy)</a></li></ul><li><span class="title-icon "></span><a href="#process&#x89C6;&#x89D2;&#xFF1A;proc5770task-&#x8BB0;&#x5F55;&#x4E00;&#x4E2A;processlinux--android"><b>2.3. </b>process&#x89C6;&#x89D2;&#xFF1A;/proc/5770/task/ &#x8BB0;&#x5F55;&#x4E00;&#x4E2A;process(linux &amp; android)</a></li><li><span class="title-icon "></span><a href="#del&#xFF1A;&#x4E34;&#x65F6;&#x8865;&#x5145;&#xFF1A;-cgroups&#x673A;&#x5236;&#x4E2D;&#x7684;cpucpusetschedtune&#x5B50;&#x7CFB;"><b>2.4. </b>del&#xFF1A;&#x4E34;&#x65F6;&#x8865;&#x5145;&#xFF1A; cgroups&#x673A;&#x5236;&#x4E2D;&#x7684;cpu/cpuset/schedtune&#x5B50;&#x7CFB;</a></li></ul><li><span class="title-icon "></span><a href="#&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;"><b>3. </b>&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;</a></li><ul><li><span class="title-icon "></span><a href="#todo&#x3010;1&#x3011;init&#x65F6;&#x521B;&#x5EFA;&#x8C03;&#x5EA6;&#x7EC4;processgroup"><b>3.1. </b>TODO:&#x3010;1&#x3011;init&#x65F6;&#x521B;&#x5EFA;&#x8C03;&#x5EA6;&#x7EC4;processGroup</a></li><li><span class="title-icon "></span><a href="#&#x7591;&#x95EE;&#xFF1A;-setthreadpriority-&#x4E0E;-setprocessgroup&#x7684;&#x5173;&#x7CFB;&#xFF1F;"><b>3.2. </b>&#x7591;&#x95EE;&#xFF1A; setThreadPriority &#x4E0E; setProcessGroup&#x7684;&#x5173;&#x7CFB;&#xFF1F;</a></li><li><span class="title-icon "></span><a href="#linux&#x672C;&#x8EAB;&#x63D0;&#x4F9B;&#x7684;&#x673A;&#x5236;&#xFF1A;"><b>3.3. </b>linux&#x672C;&#x8EAB;&#x63D0;&#x4F9B;&#x7684;&#x673A;&#x5236;&#xFF1A;</a></li></ul></ul></div><a href="#&#x8FDB;&#x7A0B;&#x4E0E;&#x5B50;&#x8FDB;&#x7A0B;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><div class="treeview__container"><ul>
+<li><div><a href="#&#x8FDB;&#x7A0B;&#x7EC4;">&#x8FDB;&#x7A0B;&#x7EC4;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#linux&#x8FDB;&#x7A0B;&#x7EC4;">linux&#x8FDB;&#x7A0B;&#x7EC4;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x7F16;&#x7A0B;&#x89D2;&#x5EA6;&#xFF1A;">&#x7F16;&#x7A0B;&#x89D2;&#x5EA6;&#xFF1A;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x8FDB;&#x7A0B;&#x7EC4;&#x89C6;&#x89D2;&#xFF1A;schedgroupprocessgroupschedpolicy&#x7EC4;cpuset">&#x8FDB;&#x7A0B;&#x7EC4;&#x89C6;&#x89D2;&#xFF1A;SCHED_GROUP/ProcessGroup/SchedPolicy&#x7EC4;/cpuset</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#del&#x4E34;&#x65F6;&#x6269;&#x5C55;&#xFF1A;setcpusetpolicyint-tid-schedpolicy-policy">del:&#x4E34;&#x65F6;&#x6269;&#x5C55;&#xFF1A;set_cpuset_policy(int tid, SchedPolicy policy)</a><i></i></div></li>
+<li><div><a href="#del&#x4E34;&#x65F6;&#x6269;&#x5C55;&#xFF1A;setschedpolicyint-tid-schedpolicy-policy">del:&#x4E34;&#x65F6;&#x6269;&#x5C55;&#xFF1A;set_sched_policy(int tid, SchedPolicy policy)</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#process&#x89C6;&#x89D2;&#xFF1A;proc5770task-&#x8BB0;&#x5F55;&#x4E00;&#x4E2A;processlinux-amp-android">process&#x89C6;&#x89D2;&#xFF1A;/proc/5770/task/ &#x8BB0;&#x5F55;&#x4E00;&#x4E2A;process(linux &amp; android)</a><i></i></div></li>
+<li><div><a href="#del&#xFF1A;&#x4E34;&#x65F6;&#x8865;&#x5145;&#xFF1A;-cgroups&#x673A;&#x5236;&#x4E2D;&#x7684;cpucpusetschedtune&#x5B50;&#x7CFB;">del&#xFF1A;&#x4E34;&#x65F6;&#x8865;&#x5145;&#xFF1A; cgroups&#x673A;&#x5236;&#x4E2D;&#x7684;cpu/cpuset/schedtune&#x5B50;&#x7CFB;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;">&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#todo&#x3010;1&#x3011;init&#x65F6;&#x521B;&#x5EFA;&#x8C03;&#x5EA6;&#x7EC4;processgroup">TODO:&#x3010;1&#x3011;init&#x65F6;&#x521B;&#x5EFA;&#x8C03;&#x5EA6;&#x7EC4;processGroup</a><i></i></div></li>
+<li><div><a href="#&#x7591;&#x95EE;&#xFF1A;-setthreadpriority-&#x4E0E;-setprocessgroup&#x7684;&#x5173;&#x7CFB;&#xFF1F;">&#x7591;&#x95EE;&#xFF1A; setThreadPriority &#x4E0E; setProcessGroup&#x7684;&#x5173;&#x7CFB;&#xFF1F;</a><i></i></div></li>
+<li><div><a href="#linux&#x672C;&#x8EAB;&#x63D0;&#x4F9B;&#x7684;&#x673A;&#x5236;&#xFF1A;">linux&#x672C;&#x8EAB;&#x63D0;&#x4F9B;&#x7684;&#x673A;&#x5236;&#xFF1A;</a><i></i></div></li>
+</ul></li>
+</ul>
+</div>
+
+<h1 id="&#x8FDB;&#x7A0B;&#x4E0E;&#x5B50;&#x8FDB;&#x7A0B;"><a name="&#x8FDB;&#x7A0B;&#x4E0E;&#x5B50;&#x8FDB;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#&#x8FDB;&#x7A0B;&#x4E0E;&#x5B50;&#x8FDB;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x8FDB;&#x7A0B;&#x4E0E;&#x5B50;&#x8FDB;&#x7A0B;</h1>
+<p>&#x53C2;&#x8003;&#xFF1A; <a href="https://codeleading.com/article/60953963187/" target="_blank">C++ &#x591A;&#x8FDB;&#x7A0B;&#xFF0C;&#x7236;&#x8FDB;&#x7A0B;&#x76D1;&#x63A7;&#x5B50;&#x8FDB;&#x7A0B; - &#x4EE3;&#x7801;&#x5148;&#x950B;&#x7F51; (codeleading.com)</a>          <a href="https://codeleading.com/article/60953963187/" target="_blank">https://codeleading.com/article/60953963187/</a></p>
+<pre class="language-"><code class="lang-java"> #include <span class="token generics"><span class="token punctuation">&lt;</span>unistd<span class="token punctuation">.</span>h<span class="token punctuation">&gt;</span></span>
+ #include <span class="token operator">&lt;</span>sys<span class="token operator">/</span>types<span class="token punctuation">.</span>h<span class="token operator">&gt;</span>
+ #include <span class="token generics"><span class="token punctuation">&lt;</span>stdlib<span class="token punctuation">.</span>h<span class="token punctuation">&gt;</span></span>
+ #include <span class="token generics"><span class="token punctuation">&lt;</span>signal<span class="token punctuation">.</span>h<span class="token punctuation">&gt;</span></span>
+ #include <span class="token generics"><span class="token punctuation">&lt;</span>stdio<span class="token punctuation">.</span>h<span class="token punctuation">&gt;</span></span>
+ #include<span class="token operator">&lt;</span>sys<span class="token operator">/</span>wait<span class="token punctuation">.</span>h<span class="token operator">&gt;</span>
+
+
+ <span class="token comment">//&#x5B50;&#x8FDB;&#x7A0B;&#x4E2A;&#x6570;</span>
+ #define <span class="token constant">SUB_PRO_COUNT</span> <span class="token number">10</span>
+
+ <span class="token comment">//&#x5904;&#x7406;&#x5B50;&#x8FDB;&#x7A0B;&#x7684;&#x9000;&#x51FA;&#x4FE1;&#x53F7;</span>
+ <span class="token keyword">void</span> <span class="token function">sub_quit_signal_handle</span><span class="token punctuation">(</span><span class="token keyword">int</span> sig<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ <span class="token comment">//&#x7236;&#x8FDB;&#x7A0B;&#x7684;&#x4E8B;&#x4EF6;&#x5FAA;&#x73AF;</span>
+ <span class="token keyword">void</span> <span class="token class-name">ParentCycle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ <span class="token comment">//&#x5B50;&#x8FDB;&#x7A0B;&#x7684;&#x4E8B;&#x4EF6;&#x5FAA;&#x73AF;</span>
+ <span class="token keyword">void</span> <span class="token class-name">ChildCycle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ <span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+ <span class="token punctuation">{</span>
+     pid_t  pid<span class="token punctuation">;</span>
+     <span class="token keyword">int</span> i<span class="token punctuation">;</span>
+
+     <span class="token comment">//&#x521B;&#x5EFA;SUB_PRO_COUNT&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B;</span>
+     <span class="token keyword">for</span><span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span><span class="token constant">SUB_PRO_COUNT</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+     <span class="token punctuation">{</span>
+         pid <span class="token operator">=</span> <span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;cg, this process id: %d, i: %d, fork, pid: %d\\n&quot;</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> pid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token keyword">if</span><span class="token punctuation">(</span> <span class="token number">0</span> <span class="token operator">==</span> pid <span class="token operator">||</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">==</span> pid <span class="token punctuation">)</span>
+             <span class="token keyword">break</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+
+     <span class="token comment">//&#x521B;&#x5EFA;&#x5B50;&#x8FDB;&#x7A0B;&#x5931;&#x8D25;</span>
+     <span class="token keyword">if</span><span class="token punctuation">(</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">==</span> pid <span class="token punctuation">)</span>
+     <span class="token punctuation">{</span>
+         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;No. %d: fork error\\n&quot;</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+     <span class="token comment">//&#x5B50;&#x8FDB;&#x7A0B;&#x7684;&#x4E8B;&#x4EF6;&#x5FAA;&#x73AF;</span>
+     <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span> <span class="token number">0</span> <span class="token operator">==</span> pid <span class="token punctuation">)</span>
+     <span class="token punctuation">{</span>
+         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;cg, this process id: %d, ChildCycle, pid: %d\\n&quot;</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> pid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token class-name">ChildCycle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+     <span class="token comment">//&#x7236;&#x8FDB;&#x7A0B;&#x7684;&#x4E8B;&#x4EF6;&#x5FAA;&#x73AF;</span>
+     <span class="token keyword">else</span>
+     <span class="token punctuation">{</span>
+         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;cg, this process id: %d, ParentCycle, pid: %d\\n&quot;</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> pid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token class-name">ParentCycle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+
+     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+
+ <span class="token keyword">void</span> <span class="token function">sub_quit_signal_handle</span><span class="token punctuation">(</span><span class="token keyword">int</span> sig<span class="token punctuation">)</span>
+ <span class="token punctuation">{</span>
+     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;sub_quit_signal_handle, this process: %d\\n&quot;</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">int</span> status<span class="token punctuation">;</span>
+     <span class="token comment">//&#x83B7;&#x53D6;&#x9000;&#x51FA;&#x7684;&#x90A3;&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B;&#x7684;&#x72B6;&#x6001;</span>
+     <span class="token keyword">int</span> quit_pid <span class="token operator">=</span> <span class="token function">wait</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>status<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;sub process %d quit, exit status %d\\n&quot;</span><span class="token punctuation">,</span> quit_pid<span class="token punctuation">,</span> status<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+     <span class="token comment">//&#x65B0;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B;</span>
+     <span class="token comment">//pid_t pid = fork();</span>
+     <span class="token comment">//if( 0 == pid )</span>
+       <span class="token comment">//   ChildCycle();</span>
+ <span class="token punctuation">}</span>
+
+ <span class="token keyword">void</span> <span class="token class-name">ParentCycle</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ <span class="token punctuation">{</span>
+     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;Parent process1 %d\\n&quot;</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token function">signal</span><span class="token punctuation">(</span><span class="token constant">SIGCHLD</span><span class="token punctuation">,</span> sub_quit_signal_handle<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">// todo:</span>
+     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;Parent process2 %d\\n&quot;</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;Parent process3 %d\\n&quot;</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token function">pause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+
+ <span class="token keyword">void</span> <span class="token class-name">ChildCycle</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ <span class="token punctuation">{</span>
+     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;create sub process id: %d, parent id: %d\\n&quot;</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">getppid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+         <span class="token function">pause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+</code></pre>
+<p>-----------------&gt; &#x4E00;&#x884C;&#x5173;&#x952E;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"> <span class="token function">signal</span><span class="token punctuation">(</span><span class="token constant">SIGCHLD</span><span class="token punctuation">,</span> sub_quit_signal_handle<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// &#x7236;&#x8FDB;&#x7A0B;&#xFF0C;&#x6536;&#x5230;child&#x7684;&#x4FE1;&#x53F7;  ------&gt;&#x3010;1&#x3011;  &#x4E3A;&#x5565;&#x8FD9;&#x884C;&#x4E0D;&#x4F1A;&#x963B;&#x585E;&#xFF1F;</span>
+</code></pre>
+<p><del>&#x6B21;&#x8981;&#xFF1A;&#x8C03;&#x7528;&#x5904;&#x7406;&#xFF0C;&#x83B7;&#x53D6;&#x5177;&#x4F53;&#x4FE1;&#x606F;</del></p>
+<pre class="language-"><code class="lang-java"> <span class="token comment">//&#x83B7;&#x53D6;&#x9000;&#x51FA;&#x7684;&#x90A3;&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B;&#x7684;&#x72B6;&#x6001;</span>
+ <span class="token keyword">int</span> quit_pid <span class="token operator">=</span> <span class="token function">wait</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>status<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;sub process %d quit, exit status %d\\n&quot;</span><span class="token punctuation">,</span> quit_pid<span class="token punctuation">,</span> status<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>TODO: &#x3010;1&#x3011;&#x4E3A;&#x4EC0;&#x4E48;&#x6CA1;&#x6709;&#x963B;&#x585E;&#xFF1F;&#x540E;&#x9762;SIGCHLD&#x5374;&#x53EF;&#x4EE5;&#x5524;&#x9192; &#x4E3B;&#x8FDB;&#x7A0B;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;</p>
+<p><a href="https://blog.csdn.net/isunbin/article/details/84032708?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-1-84032708-blog-127649401.235^v38^pc_relevant_sort_base1&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-1-84032708-blog-127649401.235^v38^pc_relevant_sort_base1&amp;utm_relevant_index=2" target="_blank">&#x3010;&#x4FE1;&#x53F7;&#x3011;SIGCHLD&#x4FE1;&#x53F7;-CSDN&#x535A;&#x5BA2;</a>            <a href="https://blog.csdn.net/isunbin/article/details/84032708?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-1-84032708-blog-127649401.235^v38^pc_relevant_sort_base1&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-1-84032708-blog-127649401.235^v38^pc_relevant_sort_base1&amp;utm_relevant_index=2" target="_blank">https://blog.csdn.net/isunbin/article/details/84032708?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-1-84032708-blog-127649401.235^v38^pc_relevant_sort_base1&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-1-84032708-blog-127649401.235^v38^pc_relevant_sort_base1&amp;utm_relevant_index=2</a></p>
+<p>&#x7ED3;&#x8BBA;&#xFF1A;</p>
+<blockquote>
+<p>&#x7236;&#x8FDB;&#x7A0B;&#x53EF;&#x4EE5;&#x611F;&#x77E5;&#x5230;&#x5B50;&#x8FDB;&#x7A0B;&#x7684;&#x6B7B;&#x4EA1;</p>
+</blockquote>
+<h1 id="&#x8FDB;&#x7A0B;&#x7EC4;"><a name="&#x8FDB;&#x7A0B;&#x7EC4;" class="anchor-navigation-ex-anchor" href="#&#x8FDB;&#x7A0B;&#x7EC4;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x8FDB;&#x7A0B;&#x7EC4;</h1>
+<h2 id="linux&#x8FDB;&#x7A0B;&#x7EC4;"><a name="linux&#x8FDB;&#x7A0B;&#x7EC4;" class="anchor-navigation-ex-anchor" href="#linux&#x8FDB;&#x7A0B;&#x7EC4;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. linux&#x8FDB;&#x7A0B;&#x7EC4;</h2>
+<p>&#x53C2;&#x8003;&#xFF1A; <a href="https://blog.csdn.net/jinking01/article/details/126925313?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-1-126925313-blog-128064414.235^v38^pc_relevant_sort_base1&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-1-126925313-blog-128064414.235^v38^pc_relevant_sort_base1&amp;utm_relevant_index=2" target="_blank">https://blog.csdn.net/jinking01/article/details/126925313?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-1-126925313-blog-128064414.235^v38^pc_relevant_sort_base1&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-1-126925313-blog-128064414.235^v38^pc_relevant_sort_base1&amp;utm_relevant_index=2</a>   Linux&#x57FA;&#x7840;&#x6982;&#x5FF5;--&#x8FDB;&#x7A0B;&#x3001;&#x5B50;&#x8FDB;&#x7A0B;&#x3001;&#x8FDB;&#x7A0B;&#x7EC4;&#x548C;&#x4F1A;&#x8BDD;</p>
+<p>&#x6982;&#x5FF5;&#xFF1A;</p>
+<p><strong>&#x7AD9;&#x5728;&#x8FDB;&#x7A0B;&#x89D2;&#x5EA6; &#xFF1A;</strong></p>
+<blockquote>
+<p>&#x8FDB;&#x7A0B;&#x53F7;pid,</p>
+<p>&#x7236;&#x8FDB;&#x7A0B;&#x53F7; ppid,</p>
+<p>&#x8FDB;&#x7A0B;&#x7EC4;&#x53F7;pgid</p>
+</blockquote>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<h3 id="&#x7F16;&#x7A0B;&#x89D2;&#x5EA6;&#xFF1A;"><a name="&#x7F16;&#x7A0B;&#x89D2;&#x5EA6;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x7F16;&#x7A0B;&#x89D2;&#x5EA6;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1.1. &#x7F16;&#x7A0B;&#x89D2;&#x5EA6;&#xFF1A;</h3>
+<blockquote>
+<p>&#x53C2;&#x8003;&#xFF1A; <a href="https://blog.csdn.net/chen_y09/article/details/130869886" target="_blank">https://blog.csdn.net/chen_y09/article/details/130869886</a>   Linux C &#x67E5;&#x8BE2;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;&#x53F7;&#x3001;&#x7236;&#x8FDB;&#x7A0B;&#x53F7;&#x3001;&#x8FDB;&#x7A0B;&#x7EC4;&#x53F7;_c&#x8BED;&#x8A00;&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;&#x53F7;-CSDN&#x535A;&#x5BA2;</p>
+<pre class="language-"><code>  #include<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stdio.h</span><span class="token punctuation">&gt;</span></span>
+  #include&lt;sys/types.h&gt;
+  #include<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>unistd.h</span><span class="token punctuation">&gt;</span></span>
+
+  int main(int argc,char *argv[])
+  {
+      pid_t pid,ppid,pgid;
+
+      pid = getpid();
+      printf(&quot;pid = %d\\\\n&quot;,pid);
+
+      ppid = getppid();
+      printf(&quot;father pid = %d\\\\n&quot;,ppid);
+
+      pgid = getpgid(pid);
+      printf(&quot;group pid = %d\\\\n&quot;,pgid);
+      return 0;
+  }
+</code></pre></blockquote>
+<h2 id="&#x8FDB;&#x7A0B;&#x7EC4;&#x89C6;&#x89D2;&#xFF1A;schedgroupprocessgroupschedpolicy&#x7EC4;cpuset"><a name="&#x8FDB;&#x7A0B;&#x7EC4;&#x89C6;&#x89D2;&#xFF1A;schedgroupprocessgroupschedpolicy&#x7EC4;cpuset" class="anchor-navigation-ex-anchor" href="#&#x8FDB;&#x7A0B;&#x7EC4;&#x89C6;&#x89D2;&#xFF1A;schedgroupprocessgroupschedpolicy&#x7EC4;cpuset"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. &#x8FDB;&#x7A0B;&#x7EC4;&#x89C6;&#x89D2;&#xFF1A;SCHED_GROUP/ProcessGroup/SchedPolicy&#x7EC4;/cpuset</h2>
+<p>Activity&#x8C03;&#x5EA6;&#x7EC4;&#xFF1A;  <del>-------&gt;  &#x5B89;&#x5353;&#x7EC4;&#x4EF6;&#x7684;&#x6982;&#x5FF5;&#xFF08;&#x56E0;&#x4E3A;&#x5B89;&#x5353;&#x662F;&#x7EC4;&#x4EF6;&#xFF0C;&#x5FC5;&#x987B;&#x6709;&#xFF09;&#x3001;AMS&#x5C42;&#x7684;&#x4E1C;&#x897F;</del></p>
+<pre class="language-"><code>   SCHED_GROUP_BACKGROUND = 0  // &#x540E;&#x53F0;&#x8FDB;&#x7A0B;&#x7EC4;
+   SCHED_GROUP_RESTRICTED = 1  // &#x9650;&#x5236;
+   SCHED_GROUP_DEFAULT = 2   // &#x9ED8;&#x8BA4;&#x8FDB;&#x7A0B;&#x7EC4;
+   SCHED_GROUP_TOP_APP = 3   // top&#x8FDB;&#x7A0B;&#x7EC4;
+   SCHED_GROUP_TOP_APP_BOUND = 4
+</code></pre><p>thread group&#xFF1A;     ---------&gt;  &#x8FDB;&#x7A0B;&#x7EC4;&#xFF0C;linux&#x8303;&#x7574;&#xFF08;&#x5FC5;&#x987B;&#x5BF9;&#x63A5;&#xFF09;&#x3001;linux&#x5C42;&#x7684;&#x4E1C;&#x897F;</p>
+<pre class="language-"><code>   THREAD_GROUP_DEFAULT = -1
+   THREAD_GROUP_BG_NONINTERACTIVE = 0
+   THREAD_GROUP_FOREGROUND = 1
+   THREAD_GROUP_SYSTEM = 2
+   THREAD_GROUP_AUDIO_APP = 3
+   THREAD_GROUP_AUDIO_SYS = 4
+   THREAD_GROUP_TOP_APP = 5
+   THREAD_GROUP_RT_APP = 6
+   THREAD_GROUP_RESTRICTED = 7
+</code></pre><p><strong>&#x5927;&#x81F4;&#x6620;&#x5C04;&#x5173;&#x7CFB;&#xFF1A;</strong></p>
+<table>
+<thead>
+<tr>
+<th>Activity&#x8C03;&#x5EA6;&#x7EC4;&#xFF08;&#x5B89;&#x5353;AMS&#xFF09;SCHED_GROUP</th>
+<th>&#x8FDB;&#x7A0B;&#x7EC4; THREAD_GROUP&#xFF08;&#x5B89;&#x5353;&#x6A21;&#x4EFF;linux&#x521B;&#x9020;&#x7684;&#xFF09;</th>
+<th>SchedPolicy &#xFF08;linux&#xFF09; SP_</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SCHED_GROUP_DEFAULT(2)</td>
+<td>THREAD_GROUP_DEFAULT(-1)</td>
+<td>SP_DEFAULTSP_DEFAULT = -1</td>
+</tr>
+<tr>
+<td>SCHED_GROUP_BACKGROUND(0)</td>
+<td>THREAD_GROUP_BG_NONINTERACTIVE(0)</td>
+<td>SP_BACKGROUND = 0</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>SP_FOREGROUND = 1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>SCHED_GROUP_TOP_APP&#xFF08;3&#xFF09;    SCHED_GROUP_TOP_APP_BOUND&#xFF08;4&#xFF09;</td>
+<td>THREAD_GROUP_TOP_APP(5)&#x540C;&#x4E0A;</td>
+<td>SP_   .............  = 3</td>
+</tr>
+<tr>
+<td>SCHED_GROUP_RESTRICTED(1)</td>
+<td>THREAD_GROUP_RESTRICTED(7)</td>
+<td>SP_   .............  = 7</td>
+</tr>
+</tbody>
+</table>
+<p><strong>&#x76EE;&#x6807;&#xFF1A;</strong>Activity&#x8C03;&#x5EA6;&#x7EC4;SCHED<em>GROUP ----&gt;  &#x8FDB;&#x7A0B;&#x7EC4;THREAD_GROUP -----&gt; SchedPolicy &#xFF08;linux&#xFF09; SP</em></p>
+<p>------------------&gt; <strong>&#x7ED3;&#x8BBA;&#xFF1A;</strong></p>
+<p><del>1&#x3001;&#x53F3;&#x8FB9;&#x4E24;&#x4E2A;&#x662F;&#x5B8C;&#x5168;&#x4E00;&#x81F4;&#x7684;&#x5173;&#x7CFB;&#xFF1A;</del></p>
+<pre class="language-"><code class="lang-java"><span class="token comment">/* Keep in sync with THREAD_GROUP_* in frameworks/base/core/java/android/os/Process.java */</span>  
+typedef <span class="token keyword">enum</span> <span class="token punctuation">{</span>    
+    <span class="token constant">SP_DEFAULT</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span>    
+    <span class="token constant">SP_BACKGROUND</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>    
+    <span class="token constant">SP_FOREGROUND</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>    
+    <span class="token constant">SP_SYSTEM</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span>  <span class="token comment">// can&apos;t be used with set_sched_policy()    </span>
+    <span class="token constant">SP_AUDIO_APP</span> <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span>    
+    <span class="token constant">SP_AUDIO_SYS</span> <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">,</span>   
+    <span class="token constant">SP_TOP_APP</span> <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">,</span>    
+    <span class="token constant">SP_RT_APP</span> <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">,</span>    
+    <span class="token constant">SP_RESTRICTED</span> <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">,</span>    
+    <span class="token constant">SP_CNT</span><span class="token punctuation">,</span>    
+    <span class="token constant">SP_MAX</span> <span class="token operator">=</span> <span class="token constant">SP_CNT</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span>    
+    <span class="token constant">SP_SYSTEM_DEFAULT</span> <span class="token operator">=</span> <span class="token constant">SP_FOREGROUND</span><span class="token punctuation">,</span>  
+<span class="token punctuation">}</span> <span class="token class-name">SchedPolicy</span><span class="token punctuation">;</span>
+</code></pre>
+<p>------------------&gt; &#x5176;&#x5B9E;&#x6CA1;&#x660E;&#x767D;&#xFF1A;</p>
+<p>TODO:  &#x4ECE;&#x8BBE;&#x8BA1;&#x89D2;&#x5EA6;&#xFF1A;  &#x8BBE;&#x7F6E;&#x8FDB;&#x7A0B;&#x7EC4;setProcessGroup&#x7684;&#x4F5C;&#x7528;&#x662F;&#x5565;&#xFF1F;  &#x4E0D;&#x662F;&#x6709;&#x4E86;setThreadPriority&#x8BBE;&#x7F6E;&#x4F18;&#x5148;&#x7EA7;&#x561B;&#xFF1F;  ------&gt; TODO: &#x7C7B;&#x4F3C;&#x4E8E;&#x7528;&#x6237;&#x7EC4;&#xFF1F;</p>
+<p>&#x8BBE;&#x7F6E; Activity&#x8C03;&#x5EA6;&#x7EC4;SCHED_GROU&#x6D41;&#x7A0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token comment">// OomAdjuster.applyOomAdjLocked&#x6D41;&#x7A0B;&#x4E2D;&#xFF1A; &#x76EE;&#x6807;&#xFF1A;Activity&#x8C03;&#x5EA6;&#x7EC4;SCHED_GROUP ----&gt;  &#x8FDB;&#x7A0B;&#x7EC4;THREAD_GROUP ---&#x300B; SchedPolicy &#xFF08;linux&#xFF09; SP_    </span>
+   &#x8BBE;&#x7F6E; <span class="token class-name">Activity</span>&#x8C03;&#x5EA6;&#x7EC4;<span class="token constant">SCHED_GROUP</span>&#xFF1A;     
+        <span class="token class-name">Process</span><span class="token punctuation">.</span>setProcessGroup &#x900F;&#x4F20;        
+              android_os_Process_setProcessGroup &#x5177;&#x4F53;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#xFF1A;           
+                      <span class="token class-name">SchedPolicy</span> sp <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">SchedPolicy</span><span class="token punctuation">)</span> grp<span class="token punctuation">;</span> <span class="token comment">// &#x8C03;&#x5EA6;&#x7EC4;&#xFF0C;&#x8F6C;&#x5316;&#x6210;&#x8C03;&#x5EA6;&#x7B56;&#x7565;                 </span>
+                      <span class="token function">set_cpuset_policy</span><span class="token punctuation">(</span>t_pid<span class="token punctuation">,</span> sp<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token class-name">SetTaskProfiles</span><span class="token punctuation">(</span><span class="token string">&quot;CPUSET_SP_BACKGROUND&quot;</span><span class="token punctuation">)</span>  <span class="token comment">// &#x76EE;&#x6807;&#xFF1A;&#x8BBE;&#x7F6E;cpuset&#xFF08;Cgroup&#x8303;&#x7574;&#xFF09;  ------&#x300B; TODO: &#x5177;&#x4F53;&#x505A;&#x4E86;&#x5565;&#xFF1F;&#x3010;1&#x3011;          </span>
+                      <span class="token function">set_sched_policy</span><span class="token punctuation">(</span>t_pid<span class="token punctuation">,</span> sp<span class="token punctuation">)</span>  <span class="token operator">--</span><span class="token operator">-&gt;</span> <span class="token class-name">SetTaskProfiles</span><span class="token punctuation">(</span><span class="token string">&quot;SCHED_SP_BACKGROUND&quot;</span><span class="token punctuation">)</span>   <span class="token comment">//------&gt; TODO: &#x5177;&#x4F53;&#x505A;&#x4E86;&#x5565;&#xFF1F;     </span>
+
+<span class="token function">sprintf</span><span class="token punctuation">(</span>proc_path<span class="token punctuation">,</span> <span class="token string">&quot;/proc/%d/task&quot;</span><span class="token punctuation">,</span> pid<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-&gt;</span>  <span class="token comment">// &#x521B;&#x5EFA;&#x76EE;&#x5F55;:  /proc/5770/task/14372</span>
+</code></pre>
+<p>&#x3010;1&#x3011;&#x5199;cpuset&#x5BF9;&#x5E94;&#x7684;<strong>task&#x8282;&#x70B9;&#x914D;&#x7F6E;</strong>&#xFF0C;&#x6DFB;&#x52A0;&#x5BF9;&#x5E94;&#x7684;pid:</p>
+<blockquote>
+<pre class="language-"><code class="lang-java"><span class="token comment">//  task&#x4E0B;pid ------&gt; &#x8FD0;&#x884C;&#x65F6;&#x51B3;&#x5B9A; sailfish:/dev/cpuset/top-app # cat tasks | grep 5770  -----&gt; [//com.example.myapplication&#x5728;&#x524D;&#x53F0;](http://com.example.xn--myapplication-1l3vp4qw0o) 5770 sailfish:/dev/cpuset/top-app # cat tasks | grep 5770  -----&gt; [//com.example.myapplication&#x5728;&#x540E;&#x53F0;](http://com.example.xn--myapplication-ne8v3my32b)  //top-app&#x7EC4;&#x4F7F;&#x7528;&#x7684; cpuset &#x7684;&#x6838;&#x5FC3; --------&gt; TODO: &#x6309;&#x9053;&#x7406;&#xFF0C;&#x662F;&#x521D;&#x59CB;&#x5316;&#x65F6;&#x51B3;&#x5B9A;&#x7684; sailfish:/dev/cpuset/top-app # cat cpus 0-3</span>
+</code></pre>
+<p>&#x53C2;&#x8003;&#xFF1A; <a href="https://www.jianshu.com/p/0532e4239703" target="_blank">https://www.jianshu.com/p/0532e4239703</a>   Android &#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7BC7;&#xFF08;&#x56DB;&#xFF09;-cpu&#x9650;&#x5236;</p>
+</blockquote>
+<p><strong>&#x603B;&#x4E4B;&#xFF1A;</strong></p>
+<blockquote>
+<p>(1) &#x8FDB;&#x5165;&#x7EC4;&#xFF1A;SCHED_GROUP&#x8C03;&#x5EA6;&#x7EC4; ----&gt; &#x8FDB;&#x7A0B;&#x7EC4;  -----&gt; cpuset &#x8282;&#x70B9;&#xFF08;&#x57FA;&#x4E8E;cgroup&#xFF09;&#xFF0C;&#x52A0;&#x5165;task</p>
+<p>(2) &#x9650;&#x5236;&#x7EC4;&#x91CC;&#x7684;&#x6210;&#x5458;&#xFF1A;<del>&#x800C; cpuset &#x8282;&#x70B9;&#x672C;&#x8EAB;&#x5C31;&#x6709;&#x5BF9;&#x7EC4;&#x7684;&#x9650;&#x5236;-------cpuset/top-app/cpus</del></p>
+</blockquote>
+<p>&#x6CE8;&#x91CA;&#xFF1A;</p>
+<blockquote>
+<p>Profiles &#x914D;&#x7F6E;&#x6587;&#x4EF6;</p>
+</blockquote>
+<h3 id="del&#x4E34;&#x65F6;&#x6269;&#x5C55;&#xFF1A;setcpusetpolicyint-tid-schedpolicy-policy"><a name="del&#x4E34;&#x65F6;&#x6269;&#x5C55;&#xFF1A;setcpusetpolicyint-tid-schedpolicy-policy" class="anchor-navigation-ex-anchor" href="#del&#x4E34;&#x65F6;&#x6269;&#x5C55;&#xFF1A;setcpusetpolicyint-tid-schedpolicy-policy"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.1. del:&#x4E34;&#x65F6;&#x6269;&#x5C55;&#xFF1A;set_cpuset_policy(int tid, SchedPolicy policy)</h3>
+<pre class="language-"><code> int set_cpuset_policy(int tid, SchedPolicy policy) {
+     if (tid == 0) {
+         tid = GetThreadId();
+     }
+     policy = _policy(policy);
+
+     switch (policy) {
+         case SP_BACKGROUND:
+             return SetTaskProfiles(tid, {&quot;CPUSET_SP_BACKGROUND&quot;, &quot;BlkIOBackground&quot;}, true) ? 0 : -1;
+         case SP_FOREGROUND:
+         case SP_AUDIO_APP:
+         case SP_AUDIO_SYS:
+             return SetTaskProfiles(tid, {&quot;CPUSET_SP_FOREGROUND&quot;}, true) ? 0 : -1;
+         case SP_TOP_APP:
+             return SetTaskProfiles(tid, {&quot;CPUSET_SP_TOP_APP&quot;}, true) ? 0 : -1;
+         case SP_SYSTEM:
+             return SetTaskProfiles(tid, {&quot;CPUSET_SP_SYSTEM&quot;}, true) ? 0 : -1;
+         case SP_RESTRICTED:
+             return SetTaskProfiles(tid, {&quot;CPUSET_SP_RESTRICTED&quot;}, true) ? 0 : -1;
+         default:
+             break;
+     }
+
+     return 0;
+ }
+</code></pre><p>---------&gt; /dev/cpuset/backgroud/&#x5404;&#x79CD;&#x540E;&#x53F0;&#x5E94;&#x7528;&#x7684;pid</p>
+<pre class="language-"><code> sailfish:/dev/cpuset/background # ls -la   //cpuset &#x542B;&#x4E49;&#xFF1F;
+ drwxr-xr-x  2 system system 0 1971-05-11 00:47 .
+ dr-xr-xr-x 11 system system 0 1971-05-11 00:47 ..
+ -rw-r--r--  1 root   root   0 2023-10-16 04:12 cgroup.clone_children
+ -rw-r--r--  1 root   root   0 2023-10-16 04:12 cgroup.procs
+ -rw-r--r--  1 root   root   0 2023-10-16 04:12 cpu_exclusive
+ -rw-r--r--  1 root   root   0 2023-10-11 17:19 cpus    // &#x3010;1&#x3011;&#x4E3B;&#x8981;&#x4F5C;&#x7528;&#xFF1A;&#x9650;&#x5236;background&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x7684;&#x6838;&#x5FC3;&#xFF0C;&#x6BD4;&#x5982;0
+ -r--r--r--  1 root   root   0 2023-10-16 04:12 effective_cpus
+ -r--r--r--  1 root   root   0 2023-10-16 04:12 effective_mems
+ -rw-r--r--  1 root   root   0 2023-10-16 04:12 mem_exclusive
+ -rw-r--r--  1 root   root   0 2023-10-16 04:12 mem_hardwall
+ -rw-r--r--  1 root   root   0 2023-10-16 04:12 memory_migrate
+ -r--r--r--  1 root   root   0 2023-10-16 04:12 memory_pressure
+ -rw-r--r--  1 root   root   0 2023-10-16 04:12 memory_spread_page
+ -rw-r--r--  1 root   root   0 2023-10-16 04:12 memory_spread_slab
+ -rw-r--r--  1 root   root   0 1971-05-11 00:47 mems
+ -rw-r--r--  1 root   root   0 2023-10-16 04:12 notify_on_release
+ -rw-r--r--  1 root   root   0 2023-10-16 04:12 sched_load_balance
+ -rw-r--r--  1 root   root   0 2023-10-16 04:12 sched_relax_domain_level
+ -rw-rw-r--  1 system system 0 1971-05-11 00:47 tasks   // &#x8BB0;&#x5F55;&#x5C5E;&#x4E8E;background&#x7684;&#x5404;&#x79CD;pid&#xFF0C;&#x6BD4;&#x5982;&#xFF1A;12186&#xFF0C;5770&#xFF0C;14345
+</code></pre><p>&#x6CE8;&#xFF1A; &#x3010;1&#x3011;cpuset&#x662F;linux&#x539F;&#x672C;&#x5C31;&#x6709;&#x7684;&#x673A;&#x5236;&#xFF0C;<del>&#x4F46;&#x662F;&#x76EE;&#x5F55;&#x4E0D;&#x4E00;&#x6837;&#xFF1A;</del></p>
+<pre class="language-"><code> cpuset -------- &#x6839;&#x636E;&#x524D;&#x540E;&#x53F0;&#x72B6;&#x6001;&#xFF0C;&#x628A;&#x540E;&#x53F0;&#x5E94;&#x7528;&#x8FDB;&#x7A0B;&#x9650;&#x5236;&#x5728;&#x7279;&#x5B9A;&#x7684;cpu&#x6838;&#x4E0A;
+                echo &quot;0-3,6&quot; &gt; /sys/fs/cgroup/cpuset/mygroup/cpuset.cpus   &#x6838;&#x5FC3;0-3 &#x548C; 6
+</code></pre><h3 id="del&#x4E34;&#x65F6;&#x6269;&#x5C55;&#xFF1A;setschedpolicyint-tid-schedpolicy-policy"><a name="del&#x4E34;&#x65F6;&#x6269;&#x5C55;&#xFF1A;setschedpolicyint-tid-schedpolicy-policy" class="anchor-navigation-ex-anchor" href="#del&#x4E34;&#x65F6;&#x6269;&#x5C55;&#xFF1A;setschedpolicyint-tid-schedpolicy-policy"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.2. del:&#x4E34;&#x65F6;&#x6269;&#x5C55;&#xFF1A;set_sched_policy(int tid, SchedPolicy policy)</h3>
+<p>&#x5B8C;&#x5168;&#x53C2;&#x8003;&#xFF1A;<a href="https://www.jianshu.com/p/06aab76bb7da" target="_blank">https://www.jianshu.com/p/06aab76bb7da</a>   &#x6CA1;&#x61C2;</p>
+<p>TODO: &#x56FE;  &#x8C03;&#x7528;&#xFF0C;&#x6700;&#x7EC8;&#x751F;&#x6548;&#xFF0C;&#x4F5C;&#x7528;</p>
+<p>set_sched_policy  --------&gt;  &#x8BBE;&#x7F6E;cpu/schedtune&#x4E24;&#x4E2A;&#x5B50;&#x7CFB;&#x7EDF;&#xFF0C;&#x5B50;&#x7CFB;&#x7EDF;&#x8282;&#x70B9;&#x548C;SchedPolicy&#x7C7B;&#x578B;&#x5BF9;&#x5E94;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p>&#x6700;&#x7EC8;&#x751F;&#x6548;&#xFF1A;</p>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/06aab76bb7da" target="_blank">https://www.jianshu.com/p/06aab76bb7da</a></p>
+<p>&#xFF08;1&#xFF09;cpuctl&#xFF1A;   -----&gt; &#x4F3C;&#x4E4E;&#x5565;&#x4E5F;&#x6CA1;&#x505A;</p>
+<pre class="language-"><code class="lang-java"> <span class="token operator">/</span>dev<span class="token operator">/</span>cpuctl<span class="token operator">/</span>tasks   <span class="token comment">// TODO: &#x4E00;&#x5806;pid&#x3002;&#x4F5C;&#x7528;&#x662F;&#x5565;&#xFF1F;            SP_FOREGROUND SP_AUDIO_APP SP_AUDIO_SYS</span>
+ <span class="token operator">/</span>dev<span class="token operator">/</span>cpuctl<span class="token operator">/</span>bg_non_interactive<span class="token operator">/</span>tasks                 <span class="token comment">//    SP_BACKGROUND</span>
+</code></pre>
+<p>&#xFF08;2&#xFF09;stune&#xFF1A;<strong>&#x8C03;&#x9891;</strong></p>
+<pre class="language-"><code class="lang-java"> <span class="token operator">/</span>dev<span class="token operator">/</span>stune<span class="token operator">/</span>top<span class="token operator">-</span>app<span class="token operator">/</span>tasks                               <span class="token constant">SP_TOP_APP</span>
+                   <span class="token operator">/</span>schedtune<span class="token punctuation">.</span>boost <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">&gt;</span>  <span class="token number">10</span>  &#x3010;<span class="token number">2_1</span>&#x3011;
+
+ <span class="token operator">/</span>dev<span class="token operator">/</span>stune<span class="token operator">/</span>foreground<span class="token operator">/</span>tasks                            <span class="token constant">SP_FOREGROUND</span> <span class="token constant">SP_AUDIO_APP</span> <span class="token constant">SP_AUDIO_SYS</span>
+ <span class="token operator">/</span>dev<span class="token operator">/</span>stune<span class="token operator">/</span>background<span class="token operator">/</span>tasks                            <span class="token constant">SP_BACKGROUND</span>
+</code></pre>
+<p>&#x53C2;&#x8003;&#xFF1A; <a href="https://blog.csdn.net/liaochaoyun/article/details/122377605" target="_blank">Android/Linux EAS&#x4F18;&#x5316;-schedtune-CSDN&#x535A;&#x5BA2;</a>   <del><a href="https://blog.csdn.net/liaochaoyun/article/details/122377605" target="_blank">https://blog.csdn.net/liaochaoyun/article/details/122377605</a></del></p>
+</blockquote>
+<p>&#x8865;&#x5145;&#xFF1A; &#x3010;2_1&#x3011; schedtune.boost&#x7684;&#x503C;&#x5728; <strong>init.rc</strong> &#x4E2D;&#x8BBE;&#x7F6E;&#x7684;&#xFF1A;  &#x53C2;&#x8003;&#xFF1A; <a href="https://blog.csdn.net/liaochaoyun/article/details/122377605" target="_blank">https://blog.csdn.net/liaochaoyun/article/details/122377605</a></p>
+<pre class="language-"><code class="lang-java"> <span class="token comment">//  / init.rc</span>
+
+ # set <span class="token keyword">default</span> schedTune value <span class="token keyword">for</span> foreground<span class="token operator">/</span>top<span class="token operator">-</span>app <span class="token punctuation">(</span>only affects <span class="token constant">EAS</span><span class="token punctuation">)</span>
+ write <span class="token operator">/</span>dev<span class="token operator">/</span>stune<span class="token operator">/</span>foreground<span class="token operator">/</span>schedtune<span class="token punctuation">.</span>prefer_idle <span class="token number">1</span>
+ write <span class="token operator">/</span>dev<span class="token operator">/</span>stune<span class="token operator">/</span>top<span class="token operator">-</span>app<span class="token operator">/</span>schedtune<span class="token punctuation">.</span>boost <span class="token number">10</span>
+ write <span class="token operator">/</span>dev<span class="token operator">/</span>stune<span class="token operator">/</span>top<span class="token operator">-</span>app<span class="token operator">/</span>schedtune<span class="token punctuation">.</span>prefer_idle <span class="token number">1</span>
+ write <span class="token operator">/</span>dev<span class="token operator">/</span>stune<span class="token operator">/</span>rt<span class="token operator">/</span>schedtune<span class="token punctuation">.</span>boost <span class="token number">30</span>
+ write <span class="token operator">/</span>dev<span class="token operator">/</span>stune<span class="token operator">/</span>rt<span class="token operator">/</span>schedtune<span class="token punctuation">.</span>prefer_idle <span class="token number">1</span>
+</code></pre>
+<h2 id="process&#x89C6;&#x89D2;&#xFF1A;proc5770task-&#x8BB0;&#x5F55;&#x4E00;&#x4E2A;processlinux--android"><a name="process&#x89C6;&#x89D2;&#xFF1A;proc5770task-&#x8BB0;&#x5F55;&#x4E00;&#x4E2A;processlinux--android" class="anchor-navigation-ex-anchor" href="#process&#x89C6;&#x89D2;&#xFF1A;proc5770task-&#x8BB0;&#x5F55;&#x4E00;&#x4E2A;processlinux--android"><i class="fa fa-link" aria-hidden="true"></i></a>2.3. process&#x89C6;&#x89D2;&#xFF1A;/proc/5770/task/ &#x8BB0;&#x5F55;&#x4E00;&#x4E2A;process(linux &amp; android)</h2>
+<p><strong>&#x73B0;&#x72B6;&#xFF1A;</strong>  /proc/5770/task/&#x76EE;&#x5F55;      ------&gt;  <strong>&#x662F;linux&#x7684;&#x673A;&#x5236;</strong></p>
+<p>-----&gt; <strong>&#x5B89;&#x5353;&#x6240;&#x505A;&#xFF1A;</strong> &#x7ED9;&#x8FDB;&#x7A0B;&#x8BBE;&#x5B9A;&#x7279;&#x5B9A;&#x7684;&#x8FDB;&#x7A0B;&#x7EC4;</p>
+<p>&#x4EE5;com.example.myapplication&#x4E3A;&#x4F8B;&#xFF0C;pid&#xFF1A;5770;  renderTread  Tid: 14372</p>
+<p>&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#x7ED3;&#x6784;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"> sailfish<span class="token operator">:</span><span class="token operator">/</span>proc<span class="token operator">/</span><span class="token number">5770</span> # ls <span class="token operator">-</span>la
+ dr<span class="token operator">-</span>xr<span class="token operator">-</span>xr<span class="token operator">-</span>x   <span class="token number">2</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> attr
+ <span class="token operator">-</span>r<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> auxv
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> cgroup <span class="token comment">// &#x3010;1&#x3011;</span>
+ <span class="token operator">--</span>w<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> clear_refs
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">14</span> cmdline <span class="token comment">// &#x5373;&#xFF1A;com.example.myapplication</span>
+ <span class="token operator">-</span>rw<span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">14</span> comm
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> concurrent_active_time <span class="token comment">//</span>
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> concurrent_policy_time
+ <span class="token operator">-</span>rw<span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> coredump_filter
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> cpuset
+ lrwxrwxrwx   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> cwd <span class="token operator">-&gt;</span> <span class="token operator">/</span>
+ <span class="token operator">-</span>r<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> environ
+ lrwxrwxrwx   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> exe <span class="token operator">-&gt;</span> <span class="token operator">/</span>system<span class="token operator">/</span>bin<span class="token operator">/</span>app_process64
+ dr<span class="token operator">-</span>x<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>   <span class="token number">2</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">14</span> fd
+ dr<span class="token operator">-</span>x<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>   <span class="token number">2</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> fdinfo
+ <span class="token operator">-</span>r<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> io
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> limits
+ <span class="token operator">-</span>rw<span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> loginuid
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> maps
+ <span class="token operator">-</span>rw<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> mem
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> mountinfo
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> mounts
+ <span class="token operator">-</span>r<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> mountstats
+ dr<span class="token operator">-</span>xr<span class="token operator">-</span>xr<span class="token operator">-</span>x  <span class="token number">10</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> net
+ dr<span class="token operator">-</span>x<span class="token operator">--</span>x<span class="token operator">--</span>x   <span class="token number">2</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> ns
+ <span class="token operator">-</span>r<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> oom_adj
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> oom_score
+ <span class="token operator">-</span>r<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">14</span> oom_score_adj
+ <span class="token operator">-</span>r<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> pagemap
+ <span class="token operator">-</span>r<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> personality
+ lrwxrwxrwx   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> root <span class="token operator">-&gt;</span> <span class="token operator">/</span>
+ <span class="token operator">-</span>rw<span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> sched
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> schedstat
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> sessionid
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> smaps
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">20</span> smaps_rollup
+ <span class="token operator">-</span>r<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> stack
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">14</span> stat
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">20</span> statm
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">14</span> status
+ <span class="token operator">-</span>r<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> syscall
+ dr<span class="token operator">-</span>xr<span class="token operator">-</span>xr<span class="token operator">-</span>x  <span class="token number">19</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">14</span> task
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> time_in_state
+ <span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>r<span class="token operator">--</span>   <span class="token number">1</span> u0_a103 u0_a103 <span class="token number">0</span> <span class="token number">2023</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">20</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">35</span> wchan
+</code></pre>
+<p>// &#x3010;1&#x3011;cgroup&#xFF08; linux &amp; android&#xFF09;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"> sailfish<span class="token operator">:</span><span class="token operator">/</span>proc<span class="token operator">/</span><span class="token number">5770</span> # cat cgroup
+ <span class="token number">4</span><span class="token operator">:</span>schedtune<span class="token operator">:</span><span class="token operator">/</span>background    <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">&gt;</span>  <span class="token comment">//&#x8C03;&#x9891;&#x9650;&#x5236;&#x7EC4;</span>
+ <span class="token number">3</span><span class="token operator">:</span>cpuset<span class="token operator">:</span><span class="token operator">/</span>background       <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token comment">//cpu&#x6838;set&#x9650;&#x5236;&#xFF0C;&#x9650;&#x5236;&#x7EC4;background</span>
+ <span class="token number">2</span><span class="token operator">:</span>cpuacct<span class="token operator">:</span><span class="token operator">/</span>uid_10103<span class="token operator">/</span>pid_5770
+ <span class="token number">1</span><span class="token operator">:</span>cpu<span class="token operator">:</span><span class="token operator">/</span>
+</code></pre>
+<h2 id="del&#xFF1A;&#x4E34;&#x65F6;&#x8865;&#x5145;&#xFF1A;-cgroups&#x673A;&#x5236;&#x4E2D;&#x7684;cpucpusetschedtune&#x5B50;&#x7CFB;"><a name="del&#xFF1A;&#x4E34;&#x65F6;&#x8865;&#x5145;&#xFF1A;-cgroups&#x673A;&#x5236;&#x4E2D;&#x7684;cpucpusetschedtune&#x5B50;&#x7CFB;" class="anchor-navigation-ex-anchor" href="#del&#xFF1A;&#x4E34;&#x65F6;&#x8865;&#x5145;&#xFF1A;-cgroups&#x673A;&#x5236;&#x4E2D;&#x7684;cpucpusetschedtune&#x5B50;&#x7CFB;"><i class="fa fa-link" aria-hidden="true"></i></a>2.4. del&#xFF1A;&#x4E34;&#x65F6;&#x8865;&#x5145;&#xFF1A; cgroups&#x673A;&#x5236;&#x4E2D;&#x7684;cpu/cpuset/schedtune&#x5B50;&#x7CFB;</h2>
+<p>cgroups&#x673A;&#x5236;&#xFF1A;</p>
+<p>cpuset</p>
+<p>cpuctl</p>
+<p>schedtune   CPU&#x8C03;&#x9891;</p>
+<h1 id="&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;"><a name="&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;</h1>
+<p>1&#x3001;Android&#x7CFB;&#x7EDF;&#x8BA4;&#x4E3A;<strong>&#x201C;&#x91CD;&#x8981;&#x201D;&#x7684;&#x8FDB;&#x7A0B;</strong>&#x4E3B;&#x8981;&#x6709;&#x4E09;&#x7C7B;&#xFF1A;</p>
+<ol>
+<li>&#x7CFB;&#x7EDF;&#x8FDB;&#x7A0B;</li>
+<li>&#x524D;&#x53F0;&#x4E0E;&#x7528;&#x6237;&#x4EA4;&#x4E92;&#x7684;&#x8FDB;&#x7A0B;</li>
+<li>&#x524D;&#x53F0;&#x8FDB;&#x7A0B;&#x6240;&#x4F7F;&#x7528;&#x5230;&#x7684;&#x8FDB;&#x7A0B;</li>
+</ol>
+<p>&#x5B8C;&#x5168;&#x53C2;&#x8003;&#xFF1A;  <a href="https://blog.csdn.net/weixin_47465999/article/details/132043377" target="_blank">https://blog.csdn.net/weixin_47465999/article/details/132043377</a></p>
+<p>2&#x3001;<strong>AMS&#x5C42;&#x9762;&#x7684;  &#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;</strong> &#x6709;&#x4E09;&#x4E2A;&#x65B9;&#x9762;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"> app<span class="token punctuation">.</span>curAdj <span class="token operator">=</span> app<span class="token punctuation">.</span><span class="token function">modifyRawOomAdj</span><span class="token punctuation">(</span>adj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ app<span class="token punctuation">.</span>curSchedGroup <span class="token operator">=</span> schedGroup<span class="token punctuation">;</span>
+ app<span class="token punctuation">.</span>curProcState <span class="token operator">=</span> procState<span class="token punctuation">;</span>
+ app<span class="token punctuation">.</span>foregroundActivities <span class="token operator">=</span> foregroundActivities<span class="token punctuation">;</span>
+
+ <span class="token operator">&lt;</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>  &#x8BA1;&#x7B97;&#x8FC7;&#x7A0B;&#x786E;&#x5B9A;&#xFF08;updateOomAdjLocked&#x3001;updateOomAdjLocked&#xFF09;
+ &#x539F;&#x6587;&#x94FE;&#x63A5;&#xFF1A;<span class="token operator">&lt;</span>https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>blog<span class="token punctuation">.</span>csdn<span class="token punctuation">.</span>net<span class="token operator">/</span>weixin_47465999<span class="token operator">/</span>article<span class="token operator">/</span>details<span class="token operator">/</span><span class="token number">132043377</span><span class="token operator">&gt;</span>
+</code></pre>
+<p>&#x4E09;&#x65B9;&#x9762;&#x7684; <strong>&#x751F;&#x6548;&#x70B9;</strong>&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"> <span class="token class-name">ProcessList</span><span class="token punctuation">.</span><span class="token function">setOomAdj</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>pid<span class="token punctuation">,</span> app<span class="token punctuation">.</span>info<span class="token punctuation">.</span>uid<span class="token punctuation">,</span> app<span class="token punctuation">.</span>curAdj<span class="token punctuation">)</span><span class="token punctuation">;</span> &#x5C06;&#x8BA1;&#x7B97;&#x51FA;&#x6765;&#x7684;adj&#x503C;&#x5199;&#x5165;&#x5230;procfs&#x4E2D;&#xFF0C;&#x5373;&#xFF1A;<span class="token operator">/</span>proc<span class="token operator">/</span><span class="token punctuation">[</span>pid<span class="token punctuation">]</span><span class="token operator">/</span>oom_score_adj &#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x4E2D;&#x3002;
+ <span class="token class-name">Process</span><span class="token punctuation">.</span><span class="token function">setProcessGroup</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>pid<span class="token punctuation">,</span> processGroup<span class="token punctuation">)</span><span class="token punctuation">;</span> &#x7528;&#x6765;&#x8BBE;&#x7F6E;&#x8FDB;&#x7A0B;&#x7684;&#x8C03;&#x5EA6;&#x7EC4;&#xFF08;&#x3010;<span class="token number">1</span>&#x3011;&#x8C03;&#x5EA6;&#x7EC4;processGroup&#x662F;&#x673A;&#x5668;init&#x65F6;&#x521B;&#x5EFA;&#x7684;&#xFF09;
+ app<span class="token punctuation">.</span>thread<span class="token punctuation">.</span><span class="token function">setProcessState</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>repProcState<span class="token punctuation">)</span><span class="token punctuation">;</span> &#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x4F1A;&#x6700;&#x7EC8;&#x8C03;&#x7528;&#x5230; <span class="token class-name">VMRuntime</span><span class="token punctuation">.</span><span class="token function">getRuntime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">updateProcessState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>&#x5C06;&#x8FDB;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#x8BBE;&#x7F6E;&#x5230;&#x865A;&#x62DF;&#x673A;&#x4E2D;&#x3002;
+
+
+ &#x539F;&#x6587;&#x94FE;&#x63A5;&#xFF1A;<span class="token operator">&lt;</span>https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>blog<span class="token punctuation">.</span>csdn<span class="token punctuation">.</span>net<span class="token operator">/</span>weixin_47465999<span class="token operator">/</span>article<span class="token operator">/</span>details<span class="token operator">/</span><span class="token number">132043377</span><span class="token operator">&gt;</span>
+</code></pre>
+<p>linux&#x5904;&#x7684;<strong>&#x751F;&#x6548;&#x70B9;</strong>&#xFF1A;</p>
+<h2 id="todo&#x3010;1&#x3011;init&#x65F6;&#x521B;&#x5EFA;&#x8C03;&#x5EA6;&#x7EC4;processgroup"><a name="todo&#x3010;1&#x3011;init&#x65F6;&#x521B;&#x5EFA;&#x8C03;&#x5EA6;&#x7EC4;processgroup" class="anchor-navigation-ex-anchor" href="#todo&#x3010;1&#x3011;init&#x65F6;&#x521B;&#x5EFA;&#x8C03;&#x5EA6;&#x7EC4;processgroup"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. TODO:&#x3010;1&#x3011;init&#x65F6;&#x521B;&#x5EFA;&#x8C03;&#x5EA6;&#x7EC4;processGroup</h2>
+<p>&#x539F;&#x6587;&#x94FE;&#x63A5;&#xFF1A;<a href="https://www.jianshu.com/p/ee2f2344658f" target="_blank">https://www.jianshu.com/p/ee2f2344658f</a></p>
+<pre class="language-"><code class="lang-java">   <span class="token comment">// init.rc &#x6709;&#x5173; foreground &#x548C; background&#x7684;&#x8BBE;&#x7F6E;</span>
+     mkdir <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>foreground
+     write <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>foreground<span class="token operator">/</span>cpus <span class="token number">0</span>
+     write <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>foreground<span class="token operator">/</span>mems <span class="token number">0</span>
+     mkdir <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>foreground<span class="token operator">/</span>boost
+     write <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>foreground<span class="token operator">/</span>boost<span class="token operator">/</span>cpus <span class="token number">0</span>
+     write <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>foreground<span class="token operator">/</span>boost<span class="token operator">/</span>mems <span class="token number">0</span>
+     mkdir <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>background
+     write <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>background<span class="token operator">/</span>cpus <span class="token number">0</span>
+     write <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>background<span class="token operator">/</span>mems <span class="token number">0</span>
+
+     # system<span class="token operator">-</span>background is <span class="token keyword">for</span> system tasks that should only run on
+     # little cores<span class="token punctuation">,</span> not on bigs
+     # <span class="token keyword">to</span> <span class="token namespace">be</span> used only by init<span class="token punctuation">,</span> so don&apos;t change system<span class="token operator">-</span>bg permissions
+     mkdir <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>system<span class="token operator">-</span>background
+     write <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>system<span class="token operator">-</span>background<span class="token operator">/</span>cpus <span class="token number">0</span>
+     write <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>system<span class="token operator">-</span>background<span class="token operator">/</span>mems <span class="token number">0</span>
+
+     # change permissions <span class="token keyword">for</span> all cpusets we&apos;ll touch at runtime
+     chown system system <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset
+     chown system system <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>foreground
+     chown system system <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>foreground<span class="token operator">/</span>boost
+     chown system system <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>background
+     chown system system <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>tasks
+     chown system system <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>foreground<span class="token operator">/</span>tasks
+     chown system system <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>foreground<span class="token operator">/</span>boost<span class="token operator">/</span>tasks
+     chown system system <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>background<span class="token operator">/</span>tasks
+     chmod <span class="token number">0664</span> <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>foreground<span class="token operator">/</span>tasks
+     chmod <span class="token number">0664</span> <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>foreground<span class="token operator">/</span>boost<span class="token operator">/</span>tasks
+     chmod <span class="token number">0664</span> <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>background<span class="token operator">/</span>tasks
+     chmod <span class="token number">0664</span> <span class="token operator">/</span>dev<span class="token operator">/</span>cpuset<span class="token operator">/</span>tasks
+</code></pre>
+<h2 id="&#x7591;&#x95EE;&#xFF1A;-setthreadpriority-&#x4E0E;-setprocessgroup&#x7684;&#x5173;&#x7CFB;&#xFF1F;"><a name="&#x7591;&#x95EE;&#xFF1A;-setthreadpriority-&#x4E0E;-setprocessgroup&#x7684;&#x5173;&#x7CFB;&#xFF1F;" class="anchor-navigation-ex-anchor" href="#&#x7591;&#x95EE;&#xFF1A;-setthreadpriority-&#x4E0E;-setprocessgroup&#x7684;&#x5173;&#x7CFB;&#xFF1F;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. &#x7591;&#x95EE;&#xFF1A; setThreadPriority &#x4E0E; setProcessGroup&#x7684;&#x5173;&#x7CFB;&#xFF1F;</h2>
+<p>&#x5FC5;&#x7136;&#x8981;&#x6C42;&#xFF1A; &#x8C03;&#x5EA6;&#x7EC4;&#xFF0C;&#x4E0D;&#x6D89;&#x53CA;nice&#x7684;&#x8BBE;&#x7F6E;</p>
+<h2 id="linux&#x672C;&#x8EAB;&#x63D0;&#x4F9B;&#x7684;&#x673A;&#x5236;&#xFF1A;"><a name="linux&#x672C;&#x8EAB;&#x63D0;&#x4F9B;&#x7684;&#x673A;&#x5236;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#linux&#x672C;&#x8EAB;&#x63D0;&#x4F9B;&#x7684;&#x673A;&#x5236;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. linux&#x672C;&#x8EAB;&#x63D0;&#x4F9B;&#x7684;&#x673A;&#x5236;&#xFF1A;</h2>
+<p>&#x4F8B;&#x5982;&#xFF1A;</p>
+<ul>
+<li>&#x901A;&#x8FC7;fork&#x6765;&#x521B;&#x5EFA;&#x8FDB;&#x884C;</li>
+<li>&#x901A;&#x8FC7;<strong>&#x4FE1;&#x53F7;&#x91CF;</strong>&#x6765;&#x7BA1;&#x7406;&#x8FDB;&#x7A0B;</li>
+<li>&#x901A;&#x8FC7;<strong>proc&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</strong>&#x6765;&#x67E5;&#x8BE2;&#x548C;&#x8C03;&#x6574;&#x8FDB;&#x7A0B;&#x72B6;&#x6001; &#x7B49;</li>
+</ul>
+
+<script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="杀进程原理.html" class="navigation navigation-prev " aria-label="Previous page: 杀进程原理">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="进程管理系列0_总论.html" class="navigation navigation-next " aria-label="Next page: 进程管理系列0_总论">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"进程与子进程","level":"1.4.5","depth":2,"next":{"title":"进程管理系列0_总论","level":"1.4.6","depth":2,"path":"0_进程管理/进程管理系列0_总论.md","ref":"0_进程管理/进程管理系列0_总论.md","articles":[]},"previous":{"title":"杀进程原理","level":"1.4.4","depth":2,"path":"0_进程管理/杀进程原理.md","ref":"0_进程管理/杀进程原理.md","articles":[]},"dir":"ltr"},"config":{"//":["这是多行注释：    anchor-navigation-ex 是","anchor-navigation-ex 是","click-reveal 本地使用ok，但是github在build pages时，不识别click-reveal","accordion 也是折叠代码段","anchor-navigation-ex 是"],"plugins":["anchor-navigation-ex","toggle-chapters","expandable-chapters-small","splitter","code","page-treeview","popup","-search","-lunr","sidebar-style","auto-scroll-table","click-reveal","accordion","pageview-count","search-pro","prism","prism-themes","-highlight"],"root":"./markdownsFiles","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"Kent","title":"《prove》"},"tbfed-pagefooter":{"copyright":"Copyright &copy ershouche-FE 2019","modify_label":"文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"page-treeview":{"collapsed":false,"copyright":"Copyright © aleen42","minHeaderCount":"1","minHeaderDeep":"1"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"disqus":{"shortName":"gitbookuse"},"splitter":{},"search-pro":{},"accordion":{},"auto-scroll-table":{},"popup":{},"lunr":{"maxIndexSize":400000},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"click-reveal":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"pageview-count":{},"prism-themes":{},"expandable-chapters-small":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"toggle-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"bookname":"笔记","variables":{},"title":"Kent的博客","gitbook":"*"},"file":{"path":"0_进程管理/进程与子进程.md","mtime":"2023-11-22T17:01:56.992Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-06-27T15:39:21.538Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-toggle-chapters/toggle.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sidebar-style/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-auto-scroll-table/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-click-reveal/click_reveal.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-accordion/accordionSelector.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-pageview-count/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

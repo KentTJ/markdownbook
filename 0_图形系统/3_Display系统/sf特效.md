@@ -275,10 +275,13 @@ status_t GLESRenderEngine::drawLayers(const DisplaySettings& display,
 gl_renderer_use_program
 ```
 
-vertex-shader.h
+
+
+%accordion% vertex-shader.glsl %accordion%
+
+
 
 ```java
-
 /*
  * Copyright 2012 Intel Corporation
  * Copyright 2015,2019 Collabora, Ltd.
@@ -340,10 +343,15 @@ void main()
 }
 ```
 
-fragmentShader
+
+
+%/accordion%
+
+
+
+%accordion% fragmentShader %accordion%
 
 ```java
-
 /*
  * Copyright 2012 Intel Corporation
  * Copyright 2015,2019,2021 Collabora, Ltd.
@@ -771,6 +779,10 @@ main()
     gl_FragColor = color;
 }
 ```
+
+
+
+%/accordion%
 
 ### weston的shadow 与 from_blend_to_output关系
 

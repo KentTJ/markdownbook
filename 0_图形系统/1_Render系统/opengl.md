@@ -211,7 +211,7 @@ unsigned char *data = stbi_load("container.jpg", &width, &height, &nrChannels, 0
 
 创建纹理：
 
-```
+```java
 unsigned int texture;
 glGenTextures(1, &texture);
 glBindTexture(GL_TEXTURE_2D, texture);
@@ -224,7 +224,7 @@ glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYT
 
 > 新增纹理坐标------即截取：
 >
-> ```
+> ```java
 > float vertices[] = {
 > //     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
 >      0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
@@ -236,7 +236,7 @@ glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYT
 >
 > 告诉OpenGL新的顶点格式（**顶点属性**）：
 >
-> ```
+> ```java
 > glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 > glEnableVertexAttribArray(2);
 > ```
@@ -247,7 +247,7 @@ glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYT
 
 顶点着色器新增：
 
-```
+```java
 #version 330 
 ....................
 layout (location = 2) in vec2 aTexCoord;
@@ -284,7 +284,7 @@ void main()
 
 【】cpp侧赋值 采样器ourTexture：-----> TODO
 
-```
+```java
 glBindTexture(GL_TEXTURE_2D, texture);
 glBindVertexArray(VAO);
 glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -302,7 +302,7 @@ TODO：
 
 
 
-```
+```java
 纹理颜色*顶点颜色
 ```
 
@@ -330,7 +330,7 @@ https://youtu.be/DVvDd_acJoQ?list=PL0luF_aDUOooIB56NOFVTS4ahMzBHS_6z&t=1158     
 
 见 HOM
 
-```
+```java
  cpp内：
  int vertexColorLocation = glGetUniformLocation(g_programObject, "ourColor"); // 获取 glsl内 "ourColor"字段位置
  glUseProgram(g_programObject);
@@ -450,7 +450,7 @@ RendererJNI.cpp：
 
 > 目标： ---------->  一堆像素   --------> 一堆RGB，比如（0,122，144）
 >
-> ```
+> ```java
 >  int width, height, nrChannels;
 >  unsigned char *data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
 > ```
@@ -473,7 +473,7 @@ Texture ------> 另一个翻译更贴切：贴图
 
 **采样**，即截取出三角形贴图： ----------> [用纹理坐标截取](https://learnopengl-cn.github.io/01 Getting started/06 Textures/#_1:~:text=的插值。-,纹理坐标,-看起来就像这样)   
 
-```
+```java
  float texCoords[] = {
      0.0f, 0.0f, // 左下角
      1.0f, 0.0f, // 右下角
@@ -542,7 +542,7 @@ TODO: 多个**`EGLContext`**
 >
 >   >    EGL内再次指定 : **index = 0 与  shader里 "position"绑定**
 >   >
->   >   ```
+>   >   ```java
 >   >   glBindAttribLocation(shader->program, 0, "position");
 >   >   glBindAttribLocation(shader->program, 1, "texcoord");
 >   >   ```
@@ -1495,3 +1495,4 @@ opengl 与surface的关系，尤其是opengl  与 **GLSurfaceView** 的关系
  ~~详见[Skia引擎API整理介绍](https://www.cnblogs.com/ququer/archive/2012/05/03/2480345.html))：~~
 
 [使用参考]: 
+

@@ -4,7 +4,7 @@
 
 参考：
 
-> https://www.jianshu.com/p/dcc37f81c119
+>  [android屏幕渲染之SurfaceFlinger的启动](https://www.jianshu.com/p/dcc37f81c119)
 
 系统文件：
 
@@ -52,7 +52,7 @@
 
 参考：
 
-> https://blog.csdn.net/qq_40587575/article/details/129657882     【安卓源码】SurfaceFlinger 启动及其与应用通信
+>  [【安卓源码】SurfaceFlinger启动及其与应用通信](https://blog.csdn.net/qq_40587575/article/details/129657882)
 >
 > ----------> 源码注释
 
@@ -114,7 +114,7 @@ TODO:
 
 代码证明：
 
-https://www.cnblogs.com/hellokitty2/p/17637480.html Android P 图形显示系统（一）硬件合成HWC2  
+>   [Android P 图形显示系统（一）硬件合成HWC2](https://www.cnblogs.com/hellokitty2/p/17637480.html )  
 
 
 
@@ -304,9 +304,7 @@ App侧：
 
 [圆角绘制 - 安卓R](https://blog.csdn.net/SSSxCCC/article/details/119253569)
 
-https://blog.csdn.net/tkwxty/article/details/136154204#:~:text=本篇文章，-,我们先聚焦如下量点做介绍,-：     图
-
-https://blog.csdn.net/tkwxty/article/details/136153549     Android下SF合成流程重学习之Refresh流程
+[Android下SF合成流程重学习之Refresh流程](https://blog.csdn.net/tkwxty/article/details/136153549)
 
 合成  一行代码： glDrawRarry
 
@@ -487,15 +485,14 @@ drawMesh  画网格，来理解opengl：
 
 >   1、drawMesh  结构：
 >
->   ```
->   1
+>   ```java
 >   drawMesh2
->     -> 封装一堆gl操作，useProgram
->   ```
->
->   2、drawMesh可以多次连续调用，即：
->
->   >   （1）画网格可以多次在一个地方画
+>    -> 封装一堆gl操作，useProgram
+>    ```
+>   
+>2、drawMesh可以多次连续调用，即：
+>   
+>>   （1）画网格可以多次在一个地方画
 >   >
 >   >   （2）很多gl操作（比如glUseProgram），可以连续调用
 
@@ -526,7 +523,7 @@ weston的贴图：
 
 > gl_shader_config_set_input_textures  // 配置输入纹理的着色器
 >
-> [参考：](https://blog.csdn.net/qqzhaojianbiao/article/details/129789575)
+> [参考：Weston中shm window渲染](https://blog.csdn.net/qqzhaojianbiao/article/details/129789575)
 
 
 
@@ -534,13 +531,11 @@ weston的贴图：
 
 # 参考
 
- https://www.cnblogs.com/blogs-of-lxl/p/11272756.html    Android 显示系统：SurfaceFlinger详解    ------------->  好文！！！！图很好
+[Android 显示系统：SurfaceFlinger详解]( https://www.cnblogs.com/blogs-of-lxl/p/11272756.html )    ------------->  好文！！！！图很好
 
 TODO：图很好，模仿他的图，为什么能画这么清晰，能承载的东西也多
 
-
-
-https://juejin.cn/post/7055967248707485704    显示图形系统分析之SurfaceFlinger启动流程
+[显示图形系统分析之SurfaceFlinger启动流程](https://juejin.cn/post/7055967248707485704)
 
 
 

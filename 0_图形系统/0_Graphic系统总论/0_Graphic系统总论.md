@@ -12,7 +12,9 @@
 
 ![image-20230419002607069](0_Graphic系统总论.assets/image-20230419002607069.png)
 
-图片： https://mp.weixin.qq.com/s/LVVR1IGrn_PopGUkefjKvA   深入理解Android图形系统,   [Linux阅码场](javascript:void(0);)
+图片来源：
+
+>      [深入理解Android图形系统](https://mp.weixin.qq.com/s/LVVR1IGrn_PopGUkefjKvA ),   [Linux阅码场](javascript:void(0);)
 
 
 
@@ -50,7 +52,7 @@ render系统:  1、是以 lib（.so）形式存在   2、运行时：在App GUI�
 
 
 
-![64](0_Graphic系统总论.assets/64.png)
+<img src="0_Graphic系统总论.assets/64.png" alt="64" style="zoom:80%;" />
 
 
 
@@ -60,7 +62,7 @@ render系统:  1、是以 lib（.so）形式存在   2、运行时：在App GUI�
 
 > view数据转buffer数据
 
-![65](0_Graphic系统总论.assets/65.png)
+<img src="0_Graphic系统总论.assets/65.png" alt="65" style="zoom:80%;" />
 
 
 
@@ -82,9 +84,7 @@ render系统:  1、是以 lib（.so）形式存在   2、运行时：在App GUI�
 >
 > 协调各窗口之间的关系
 
-
-
-![Image](0_Graphic系统总论.assets/640)
+<img src="https://mmbiz.qpic.cn/mmbiz_png/YHBSoNHqDiaFfIOgXF4sG1KhjLaX5qgTFJswdwnFTSX9s5GtzEctamsstibWoYCVtFicGWZmNSm8yuRkNnUm5nKSg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="Image" style="zoom:80%;" />
 
 
 
@@ -94,7 +94,7 @@ render系统:  1、是以 lib（.so）形式存在   2、运行时：在App GUI�
 
 将buffer数据，最终到显示屏上
 
-
+<img src="https://mmbiz.qpic.cn/mmbiz_png/YHBSoNHqDiaFfIOgXF4sG1KhjLaX5qgTFKnicua9500EagAACY5ibncdw1Orgn9oibbehpcibibWeP0WITnbWCNN8YSg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="Image" style="zoom:80%;" />
 
 
 
@@ -330,7 +330,7 @@ Activity第二次之后调用onResume是有效
 
 
 
-```
+```java
 1.onResume函数中度量的高有效?
 
 
@@ -858,7 +858,7 @@ adb  shell dump System surfaceFlinger
 
 
 
-图出自：  https://www.jianshu.com/p/7a18666a43ce   Android画面显示流程分析(4)
+图出自：[Android画面显示流程分析(4)](https://www.jianshu.com/p/7a18666a43ce)
 
 
 
@@ -1017,26 +1017,32 @@ https://www.cnblogs.com/CreateLight/archive/2012/07/04/2575401.html
 
 
 
+好的比喻：
 
-
-framebuffer（屏幕级）： 挂墙展示
-
-好的比喻： https://blog.51cto.com/u_16099189/9844011#:~:text=缓存（画布）、-,刷新至屏幕（挂墙展示）,-这三个
+>   surface  ------------   画布
+>
+>   多个App ----------- 多个画家 同时画
+>
+>   <font color='red'>framebuffer（屏幕级、功能：承载合成的结果）</font>： <font color='red'>挂墙展示</font>
+>
+>   合成（~~安卓的sf承载、weston的compositor承载~~） -------- 即 把各个画布（画）挂 墙上
+>
+>    [参考：](https://blog.51cto.com/u_16099189/9844011#:~:text=%E4%B8%80%E4%B8%8B%E6%95%B4%E4%B8%AA%E6%B5%81%E7%A8%8B%E3%80%82-,%E9%A6%96%E5%85%88%E6%89%BE%E4%B8%80%E5%9D%97%E7%94%BB%E5%B8%83%EF%BC%8C%E6%89%A7%E7%AC%94%EF%BC%8C%E7%BB%98%E5%88%B6,-%EF%BC%8C%E5%AE%8C%E6%88%90%E5%90%8E%E6%89%BE%E4%B8%80%E9%9D%A2)
+>
 
 补充： canvas虽然英文名是画布，但是功能是画家
 
 各图形库的比较：
 
-|                          | 承载的能力                            | skia（安卓使用）                       | opengl ES（安卓、linux）               | QT QPainter                |
-| ------------------------ | ------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------- |
-|                          | 画家/作画工具集（画东西、执行画笔的） | canvas（或java的Canvas）               |                                        | QPainter                   |
-|                          | 画笔（颜色、画笔宽度）                | Paint                                  |                                        |                            |
-|                          | 画布(窗口的绘制承载)                  | surface（c++） （持有两个mem的buffer） | surface（c++） （持有两个mem的buffer） | TODO：似乎被QPainter封装了 |
-|                          | 画布2                                 | 应用侧创建的bitmap（自定义缓冲区）     |                                        |                            |
-|                          | FrameBuffer(屏幕级别)                 | FrameBuffer                            | FrameBuffer                            | FrameBuffer                |
-|                          |                                       |                                        |                                        |                            |
-| 能力承载                 |                                       | 主要软件绘制                           |                                        |                            |
-| 也可以配置硬件加速opengl | 硬件                                  | 软件绘制                               |                                        |                            |
+|                          | 承载的能力                                                   | skia（安卓使用）                       | opengl ES（安卓、linux）               | QT QPainter                |
+| ------------------------ | ------------------------------------------------------------ | -------------------------------------- | -------------------------------------- | -------------------------- |
+|                          | 画家/作画<font color='red'>工具集</font>（画东西、执行画笔的） | canvas（或java的Canvas）               |                                        | QPainter                   |
+|                          | 画笔（颜色、画笔宽度）                                       | Paint                                  |                                        |                            |
+|                          | 画布(窗口的绘制承载)                                         | surface（c++） （持有两个mem的buffer） | surface（c++） （持有两个mem的buffer） | TODO：似乎被QPainter封装了 |
+|                          | 画布2                                                        | 应用侧创建的bitmap（自定义缓冲区）     |                                        |                            |
+|                          | FrameBuffer(屏幕级别)<font color='red'>墙</font>             | FrameBuffer                            | FrameBuffer                            | FrameBuffer                |
+| 能力承载                 |                                                              | 主要软件绘制                           |                                        |                            |
+| 也可以配置硬件加速opengl | 硬件                                                         | 软件绘制                               |                                        |                            |
 
 补充： 如果画到画布2上，需要复制到画布1上？(不是直接给到surfaceFlinger？)
 
@@ -1060,7 +1066,7 @@ opengl是利用着色器shader（frag）去让GPU绘制的，单sf 应该不会�
 
 ### 渲染------硬件加速（GPU） 与 ~~软件加速(CPU)~~
 
-详细参考： https://zhuanlan.zhihu.com/p/464492155     Android GPU硬件加速渲染流程（上）  TODO：  好文
+详细参考：[Android GPU硬件加速渲染流程（上）](https://zhuanlan.zhihu.com/p/464492155)  TODO：  好文
 
 
 
@@ -1108,13 +1114,9 @@ opengl是利用着色器shader（frag）去让GPU绘制的，单sf 应该不会�
 
 
 
-https://baijiahao.baidu.com/s?id=1709178794607037191&wfr=spider&for=pc  深度好文：理解Android硬件加速原理
+[深度好文：理解Android硬件加速原理](https://baijiahao.baidu.com/s?id=1709178794607037191&wfr=spider&for=pc)
 
-
-
-https://zhuanlan.zhihu.com/p/464492155   
-
-
+[Android GPU硬件加速渲染流程（上）](https://zhuanlan.zhihu.com/p/464492155)
 
 ### 合成-------硬件合成(HWC)  与  软件合成
 
@@ -1128,32 +1130,21 @@ https://zhuanlan.zhihu.com/p/464492155
 
 ## 参考文章：
 
-https://www.androidperformance.com/2019/12/15/Android-Systrace-Triple-Buffer   Android Systrace 基础知识 - Triple Buffer 解读
+[ Android Systrace 基础知识 - Triple Buffer 解读](https://www.androidperformance.com/2019/12/15/Android-Systrace-Triple-Buffer )   ----->    好文
 
   https://blog.csdn.net/qq_45254908/article/details/125449470 
 
-https://blog.csdn.net/wjky2014/article/details/117962861   Systrace 之 三级缓存 Triple Buffer
+  [Systrace 之 三级缓存 Triple Buffer](https://blog.csdn.net/wjky2014/article/details/117962861 )
 
-Android画面显示流程分析(1)~(5)    https://www.jianshu.com/p/df46e4b39428  
+ [Android画面显示流程分析(1)~(5)](https://www.jianshu.com/p/df46e4b39428)
 
-https://androidperformance.com/2019/12/15/Android-Systrace-Triple-Buffer/#/Android-%E7%89%88%E6%9C%AC-gt-Android-P   好文
+[**Android Graphic UI with GPU Hardware Acceleration**](https://community.nxp.com/t5/i-MX-Processors-Knowledge-Base/Android-Graphic-UI-with-GPU-Hardware-Acceleration/ta-p/1102023)
 
+[深度好文：理解Android硬件加速原理](https://baijiahao.baidu.com/s?id=1709178794607037191&wfr=spider&for=pc)
 
+[Android 图形系统（Graphics）](https://www.jianshu.com/p/6474297924b6)
 
-https://community.nxp.com/t5/i-MX-Processors-Knowledge-Base/Android-Graphic-UI-with-GPU-Hardware-Acceleration/ta-p/1102023   
-**Android Graphic UI with GPU Hardware Acceleration**
-
-
-
-https://baijiahao.baidu.com/s?id=1709178794607037191&wfr=spider&for=pc  深度好文：理解Android硬件加速原理
-
-
-
-https://www.jianshu.com/p/6474297924b6     Android 图形系统（Graphics）
-
-
-
-https://zhuanlan.zhihu.com/p/676082509     Android 14 HWUI 源码研究 View Canvas RenderThread ViewRootImpl skia    ----------->  好文
+[Android 14 HWUI 源码研究 View Canvas RenderThread ViewRootImpl skia](https://zhuanlan.zhihu.com/p/676082509)    ----------->  好文
 
 
 
@@ -1169,7 +1160,7 @@ https://zhuanlan.zhihu.com/p/676082509     Android 14 HWUI 源码研究 View Can
 
 
 
-出自：  https://www.androidperformance.com/2021/04/24/android-systrace-smooth-in-action-1/#/%E4%BB%8E%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F%E7%9A%84%E8%A7%92%E5%BA%A6%E6%9D%A5%E7%9C%8B
+[图来源](  https://www.androidperformance.com/2021/04/24/android-systrace-smooth-in-action-1/#/%E4%BB%8E%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F%E7%9A%84%E8%A7%92%E5%BA%A6%E6%9D%A5%E7%9C%8B)
 
 
 

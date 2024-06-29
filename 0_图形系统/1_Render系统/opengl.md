@@ -296,7 +296,7 @@ glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 TODO：
 
-(为什么`sampler2D`变量是个uniform，我们却不用glUniform给它赋值)[https://learnopengl-cn.github.io/01%20Getting%20started/06%20Textures/#_8:~:text=%E4%B8%BA%E4%BB%80%E4%B9%88sampler2D%E5%8F%98%E9%87%8F%E6%98%AF%E4%B8%AAuniform%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8D%B4%E4%B8%8D%E7%94%A8glUniform%E7%BB%99%E5%AE%83%E8%B5%8B%E5%80%BC]
+[为什么`sampler2D`变量是个uniform，我们却不用glUniform给它赋值](https://learnopengl-cn.github.io/01%20Getting%20started/06%20Textures/#_8:~:text=%E4%B8%BA%E4%BB%80%E4%B9%88sampler2D%E5%8F%98%E9%87%8F%E6%98%AF%E4%B8%AAuniform%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8D%B4%E4%B8%8D%E7%94%A8glUniform%E7%BB%99%E5%AE%83%E8%B5%8B%E5%80%BC)
 
 ### 混合色 TODO：
 
@@ -353,7 +353,7 @@ https://youtu.be/DVvDd_acJoQ?list=PL0luF_aDUOooIB56NOFVTS4ahMzBHS_6z&t=1158     
 
 vs.glsl：
 
-```
+```java
  #version 300 es
 
  layout(location = 0) in vec3 position;  // 挖值
@@ -370,7 +370,7 @@ vs.glsl：
 
 fs.glsl：
 
-```
+```java
  #version 300 es
 
  precision mediump float;
@@ -440,9 +440,9 @@ RendererJNI.cpp：
 
 效果：
 
-```java
- <https://learnopengl-cn.github.io/img/01/05/shaders3.png>
-```
+<img src="opengl.assets/shaders3.png" alt="img" style="zoom:33%;" />
+
+
 
 ## 纹理
 
@@ -653,7 +653,7 @@ y = smoothstep(0.0,1.0,x);
 
 1、uniform  （自然，全局统一）： 数据流： cpp（CPU） < ------------> shader
 
-[使用参考](https://www.cnblogs.com/keguniang/p/9873052.html#:~:text=3 int vertexColorLocation %3D-,glGetUniformLocation,-(shaderProgram%2C ")
+>   [使用参考](https://www.cnblogs.com/keguniang/p/9873052.html#:~:text=vertexColorLocation%20%3D%20glGetUniformLocation)
 
 2、attribute变量
 
@@ -1493,3 +1493,5 @@ opengl 与surface的关系，尤其是opengl  与 **GLSurfaceView** 的关系
 ​       
 
  ~~详见[Skia引擎API整理介绍](https://www.cnblogs.com/ququer/archive/2012/05/03/2480345.html))：~~
+
+[使用参考]: 

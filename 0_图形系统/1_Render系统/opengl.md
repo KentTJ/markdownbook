@@ -8,9 +8,9 @@
 
 ## 运行opengl的环境
 
-clion：https://blog.csdn.net/weixin_62264287/article/details/134716198     【OpenGL】Clion配置  -------->没试过
+clion：    [【OpenGL】Clion配置](https://blog.csdn.net/weixin_62264287/article/details/134716198 )  -------->没试过
 
-VsCode：https://www.bilibili.com/video/BV1BX4y1g7R6/?spm_id_from=333.337.search-card.all.click&vd_source=3eebd10b94a8a76eaf4b78bee8f23884           VsCode下配置OpenGL开发环境
+VsCode：    [VsCode下配置OpenGL开发环境](https://www.bilibili.com/video/BV1BX4y1g7R6/?spm_id_from=333.337.search-card.all.click&vd_source=3eebd10b94a8a76eaf4b78bee8f23884       )
 
 AS： 直接使用AS，调用NDK接口
 
@@ -39,15 +39,15 @@ void main()
 
 ------------>  运行： ctrl + shift + P ，搜索 show  glslcanvas
 
-参考：
+[参考](https://www.bilibili.com/video/BV1LV411b7uE?p=1&spm_id_from=pageDriver&vd_source=3eebd10b94a8a76eaf4b78bee8f23884)
 
-https://www.bilibili.com/video/BV1LV411b7uE?p=1&spm_id_from=pageDriver&vd_source=3eebd10b94a8a76eaf4b78bee8f23884
+
 
 ## 机器环境确认
 
 EGL有1.0、1.1、1.2、1.3、1.4这几个版本，Android中使用的是1.4，EGL提供了查询版本的API，以下为Android中例子：
 
-具体见：https://blog.csdn.net/qq_32067045/article/details/51044918?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-8-51044918-blog-45131113.235^v43^pc_blog_bottom_relevance_base7&spm=1001.2101.3001.4242.5&utm_relevant_index=11
+[具体见](https://www.bilibili.com/video/BV1LV411b7uE?p=1&spm_id_from=pageDriver&vd_source=3eebd10b94a8a76eaf4b78bee8f23884)
 
 
 
@@ -79,11 +79,12 @@ OpenGL ES 是 OpenGL 的子集（删除了一些**低效能的操作方式**）
 
 > ![img](opengl.assets/pipeline.png)
 >
-> ~~图片来源:https://learnopengl-cn.github.io/01%20Getting%20started/04%20Hello%20Triangle/~~
+> ~~[图片来源](https://learnopengl-cn.github.io/01%20Getting%20started/04%20Hello%20Triangle/)~~
 
 数据流：
 
-![image-20240326011116467](opengl.assets/image-20240326011116467.png)
+>   ![image-20240326011116467](opengl.assets/image-20240326011116467.png)
+>
 
 （1）建模型（比如兔子）： 顶点数据  +   面数据  ~~三角形面数据（面1基于点：点1 点3  点5）~~  
 
@@ -102,8 +103,6 @@ glGenBuffers(1, &VBO);
 
   ----------------->  即兔子模型
 
-
-
 （6）VAO中，顶点数据 -------------> 灌入，即vertext
 
 
@@ -114,7 +113,7 @@ glGenBuffers(1, &VBO);
 
 创建window（对于安卓，不需要）
 
-参考：https://www.youtube.com/watch?v=ZoXqI2gOugs&list=PL0luF_aDUOooIB56NOFVTS4ahMzBHS_6z&index=2
+[参考](https://www.youtube.com/watch?v=ZoXqI2gOugs&list=PL0luF_aDUOooIB56NOFVTS4ahMzBHS_6z&index=2)
 
 
 
@@ -124,9 +123,9 @@ glGenBuffers(1, &VBO);
 
 ## 安卓openGLE接口
 
-http://blog.csdn.net/junzia/article/category/6462864
+[湖广午王OpenGLES系列](http://blog.csdn.net/junzia/article/category/6462864)
 
-https://blog.csdn.net/CodeWorld1999/article/details/134863461
+[一篇搞懂OpenGL中的着色器和如何使用](https://blog.csdn.net/CodeWorld1999/article/details/134863461)
 
 
 
@@ -138,7 +137,7 @@ https://blog.csdn.net/CodeWorld1999/article/details/134863461
 
 ![image-20240327014627804](opengl.assets/image-20240327014627804.png)
 
-图：https://youtu.be/AL3W2JfVVgw?list=PL0luF_aDUOooIB56NOFVTS4ahMzBHS_6z&t=441
+[图来源](https://youtu.be/AL3W2JfVVgw?list=PL0luF_aDUOooIB56NOFVTS4ahMzBHS_6z&t=441)
 
 
 
@@ -168,15 +167,17 @@ https://blog.csdn.net/CodeWorld1999/article/details/134863461
 
 
 
-
-
-https://blog.csdn.net/CodeWorld1999/article/details/134863461    一篇搞懂OpenGL中的着色器和如何使用
+[一篇搞懂OpenGL中的着色器和如何使用](https://blog.csdn.net/CodeWorld1999/article/details/134863461)
 
 
 
-https://blog.csdn.net/u010281924/article/details/105309340   **OpenGL ES 3. 着色器 shader 的编译和使用**
+![img](opengl.assets/20200404154050786.png)
 
---------->  图
+--------->  图来源：
+
+>   [OpenGL ES 3. 着色器 shader的编译和使用](https://blog.csdn.net/u010281924/article/details/105309340)
+
+
 
 ## 片元着色器  输入输出图：
 
@@ -1160,7 +1161,7 @@ TODO: 0层结构图
 
 ## eglSwapBuffers
 
-[20181220_eglSwapBuffers详解-CSDN博客](https://blog.csdn.net/happy19850920/article/details/50773875?spm=1001.2014.3001.5502)
+[eglSwapBuffers详解-CSDN博客](https://blog.csdn.net/happy19850920/article/details/50773875?spm=1001.2014.3001.5502)
 
 ## 与Skia渲染比较
 
@@ -1197,11 +1198,11 @@ createSurface()上面有一句注解：Create an egl surface for the current Sur
 
 ## TODO:
 
-https://blog.csdn.net/xiaozhude/article/details/78752608  系列文章
+[OpenGL系列文章](https://blog.csdn.net/xiaozhude/article/details/78752608  ) 
 
 [Android GLSurfaceView详解-CSDN博客](https://blog.csdn.net/TuGeLe/article/details/79199161?ops_request_misc={"request_id"%3A"171144045516800188515202"%2C"scm"%3A"20140713.130102334.."}&request_id=171144045516800188515202&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~sobaiduend~default-2-79199161-null-null.nonecase&utm_term=GLSurfaceView绘制详解&spm=1018.2226.3001.4450)
 
-[GLSurfaceView渲染过程详解_壁纸服务如何绘制glsurfaceview-CSDN博客](https://blog.csdn.net/xiaozhude/article/details/78752608)           ------------>  TODO: 0层图
+[GLSurfaceView渲染过程详解_壁纸服务如何绘制glsurfaceview-CSDN博客](https://blog.csdn.net/xiaozhude/article/details/78752608)     
 
 mainActivity的surface 与 GLSurfaceView 的surface 如何做混合，显示底下的surface内容？------------即透明背景
 
@@ -1299,7 +1300,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 
 效果：
 
->   ![image-20240606020417513](opengl.assets/image-20240606020417513.png)
+>   <img src="opengl.assets/image-20240606020417513.png" alt="image-20240606020417513" style="zoom:67%;" />
 
 
 

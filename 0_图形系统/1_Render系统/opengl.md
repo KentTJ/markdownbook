@@ -391,7 +391,7 @@ fs.glsl：
 
 RendererJNI.cpp：
 
-```
+```java
  JNIEXPORT void JNICALL Java_opengl_panjq_com_opengl_1demo_RendererJNI_glesRender
    (JNIEnv *pEnv, jobject obj){
  //    GLfloat vVertices[] = {  0.0f,  0.5f, 0.0f,
@@ -440,7 +440,7 @@ RendererJNI.cpp：
 
 效果：
 
-```
+```java
  <https://learnopengl-cn.github.io/img/01/05/shaders3.png>
 ```
 
@@ -471,7 +471,7 @@ Texture ------> 另一个翻译更贴切：贴图
 
 以左下角为（0,0）
 
-**采样**，即截取出三角形贴图： ----------> 用纹理坐标截取   https://learnopengl-cn.github.io/01 Getting started/06 Textures/#_1:~:text=的插值。-,纹理坐标,-看起来就像这样
+**采样**，即截取出三角形贴图： ----------> [用纹理坐标截取](https://learnopengl-cn.github.io/01 Getting started/06 Textures/#_1:~:text=的插值。-,纹理坐标,-看起来就像这样)   
 
 ```
  float texCoords[] = {
@@ -481,7 +481,7 @@ Texture ------> 另一个翻译更贴切：贴图
  };
 ```
 
-- ------------> 这里本质上截取了三个点，[内部插值](https://learnopengl-cn.github.io/01 Getting started/06 Textures/#_1:~:text=解释非常宽松，-,它可以采用几种不同的插值方式,-。所以我们需要)
+-----------> 这里本质上截取了三个点，[内部插值](https://learnopengl-cn.github.io/01 Getting started/06 Textures/#_1:~:text=解释非常宽松，-,它可以采用几种不同的插值方式,-。所以我们需要)
 
 ## 已有图片过小，不足以覆盖模型
 
@@ -509,9 +509,9 @@ COMPILE错误 与 LINK 错误
 
 https://stackoverflow.com/questions/3420558/printf-in-glsl
 
-https://blog.csdn.net/zjz520yy/article/details/83047042    调试输出， OpenGL4.3版本
+[调试输出， OpenGL4.3版本](https://blog.csdn.net/zjz520yy/article/details/83047042  )
 
-https://learnopengl-cn.github.io/06 In Practice/01 Debugging/#:~:text=有效的工具。-,调试输出,-虽然没有glGetError     调试输出，官网
+[官网---   调试输出](https://learnopengl-cn.github.io/06 In Practice/01 Debugging/#:~:text=有效的工具。-,调试输出,-虽然没有glGetError  )
 
 
 
@@ -567,9 +567,9 @@ TODO: 多个**`EGLContext`**
 
 大全 ： [GLSL内置变量和内置函数](https://blog.csdn.net/danshiming/article/details/131511445)
 
-https://blog.csdn.net/hgl868/article/details/7876257  内建函数集合
+[内建函数集合](https://blog.csdn.net/hgl868/article/details/7876257)
 
-https://blog.csdn.net/a_codecat/article/details/127469057     内建函数的图像解释
+[内建函数的图像解释](https://blog.csdn.net/a_codecat/article/details/127469057)
 
 ### gl_FragCoord
 
@@ -683,9 +683,9 @@ TODO:
 >
 >   [A Simple Circle (shadertoy.com)](https://www.shadertoy.com/view/XsjGDt)
 >
->   https://juejin.cn/post/7060050476238110750   抗锯齿实现
+>   [抗锯齿实现](https://juejin.cn/post/7060050476238110750)   
 >
->   https://learnopengl-cn.github.io/04 Advanced OpenGL/11 Anti Aliasing/   抗锯齿
+>   [抗锯齿](https://learnopengl-cn.github.io/04 Advanced OpenGL/11 Anti Aliasing/)
 
 抗锯齿的**思想：**
 
@@ -816,7 +816,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 
 ### 画布坐标系（站在画布上看）
 
-参考: https://zhuanlan.zhihu.com/p/35973705  Shadertoy 的坐标转换
+参考:    [Shadertoy的坐标转换](https://zhuanlan.zhihu.com/p/35973705)
 
 结论：shader内变量 是基于画布坐标系的
 
@@ -907,7 +907,7 @@ glScissors是OpenGL中的一个函数，用于定义一个矩形区域，只有�
 
 ### void glViewport(GLint x, GLint y, GLsizei width, GLsizei height);
 
-参考：https://cloud.tencent.com/developer/article/2323370  OpenGL 学了那么久了，glViewport 你真的会用吗？
+参考：  [OpenGL 学了那么久了，glViewport 你真的会用吗？](https://cloud.tencent.com/developer/article/2323370)
 
 站在屏幕角度（**左下为原点**）：划出一个矩形，作为 渲染区域  
 
@@ -1052,9 +1052,9 @@ https://blog.csdn.net/hankern/article/details/88770954
 
 ## 0层
 
-demo：https://blog.csdn.net/lixiong0713/article/details/108200126       GLSurfaceView 基本使用与源码解析   ------------>  只看demo，不看这里源码分析
+demo：[GLSurfaceView基本使用与源码解析](https://blog.csdn.net/lixiong0713/article/details/108200126)   ------------>  只看demo，不看这里源码分析
 
-https://www.jianshu.com/p/45bac151346e            OpenGL升级打怪之 GLSurfaceView源码分析
+[OpenGL升级打怪之 GLSurfaceView源码分析](https://www.jianshu.com/p/45bac151346e)
 
 -------------> 整个 核心：
 
@@ -1070,9 +1070,7 @@ https://www.jianshu.com/p/45bac151346e            OpenGL升级打怪之 GLSurfac
  
      // 【】Egl交互内存，opengl使用的双内存缓冲，一个进行显示，另一个则后台进行绘制，绘制OK后，交互内存进行显示
      int swapError = mEglHelper.swap();
-
  }
- 
 ```
 
 创建的内存，怎么给Opengl的？
@@ -1115,7 +1113,7 @@ mEgl.eglMakeCurrent(mEglDisplay, mEglSurface, mEglSurface, mEglContext)
 
 源码分析：
 
-```
+```java
   eglMakeCurrent
      makeCurrent
        ogles_context_t* current = (ogles_context_t*)getGlThreadSpecific(); // 取得当前GlThread的context信息，进行校验
@@ -1386,7 +1384,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
 
 1、shader中数值判断：
 
-```
+```java
 if ( 待判断数值 >  250.0) {
 	// 改变颜色
 	 color = ................

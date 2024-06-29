@@ -138,9 +138,9 @@ t.apply()
 
 TODO:
 
-sf系列文章： https://blog.csdn.net/fengchaochao123/category_12467586.html
+[sf系列文章]( https://blog.csdn.net/fengchaochao123/category_12467586.html)
 
-显示驱动系列文章： https://blog.csdn.net/fengchaochao123/category_11733379.html
+[显示驱动系列文章]( https://blog.csdn.net/fengchaochao123/category_11733379.html)
 
 Bpxxx/Bnxxx：
 
@@ -152,17 +152,17 @@ https://blog.csdn.net/fengchaochao123/article/details/134020217?spm=1001.2014.30
 
 系列好文：
 
->   https://blog.csdn.net/sssxccc/category_11248337.html    安卓Framework
+>    [安卓Framework](https://blog.csdn.net/sssxccc/category_11248337.html)
 >
->   https://blog.csdn.net/SSSxCCC/article/details/119253947    录屏流程 - 安卓R
+>   [ 录屏流程 - 安卓R](https://blog.csdn.net/SSSxCCC/article/details/119253947 )
 
 
 
 
 
-https://blog.csdn.net/SSSxCCC/article/details/119324066    转屏动画 - 安卓R
+[转屏动画 - 安卓R](https://blog.csdn.net/SSSxCCC/article/details/119324066 )
 
-https://blog.csdn.net/SSSxCCC/article/details/119324081   过渡动画 - 安卓R
+[过渡动画 - 安卓R](https://blog.csdn.net/SSSxCCC/article/details/119324081)
 
 # 对应的shader
 
@@ -804,7 +804,7 @@ struct weston_color_transform {
 
 ## 素材合集
 
-https://iquilezles.org/articles/distfunctions2d/     二维图形的距离函数
+[二维图形的距离函数](https://iquilezles.org/articles/distfunctions2d/ )
 
 # 补充：高斯模糊
 
@@ -887,9 +887,9 @@ TODO:截屏接口也是等待返回
 
 ComposerService ---> sf  框架的搭建：
 
-https://blog.csdn.net/SSSxCCC/article/details/119253965    截屏流程 - 安卓R
+[截屏流程 - 安卓R](https://blog.csdn.net/SSSxCCC/article/details/119253965 )
 
-https://blog.csdn.net/SSSxCCC/article/details/119253947   录屏流程 - 安卓R
+[录屏流程 - 安卓R](https://blog.csdn.net/SSSxCCC/article/details/119253947)
 
 
 
@@ -917,4 +917,4 @@ Animation的本质：
 
 >   视觉上的过渡（让人忽略突变）
 
--   ----------> 所以，Animation要做的事情，渐变（即频率同人）
+----------> 所以，Animation要做的事情，渐变（即频率同人）

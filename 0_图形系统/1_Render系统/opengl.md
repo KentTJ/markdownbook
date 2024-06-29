@@ -1438,39 +1438,27 @@ https://www.youtube.com/watch?v=W3gAzLwfIP0&list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GG
 
 
 
-https://blog.csdn.net/junzia/category_6462864.html         湖广午王  OpenGLES系列文章（21篇）
+[湖广午王  OpenGLES系列文章（21篇）](https://blog.csdn.net/junzia/category_6462864.html)     
 
-https://blog.csdn.net/u010281924/category_7841161.html   OpenGL 基础
+[OpenGL  基础](https://blog.csdn.net/u010281924/category_7841161.html   )
 
+  [ 我的openGL demo](https://blog.csdn.net/a360940265a/article/details/88600962)
 
+ [Android C++ OpenGL视频课程](https://edu.csdn.net/course/detail/19367?spm=1001.2101.3001.6650.14&utm_medium=distribute.pc_relevant.none-task-course-2%7Edefault%7EBlogCommendFromBaidu%7ERate-14-19367-blog-88880831.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-course-2%7Edefault%7EBlogCommendFromBaidu%7ERate-14-19367-blog-88880831.235%5Ev43%5Econtrol&utm_relevant_index=21   )      
 
-https://github.com/KentTJ/AndroidOpenGLDemo/tree/master   我的openGL  demo
-
-
-
-
-
-https://edu.csdn.net/course/detail/19367?spm=1001.2101.3001.6650.14&utm_medium=distribute.pc_relevant.none-task-course-2%7Edefault%7EBlogCommendFromBaidu%7ERate-14-19367-blog-88880831.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-course-2%7Edefault%7EBlogCommendFromBaidu%7ERate-14-19367-blog-88880831.235%5Ev43%5Econtrol&utm_relevant_index=21         Android C++ OpenGL 视频课程
-
-https://www.bilibili.com/video/BV1yx41187GN/?spm_id_from=333.337.search-card.all.click&vd_source=3eebd10b94a8a76eaf4b78bee8f23884               Android OpenGL ES教学视频
+  [Android OpenGL ES教学视频](https://www.bilibili.com/video/BV1yx41187GN/?spm_id_from=333.337.search-card.all.click&vd_source=3eebd10b94a8a76eaf4b78bee8f23884  )
 
 --------------------->  TODO: 这里有教蒙板
 
 
 
-https://blog.csdn.net/a360940265a/article/details/88600962          OpenGL.Shader：1-重新认识Android上OpenGL（纯Cpp）
+  [OpenGL.Shader：1-重新认识Android上OpenGL（纯Cpp）](https://blog.csdn.net/a360940265a/article/details/88600962)  
 
 
 
+[中文视频教程，shader的画法](https://www.bilibili.com/video/BV1LV411b7uE?p=1&spm_id_from=pageDriver&vd_source=3eebd10b94a8a76eaf4b78bee8f23884   )
 
-
-https://www.bilibili.com/video/BV1LV411b7uE?p=1&spm_id_from=pageDriver&vd_source=3eebd10b94a8a76eaf4b78bee8f23884   中文视频教程，shader的画法
-
-
-
-
-
-https://blog.csdn.net/qq_43331089/article/details/124200849         西川善司的3D图形技术概念和渲染管线的处理
+ [ 西川善司的3D图形技术概念和渲染管线的处理](https://blog.csdn.net/qq_43331089/article/details/124200849   )
 
 
 

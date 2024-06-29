@@ -233,13 +233,11 @@ void main(void) {
 
 [关于的使用：](https://www.cnblogs.com/keguniang/p/9873052.html#:~:text=glGetUniformLocation(shaderProgram%2C "ourColor")%3B)
 
-https://note.nxcloud.club:12270/blog/post/agile/Shader中使用距离函数（Distance-Function）绘制二维图形
-
-Shader中使用距离函数（Distance Function）绘制二维图形
+[Shader中使用距离函数（Distance Function）绘制二维图形](https://note.nxcloud.club:12270/blog/post/agile/Shader%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%B7%9D%E7%A6%BB%E5%87%BD%E6%95%B0%EF%BC%88Distance-Function%EF%BC%89%E7%BB%98%E5%88%B6%E4%BA%8C%E7%BB%B4%E5%9B%BE%E5%BD%A2)
 
 ### 主要流程：
 
-参考： https://blog.csdn.net/SSSxCCC/article/details/119253569    圆角绘制 - 安卓R
+参考：    [圆角绘制 - 安卓R](https://blog.csdn.net/SSSxCCC/article/details/119253569 )
 
 ```java
 
@@ -349,13 +347,13 @@ void main()
 
 
 
-%accordion% fragmentShader %accordion%
+%accordion% fragmentShader.glsl %accordion%
 
 ```java
 /*
  * Copyright 2012 Intel Corporation
  * Copyright 2015,2019,2021 Collabora, Ltd.
- * Copyright 2016 NVIDIA Corporation
+ * Copyright 2016 NVIDIA Corporation // -------> NVIDIA！！！！！！！
  * Copyright 2021 Advanced Micro Devices, Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining

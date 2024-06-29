@@ -300,9 +300,9 @@ App侧：
 
 # SF合成之GPU合成
 
-https://blog.csdn.net/tkwxty/article/details/136154204         Android下SF合成流程重学习之GPU合成
+[Android下SF合成流程重学习之GPU合成](https://blog.csdn.net/tkwxty/article/details/136154204 )
 
-https://blog.csdn.net/SSSxCCC/article/details/119253569      圆角绘制 - 安卓R
+[圆角绘制 - 安卓R](https://blog.csdn.net/SSSxCCC/article/details/119253569)
 
 https://blog.csdn.net/tkwxty/article/details/136154204#:~:text=本篇文章，-,我们先聚焦如下量点做介绍,-：     图
 

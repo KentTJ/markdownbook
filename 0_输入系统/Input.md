@@ -74,7 +74,7 @@ InputDispatch线程结构：
 
 [android input 点击 android input系统*mob6454cc7966b9的技术博客*51CTO博客](https://blog.51cto.com/u_16099334/6439040)
 
-- --------> 0层结构、1层结构用这里的！！！！
+--------> 0层结构、1层结构用这里的！！！！
 
 
 
@@ -171,13 +171,13 @@ KeyEvent.java:
 
 ## **Touch目标窗口的确定：**
 
-- --------------------------> **简言之，**目标窗口的确定：
+--------------------------> **简言之，**目标窗口的确定：
 
 > 可以根据触摸事件的位置   +   窗口的属性
 
 > Touch事件，不是对焦点窗口分发的！！！！！！！！！！！！而是根据位置区分！！！！！----------------> 自然
 >
-> - -------------> 因为Touch不需要焦点，他知道对哪个窗口分发
+> ------------> 因为Touch不需要焦点，他知道对哪个窗口分发
 >
 > key事件，自然是对焦点窗口
 
@@ -278,15 +278,11 @@ KeyEvent.java:
 
 # 参考
 
-
-
 gityuan系列文章：
 
-> https://gityuan.com/2016/12/10/input-manager/        Input系统—启动篇
+> [Input系统—启动篇](https://gityuan.com/2016/12/10/input-manager/   )
 >
-> https://gityuan.com/2016/12/31/input-ipc/        
-
-
+> [Input系统—事件处理全过程](https://gityuan.com/2016/12/31/input-ipc/ )
 
 
 
@@ -312,17 +308,18 @@ gityuan系列文章：
 
 <font color='red'>注意点</font>：
 Q: 分发事件的对象是MotionEvent，没有touchevent与click事件？
+
 A:  没有Touch事件（TouchEvent）， 没有click事件（ClickEvent）。原因： motion用的很恰当。手指触摸，必然是一段时间，一段距离——》即 motion移动
 
 click表示一瞬，其实是没有的
 
-----》 虽然有时候表达成 touch事件、click事件
+------->  虽然有时候表达成 touch事件、click事件
 
 
 
 ## 模型
 
-参考，好文： https://blog.csdn.net/pgg_cold/article/details/79472193?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-79472193-blog-125568753.pc_relevant_multi_platform_whitelistv3&spm=1001.2101.3001.4242.1&utm_relevant_index=3
+参考，好文： [Android面试题（27）-android的事件分发机制](https://blog.csdn.net/pgg_cold/article/details/79472193?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-79472193-blog-125568753.pc_relevant_multi_platform_whitelistv3&spm=1001.2101.3001.4242.1&utm_relevant_index=3)
 
 **生活化模型：** 项目经理分发任务模型：
 项目经理（Activity）
@@ -338,8 +335,6 @@ click表示一瞬，其实是没有的
 <font color='red'>继承表达的含义： 继承从功能的角度来看，表达  功能更多、更强  的意思</font>
 自然：~~主管继承员工（viewGroup继承view）~~  
            ~~主管管理员工~~  ---》继承多出的功能，自然
-
-
 
 
 
@@ -366,9 +361,11 @@ click表示一瞬，其实是没有的
 
 ## 基于模型，viewGroup的分发 详解
 
-参考： https://mp.weixin.qq.com/s/sSPFz3E5gncYiMMFtF_xlg  <font color='red'>好文</font>   从责任链模式看Android事件分发
- https://blog.csdn.net/tony499074462/article/details/102499302   ViewGroup事件分发机制详解
-https://blog.csdn.net/a553181867/article/details/51287844   Android View 事件分发机制源码详解(ViewGroup篇)
+参考：
+
+ [从责任链模式看Android事件分发](https://mp.weixin.qq.com/s/sSPFz3E5gncYiMMFtF_xlg)      ------>     <font color='red'>好文</font> 
+[ViewGroup事件分发机制详解](https://blog.csdn.net/tony499074462/article/details/102499302)
+[Android View 事件分发机制源码详解(ViewGroup篇)](https://blog.csdn.net/a553181867/article/details/51287844)
 
 一句话总结：
 
@@ -425,7 +422,7 @@ viewGroup中找view，结论：
 
 ## 基于模型，view的分发 详解
 
-参考： https://blog.csdn.net/qq_56785698/article/details/123159190
+参考： [View的事件分发机制](https://blog.csdn.net/qq_56785698/article/details/123159190)
 
 **问题：**按道理说，叶子节点的view没有子view，那么为啥还存在分发dispatchTouchEvent呢？
 A：因为要先向注册的Listener 先分发（<font color='red'>即view对外分发</font>），最后才是自己处理
@@ -490,13 +487,13 @@ break;
 
 ## 从事件流的角度
 
-参考：https://blog.csdn.net/qq_56785698/article/details/123159190
+参考： [View的事件分发机制](https://blog.csdn.net/qq_56785698/article/details/123159190)
 
 
 
 事件传递的疑问:
 1、事件指的是什么？实际上是事件流，不是单一事件。。。自然 
-2、为了解决多指触控的问题,TODO: 引入Pointer概念 https://www.jianshu.com/p/0c863bbdedeb
+2、为了解决多指触控的问题,TODO: 引入Pointer概念 
 
 
 
@@ -506,7 +503,7 @@ break;
 
 # Android事件的处理
 
-参考：http://gityuan.com/2015/09/19/android-touch/
+参考：   [Android事件分发机制](https://blog.csdn.net/a553181867/article/details/51287844)
 
 
 
@@ -546,10 +543,10 @@ break;
 ## android 触摸(Touch)事件、点击(Click)事件的区别
 
 参考：
-  https://blog.csdn.net/LR6666/article/details/52119167
-https://blog.csdn.net/Double2hao/article/details/54374861
 
-
+>   [android 触摸(Touch)事件、点击(Click)事件的区别(详细解析)](https://blog.csdn.net/LR6666/article/details/52119167)
+>
+>   [完全理解android事件分发机制](https://blog.csdn.net/Double2hao/article/details/54374861)
 
 简易理解：
 
@@ -600,7 +597,7 @@ TODO ------->办法:事件拦截机制
 只画图
 讲课视频，是按照 思维方式（1、目标-起点   2、遇到的问题）来讲的，而不是
 
-技术文章的平铺直叙  ----》 <font color='red'>会很深刻，从0创造知识的思维</font>
+技术文章的平铺直叙  ------>   <font color='red'>会很深刻，从0创造知识的思维</font>
 --------->  TODO: 能否这样写技术文章呢？如果不能，能有借鉴意义嘛
 
 
@@ -625,7 +622,7 @@ TODO ------->办法:事件拦截机制
 
 # 一切皆文件：
 
-参考：https://www.bilibili.com/video/BV117411H732/?spm_id_from=333.999.0.0&vd_source=3eebd10b94a8a76eaf4b78bee8f23884
+参考：[视频---------王小二图解Android【005】一切皆文件](https://www.bilibili.com/video/BV117411H732/?spm_id_from=333.999.0.0&vd_source=3eebd10b94a8a76eaf4b78bee8f23884)
 
 
 

@@ -21,3 +21,5 @@
  [Android应用程序资源管理框架.pptx](老罗Android之旅系列课件.assets\Android应用程序资源管理框架.pptx) 
 
  [Android硬件抽象层(HAL).pptx](老罗Android之旅系列课件.assets\Android硬件抽象层(HAL).pptx) 
+
+ [Android硬件抽象层(HAL).pdf](..\..\..\doc_my\doc_my\老罗Android之旅系列课件\老罗Android之旅系列课件\Android硬件抽象层(HAL).pdf) 

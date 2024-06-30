@@ -164,7 +164,7 @@ https://blog.csdn.net/fengchaochao123/article/details/134020217?spm=1001.2014.30
 
 [过渡动画 - 安卓R](https://blog.csdn.net/SSSxCCC/article/details/119324081)
 
-# 对应的shader
+## 对应的shader
 
 shader结构：
 
@@ -176,7 +176,7 @@ shader结构：
 
 shader具体内容详解：
 
-## 方法一 安卓的shader：
+### 方法一 安卓的shader：
 
 1、VertexShader
 
@@ -263,9 +263,9 @@ status_t GLESRenderEngine::drawLayers(const DisplaySettings& display,
 }
 ```
 
-## 方法二：
+### 方法二：
 
-## weston 的shader.h 非 shadow？
+### weston 的shader.h 非 shadow？
 
 核心一行代码：
 
@@ -812,9 +812,15 @@ struct weston_color_transform {
 };
 ```
 
-## 素材合集
 
-[二维图形的距离函数](https://iquilezles.org/articles/distfunctions2d/ )
+
+
+
+
+
+
+
+
 
 # 补充：高斯模糊
 

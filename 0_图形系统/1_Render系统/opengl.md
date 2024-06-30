@@ -1291,18 +1291,31 @@ https://zhuanlan.zhihu.com/p/365440831      Shader中使用距离函数（Distan
 
 
 
-## 基本素材---圆距离函数、矩形距离函数、三角形距离函数
+## 基本素材---距离函数(圆、矩形、三角形........)
 
 
 
-## 自然，~~圆角矩形、圆角三角形、圆角.............~~
+### 2d距离函数
 
-  <font color='red'>圆角矩形 = 内矩形（长-圆角半径，宽-圆角半径）  + 圆角（圆角半径）：</font>
+大全：[二维图形的距离函数](https://iquilezles.org/articles/distfunctions2d/ )
 
 
+
+-<font color='red'>推论，通用公式：</font>
+
+>   2d 圆角............. : 圆角 = 内图形 + 圆角半径
+>
+>   **2d环状**............：<font color='red'>TODO</font>
+
+
+
+### 自然，~~推论:2d圆角(矩形、三角形.............)~~
+
+**圆角通用公式：**
+
+>   <font color='red'>圆角矩形 = 内矩形（长-圆角半径，宽-圆角半径）  + 圆角（圆角半径）：</font>
 
 ```java
-
 float drawBox( in vec2 p, in vec2 b ){  // 矩形的距离函数
     vec2 d = abs(p)-b;
     return length(max(d,0.0)) + min(max(d.x,d.y),0.0);
@@ -1332,9 +1345,15 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 
 
 
+其他例子：
 
+>   ![image-20240630210142995](opengl.assets/image-20240630210142995.png)
+>
+>   [见](https://iquilezles.org/articles/distfunctions2d/#:~:text=rounded%20box%20and%20a%20rounded%20pentagon)
 
-## 同心圆、同心圆角矩形
+### 自然，~~推论：环----同心圆、同心圆角矩形~~
+
+**环通用公式：** TODO:
 
 同心圆-------**三段 if else 方式:**
 
@@ -1342,18 +1361,18 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 >   // 【】 if else  等价于  数学中的step函数
 >   void mainImage( out vec4 fragColor, in vec2 fragCoord )
 >   {
->       vec2 uv = (2.0 * fragCoord.xy - iResolution.xy) / min(iResolution.y, iResolution.x);
->       float r = 0.5;
->       float len = length(uv);  // length(uv)是距离原点的距离   // r是圆半径
+>      vec2 uv = (2.0 * fragCoord.xy - iResolution.xy) / min(iResolution.y, iResolution.x);
+>      float r = 0.5;
+>      float len = length(uv);  // length(uv)是距离原点的距离   // r是圆半径
 >   
 >   
->       if (len <= r) {
->           fragColor = vec4(1.0, 0.0, 0.0, 1.0);
->       } else if(len > r && len < 0.6){
->           fragColor = vec4(0.0, 0.0, 0.0, 1.0);
->       } else {
->           fragColor = vec4(0.0, 1.0, 0.0, 1.0);
->       }
+>      if (len <= r) {
+>          fragColor = vec4(1.0, 0.0, 0.0, 1.0);
+>      } else if(len > r && len < 0.6){
+>          fragColor = vec4(0.0, 0.0, 0.0, 1.0);
+>      } else {
+>          fragColor = vec4(0.0, 1.0, 0.0, 1.0);
+>      }
 >   }
 >   ```
 >
@@ -1361,7 +1380,46 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 
 
 
+其他例子：
 
+>   ![image-20240630210111730](opengl.assets/image-20240630210111730.png)
+>
+>   [见](https://iquilezles.org/articles/distfunctions2d/#:~:text=These%20are%20a%20few%20examples%3A%20annular%20rounded%20line%2C%20an%20annular%20triangle%2C%20an%20annular%20box%20and%20a%20annular%20pentagon%3A)
+
+
+
+### 3d距离函数
+
+大全：
+
+>   https://iquilezles.org/articles/distfunctions/
+>
+>   https://www.shadertoy.com/playlist/43cXRl
+>
+>   https://www.shadertoy.com/view/Xds3zN
+
+球：
+
+```java
+float sdSphere( vec3 p, float s )
+{
+  return length(p)-s;
+}
+```
+
+![img](opengl.assets/gfx00.png)
+
+柱体：
+
+![img](opengl.assets/gfx01.png)
+
+-<font color='red'>推论：</font>
+
+>   3d 圆角............. : 圆角 = 3d内图形 + 圆角半径
+>
+>   **3d环状**............：<font color='red'>TODO</font>
+
+### 自然：推论：
 
 
 

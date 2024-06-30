@@ -703,11 +703,39 @@ Any content here
 
 
 
+设置插件**展开后的高度：**
+
+>   ![image-20240630235843443](software_pcSettings.assets/image-20240630235843443.png)
+>
+>   
+>
+>   ```java
+>   // gitbook\gitbook-plugin-accordion\accordion.css
+>   
+>   .accordion {
+>   	max-height: 500px;  // 这里改大为850
+>   	margin-bottom: 5px;
+>   	border: 1px solid #e8e8e8;
+>   	overflow: hidden;
+>   	transition: max-height 250ms ease-out;
+>   }
+>   ..........
+>   
+>   .accordionContent {
+>   	margin: 10px;
+>   	min-height: 10px;
+>   	max-height: 450px;    // 这里改大为750
+>   	overflow: auto;
+>   }
+>   ```
+
+
+
 #### 代码颜色高亮
 
 效果：
 
-> ![image-20240421232801514](software_pcSettings.assets/image-20240421232801514.png)
+> ![image-20240421232801514](software_pcSettings.assets/image-20240421232801514-1719763327210.png)
 
 配置：
 
@@ -750,7 +778,6 @@ Any content here
 >
 > ```java
 > console.log(`chen_,highlightCode.js, highlightCode() ${source.substring(0, 20)}!`);
-> 
 > ```
 
 
@@ -1099,7 +1126,7 @@ C 网上搜
 
 D  PDF本身的目录OCR
 
-![image-20230917183442007](software_pcSettings.assets/image-20230917183442007.png)
+![image-20230917183442007](software_pcSettings.assets/image-20230917183442007-1719763463367.png)
 
 
 
@@ -1123,7 +1150,7 @@ D  PDF本身的目录OCR
 
 ### 最终结果展示：
 
-![image-20230917151148002](software_pcSettings.assets/image-20230917151148002.png)
+![image-20230917151148002](software_pcSettings.assets/image-20230917151148002-1719763516112.png)
 
 ## EA
 

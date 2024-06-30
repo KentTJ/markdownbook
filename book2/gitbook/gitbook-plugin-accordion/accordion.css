@@ -1,5 +1,5 @@
 .accordion {
-	max-height: 500px;
+	max-height: 1000px;
 	margin-bottom: 5px;
 	border: 1px solid #e8e8e8;
 	overflow: hidden;
@@ -50,6 +50,6 @@
 .accordionContent {
 	margin: 10px;
 	min-height: 10px;
-	max-height: 450px;
+	max-height: 900px;
 	overflow: auto;
 }

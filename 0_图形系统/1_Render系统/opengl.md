@@ -1297,7 +1297,11 @@ https://zhuanlan.zhihu.com/p/365440831      Shader中使用距离函数（Distan
 
 ### 2d距离函数
 
-大全：[二维图形的距离函数](https://iquilezles.org/articles/distfunctions2d/ )
+大全：
+
+>   [二维图形的距离函数](https://iquilezles.org/articles/distfunctions2d/ )
+>
+>   https://www.shadertoy.com/playlist/MXdSRf&from=0&num=12
 
 
 
@@ -1398,20 +1402,20 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 >
 >   https://www.shadertoy.com/view/Xds3zN
 
-球：
+~~球：~~
 
-```java
-float sdSphere( vec3 p, float s )
-{
-  return length(p)-s;
-}
-```
+>   ```java
+>   float sdSphere( vec3 p, float s )
+>   {
+>     return length(p)-s;
+>   }
+>   ```
+>
+>   ![img](opengl.assets/gfx00.png)
 
-![img](opengl.assets/gfx00.png)
+~~柱体：~~
 
-柱体：
-
-![img](opengl.assets/gfx01.png)
+>   ![img](opengl.assets/gfx01.png)
 
 -<font color='red'>推论：</font>
 

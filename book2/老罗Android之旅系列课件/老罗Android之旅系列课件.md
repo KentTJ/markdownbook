@@ -22,4 +22,4 @@
 
  [Android硬件抽象层(HAL).pptx](老罗Android之旅系列课件.assets\Android硬件抽象层(HAL).pptx) 
 
- [Android硬件抽象层(HAL).pdf](..\..\..\doc_my\doc_my\老罗Android之旅系列课件\老罗Android之旅系列课件\Android硬件抽象层(HAL).pdf) 
+ [Android硬件抽象层(HAL).pdf](老罗Android之旅系列课件.assets\Android硬件抽象层(HAL).pdf) 

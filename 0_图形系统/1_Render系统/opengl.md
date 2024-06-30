@@ -55,13 +55,13 @@ EGL有1.0、1.1、1.2、1.3、1.4这几个版本，Android中使用的是1.4，E
 
 # 基本概念
 
-## OpenGL ES 与 OpenGL 
+## OpenGL ES 与 OpenGL 关系
 
 ![img](opengl.assets/10bf527f3e7b4293dfaf57333cda9e8c.png)
 
+**子集关系：**
 
-
-OpenGL ES 是 OpenGL 的子集（删除了一些**低效能的操作方式**）
+>   ~~OpenGL ES 是 OpenGL 的**子集**（删除了一些**低效能的操作方式**）~~
 
 ## 图形渲染管线（Graphics Pipeline）
 

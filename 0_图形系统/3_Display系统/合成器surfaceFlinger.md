@@ -563,7 +563,7 @@ Android graphic系列文章： https://blog.csdn.net/tkwxty/category_11464526.ht
 
 https://www.bilibili.com/video/BV1py411q7BV?t=5924.9
 
-
+## 方舟图形引擎
 
 ![image-20240626003622816](合成器surfaceFlinger.assets/image-20240626003622816.png)
 
@@ -610,3 +610,164 @@ shader:
 --------> 对高频shader检测
 
 **GPU的效率   *≈*     shader的编译与执行 的效率**
+
+
+
+
+
+![image-20240630161205144](合成器surfaceFlinger.assets/image-20240630161205144.png)
+
+用户不感知的，不刷新
+
+
+
+![image-20240630161304039](合成器surfaceFlinger.assets/image-20240630161304039.png)
+
+
+
+
+
+![image-20240630161335658](合成器surfaceFlinger.assets/image-20240630161335658.png)
+
+DSS是啥？
+
+
+
+![image-20240630161447005](合成器surfaceFlinger.assets/image-20240630161447005.png)
+
+
+
+![image-20240630161530932](合成器surfaceFlinger.assets/image-20240630161530932.png)
+
+------------------>  不懂
+
+![image-20240630161559824](合成器surfaceFlinger.assets/image-20240630161559824.png)
+
+
+
+![image-20240630161628916](合成器surfaceFlinger.assets/image-20240630161628916.png)
+
+## 马良GPU
+
+![image-20240630161834963](合成器surfaceFlinger.assets/image-20240630161834963.png)
+
+
+
+![image-20240630161934252](合成器surfaceFlinger.assets/image-20240630161934252.png)
+
+
+
+![image-20240630161956740](合成器surfaceFlinger.assets/image-20240630161956740.png)
+
+
+
+![image-20240630162052324](合成器surfaceFlinger.assets/image-20240630162052324.png)
+
+
+
+![image-20240630162116058](合成器surfaceFlinger.assets/image-20240630162116058.png)
+
+![image-20240630162227281](合成器surfaceFlinger.assets/image-20240630162227281.png)
+
+
+
+## 高德
+
+![image-20240630162348470](合成器surfaceFlinger.assets/image-20240630162348470.png)
+
+![image-20240630162400157](合成器surfaceFlinger.assets/image-20240630162400157.png)
+
+![image-20240630162449991](合成器surfaceFlinger.assets/image-20240630162449991.png)
+
+![image-20240630162535848](合成器surfaceFlinger.assets/image-20240630162535848.png)
+
+![image-20240630162607047](合成器surfaceFlinger.assets/image-20240630162607047.png)
+
+![image-20240630162731635](合成器surfaceFlinger.assets/image-20240630162731635.png)
+
+![image-20240630162632647](合成器surfaceFlinger.assets/image-20240630162632647.png)
+
+
+
+![image-20240630162800860](合成器surfaceFlinger.assets/image-20240630162800860.png)
+
+![image-20240630162940936](合成器surfaceFlinger.assets/image-20240630162940936.png)
+
+![image-20240630162921282](合成器surfaceFlinger.assets/image-20240630162921282.png)
+
+
+
+![image-20240630163021107](合成器surfaceFlinger.assets/image-20240630163021107.png)
+
+
+
+![image-20240630163047998](合成器surfaceFlinger.assets/image-20240630163047998.png)
+
+
+
+![image-20240630163133651](合成器surfaceFlinger.assets/image-20240630163133651.png)
+
+
+
+![image-20240630165544164](合成器surfaceFlinger.assets/image-20240630165544164.png)
+
+shader本身优化：
+
+![image-20240630165608502](合成器surfaceFlinger.assets/image-20240630165608502.png)
+
+![image-20240630165654346](合成器surfaceFlinger.assets/image-20240630165654346.png)
+
+https://www.bilibili.com/video/BV1py411q7BV?t=7447.7
+
+
+
+![image-20240630165714867](合成器surfaceFlinger.assets/image-20240630165714867.png)
+
+## 晶核性能优化
+
+![image-20240630165843703](合成器surfaceFlinger.assets/image-20240630165843703.png)
+
+
+
+![image-20240630170001295](合成器surfaceFlinger.assets/image-20240630170001295.png)
+
+
+
+![image-20240630170134423](合成器surfaceFlinger.assets/image-20240630170134423.png)
+
+
+
+![image-20240630170222996](合成器surfaceFlinger.assets/image-20240630170222996.png)
+
+原理：**<font color='red'>快速移动时</font>**，---------->  降低分辨率（<font color='red'>空间</font>），人眼分辨不出来
+
+注意：静态的东西（不怎变化时），降低刷新率（<font color='red'>时间</font>）
+
+![image-20240630170304996](合成器surfaceFlinger.assets/image-20240630170304996.png)
+
+
+
+
+
+![image-20240630170543080](合成器surfaceFlinger.assets/image-20240630170543080.png)
+
+静态的东西（不怎变化时），降低刷新率（<font color='red'>时间</font>）
+
+变化剧烈的，提高刷新率（<font color='red'>时间</font>），降低分辨率（<font color='red'>空间</font>）
+
+
+
+## 方舟多媒体引擎
+
+![image-20240630170819583](合成器surfaceFlinger.assets/image-20240630170819583.png)
+
+原因：网络的波动
+
+![image-20240630170852158](合成器surfaceFlinger.assets/image-20240630170852158.png)
+
+
+
+TODO:  https://www.bilibili.com/video/BV1py411q7BV?t=8148.3
+
+
+

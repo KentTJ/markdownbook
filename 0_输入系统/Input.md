@@ -309,7 +309,7 @@ gityuan系列文章：
 <font color='red'>注意点</font>：
 Q: 分发事件的对象是MotionEvent，没有touchevent与click事件？
 
-A:  没有Touch事件（TouchEvent）， 没有click事件（ClickEvent）。原因： motion用的很恰当。手指触摸，必然是一段时间，一段距离——》即 motion移动
+A:  没有Touch事件（TouchEvent）， 没有click事件（ClickEvent）。原因： motion用的很恰当。手指触摸，必然是一段时间，一段距离 ------->  即 motion移动
 
 click表示一瞬，其实是没有的
 
@@ -322,11 +322,12 @@ click表示一瞬，其实是没有的
 参考，好文： [Android面试题（27）-android的事件分发机制](https://blog.csdn.net/pgg_cold/article/details/79472193?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-79472193-blog-125568753.pc_relevant_multi_platform_whitelistv3&spm=1001.2101.3001.4242.1&utm_relevant_index=3)
 
 **生活化模型：** 项目经理分发任务模型：
-项目经理（Activity）
-任务（事件）
-主管(viewGroup)
-员工（view）
-友商安排进来的员工（Listener监听者）
+
+>   项目经理（Activity）
+>   任务（事件）
+>   主管(viewGroup)
+>   员工（view）
+>   友商安排进来的员工（Listener监听者）
 
 
 
@@ -363,9 +364,9 @@ click表示一瞬，其实是没有的
 
 参考：
 
- [从责任链模式看Android事件分发](https://mp.weixin.qq.com/s/sSPFz3E5gncYiMMFtF_xlg)      ------>     <font color='red'>好文</font> 
-[ViewGroup事件分发机制详解](https://blog.csdn.net/tony499074462/article/details/102499302)
-[Android View 事件分发机制源码详解(ViewGroup篇)](https://blog.csdn.net/a553181867/article/details/51287844)
+>   [从责任链模式看Android事件分发](https://mp.weixin.qq.com/s/sSPFz3E5gncYiMMFtF_xlg)      ------>     <font color='red'>好文</font> 
+>   [ViewGroup事件分发机制详解](https://blog.csdn.net/tony499074462/article/details/102499302)
+>   [Android View 事件分发机制源码详解(ViewGroup篇)](https://blog.csdn.net/a553181867/article/details/51287844)
 
 一句话总结：
 

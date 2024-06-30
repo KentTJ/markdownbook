@@ -215,7 +215,7 @@ startService    //                     stopService\ bindService
 
 TODO:  从属性总结，可以得到精华
 
-参考：**《AMS预习资料.pdf》  ----> 非常好的资料
+参考：《 [AMS预习资料.pdf](0_AMS.assets\AMS预习资料.pdf) 》  ---->  非常好的资料
 
 ![image-20230207004633275](0_AMS.assets/image-20230207004633275.png)
 

@@ -501,9 +501,39 @@ https://youtu.be/mZM15IKuNWY?list=PL0luF_aDUOooIB56NOFVTS4ahMzBHS_6z&t=1341
 
 ## 错误信息的获取
 
-参考：官方代码： https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/shader_s.h#:~:text=errors.    // ------------------------------------------------------------------------    void-,checkCompileErrors,-(unsigned%20int
+参考：[官方代码](https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/shader_s.h#:~:text=errors)：  
 
-COMPILE错误 与 LINK 错误
+ COMPILE错误 与 LINK 错误
+
+```java
+   // utility function for checking shader compilation/linking errors.
+    // ------------------------------------------------------------------------
+    void checkCompileErrors(unsigned int shader, std::string type)
+    {
+        int success;
+        char infoLog[1024];
+        if (type != "PROGRAM")
+        {
+            glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+            if (!success)
+            {
+                glGetShaderInfoLog(shader, 1024, NULL, infoLog);
+                std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+            }
+        }
+        else
+        {
+            glGetProgramiv(shader, GL_LINK_STATUS, &success);
+            if (!success)
+            {
+                glGetProgramInfoLog(shader, 1024, NULL, infoLog);
+                std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+            }
+        }
+    }
+```
+
+
 
 ## printf' in GLSL
 
@@ -611,7 +641,7 @@ clamp翻译为夹具，clamp实际上是获得三个参数中大小处在中间�
 
 ![img](opengl.assets/7fd5cc66fa1e4e6a9f99329e3821d6ff.png)
 
-[图来源：](https://blog.csdn.net/a_codecat/article/details/127469057#:~:text=abs(vec3 x)-,vec4 abs(vec4 x),-sign)
+[图来源](https://blog.csdn.net/a_codecat/article/details/127469057#:~:text=abs(vec3 x)-,vec4 abs(vec4 x),-sign)
 
 ### 台阶step
 
@@ -1440,23 +1470,19 @@ https://www.youtube.com/watch?v=W3gAzLwfIP0&list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GG
 
 [OpenGL  基础](https://blog.csdn.net/u010281924/category_7841161.html   )
 
-  [ 我的openGL demo](https://blog.csdn.net/a360940265a/article/details/88600962)
+ [我的openGL demo](https://blog.csdn.net/a360940265a/article/details/88600962)
 
  [Android C++ OpenGL视频课程](https://edu.csdn.net/course/detail/19367?spm=1001.2101.3001.6650.14&utm_medium=distribute.pc_relevant.none-task-course-2%7Edefault%7EBlogCommendFromBaidu%7ERate-14-19367-blog-88880831.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-course-2%7Edefault%7EBlogCommendFromBaidu%7ERate-14-19367-blog-88880831.235%5Ev43%5Econtrol&utm_relevant_index=21   )      
 
-  [Android OpenGL ES教学视频](https://www.bilibili.com/video/BV1yx41187GN/?spm_id_from=333.337.search-card.all.click&vd_source=3eebd10b94a8a76eaf4b78bee8f23884  )
+[Android OpenGL ES教学视频](https://www.bilibili.com/video/BV1yx41187GN/?spm_id_from=333.337.search-card.all.click&vd_source=3eebd10b94a8a76eaf4b78bee8f23884  )------------->  TODO: 这里有教蒙板
 
---------------------->  TODO: 这里有教蒙板
-
-
-
-  [OpenGL.Shader：1-重新认识Android上OpenGL（纯Cpp）](https://blog.csdn.net/a360940265a/article/details/88600962)  
+[OpenGL.Shader：1-重新认识Android上OpenGL（纯Cpp）](https://blog.csdn.net/a360940265a/article/details/88600962)  
 
 
 
 [中文视频教程，shader的画法](https://www.bilibili.com/video/BV1LV411b7uE?p=1&spm_id_from=pageDriver&vd_source=3eebd10b94a8a76eaf4b78bee8f23884   )
 
- [ 西川善司的3D图形技术概念和渲染管线的处理](https://blog.csdn.net/qq_43331089/article/details/124200849   )
+ [西川善司的3D图形技术概念和渲染管线的处理](https://blog.csdn.net/qq_43331089/article/details/124200849   )
 
 
 

@@ -1724,11 +1724,11 @@ table tr td {
 
 效果：
 
-> ![image-20240421143344846](E:\working\markdownsFile\markdownsFiles\coding\Tool\software_pcSettings.assets\image-20240421143344846.png)
+> ![image-20240421143344846](software_pcSettings.assets/image-20240421143344846-1719763789990.png)
 
 设置：
 
-> ![image-20240421143454964](E:\working\markdownsFile\markdownsFiles\coding\Tool\software_pcSettings.assets\image-20240421143454964.png)
+> ![image-20240421143454964](software_pcSettings.assets/image-20240421143454964.png)
 
 
 

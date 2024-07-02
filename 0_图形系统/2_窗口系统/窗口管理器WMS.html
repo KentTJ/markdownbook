@@ -1,0 +1,2114 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>窗口管理器WMS · Kent的博客</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-toggle-chapters/toggle.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-page-treeview/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-sidebar-style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-auto-scroll-table/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-click-reveal/click_reveal.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-accordion/accordion.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-pageview-count/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../3_Display系统/" />
+    
+    
+    <link rel="prev" href="wms_animination.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    0_图形系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../0_Graphic系统总论/0_Graphic系统总论.html">
+            
+                <a href="../0_Graphic系统总论/0_Graphic系统总论.html">
+            
+                    
+                    0_Graphic系统总论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../1_Render系统/">
+            
+                <a href="../1_Render系统/">
+            
+                    
+                    1_Render系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="../1_Render系统/opengl.html">
+            
+                <a href="../1_Render系统/opengl.html">
+            
+                    
+                    Opengl
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    2_窗口系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.1" data-path="0_窗口系统总论/0_窗口系统总论.html">
+            
+                <a href="0_窗口系统总论/0_窗口系统总论.html">
+            
+                    
+                    0_窗口系统总论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="次要/">
+            
+                <a href="次要/">
+            
+                    
+                    次要
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.2.1" data-path="次要/virtualDisplay.html">
+            
+                <a href="次要/virtualDisplay.html">
+            
+                    
+                    Virtual Display
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2.2" data-path="次要/自由窗口.html">
+            
+                <a href="次要/自由窗口.html">
+            
+                    
+                    自由窗口
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.3" data-path="SurfaceControl.html">
+            
+                <a href="SurfaceControl.html">
+            
+                    
+                    Surface Control
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.4" data-path="virtualDisplay.html">
+            
+                <a href="virtualDisplay.html">
+            
+                    
+                    Virtual Display
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5" data-path="wms_animination.html">
+            
+                <a href="wms_animination.html">
+            
+                    
+                    Wms Animination
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.3.6" data-path="窗口管理器WMS.html">
+            
+                <a href="窗口管理器WMS.html">
+            
+                    
+                    窗口管理器WMS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../3_Display系统/">
+            
+                <a href="../3_Display系统/">
+            
+                    
+                    3_Display系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.4.1" data-path="../3_Display系统/Display系统.html">
+            
+                <a href="../3_Display系统/Display系统.html">
+            
+                    
+                    Display系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.2" data-path="../3_Display系统/sf特效.html">
+            
+                <a href="../3_Display系统/sf特效.html">
+            
+                    
+                    sf特效
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.3" data-path="../3_Display系统/合成器surfaceFlinger.html">
+            
+                <a href="../3_Display系统/合成器surfaceFlinger.html">
+            
+                    
+                    合成器surfaceFlinger
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../其他/">
+            
+                <a href="../其他/">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.5.1" data-path="../其他/QT.html">
+            
+                <a href="../其他/QT.html">
+            
+                    
+                    QT
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5.2" data-path="../其他/多屏显示分析.html">
+            
+                <a href="../其他/多屏显示分析.html">
+            
+                    
+                    多屏显示分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../../0_输入系统/">
+            
+                <a href="../../0_输入系统/">
+            
+                    
+                    0_输入系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../../0_输入系统/Input.html">
+            
+                <a href="../../0_输入系统/Input.html">
+            
+                    
+                    Input
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../../0_输入系统/全局手势.html">
+            
+                <a href="../../0_输入系统/全局手势.html">
+            
+                    
+                    全局手势
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../../0_进程管理/">
+            
+                <a href="../../0_进程管理/">
+            
+                    
+                    0_进程管理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../../0_进程管理/0_AMS.html">
+            
+                <a href="../../0_进程管理/0_AMS.html">
+            
+                    
+                    0 AMS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../../0_进程管理/App保活的方式.html">
+            
+                <a href="../../0_进程管理/App保活的方式.html">
+            
+                    
+                    App保活的方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../../0_进程管理/后台杀进程.html">
+            
+                <a href="../../0_进程管理/后台杀进程.html">
+            
+                    
+                    后台杀进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../../0_进程管理/杀进程原理.html">
+            
+                <a href="../../0_进程管理/杀进程原理.html">
+            
+                    
+                    杀进程原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../../0_进程管理/进程与子进程.html">
+            
+                <a href="../../0_进程管理/进程与子进程.html">
+            
+                    
+                    进程与子进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../../0_进程管理/进程管理系列0_总论.html">
+            
+                <a href="../../0_进程管理/进程管理系列0_总论.html">
+            
+                    
+                    进程管理系列0_总论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../../0_进程管理/进程管理系列1之进程的创建.html">
+            
+                <a href="../../0_进程管理/进程管理系列1之进程的创建.html">
+            
+                    
+                    进程管理系列1之进程的创建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../../0_进程管理/进程管理系列2之进程的优先级.html">
+            
+                <a href="../../0_进程管理/进程管理系列2之进程的优先级.html">
+            
+                    
+                    进程管理系列2之进程的优先级
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="../../0_进程管理/进程管理系列3之内存回收.html">
+            
+                <a href="../../0_进程管理/进程管理系列3之内存回收.html">
+            
+                    
+                    进程管理系列3之内存回收
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../../Andriod/">
+            
+                <a href="../../Andriod/">
+            
+                    
+                    Andriod
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../../Andriod/关键流程/">
+            
+                <a href="../../Andriod/关键流程/">
+            
+                    
+                    关键流程
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="../../Andriod/关键流程/InitSystem.html">
+            
+                <a href="../../Andriod/关键流程/InitSystem.html">
+            
+                    
+                    Init System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="../../Andriod/关键流程/startAPP.html">
+            
+                <a href="../../Andriod/关键流程/startAPP.html">
+            
+                    
+                    Start APP
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../../Andriod/其他核心服务/">
+            
+                <a href="../../Andriod/其他核心服务/">
+            
+                    
+                    其他核心服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="../../Andriod/其他核心服务/1_InputMethod.html">
+            
+                <a href="../../Andriod/其他核心服务/1_InputMethod.html">
+            
+                    
+                    1 Input Method
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="../../Andriod/其他核心服务/multi-client-ime.html">
+            
+                <a href="../../Andriod/其他核心服务/multi-client-ime.html">
+            
+                    
+                    Multi Client Ime
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="../../Andriod/其他核心服务/无障碍_.html">
+            
+                <a href="../../Andriod/其他核心服务/无障碍_.html">
+            
+                    
+                    无障碍_
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../../Andriod/0_AndriodSystem.html">
+            
+                <a href="../../Andriod/0_AndriodSystem.html">
+            
+                    
+                    0 Andriod System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../../Andriod/log框架.html">
+            
+                <a href="../../Andriod/log框架.html">
+            
+                    
+                    log框架
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../../Andriod/permissions.html">
+            
+                <a href="../../Andriod/permissions.html">
+            
+                    
+                    Permissions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../../Andriod/模型.html">
+            
+                <a href="../../Andriod/模型.html">
+            
+                    
+                    模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../../coding/">
+            
+                <a href="../../coding/">
+            
+                    
+                    Coding
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../../coding/0_computorBase/">
+            
+                <a href="../../coding/0_computorBase/">
+            
+                    
+                    0 Computor Base
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1.1" data-path="../../coding/0_computorBase/DesignPattern.html">
+            
+                <a href="../../coding/0_computorBase/DesignPattern.html">
+            
+                    
+                    Design Pattern
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.2" data-path="../../coding/0_computorBase/HowToReadCode.html">
+            
+                <a href="../../coding/0_computorBase/HowToReadCode.html">
+            
+                    
+                    How To Read Code
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.3" data-path="../../coding/0_computorBase/HowWritecode.html">
+            
+                <a href="../../coding/0_computorBase/HowWritecode.html">
+            
+                    
+                    How Writecode
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.4" data-path="../../coding/0_computorBase/linux.html">
+            
+                <a href="../../coding/0_computorBase/linux.html">
+            
+                    
+                    Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.5" data-path="../../coding/0_computorBase/linux文件系统.html">
+            
+                <a href="../../coding/0_computorBase/linux文件系统.html">
+            
+                    
+                    linux文件系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.6" data-path="../../coding/0_computorBase/OperateSystem.html">
+            
+                <a href="../../coding/0_computorBase/OperateSystem.html">
+            
+                    
+                    Operate System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.7" data-path="../../coding/0_computorBase/refactor.html">
+            
+                <a href="../../coding/0_computorBase/refactor.html">
+            
+                    
+                    Refactor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.8" data-path="../../coding/0_computorBase/用户_用户组.html">
+            
+                <a href="../../coding/0_computorBase/用户_用户组.html">
+            
+                    
+                    用户_用户组
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.9" data-path="../../coding/0_computorBase/解耦.html">
+            
+                <a href="../../coding/0_computorBase/解耦.html">
+            
+                    
+                    解耦
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../../coding/0_IPC/">
+            
+                <a href="../../coding/0_IPC/">
+            
+                    
+                    0 IPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.2.1" data-path="../../coding/0_IPC/AndriodIPC.html">
+            
+                <a href="../../coding/0_IPC/AndriodIPC.html">
+            
+                    
+                    Andriod IPC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.2" data-path="../../coding/0_IPC/IPC前提_序列化.html">
+            
+                <a href="../../coding/0_IPC/IPC前提_序列化.html">
+            
+                    
+                    IPC前提_序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.3" data-path="../../coding/0_IPC/socket.html">
+            
+                <a href="../../coding/0_IPC/socket.html">
+            
+                    
+                    Socket
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.4" data-path="../../coding/0_IPC/线程间通信.html">
+            
+                <a href="../../coding/0_IPC/线程间通信.html">
+            
+                    
+                    线程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../../coding/0_性能/">
+            
+                <a href="../../coding/0_性能/">
+            
+                    
+                    0_性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.3.1" data-path="../../coding/0_性能/profiler.html">
+            
+                <a href="../../coding/0_性能/profiler.html">
+            
+                    
+                    Profiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.2" data-path="../../coding/0_性能/Systrace.html">
+            
+                <a href="../../coding/0_性能/Systrace.html">
+            
+                    
+                    Systrace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.3" data-path="../../coding/0_性能/内存.html">
+            
+                <a href="../../coding/0_性能/内存.html">
+            
+                    
+                    内存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.4" data-path="../../coding/0_性能/性能_.html">
+            
+                <a href="../../coding/0_性能/性能_.html">
+            
+                    
+                    性能_
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../../coding/1_稳定性/">
+            
+                <a href="../../coding/1_稳定性/">
+            
+                    
+                    1_稳定性
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.4.1" data-path="../../coding/1_稳定性/ANR.html">
+            
+                <a href="../../coding/1_稳定性/ANR.html">
+            
+                    
+                    ANR
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4.2" data-path="../../coding/1_稳定性/WatchDog.html">
+            
+                <a href="../../coding/1_稳定性/WatchDog.html">
+            
+                    
+                    Watch Dog
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../../coding/AndriodCar/">
+            
+                <a href="../../coding/AndriodCar/">
+            
+                    
+                    Andriod Car
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.5.1" data-path="../../coding/AndriodCar/CarService.html">
+            
+                <a href="../../coding/AndriodCar/CarService.html">
+            
+                    
+                    Car Service
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="../../coding/AndroidTool/">
+            
+                <a href="../../coding/AndroidTool/">
+            
+                    
+                    Android Tool
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.6.1" data-path="../../coding/AndroidTool/HierarchyView.html">
+            
+                <a href="../../coding/AndroidTool/HierarchyView.html">
+            
+                    
+                    Hierarchy View
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="../../coding/App/">
+            
+                <a href="../../coding/App/">
+            
+                    
+                    App
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.7.1" data-path="../../coding/App/APK_64bit_32bit.html">
+            
+                <a href="../../coding/App/APK_64bit_32bit.html">
+            
+                    
+                    APK 64 Bit 32 Bit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.2" data-path="../../coding/App/APP开发.html">
+            
+                <a href="../../coding/App/APP开发.html">
+            
+                    
+                    APP开发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.3" data-path="../../coding/App/launcher3.html">
+            
+                <a href="../../coding/App/launcher3.html">
+            
+                    
+                    Launcher 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.4" data-path="../../coding/App/SystemUI.html">
+            
+                <a href="../../coding/App/SystemUI.html">
+            
+                    
+                    System UI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.5" data-path="../../coding/App/小程序.html">
+            
+                <a href="../../coding/App/小程序.html">
+            
+                    
+                    小程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8" data-path="../../coding/CodingLanguage/">
+            
+                <a href="../../coding/CodingLanguage/">
+            
+                    
+                    Coding Language
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.8.1" data-path="../../coding/CodingLanguage/c_cpp_java.html">
+            
+                <a href="../../coding/CodingLanguage/c_cpp_java.html">
+            
+                    
+                    C Cpp Java
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.2" data-path="../../coding/CodingLanguage/java反射.html">
+            
+                <a href="../../coding/CodingLanguage/java反射.html">
+            
+                    
+                    java反射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.3" data-path="../../coding/CodingLanguage/JNI.html">
+            
+                <a href="../../coding/CodingLanguage/JNI.html">
+            
+                    
+                    JNI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.4" data-path="../../coding/CodingLanguage/js.html">
+            
+                <a href="../../coding/CodingLanguage/js.html">
+            
+                    
+                    Js
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.5" data-path="../../coding/CodingLanguage/python.html">
+            
+                <a href="../../coding/CodingLanguage/python.html">
+            
+                    
+                    Python
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.6" data-path="../../coding/CodingLanguage/R.html">
+            
+                <a href="../../coding/CodingLanguage/R.html">
+            
+                    
+                    R
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9" data-path="../../coding/Features/">
+            
+                <a href="../../coding/Features/">
+            
+                    
+                    Features
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.9.1" data-path="../../coding/Features/其他特性.html">
+            
+                <a href="../../coding/Features/其他特性.html">
+            
+                    
+                    其他特性
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.2" data-path="../../coding/Features/多用户.html">
+            
+                <a href="../../coding/Features/多用户.html">
+            
+                    
+                    多用户
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.10" >
+            
+                <span>
+            
+                    
+                    Kde
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.10.1" data-path="../../coding/kde/kwin.html">
+            
+                <a href="../../coding/kde/kwin.html">
+            
+                    
+                    Kwin
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.11" data-path="../../coding/other%20OS/README.md">
+            
+                <span>
+            
+                    
+                    Other OS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.11.1" data-path="../../coding/other%20OS/OpenHarmony.md">
+            
+                <span>
+            
+                    
+                    Open Harmony
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.11.2" data-path="../../coding/other%20OS/otherOS.md">
+            
+                <span>
+            
+                    
+                    Other OS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12" data-path="../../coding/多线程/">
+            
+                <a href="../../coding/多线程/">
+            
+                    
+                    多线程
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.12.1" data-path="../../coding/多线程/多线程的模型.html">
+            
+                <a href="../../coding/多线程/多线程的模型.html">
+            
+                    
+                    多线程的模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.2" data-path="../../coding/多线程/线程池与binder线程池.html">
+            
+                <a href="../../coding/多线程/线程池与binder线程池.html">
+            
+                    
+                    线程池与binder线程池
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.13" data-path="../../coding/文件系统结构/文件系统结构.html">
+            
+                <a href="../../coding/文件系统结构/文件系统结构.html">
+            
+                    
+                    文件系统结构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.14" data-path="../../coding/虚拟化/虚拟化.html">
+            
+                <a href="../../coding/虚拟化/虚拟化.html">
+            
+                    
+                    虚拟化
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../../Naturalaw/">
+            
+                <a href="../../Naturalaw/">
+            
+                    
+                    Naturalaw
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../../Naturalaw/ReadingAndThinking.html">
+            
+                <a href="../../Naturalaw/ReadingAndThinking.html">
+            
+                    
+                    Reading And Thinking
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../../book2.html">
+            
+                <a href="../../book2.html">
+            
+                    
+                    Book 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../../CheckList.html">
+            
+                <a href="../../CheckList.html">
+            
+                    
+                    Check List
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >窗口管理器WMS</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x76EE;&#x5F55;"><b>1. </b>&#x76EE;&#x5F55;</a></li><li><span class="title-icon "></span><a href="#&#x529F;&#x80FD;0&#x5C42;------&#x629B;&#x5F00;wms&#x4E0D;&#x8C08;"><b>2. </b>&#x529F;&#x80FD;0&#x5C42;------&#x629B;&#x5F00;WMS&#x4E0D;&#x8C08;</a></li><li><span class="title-icon "></span><a href="#&#x7A97;&#x53E3;&#x7BA1;&#x7406;----wms"><b>3. </b>&#x7A97;&#x53E3;&#x7BA1;&#x7406;----WMS</a></li><ul><li><span class="title-icon "></span><a href="#&#x529F;&#x80FD;&#xFF08;&#x76EE;&#x7684;&#xFF09;0&#x5C42;&#xFF1A;"><b>3.1. </b>&#x529F;&#x80FD;&#xFF08;&#x76EE;&#x7684;&#xFF09;0&#x5C42;&#xFF1A;</a></li><ul><li><span class="title-icon "></span><a href="#&#x57FA;&#x4E8E;&#x529F;&#x80FD;&#x9700;&#x8981;&#x7684;&#x5BF9;&#x5916;&#x63A5;&#x53E3;&#xFF08;&#x91CD;&#x8981;&#xFF09;"><b>3.1.1. </b>&#x57FA;&#x4E8E;&#x529F;&#x80FD;&#x9700;&#x8981;&#x7684;&#x5BF9;&#x5916;&#x63A5;&#x53E3;&#xFF08;&#x91CD;&#x8981;&#xFF09;</a></li></ul><li><span class="title-icon "></span><a href="#&#x7ED3;&#x6784;0&#x5C42;&#x56FE;&#xFF08;&#x57FA;&#x4E8E;&#x529F;&#x80FD;0&#x5C42;&#x7684;&#xFF09;"><b>3.2. </b>&#x7ED3;&#x6784;0&#x5C42;&#x56FE;&#xFF08;&#x57FA;&#x4E8E;&#x529F;&#x80FD;0&#x5C42;&#x7684;&#xFF09;</a></li><li><span class="title-icon "></span><a href="#&#x663E;&#x793A;&#x7684;&#x751F;&#x6D3B;&#x5316;&#x6BD4;&#x55BB;"><b>3.3. </b>&#x663E;&#x793A;&#x7684;&#x751F;&#x6D3B;&#x5316;&#x6BD4;&#x55BB;</a></li><li><span class="title-icon "></span><a href="#&#x529F;&#x80FD;1&#x7684;&#x7EB5;&#x5411;&#xFF1A;&#x6DFB;&#x52A0;&#x7A97;&#x53E3;&#x7EB5;&#x5411;&#x4E3B;&#x7EBF;---wms&#x4FA7;----how"><b>3.4. </b>&#x529F;&#x80FD;1&#x7684;&#x7EB5;&#x5411;&#xFF1A;&#x6DFB;&#x52A0;&#x7A97;&#x53E3;(&#x7EB5;&#x5411;&#x4E3B;&#x7EBF;) :  WMS&#x4FA7;----how</a></li><ul><li><span class="title-icon "></span><a href="#app&#x4FA7;-&#x6DFB;&#x52A0;&#x7A97;&#x53E3;windowmanagerimpladdview&#x7EB5;&#x5411;&#x4E3B;&#x7EBF;-&#x6D41;&#x7A0B;"><b>3.4.1. </b>APP&#x4FA7;: &#x6DFB;&#x52A0;&#x7A97;&#x53E3;WindowManagerImpl.addView(&#x7EB5;&#x5411;&#x4E3B;&#x7EBF;) &#x6D41;&#x7A0B;:</a></li><li><span class="title-icon "></span><a href="#&#x76EE;&#x6807;&#x529F;&#x80FD;1&#x7684;&#x8865;&#x5145;&#xFF1A;"><b>3.4.2. </b>&#x76EE;&#x6807;&#x529F;&#x80FD;1&#x7684;&#x8865;&#x5145;&#xFF1A;</a></li></ul><li><span class="title-icon "></span><a href="#&#x529F;&#x80FD;12&#x7684;&#x7EB5;&#x5411;&#xFF1A;&#x7533;&#x8BF7;surface&#x6D41;&#x7A0B;----how"><b>3.5. </b>&#x529F;&#x80FD;1_2&#x7684;&#x7EB5;&#x5411;&#xFF1A;&#x7533;&#x8BF7;surface&#x6D41;&#x7A0B;----how</a></li><li><span class="title-icon "></span><a href="#&#x5173;&#x4E8E;session&#x6865;&#x6881;"><b>3.6. </b>&#x5173;&#x4E8E;session&#x6865;&#x6881;???</a></li><li><span class="title-icon "></span><a href="#&#x6B21;&#x8981;&#xFF1A;&#x529F;&#x80FD;11&#x7A97;&#x53E3;&#x7684;&#x7CFB;&#x7EDF;&#x52A8;&#x753B;&#xFF08;&#x57FA;&#x4E8E;&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x7684;&#x8F85;&#x52A9;&#x529F;&#x80FD;&#xFF09;"><b>3.7. </b>&#x6B21;&#x8981;&#xFF1A;&#x529F;&#x80FD;1_1&#x7A97;&#x53E3;&#x7684;&#x7CFB;&#x7EDF;&#x52A8;&#x753B;&#xFF08;&#x57FA;&#x4E8E;&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x7684;&#x8F85;&#x52A9;&#x529F;&#x80FD;&#xFF09;</a></li></ul><li><span class="title-icon "></span><a href="#delwindow&#x4F53;&#x7CFB;-----app&#x4FA7;"><b>4. </b>del:window&#x4F53;&#x7CFB;-----APP&#x4FA7;</a></li><ul><li><span class="title-icon "></span><a href="#window&#xFF08;&#x6B21;&#x8981;&#xFF09;"><b>4.1. </b>Window&#xFF08;&#x6B21;&#x8981;&#xFF09;</a></li><li><span class="title-icon "></span><a href="#&#x5E38;&#x89C1;window&#xFF08;&#x6B21;&#x8981;&#xFF09;"><b>4.2. </b>&#x5E38;&#x89C1;window&#xFF08;&#x6B21;&#x8981;&#xFF09;</a></li><ul><li><span class="title-icon "></span><a href="#window&#x7684;&#x5206;&#x7C7B;&#xFF1A;"><b>4.2.1. </b>window&#x7684;&#x5206;&#x7C7B;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#&#x7A97;&#x53E3;&#x7684;&#x6B21;&#x5E8F;"><b>4.2.2. </b>&#x7A97;&#x53E3;&#x7684;&#x6B21;&#x5E8F;</a></li><li><span class="title-icon "></span><a href="#&#x7A97;&#x53E3;&#x7684;&#x6807;&#x5FD7;"><b>4.2.3. </b>&#x7A97;&#x53E3;&#x7684;&#x6807;&#x5FD7;</a></li></ul><li><span class="title-icon "></span><a href="#windowmanger"><b>4.3. </b>WindowManger</a></li><ul><li><span class="title-icon "></span><a href="#&#x63A5;&#x53E3;viewmanager"><b>4.3.1. </b>&#x63A5;&#x53E3;ViewManager</a></li></ul><li><span class="title-icon "></span><a href="#viewrootimpl"><b>4.4. </b>ViewRootImpl</a></li><li><span class="title-icon "></span><a href="#&#x5BF9;&#x5E94;&#x5173;&#x7CFB;-windowmanagerglobal&#x3001;windowmanagerimpl&#x3001;viewrootimpl"><b>4.5. </b>&#x5BF9;&#x5E94;&#x5173;&#x7CFB; windowManagerGlobal&#x3001;windowManagerImpl&#x3001;viewRootImpl</a></li><li><span class="title-icon "></span><a href="#view-tree--------window&#x7684;&#x586B;&#x5145;&#x663E;&#x793A;"><b>4.6. </b>view Tree--------window&#x7684;&#x586B;&#x5145;+&#x663E;&#x793A;</a></li></ul><li><span class="title-icon "></span><a href="#window&#x4F53;&#x7CFB;-----&#x7CFB;&#x7EDF;&#x4FA7;"><b>5. </b>window&#x4F53;&#x7CFB;-----&#x7CFB;&#x7EDF;&#x4FA7;</a></li><ul><li><span class="title-icon "></span><a href="#&#x6301;&#x6709;&#x5173;&#x7CFB;-----&#x91CD;&#x8981;"><b>5.1. </b>&#x6301;&#x6709;&#x5173;&#x7CFB;-----&#x91CD;&#x8981;</a></li><li><span class="title-icon "></span><a href="#&#x7EE7;&#x627F;&#x5173;&#x7CFB;----&#x7C7B;&#x4F3C;view&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;"><b>5.2. </b>&#x7EE7;&#x627F;&#x5173;&#x7CFB;----&#x7C7B;&#x4F3C;view&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;</a></li><li><span class="title-icon "></span><a href="#&#x7CFB;&#x7EDF;&#x4FA7;window&#x4F53;&#x7CFB;-&#x4E0E;-app&#x4FA7;-view&#x4F53;&#x7CFB;"><b>5.3. </b>&#x7CFB;&#x7EDF;&#x4FA7;window&#x4F53;&#x7CFB; &#x4E0E; APP&#x4FA7; view&#x4F53;&#x7CFB;</a></li><li><span class="title-icon "></span><a href="#&#x53C2;&#x8003;&#xFF1A;"><b>5.4. </b>&#x53C2;&#x8003;&#xFF1A;</a></li></ul><li><span class="title-icon "></span><a href="#&#x6846;&#x67B6;&#x7684;&#x80CC;&#x540E;"><b>6. </b>&#x6846;&#x67B6;&#x7684;&#x80CC;&#x540E;</a></li><li><span class="title-icon "></span><a href="#&#x81EA;&#x7136;&#x6CD5;&#x5219;"><b>7. </b>&#x81EA;&#x7136;&#x6CD5;&#x5219;</a></li><li><span class="title-icon "></span><a href="#&#x4E00;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x7406;&#x89E3;"><b>8. </b>&#x4E00;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x7406;&#x89E3;</a></li><ul><li><span class="title-icon "></span><a href="#wms&#x5BF9;&#x4E8E;&#x663E;&#x793A;&#x4E0D;&#x662F;&#x5FC5;&#x987B;&#x7684;"><b>8.1. </b>wms&#x5BF9;&#x4E8E;&#x663E;&#x793A;&#x4E0D;&#x662F;&#x5FC5;&#x987B;&#x7684;</a></li></ul><li><span class="title-icon "></span><a href="#&#x9762;&#x8BD5;&#x9898;&#xFF1A;"><b>9. </b>&#x9762;&#x8BD5;&#x9898;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#&#x53C2;&#x8003;&#xFF1A;_1"><b>10. </b>&#x53C2;&#x8003;&#xFF1A;</a></li></ul></div><a href="#&#x76EE;&#x5F55;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><div class="treeview__container"><ul>
+<li><div><a href="#&#x76EE;&#x5F55;">&#x76EE;&#x5F55;</a><i></i></div></li>
+<li><div><a href="#&#x529F;&#x80FD;0&#x5C42;------&#x629B;&#x5F00;wms&#x4E0D;&#x8C08;">&#x529F;&#x80FD;0&#x5C42;------&#x629B;&#x5F00;WMS&#x4E0D;&#x8C08;</a><i></i></div></li>
+<li><div><a href="#&#x7A97;&#x53E3;&#x7BA1;&#x7406;----wms">&#x7A97;&#x53E3;&#x7BA1;&#x7406;----WMS</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x529F;&#x80FD;&#xFF08;&#x76EE;&#x7684;&#xFF09;0&#x5C42;&#xFF1A;">&#x529F;&#x80FD;&#xFF08;&#x76EE;&#x7684;&#xFF09;0&#x5C42;&#xFF1A;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x57FA;&#x4E8E;&#x529F;&#x80FD;&#x9700;&#x8981;&#x7684;&#x5BF9;&#x5916;&#x63A5;&#x53E3;&#xFF08;&#x91CD;&#x8981;&#xFF09;">&#x57FA;&#x4E8E;&#x529F;&#x80FD;&#x9700;&#x8981;&#x7684;&#x5BF9;&#x5916;&#x63A5;&#x53E3;&#xFF08;&#x91CD;&#x8981;&#xFF09;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x7ED3;&#x6784;0&#x5C42;&#x56FE;&#xFF08;&#x57FA;&#x4E8E;&#x529F;&#x80FD;0&#x5C42;&#x7684;&#xFF09;">&#x7ED3;&#x6784;0&#x5C42;&#x56FE;&#xFF08;&#x57FA;&#x4E8E;&#x529F;&#x80FD;0&#x5C42;&#x7684;&#xFF09;</a><i></i></div></li>
+<li><div><a href="#&#x663E;&#x793A;&#x7684;&#x751F;&#x6D3B;&#x5316;&#x6BD4;&#x55BB;">&#x663E;&#x793A;&#x7684;&#x751F;&#x6D3B;&#x5316;&#x6BD4;&#x55BB;</a><i></i></div></li>
+<li><div><a href="#&#x529F;&#x80FD;1&#x7684;&#x7EB5;&#x5411;&#xFF1A;&#x6DFB;&#x52A0;&#x7A97;&#x53E3;&#x7EB5;&#x5411;&#x4E3B;&#x7EBF;---wms&#x4FA7;----how">&#x529F;&#x80FD;1&#x7684;&#x7EB5;&#x5411;&#xFF1A;&#x6DFB;&#x52A0;&#x7A97;&#x53E3;(&#x7EB5;&#x5411;&#x4E3B;&#x7EBF;) :  WMS&#x4FA7;----how</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#app&#x4FA7;-&#x6DFB;&#x52A0;&#x7A97;&#x53E3;windowmanagerimpladdview&#x7EB5;&#x5411;&#x4E3B;&#x7EBF;-&#x6D41;&#x7A0B;">APP&#x4FA7;: &#x6DFB;&#x52A0;&#x7A97;&#x53E3;WindowManagerImpl.addView(&#x7EB5;&#x5411;&#x4E3B;&#x7EBF;) &#x6D41;&#x7A0B;:</a><i></i></div></li>
+<li><div><a href="#&#x76EE;&#x6807;&#x529F;&#x80FD;1&#x7684;&#x8865;&#x5145;&#xFF1A;">&#x76EE;&#x6807;&#x529F;&#x80FD;1&#x7684;&#x8865;&#x5145;&#xFF1A;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x76EE;&#x6807;1&#xFF1A;&#x5982;&#x4F55;&#x786E;&#x5B9A;&#x7A97;&#x53E3;&#x7684;&#x5927;&#x5C0F;&#x548C;&#x4F4D;&#x7F6E;&#x5462;&#xFF1F;">&#x76EE;&#x6807;1&#xFF1A;&#x5982;&#x4F55;&#x786E;&#x5B9A;&#x7A97;&#x53E3;&#x7684;&#x5927;&#x5C0F;&#x548C;&#x4F4D;&#x7F6E;&#x5462;&#xFF1F;</a><i></i></div></li>
+</ul></li>
+</ul></li>
+<li><div><a href="#&#x529F;&#x80FD;12&#x7684;&#x7EB5;&#x5411;&#xFF1A;&#x7533;&#x8BF7;surface&#x6D41;&#x7A0B;----how">&#x529F;&#x80FD;1_2&#x7684;&#x7EB5;&#x5411;&#xFF1A;&#x7533;&#x8BF7;surface&#x6D41;&#x7A0B;----how</a><i></i></div></li>
+<li><div><a href="#&#x5173;&#x4E8E;session&#x6865;&#x6881;">&#x5173;&#x4E8E;session&#x6865;&#x6881;???</a><i></i></div></li>
+<li><div><a href="#&#x6B21;&#x8981;&#xFF1A;&#x529F;&#x80FD;11&#x7A97;&#x53E3;&#x7684;&#x7CFB;&#x7EDF;&#x52A8;&#x753B;&#xFF08;&#x57FA;&#x4E8E;&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x7684;&#x8F85;&#x52A9;&#x529F;&#x80FD;&#xFF09;">&#x6B21;&#x8981;&#xFF1A;&#x529F;&#x80FD;1_1&#x7A97;&#x53E3;&#x7684;&#x7CFB;&#x7EDF;&#x52A8;&#x753B;&#xFF08;&#x57FA;&#x4E8E;&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x7684;&#x8F85;&#x52A9;&#x529F;&#x80FD;&#xFF09;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#delwindow&#x4F53;&#x7CFB;-----app&#x4FA7;">del:window&#x4F53;&#x7CFB;-----APP&#x4FA7;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#window&#xFF08;&#x6B21;&#x8981;&#xFF09;">Window&#xFF08;&#x6B21;&#x8981;&#xFF09;</a><i></i></div></li>
+<li><div><a href="#&#x5E38;&#x89C1;window&#xFF08;&#x6B21;&#x8981;&#xFF09;">&#x5E38;&#x89C1;window&#xFF08;&#x6B21;&#x8981;&#xFF09;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#window&#x7684;&#x5206;&#x7C7B;&#xFF1A;">window&#x7684;&#x5206;&#x7C7B;&#xFF1A;</a><i></i></div></li>
+<li><div><a href="#&#x7A97;&#x53E3;&#x7684;&#x6B21;&#x5E8F;">&#x7A97;&#x53E3;&#x7684;&#x6B21;&#x5E8F;</a><i></i></div></li>
+<li><div><a href="#&#x7A97;&#x53E3;&#x7684;&#x6807;&#x5FD7;">&#x7A97;&#x53E3;&#x7684;&#x6807;&#x5FD7;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#windowmanger">WindowManger</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x63A5;&#x53E3;viewmanager">&#x63A5;&#x53E3;ViewManager</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x6DFB;&#x52A0;&#x7A97;&#x53E3;addview-&#x6D41;&#x7A0B;--app&#x4FA7;">&#x6DFB;&#x52A0;&#x7A97;&#x53E3;addView &#x6D41;&#x7A0B;:  APP&#x4FA7;</a><i></i></div></li>
+<li><div><a href="#&#x66F4;&#x65B0;&#x7A97;&#x53E3;-updateviewlayout">&#x66F4;&#x65B0;&#x7A97;&#x53E3; updateViewLayout</a><i></i></div></li>
+</ul></li>
+</ul></li>
+<li><div><a href="#viewrootimpl">ViewRootImpl</a><i></i></div></li>
+<li><div><a href="#&#x5BF9;&#x5E94;&#x5173;&#x7CFB;-windowmanagerglobal&#x3001;windowmanagerimpl&#x3001;viewrootimpl">&#x5BF9;&#x5E94;&#x5173;&#x7CFB; windowManagerGlobal&#x3001;windowManagerImpl&#x3001;viewRootImpl</a><i></i></div></li>
+<li><div><a href="#view-tree--------window&#x7684;&#x586B;&#x5145;&#x663E;&#x793A;">view Tree--------window&#x7684;&#x586B;&#x5145;+&#x663E;&#x793A;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#window&#x4F53;&#x7CFB;-----&#x7CFB;&#x7EDF;&#x4FA7;">window&#x4F53;&#x7CFB;-----&#x7CFB;&#x7EDF;&#x4FA7;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x6301;&#x6709;&#x5173;&#x7CFB;-----&#x91CD;&#x8981;">&#x6301;&#x6709;&#x5173;&#x7CFB;-----&#x91CD;&#x8981;</a><i></i></div></li>
+<li><div><a href="#&#x7EE7;&#x627F;&#x5173;&#x7CFB;----&#x7C7B;&#x4F3C;view&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;">&#x7EE7;&#x627F;&#x5173;&#x7CFB;----&#x7C7B;&#x4F3C;view&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;</a><i></i></div></li>
+<li><div><a href="#&#x7CFB;&#x7EDF;&#x4FA7;window&#x4F53;&#x7CFB;-&#x4E0E;-app&#x4FA7;-view&#x4F53;&#x7CFB;">&#x7CFB;&#x7EDF;&#x4FA7;window&#x4F53;&#x7CFB; &#x4E0E; APP&#x4FA7; view&#x4F53;&#x7CFB;</a><i></i></div></li>
+<li><div><a href="#&#x53C2;&#x8003;&#xFF1A;">&#x53C2;&#x8003;&#xFF1A;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x6846;&#x67B6;&#x7684;&#x80CC;&#x540E;">&#x6846;&#x67B6;&#x7684;&#x80CC;&#x540E;</a><i></i></div></li>
+<li><div><a href="#&#x81EA;&#x7136;&#x6CD5;&#x5219;">&#x81EA;&#x7136;&#x6CD5;&#x5219;</a><i></i></div></li>
+<li><div><a href="#&#x4E00;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x7406;&#x89E3;">&#x4E00;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x7406;&#x89E3;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#wms&#x5BF9;&#x4E8E;&#x663E;&#x793A;&#x4E0D;&#x662F;&#x5FC5;&#x987B;&#x7684;">wms&#x5BF9;&#x4E8E;&#x663E;&#x793A;&#x4E0D;&#x662F;&#x5FC5;&#x987B;&#x7684;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x9762;&#x8BD5;&#x9898;&#xFF1A;">&#x9762;&#x8BD5;&#x9898;&#xFF1A;</a><i></i></div></li>
+<li><div><a href="#&#x53C2;&#x8003;&#xFF1A;">&#x53C2;&#x8003;&#xFF1A;</a><i></i></div></li>
+</ul>
+</div>
+
+
+
+<h1 id="&#x76EE;&#x5F55;"><a name="&#x76EE;&#x5F55;" class="anchor-navigation-ex-anchor" href="#&#x76EE;&#x5F55;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x76EE;&#x5F55;</h1>
+<h1 id="&#x529F;&#x80FD;0&#x5C42;------&#x629B;&#x5F00;wms&#x4E0D;&#x8C08;"><a name="&#x529F;&#x80FD;0&#x5C42;------&#x629B;&#x5F00;wms&#x4E0D;&#x8C08;" class="anchor-navigation-ex-anchor" href="#&#x529F;&#x80FD;0&#x5C42;------&#x629B;&#x5F00;wms&#x4E0D;&#x8C08;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x529F;&#x80FD;0&#x5C42;------&#x629B;&#x5F00;WMS&#x4E0D;&#x8C08;</h1>
+<p>&#x8BC1;&#x660E;&#xFF1A;</p>
+<p>&#x65E0;&#x8BBA;&#x54EA;&#x4E2A;&#x7CFB;&#x7EDF;&#xFF0C;&#x7A97;&#x53E3;&#x7BA1;&#x7406; &#x96B6;&#x5C5E;&#x4E8E; &#x56FE;&#x5F62;&#x7CFB;&#x7EDF; &#x4E0D;&#x5F97;&#x4E0D;&#x5305;&#x62EC;&#xFF1A;</p>
+<blockquote>
+<p>&#xFF08;1&#xFF09;&#x7A97;&#x53E3;&#x7684;&#x5C42;&#x7EA7;&#x7BA1;&#x7406;</p>
+<p>&#xFF08;2&#xFF09;&#x7A97;&#x53E3;&#x7684;&#x5927;&#x5C0F;&#x7BA1;&#x7406;</p>
+<p>&#xFF08;3&#xFF09;&#x7A97;&#x53E3;&#x7126;&#x70B9;&#x7BA1;&#x7406;</p>
+<p>&#xFF08;4&#xFF09;&#x7A97;&#x53E3;&#x589E;&#x5220;&#xFF08;<del>&#x6539;</del>&#xFF09;</p>
+</blockquote>
+<h1 id="&#x7A97;&#x53E3;&#x7BA1;&#x7406;----wms"><a name="&#x7A97;&#x53E3;&#x7BA1;&#x7406;----wms" class="anchor-navigation-ex-anchor" href="#&#x7A97;&#x53E3;&#x7BA1;&#x7406;----wms"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x7A97;&#x53E3;&#x7BA1;&#x7406;----WMS</h1>
+<h2 id="&#x529F;&#x80FD;&#xFF08;&#x76EE;&#x7684;&#xFF09;0&#x5C42;&#xFF1A;"><a name="&#x529F;&#x80FD;&#xFF08;&#x76EE;&#x7684;&#xFF09;0&#x5C42;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x529F;&#x80FD;&#xFF08;&#x76EE;&#x7684;&#xFF09;0&#x5C42;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x529F;&#x80FD;&#xFF08;&#x76EE;&#x7684;&#xFF09;0&#x5C42;&#xFF1A;</h2>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230910012656035.png" alt="image-20230910012656035"></p>
+<p>&#x53C2;&#x8003;&#xFF1A; <del>&#x300A;&#x6DF1;&#x5165;&#x7406;&#x89E3;Andriiod&#x5185;&#x6838;&#x8BBE;&#x8BA1;&#x601D;&#x60F3;&#x300B;  WMS  P386</del></p>
+<p>&#x4ECE;I/O&#x7684;&#x89D2;&#x5EA6;&#x6765;&#x770B;&#xFF0C;WMS&#x7CFB;&#x7EDF;&#x7684;&#x8F93;&#x5165;&#x4E0E;&#x8F93;&#x51FA;&#xFF1A;</p>
+<p>(1)  &#x529F;&#x80FD;1&#xFF1A; &#x7A97;&#x53E3;&#x7BA1;&#x7406; &#xFF08;<strong>&#x8F93;&#x51FA;</strong>&#xFF09;
+WMS &#x662F;&#x7A97;&#x53E3;&#x7684;&#x7BA1;&#x7406;&#x8005;&#xFF0C;&#x5B83;&#x8D1F;&#x8D23;&#x7A97;&#x53E3;&#x7684;&#x542F;&#x52A8;&#x3001;&#x6DFB;&#x52A0;&#x548C;&#x5220;&#x9664;&#x3002;&#x53E6;&#x5916;&#x7A97;&#x53E3;&#x7684;&#x5927;&#x5C0F;&#x548C;&#x5C42;&#x7EA7;&#x4E5F;&#x662F;&#x7531; WMS &#x8FDB;&#x884C;&#x7BA1;&#x7406;&#x7684;&#x3002;</p>
+<p><del>&#x529F;&#x80FD;1_1 &#x7A97;&#x53E3;&#x52A8;&#x753B;</del>   ---&gt;  add &#x548C; remove&#x7684;&#x9644;&#x5C5E;&#x529F;&#x80FD;</p>
+<blockquote>
+<p>&#x7A97;&#x53E3;&#x95F4;&#x8FDB;&#x884C;&#x5207;&#x6362;&#x65F6;&#xFF0C;&#x4F7F;&#x7528;&#x52A8;&#x753B;&#x53EF;&#x4EE5;&#x663E;&#x5F97;&#x66F4;&#x70AB;&#x4E00;&#x4E9B;&#xFF0C;&#x7A97;&#x53E3;&#x52A8;&#x753B;&#x7531; WMS &#x7684;&#x52A8;&#x753B;&#x5B50;&#x7CFB;&#x7EDF;&#x6765;&#x8D1F;&#x8D23;&#xFF0C;&#x52A8;&#x753B;&#x5B50;&#x7CFB;&#x7EDF;&#x7684;&#x7BA1;&#x7406;&#x8005;&#x4E3A; WindowAnimator&#x3002;</p>
+</blockquote>
+<p><del>&#x529F;&#x80FD;1_2&#xFF1A;Surface &#x7BA1;&#x7406;</del>  &#xFF08;<del>&#x81EA;&#x7136;&#xFF0C;&#x5305;&#x62EC;&#x7533;&#x8BF7;</del>&#xFF09;</p>
+<blockquote>
+<p>&#x7A97;&#x53E3;&#x4E0D;&#x5177;&#x5907;&#x7ED8;&#x5236;&#x529F;&#x80FD;&#xFF0C;&#x56E0;&#x6B64;&#x6BCF;&#x4E2A;&#x7A97;&#x53E3;&#x90FD;&#x9700;&#x8981;&#x6709;&#x4E00;&#x5757; Surface &#x6765;&#x4F9B;&#x81EA;&#x5DF1;&#x7ED8;&#x5236;&#xFF0C;&#x4E3A;&#x6BCF;&#x4E2A;&#x7A97;&#x53E3;&#x5206;&#x914D; Surface &#x662F;&#x7531;WMS &#x6765;&#x5B8C;&#x6210;&#x7684;&#x3002;</p>
+</blockquote>
+<p>(2) &#x529F;&#x80FD;2&#xFF1A;&#x8F93;&#x5165;&#x7CFB;&#x7EDF;&#x4E2D;&#x8F6C;&#x7AD9; &#xFF08;<strong>&#x8F93;&#x5165;</strong>&#xFF09;</p>
+<blockquote>
+<p>&#x901A;&#x8FC7;&#x5BF9;&#x7A97;&#x53E3;&#x7684;&#x89E6;&#x6478;&#x4ECE;&#x800C;&#x4EA7;&#x751F;&#x89E6;&#x6478;&#x4E8B;&#x4EF6;&#xFF0C;InputManagerService(IMS) &#x4F1A;&#x5BF9;&#x89E6;&#x6478;&#x4E8B;&#x4EF6;&#x8FDB;&#x884C;&#x5904;&#x7406;&#xFF0C;&#x5B83;&#x4F1A;&#x5BFB;&#x627E;&#x4E00;&#x4E2A;&#x6700;&#x5408;&#x9002;&#x7684;&#x7A97;&#x53E3;&#x6765;&#x5904;&#x7406;&#x89E6;&#x6478;&#x53CD;&#x9988;&#x4FE1;&#x606F;&#xFF0C;WMS &#x662F;&#x7A97;&#x53E3;&#x7684;&#x7BA1;&#x7406;&#x8005;&#xFF0C;&#x5B83;&#x4F5C;&#x4E3A;&#x8F93;&#x5165;&#x7CFB;&#x7EDF;&#x7684;&#x4E2D;&#x8F6C;&#x7AD9;&#x518D;&#x5408;&#x9002;&#x4E0D;&#x8FC7;&#x4E86;&#x3002;</p>
+</blockquote>
+<p>------&gt;  <font color="red">&#x8BB0;&#x5FC6;&#x951A;&#x70B9;</font>&#xFF1A;WMS&#x5BF9;window&#x7684;&#xFF1A;</p>
+<p>1&#x3001;widow&#x7684;<del>&#x6DFB;&#x52A0;</del>  &#x5373;&#x7BA1;&#x7406;&#xFF1A;&#x589E;&#x5220;&#x6539;........  &#x5927;&#x5C0F;&#x8BA1;&#x7B97;&#x3001;&#x5C42;&#x7EA7;&#x8BA1;&#x7B97;</p>
+<p>2&#x3001;window&#x7684;&#x8F93;&#x5165;</p>
+<p>3&#x3001;window&#x7684;&#x8F93;&#x51FA;</p>
+<h3 id="&#x57FA;&#x4E8E;&#x529F;&#x80FD;&#x9700;&#x8981;&#x7684;&#x5BF9;&#x5916;&#x63A5;&#x53E3;&#xFF08;&#x91CD;&#x8981;&#xFF09;"><a name="&#x57FA;&#x4E8E;&#x529F;&#x80FD;&#x9700;&#x8981;&#x7684;&#x5BF9;&#x5916;&#x63A5;&#x53E3;&#xFF08;&#x91CD;&#x8981;&#xFF09;" class="anchor-navigation-ex-anchor" href="#&#x57FA;&#x4E8E;&#x529F;&#x80FD;&#x9700;&#x8981;&#x7684;&#x5BF9;&#x5916;&#x63A5;&#x53E3;&#xFF08;&#x91CD;&#x8981;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1.1. &#x57FA;&#x4E8E;&#x529F;&#x80FD;&#x9700;&#x8981;&#x7684;&#x5BF9;&#x5916;&#x63A5;&#x53E3;&#xFF08;&#x91CD;&#x8981;&#xFF09;</h3>
+<p>&#x89C1; &#x300A;&#x8D85;&#x7EA7;0&#x5C42;&#x56FE;: AMS-APP-WMS&#x300B;&#xFF1A;</p>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230320223931742.png" alt="image-20230320223931742"></p>
+<p>APP &#x4E0E; WMS&#x4E4B;&#x95F4;&#xFF0C;&#x81EA;&#x7136;&#xFF1A;</p>
+<blockquote>
+<p>1&#x3001;&#x5148;&#x6709;APP-&gt; WMS: IWindowManager</p>
+<p>2&#x3001;IWindowManager &#x521B;&#x5EFA;  IwindowSession&#x6865;&#x6881;</p>
+<p>3&#x3001;IwindowSession&#x6865;&#x6881; &#x521B;&#x5EFA; IWindow&#x6865;&#x6881;</p>
+</blockquote>
+<p>&#x6E90;&#x7801;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">interface</span> <span class="token class-name">IWindowManager</span>
+<span class="token punctuation">{</span>
+    <span class="token class-name">IWindowSession</span> <span class="token function">openSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment">//&#x521B;&#x5EFA;session&#x6865;&#x6881;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x5173;&#x4E8E;session&#x7684;&#x8BA4;&#x8BC6;&#xFF0C;&#x89C1;&#x4E0B;&#x9762;&#xFF1A;</p>
+<h2 id="&#x7ED3;&#x6784;0&#x5C42;&#x56FE;&#xFF08;&#x57FA;&#x4E8E;&#x529F;&#x80FD;0&#x5C42;&#x7684;&#xFF09;"><a name="&#x7ED3;&#x6784;0&#x5C42;&#x56FE;&#xFF08;&#x57FA;&#x4E8E;&#x529F;&#x80FD;0&#x5C42;&#x7684;&#xFF09;" class="anchor-navigation-ex-anchor" href="#&#x7ED3;&#x6784;0&#x5C42;&#x56FE;&#xFF08;&#x57FA;&#x4E8E;&#x529F;&#x80FD;0&#x5C42;&#x7684;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. &#x7ED3;&#x6784;0&#x5C42;&#x56FE;&#xFF08;&#x57FA;&#x4E8E;&#x529F;&#x80FD;0&#x5C42;&#x7684;&#xFF09;</h2>
+<p>&#x89C1;AMS:  &#x300A;&#x8D85;&#x7EA7;0&#x5C42;: AMS-APP-WMS&#x300B;   &#x5373;&#xFF1A;     <strong><a href="https://kenttj.github.io/-book/coding/0_Andriod/0_AMS.html#:~:text=2.-,%E8%B6%85%E7%BA%A70%E5%B1%82%E5%9B%BE%3A%20AMS%2DAPP%2DWMS,-https%3A//ericchows.github" target="_blank">https://kenttj.github.io/-book/coding/0_Andriod/0_AMS.html#:~:text=2.-,%E8%B6%85%E7%BA%A70%E5%B1%82%E5%9B%BE%3A%20AMS%2DAPP%2DWMS,-https%3A//ericchows.github</a></strong></p>
+<p>&#x89C1;&#xFF1A; <a href="https://kenttj.github.io/-book/coding/0_Andriod/0_AMS.html#:~:text=https%3A//ericchows.github.io/Android%2DWindow%2DMechanism/" target="_blank">https://kenttj.github.io/-book/coding/0_Andriod/0_AMS.html#:~:text=https%3A//ericchows.github.io/Android%2DWindow%2DMechanism/</a></p>
+<p><a href="https://ericchows.github.io/Android-Window-Mechanism/" target="_blank">https://ericchows.github.io/Android-Window-Mechanism/</a></p>
+<p>&#x5176;&#x4E2D;&#x6865;&#x6881;&#xFF1A;
+<del>IWindowManager&#x548C;IAcitivityManger &#x662F;&#x4E00;&#x4E2A;&#x81EA;&#x7136;&#x7684;&#x6865;&#x6881;&#xFF0C;</del>&#x5BA2;&#x6237;&#x7AEF;&#x5BF9;wms&#x548C;AMS&#x7684;&#x5F15;&#x7528;~~  ----&#x300B;&#x7CFB;&#x7EDF;&#x670D;&#x52A1; &#x5F00;&#x673A;&#x521D;&#x59CB;&#x5316; &#x6CE8;&#x518C;&#x7684;&#x7F18;&#x6545;</p>
+<p>IwindowSession&#x6865;&#x6881;&#x662F; &#x6865;&#x6881; IWindowManager&#x521B;&#x5EFA;&#x7684;&#x3002;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x8FD9;&#x4E00;&#x6761;&#xFF1F;</p>
+<h2 id="&#x663E;&#x793A;&#x7684;&#x751F;&#x6D3B;&#x5316;&#x6BD4;&#x55BB;"><a name="&#x663E;&#x793A;&#x7684;&#x751F;&#x6D3B;&#x5316;&#x6BD4;&#x55BB;" class="anchor-navigation-ex-anchor" href="#&#x663E;&#x793A;&#x7684;&#x751F;&#x6D3B;&#x5316;&#x6BD4;&#x55BB;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. &#x663E;&#x793A;&#x7684;&#x751F;&#x6D3B;&#x5316;&#x6BD4;&#x55BB;</h2>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/2a7fb1bdd8b747afa8220641afeb9b64.jpeg" alt="img"></p>
+<p><strong>&#x6574;&#x4E2A;&#x663E;&#x793A;&#x7684;&#x751F;&#x6D3B;&#x5316;&#x6BD4;&#x55BB;</strong>&#xFF0C;&#x5C31;&#x50CF;&#x4E00;&#x51FA;&#x7531;N &#x4E2A;&#x6F14;&#x5458;&#x53C2;&#x4E0E;&#x7684;&#x8BDD;&#x5267;&#xFF1A; <strong>SurfaceFlinger &#x662F;&#x6444;&#x50CF;&#x673A;&#xFF0C; WMS &#x662F;&#x5BFC;&#x6F14;&#xFF0C; ViewRoot</strong>
+<strong>&#x5219;&#x662F;&#x6F14;&#x5458;&#x4E2A;&#x4F53;&#x3002;</strong></p>
+<p><code>&#x6444;&#x50CF;&#x673A;</code>&#xFF08; SurfaceFlinger&#xFF09;&#x4E00;&#x4E00;&#x5B83;&#x8D1F;&#x8D23;&#x5BA2;&#x89C2;&#x5730;&#x6355;&#x83B7;&#x5F53;&#x524D;&#x7684;&#x753B;&#x9762;&#xFF0C;&#x7136;&#x540E;&#x771F;&#x5B9E;&#x5730;&#x5448;&#x73B0;&#x7ED9;&#x89C2;&#x4F17;&#xFF1B; </p>
+<p><code>&#x5BFC;&#x6F14;</code>&#xFF08; WMS &#xFF09; &#x5219;&#x4F1A;&#x8003;&#x8651;&#x5230;&#x8BDD;&#x5267;&#x7684;&#x821E;&#x53F0;&#x6548;&#x679C;&#x548C;&#x89C6;&#x89C9;&#x7F8E;&#x611F;&#xFF0C; &#x5982;&#x4ED6;&#x9700;&#x8981;&#x6839;&#x636E;&#x5B9E;&#x9645;&#x60C5;&#x51B5;&#x6765;&#x5B89;&#x6392;&#x5404;&#x4E2A;&#x6F14;&#x5458;&#x7684;&#x6392;&#x5E8F;&#x7AD9;&#x4F4D;&#xFF0C; &#x8C01;&#x5728;&#x524D;&#x8C01;&#x5728;&#x540E;&#xFF0C; &#x90FD;&#x4F1A;&#x5F71;&#x54CD;&#x5230;&#x6F14;&#x51FA;&#x7684;&#x201C; &#x753B;&#x9762;&#x6548;&#x679C;&#x201D;&#x4E0E;&#x201C; &#x5267;&#x60C5;&#x7F16;&#x6392;&#x201D;</p>
+<p><code>&#x5404;&#x4E2A;&#x6F14;&#x5458;</code> ViewRoot  &#xFF0C;&#x5219;&#x66F4;&#x591A;&#x5730;&#x53D6;&#x51B3;&#x4E8E;&#x4ED6;&#x4EEC;&#x81EA;&#x8EAB;&#x7684;&#x6761;&#x4EF6;&#x4E0E;&#x52AA;&#x529B;&#xFF08;&#x5404;&#x79CD;view&#x7EC4;&#x5408;&#xFF09;&#x3002;</p>
+<p>&#x6B63;&#x662F;&#x901A;&#x8FC7;&#x8FD9;&#x4E09;&#x8005;&#x7684;&#x201C;&#x5404;&#x53F8;&#x5176;&#x804C;&#x201D;&#xFF0C;&#x624D;&#x80FD;&#x6700;&#x7EC8;&#x4E3A;&#x89C2;&#x4F17;&#x5448;&#x73B0;&#x51FA;&#x4E00;&#x573A;&#x7F8E;&#x5999;&#x7EDD;&#x4F26;&#x7684;&#x201C;&#x89C6;&#x89C9;&#x76DB;&#x5BB4;&#x201D;</p>
+<h2 id="&#x529F;&#x80FD;1&#x7684;&#x7EB5;&#x5411;&#xFF1A;&#x6DFB;&#x52A0;&#x7A97;&#x53E3;&#x7EB5;&#x5411;&#x4E3B;&#x7EBF;---wms&#x4FA7;----how"><a name="&#x529F;&#x80FD;1&#x7684;&#x7EB5;&#x5411;&#xFF1A;&#x6DFB;&#x52A0;&#x7A97;&#x53E3;&#x7EB5;&#x5411;&#x4E3B;&#x7EBF;---wms&#x4FA7;----how" class="anchor-navigation-ex-anchor" href="#&#x529F;&#x80FD;1&#x7684;&#x7EB5;&#x5411;&#xFF1A;&#x6DFB;&#x52A0;&#x7A97;&#x53E3;&#x7EB5;&#x5411;&#x4E3B;&#x7EBF;---wms&#x4FA7;----how"><i class="fa fa-link" aria-hidden="true"></i></a>3.4. &#x529F;&#x80FD;1&#x7684;&#x7EB5;&#x5411;&#xFF1A;&#x6DFB;&#x52A0;&#x7A97;&#x53E3;(&#x7EB5;&#x5411;&#x4E3B;&#x7EBF;) :  WMS&#x4FA7;----how</h2>
+<h3 id="app&#x4FA7;-&#x6DFB;&#x52A0;&#x7A97;&#x53E3;windowmanagerimpladdview&#x7EB5;&#x5411;&#x4E3B;&#x7EBF;-&#x6D41;&#x7A0B;"><a name="app&#x4FA7;-&#x6DFB;&#x52A0;&#x7A97;&#x53E3;windowmanagerimpladdview&#x7EB5;&#x5411;&#x4E3B;&#x7EBF;-&#x6D41;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#app&#x4FA7;-&#x6DFB;&#x52A0;&#x7A97;&#x53E3;windowmanagerimpladdview&#x7EB5;&#x5411;&#x4E3B;&#x7EBF;-&#x6D41;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.1. APP&#x4FA7;: &#x6DFB;&#x52A0;&#x7A97;&#x53E3;WindowManagerImpl.addView(&#x7EB5;&#x5411;&#x4E3B;&#x7EBF;) &#x6D41;&#x7A0B;:</h3>
+<p>&#x56FE;&#xFF1A;&#x300A;&#x8D85;&#x7EA7;0&#x5C42;&#x56FE;: AMS-APP-WMS&#x300B;</p>
+<p>-<font color="red">&#x59CB;&#x70B9;&#xFF1A;</font>------when</p>
+<p>Activity&#x7684;Create&#x3001;Resume&#x751F;&#x547D;&#x5468;&#x671F;&#x540C;&#x6B65;&#x8FC7;&#x6765;&#x3002;<del>&#x89C1;&#x300A;startApp&#xFF1A;APP &#x4FA7;&#x6267;&#x884C; &#x751F;&#x547D;&#x5468;&#x671F;&#x540C;&#x6B65;transaction  &#x7684;&#x6267;&#x884C;execute(&#x5173;&#x952E;&#x6570;&#x636E;&#x7ED3;&#x6784;)&#x300B;</del></p>
+<p>Resume&#x53EF;&#x89C1;&#xFF0C;performResumeActivity &#x662F;&#x771F;&#x6B63;&#x59CB;&#x70B9;&#x3002;&#x89C1;&#xFF1A; <del>&#x89C1;&#x300A;startApp&#xFF1A;APP &#x4FA7;&#x6267;&#x884C; &#x751F;&#x547D;&#x5468;&#x671F;&#x540C;&#x6B65;transaction  &#x7684;&#x6267;&#x884C;execute(&#x5173;&#x952E;&#x6570;&#x636E;&#x7ED3;&#x6784;)&#x300B;</del></p>
+<p>-<font color="red">&#x76EE;&#x6807; &#xFF1A;</font></p>
+<blockquote>
+<p>WMS.addWindow&#x4FA7;&#x6DFB;&#x52A0;&#x7A97;&#x53E3;</p>
+</blockquote>
+<p>&#x57FA;&#x4E8E;&#x76EE;&#x6807;&#xFF0C;&#x548C;&#xFF1A;</p>
+<p>&#x3010;1&#x3011;&#x81EA;&#x7136;&#xFF0C;&#x5148;&#x8981;&#x5EFA;&#x7ACB;&#x6865;&#x6881;&#xFF1A; ViewRootImpl&#x5230;WMS&#x7684;&#x6865;&#x6881;&#x3001;WMS&#x5230; ViewRootImpl&#x7684;&#x3002;&#x4E3A;&#x5565;&#x8FD9;&#x6837;&#x8BBE;&#x8BA1;&#xFF1F;&#x89C1;  AMS</p>
+<p>&#x3010;2&#x3011;&#x81EA;&#x7136;&#x901A;&#x8FC7;&#x6865;&#x6881;Session&#xFF0C;addWindow &#x3002;&#x81EA;&#x7136;&#x4F1A;&#x643A;&#x5E26;&#x6570;&#x636E;&#xFF1A;</p>
+<p><del>window&#x5916;&#x6570;&#x636E;&#xFF1A;&#x628A;window&#x7684;&#x53C2;&#x6570;&#xFF08;&#x4F4D;&#x7F6E;&#x3001;&#x5927;&#x5C0F;&#xFF09;WindowManager.LayoutParams</del>&#xFF1A;app&#x4FA7;---&#x300B;WMS&#x4FA7;</p>
+<p>  <del>windown&#x5185;&#x6570;&#x636E;&#xFF1A;window&#x7684;&#x5185;&#x5BB9;&#x533A;&#x57DF;&#x6570;&#x636E;&#xFF1A; mAttachInfo.mContentInsets</del>&#xFF1A;app&#x4FA7;---&#x300B;WMS&#x4FA7;</p>
+<p>&#x57FA;&#x4E8E;&#x76EE;&#x6807;&#x3010;1&#x3011;&#x3010;2&#x3011;&#xFF0C;&#x81EA;&#x7136;&#xFF0C;<font color="red">&#x4E4B;&#x524D; &#x5148;&#x628A;&#x81EA;&#x5DF1;APP&#x4FA7;&#x641E;&#x597D;</font>&#xFF1A;</p>
+<p>&#x3010;3&#x3011;&#x81EA;&#x7136;&#xFF0C;<del>&#x8981;&#x5148;&#x628A;APP&#x672C;&#x5730;&#x7684;Activity&#x3001;window&#xFF08;WindowManagerImpl&#xFF09;&#x3001;view&#x6811;&#xFF08;DecorView&#xFF09;&#x5EFA;&#x597D;</del>  ----&gt; performLaunchActivity   &#x6D41;&#x7A0B;&#x3002;&#x89C1;&#x300A;startApp&#x300B;</p>
+<p>&#x3010;4&#x3011;  &#x81EA;&#x7136;&#xFF0C;<font color="red">&#x56E0;&#x4E3A;Resume&#x624D;&#x662F;&#x53EF;&#x89C1;&#x7684;&#xFF0C;</font>&#x6240;&#x4EE5;&#xFF0C; performResumeActivity    &#x662F;  &#x6DFB;&#x52A0;<font color="red">&#x7A97;&#x53E3;addView&#x7684;  &#x59CB;&#x70B9;</font>   &#x89C1;&#x300A;startApp&#x300B;</p>
+<p>&#x57FA;&#x4E8E;&#x76EE;&#x6807;&#x3010;1&#x3011;&#x3010;2&#x3011;&#xFF0C;&#x81EA;&#x7136;&#xFF0C;APP&#x4FA7;&#x5F04;&#x597D;&#x540E;&#xFF0C;<font color="red">&#x5EFA;&#x7ACB;&#x4E00;&#x4E9B;&#x4EA4;&#x4E92;&#x6027;&#x7684;&#x7BA1;&#x7406;&#x7C7B;</font>&#xFF0C;&#x4EE5;&#x53CA;&#x6865;&#x6881;&#xFF1A;
+&#x3010;5&#x3011; &#x6BD4;&#x5982;ViewRootImpl&#xFF0C;&#x5FC5;&#x7136;&#x5728;Reusme&#x6D41;&#x7A0B;&#xFF08;<font color="red">&#x4E0E;Wms&#x4EA4;&#x4E92;&#x6D41;&#x7A0B;</font>&#xFF09;&#x91CC;&#x65B0;&#x5EFA;&#x7684;</p>
+<p>&#x57FA;&#x4E8E;&#x76EE;&#x6807;&#x3010;5&#x3011;&#xFF1A;</p>
+<p>&#x3010;6&#x3011;&#x81EA;&#x7136;&#xFF0C;ViewRootImpl&#x5EFA;&#x7ACB;&#x8FC7;&#x7A0B;&#xFF0C;&#x4F1A;&#x7ED1;&#x5B9A;DecorView&#xFF0C;&#x6240;&#x4EE5; Activity&#x3001;window&#x3001;viewTree&#x4E09;&#x8005;&#x7ED1;&#x5B9A;&#x4E86;</p>
+<p>&#x5BF9;&#x5E94;&#x8C03;&#x7528;&#x5173;&#x7CFB;,&#xFF0C;&#x53EA;&#x770B;&#xFF0C;&#x4E0D;&#x8BB0;&#x5FC6;&#xFF1A;</p>
+<p>handleLaunchActivity---&gt; performLaunchActivity ---&gt;&#x3010;1&#x3011;<font color="red">  &#x521B;&#x5EFA;Activity&#xFF0C;&#x5E76; attach() &#x521B;&#x5EFA;window</font>-----&gt; onCreate     -----&gt;    &#x3010;2&#x3011;  setContentView</p>
+<p>&#x200B;                                                                                                                  Activity.attach&#xFF08;&#x521B;&#x5EFA;Window&#xFF09;                                            &#xFF08;&#x521B;&#x5EFA;DecorView&#xFF0C;viewTree&#xFF09;                                           </p>
+<p>handleResumeActivity   ---&gt;  performResumeActivity    -----&gt; </p>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230222000412625.png" alt="image-20230222000412625"></p>
+<p>&#x603B;&#x7ED3;&#xFF1A;
+&#x53EA;&#x6709;Resume&#x6D41;&#x7A0B;  &#x662F;&#x4E0E;WMS&#x4EA4;&#x4E92;&#x7684;</p>
+<p>&#x540E;&#x7EED;&#x89C1;&#x300A;&#x6DFB;&#x52A0;&#x7A97;&#x53E3;(&#x7EB5;&#x5411;&#x4E3B;&#x7EBF;) :  WMS&#x4FA7;&#x300B;</p>
+<p>&#x4E00;&#x4E9B;&#x7591;&#x95EE;&#xFF0C;&#x81EA;&#x7136;&#x4E86;&#xFF1A;</p>
+<blockquote>
+<p>APP&#x4FA7;addView &#x53D8;&#x4E3A; WMS.addWindow&#x4FA7;&#x6DFB;&#x52A0;&#x7A97;&#x53E3;  ---&gt;   &#x6240;&#x4EE5;&#xFF0C;addView&#x662F;&#x6DFB;&#x52A0;&#x7A97;&#x53E3;</p>
+<p>Activity.onStart  ----&gt;   &#x6240;&#x4EE5;onStart  &#x6839;&#x672C;&#x4E0D;&#x53EF;&#x89C1;&#xFF0C;&#x4E0D;&#x53EF;&#x4EA4;&#x4E92;</p>
+<p>resume  ----&gt;  &#x53EF;&#x89C1;&#x53EF;&#x4EA4;&#x4E92;&#x7684;</p>
+</blockquote>
+<p>todo&#xFF1A;</p>
+<p>WindowManagerImpl &#x4E0E; Global &#x662F; &#x4E00;&#x5BF9;&#x591A;&#x7684;&#x5173;&#x7CFB;&#x3002;WindowManagerImpl &#x662F;Activity&#x7EA7;&#x522B;&#x7684;&#xFF1F; &#x5982;&#x4F55;&#x8BC1;&#x660E;&#xFF1F;</p>
+<p>Global &#x8D1F;&#x8D23;&#x4EA4;&#x4E92;&#x4E86;&#xFF0C;&#x5FC5;&#x7136;&#x662F;&#x4E2A;&#x8FDB;&#x7A0B;&#x5355;&#x4F8B;&#xFF0C;&#x3002;&#x81EA;&#x7136;</p>
+<p>&#x4EE3;&#x7801;&#x7EA7;&#x8BC1;&#x660E;&#xFF1A;</p>
+<pre class="language-"><code>
+
+</code></pre><h3 id="&#x76EE;&#x6807;&#x529F;&#x80FD;1&#x7684;&#x8865;&#x5145;&#xFF1A;"><a name="&#x76EE;&#x6807;&#x529F;&#x80FD;1&#x7684;&#x8865;&#x5145;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x76EE;&#x6807;&#x529F;&#x80FD;1&#x7684;&#x8865;&#x5145;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.2. &#x76EE;&#x6807;&#x529F;&#x80FD;1&#x7684;&#x8865;&#x5145;&#xFF1A;</h3>
+<h4 id="&#x76EE;&#x6807;1&#xFF1A;&#x5982;&#x4F55;&#x786E;&#x5B9A;&#x7A97;&#x53E3;&#x7684;&#x5927;&#x5C0F;&#x548C;&#x4F4D;&#x7F6E;&#x5462;&#xFF1F;"><a name="&#x76EE;&#x6807;1&#xFF1A;&#x5982;&#x4F55;&#x786E;&#x5B9A;&#x7A97;&#x53E3;&#x7684;&#x5927;&#x5C0F;&#x548C;&#x4F4D;&#x7F6E;&#x5462;&#xFF1F;" class="anchor-navigation-ex-anchor" href="#&#x76EE;&#x6807;1&#xFF1A;&#x5982;&#x4F55;&#x786E;&#x5B9A;&#x7A97;&#x53E3;&#x7684;&#x5927;&#x5C0F;&#x548C;&#x4F4D;&#x7F6E;&#x5462;&#xFF1F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x76EE;&#x6807;1&#xFF1A;&#x5982;&#x4F55;&#x786E;&#x5B9A;&#x7A97;&#x53E3;&#x7684;&#x5927;&#x5C0F;&#x548C;&#x4F4D;&#x7F6E;&#x5462;&#xFF1F;</h4>
+<p>&#x8BA1;&#x7B97;&#x6A21;&#x578B;&#xFF1A;</p>
+<p>APP&#x4FA7;&#x521D;&#x59CB;&#x503C;&#xFF08;&#x8F93;&#x5165;&#xFF09;  ----&gt;  &#x7ED9;&#x5230;wms&#x4FA7;&#xFF08;&#x8F93;&#x51FA;&#xFF09;&#xFF1A;&#x904D;&#x5386;&#x6240;&#x6709;&#x7A97;&#x53E3;&#xFF0C;&#x7136;&#x540E;&#x8BA1;&#x7B97;&#x51FA;&#x6700;&#x7EC8;</p>
+<p>&#x5176;&#x4E2D;&#xFF1A;</p>
+<blockquote>
+<p>&#x521D;&#x59CB;&#x503C;&#xFF08;&#x5BA2;&#x6237;&#x7AEF;&#x7A0B;&#x5E8F;&#x5458;&#x8BBE;&#x7F6E;&#x7684;&#xFF09;  --------&gt;    viewRootImpl.relayoutWindow    --------&gt; wms&#x8BA1;&#x7B97;</p>
+</blockquote>
+<h2 id="&#x529F;&#x80FD;12&#x7684;&#x7EB5;&#x5411;&#xFF1A;&#x7533;&#x8BF7;surface&#x6D41;&#x7A0B;----how"><a name="&#x529F;&#x80FD;12&#x7684;&#x7EB5;&#x5411;&#xFF1A;&#x7533;&#x8BF7;surface&#x6D41;&#x7A0B;----how" class="anchor-navigation-ex-anchor" href="#&#x529F;&#x80FD;12&#x7684;&#x7EB5;&#x5411;&#xFF1A;&#x7533;&#x8BF7;surface&#x6D41;&#x7A0B;----how"><i class="fa fa-link" aria-hidden="true"></i></a>3.5. &#x529F;&#x80FD;1_2&#x7684;&#x7EB5;&#x5411;&#xFF1A;&#x7533;&#x8BF7;surface&#x6D41;&#x7A0B;----how</h2>
+<p>&#x89C1;&#xFF1A; </p>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230612202945595.png" alt="image-20230612202945595"></p>
+<p>&#x300A;&#x7533;&#x8BF7;surface&#x7684;&#x6D41;&#x7A0B;(<del>APP&#x5411;surfaceFlinger</del>)&#x300B;</p>
+<h2 id="&#x5173;&#x4E8E;session&#x6865;&#x6881;"><a name="&#x5173;&#x4E8E;session&#x6865;&#x6881;" class="anchor-navigation-ex-anchor" href="#&#x5173;&#x4E8E;session&#x6865;&#x6881;"><i class="fa fa-link" aria-hidden="true"></i></a>3.6. &#x5173;&#x4E8E;session&#x6865;&#x6881;???</h2>
+<p>&#x57FA;&#x4E8E;&#x4EC0;&#x4E48;&#x76EE;&#x7684;&#xFF1F;&#x4E3A;&#x751A;&#x8981;&#x6709;&#xFF1F;&#x5BF9;&#x603B;&#x76EE;&#x7684;&#x6709;&#x4EC0;&#x4E48;&#x7528;&#xFF1F;</p>
+<p>WMS&#x5B9E;&#x73B0;&#x4FA7;&#xFF1A;</p>
+<pre class="language-"><code>//Session.java
+
+
+//&#x5C5E;&#x6027;
+mCanAddInternalSystemWindow -----&gt; &#x662F;&#x5426;&#x80FD;&#x589E;&#x52A0;&#x7CFB;&#x7EDF;&#x7A97;&#x53E3;
+</code></pre><h2 id="&#x6B21;&#x8981;&#xFF1A;&#x529F;&#x80FD;11&#x7A97;&#x53E3;&#x7684;&#x7CFB;&#x7EDF;&#x52A8;&#x753B;&#xFF08;&#x57FA;&#x4E8E;&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x7684;&#x8F85;&#x52A9;&#x529F;&#x80FD;&#xFF09;"><a name="&#x6B21;&#x8981;&#xFF1A;&#x529F;&#x80FD;11&#x7A97;&#x53E3;&#x7684;&#x7CFB;&#x7EDF;&#x52A8;&#x753B;&#xFF08;&#x57FA;&#x4E8E;&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x7684;&#x8F85;&#x52A9;&#x529F;&#x80FD;&#xFF09;" class="anchor-navigation-ex-anchor" href="#&#x6B21;&#x8981;&#xFF1A;&#x529F;&#x80FD;11&#x7A97;&#x53E3;&#x7684;&#x7CFB;&#x7EDF;&#x52A8;&#x753B;&#xFF08;&#x57FA;&#x4E8E;&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x7684;&#x8F85;&#x52A9;&#x529F;&#x80FD;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>3.7. &#x6B21;&#x8981;&#xFF1A;&#x529F;&#x80FD;1_1&#x7A97;&#x53E3;&#x7684;&#x7CFB;&#x7EDF;&#x52A8;&#x753B;&#xFF08;&#x57FA;&#x4E8E;&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x7684;&#x8F85;&#x52A9;&#x529F;&#x80FD;&#xFF09;</h2>
+<h1 id="delwindow&#x4F53;&#x7CFB;-----app&#x4FA7;"><a name="delwindow&#x4F53;&#x7CFB;-----app&#x4FA7;" class="anchor-navigation-ex-anchor" href="#delwindow&#x4F53;&#x7CFB;-----app&#x4FA7;"><i class="fa fa-link" aria-hidden="true"></i></a>4. del:window&#x4F53;&#x7CFB;-----APP&#x4FA7;</h1>
+<h2 id="window&#xFF08;&#x6B21;&#x8981;&#xFF09;"><a name="window&#xFF08;&#x6B21;&#x8981;&#xFF09;" class="anchor-navigation-ex-anchor" href="#window&#xFF08;&#x6B21;&#x8981;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. Window&#xFF08;&#x6B21;&#x8981;&#xFF09;</h2>
+<p>&#x4E00;&#x53E5;&#x8BDD;&#x7684;&#x5927;&#x81F4;&#x7406;&#x89E3;&#xFF1A;&#xFF08;1&#x3001;&#x5F88;&#x91CD;&#x8981; 2&#x3001;&#x81EA;&#x5DF1;&#x7684;&#x8BDD; &#x4E0E; &#x5B98;&#x65B9;&#x7684;&#x8BDD; &#x76F8;&#x4E92;&#x7ED3;&#x5408;&#xFF09;</p>
+<blockquote>
+<p>Window:  &#x662F;&#x4E00;&#x4E2A;&#x7897;&#xFF0C;view&#x624D;&#x662F;&#x7897;&#x91CC;&#x7684;&#x4E1C;&#x897F;&#xFF0C;&#x5177;&#x4F53;&#x7684;&#x89C6;&#x56FE;&#x5B9E;&#x4F53;  &#xFF08;&#x5B98;&#x65B9;&#xFF1A;&#x5728;Android&#x89C6;&#x56FE;&#x4F53;&#x7CFB;&#x4E2D;Window&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x7A97;&#x53E3; &#x7684;&#x6982;&#x5FF5;&#x3002;Android&#x4E2D;&#x6240;&#x6709;&#x7684;&#x89C6;&#x56FE;&#x90FD;&#x662F;&#x4F9D;&#x8D56;&#x4E8E;Window&#x663E;&#x793A; &#x7684;&#xFF09;</p>
+<p>WindowManager: <del>&#x5BF9;Window&#x7684;&#x7BA1;&#x7406;</del>&#xFF0C; &#x81EA;&#x7136;&#xFF0C;<del>add&#x3001; remove&#x3001;&#x66F4;&#x65B0;&#x7B49;</del>&#x3002;     </p>
+<p>WMS: &#x7A97;&#x53E3;&#x7684;&#x6700;&#x7EC8;&#x7BA1;&#x7406;&#x8005;,  &#x5B83;&#x8D1F;&#x8D23;&#x7A97;&#x53E3;&#x7684;&#x542F;&#x52A8;&#x3001; &#x6DFB;&#x52A0;&#x548C;&#x5220;&#x9664;,  &#x53E6;&#x5916;&#x7A97;&#x53E3;&#x7684;&#x5927;&#x5C0F;&#x548C;&#x5C42;&#x7EA7;&#x4E5F;&#x662F;&#x7531;WMS &#x8FDB;&#x884C;&#x7BA1;&#x7406;  ------&#x300B;  &#x89C1;WMS&#x5177;&#x4F53;&#x7AE0;&#x8282;</p>
+</blockquote>
+<p>window&#x4EC0;&#x4E48;&#x60C5;&#x51B5;&#x4E0B;&#x66F4;&#x65B0;&#xFF1F;
+--------&gt;  &#x6A2A;&#x7AD6;&#x5C4F;&#x5207;&#x6362;&#xFF0C;dialog&#x7684;window&#x7684;&#x5927;&#x5C0F;&#x6539;&#x53D8;</p>
+<h2 id="&#x5E38;&#x89C1;window&#xFF08;&#x6B21;&#x8981;&#xFF09;"><a name="&#x5E38;&#x89C1;window&#xFF08;&#x6B21;&#x8981;&#xFF09;" class="anchor-navigation-ex-anchor" href="#&#x5E38;&#x89C1;window&#xFF08;&#x6B21;&#x8981;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>4.2. &#x5E38;&#x89C1;window&#xFF08;&#x6B21;&#x8981;&#xFF09;</h2>
+<h3 id="window&#x7684;&#x5206;&#x7C7B;&#xFF1A;"><a name="window&#x7684;&#x5206;&#x7C7B;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#window&#x7684;&#x5206;&#x7C7B;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>4.2.1. window&#x7684;&#x5206;&#x7C7B;&#xFF1A;</h3>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230224224338279.png" alt="image-20230224224338279"></p>
+<p>Application Window:  Activity&#x3001;Dialog&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x5178;&#x578B;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7A97;&#x53E3;&#x3002;-----&gt;  <font color="red"> &#x4ECE;&#x7528;&#x6237;&#x89D2;&#x5EA6;&#xFF0C;&#x60F3;&#x8868;&#x8FBE;&#xFF1A;&#x5E38;&#x7528;&#x7684;&#x7A97;&#x53E3;</font>
+Sub Window:  &#x5B50;&#x7A97;&#x53E3;,  &#x987E;&#x540D;&#x601D;&#x4E49;,   &#x5B83;&#x4E0D;&#x80FD;&#x72EC;&#x7ACB;&#x5B58;&#x5728;,&#x9700;&#x8981;&#x9644;&#x7740;&#x5728;&#x5176;&#x4ED6;&#x7A97;&#x53E3;&#x624D;&#x53EF;&#x4EE5;,  PopupWindow&#x5C31;&#x5C5E;&#x4E8E;&#x5B50;&#x7A97;&#x53E3;&#x3002; -----&gt;   &#x4ECE;&#x7528;&#x6237;&#x89D2;&#x5EA6;&#xFF0C;&#x60F3;&#x8868;&#x8FBE;&#xFF1A;<font color="red">&#x4F9D;&#x9644;</font>
+System Window: Toast&#x3001;&#x8F93;&#x5165;&#x6CD5;&#x7A97;&#x53E3;&#x3001;&#x7CFB;&#x7EDF;&#x97F3;&#x91CF;&#x6761;&#x7A97;&#x53E3;&#x3001; &#x7CFB;&#x7EDF;&#x9519;&#x8BEF;&#x7A97;&#x53E3;&#x90FD;&#x5C5E;&#x4E8E;&#x7CFB;&#x7EDF;&#x7A97;&#x53E3;&#x3002; -----&gt;   &#x4ECE;&#x7528;&#x6237;&#x89D2;&#x5EA6;&#xFF0C;&#x60F3;&#x8868;&#x8FBE;&#xFF1A;<font color="red">&#x5728;&#x6240;&#x6709;&#x5E94;&#x7528;&#x7A97;&#x53E3;&#x4E4B;&#x4E0A;</font></p>
+<p>&#x81EA;&#x7136;&#xFF0C;&#x5B50;&#x7A97;&#x53E3;&#x4E0D;&#x80FD;&#x72EC;&#x7ACB;&#x5B58;&#x5728;</p>
+<p>&#x6CE8;&#x610F;&#xFF1A;Dialog&#x662F;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7A97;&#x53E3;&#xFF0C;&#x53EF;&#x4EE5;&#x72EC;&#x7ACB;&#x5B58;&#x5728;&#x7684;&#x3002;&#x6BD4;&#x5982;&#xFF1A;</p>
+<p>&#x200B;              <img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230224222801737.png" alt="image-20230224222801737" style="zoom: 50%;"></p>
+<p><del>Application window &#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7A97;&#x53E3;</del>:</p>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230114201330926.png" alt="image-20230114201330926"></p>
+<p>&#x6570;&#x5B57;1~99</p>
+<p>Sub Window  :</p>
+<h3 id="&#x7A97;&#x53E3;&#x7684;&#x6B21;&#x5E8F;"><a name="&#x7A97;&#x53E3;&#x7684;&#x6B21;&#x5E8F;" class="anchor-navigation-ex-anchor" href="#&#x7A97;&#x53E3;&#x7684;&#x6B21;&#x5E8F;"><i class="fa fa-link" aria-hidden="true"></i></a>4.2.2. &#x7A97;&#x53E3;&#x7684;&#x6B21;&#x5E8F;</h3>
+<p><strong>1&#x3001;&#x7A97;&#x53E3;&#x5206;&#x7EC4;&#xFF08;&#x6309;&#x7167;&#x7C7B;&#x578B;&#xFF09;&#xFF1A;</strong>
+<del>APPlication window&#x3001;sub window&#x3001;System Window &#x987A;&#x5E8F;</del> ----&#x300B; &#x975E;&#x5E38;&#x81EA;&#x7136;
+<img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230114220140929.png" alt="image-20230114220140929"></p>
+<p>&#x7CFB;&#x7EDF;&#x7A97;&#x53E3;&#x3001;&#x5B50;&#x7A97;&#x53E3;&#x3001;&#x5E94;&#x7528;&#x7A97;&#x53E3;---------&gt; &#x6BD4;&#x5982;&#xFF1A;</p>
+<p>Activity&#xFF08;&#x5E94;&#x7528;&#x7A97;&#x53E3;&#xFF09;&#x5F39;&#x8D77;popDialog&#xFF08;&#x5B50;&#x7A97;&#x53E3;&#xFF09;&#xFF0C;popDialog&#x5185;&#x6709;&#x4E2A;&#x8F93;&#x5165;&#x6846;&#xFF0C;&#x70B9;&#x51FB;&#x8F93;&#x5165;&#x6846; &#xFF0C;&#x5F39;&#x8D77;&#x8F93;&#x5165;&#x6CD5;&#x9762;&#x677F;&#xFF08;&#x7CFB;&#x7EDF;&#x7A97;&#x53E3;&#xFF09;</p>
+<p><strong>2&#x3001;&#x540C;&#x7EC4;&#x4E4B;&#x95F4;&#xFF0C;&#x901A;&#x8FC7;Type&#x503C;&#x6765;&#x6807;&#x5FD7;&#x524D;&#x540E;&#x5173;&#x7CFB;</strong></p>
+<p><del>Type&#x503C;&#x8D8A;&#x5927;&#xFF0C;&#x8D8A;&#x5728;&#x524D;</del>  -----&gt;  &#x81EA;&#x7136;</p>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x6240;&#x4EE5;&#xFF0C;&#x5E76;&#x4E0D;&#x662F;&#x6839;&#x636E;dialog&#x5F39;&#x51FA;&#x7684;&#x5148;&#x540E;&#x987A;&#x5E8F;&#x5B9A;&#x7684;&#x524D;&#x540E;&#x5173;&#x7CFB;</p>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230114220421955.png" alt="image-20230114220421955"></p>
+<p>TODO:  Type&#x503C;&#x662F;&#x5982;&#x4F55;&#x786E;&#x5B9A;&#x7684;&#x5462;&#xFF1F;</p>
+<p>&#x81EA;&#x7136;&#xFF0C;Dialog&#x7684; Type&#x8981;&#x6BD4;  Activity&#x7684;&#x5927; --------&gt;  &#x540C;&#x7EC4;</p>
+<h3 id="&#x7A97;&#x53E3;&#x7684;&#x6807;&#x5FD7;"><a name="&#x7A97;&#x53E3;&#x7684;&#x6807;&#x5FD7;" class="anchor-navigation-ex-anchor" href="#&#x7A97;&#x53E3;&#x7684;&#x6807;&#x5FD7;"><i class="fa fa-link" aria-hidden="true"></i></a>4.2.3. &#x7A97;&#x53E3;&#x7684;&#x6807;&#x5FD7;</h3>
+<p>// &#x5F53; Window &#x53EF;&#x89C1;&#x65F6;&#x5141;&#x8BB8;&#x9501;&#x5C4F; FLAG_ALLOW_LOCK_WHILE_SCREEN_ON</p>
+<p> // Window &#x4E0D;&#x80FD;&#x83B7;&#x5F97;&#x8F93;&#x5165;&#x7126;&#x70B9;,&#x5373;&#x4E0D;&#x63A5;&#x53D7;&#x4EFB;&#x4F55;&#x6309;&#x952E;&#x6216;&#x6309;&#x94AE;&#x4E8B;&#x4EF6;,&#x4F8B;&#x5982;&#x8BE5; Window&#x4E0A;&#x6709;EditView,&#x70B9;&#x51FB; EditView &#x662F;&#x4E0D;&#x4F1A;&#x5F39;&#x51FA;&#x8F6F;&#x952E; &#x76D8;&#x7684; </p>
+<p>// Window &#x8303;&#x56F4;&#x5916;&#x7684;&#x4E8B;&#x4EF6;&#x4F9D;&#x65E7;&#x4E3A;&#x539F;&#x7A97;&#x53E3;&#x5904;&#x7406;; &#x4F8B;&#x5982;&#x70B9;&#x51FB;&#x8BE5;&#x7A97;&#x53E3;&#x5916;&#x7684;view,&#x4F9D;&#x7136;&#x4F1A;&#x6709;&#x54CD;&#x5E94;&#x3002;&#x53E6;&#x5916;&#x53EA;&#x8981;&#x8BBE;&#x7F6E;&#x4E86;&#x6B64;Flag,&#x90FD;&#x5C06;&#x4F1A;&#x542F;&#x7528; FLAG_NOT_TOUCH_MODAL FLAG_NOT_FOCUSABLE = 0x00000008; </p>
+<p>// &#x8BBE;&#x7F6E;&#x4E86;&#x8BE5; Flag,&#x5C06; Window &#x4E4B;&#x5916;&#x7684;&#x6309;&#x952E;&#x4E8B;&#x4EF6;&#x53D1;&#x9001;&#x7ED9;&#x540E;&#x9762;&#x7684; Window&#x5904;&#x7406;, &#x800C;&#x81EA;&#x5DF1;&#x53EA;&#x4F1A;&#x5904;&#x7406; Window &#x533A;&#x57DF;&#x5185;&#x7684;&#x89E6;&#x6478;&#x4E8B;&#x4EF6; </p>
+<p>// Window &#x4E4B;&#x5916;&#x7684;view &#x4E5F;&#x662F;&#x53EF;&#x4EE5;&#x54CD;&#x5E94; touch &#x4E8B;&#x4EF6;&#x3002; FLAG_NOT_TOUCH_MODAL = 0x00000020; </p>
+<p>// &#x8BBE;&#x7F6E;&#x4E86;&#x8BE5;Flag,&#x8868;&#x793A;&#x8BE5; Window&#x5C06;&#x4E0D;&#x4F1A;&#x63A5;&#x53D7;&#x4EFB;&#x4F55; touch &#x4E8B;&#x4EF6;,&#x4F8B;&#x5982;&#x70B9;&#x51FB;&#x8BE5; Window &#x4E0D;&#x4F1A;&#x6709;&#x54CD;&#x5E94;,&#x53EA;&#x4F1A;&#x4F20;&#x7ED9;&#x4E0B;&#x9762;&#x6709;&#x805A;&#x7126;&#x7684;&#x7A97;&#x53E3;&#x3002; <strong>FLAG_NOT_TOUCHABLE;</strong> 
+-------&#x300B; <font color="red"> &#x4F8B;&#x5B50;&#xFF1A;ToastDialog</font></p>
+<p> // &#x53EA;&#x8981; Window &#x53EF;&#x89C1;&#x65F6;&#x5C4F;&#x5E55;&#x5C31;&#x4F1A;&#x4E00;&#x76F4;&#x4EAE;&#x7740; FLAG_KEEP_SCREEN_ON </p>
+<p>// &#x5141;&#x8BB8; Window &#x8D85;&#x8FC7;&#x5C4F;&#x5E55;&#x4E4B;&#x5916; FLAG_LAYOUT_NO_LIMITS </p>
+<p>// &#x5F53;&#x7528;&#x6237;&#x7684;&#x8138;&#x8D34;&#x8FD1;&#x5C4F;&#x5E55;&#x65F6;(&#x6BD4;&#x5982;&#x6253;&#x7535;&#x8BDD;) &#x4E0D;&#x4F1A;&#x53BB;&#x54CD;&#x5E94;&#x6B64;&#x4E8B;&#x4EF6; FLAG_IGNORE CHEEK PRESSES; // &#x7A97;&#x53E3;&#x53EF;&#x4EE5;&#x5728;&#x9501;&#x5C4F;&#x7684; Window &#x4E4B;&#x4E0A;&#x663E;&#x793A;,&#x4F7F;&#x7528; Activity#setShowWhenLocked(boolean) &#x65B9;&#x6CD5;&#x4EE3;&#x66FF; FLAG_SHOW_WHEN_LOCKED = 0x00080000;</p>
+<h2 id="windowmanger"><a name="windowmanger" class="anchor-navigation-ex-anchor" href="#windowmanger"><i class="fa fa-link" aria-hidden="true"></i></a>4.3. WindowManger</h2>
+<p>&#x7A97;&#x53E3;&#x7684;&#x64CD;&#x4F5C;&#x7C7B;&#x3001;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x63A5;&#x53E3;&#x7C7B;&#xFF08;addView&#x3001;removeView&#x3001;updateViewLayout&#xFF09;&#xFF0C;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x7C7B;&#x662F;WindowMangerImpl</p>
+<p>&#x5904;&#x4E8E;&#x5E94;&#x7528;&#x4FA7;&#xFF08;&#x8FDB;&#x7A0B;&#xFF09;</p>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230114235659980.png" alt="image-20230114235659980"></p>
+<p>&#x300A;xiangxue&#x300B;</p>
+<p>&#x4E3A;&#x5565;&#x662F;&#x6865;&#x63A5;&#x6A21;&#x5F0F;&#x5462;&#xFF1F;
+&#x6865;&#xFF1A;Window-WindowManager</p>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230116201458970.png" alt="image-20230116201458970"></p>
+<p>&#x597D;&#x5904;&#xFF1A;&#x4E0A;&#x5C42;&#x62BD;&#x8C61;&#x8FDB;&#x884C;&#x5173;&#x8054;&#xFF0C;&#x4E0B;&#x5C42;&#x5B9E;&#x73B0;&#x53EF;&#x4EE5;&#x72EC;&#x7ACB;&#x53D1;&#x5C55;&#xFF08;&#x4E0B;&#x5C42;&#x53EF;&#x4EE5;&#x7075;&#x6D3B;&#x53D8;&#x52A8;&#xFF09;</p>
+<h3 id="&#x63A5;&#x53E3;viewmanager"><a name="&#x63A5;&#x53E3;viewmanager" class="anchor-navigation-ex-anchor" href="#&#x63A5;&#x53E3;viewmanager"><i class="fa fa-link" aria-hidden="true"></i></a>4.3.1. &#x63A5;&#x53E3;ViewManager</h3>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230116202323967.png" alt="image-20230116202323967"></p>
+<p>addView&#x3001;removeView&#x3001;updateViewLayout
+-------&#x300B;&#x81EA;&#x7136;&#xFF0C;ViewGroup &#x9700;&#x8981;&#x8FD9;&#x4E09;&#x4E2A;</p>
+<p>&#x4E3A;&#x5565;window&#x9700;&#x8981;&#x5462;&#xFF1F;</p>
+<h4 id="&#x6DFB;&#x52A0;&#x7A97;&#x53E3;addview-&#x6D41;&#x7A0B;--app&#x4FA7;"><a name="&#x6DFB;&#x52A0;&#x7A97;&#x53E3;addview-&#x6D41;&#x7A0B;--app&#x4FA7;" class="anchor-navigation-ex-anchor" href="#&#x6DFB;&#x52A0;&#x7A97;&#x53E3;addview-&#x6D41;&#x7A0B;--app&#x4FA7;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6DFB;&#x52A0;&#x7A97;&#x53E3;addView &#x6D41;&#x7A0B;:  APP&#x4FA7;</h4>
+<p>&#x89C1; wms&#x4E2D; &#x6DFB;&#x52A0;&#x7A97;&#x53E3;&#x6D41;&#x7A0B;</p>
+<h4 id="&#x66F4;&#x65B0;&#x7A97;&#x53E3;-updateviewlayout"><a name="&#x66F4;&#x65B0;&#x7A97;&#x53E3;-updateviewlayout" class="anchor-navigation-ex-anchor" href="#&#x66F4;&#x65B0;&#x7A97;&#x53E3;-updateviewlayout"><i class="fa fa-link" aria-hidden="true"></i></a>&#x66F4;&#x65B0;&#x7A97;&#x53E3; updateViewLayout</h4>
+<p>&#x573A;&#x666F;&#xFF1A;
+&#x6A2A;&#x7AD6;&#x5C4F;&#x5207;&#x6362;</p>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230222001632800.png" alt="image-20230222001632800"></p>
+<p>&#x6700;&#x7EC8;&#x8FD8;&#x662F;&#x4F1A;&#x8D70;&#x5230;&#xFF0C;view&#x5237;&#x65B0;&#x7ED8;&#x5236;&#x6D41;&#x7A0B;----&gt;  &#x4E0D;&#x5F97;&#x4E0D;</p>
+<h2 id="viewrootimpl"><a name="viewrootimpl" class="anchor-navigation-ex-anchor" href="#viewrootimpl"><i class="fa fa-link" aria-hidden="true"></i></a>4.4. ViewRootImpl</h2>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230118001914214.png" alt="image-20230118001914214"></p>
+<p>1&#x3001;&#x7BA1;&#x7406;view&#x6811;&#xFF1A;
+2&#x3001;&#x89E6;&#x53D1;view&#x7684;&#x7ED8;&#x5236;&#x6D41;&#x7A0B;&#xFF08;&#x6700;&#x7EC8;&#x76EE;&#x6807;&#xFF1A;&#x7ED8;&#x5236;&#xFF0C;&#x5177;&#x4F53;&#x94FA;&#x57AB;&#xFF1A;&#x6D4B;&#x91CF;&#x3001;&#x5E03;&#x5C40;&#x548C;&#x7ED8;&#x5236;&#xFF09;</p>
+<p>&#x89E6;&#x53D1;&#x70B9;&#xFF1A;&#x81EA;&#x7136;&#xFF0C;viewRootImpl&#x7684;<font color="red">performTraversales() &#x65B9;&#x6CD5;&#xFF08;&#x6700;&#x5F00;&#x59CB;&#x89E6;&#x53D1;&#x662F;  vsync&#x4FE1;&#x53F7;, &#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x662F;&#x5237;&#x65B0;&#x3001;&#x7ED8;&#x5236;&#x7684;&#x5165;&#x53E3;</font>&#xFF09;</p>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230221232747845.png" alt="image-20230221232747845"></p>
+<p>----&gt;  &#x81EA;&#x7136;&#xFF0C;&#x7A97;&#x53E3;&#x7684;&#x66F4;&#x65B0;updateViewLayout &#x4E5F;&#x4F1A;&#x8D70;&#x5230; performTraversales()</p>
+<p>3&#x3001;&#x4E0E;wms&#x4EA4;&#x4E92;  ----&#x300B;  &#x8BB0;&#x5FC6;&#x56FE;&#xFF1A;&#x300A;&#x8D85;&#x7EA7;0&#x5C42;&#x56FE;: AMS-APP-WMS&#x300B;</p>
+<h2 id="&#x5BF9;&#x5E94;&#x5173;&#x7CFB;-windowmanagerglobal&#x3001;windowmanagerimpl&#x3001;viewrootimpl"><a name="&#x5BF9;&#x5E94;&#x5173;&#x7CFB;-windowmanagerglobal&#x3001;windowmanagerimpl&#x3001;viewrootimpl" class="anchor-navigation-ex-anchor" href="#&#x5BF9;&#x5E94;&#x5173;&#x7CFB;-windowmanagerglobal&#x3001;windowmanagerimpl&#x3001;viewrootimpl"><i class="fa fa-link" aria-hidden="true"></i></a>4.5. &#x5BF9;&#x5E94;&#x5173;&#x7CFB; windowManagerGlobal&#x3001;windowManagerImpl&#x3001;viewRootImpl</h2>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230222003324499.png" alt="image-20230222003324499"></p>
+<p>windowManagerImpl ----------acitvity&#x7EA7;&#x522B;&#xFF08;&#x7BA1;&#x7406;window&#xFF0C;&#x81EA;&#x7136;&#xFF09;</p>
+<p>windowManagerGlobal---------&#x5355;&#x4F8B; &#xFF08;&#x8FDB;&#x7A0B;&#x7EA7;&#x522B;&#xFF09;</p>
+<p>viewRootImpl-----------window&#x7EA7;&#x522B;</p>
+<p>&#x63A8;&#x8BBA;&#xFF1A; 1&#x3001;windowManagerImpl  &#x4E0E; viewRootImpl&#x6570;&#x91CF;&#x57FA;&#x672C;&#x4E00;&#x6837;</p>
+<p>&#x200B;              2&#x3001; &#x591A;&#x8F6C;&#x4E00;&#xFF0C;&#x518D;&#x8F6C;&#x591A;&#xFF1A;&#x901A;&#x8FC7;decorView &#x5EFA;&#x7ACB;&#x6620;&#x5C04;&#x5173;&#x7CFB;</p>
+<h2 id="view-tree--------window&#x7684;&#x586B;&#x5145;&#x663E;&#x793A;"><a name="view-tree--------window&#x7684;&#x586B;&#x5145;&#x663E;&#x793A;" class="anchor-navigation-ex-anchor" href="#view-tree--------window&#x7684;&#x586B;&#x5145;&#x663E;&#x793A;"><i class="fa fa-link" aria-hidden="true"></i></a>4.6. view Tree--------window&#x7684;&#x586B;&#x5145;+&#x663E;&#x793A;</h2>
+<p>&#x89C1;</p>
+<h1 id="window&#x4F53;&#x7CFB;-----&#x7CFB;&#x7EDF;&#x4FA7;"><a name="window&#x4F53;&#x7CFB;-----&#x7CFB;&#x7EDF;&#x4FA7;" class="anchor-navigation-ex-anchor" href="#window&#x4F53;&#x7CFB;-----&#x7CFB;&#x7EDF;&#x4FA7;"><i class="fa fa-link" aria-hidden="true"></i></a>5. window&#x4F53;&#x7CFB;-----&#x7CFB;&#x7EDF;&#x4FA7;</h1>
+<p>WindowContainer</p>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/4d8172828ac04f50a8a3b9f358bc12d2.png" alt="&#x5728;&#x8FD9;&#x91CC;&#x63D2;&#x5165;&#x56FE;&#x7247;&#x63CF;&#x8FF0;"></p>
+<h2 id="&#x6301;&#x6709;&#x5173;&#x7CFB;-----&#x91CD;&#x8981;"><a name="&#x6301;&#x6709;&#x5173;&#x7CFB;-----&#x91CD;&#x8981;" class="anchor-navigation-ex-anchor" href="#&#x6301;&#x6709;&#x5173;&#x7CFB;-----&#x91CD;&#x8981;"><i class="fa fa-link" aria-hidden="true"></i></a>5.1. &#x6301;&#x6709;&#x5173;&#x7CFB;-----&#x91CD;&#x8981;</h2>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230905000856766.png" alt="image-20230905000856766"></p>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/8a1a919b381446298a782cc2f11fbcea.png" alt="img"></p>
+<p><a href="https://blog.csdn.net/q1165328963/article/details/127746382?spm=1001.2101.3001.6650.9&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-9-127746382-blog-130015066.235%5Ev38%5Epc_relevant_anti_t3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-9-127746382-blog-130015066.235%5Ev38%5Epc_relevant_anti_t3&amp;utm_relevant_index=10" target="_blank">https://blog.csdn.net/q1165328963/article/details/127746382?spm=1001.2101.3001.6650.9&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-9-127746382-blog-130015066.235%5Ev38%5Epc_relevant_anti_t3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-9-127746382-blog-130015066.235%5Ev38%5Epc_relevant_anti_t3&amp;utm_relevant_index=10</a></p>
+<p>&#x53C2;&#x8003;&#xFF1A;  <a href="https://blog.csdn.net/lizhenjun114/article/details/130015066?spm=1001.2101.3001.6650.7&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-130015066-blog-129101781.235%5Ev38%5Epc_relevant_anti_t3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-130015066-blog-129101781.235%5Ev38%5Epc_relevant_anti_t3&amp;utm_relevant_index=8" target="_blank">https://blog.csdn.net/lizhenjun114/article/details/130015066?spm=1001.2101.3001.6650.7&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-130015066-blog-129101781.235%5Ev38%5Epc_relevant_anti_t3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-130015066-blog-129101781.235%5Ev38%5Epc_relevant_anti_t3&amp;utm_relevant_index=8</a></p>
+<h2 id="&#x7EE7;&#x627F;&#x5173;&#x7CFB;----&#x7C7B;&#x4F3C;view&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;"><a name="&#x7EE7;&#x627F;&#x5173;&#x7CFB;----&#x7C7B;&#x4F3C;view&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;" class="anchor-navigation-ex-anchor" href="#&#x7EE7;&#x627F;&#x5173;&#x7CFB;----&#x7C7B;&#x4F3C;view&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;"><i class="fa fa-link" aria-hidden="true"></i></a>5.2. &#x7EE7;&#x627F;&#x5173;&#x7CFB;----&#x7C7B;&#x4F3C;view&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;</h2>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/d02ea1e718ec4226ba5cb8619a394e2c.jpeg" alt="img"></p>
+<h2 id="&#x7CFB;&#x7EDF;&#x4FA7;window&#x4F53;&#x7CFB;-&#x4E0E;-app&#x4FA7;-view&#x4F53;&#x7CFB;"><a name="&#x7CFB;&#x7EDF;&#x4FA7;window&#x4F53;&#x7CFB;-&#x4E0E;-app&#x4FA7;-view&#x4F53;&#x7CFB;" class="anchor-navigation-ex-anchor" href="#&#x7CFB;&#x7EDF;&#x4FA7;window&#x4F53;&#x7CFB;-&#x4E0E;-app&#x4FA7;-view&#x4F53;&#x7CFB;"><i class="fa fa-link" aria-hidden="true"></i></a>5.3. &#x7CFB;&#x7EDF;&#x4FA7;window&#x4F53;&#x7CFB; &#x4E0E; APP&#x4FA7; view&#x4F53;&#x7CFB;</h2>
+<p>&#x7CFB;&#x7EDF;&#x4FA7;window&#x4F53;&#x7CFB; &#x4E0E; APP&#x4FA7; view&#x4F53;&#x7CFB;  &#x6781;&#x5176;&#x76F8;&#x4F3C;&#xFF1A; &#x5982;&#x4F55;&#x8BA4;&#x8BC6;view&#x4F53;&#x7CFB;&#xFF0C;&#x5C31;&#x5982;&#x4F55;&#x8BA4;&#x8BC6;window&#x4F53;&#x7CFB;</p>
+<p>1&#x3001;&#x90FD;&#x662F;<font color="red">&#x6811;&#x7ED3;&#x6784;&#xFF1A;</font>  window&#x6811;  &#x3001; view&#x6811;</p>
+<p>2&#x3001;&#x57FA;&#x4E8E;&#x6811;&#x7ED3;&#x6784;&#xFF1A; &#x6709;view&#x7684;&#x5E03;&#x5C40;  relayout</p>
+<p>&#x200B;                            &#x540C;&#x6837;&#xFF0C;window&#x6709;&#x5E03;&#x5C40;&#xFF1A; relayoutWindow</p>
+<p>3&#x3001;&#x57FA;&#x4E8E;&#x6811;&#x7ED3;&#x6784;&#xFF1A;</p>
+<p>&#x200B;                      &#x6811;&#x7684;&#x8282;&#x70B9;&#xFF1A;  windowContainer(&#x96C6;&#x5408;)&#x3001;viewGroup(&#x96C6;&#x5408;)</p>
+<p>&#x200B;                      &#x6811;&#x6839;&#xFF1A;windowState&#x3001;  view</p>
+<p>&#x5BF9;&#x6BD4;&#x4E0B;&#x7684;&#x8BA4;&#x77E5;&#xFF1A;</p>
+<p>view&#x6709;&#x6D4B;&#x91CF;measure&#xFF0C;&#x7CFB;&#x7EDF;&#x4FA7; window&#x6709;&#x6D4B;&#x91CF;&#x561B;&#xFF1F;</p>
+<p>TODO&#xFF1A;</p>
+<p>&#x7CFB;&#x7EDF;&#x4FA7;window&#x6570;&#x636E;&#x4F55;&#x65F6;&#x540C;&#x6B65;&#x7ED9; &#x5E94;&#x7528;&#x4FA7;&#x7684;&#xFF1F;</p>
+<p>-</p>
+<h2 id="&#x53C2;&#x8003;&#xFF1A;"><a name="&#x53C2;&#x8003;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x53C2;&#x8003;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>5.4. &#x53C2;&#x8003;&#xFF1A;</h2>
+<p><a href="https://blog.csdn.net/learnframework/article/details/129101781" target="_blank">https://blog.csdn.net/learnframework/article/details/129101781</a></p>
+<p><a href="https://blog.csdn.net/lizhenjun114/article/details/130015066?spm=1001.2101.3001.6650.7&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-130015066-blog-129101781.235%5Ev38%5Epc_relevant_anti_t3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-130015066-blog-129101781.235%5Ev38%5Epc_relevant_anti_t3&amp;utm_relevant_index=8" target="_blank">https://blog.csdn.net/lizhenjun114/article/details/130015066?spm=1001.2101.3001.6650.7&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-130015066-blog-129101781.235%5Ev38%5Epc_relevant_anti_t3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-130015066-blog-129101781.235%5Ev38%5Epc_relevant_anti_t3&amp;utm_relevant_index=8</a>    displayArea&#x5B66;&#x4E60;</p>
+<h1 id="&#x6846;&#x67B6;&#x7684;&#x80CC;&#x540E;"><a name="&#x6846;&#x67B6;&#x7684;&#x80CC;&#x540E;" class="anchor-navigation-ex-anchor" href="#&#x6846;&#x67B6;&#x7684;&#x80CC;&#x540E;"><i class="fa fa-link" aria-hidden="true"></i></a>6. &#x6846;&#x67B6;&#x7684;&#x80CC;&#x540E;</h1>
+<h1 id="&#x81EA;&#x7136;&#x6CD5;&#x5219;"><a name="&#x81EA;&#x7136;&#x6CD5;&#x5219;" class="anchor-navigation-ex-anchor" href="#&#x81EA;&#x7136;&#x6CD5;&#x5219;"><i class="fa fa-link" aria-hidden="true"></i></a>7. &#x81EA;&#x7136;&#x6CD5;&#x5219;</h1>
+<h1 id="&#x4E00;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x7406;&#x89E3;"><a name="&#x4E00;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x7406;&#x89E3;" class="anchor-navigation-ex-anchor" href="#&#x4E00;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x7406;&#x89E3;"><i class="fa fa-link" aria-hidden="true"></i></a>8. &#x4E00;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x7406;&#x89E3;</h1>
+<h2 id="wms&#x5BF9;&#x4E8E;&#x663E;&#x793A;&#x4E0D;&#x662F;&#x5FC5;&#x987B;&#x7684;"><a name="wms&#x5BF9;&#x4E8E;&#x663E;&#x793A;&#x4E0D;&#x662F;&#x5FC5;&#x987B;&#x7684;" class="anchor-navigation-ex-anchor" href="#wms&#x5BF9;&#x4E8E;&#x663E;&#x793A;&#x4E0D;&#x662F;&#x5FC5;&#x987B;&#x7684;"><i class="fa fa-link" aria-hidden="true"></i></a>8.1. wms&#x5BF9;&#x4E8E;&#x663E;&#x793A;&#x4E0D;&#x662F;&#x5FC5;&#x987B;&#x7684;</h2>
+<p>&#x4ECE;&#x751F;&#x6D3B;&#x5316;&#x6BD4;&#x55BB;&#x4E2D;&#x770B;&#x5FC5;&#x7136;&#x6027;&#xFF08;wms&#x662F;&#x5BFC;&#x6F14;&#x3001;surfaceFlinger&#x662F;&#x6444;&#x50CF;&#x673A;&#x3001;viewROOT&#x662F;&#x6F14;&#x5458;&#xFF09;&#xFF1A; </p>
+<blockquote>
+<p><del>WMS&#x4E0D;&#x662F;&#x5FC5;&#x987B;&#x7684;&#xFF0C;&#x7A97;&#x53E3;&#x4E0D;&#x662F;&#x5FC5;&#x987B;&#x7684;&#xFF0C;viewROOT&#x4E5F;&#x4E0D;&#x662F;&#x5FC5;&#x987B;&#x7684;</del></p>
+<p> &#x53EA;&#x6709;surfaceFlinger&#x6444;&#x50CF;&#x673A;&#x662F;&#x5FC5;&#x987B;&#x7684;</p>
+</blockquote>
+<p>&#x4F8B;&#x5B50;&#xFF1A;</p>
+<p><img src="&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#x5668;WMS.assets/image-20230910020758136.png" alt="image-20230910020758136"></p>
+<p>&#x53C2;&#x8003;&#xFF1A; <del>&#x300A;&#x6DF1;&#x5165;&#x7406;&#x89E3;Andriiod&#x5185;&#x6838;&#x8BBE;&#x8BA1;&#x601D;&#x60F3;&#x300B;  WMS  P386</del></p>
+<p>&#x53E6;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;<font color="red">&#x7ED3;&#x8BBA;</font>&#xFF1A;</p>
+<blockquote>
+<p>&#x4EEA;&#x8868;&#x57DF; &#x4E0D;&#x9700;&#x8981; &#x4EA4;&#x4E92;&#xFF0C;&#x4E5F;&#x9700;&#x8981;&#x7A97;&#x53E3;&#x7BA1;&#x7406;  ------------&gt;  &#x6240;&#x4EE5;&#xFF0C;<font color="red">&#x4EEA;&#x8868;&#x57DF;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x603C;&#x5230;drm&#xFF08;&#x7ED5;&#x8FC7;&#x7A97;&#x53E3;&#x7BA1;&#x7406;&#xFF09;</font></p>
+</blockquote>
+<h1 id="&#x9762;&#x8BD5;&#x9898;&#xFF1A;"><a name="&#x9762;&#x8BD5;&#x9898;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x9762;&#x8BD5;&#x9898;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>9. &#x9762;&#x8BD5;&#x9898;&#xFF1A;</h1>
+<p>1&#x3001;&#x7A97;&#x53E3;&#x7684;&#x6B21;&#x5E8F;&#xFF08;&#x89C1;&#x4E0A;&#xFF09;</p>
+<p>2&#x3001;&#x5B50;&#x7EBF;&#x7A0B;&#x4E2D; new &#x4E00;&#x4E2A; Dialog&#xFF0C;&#x51FA;&#x73B0;Token&#x62A5;&#x9519;</p>
+<p>Unable to add window token null is not valid is your activity running</p>
+<p><a href="https://blog.csdn.net/meixi_android/article/details/106380069?spm=1001.2101.3001.6650.12&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-12-106380069-blog-78530491.pc_relevant_recovery_v2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-12-106380069-blog-78530491.pc_relevant_recovery_v2&amp;utm_relevant_index=13" target="_blank">https://blog.csdn.net/meixi_android/article/details/106380069?spm=1001.2101.3001.6650.12&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-12-106380069-blog-78530491.pc_relevant_recovery_v2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-12-106380069-blog-78530491.pc_relevant_recovery_v2&amp;utm_relevant_index=13</a></p>
+<h1 id="&#x53C2;&#x8003;&#xFF1A;_1"><a name="&#x53C2;&#x8003;&#xFF1A;_1" class="anchor-navigation-ex-anchor" href="#&#x53C2;&#x8003;&#xFF1A;_1"><i class="fa fa-link" aria-hidden="true"></i></a>10. &#x53C2;&#x8003;&#xFF1A;</h1>
+
+<script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="wms_animination.html" class="navigation navigation-prev " aria-label="Previous page: Wms Animination">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../3_Display系统/" class="navigation navigation-next " aria-label="Next page: 3_Display系统">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"窗口管理器WMS","level":"1.2.3.6","depth":3,"next":{"title":"3_Display系统","level":"1.2.4","depth":2,"path":"0_图形系统/3_Display系统/README.md","ref":"0_图形系统/3_Display系统/README.md","articles":[{"title":"Display系统","level":"1.2.4.1","depth":3,"path":"0_图形系统/3_Display系统/Display系统.md","ref":"0_图形系统/3_Display系统/Display系统.md","articles":[]},{"title":"sf特效","level":"1.2.4.2","depth":3,"path":"0_图形系统/3_Display系统/sf特效.md","ref":"0_图形系统/3_Display系统/sf特效.md","articles":[]},{"title":"合成器surfaceFlinger","level":"1.2.4.3","depth":3,"path":"0_图形系统/3_Display系统/合成器surfaceFlinger.md","ref":"0_图形系统/3_Display系统/合成器surfaceFlinger.md","articles":[]}]},"previous":{"title":"Wms Animination","level":"1.2.3.5","depth":3,"path":"0_图形系统/2_窗口系统/wms_animination.md","ref":"0_图形系统/2_窗口系统/wms_animination.md","articles":[]},"dir":"ltr"},"config":{"//":["这是多行注释：    anchor-navigation-ex 是","anchor-navigation-ex 是","click-reveal 本地使用ok，但是github在build pages时，不识别click-reveal","accordion 也是折叠代码段","anchor-navigation-ex 是"],"plugins":["anchor-navigation-ex","toggle-chapters","expandable-chapters-small","splitter","code","page-treeview","popup","-search","-lunr","sidebar-style","auto-scroll-table","click-reveal","accordion","pageview-count","search-pro","prism","prism-themes","-highlight"],"root":"./markdownsFiles","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"Kent","title":"《prove》"},"tbfed-pagefooter":{"copyright":"Copyright &copy ershouche-FE 2019","modify_label":"文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"page-treeview":{"collapsed":false,"copyright":"Copyright © aleen42","minHeaderCount":"1","minHeaderDeep":"1"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"disqus":{"shortName":"gitbookuse"},"splitter":{},"search-pro":{},"accordion":{},"auto-scroll-table":{},"popup":{},"lunr":{"maxIndexSize":400000},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"click-reveal":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"pageview-count":{},"prism-themes":{},"expandable-chapters-small":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"toggle-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"bookname":"笔记","variables":{},"title":"Kent的博客","gitbook":"*"},"file":{"path":"0_图形系统/2_窗口系统/窗口管理器WMS.md","mtime":"2024-06-18T18:08:45.930Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-07-02T14:36:47.502Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-toggle-chapters/toggle.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sidebar-style/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-auto-scroll-table/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-click-reveal/click_reveal.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-accordion/accordionSelector.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-pageview-count/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

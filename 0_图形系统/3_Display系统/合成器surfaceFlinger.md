@@ -76,7 +76,21 @@ TODO:
 
 
 
-## 合成策略
+## why----------合成  存在的必然性
+
+证明：
+
+>   多个画家（App）各自画画，<font color='red'>必然存在</font>一个人去 张贴所有画  到 一个墙上，即合成
+
+即使统一渲染（多个画家，指挥一个人画在墙上）：
+
+>   也是存在**隐式的 合成**（多对一发指令）-------> 即绘图指令的合成
+
+----------------------> 总之，<font color='red'>合成  是 “多对一”  的必然。</font>
+
+
+
+## how--------合成策略
 
 
 
@@ -90,7 +104,7 @@ TODO:
 >
 > [图来源：](https://www.cnblogs.com/hellokitty2/p/17637480.html#:~:text=%E5%9B%BE%E6%89%80%E7%A4%BA%EF%BC%8C-,%E6%AD%A4%E5%9B%BE%E6%9D%A5%E6%BA%90%E4%BA%8EAndrod%E5%AE%98%E7%BD%91,-%EF%BC%9A)：
 
-~~即：~~
+两种合成方式：
 
 > 1、~~SF合成：重新draw（即SF 的client方式）~~ ------ 最终GPU承载（~~软件部分：sf的openGl调用~~） 
 >
@@ -104,11 +118,15 @@ TODO:
 >
 > ​           效率更高（不占GPU资源）
 >
-> ​           **但是有四层的限制**
+> ​           **但是有四层的限制？**
 >
 > 2、sf合成：
 >
 > ​       ~~自然~~
+
+两种合成方式存在的必然性：
+
+
 
 
 
@@ -655,6 +673,10 @@ Android graphic系列文章： https://blog.csdn.net/tkwxty/category_11464526.ht
 >   https://blog.csdn.net/gzzaigcnforever/article/details/22175829#:~:text=解释SurfaceFlinger从应用层到底层的整个绘图，显示的大致流程。
 
 
+
+# 疑问：
+
+如何选择 两种合成方式？
 
 
 

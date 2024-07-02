@@ -917,7 +917,7 @@ google封装了gdbclient.py  -------->  **通用的，就是gdbclient.py 封装�
 
 TODO: 学习Google是如何配置符号的
 
-![image-20221030223927538](gdb.assets/image-20221030223927538.png)
+![image-20221030223927538](gdb.assets/image-20221030223927538-1719942746706.png)
 
 2、 设置端口转发，attach进程pid
 
@@ -937,8 +937,8 @@ adb shell gdbserver :1235 --attach pid    或  adb shell gdbserver64 :1235 --att
 
 3、通过wifi调试，设备连接wifi,保证服务器和设备在同一个局域网内
 
-```
-$ adb tcpip 5555 #在设备端运行
+```java
+$ adb tcpip 5555 #在设备端运行  或者  开发者选项>无线调试打开>IP地址和端口
 $ adb connect <设备ip地址> #在服务端运行
 ```
 

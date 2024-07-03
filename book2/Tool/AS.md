@@ -556,6 +556,86 @@ A problem occurred configuring root project 'openGL-Demo-master'.
 
 
 
+## AS gradle下载问题
+
+方法一（优）：
+
+>   配置代理：settings ---> proxy
+
+方法二：(未验证)
+
+>   
+>
+>   ```java
+>   使用国内的镜像：
+>   https://mirrors.cloud.tencent.com/gradle/
+>   
+>   配置：
+>   ~/workingspace/androidProject/MyApplication3/gradle/wrapper/gradle-wrapper.properties
+>   ```
+>
+>   
+>
+>   ![img](AS.assets/20201206161256768.png)
+>
+>   [图来源](https://blog.csdn.net/youngwah292/article/details/110734407#:~:text=讯镜像-,里面有这个版本的文件。,-3.再次使用)
+>
+>   参考：[gradle不同版本下载太慢---腾讯做了国内镜像可以直接下载](https://blog.csdn.net/youngwah292/article/details/110734407)
+
+方法三：(未验证)
+
+>   手动下载配置：参考  “gradle project sync failed”
+
+maven下载问题：
+
+```java
+ // Top-level build file where you can add configuration options common to all sub-projects/modules.
+ 
+ buildscript {
+
+     repositories {
+         maven { url "<https://jitpack.io>" }
+         maven { url '<https://maven.aliyun.com/repository/releases>' }
+         maven { url '<https://maven.aliyun.com/repository/jcenter>' }
+         maven { url '<https://maven.aliyun.com/repository/google>' }
+         maven { url '<https://maven.aliyun.com/repository/central>' }
+         maven { url '<https://maven.aliyun.com/repository/gradle-plugin>' }
+         maven { url '<https://maven.aliyun.com/repository/public>' }
+ 
+         google()
+         jcenter()
+
+     }
+     dependencies {
+         classpath 'com.android.tools.build:gradle:3.6.0'
+
+ 
+         // NOTE: Do not place your application dependencies here; they belong
+         // in the individual module build.gradle files
+     }
+ }
+ 
+ allprojects {
+     repositories {
+         maven { url "<https://jitpack.io>" }
+         maven { url '<https://maven.aliyun.com/repository/releases>' }
+         maven { url '<https://maven.aliyun.com/repository/jcenter>' }
+         maven { url '<https://maven.aliyun.com/repository/google>' }
+         maven { url '<https://maven.aliyun.com/repository/central>' }
+         maven { url '<https://maven.aliyun.com/repository/gradle-plugin>' }
+         maven { url '<https://maven.aliyun.com/repository/public>' }
+ 
+         google()
+         jcenter()
+
+     }
+ }
+ 
+ task clean(type: Delete) {
+     delete rootProject.buildDir
+ }
+```
+
 # Device Monitor启动
 
 https://blog.csdn.net/weixin_55545941/article/details/130883921
@@ -572,9 +652,7 @@ Ctrl + Shift + -	折叠所有代码
 
 
 
-
-
-<font color='green'>Ctrl + E  来替代   多行显示 -----》 极优</font>
+<font color='green'>Ctrl + E  来替代   多行显示Tab ----->  极优</font>
 
 原因： 1、多行 占用  代码显示空间，很垃圾     2、多行  没有最近使用的一个stack排序，当文件显示超过四五个，没有优先级  -----》  造成很难找
               3、人找文件是按照首字母去找， 多行，非常bug，眼睛要扫完整个文件名才能看下一个（Ctrl + E  从上到下，只需匹配首字母） ----》非常垃圾

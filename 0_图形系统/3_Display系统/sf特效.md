@@ -818,6 +818,65 @@ struct weston_color_transform {
 
 
 
+## App client侧画圆角&阴影：
+
+Google
+
+```java
+package com.google.android.material.shadow;
+
+   public final class ShadowRenderer {
+
+   public final void drawCornerShadow(Canvas canvas, Matrix matrix, RectF rectF, int i, float f, float f2) {
+        boolean z;
+        if (f2 < 0.0f) {
+            z = true;
+        } else {
+            z = false;
+        }
+        Path path = this.scratch;
+        int[] iArr = cornerColors;
+        if (z) {
+            iArr[0] = 0;
+            iArr[1] = this.shadowEndColor;
+            iArr[2] = this.shadowMiddleColor;
+            iArr[3] = this.shadowStartColor;
+        } else {
+            path.rewind();
+            path.moveTo(rectF.centerX(), rectF.centerY());
+            path.arcTo(rectF, f, f2);
+            path.close();
+            float f3 = -i;
+            rectF.inset(f3, f3);
+            iArr[0] = 0;
+            iArr[1] = this.shadowStartColor;
+            iArr[2] = this.shadowMiddleColor;
+            iArr[3] = this.shadowEndColor;
+        }
+        float width = rectF.width() / 2.0f;
+        if (width <= 0.0f) {
+            return;
+        }
+        float f4 = 1.0f - (i / width);
+        float[] fArr = cornerPositions;
+        fArr[1] = f4;
+        fArr[2] = ((1.0f - f4) / 2.0f) + f4;
+        RadialGradient radialGradient = new RadialGradient(rectF.centerX(), rectF.centerY(), width, iArr, fArr, Shader.TileMode.CLAMP);
+        Paint paint = this.cornerShadowPaint;
+        paint.setShader(radialGradient);
+        canvas.save();
+        canvas.concat(matrix);
+        canvas.scale(1.0f, rectF.height() / rectF.width());
+        if (!z) {
+            canvas.clipPath(path, Region.Op.DIFFERENCE);
+            canvas.drawPath(path, this.transparentPaint);
+        }
+        canvas.drawArc(rectF, f, f2, true, paint);
+        canvas.restore();
+    }
+
+```
+
 
 
 

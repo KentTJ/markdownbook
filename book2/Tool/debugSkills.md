@@ -1,5 +1,3 @@
-
-
 # 目录
 
 
@@ -1552,11 +1550,137 @@ Google、baidu、new Bing、bibili
 
 
 
+## 断点调试失败的例子--------代码混淆
+
+结论：某些目录下的文件 都没法断点调试，比如：
+
+```java
+frameworks/base/libs/WindowManager/Shell/src/com/android/wm/shell/  
+```
+
+原因：
+
+> 包名混淆了 package com.android.<font color='red'>p032wm</font>.shell.windowdecor;  ----> 不重要
+>
+> <font color='red'>大量行的顺序变动了</font>
+>
+> 
+
+根因：谁做的混淆？为什么做混淆？
+
+> 关键字段----proguard 混淆
+>
+> ```java
+> /frameworks/base/packages/SystemUI/Android.bp 配置了混淆
+> 
+> defaults: [
+> 	...................
+> "SystemUI_optimized_defaults", // 【】 混淆配置封装
+> ],
+> 
+> optimize: {
+>  proguard_flags_files: ["proguard.flags"],
+> },
+> 
+> //frameworks/base/packages/SystemUI/proguard_common.flags
+> ```
+
+
+
+解决办法：
+
+> 1、取消混淆（<font color='red'>验证ok</font>）：
+>
+> 以systemui.apk为例：
+>
+> ```java
+> workingspace/aosp14_0_0_28/frameworks/base/packages/SystemUI/Android.bp
+> 
+> systemui_optimized_java_defaults {
+>  name: "SystemUI_optimized_defaults",
+>  soong_config_variables: {
+>      SYSTEMUI_OPTIMIZE_JAVA: {
+>          optimize: {
+>              //enabled: true,   启用了优化
+>              //optimize: true,  设置为优化代码
+>              //shrink: true,     代码缩减
+>              //shrink_resources: true,  资源缩减
+>              //proguard_compatibility: false,
+> 
+>              // 【】 修改后
+>              enabled: false,  // 【】决定性作用
+>              optimize: false, // 【】决定性作用
+>              shrink: false,  // 【】决定性作用
+>              shrink_resources: false, // 【】决定性作用
+>              proguard_compatibility: true,
+>          },
+>          conditions_default: {
+>              optimize: {
+>                  proguard_compatibility: false,  // 兼容性配置，不重要
+>              },
+>          },
+>      },
+>  },
+> }
+> 
+> android_app {
+>  name: "SystemUI",
+>  defaults: [
+>      ...................
+>      "SystemUI_optimized_defaults", // 【】 混淆配置封装
+>  ],
+> 
+>  ...................
+>  optimize: {
+>      proguard_flags_files: ["proguard.flags"], // 【】例外情形（类）配置，不重要
+>  },
+>  ...................
+> }
+> ```
+>
+> ~~参考（实际都没用上）：~~
+>
+> > [Android 代码混淆 proguard.flags](https://blog.csdn.net/silence_cdsn/article/details/41542877)
+> >
+> > [proguard 和 proguard.flags文件](https://blog.csdn.net/punk_lover/article/details/80060898)
+> >
+> > [mk错误：Verification error in 和Had a hard failure verifying all classes](https://www.jianshu.com/p/0906494c2853)
+>
+> 
+>
+> 2、断点在其他类里：(<font color='red'>可行，速度快</font>)
+>
+> ​     向下查找调用，走出/com/android/wm/shell/  路径
+>
+> ```java
+> setCornerRadius:3189, SurfaceControl$Transaction (android.view)  // 【】比如SurfaceControl，不在
+> relayout:74, WindowDecoration (com.android.wm.shell.windowdecor)
+> relayout:20, CaptionWindowDecoration (com.android.wm.shell.windowdecor)
+> createWindowDecoration:89, CaptionWindowDecorViewModel (com.android.wm.shell.windowdecor)
+> onTaskChanging:48, CaptionWindowDecorViewModel (com.android.wm.shell.windowdecor)
+> dispatchReady:282, Transitions (com.android.wm.shell.transition)
+> onTransitionReady:118, Transitions (com.android.wm.shell.transition)
+> run:13, Transitions$TransitionPlayerImpl$$ExternalSyntheticLambda0 (com.android.wm.shell.transition)
+> handleCallback:958, Handler (android.os)
+> dispatchMessage:99, Handler (android.os)
+> loopOnce:205, Looper (android.os)
+> loop:294, Looper (android.os)
+> run:67, HandlerThread (android.os)
+> ```
+>
+> 
+
+
+
+
+
+
+
 ## debug环境规定：
 
 1、ANR显示crash对话、show后台ANR
 
-![image-20230722003030541](debugSkills.assets/image-20230722003030541.png)
+![image-20230722003030541](debugSkills.assets/image-20230722003030541-1720027137785.png)
 
 2、关闭动画？
 
@@ -1575,6 +1699,19 @@ Google、baidu、new Bing、bibili
 4、次要环境：显示点击的位置
 
 ![image-20230722003521947](debugSkills.assets/image-20230722003521947.png)
+
+5、加log 或 TAG， **规定：**
+
+>   目的：为了行号一致性，加log不允许增加行数！！！！！！
+>
+>   > ```java
+>   > void relayout(RelayoutParams params) { Log.e(TAG, "Trying to convert unknown rotation=" + rotation);
+>   > ...........
+>   > }
+>   > ```
+>
+>   ---------------------->  <font color='red'>极优：两份代码不一样，但断点可以同时匹配！</font>
+>
 
 
 
@@ -2611,10 +2748,4 @@ TODO: 反编译技能
 
 
 
-
-|      |      |      |
-| ---- | ---- | ---- |
-|      |      |      |
-|      |      |      |
-|      |      |      |
 

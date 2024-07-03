@@ -3114,7 +3114,7 @@ TODO: 延拓应用领域
 
 ## 精力模型
 
-![image-20231127002056282](ReadingAndThinking.assets/image-20231127002056282.png)
+![image-20231127002056282](ReadingAndThinking.assets/image-20231127002056282-1720025552987.png)
 
 ​    《精力模型 .eddx》
 
@@ -3949,6 +3949,10 @@ perfetto 把图形trace 和 log结合到一起了，结合点时间
 > --------------------> 与苹果输入法的（button： touch + 下拉） 一样
 
 
+
+快速匹配、模糊匹配：
+
+>   Tab按鍵、Ctrl + R （查找）、鼠标  ----->  TODO: 提炼本质
 
 
 

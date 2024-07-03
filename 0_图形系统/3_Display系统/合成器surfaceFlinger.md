@@ -110,6 +110,19 @@ TODO:
 >
 > 2、~~硬件合成（即SF 的device方式）~~ ------ 最终显示硬件DPU承载（~~软部分：sf转发给<font color='red'>hwc-drm</font>，最终<font color='red'>DPU</font>计算~~）
 
+对比：
+
+|                               | Device合成(HWC)                        | Client合成(GPU)                          |      |
+| ----------------------------- | -------------------------------------- | ---------------------------------------- | ---- |
+| 耗电                          | 耗电低                                 | 耗电高                                   |      |
+| 性能                          | 性能高                                 | 性能低                                   |      |
+| Alpha处理                     | 很多Vendor的HWC不支持Alpha的处理和合成 | 能处理每个像素的Alpha及每个Layear的Alpha |      |
+| DRM内容处理                   | 基本都能访问DRM内容                    | 早期版本GPU不能访问DRM的内容             |      |
+| 其他限制                      | 能合成的Surface层数有限，              |                                          |      |
+| 对每种Surface类型处理层数有限 | 没有处理层数限制                       |                                          |      |
+
+[来源:Android P 图形显示系统（一）硬件合成HWC2](https://www.cnblogs.com/hellokitty2/p/17637480.html#:~:text=下面是 GPU 和 HWC 两种方式的优劣对比：)
+
 
 
 优缺点：
@@ -159,6 +172,20 @@ TODO:
 > client合成，会占用一个屏幕 Plane
 >
 > 剩余 ---->  直接硬件合成
+
+
+
+
+
+### weston对应的
+
+到底走overlay还是GPU：
+
+weston 代码： [Assign_planes](https://blog.csdn.net/u012839187/article/details/106469038?spm=1001.2014.3001.5501#:~:text=_drm_input---,Assign_planes,-assign_planes)
+
+纯软件合成（完全的CPU合成）：weston 的pixman-render
+
+------> 安卓不存在这种方式！
 
 
 

@@ -633,6 +633,12 @@ TODO: 自定義的function，如何自动补全？
 
 
 
+## 环境path 设置
+
+vim ~/.bashrc
+
+加入
+
 
 
 ## win下 全面以linux 命令替代 cmd命令
@@ -1153,11 +1159,41 @@ sudo nmcli device wifi hotspot
 
 >   纯linux系统，虚拟机linux
 
+## ubuntu物理机    usb线 adb连接手机
+
+1、adb可以查看到设备
+
+2、但是报错 （adb -- no permissions (user in plugdev group； are your udev rules wrong?）：
+
+>   解决方案：
+>
+>   ```
+>    sudo usermod -a -G plugdev $USER
+>   ```
+>
+>   参考： [adb -- no permissions (user in plugdev group； are your udev rules wrong?)解决方案_no permissions (user in plugdev group; are your ud-CSDN博客](https://blog.csdn.net/cccc_strive/article/details/128440644)
+
+3、报错： 解决错误“failed to open device: Access denied (insufficient permissions)”
+
+>   解决：解决错误“failed to open device: Access denied (insufficient permissions)” - 简书 ([jianshu.com](http://jianshu.com))
+
+------------------------> **验证ok**
+
 ## Ubuntu换源
 
 20.04:  https://blog.csdn.net/weixin_53000184/article/details/130782900
 
 
+
+## 续行符号 ：
+
+>   注意：续行符号 \   后不能有空格！！！
+>
+>   ```
+>    gdb weston  \\
+>       -ex "shell find ~workingspace/wayland_code/wayland/src -type d -exec echo directory {} \\; > /tmp/gdb_dirs.txt"  \\
+>       -ex "source /tmp/gdb_dirs.txt"
+>   ```
 
 
 

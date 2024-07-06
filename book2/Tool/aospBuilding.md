@@ -16,7 +16,7 @@
 
 
 
-```c
+```java
 apt-get install openjdk-8-jdk
 
 apt-get install git ccache automake lzop bison gperf build-essential zip curl zlib1g-dev g++-multilib python-networkx libxml2-utils bzip2 libbz2-dev libbz2-1.0 libghc-bzlib-dev squashfs-tools pngcrush schedtool dpkg-dev liblz4-tool make optipng maven libc6-dev linux-libc-dev gcc-multilib g++-5-multilib libssl-dev
@@ -48,10 +48,6 @@ aptitude   install gcc gcc-c++
 ```java
 git clone https://mirrors.tuna.tsinghua.edu.cn/git/git-repo
 ```
-
-
-
-
 
 
 

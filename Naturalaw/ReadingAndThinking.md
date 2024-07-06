@@ -325,6 +325,40 @@ TODO：
 
 
 
+## 杂项
+
+TODO: 
+
+关于高频(非关键)、针对性/关键性 的思考：
+
+比如：
+
+> adb shell dumpsys SurfaceFlinger | grep -A 30 "HWC layers"             A----after
+
+
+
+
+
+角度之   1层生命周期图
+
+
+
+角度之 5w2h（针对于每一个功能点）
+
+
+
+角度之 how（谁来承载）
+
+角度之 cpu、gpu层面
+
+
+
+damage是窗口级别 client给server。系统级别有吗？
+
+
+
+
+
 # 思考
 
 
@@ -3953,6 +3987,8 @@ perfetto 把图形trace 和 log结合到一起了，结合点时间
 快速匹配、模糊匹配：
 
 >   Tab按鍵、Ctrl + R （查找）、鼠标  ----->  TODO: 提炼本质
+
+
 
 
 

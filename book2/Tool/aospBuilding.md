@@ -155,9 +155,12 @@ https://blog.csdn.net/cl769796350/article/details/102676674?utm_medium=distribut
 
 https://blog.csdn.net/learnframework/article/details/125269456   ------》 下载对应的vendor和驱动包
 
-本人使用的是pixel一代-------> 代号为sailfish
+本人使用的是：
 
-​                     pixel5  ----------> redfish
+>   pixel一代-------> 代号为sailfish
+>
+>   pixel5  ----------> redfish
+>
 
 
 

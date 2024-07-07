@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>JNI · Kent的博客</title>
+        <title>Weston · Kent的博客</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -101,10 +101,10 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="js.html" />
+    <link rel="next" href="../多线程/" />
     
     
-    <link rel="prev" href="java反射.html" />
+    <link rel="prev" href="kwin.html" />
     
 
     </head>
@@ -1282,9 +1282,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.8" data-path="./">
+        <li class="chapter " data-level="1.6.8" data-path="../CodingLanguage/">
             
-                <a href="./">
+                <a href="../CodingLanguage/">
             
                     
                     Coding Language
@@ -1296,9 +1296,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.6.8.1" data-path="c_cpp_java.html">
+        <li class="chapter " data-level="1.6.8.1" data-path="../CodingLanguage/c_cpp_java.html">
             
-                <a href="c_cpp_java.html">
+                <a href="../CodingLanguage/c_cpp_java.html">
             
                     
                     C Cpp Java
@@ -1309,9 +1309,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.8.2" data-path="java反射.html">
+        <li class="chapter " data-level="1.6.8.2" data-path="../CodingLanguage/java反射.html">
             
-                <a href="java反射.html">
+                <a href="../CodingLanguage/java反射.html">
             
                     
                     java反射
@@ -1322,9 +1322,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.6.8.3" data-path="JNI.html">
+        <li class="chapter " data-level="1.6.8.3" data-path="../CodingLanguage/JNI.html">
             
-                <a href="JNI.html">
+                <a href="../CodingLanguage/JNI.html">
             
                     
                     JNI
@@ -1335,9 +1335,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.8.4" data-path="js.html">
+        <li class="chapter " data-level="1.6.8.4" data-path="../CodingLanguage/js.html">
             
-                <a href="js.html">
+                <a href="../CodingLanguage/js.html">
             
                     
                     Js
@@ -1348,9 +1348,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.8.5" data-path="python.html">
+        <li class="chapter " data-level="1.6.8.5" data-path="../CodingLanguage/python.html">
             
-                <a href="python.html">
+                <a href="../CodingLanguage/python.html">
             
                     
                     Python
@@ -1361,9 +1361,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.8.6" data-path="R.html">
+        <li class="chapter " data-level="1.6.8.6" data-path="../CodingLanguage/R.html">
             
-                <a href="R.html">
+                <a href="../CodingLanguage/R.html">
             
                     
                     R
@@ -1483,9 +1483,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.6.11.1" data-path="../wayland/kwin.html">
+        <li class="chapter " data-level="1.6.11.1" data-path="kwin.html">
             
-                <a href="../wayland/kwin.html">
+                <a href="kwin.html">
             
                     
                     Kwin
@@ -1496,9 +1496,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.11.2" data-path="../wayland/weston.html">
+        <li class="chapter active" data-level="1.6.11.2" data-path="weston.html">
             
-                <a href="../wayland/weston.html">
+                <a href="weston.html">
             
                     
                     Weston
@@ -1678,7 +1678,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >JNI</a>
+        <a href="../.." >Weston</a>
     </h1>
 </div>
 
@@ -1693,181 +1693,47 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x76EE;&#x5F55;"><b>1. </b>&#x76EE;&#x5F55;</a></li><li><span class="title-icon "></span><a href="#jni"><b>2. </b>JNI</a></li><ul><li><span class="title-icon "></span><a href="#0&#x5C42;"><b>2.1. </b>0&#x5C42;</a></li><li><span class="title-icon "></span><a href="#jnienv&#x7ED3;&#x6784;"><b>2.2. </b>JNIEnv&#x7ED3;&#x6784;</a></li><li><span class="title-icon "></span><a href="#javavm"><b>2.3. </b>JavaVM</a></li><li><span class="title-icon "></span><a href="#jobject-thiz"><b>2.4. </b>jobject thiz</a></li><li><span class="title-icon "></span><a href="#jni&#x57FA;&#x7840;"><b>2.5. </b>JNI&#x57FA;&#x7840;</a></li><ul><li><span class="title-icon "></span><a href="#&#x6570;&#x636E;&#x7C7B;&#x578B;&#x5BF9;&#x5E94;&#x8868;"><b>2.5.1. </b>&#x6570;&#x636E;&#x7C7B;&#x578B;&#x5BF9;&#x5E94;&#x8868;</a></li><li><span class="title-icon "></span><a href="#jni&#x7684;&#x547D;&#x540D;&#x89C4;&#x5219;"><b>2.5.2. </b>JNI&#x7684;&#x547D;&#x540D;&#x89C4;&#x5219;</a></li><li><span class="title-icon "></span><a href="#field-and-method-ids"><b>2.5.3. </b>Field and Method IDs</a></li></ul><li><span class="title-icon "></span><a href="#jni-&#x64CD;&#x4F5C;-java-&#x5BF9;&#x8C61;"><b>2.6. </b>JNI &#x64CD;&#x4F5C; java &#x5BF9;&#x8C61;</a></li><ul><li><span class="title-icon "></span><a href="#&#x64CD;&#x4F5C;-jarray"><b>2.6.1. </b>&#x64CD;&#x4F5C; jarray</a></li><li><span class="title-icon "></span><a href="#&#x64CD;&#x4F5C;-jstring"><b>2.6.2. </b>&#x64CD;&#x4F5C; jstring</a></li><li><span class="title-icon "></span><a href="#&#x64CD;&#x4F5C;-jobject"><b>2.6.3. </b>&#x64CD;&#x4F5C; jobject</a></li><li><span class="title-icon "></span><a href="#&#x64CD;&#x4F5C;-field"><b>2.6.4. </b>&#x64CD;&#x4F5C; Field</a></li><li><span class="title-icon "></span><a href="#&#x64CD;&#x4F5C;-method"><b>2.6.5. </b>&#x64CD;&#x4F5C; method</a></li><li><span class="title-icon "></span><a href="#&#x521B;&#x5EFA;java&#x5BF9;&#x8C61;"><b>2.6.6. </b>&#x521B;&#x5EFA;java&#x5BF9;&#x8C61;</a></li></ul><li><span class="title-icon "></span><a href="#&#x53C2;&#x8003;&#x6587;&#x7AE0;&#xFF1A;"><b>2.7. </b>&#x53C2;&#x8003;&#x6587;&#x7AE0;&#xFF1A;</a></li></ul></ul></div><a href="#&#x76EE;&#x5F55;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><div class="treeview__container"><ul>
-<li><div><a href="#&#x76EE;&#x5F55;">&#x76EE;&#x5F55;</a><i></i></div></li>
-<li><div><a href="#jni">JNI</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
-<ul>
-<li><div><a href="#0&#x5C42;">0&#x5C42;</a><i></i></div></li>
-<li><div><a href="#jnienv&#x7ED3;&#x6784;">JNIEnv&#x7ED3;&#x6784;</a><i></i></div></li>
-<li><div><a href="#javavm">JavaVM</a><i></i></div></li>
-<li><div><a href="#jobject-thiz">jobject thiz</a><i></i></div></li>
-<li><div><a href="#jni&#x57FA;&#x7840;">JNI&#x57FA;&#x7840;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
-<ul>
-<li><div><a href="#&#x6570;&#x636E;&#x7C7B;&#x578B;&#x5BF9;&#x5E94;&#x8868;">&#x6570;&#x636E;&#x7C7B;&#x578B;&#x5BF9;&#x5E94;&#x8868;</a><i></i></div></li>
-<li><div><a href="#jni&#x7684;&#x547D;&#x540D;&#x89C4;&#x5219;">JNI&#x7684;&#x547D;&#x540D;&#x89C4;&#x5219;</a><i></i></div></li>
-<li><div><a href="#field-and-method-ids">Field and Method IDs</a><i></i></div></li>
-</ul></li>
-<li><div><a href="#jni-&#x64CD;&#x4F5C;-java-&#x5BF9;&#x8C61;">JNI &#x64CD;&#x4F5C; java &#x5BF9;&#x8C61;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
-<ul>
-<li><div><a href="#&#x64CD;&#x4F5C;-jarray">&#x64CD;&#x4F5C; jarray</a><i></i></div></li>
-<li><div><a href="#&#x64CD;&#x4F5C;-jstring">&#x64CD;&#x4F5C; jstring</a><i></i></div></li>
-<li><div><a href="#&#x64CD;&#x4F5C;-jobject">&#x64CD;&#x4F5C; jobject</a><i></i></div></li>
-<li><div><a href="#&#x64CD;&#x4F5C;-field">&#x64CD;&#x4F5C; Field</a><i></i></div></li>
-<li><div><a href="#&#x64CD;&#x4F5C;-method">&#x64CD;&#x4F5C; method</a><i></i></div></li>
-<li><div><a href="#&#x521B;&#x5EFA;java&#x5BF9;&#x8C61;">&#x521B;&#x5EFA;java&#x5BF9;&#x8C61;</a><i></i></div></li>
-</ul></li>
-<li><div><a href="#&#x53C2;&#x8003;&#x6587;&#x7AE0;&#xFF1A;">&#x53C2;&#x8003;&#x6587;&#x7AE0;&#xFF1A;</a><i></i></div></li>
-</ul></li>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#weston&#x5750;&#x6807;&#x7CFB;"><b>1. </b>weston&#x5750;&#x6807;&#x7CFB;</a></li></ul></div><a href="#weston&#x5750;&#x6807;&#x7CFB;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><div class="treeview__container"><ul>
+<li><div><a href="#weston&#x5750;&#x6807;&#x7CFB;">weston&#x5750;&#x6807;&#x7CFB;</a><i></i></div></li>
 </ul>
 </div>
 
 
 
-<h1 id="&#x76EE;&#x5F55;"><a name="&#x76EE;&#x5F55;" class="anchor-navigation-ex-anchor" href="#&#x76EE;&#x5F55;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x76EE;&#x5F55;</h1>
-<h1 id="jni"><a name="jni" class="anchor-navigation-ex-anchor" href="#jni"><i class="fa fa-link" aria-hidden="true"></i></a>2. JNI</h1>
-<h2 id="0&#x5C42;"><a name="0&#x5C42;" class="anchor-navigation-ex-anchor" href="#0&#x5C42;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. 0&#x5C42;</h2>
-<p><img src="JNI.assets/5713484-638d00dd948b1770.png" alt="img"></p>
-<p> &#x89C1;&#xFF1A; <a href="https://www.jianshu.com/p/87ce6f565d37" target="_blank">https://www.jianshu.com/p/87ce6f565d37</a></p>
-<h2 id="jnienv&#x7ED3;&#x6784;"><a name="jnienv&#x7ED3;&#x6784;" class="anchor-navigation-ex-anchor" href="#jnienv&#x7ED3;&#x6784;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. JNIEnv&#x7ED3;&#x6784;</h2>
-<p>JNIEnv: JNI&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;JNIEnv &#x7684;&#x672C;&#x8D28;&#x662F;&#x4E00;&#x4E2A;&#x4E0E;&#x7EBF;&#x7A0B;&#x76F8;&#x5173;&#x7684;&#x7ED3;&#x6784;&#x4F53;&#xFF0C;&#x91CC;&#x9762;&#x5B58;&#x653E;&#x4E86;&#x5927;&#x91CF;&#x7684; JNI &#x51FD;&#x6570;&#x6307;&#x9488;&#xFF1A;&#x662F;functions&#x7684;&#x96C6;&#x5408;
-JNIEnv&#x4E0E;&#x7EBF;&#x7A0B;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;</p>
-<p><img src="JNI.assets/image-20210129011248092.png" alt="image-20210129011248092"></p>
-<p><img src="JNI.assets/172bcaa3bb97ce17.png" alt="img"></p>
-<p>---&gt;&#x6240;&#x4EE5;&#xFF0C;JNIEnv&#x7684;&#x4F5C;&#x7528;&#xFF1A;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A; JNIEnv* &#x6307;&#x9488;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5BF9; Java &#x7AEF;&#x7684;&#x4EE3;&#x7801;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#xFF1A;</p>
-<ul>
-<li><p>&#x8C03;&#x7528; Java &#x51FD;&#x6570;</p>
-</li>
-<li><p>&#x64CD;&#x4F5C; Java &#x5BF9;&#x8C61;</p>
-<pre class="language-"><code class="lang-cpp"><span class="token keyword">struct</span> <span class="token class-name">_JNIEnv</span> <span class="token punctuation">{</span>
-    <span class="token comment">/**
-    * &#x5B9A;&#x4E49;&#x4E86;&#x5F88;&#x591A;&#x7684;&#x51FD;&#x6570;&#x6307;&#x9488;
-    **/</span>
-    <span class="token keyword">const</span> <span class="token keyword">struct</span> <span class="token class-name">JNINativeInterface</span><span class="token operator">*</span> functions<span class="token punctuation">;</span>
-
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">if</span> <span class="token expression"><span class="token function">defined</span><span class="token punctuation">(</span>__cplusplus<span class="token punctuation">)</span></span></span>
-    <span class="token comment">/// &#x901A;&#x8FC7;&#x7C7B;&#x7684;&#x540D;&#x79F0;(&#x7C7B;&#x7684;&#x5168;&#x540D;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x5305;&#x540D;&#x4E0D;&#x662F;&#x7528;.&#x53F7;&#xFF0C;&#x800C;&#x662F;&#x7528;/&#x6765;&#x533A;&#x5206;&#x7684;)&#x6765;&#x83B7;&#x53D6;jclass    </span>
-    jclass <span class="token function">FindClass</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> name<span class="token punctuation">)</span>
-    <span class="token punctuation">{</span> <span class="token keyword">return</span> functions<span class="token operator">-&gt;</span><span class="token function">FindClass</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
-
-    <span class="token comment">//&#x901A;&#x8FC7;</span>
-    jmethodID <span class="token function">FromReflectedMethod</span><span class="token punctuation">(</span>jobject method<span class="token punctuation">)</span>
-    <span class="token punctuation">{</span> <span class="token keyword">return</span> functions<span class="token operator">-&gt;</span><span class="token function">FromReflectedMethod</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> method<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
-
-    jfieldID <span class="token function">FromReflectedField</span><span class="token punctuation">(</span>jobject field<span class="token punctuation">)</span>
-    <span class="token punctuation">{</span> <span class="token keyword">return</span> functions<span class="token operator">-&gt;</span><span class="token function">FromReflectedField</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> field<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
-
-    jobject <span class="token function">ToReflectedMethod</span><span class="token punctuation">(</span>jclass cls<span class="token punctuation">,</span> jmethodID methodID<span class="token punctuation">,</span> jboolean isStatic<span class="token punctuation">)</span>
-    <span class="token punctuation">{</span> <span class="token keyword">return</span> functions<span class="token operator">-&gt;</span><span class="token function">ToReflectedMethod</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> cls<span class="token punctuation">,</span> methodID<span class="token punctuation">,</span> isStatic<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
-
-    jclass <span class="token function">GetSuperclass</span><span class="token punctuation">(</span>jclass clazz<span class="token punctuation">)</span>
-    <span class="token punctuation">{</span> <span class="token keyword">return</span> functions<span class="token operator">-&gt;</span><span class="token function">GetSuperclass</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> clazz<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-
-<span class="token punctuation">}</span>
+<h1 id="weston&#x5750;&#x6807;&#x7CFB;"><a name="weston&#x5750;&#x6807;&#x7CFB;" class="anchor-navigation-ex-anchor" href="#weston&#x5750;&#x6807;&#x7CFB;"><i class="fa fa-link" aria-hidden="true"></i></a>1. weston&#x5750;&#x6807;&#x7CFB;</h1>
+<p>&#x7ED3;&#x8BBA;&#xFF1A;</p>
+<blockquote>
+<p>  1&#x3001;&#x4E24;&#x4E2A;&#x5C4F;&#x5E55;&#xFF0C;&#x5171;&#x7528;&#x4E00;&#x4E2A;&#x5750;&#x6807;&#x7CFB;&#xFF1A;</p>
+<p>  <img src="weston.assets/image-20240707211513289.png" alt="image-20240707211513289"></p>
+<p>  2&#x3001;&#x4E00;&#x4E2A;&#x5C4F;&#x5E55; = &#x4E00;&#x4E2A;outPut</p>
+</blockquote>
+<pre class="language-"><code class="lang-java"><span class="token comment">// screen1:</span>
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.684</span><span class="token punctuation">]</span> gl_renderer_repaint_output<span class="token punctuation">,</span> output<span class="token operator">:</span> <span class="token number">0x58f59137bf80</span><span class="token punctuation">,</span> glViewport<span class="token operator">:</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">564</span><span class="token punctuation">,</span> <span class="token number">600</span><span class="token punctuation">)</span> <span class="token comment">//&#x3010;&#x3011;------&gt;  &#x76F8;&#x5BF9;&#x4E8E;screen1&#xFF08;output1&#xFF09;&#x5750;&#x6807;&#x7CFB;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;</span>
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.684</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> go<span class="token operator">-&gt;</span>area<span class="token operator">:</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">564</span><span class="token punctuation">,</span> <span class="token number">600</span><span class="token punctuation">)</span>  
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.684</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> surface<span class="token operator">-&gt;</span>width<span class="token operator">:</span> <span class="token number">1024</span><span class="token punctuation">,</span> surface<span class="token operator">-&gt;</span>height<span class="token operator">:</span> <span class="token number">600</span><span class="token punctuation">,</span> 
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.684</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> pnode<span class="token operator">-&gt;</span>view<span class="token operator">-&gt;</span>geometry<span class="token punctuation">.</span>pos_offset<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token number">1024.000000</span><span class="token punctuation">,</span> <span class="token number">0.000000</span><span class="token punctuation">)</span> 
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.684</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> pnode<span class="token operator">-&gt;</span>output<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token number">1024</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">564</span><span class="token punctuation">,</span> <span class="token number">600</span><span class="token punctuation">)</span> 
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.684</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> go<span class="token operator">-&gt;</span>area<span class="token operator">:</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">564</span><span class="token punctuation">,</span> <span class="token number">600</span><span class="token punctuation">)</span>  
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.684</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> surface<span class="token operator">-&gt;</span>width<span class="token operator">:</span> <span class="token number">250</span><span class="token punctuation">,</span> surface<span class="token operator">-&gt;</span>height<span class="token operator">:</span> <span class="token number">250</span><span class="token punctuation">,</span> 
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.684</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> pnode<span class="token operator">-&gt;</span>view<span class="token operator">-&gt;</span>geometry<span class="token punctuation">.</span>pos_offset<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token number">848.000000</span><span class="token punctuation">,</span> <span class="token number">112.000000</span><span class="token punctuation">)</span> <span class="token comment">//&#x3010;&#x3011;---&gt; simple-egl&#x7684;surface  &#x76F8;&#x5BF9;&#x4E8E;screen0 &#x5DE6;&#x4E0A;&#x89D2;&#xFF08;&#x800C;&#x4E0D;&#x662F;screen1&#xFF09;</span>
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.684</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> pnode<span class="token operator">-&gt;</span>output<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token number">1024</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">564</span><span class="token punctuation">,</span> <span class="token number">600</span><span class="token punctuation">)</span> 
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.684</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> go<span class="token operator">-&gt;</span>area<span class="token operator">:</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">564</span><span class="token punctuation">,</span> <span class="token number">600</span><span class="token punctuation">)</span>  
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.684</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> surface<span class="token operator">-&gt;</span>width<span class="token operator">:</span> <span class="token number">32</span><span class="token punctuation">,</span> surface<span class="token operator">-&gt;</span>height<span class="token operator">:</span> <span class="token number">32</span><span class="token punctuation">,</span> 
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.684</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> pnode<span class="token operator">-&gt;</span>view<span class="token operator">-&gt;</span>geometry<span class="token punctuation">.</span>pos_offset<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token number">1015.000000</span><span class="token punctuation">,</span> <span class="token number">508.000000</span><span class="token punctuation">)</span> 
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.684</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> pnode<span class="token operator">-&gt;</span>output<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token number">1024</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">564</span><span class="token punctuation">,</span> <span class="token number">600</span><span class="token punctuation">)</span>                          <span class="token comment">//&#x3010;&#x3011;--&gt; output1 &#x76F8;&#x5BF9;&#x4E8E;screen0&#xFF01;&#xFF01;&#xFF01;</span>
+<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>
+<span class="token comment">// screen0:</span>
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.694</span><span class="token punctuation">]</span> gl_renderer_repaint_output<span class="token punctuation">,</span> output<span class="token operator">:</span> <span class="token number">0x58f59134d460</span><span class="token punctuation">,</span> glViewport<span class="token operator">:</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1024</span><span class="token punctuation">,</span> <span class="token number">600</span><span class="token punctuation">)</span> 
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.694</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> go<span class="token operator">-&gt;</span>area<span class="token operator">:</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1024</span><span class="token punctuation">,</span> <span class="token number">600</span><span class="token punctuation">)</span>  
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.694</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> surface<span class="token operator">-&gt;</span>width<span class="token operator">:</span> <span class="token number">1024</span><span class="token punctuation">,</span> surface<span class="token operator">-&gt;</span>height<span class="token operator">:</span> <span class="token number">600</span><span class="token punctuation">,</span> 
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.694</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> pnode<span class="token operator">-&gt;</span>view<span class="token operator">-&gt;</span>geometry<span class="token punctuation">.</span>pos_offset<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token number">0.000000</span><span class="token punctuation">,</span> <span class="token number">0.000000</span><span class="token punctuation">)</span> 
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.694</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> pnode<span class="token operator">-&gt;</span>output<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1024</span><span class="token punctuation">,</span> <span class="token number">600</span><span class="token punctuation">)</span> 
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.694</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> go<span class="token operator">-&gt;</span>area<span class="token operator">:</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1024</span><span class="token punctuation">,</span> <span class="token number">600</span><span class="token punctuation">)</span>  
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.694</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> surface<span class="token operator">-&gt;</span>width<span class="token operator">:</span> <span class="token number">250</span><span class="token punctuation">,</span> surface<span class="token operator">-&gt;</span>height<span class="token operator">:</span> <span class="token number">250</span><span class="token punctuation">,</span> 
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.694</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> pnode<span class="token operator">-&gt;</span>view<span class="token operator">-&gt;</span>geometry<span class="token punctuation">.</span>pos_offset<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token number">848.000000</span><span class="token punctuation">,</span> <span class="token number">112.000000</span><span class="token punctuation">)</span> 
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.694</span><span class="token punctuation">]</span> gl_shader_config_init_for_paint_node<span class="token punctuation">.</span> pnode<span class="token operator">-&gt;</span>output<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1024</span><span class="token punctuation">,</span> <span class="token number">600</span><span class="token punctuation">)</span> 
+<span class="token punctuation">[</span><span class="token number">12</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">06.695</span><span class="token punctuation">]</span> surface_attach<span class="token punctuation">,</span> buffer<span class="token punctuation">,</span> <span class="token punctuation">(</span>width<span class="token operator">:</span><span class="token number">250</span><span class="token punctuation">,</span> height<span class="token operator">:</span><span class="token number">250</span><span class="token punctuation">)</span><span class="token punctuation">,</span> type<span class="token operator">:</span><span class="token number">1</span>
 </code></pre>
-</li>
-</ul>
-<h2 id="javavm"><a name="javavm" class="anchor-navigation-ex-anchor" href="#javavm"><i class="fa fa-link" aria-hidden="true"></i></a>2.3. JavaVM</h2>
-<p>JavaVM : JavaVM &#x662F; Java&#x865A;&#x62DF;&#x673A;&#x5728; JNI &#x5C42;&#x7684;&#x4EE3;&#x8868;, JNI &#x5168;&#x5C40;&#x53EA;&#x6709;&#x4E00;&#x4E2A;</p>
-<p>JNIEnv : JavaVM &#x5728;&#x7EBF;&#x7A0B;&#x4E2D;&#x7684;&#x4EE3;&#x8868;, &#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#x90FD;&#x6709;&#x4E00;&#x4E2A;, JNI &#x4E2D;&#x53EF;&#x80FD;&#x6709;&#x5F88;&#x591A;&#x4E2A; JNIEnv&#xFF0C;&#x540C;&#x65F6; JNIEnv &#x5177;&#x6709;&#x7EBF;&#x7A0B;&#x76F8;&#x5173;&#x6027;&#xFF0C;&#x4E5F;&#x5C31;&#x662F; B &#x7EBF;&#x7A0B;&#x65E0;&#x6CD5;&#x4F7F;&#x7528; A &#x7EBF;&#x7A0B;&#x7684; JNIEnv</p>
-<p>JVM &#x7684;&#x7ED3;&#x6784;&#x56FE;&#x5982;&#x4E0B;&#xFF1A;&#x6CE8;&#x610F;&#xFF1A;JNIEnv&#x4E0E;&#x7EBF;&#x7A0B;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;</p>
-<p><img src="JNI.assets/172bcaaf419f24bc.png" alt="img"></p>
-<h2 id="jobject-thiz"><a name="jobject-thiz" class="anchor-navigation-ex-anchor" href="#jobject-thiz"><i class="fa fa-link" aria-hidden="true"></i></a>2.4. jobject thiz</h2>
-<p>java&#x5BF9;&#x8C61;&#x4E2D;&#x7684;This&#xFF0C;&#x6BD4;&#x5982;MainActivity&#x7684;&#x5BF9;&#x8C61;</p>
-<h2 id="jni&#x57FA;&#x7840;"><a name="jni&#x57FA;&#x7840;" class="anchor-navigation-ex-anchor" href="#jni&#x57FA;&#x7840;"><i class="fa fa-link" aria-hidden="true"></i></a>2.5. JNI&#x57FA;&#x7840;</h2>
-<h3 id="&#x6570;&#x636E;&#x7C7B;&#x578B;&#x5BF9;&#x5E94;&#x8868;"><a name="&#x6570;&#x636E;&#x7C7B;&#x578B;&#x5BF9;&#x5E94;&#x8868;" class="anchor-navigation-ex-anchor" href="#&#x6570;&#x636E;&#x7C7B;&#x578B;&#x5BF9;&#x5E94;&#x8868;"><i class="fa fa-link" aria-hidden="true"></i></a>2.5.1. &#x6570;&#x636E;&#x7C7B;&#x578B;&#x5BF9;&#x5E94;&#x8868;</h3>
-<p>------&gt;&#x4F5C;&#x7528;&#x5728;&#x4E8E;&#xFF1A;&#x63A5;&#x53E3;&#x5904;&#x53C2;&#x6570;&#x7528;&#x6CD5;&#xFF0C;java---&gt;cpp&#xFF0C;&#x4F8B;&#x5982;int[] array ---&gt;jintArray</p>
-<pre class="language-"><code class="lang-java"><span class="token comment">//java</span>
-<span class="token keyword">public</span> <span class="token keyword">native</span> <span class="token keyword">int</span> <span class="token function">setToNativeArray</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> array<span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<pre class="language-"><code class="lang-java"><span class="token comment">//jin.cpp</span>
-<span class="token class-name">Java_com_example_NativeDemo_MainActivity_setToNativeArray</span><span class="token punctuation">(</span><span class="token class-name">JNIEnv</span> <span class="token operator">*</span>env<span class="token punctuation">,</span> jobject thiz<span class="token punctuation">,</span> jintArray  jintArrs<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment">// TODO: implement setToNativeArray()</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>&#x57FA;&#x7840;&#x6570;&#x636E;&#x7C7B;&#x578B;</p>
-<table>
-<thead>
-<tr>
-<th>Java Type</th>
-<th>Native Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>boolean</td>
-<td>jboolean</td>
-<td>unsigned 8 bits</td>
-</tr>
-<tr>
-<td>byte</td>
-<td>jbyte</td>
-<td>signed 8 bits</td>
-</tr>
-<tr>
-<td>char</td>
-<td>jchar</td>
-<td>unsigned 16 bits</td>
-</tr>
-<tr>
-<td>short</td>
-<td>jshort</td>
-<td>signed 16 bits</td>
-</tr>
-<tr>
-<td>int</td>
-<td>jint</td>
-<td>signed 32 bits</td>
-</tr>
-<tr>
-<td>long</td>
-<td>jlong</td>
-<td>signed 64 bits</td>
-</tr>
-<tr>
-<td>float</td>
-<td>jfloat</td>
-<td>32 bits</td>
-</tr>
-<tr>
-<td>double</td>
-<td>jdouble</td>
-<td>64 bits</td>
-</tr>
-<tr>
-<td>void</td>
-<td>void</td>
-<td>N/A</td>
-</tr>
-</tbody>
-</table>
-<p>&#x5F15;&#x7528;&#x7C7B;&#x578B;</p>
-<p><img src="JNI.assets/172bcac6f5314d1f.png" alt="img"></p>
-<h3 id="jni&#x7684;&#x547D;&#x540D;&#x89C4;&#x5219;"><a name="jni&#x7684;&#x547D;&#x540D;&#x89C4;&#x5219;" class="anchor-navigation-ex-anchor" href="#jni&#x7684;&#x547D;&#x540D;&#x89C4;&#x5219;"><i class="fa fa-link" aria-hidden="true"></i></a>2.5.2. JNI&#x7684;&#x547D;&#x540D;&#x89C4;&#x5219;</h3>
-<pre class="language-"><code class="lang-java">extern <span class="token string">&quot;C&quot;</span>
-<span class="token constant">JNIEXPORT</span> jint <span class="token constant">JNICALL</span>
-<span class="token class-name">Java_com_example_NativeDemo_MainActivity_setToNativeArray</span><span class="token punctuation">(</span><span class="token class-name">JNIEnv</span> <span class="token operator">*</span>env<span class="token punctuation">,</span> jobject thiz<span class="token punctuation">,</span> jintArray  jintArrs<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment">// TODO: implement setToNativeArray()</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>jint&#x662F;&#x8FD4;&#x56DE;&#x503C;&#x7C7B;&#x578B;
-Java_com_example_NativeDemo &#x662F;&#x5305;&#x540D;
-MainActivity &#x662F;&#x7C7B;&#x540D;
-setToNativeArray&#x662F;&#x65B9;&#x6CD5;&#x540D;</p>
-<h3 id="field-and-method-ids"><a name="field-and-method-ids" class="anchor-navigation-ex-anchor" href="#field-and-method-ids"><i class="fa fa-link" aria-hidden="true"></i></a>2.5.3. Field and Method IDs</h3>
-<h2 id="jni-&#x64CD;&#x4F5C;-java-&#x5BF9;&#x8C61;"><a name="jni-&#x64CD;&#x4F5C;-java-&#x5BF9;&#x8C61;" class="anchor-navigation-ex-anchor" href="#jni-&#x64CD;&#x4F5C;-java-&#x5BF9;&#x8C61;"><i class="fa fa-link" aria-hidden="true"></i></a>2.6. JNI &#x64CD;&#x4F5C; java &#x5BF9;&#x8C61;</h2>
-<h3 id="&#x64CD;&#x4F5C;-jarray"><a name="&#x64CD;&#x4F5C;-jarray" class="anchor-navigation-ex-anchor" href="#&#x64CD;&#x4F5C;-jarray"><i class="fa fa-link" aria-hidden="true"></i></a>2.6.1. &#x64CD;&#x4F5C; jarray</h3>
-<p>&#x5C06;&#x4E00;&#x4E2A; Java int[] &#x5BF9;&#x8C61;&#x4F20;&#x5165; C++ </p>
-<h3 id="&#x64CD;&#x4F5C;-jstring"><a name="&#x64CD;&#x4F5C;-jstring" class="anchor-navigation-ex-anchor" href="#&#x64CD;&#x4F5C;-jstring"><i class="fa fa-link" aria-hidden="true"></i></a>2.6.2. &#x64CD;&#x4F5C; jstring</h3>
-<h3 id="&#x64CD;&#x4F5C;-jobject"><a name="&#x64CD;&#x4F5C;-jobject" class="anchor-navigation-ex-anchor" href="#&#x64CD;&#x4F5C;-jobject"><i class="fa fa-link" aria-hidden="true"></i></a>2.6.3. &#x64CD;&#x4F5C; jobject</h3>
-<h3 id="&#x64CD;&#x4F5C;-field"><a name="&#x64CD;&#x4F5C;-field" class="anchor-navigation-ex-anchor" href="#&#x64CD;&#x4F5C;-field"><i class="fa fa-link" aria-hidden="true"></i></a>2.6.4. &#x64CD;&#x4F5C; Field</h3>
-<h3 id="&#x64CD;&#x4F5C;-method"><a name="&#x64CD;&#x4F5C;-method" class="anchor-navigation-ex-anchor" href="#&#x64CD;&#x4F5C;-method"><i class="fa fa-link" aria-hidden="true"></i></a>2.6.5. &#x64CD;&#x4F5C; method</h3>
-<h3 id="&#x521B;&#x5EFA;java&#x5BF9;&#x8C61;"><a name="&#x521B;&#x5EFA;java&#x5BF9;&#x8C61;" class="anchor-navigation-ex-anchor" href="#&#x521B;&#x5EFA;java&#x5BF9;&#x8C61;"><i class="fa fa-link" aria-hidden="true"></i></a>2.6.6. &#x521B;&#x5EFA;java&#x5BF9;&#x8C61;</h3>
-<h2 id="&#x53C2;&#x8003;&#x6587;&#x7AE0;&#xFF1A;"><a name="&#x53C2;&#x8003;&#x6587;&#x7AE0;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x53C2;&#x8003;&#x6587;&#x7AE0;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>2.7. &#x53C2;&#x8003;&#x6587;&#x7AE0;&#xFF1A;</h2>
-<p><a href="https://juejin.cn/post/6844904192780271630#heading-14" target="_blank">https://juejin.cn/post/6844904192780271630#heading-14</a></p>
-<p> <a href="https://www.jianshu.com/p/87ce6f565d37" target="_blank">https://www.jianshu.com/p/87ce6f565d37</a></p>
 
 <script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
                                 
@@ -1896,12 +1762,12 @@ setToNativeArray&#x662F;&#x65B9;&#x6CD5;&#x540D;</p>
 
             
                 
-                <a href="java反射.html" class="navigation navigation-prev " aria-label="Previous page: java反射">
+                <a href="kwin.html" class="navigation navigation-prev " aria-label="Previous page: Kwin">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="js.html" class="navigation navigation-next " aria-label="Next page: Js">
+                <a href="../多线程/" class="navigation navigation-next " aria-label="Next page: 多线程">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1912,7 +1778,7 @@ setToNativeArray&#x662F;&#x65B9;&#x6CD5;&#x540D;</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"JNI","level":"1.6.8.3","depth":3,"next":{"title":"Js","level":"1.6.8.4","depth":3,"path":"coding/CodingLanguage/js.md","ref":"coding/CodingLanguage/js.md","articles":[]},"previous":{"title":"java反射","level":"1.6.8.2","depth":3,"path":"coding/CodingLanguage/java反射.md","ref":"coding/CodingLanguage/java反射.md","articles":[]},"dir":"ltr"},"config":{"//":["这是多行注释：    anchor-navigation-ex 是","anchor-navigation-ex 是","click-reveal 本地使用ok，但是github在build pages时，不识别click-reveal","accordion 也是折叠代码段","anchor-navigation-ex 是"],"plugins":["anchor-navigation-ex","toggle-chapters","expandable-chapters-small","splitter","code","page-treeview","popup","-search","-lunr","sidebar-style","auto-scroll-table","click-reveal","accordion","pageview-count","search-pro","prism","prism-themes","-highlight"],"root":"./markdownsFiles","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"Kent","title":"《prove》"},"tbfed-pagefooter":{"copyright":"Copyright &copy ershouche-FE 2019","modify_label":"文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"page-treeview":{"collapsed":false,"copyright":"Copyright © aleen42","minHeaderCount":"1","minHeaderDeep":"1"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"disqus":{"shortName":"gitbookuse"},"splitter":{},"search-pro":{},"accordion":{},"auto-scroll-table":{},"popup":{},"lunr":{"maxIndexSize":400000},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"click-reveal":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"pageview-count":{},"prism-themes":{},"expandable-chapters-small":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"toggle-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"bookname":"笔记","variables":{},"title":"Kent的博客","gitbook":"*"},"file":{"path":"coding/CodingLanguage/JNI.md","mtime":"2024-04-21T16:16:18.470Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-07-07T16:08:11.127Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Weston","level":"1.6.11.2","depth":3,"next":{"title":"多线程","level":"1.6.12","depth":2,"path":"coding/多线程/README.md","ref":"coding/多线程/README.md","articles":[{"title":"多线程的模型","level":"1.6.12.1","depth":3,"path":"coding/多线程/多线程的模型.md","ref":"coding/多线程/多线程的模型.md","articles":[]},{"title":"线程池与binder线程池","level":"1.6.12.2","depth":3,"path":"coding/多线程/线程池与binder线程池.md","ref":"coding/多线程/线程池与binder线程池.md","articles":[]}]},"previous":{"title":"Kwin","level":"1.6.11.1","depth":3,"path":"coding/wayland/kwin.md","ref":"coding/wayland/kwin.md","articles":[]},"dir":"ltr"},"config":{"//":["这是多行注释：    anchor-navigation-ex 是","anchor-navigation-ex 是","click-reveal 本地使用ok，但是github在build pages时，不识别click-reveal","accordion 也是折叠代码段","anchor-navigation-ex 是"],"plugins":["anchor-navigation-ex","toggle-chapters","expandable-chapters-small","splitter","code","page-treeview","popup","-search","-lunr","sidebar-style","auto-scroll-table","click-reveal","accordion","pageview-count","search-pro","prism","prism-themes","-highlight"],"root":"./markdownsFiles","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"Kent","title":"《prove》"},"tbfed-pagefooter":{"copyright":"Copyright &copy ershouche-FE 2019","modify_label":"文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"page-treeview":{"collapsed":false,"copyright":"Copyright © aleen42","minHeaderCount":"1","minHeaderDeep":"1"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"disqus":{"shortName":"gitbookuse"},"splitter":{},"search-pro":{},"accordion":{},"auto-scroll-table":{},"popup":{},"lunr":{"maxIndexSize":400000},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"click-reveal":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"pageview-count":{},"prism-themes":{},"expandable-chapters-small":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"toggle-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"bookname":"笔记","variables":{},"title":"Kent的博客","gitbook":"*"},"file":{"path":"coding/wayland/weston.md","mtime":"2024-07-07T13:17:52.845Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-07-07T16:08:11.127Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

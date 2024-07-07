@@ -78,7 +78,7 @@ TODO:
 
 ## why----------合成  存在的必然性
 
-证明：
+**证明：**
 
 >   多个画家（App）各自画画，<font color='red'>必然存在</font>一个人去 张贴所有画  到 一个墙上，即合成
 
@@ -172,6 +172,77 @@ TODO:
 > client合成，会占用一个屏幕 Plane
 >
 > 剩余 ---->  直接硬件合成
+
+### GPU合成，具体代码（字典）
+
+
+
+```java
+└─ GLESRenderEngine::drawLayersInternal
+    ├─ for (const auto& layer : layers) {
+    │   ├─ status = mBlurFilter->render(blurLayersSize > 1); // 模糊特效
+    │   ├─ setupLayerTexturing  // 配置贴图
+    │   ├─ 
+    │   ├─ if: handleShadow         // 阴影特效
+    │   │   ├─ setupLayerTexturing  // 【1】 TODO: 阴影也是贴图！！！！证明：
+    │   │   └─ drawMesh
+    │   └─ elseif:handleRoundedCorners // 圆角特效
+    │       ├─ glScissor(topRect) // 限制绘制区域
+    │       └─ drawMesh(mesh) // 【】这里shader包含贴图
+    ├─ 
+    │   └─ setScissor(bottomRect)
+    │       └─ drawMesh(mesh)
+    ├─ 
+    │   ├─ setScissor(middleRect)
+    │   │   ├─ mState.cornerRadius = 0.0; //【】画中间区域时，悄悄把圆角半径设为0 ----> 中间区域生成的shader，剔除了圆角的计算。其他都同圆角？？
+    │   │   └─ drawMesh(mesh)
+    │   └─ else：drawMesh // 没有圆角和阴影时，直接drawMesh(贴图)
+    │       └─ glVertexAttribPointer(mesh.getTexCoords()); // 获取 贴图坐标
+    │           ├─ glVertexAttribPointer(mesh.getCropCoords()); // 取圆角裁剪坐标
+    │           ├─ 
+    │           ├─ useProgram
+    │           │   ├─ generateVertexShader  // 【2】  根据不同的needs，配置不同shader
+    │           │   └─ glUseProgram // 【3】 TODO:
+    │           └─ glDrawArrays 或 glDrawElements // 最终一行绘制
+    ├─ 
+    └─ drawFence = GLESRenderEngine::flush // TODO:
+
+```
+
+%accordion%原始 tree%accordion%
+
+```java
+GLESRenderEngine::drawLayersInternal
+	for (const auto& layer : layers) {
+		status = mBlurFilter->render(blurLayersSize > 1); // 模糊特效
+		setupLayerTexturing  // 配置贴图
+		
+		if: handleShadow         // 阴影特效
+			setupLayerTexturing  // 【1】 TODO: 阴影也是贴图！！！！证明：
+			drawMesh
+		elseif:handleRoundedCorners // 圆角特效
+			glScissor(topRect) // 限制绘制区域
+			drawMesh(mesh) // 【】这里shader包含贴图
+	
+			setScissor(bottomRect) 
+			drawMesh(mesh)
+	
+			setScissor(middleRect)
+			mState.cornerRadius = 0.0; //【】画中间区域时，悄悄把圆角半径设为0 ----> 中间区域生成的shader，剔除了圆角的计算。其他都同圆角？？
+			drawMesh(mesh)
+		else：drawMesh // 没有圆角和阴影时，直接drawMesh(贴图)
+				glVertexAttribPointer(mesh.getTexCoords()); // 获取 贴图坐标 
+				glVertexAttribPointer(mesh.getCropCoords()); // 取圆角裁剪坐标
+				
+				useProgram 
+					generateVertexShader  // 【2】  根据不同的needs，配置不同shader
+					glUseProgram // 【3】 TODO:
+				glDrawArrays 或 glDrawElements // 最终一行绘制
+	
+	drawFence = GLESRenderEngine::flush // TODO:
+```
+
+%/accordion%
 
 
 

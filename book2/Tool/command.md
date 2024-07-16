@@ -641,6 +641,29 @@ vim ~/.bashrc
 
 
 
+```java
+// 可执行文件  的环境变量
+export PATH=/home/chen.gang42/workingspace/Sdk/platform-tools:$PATH 
+// 动态库  的环境变量
+export LD_LIBRARY_PATH=/home/chen.gang42/workingspace/software/QT5_6_2/5.6/gcc_64/lib 
+```
+
+注意：动态库后面不需要加  :$LD_LIBRARY_PATH  
+
+​           因为系统环境里，没有初始化这个值。加了，会导致
+
+```java
+ LD_LIBRARY_PATH=/home/chen.gang42/workingspace/software/QT5_6_2/5.6/gcc_64/lib:  ----> 错误
+```
+
+
+
+
+
+
+
+
+
 ## win下 全面以linux 命令替代 cmd命令
 
 利用mobaXterm中bash，可以找到win所有路径 ----> 所以，都可以替代
@@ -888,7 +911,24 @@ sudo systemctl restart xrdp
 
 服务器问题：xrdp-chansrv 进程变成  进程STAT列会显示Z（僵尸进程）
 
-- --------------------> 重启服务器，验证ok
+
+
+方法一：
+
+>   图形化注销用户Log out后重新登录 -----> 验证ok
+>
+
+方法二：
+
+>   方法一  等价于 用户级(进程所属的用户)： sudo pkill -KILL -u chen
+
+方法三：
+
+>   自然，~~重启机器也是ok的~~
+
+
+
+
 
 参考： [Xrdp远程桌面链接登录ubuntu无法复制，解决方法_xrdp-chansrv-CSDN博客](https://blog.csdn.net/buzhidaoOWO/article/details/132197790)               https://blog.csdn.net/buzhidaoOWO/article/details/132197790
 
@@ -1197,9 +1237,35 @@ sudo nmcli device wifi hotspot
 
 
 
+## TODO: 补充tty
+
+
+
+# Linux程序一定 可以在安卓上运行
+
+TODO: 可以做很多扩展，比如：
+
+见《本地GDB调试------安卓（安卓一定可以运行Linux程序）》
+
 # vim
 
-搜索：  /
+## 搜索：  /
+
+1. 输入 `/example` 然后按 `Enter`，Vim 会找到第一个匹配的 `example`。  ---------->  注意：一定要输入 `Enter` 键
+2. 按 `n` 键，Vim 会跳转到下一个 `example`。
+3. 按 `N` 键，Vim 会跳转到前一个 `example`。
+
+
+
+## 显示行数
+
+https://blog.csdn.net/qq_57492774/article/details/132169623
+
+```java
+sudo  vim /etc/vim/vimrc
+```
+
+
 
 # shell 或 MobaXterm
 

@@ -942,6 +942,177 @@ void GLESRenderEngine::drawLayersInternal(
 
 
 
+# 待整理：高斯模糊
+
+
+
+参考：
+
+>  [Android R 原生模糊效果原理](https://blog.csdn.net/zhongyanghu27/article/details/116002774)
+>
+>  [SurfaceFlinger层原理-aosp11/12/13 壁纸高斯模糊毛玻璃-千里马framework实战](https://zhuanlan.zhihu.com/p/630891349)
+
+
+
+高斯模糊代码大纲：
+
+依附于合成流程：
+
+参考：
+
+>  [Android R 原生模糊效果原理](https://blog.csdn.net/zhongyanghu27/article/details/116002774)
+>
+>  [SurfaceFlinger层原理-aosp11/12/13 壁纸高斯模糊毛玻璃-千里马framework实战](https://zhuanlan.zhihu.com/p/630891349)
+
+
+
+高斯模糊代码大纲：
+
+依附于合成流程：
+
+
+
+
+
+
+
+
+
+## 应用层接口
+
+```java
+Transaction setBackgroundBlurRadius(SurfaceControl sc, int radius)
+```
+
+全局开关（Android S ）：
+
+```java
+property_get("ro.surface_flinger.supports_background_blur", value, "0");
+bool supportsBlurs = atoi(value);
+mSupportsBlur = supportsBlurs;
+```
+
+使用例子 ---------- Launcher3 的模糊效果：
+
+
+
+## EGL环境：
+
+
+
+
+
+
+
+
+
+
+
+## shader
+
+
+
+```java
+mMixProgram.compile(getVertexShader(), getMixFragShader());
+
+mBlurProgram.compile(getVertexShader(), getFragmentShader());
+```
+
+
+
+1、VertexShader
+
+```java
+#version 300 es
+precision mediump float;
+
+in vec2 aPosition;
+in highp vec2 aUV;
+out highp vec2 vUV;
+
+void main() {
+    vUV = aUV;
+    gl_Position = vec4(aPosition, 0.0, 1.0);
+}
+```
+
+
+
+2、FragmentShader:
+
+```java
+#version 300 es
+precision mediump float;
+
+uniform sampler2D uTexture;
+uniform vec2 uOffset;
+
+in highp vec2 vUV;
+out vec4 fragColor;
+
+void main() {
+	fragColor  = texture(uTexture, vUV, 0.0);
+	fragColor += texture(uTexture, vUV + vec2( uOffset.x,  uOffset.y), 0.0);
+	fragColor += texture(uTexture, vUV + vec2( uOffset.x, -uOffset.y), 0.0);
+	fragColor += texture(uTexture, vUV + vec2(-uOffset.x,  uOffset.y), 0.0);
+	fragColor += texture(uTexture, vUV + vec2(-uOffset.x, -uOffset.y), 0.0);
+
+	fragColor = vec4(fragColor.rgb * 0.2, 1.0);
+}
+```
+
+
+
+
+
+3、MixFragShader：
+
+```java
+#version 300 es
+precision mediump float;
+
+in highp vec2 vUV;
+out vec4 fragColor;
+
+uniform sampler2D uCompositionTexture;
+uniform sampler2D uTexture;
+uniform float uMix;
+
+void main() {
+    vec4 blurred = texture(uTexture, vUV);
+    vec4 composition = texture(uCompositionTexture, vUV);
+    fragColor = mix(composition, blurred, uMix);
+}
+```
+
+## 高斯模糊的数学原理
+
+数学角度：
+
+>  [Android R 原生模糊效果原理](https://blog.csdn.net/zhongyanghu27/article/details/116002774)
+
+
+
+
+
+## TODO:  how---------合成的承载（buffer）
+
+
+
+![在这里插入图片描述](sf特效.assets/20210422103107747.png)
+
+
+
+[图片来源](https://blog.csdn.net/zhongyanghu27/article/details/116002774#:~:text=sharder%20%E8%BF%9B%E8%A1%8C%E6%B8%B2%E6%9F%93-,%E6%80%BB%E7%BB%93,-Vampaire27)
+
+疑问：
+
+> Blur的绘制目标，为啥要加一层？
+>
+> Blur不是Gpu合成？
+
+
+
 # todo:安卓截屏
 
 TODO:截屏接口也是等待返回

@@ -572,11 +572,23 @@ https://zhuanlan.zhihu.com/p/33000424
 
 
 
+
+
+
+
 ## 保存-----最优界面 和 设置
 
 layout保存xml
 
 设置保存：Options ----->  Loading configuration
+
+
+
+## 编辑格式：
+
+[换行符改为unix/linux格式](https://blog.csdn.net/aa804738534/article/details/103683736)
+
+[tab设置为4个空格](https://blog.csdn.net/aa804738534/article/details/103683736)
 
 
 

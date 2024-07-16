@@ -277,6 +277,18 @@ bash.exe环境 是 linux下shell环境:----------->  命令友好
 >
 > 
 
+
+
+### 解除最多保存14个Session的限制
+
+[MobaXterm如何解除最多保存14个Session的限制](https://www.jianshu.com/p/a40cbf068934)
+
+
+
+
+
+
+
 ## 远程桌面：
 
 ### 远程桌面之内网穿透

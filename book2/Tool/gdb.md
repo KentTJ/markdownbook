@@ -98,6 +98,50 @@ so里已经有行号信息了。这时候需要指定源码：
 
 
 
+
+
+## 编译带调试信息的程序 或 so
+
+在编译程序时，需要使用`-g`选项来添加调试信息。
+
+### gcc直接编译
+
+```java
+gcc -g main.c xxx
+```
+
+### cmake
+
+cmake编译时，添加参数
+
+```java
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0")
+    
+// -g 选项告诉编译器生成调试信息
+// -O0 选项告诉编译器禁用所有优化
+```
+
+
+
+
+
+### meson.build  编译
+
+```java
+W:\workingspace\frameworks\window\windowmanager\weston\meson.build
+
+
+add_project_arguments(global_args, language: 'c')
+#add by cg
+add_global_arguments('-O0', language: 'c')
+add_global_arguments('-g', language: 'c')
+```
+
+
+
+
+
 ## 源码环境中如何找符号表？
 
 万能的暴力方法：
@@ -1187,7 +1231,110 @@ linux侧: adb forward tcp:12345 tcp:12345
 >
 > https://blog.csdn.net/qq_26914291/article/details/127325820        LLDB 从害怕到真香
 
-# 之前其他尝试
+
+
+
+
+# 本地GDB调试------安卓（安卓一定可以运行Linux程序）
+
+-<font color='red'>极优</font>：不分gdbserver和client，完全同linux
+
+--------------->  万能！！
+
+## 具体步骤
+
+[交叉编译android环境下gdb工具](https://www.jianshu.com/p/b9ecb90eb653)
+
+
+
+1、编译产物：
+
+> 交叉工具链编译 arm64的 gdb & so
+
+
+
+
+
+2、导入
+
+mkdir         /system/myusr        ----->  **<font color='red'>极优，为了避免影响系统</font>**
+
+```java
+# gdb 
+adb push  ./14.2/image/usr/*   /system/myusr/   && \
+# libmpfr.so.6
+adb push  ./14.2/recipe-sysroot/usr/lib64/*   /system/myusr/lib64/
+```
+
+------> 添加权限
+
+```java
+chmod  777 -R /system/myusr/
+```
+
+3、执行报错，<font color='red'> gdb: No such file or directory</font>：
+
+```java
+redfin:/system/myusr/bin # gdb
+/system/bin/sh: /system/myusr/bin/gdb: No such file or directory
+```
+
+原因：
+
+> ```java
+> redfin:/system/myusr/bin # file /system/myusr/bin/gdb
+> /system/myusr/bin/gdb: ELF shared object, 64-bit LSB arm64, dynamic (/usr/lib/ld-linux-aarch64.so.1), not stripped
+> ```
+>
+> 链接器是 /usr/lib/ld-linux-aarch64.so.1
+
+解决办法：
+
+> ①、**修改gdb  链接器的指向**  ：
+>
+> ```java
+> $ patchelf --set-interpreter /system/myusr/lib64/ld-linux-aarch64.so.1   gdb/14.2/image/usr/bin/gdb
+> $ file  gdb/14.2/image/usr/bin/gdb
+> gdb/14.2/image/usr/bin/gdb: ELF 64-bit LSB shared object, ARM aarch64, version 1 (SYSV), dynamically linked, interpreter /system/myusr/lib64/ld-linux-aarch64.so.1, for GNU/Linux 5.15.0, with debug_info, not stripped
+> ```
+>
+> 指向 了  /system/myusr/lib64/ld-linux-aarch64.so.1
+>
+> ②、导入链接器so
+
+4、**可执行文件 gdb 需要添加到执行文件环境变量 PATH里：**
+
+```java
+export PATH=/system/myusr/bin:$PATH 
+```
+
+so要加到
+
+```java
+export LD_LIBRARY_PATH=/system/myusr/lib64
+```
+
+
+
+
+
+## 总结：
+
+1、 结论：<font color='red'>安卓一定可以运行Linux程序，且可以不影响原生流程</font>（<font color='green'>把影响限定到自定义目录/system/myusr/</font>）
+
+-<font color='red'>TODO: 极优，可以极大扩展！！！！！</font>
+
+
+
+2、<font color='red'>最终制品路径：\software\softWare\gdb_arm64_installPath_system_myusr.tar</font>
+
+-----------> 可以直接在arm64机器上使用
+
+
+
+
+
+# 安卓，之前其他尝试
 
 ## gdbserver文件调试（google已经废弃）
 
@@ -1283,10 +1430,6 @@ adb forward tcp:6100 local:logd // PC上所有6100端口通信数据将被重定
 
 linux 环境变量设置（临时 + 永久）
 export adb='adb -H 192.168.31.200 -P 9999'
-
-
-
-
 
 
 
@@ -1456,7 +1599,7 @@ https://blog.csdn.net/zhangye3017/article/details/80382496#:~:text=线程ID-,查
 
 例子：
 
-```
+```java
  (gdb) p this   // ------> 打印指针
  $1 = (KWin::XdgToplevelWindow *) 0x556165de50
  
@@ -1530,7 +1673,7 @@ https://blog.csdn.net/zhangye3017/article/details/80382496#:~:text=线程ID-,查
 
 ## **gdb调试异常**
 
----->  适用于，程序直接挂了
+---->  适用于，**程序直接挂了**
 https://www.cnblogs.com/catmelo/p/7207062.html
 使用gdb捕获异常的扔出点（相当于在扔出异常的地方添加断点）：
 catch throw
@@ -1553,3 +1696,44 @@ return <expression>
 **disassemble** 反汇编指令
 调试函数
 https://blog.csdn.net/weixin_33904522/article/details/112594152
+
+
+
+
+
+# so结构----so tree
+
+依赖结构：
+
+ldd $(which gdb)
+
+```java
+$ ldd $(which gdb)
+    linux-vdso.so.1 (0x00007ffe91782000)
+    libreadline.so.8 => /lib/x86_64-linux-gnu/libreadline.so.8 (0x00007fb0e55ff000)
+    libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007fb0e55e3000)
+    libncursesw.so.6 => /lib/x86_64-linux-gnu/libncursesw.so.6 (0x00007fb0e55a9000)
+    libtinfo.so.6 => /lib/x86_64-linux-gnu/libtinfo.so.6 (0x00007fb0e5579000)
+    libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007fb0e5573000)
+    libpython3.8.so.1.0 => /lib/x86_64-linux-gnu/libpython3.8.so.1.0 (0x00007fb0e501d000)
+    libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fb0e4ff8000)
+    libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007fb0e4ea9000)
+    libexpat.so.1 => /lib/x86_64-linux-gnu/libexpat.so.1 (0x00007fb0e4e7b000)
+    liblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x00007fb0e4e52000)
+    libbabeltrace.so.1 => /lib/x86_64-linux-gnu/libbabeltrace.so.1 (0x00007fb0e4e43000)
+    libbabeltrace-ctf.so.1 => /lib/x86_64-linux-gnu/libbabeltrace-ctf.so.1 (0x00007fb0e4def000)
+    libmpfr.so.6 => /lib/x86_64-linux-gnu/libmpfr.so.6 (0x00007fb0e4d6c000)
+    libstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007fb0e4b8a000)
+    libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007fb0e4b6f000)
+    libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fb0e497d000)
+    /lib64/ld-linux-x86-64.so.2 (0x00007fb0e5e9a000)
+    libutil.so.1 => /lib/x86_64-linux-gnu/libutil.so.1 (0x00007fb0e4978000)
+    libglib-2.0.so.0 => /lib/x86_64-linux-gnu/libglib-2.0.so.0 (0x00007fb0e484c000)
+    libdw.so.1 => /lib/x86_64-linux-gnu/libdw.so.1 (0x00007fb0e47ed000)
+    libelf.so.1 => /lib/x86_64-linux-gnu/libelf.so.1 (0x00007fb0e47d1000)
+    libuuid.so.1 => /lib/x86_64-linux-gnu/libuuid.so.1 (0x00007fb0e47c8000)
+    libgmp.so.10 => /lib/x86_64-linux-gnu/libgmp.so.10 (0x00007fb0e4744000)
+    libpcre.so.3 => /lib/x86_64-linux-gnu/libpcre.so.3 (0x00007fb0e46cf000)
+    libbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0 (0x00007fb0e46bc000)
+```
+

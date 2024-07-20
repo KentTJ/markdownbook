@@ -63,6 +63,45 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 【repaint流程】承载：将client的damage区域提交给compositor，compositor进行合成
 
 ```java
+├─ wl_event_loop_dispatch //
+├─ output_repaint_timer_handler(compositor.c)
+├─ weston_output_maybe_repaint(compositor.c)
+└─ weston_output_repaint(compositor.c)
+    ├─ ------------------为views分配planes--------------------------
+    ├─ drm_assign_planes // 【】具体见下
+    ├─ ------------------计算damage---------------------------------
+    └─ drm_output_repaint
+        └─ drm_output_render
+            ├─ if：drm_fb_ref  硬件合成  自然，条件：damage为空(也是gl被拦截的地方)
+            ├─ eif:drm_output_render_pixman  软件合成
+            ├─ el：drm_output_render_gl //【】GPU合成     或 x11_output_repaint_gl  backend-x11/x11.c--->  weston合成器的output是X11
+            │   ├─ gl_renderer_repaint_output ----> 必然，在这里设置视口viewPort，视口是output级别的
+            │   │   ├─ get_surface_state(weston_surface)
+            │   │   │   └─ gl_renderer_create_surface
+            │   │   │       ├─ ------------------------attach？？？-----------------------------------
+            │   │   │       └─ gl_renderer_attach(weston_surface, weston_buffer) // 【】核心
+            │   │   ├─ repaint_views  // 【】这里遍历node，必然
+            │   │   │   ├─ ------------------绘制node的地方：OpenGL合成--------------------------
+            │   │   │   └─ draw_paint_node  // 【】有些node会走gl，有些走pixman？ node级别的还是合成器级别的 ？ 必然：这里初始化shader的config
+            │   │   │       ├─ gl_shader_config_init_for_paint_node // 必然：where---draw_paint_node之子，repaint_region之前
+            │   │   │       ├─ repaint_region  //【】
+            │   │   │       └─ triangle_fan_debug 测试用的？？？
+            │   │   └─ blit_shadow_to_output // 【】阴影。开关："color-management"改为true
+            │   ├─ bo = gbm_surface_lock_front_buffer  // 拿到gbm buffer---> 承载合成结果
+            │   ├─ drm_fb_get_from_bo(bo, BUFFER_GBM_SURFACE)
+            │   │   └─ drm_fb_addfb(~bo)
+            │   │       ├─ drmModeAddFB2WithModifiers/drmModeAddFB2   //libdrm 【】通过gbm buffer创建帧缓冲区（FrameBuffer）
+            │   │       └─ 实际上，已经将数据写给drm设备了。图：https://download.csdn.net/blog/column/11175480/133747645
+            │   └─ return drm_fb（指向DRM的FrameBuffer），并记录
+            └─ drmModeCreatePropertyBlob 拿到渲染后的drm_fb  // 【】libdrm接口
+
+```
+
+
+
+%accordion%原大纲%accordion%
+
+```java
 wl_event_loop_dispatch // 
 output_repaint_timer_handler(compositor.c)
 weston_output_maybe_repaint(compositor.c)
@@ -98,6 +137,10 @@ weston_output_repaint(compositor.c)
 ```
 
 
+
+
+
+%/accordion%
 
 
 

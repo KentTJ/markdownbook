@@ -39,7 +39,7 @@
 背景图片设置：
 
 ```java
- rootWidget->setStyleSheet("QWidget { background-image: url(/home/chen.gang42/workingSpace/QT/DEMO/png/gassi.png); }");
+ rootWidget->setStyleSheet("QWidget { background-image: url(/home/chen/workingSpace/QT/DEMO/png/gassi.png); }");
  
  // background-image:
  //border-radius  设定圆角的按钮

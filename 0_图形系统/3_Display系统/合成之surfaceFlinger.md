@@ -98,7 +98,7 @@ TODO:
 
 > 
 >
-> ![image-20240627013307139](合成器surfaceFlinger.assets/image-20240627013307139.png)
+> ![image-20240627013307139](合成之surfaceFlinger.assets/image-20240627013307139.png)
 >
 > 其中①和②
 >
@@ -270,7 +270,7 @@ weston 代码： [Assign_planes](https://blog.csdn.net/u012839187/article/detail
 
 图，同上。
 
-> ![img](合成器surfaceFlinger.assets/1117305-20230817140910580-821209824.webp)
+> ![img](合成之surfaceFlinger.assets/1117305-20230817140910580-821209824.webp)
 >
 > [图来源](https://www.cnblogs.com/hellokitty2/p/17637480.html#:~:text=%E5%9B%BE%E6%89%80%E7%A4%BA%EF%BC%8C-,%E6%AD%A4%E5%9B%BE%E6%9D%A5%E6%BA%90%E4%BA%8EAndrod%E5%AE%98%E7%BD%91,-%EF%BC%9A)
 
@@ -284,7 +284,7 @@ weston 代码： [Assign_planes](https://blog.csdn.net/u012839187/article/detail
 
 
 
-![image-20240627012931158](合成器surfaceFlinger.assets/image-20240627012931158.png)
+![image-20240627012931158](合成之surfaceFlinger.assets/image-20240627012931158.png)
 
 
 
@@ -300,7 +300,7 @@ weston 代码： [Assign_planes](https://blog.csdn.net/u012839187/article/detail
 
 图：
 
-![img](合成器surfaceFlinger.assets/4525ee02ce6e6ebd0b5b76192a356e8d.webp)
+![img](合成之surfaceFlinger.assets/4525ee02ce6e6ebd0b5b76192a356e8d.webp)
 
 [图来源：](https://blog.csdn.net/tkwxty/article/details/136154204#:~:text=%E4%B8%AD%2CSF%E6%89%A7%E8%A1%8C-,%E7%9A%84%E4%B8%BB%E8%A6%81%E9%80%BB%E8%BE%91%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F,-%E4%B8%80.%E4%BB%8Edumpsys)
 
@@ -790,15 +790,15 @@ https://www.bilibili.com/video/BV1py411q7BV?t=5924.9
 
 ## 方舟图形引擎
 
-![image-20240626003622816](合成器surfaceFlinger.assets/image-20240626003622816.png)
+![image-20240626003622816](合成之surfaceFlinger.assets/image-20240626003622816.png)
 
 
 
-![image-20240626003752374](合成器surfaceFlinger.assets/image-20240626003752374.png)
+![image-20240626003752374](合成之surfaceFlinger.assets/image-20240626003752374.png)
 
 
 
-![image-20240626003928366](合成器surfaceFlinger.assets/image-20240626003928366.png)
+![image-20240626003928366](合成之surfaceFlinger.assets/image-20240626003928366.png)
 
 [图片来源](https://www.bilibili.com/video/BV1py411q7BV?t=471.6)
 
@@ -812,25 +812,25 @@ https://www.bilibili.com/video/BV1py411q7BV?t=5924.9
 
 
 
-![image-20240626004003396](合成器surfaceFlinger.assets/image-20240626004003396.png)
+![image-20240626004003396](合成之surfaceFlinger.assets/image-20240626004003396.png)
 
 
 
-![image-20240626004110802](合成器surfaceFlinger.assets/image-20240626004110802.png)
+![image-20240626004110802](合成之surfaceFlinger.assets/image-20240626004110802.png)
 
 
 
-![image-20240626004216215](合成器surfaceFlinger.assets/image-20240626004216215.png)
+![image-20240626004216215](合成之surfaceFlinger.assets/image-20240626004216215.png)
 
 
 
-![image-20240626004538526](合成器surfaceFlinger.assets/image-20240626004538526.png)
+![image-20240626004538526](合成之surfaceFlinger.assets/image-20240626004538526.png)
 
 
 
 shader:
 
-![image-20240626004451773](合成器surfaceFlinger.assets/image-20240626004451773.png)
+![image-20240626004451773](合成之surfaceFlinger.assets/image-20240626004451773.png)
 
 --------> 对高频shader检测
 
@@ -840,141 +840,141 @@ shader:
 
 
 
-![image-20240630161205144](合成器surfaceFlinger.assets/image-20240630161205144.png)
+![image-20240630161205144](合成之surfaceFlinger.assets/image-20240630161205144.png)
 
 用户不感知的，不刷新
 
 
 
-![image-20240630161304039](合成器surfaceFlinger.assets/image-20240630161304039.png)
+![image-20240630161304039](合成之surfaceFlinger.assets/image-20240630161304039.png)
 
 
 
 
 
-![image-20240630161335658](合成器surfaceFlinger.assets/image-20240630161335658.png)
+![image-20240630161335658](合成之surfaceFlinger.assets/image-20240630161335658.png)
 
 DSS是啥？
 
 
 
-![image-20240630161447005](合成器surfaceFlinger.assets/image-20240630161447005.png)
+![image-20240630161447005](合成之surfaceFlinger.assets/image-20240630161447005.png)
 
 
 
-![image-20240630161530932](合成器surfaceFlinger.assets/image-20240630161530932.png)
+![image-20240630161530932](合成之surfaceFlinger.assets/image-20240630161530932.png)
 
 ------------------>  不懂
 
-![image-20240630161559824](合成器surfaceFlinger.assets/image-20240630161559824.png)
+![image-20240630161559824](合成之surfaceFlinger.assets/image-20240630161559824.png)
 
 
 
-![image-20240630161628916](合成器surfaceFlinger.assets/image-20240630161628916.png)
+![image-20240630161628916](合成之surfaceFlinger.assets/image-20240630161628916.png)
 
 ## 马良GPU
 
-![image-20240630161834963](合成器surfaceFlinger.assets/image-20240630161834963.png)
+![image-20240630161834963](合成之surfaceFlinger.assets/image-20240630161834963.png)
 
 
 
-![image-20240630161934252](合成器surfaceFlinger.assets/image-20240630161934252.png)
+![image-20240630161934252](合成之surfaceFlinger.assets/image-20240630161934252.png)
 
 
 
-![image-20240630161956740](合成器surfaceFlinger.assets/image-20240630161956740.png)
+![image-20240630161956740](合成之surfaceFlinger.assets/image-20240630161956740.png)
 
 
 
-![image-20240630162052324](合成器surfaceFlinger.assets/image-20240630162052324.png)
+![image-20240630162052324](合成之surfaceFlinger.assets/image-20240630162052324.png)
 
 
 
-![image-20240630162116058](合成器surfaceFlinger.assets/image-20240630162116058.png)
+![image-20240630162116058](合成之surfaceFlinger.assets/image-20240630162116058.png)
 
-![image-20240630162227281](合成器surfaceFlinger.assets/image-20240630162227281.png)
+![image-20240630162227281](合成之surfaceFlinger.assets/image-20240630162227281.png)
 
 
 
 ## 高德
 
-![image-20240630162348470](合成器surfaceFlinger.assets/image-20240630162348470.png)
+![image-20240630162348470](合成之surfaceFlinger.assets/image-20240630162348470.png)
 
-![image-20240630162400157](合成器surfaceFlinger.assets/image-20240630162400157.png)
+![image-20240630162400157](合成之surfaceFlinger.assets/image-20240630162400157.png)
 
-![image-20240630162449991](合成器surfaceFlinger.assets/image-20240630162449991.png)
+![image-20240630162449991](合成之surfaceFlinger.assets/image-20240630162449991.png)
 
-![image-20240630162535848](合成器surfaceFlinger.assets/image-20240630162535848.png)
+![image-20240630162535848](合成之surfaceFlinger.assets/image-20240630162535848.png)
 
-![image-20240630162607047](合成器surfaceFlinger.assets/image-20240630162607047.png)
+![image-20240630162607047](合成之surfaceFlinger.assets/image-20240630162607047.png)
 
-![image-20240630162731635](合成器surfaceFlinger.assets/image-20240630162731635.png)
+![image-20240630162731635](合成之surfaceFlinger.assets/image-20240630162731635.png)
 
-![image-20240630162632647](合成器surfaceFlinger.assets/image-20240630162632647.png)
-
-
-
-![image-20240630162800860](合成器surfaceFlinger.assets/image-20240630162800860.png)
-
-![image-20240630162940936](合成器surfaceFlinger.assets/image-20240630162940936.png)
-
-![image-20240630162921282](合成器surfaceFlinger.assets/image-20240630162921282.png)
+![image-20240630162632647](合成之surfaceFlinger.assets/image-20240630162632647.png)
 
 
 
-![image-20240630163021107](合成器surfaceFlinger.assets/image-20240630163021107.png)
+![image-20240630162800860](合成之surfaceFlinger.assets/image-20240630162800860.png)
+
+![image-20240630162940936](合成之surfaceFlinger.assets/image-20240630162940936.png)
+
+![image-20240630162921282](合成之surfaceFlinger.assets/image-20240630162921282.png)
 
 
 
-![image-20240630163047998](合成器surfaceFlinger.assets/image-20240630163047998.png)
+![image-20240630163021107](合成之surfaceFlinger.assets/image-20240630163021107.png)
 
 
 
-![image-20240630163133651](合成器surfaceFlinger.assets/image-20240630163133651.png)
+![image-20240630163047998](合成之surfaceFlinger.assets/image-20240630163047998.png)
 
 
 
-![image-20240630165544164](合成器surfaceFlinger.assets/image-20240630165544164.png)
+![image-20240630163133651](合成之surfaceFlinger.assets/image-20240630163133651.png)
+
+
+
+![image-20240630165544164](合成之surfaceFlinger.assets/image-20240630165544164.png)
 
 shader本身优化：
 
-![image-20240630165608502](合成器surfaceFlinger.assets/image-20240630165608502.png)
+![image-20240630165608502](合成之surfaceFlinger.assets/image-20240630165608502.png)
 
-![image-20240630165654346](合成器surfaceFlinger.assets/image-20240630165654346.png)
+![image-20240630165654346](合成之surfaceFlinger.assets/image-20240630165654346.png)
 
 https://www.bilibili.com/video/BV1py411q7BV?t=7447.7
 
 
 
-![image-20240630165714867](合成器surfaceFlinger.assets/image-20240630165714867.png)
+![image-20240630165714867](合成之surfaceFlinger.assets/image-20240630165714867.png)
 
 ## 晶核性能优化
 
-![image-20240630165843703](合成器surfaceFlinger.assets/image-20240630165843703.png)
+![image-20240630165843703](合成之surfaceFlinger.assets/image-20240630165843703.png)
 
 
 
-![image-20240630170001295](合成器surfaceFlinger.assets/image-20240630170001295.png)
+![image-20240630170001295](合成之surfaceFlinger.assets/image-20240630170001295.png)
 
 
 
-![image-20240630170134423](合成器surfaceFlinger.assets/image-20240630170134423.png)
+![image-20240630170134423](合成之surfaceFlinger.assets/image-20240630170134423.png)
 
 
 
-![image-20240630170222996](合成器surfaceFlinger.assets/image-20240630170222996.png)
+![image-20240630170222996](合成之surfaceFlinger.assets/image-20240630170222996.png)
 
 原理：**<font color='red'>快速移动时</font>**，---------->  降低分辨率（<font color='red'>空间</font>），人眼分辨不出来
 
 注意：静态的东西（不怎变化时），降低刷新率（<font color='red'>时间</font>）
 
-![image-20240630170304996](合成器surfaceFlinger.assets/image-20240630170304996.png)
+![image-20240630170304996](合成之surfaceFlinger.assets/image-20240630170304996.png)
 
 
 
 
 
-![image-20240630170543080](合成器surfaceFlinger.assets/image-20240630170543080.png)
+![image-20240630170543080](合成之surfaceFlinger.assets/image-20240630170543080.png)
 
 静态的东西（不怎变化时），降低刷新率（<font color='red'>时间</font>）
 
@@ -984,11 +984,11 @@ https://www.bilibili.com/video/BV1py411q7BV?t=7447.7
 
 ## 方舟多媒体引擎
 
-![image-20240630170819583](合成器surfaceFlinger.assets/image-20240630170819583.png)
+![image-20240630170819583](合成之surfaceFlinger.assets/image-20240630170819583.png)
 
 原因：网络的波动
 
-![image-20240630170852158](合成器surfaceFlinger.assets/image-20240630170852158.png)
+![image-20240630170852158](合成之surfaceFlinger.assets/image-20240630170852158.png)
 
 
 

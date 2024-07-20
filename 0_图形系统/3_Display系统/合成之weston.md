@@ -133,12 +133,7 @@ weston_output_repaint(compositor.c)
 						                                                     实际上，已经将数据写给drm设备了。图：https://download.csdn.net/blog/column/11175480/133747645
 				return drm_fb（指向DRM的FrameBuffer），并记录
 			drmModeCreatePropertyBlob 拿到渲染后的drm_fb  // 【】libdrm接口
-			
 ```
-
-
-
-
 
 %/accordion%
 
@@ -146,7 +141,7 @@ weston_output_repaint(compositor.c)
 
 【flush流程】目的：commit合成结果给DRM
 
-```
+```java
 wl_timer_heap_dispatch // 【】TODO：repaint流程，居然不在一个loop触发里？
 output_repaint_timer_handler(compositor.c)
 	drm_repaint_flush(drm.c)
@@ -160,6 +155,58 @@ output_repaint_timer_handler(compositor.c)
 
 
 ### drm_assign_planes大纲
+
+```java
+
+└─ drm_assign_planes ----------output级
+    ├─ try: mode = DRM_OUTPUT_PROPOSE_STATE_PLANES_ONLY  //1、尝试只用 overlay
+    ├─ try: mode = DRM_OUTPUT_PROPOSE_STATE_MIXED;      // 2、只用overlay不成功，尝试 overlay + GPU
+    ├─ try: mode = DRM_OUTPUT_PROPOSE_STATE_RENDERER_ONLY;  // 上面两点都不成功, 自然，只用GPU
+    └─ drm_output_propose_state(mode)-------output级--------------
+        └─ wl_list_for_each(pnode)------遍历pnode节点-----view级----------
+            ├─ ①忽略不合成的view(continue)：
+            │   ├─ 1、不属于此output的  if (!(ev->output_mask & (1u << output->base.id)))
+            │   ├─ 2、必须需要颜色变换 TODO:没懂  if (!pnode->surf_xform_valid)
+            │   ├─ 3、完全被遮挡的 if (totally_occluded)
+            │   └─ 4、
+            ├─ ②强制走GPU render的(force_renderer = true)：
+            │   ├─ 1、view存在于多个output上，if (ev->output_mask != (1u << output->base.id))
+            │   ├─ 2、view 对应的GBM not available（drm侧）， if (!b->gbm)
+            │   ├─ 3、view没有有效的buffer，if (!weston_view_has_valid_buffer(ev))
+            │   ├─ 4、view对应buffer类型是 WESTON_BUFFER_SOLID
+            │   ├─ 5、需要做color变换的，(requires color transform)
+            │   ├─ 6、view被GPU render view遮挡的， if (pixman_region32_not_empty(&surface_overlap))  ----> TODO:本质原因是啥！！！！！！
+            │   │   └─ 换言之，gpu view 以下（遮挡），必须是GPU！
+            │   └─ 7、view在保护content-protection的强制mode下
+            ├─ ③--------对于非强制GPU的尝试分配plane：drm_output_find_plane_for_view -----------
+            │   ├─ 1、检查buffer是否有效。无效则 FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE
+            │   ├─ 2、buffer类型是WESTON_BUFFER_SOLID ，分配plane失败， FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE
+            │   ├─ 3、buffer类型是WESTON_BUFFER_SHM，只允许是cursor_plane：
+            │   │   ├─ pixel_format格式是DRM_FORMAT_ARGB8888，失败，FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE
+            │   │   ├─ buffer的尺寸大于鼠标，失败
+            │   │   └─ 赋值：possible_plane_mask = (1 << output->cursor_plane->plane_idx);
+            │   ├─ 4、自然，尝试的mode = DRM_OUTPUT_PROPOSE_STATE_RENDERER_ONLY，失败
+            │   ├─ 5、wl_list_for_each(plane, &device->plane_list)遍历 硬件所有plane
+            │   │   └─ 跳过CURSOR类型的plane
+            │   │       └─ 赋值：possible_plane_mask |= 1 << plane->plane_idx;
+            │   ├─ 6、没有对应的drm_fb（Framebuffer），失败
+            │   └─ 7、有对应的drm_fb，赋值：possible_plane_mask &= fb->plane_mask
+            ├─ ④--------真正的分配（对于③中可能分配的possible_plane）-----------------------
+            └─ wl_list_for_each(plane, &device->plane_list)遍历plane_list：
+                ├─ plane可得性检查：drm_plane_is_available：output如果是virtual的，不能分配plane！
+                │   └─ The plane still 存在 a request
+                │       └─ The plane is still active on another output
+                │           └─ 检查 plane can be used with this CRTC
+                ├─ 检查 view对应的buffer有效性：assert(fb)
+                ├─ alpha已经安排过view，跳过： drm_output_check_plane_has_view_assigned()
+                ├─ alpha 检查：如果view有alpha值，但是该plane不支持alpha，跳过
+                └─ 最终绑定plane与view：drm_output_prepare_cursor_paint_node/drm_output_try_paint_node_on_plane
+                    └─ plane_state->ev = view  // TODO: 最终应该是，plane分配给view
+```
+
+
+
+%accordion%hideContent%accordion%
 
 ```java
 drm_assign_planes ----------output级
@@ -208,6 +255,10 @@ drm_assign_planes ----------output级
 					plane_state->ev = view  // TODO: 最终应该是，plane分配给view
 					
 ```
+
+%/accordion%
+
+
 
 
 

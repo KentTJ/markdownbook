@@ -2,7 +2,7 @@
 
 # Weston / wayland ----与A 无异
 
-## 架构----0层
+## 功能架构----0层
 
 Weston从内部体系结构------------~~窗口管理（shell） ：     WindowManagerService~~
 
@@ -1016,9 +1016,9 @@ $ export LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu
 
 ## 其他
 
-### client   surface_commit给 weston的图形数据类型有：
+### 图形数据的承载者-----buffer：
 
-
+client   surface_commit给 weston的图形数据
 
 --------------->  TODO: 修改标题，目的是什么，为什么，功能是什么
 
@@ -1048,9 +1048,15 @@ $ export LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu
 
 为什么处理方式会不一样？
 
-**最最最本质的原因是什么？**
+**最最最本质的原因是什么？**  **图形加速硬件**要求：
 
-> buffer的连续性？？？
+>   **1、物理连续**且   
+>
+>    **2、符合对齐要求**的内存
+
+**如果是普通共享内存，一般是物理不连续的----------->多数情况用软件渲染。**
+
+------------->[参考](https://blog.csdn.net/u012839187/article/details/100580627#:~:text=%E5%A6%82%E6%9E%9C%E6%98%AF%E6%99%AE%E9%80%9A%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%EF%BC%8C%E4%B8%80%E8%88%AC%E6%98%AF%E7%89%A9%E7%90%86%E4%B8%8D%E8%BF%9E%E7%BB%AD%E7%9A%84%EF%BC%8C%E5%A4%9A%E6%95%B0%E6%83%85%E5%86%B5%E7%94%A8%E8%BD%AF%E4%BB%B6%E6%B8%B2%E6%9F%93) 
 
 
 
@@ -1222,7 +1228,9 @@ panel-position=none          // -----> 没有panel
 
 [图片来源](https://download.csdn.net/blog/column/11175480/133747645#:~:text=%E6%9C%80%E5%B7%A6%E4%BE%A7%E2%80%9D%E5%86%85%E5%AE%B9%EF%BC%8C-,%E5%A6%82%E4%B8%8B%E5%9B%BE%E6%89%80%E7%A4%BA,-%EF%BC%9A)
 
+![0452b6c900ab4c5095cae5e0cbdd67ba.png](合成之weston.assets/0452b6c900ab4c5095cae5e0cbdd67ba.png)
 
+[图来源](https://blog.csdn.net/qq_33782617/article/details/126202800#:~:text=%E5%9D%97%E7%9A%84%E6%8A%BD%E8%B1%A1%E3%80%82-,%E5%A6%82%E5%9B%BE,-%EF%BC%9A)
 
 0[层调用图](https://blog.csdn.net/phmatthaus/article/details/133749323)
 
@@ -1278,7 +1286,7 @@ https://download.csdn.net/blog/column/11175480/133747645       KWin、libdrm、D
 
 
 
-
+ [LCD DRM驱动框架分析一](https://blog.csdn.net/qq_33782617/article/details/126202800#:~:text=%E5%9D%97%E7%9A%84%E6%8A%BD%E8%B1%A1%E3%80%82-,%E5%A6%82%E5%9B%BE,-%EF%BC%9A) 
 
 
 
@@ -1606,3 +1614,24 @@ gst-launch-1.0 videotestsrc ! video/x-raw, width=1920, height=1080 ! autovideosi
 
 > 都要（5w2h）
 
+
+
+
+
+# TODO:  问题定位
+
+见微知著  之  突变点
+
+有成功的，必然你能成功
+
+有正常的，必然都能正常
+
+
+
+
+
+
+
+大略能力，
+
+见微知著能力

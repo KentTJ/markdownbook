@@ -157,7 +157,6 @@ output_repaint_timer_handler(compositor.c)
 ### drm_assign_planes大纲
 
 ```java
-
 └─ drm_assign_planes ----------output级
     ├─ try: mode = DRM_OUTPUT_PROPOSE_STATE_PLANES_ONLY  //1、尝试只用 overlay
     ├─ try: mode = DRM_OUTPUT_PROPOSE_STATE_MIXED;      // 2、只用overlay不成功，尝试 overlay + GPU
@@ -405,6 +404,47 @@ weston-screensaver：安卓屏保
 
 
 ```java
+└─ weston
+    ├─ libexec_weston.so.0
+    │   ├─ libweston-11.so.0
+    │   │   ├─ libwayland-server.so.0
+    │   │   │   └─ libffi.so.8--用于在运行时根据调用接口描述生成函数跳板并调用。
+    │   │   ├─ libpixman-1.so.0--//【】 用于像素操作的库，包括region, box等计算。用了许多平台相关的优化。
+    │   │   │   └─ librga.so.2
+    │   │   ├─ libdrm.so.2--DRM compositor backend相关库文件。
+    │   │   ├─ libxkbcommon.so.0--主要用于键盘处理。
+    │   │   ├─ libmali_hook.so.1--GPU相关库文件。
+    │   │   │   ├─ libmali.so.1
+    │   │   │   │   ├─ libdl.so.2
+    │   │   │   │   ├─ libpthread.so.0
+    │   │   │   │   ├─ libdrm.so.2
+    │   │   │   │   ├─ libwayland-client.so.0
+    │   │   │   │   │   └─ libffi.so.8
+    │   │   │   │   ├─ libwayland-server.so.0
+    │   │   │   │   ├─ libstdc++.so.6
+    │   │   │   │   └─ libgcc_s.so.1
+    │   │   │   └─ libdrm.so.2
+    │   │   └─ libmali.so.1
+    │   ├─ libwayland-client.so.0
+    │   ├─ libwayland-server.so.0
+    │   ├─ libinput.so.10--InputManager相关，负责各种Input事件处理。输入处理，依赖于mtdev, libudev, libevdev等库。
+    │   │   ├─ libmtdev.so.1
+    │   │   ├─ libudev.so.1
+    │   │   └─ libevdev.so.2
+    │   ├─ libevdev.so.2
+    │   └─ ld-linux-aarch64.so.1
+    └─ libc.so.6
+```
+
+------------> [来源](https://www.cnblogs.com/arnoldlu/p/18091352#:~:text=%E5%A6%82%E4%B8%8B%E5%BA%93%E6%96%87%E4%BB%B6%EF%BC%9A-,weston%E4%BE%9D%E8%B5%96%E7%9A%84%E5%BA%93%E6%96%87%E4%BB%B6%E6%9C%89%EF%BC%9A,-weston%0A%E3%80%80%E3%80%80libexec_weston.so)
+
+
+
+%accordion%hideContent%accordion%
+
+
+
+```java
 weston
 　　libexec_weston.so.0
         libweston-11.so.0
@@ -437,9 +477,9 @@ weston
 　　libc.so.6
 ```
 
-------------> [来源](https://www.cnblogs.com/arnoldlu/p/18091352#:~:text=%E5%A6%82%E4%B8%8B%E5%BA%93%E6%96%87%E4%BB%B6%EF%BC%9A-,weston%E4%BE%9D%E8%B5%96%E7%9A%84%E5%BA%93%E6%96%87%E4%BB%B6%E6%9C%89%EF%BC%9A,-weston%0A%E3%80%80%E3%80%80libexec_weston.so)
 
 
+%/accordion%
 
 
 

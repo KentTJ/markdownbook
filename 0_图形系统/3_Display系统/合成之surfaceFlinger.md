@@ -324,7 +324,7 @@ TODO:
 
 
 
-# 选取什么引擎来render（~~RenderEngineType~~）
+# who---选取什么引擎来render（~~RenderEngineType~~）
 
 
 
@@ -345,9 +345,13 @@ TODO:
 >
 > %/accordion%
 
-RenderEngineType 配置：
+RenderEngineType 配置处：
 
 > 1、初始化配置： ~~自然，配置文件~~ 
+>
+> 具体配置文件：
+>
+> 
 >
 > 2、动态配置：
 >
@@ -773,6 +777,10 @@ Android graphic系列文章： https://blog.csdn.net/tkwxty/category_11464526.ht
 补充 surfaceFlinger 图：
 
 >   https://blog.csdn.net/gzzaigcnforever/article/details/22175829#:~:text=解释SurfaceFlinger从应用层到底层的整个绘图，显示的大致流程。
+
+
+
+[显示框架之深入Vsync原理 - 简书 (jianshu.com)](https://www.jianshu.com/p/f5e2f88c475c)  
 
 
 

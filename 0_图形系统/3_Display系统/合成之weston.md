@@ -242,6 +242,14 @@ output_repaint_timer_handler(compositor.c)
                     └─ plane_state->ev = view  // TODO: 最终应该是，plane分配给view
 ```
 
+结论 or 证明？：
+
+GPU合成的views必须连续（~~因为只有一个GPU~~）
+
+推论：所以，
+
+
+
 
 
 %accordion%hideContent%accordion%

@@ -189,7 +189,7 @@ output_repaint_timer_handler(compositor.c)
             │   ├─ 6、view被GPU render view遮挡的， if (pixman_region32_not_empty(&surface_overlap))  ----> TODO:本质原因是啥！！！！！！
             │   │   └─ 换言之，gpu view 以下（遮挡），必须是GPU！
             │   └─ 7、view在保护content-protection的强制mode下
-            ├─ ③--------对于非强制GPU的尝试分配plane：drm_output_find_plane_for_view -----------
+            ├─ ③--------对于非强制GPU的(即非②),尝试分配plane：drm_output_find_plane_for_view ---------
             │   ├─ 1、检查buffer是否有效。无效则 FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE
             │   ├─ 2、buffer类型是WESTON_BUFFER_SOLID ，分配plane失败， FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE
             │   ├─ 3、buffer类型是WESTON_BUFFER_SHM，只允许是cursor_plane：
@@ -222,6 +222,10 @@ output_repaint_timer_handler(compositor.c)
 推论：所以，~~**代码策略：某view是GPU合成，以下（需要被遮挡）都必须是force-render**~~
 
 2、TODO：  上面所有策略的物理级的证明
+
+
+
+
 
 
 
@@ -1162,7 +1166,7 @@ enum wdrm_plane_type {
 
 https://zhuanlan.zhihu.com/p/434869796
 
-
+### drm_output_find_special_plane 只是遍历查找 特定的plane
 
 ## panel(状态栏)
 

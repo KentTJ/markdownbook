@@ -58,12 +58,14 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 
 
 
-## 1层纵向大图------代码大纲字典
+## 1层纵向大图------repaint大纲字典
 
 【repaint流程】承载：将client的damage区域提交给compositor，compositor进行合成
 
+-<font color='red'>repaint的唯一目的：</font>就是拿到合成后大图（承载与drm_fb）与 简单图
+
 ```java
-├─ wl_event_loop_dispatch //
+├─ wl_event_loop_dispatch // 【】 when：重绘必然是event触发（client告知、compositor请求等）
 ├─ output_repaint_timer_handler(compositor.c)
 ├─ weston_output_maybe_repaint(compositor.c)
 └─ weston_output_repaint(compositor.c)
@@ -93,8 +95,7 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
             │   │       ├─ drmModeAddFB2WithModifiers/drmModeAddFB2   //libdrm 【】通过gbm buffer创建帧缓冲区（FrameBuffer）
             │   │       └─ 实际上，已经将数据写给drm设备了。图：https://download.csdn.net/blog/column/11175480/133747645
             │   └─ return drm_fb（指向DRM的FrameBuffer），并记录
-            └─ drmModeCreatePropertyBlob 拿到渲染后的drm_fb  // 【】libdrm接口
-
+            └─ drmModeCreatePropertyBlob 拿到渲染（GPU or CPU）后的drm_fb  // 【】libdrm接口
 ```
 
 
@@ -102,7 +103,7 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 %accordion%原大纲%accordion%
 
 ```java
-wl_event_loop_dispatch // 
+wl_event_loop_dispatch // 【】 when：重绘必然是event触发（client告知、compositor请求等）
 output_repaint_timer_handler(compositor.c)
 weston_output_maybe_repaint(compositor.c)
 weston_output_repaint(compositor.c)
@@ -132,27 +133,65 @@ weston_output_repaint(compositor.c)
 						drmModeAddFB2WithModifiers/drmModeAddFB2   //libdrm 【】通过gbm buffer创建帧缓冲区（FrameBuffer）
 						                                                     实际上，已经将数据写给drm设备了。图：https://download.csdn.net/blog/column/11175480/133747645
 				return drm_fb（指向DRM的FrameBuffer），并记录
-			drmModeCreatePropertyBlob 拿到渲染后的drm_fb  // 【】libdrm接口
+			drmModeCreatePropertyBlob 拿到渲染（GPU or CPU）后的drm_fb  // 【2】libdrm接口
 ```
 
 %/accordion%
 
+【2】 GPU（CPU）合成结果的承载者-------drm_fb
 
 
-【flush流程】目的：commit合成结果给DRM
+
+-<font color='red'>【flush流程】目的：commit  大图与简单图  给DRM</font>
 
 ```java
-wl_timer_heap_dispatch // 【】TODO：repaint流程，居然不在一个loop触发里？
+wl_timer_heap_dispatch // 【1】when：commit必然计时器触发
 output_repaint_timer_handler(compositor.c)
 	drm_repaint_flush(drm.c)
 		drm_pending_state_apply(kms.c)
-			drm_pending_state_apply_atomic(kms.c) //必然：遍历plane_list，去commit
-				drmModeAtomicCommit  // 【】libdrm接口，统一commit
+			drm_pending_state_apply_atomic(kms.c) // 【2】必然：自然以plane_list维度，去commit
+				drmModeAtomicCommit  // 【】关键一行：统一commit（libdrm接口）
 ```
 
+详解【1】：commit 与 repaint流程，一定不在一个loop触发里：
+
+-<font color='red'>生活化模型：</font>
+
+>   overlay ----------- 年轻人
+>
+>   GPU ------------- 有能力的老人
+>
+>    DPU 叠图 ----------考试结束，画挂墙（挂墙展示评分）
+>
+>   （1）<font color='red'>事件驱动（client的dirty） 触发重绘：</font> ~~多个画家画画，画完送给  张贴人 （合成器），合成器触发重绘~~
+>
+>   （2）有些画 可能需要相框（圆角特效等），需要**有能力**的老人（GPU）来完成。**有能力，但是干活慢**。
+>
+>   ​		  老人装完相框，把多个画，贴到一张大纸上**形成大图**，最后交给年轻挂画的人。年轻人（DPU）最后把画挂到墙上
+>
+>   （3）  有些画，很简单，不需要额外的操作，直接交给年轻小白（DPU）直接挂墙。 无能力（只会粘贴），但是干活快
+>
+>   （4）<font color='red'>when：</font><font color='red'>大图与简单画</font>（**plane_list**），何时 给到 年轻小白去挂墙？
+>
+>   ​                       **自然是**本轮考试结束的时候，timeOut的时候   ---------> <font color='red'>即commit是计时器触发</font>
+
+​	TODO: 一场考试需要多久？
 
 
 
+详解【2】：
+
+必然以<font color='red'>plane_list维度去commit</font>：
+
+>   （1）GPU合成的结果，以primary_plane 去提交，提交给DPU
+>
+>   （2） overlay对应的view，没有合成 ------> 直接以overlay_plane，送给DPU
+>
+>      (3)  cursor_plane ，也被提交给DPU
+
+
+
+------------------------> 注意： 遍历 的plane_list，不代表硬件层级！！
 
 ### drm_assign_planes大纲
 
@@ -1220,6 +1259,8 @@ panel-position=none          // -----> 没有panel
 
 ## drm
 
+### 一些图
+
 0[层物理图](https://download.csdn.net/blog/column/11175480/133747645)
 
 
@@ -1231,6 +1272,12 @@ panel-position=none          // -----> 没有panel
 ![0452b6c900ab4c5095cae5e0cbdd67ba.png](合成之weston.assets/0452b6c900ab4c5095cae5e0cbdd67ba.png)
 
 [图来源](https://blog.csdn.net/qq_33782617/article/details/126202800#:~:text=%E5%9D%97%E7%9A%84%E6%8A%BD%E8%B1%A1%E3%80%82-,%E5%A6%82%E5%9B%BE,-%EF%BC%9A)
+
+TODO:   **FrameBuffer是 plane级别的？？？？？？？？？？** 
+
+
+
+
 
 0[层调用图](https://blog.csdn.net/phmatthaus/article/details/133749323)
 

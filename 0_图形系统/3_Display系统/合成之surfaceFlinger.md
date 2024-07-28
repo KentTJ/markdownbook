@@ -347,13 +347,15 @@ TODO:
 
 RenderEngineType 配置处：
 
-> 1、初始化配置： ~~自然，配置文件~~ 
+> 1、持久化配置： ~~自然，配置文件~~ 
 >
-> 具体配置文件：
->
+> ```java
+> //文件/system/build.prop新增：
 > 
+> debug.renderengine.backend=threaded
+> ```
 >
-> 2、动态配置：
+> 2、动态配置（需要重启进程）：
 >
 > ```java
 > adb root && adb remount

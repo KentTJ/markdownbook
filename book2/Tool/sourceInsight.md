@@ -1702,6 +1702,30 @@ https://www.dandelioncloud.cn/article/details/1578906401210855426     Source Ins
 
 
 
+# TODO
+
+## 无法识别cpp STL标准库：------> 似乎无法解决
+
+现象：
+
+>   所有的std，比如vector等，都是黑的
+
+尝试：
+
+>   添加到source 或者 import External Symbols
+>
+>   <img src="sourceInsight.assets/image-20240728123150667.png" alt="image-20240728123150667" style="zoom: 80%;" />
+
+参考：
+
+[source insight 无法识别，跳转，补全 c++ std::map](https://ask.csdn.net/questions/1077420)
+
+[官方教程，可以支持STL：](https://www.sourceinsight.com/doc/v4/userguide/Manual/Command_Reference/Import_External_Symbols.htm)
+
+>   ![image-20240728130324419](sourceInsight.assets/image-20240728130324419.png)
+
+
+
 
 
 # ~~基本设置：~~

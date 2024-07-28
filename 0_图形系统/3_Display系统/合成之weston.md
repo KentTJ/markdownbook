@@ -64,39 +64,9 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 
 -<font color='red'>repaint的唯一目的：</font>就是拿到合成后大图（承载与drm_fb）与 简单图
 
-```java
-├─ wl_event_loop_dispatch // 【】 when：重绘必然是event触发（client告知、compositor请求等）
-├─ output_repaint_timer_handler(compositor.c)
-├─ weston_output_maybe_repaint(compositor.c)
-└─ weston_output_repaint(compositor.c)
-    ├─ ------------------为views分配planes--------------------------
-    ├─ drm_assign_planes // 【】具体见下
-    ├─ ------------------计算damage---------------------------------
-    └─ drm_output_repaint
-        └─ drm_output_render
-            ├─ if：drm_fb_ref  硬件合成  自然，条件：damage为空(也是gl被拦截的地方)
-            ├─ eif:drm_output_render_pixman  软件合成
-            ├─ el：drm_output_render_gl //【】GPU合成     或 x11_output_repaint_gl  backend-x11/x11.c--->  weston合成器的output是X11
-            │   ├─ gl_renderer_repaint_output ----> 必然，在这里设置视口viewPort，视口是output级别的
-            │   │   ├─ get_surface_state(weston_surface)
-            │   │   │   └─ gl_renderer_create_surface
-            │   │   │       ├─ ------------------------attach？？？-----------------------------------
-            │   │   │       └─ gl_renderer_attach(weston_surface, weston_buffer) // 【】核心
-            │   │   ├─ repaint_views  // 【】这里遍历node，必然
-            │   │   │   ├─ ------------------绘制node的地方：OpenGL合成--------------------------
-            │   │   │   └─ draw_paint_node  // 【】有些node会走gl，有些走pixman？ node级别的还是合成器级别的 ？ 必然：这里初始化shader的config
-            │   │   │       ├─ gl_shader_config_init_for_paint_node // 必然：where---draw_paint_node之子，repaint_region之前
-            │   │   │       ├─ repaint_region  //【】
-            │   │   │       └─ triangle_fan_debug 测试用的？？？
-            │   │   └─ blit_shadow_to_output // 【】阴影。开关："color-management"改为true
-            │   ├─ bo = gbm_surface_lock_front_buffer  // 拿到gbm buffer---> 承载合成结果
-            │   ├─ drm_fb_get_from_bo(bo, BUFFER_GBM_SURFACE)
-            │   │   └─ drm_fb_addfb(~bo)
-            │   │       ├─ drmModeAddFB2WithModifiers/drmModeAddFB2   //libdrm 【】通过gbm buffer创建帧缓冲区（FrameBuffer）
-            │   │       └─ 实际上，已经将数据写给drm设备了。图：https://download.csdn.net/blog/column/11175480/133747645
-            │   └─ return drm_fb（指向DRM的FrameBuffer），并记录
-            └─ drmModeCreatePropertyBlob 拿到渲染（GPU or CPU）后的drm_fb  // 【】libdrm接口
-```
+![image-20240729012409994](合成之weston.assets/image-20240729012409994.png)
+
+​             
 
 
 
@@ -133,7 +103,8 @@ weston_output_repaint(compositor.c)
 						drmModeAddFB2WithModifiers/drmModeAddFB2   //libdrm 【】通过gbm buffer创建帧缓冲区（FrameBuffer）
 						                                                     实际上，已经将数据写给drm设备了。图：https://download.csdn.net/blog/column/11175480/133747645
 				return drm_fb（指向DRM的FrameBuffer），并记录
-			drmModeCreatePropertyBlob 拿到渲染（GPU or CPU）后的drm_fb  // 【2】libdrm接口
+            scanout_state->fb = fb  // 合成大图，由 drm_plane_state->drm_fb 承载
+			drmModeCreatePropertyBlob // 【2】libdrm接口，创建属性（后续用来设置CRTC（Crtc）、连接器（Connector）、平面（Plane））
 ```
 
 %/accordion%
@@ -150,7 +121,9 @@ output_repaint_timer_handler(compositor.c)
 	drm_repaint_flush(drm.c)
 		drm_pending_state_apply(kms.c)
 			drm_pending_state_apply_atomic(kms.c) // 【2】必然：自然以plane_list维度，去commit
-				drmModeAtomicCommit  // 【】关键一行：统一commit（libdrm接口）
+    			遍历 drm_plane_state（repaint后的大图存储的地方）
+    				plane_add_prop(req,plane_state->fb->fb_id); // 【】关键一行，关键出参：req 修改对应的配置参数
+				drmModeAtomicCommit(req)  // 【】关键一行：参数统一commit给drm（libdrm接口）
 ```
 
 详解【1】：commit 与 repaint流程，一定不在一个loop触发里：
@@ -242,13 +215,13 @@ output_repaint_timer_handler(compositor.c)
                     └─ plane_state->ev = view  // TODO: 最终应该是，plane分配给view
 ```
 
-结论 or 证明？：
+-<font color='red'>结论的物理级证明：</font>
 
-GPU合成的views必须连续（~~因为只有一个GPU~~）
+1、<font color='red'>物理上，必然：连续性结论：~~</font>**GPU合成的views必须连续**~~（~~因为只有一个GPU~~）
 
-推论：所以，
+推论：所以，~~**代码策略：某view是GPU合成，以下（需要被遮挡）都必须是force-render**~~
 
-
+2、TODO：  上面所有策略的物理级的证明
 
 
 

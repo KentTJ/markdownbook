@@ -171,7 +171,7 @@ output_repaint_timer_handler(compositor.c)
 ```java
 └─ drm_assign_planes ----------output级
     ├─ try: mode = DRM_OUTPUT_PROPOSE_STATE_PLANES_ONLY  //1、尝试只用 overlay
-    ├─ try: mode = DRM_OUTPUT_PROPOSE_STATE_MIXED;      // 2、只用overlay不成功，尝试 overlay + GPU
+    ├─ try: mode = DRM_OUTPUT_PROPOSE_STATE_MIXED;        // 2、只用overlay不成功，尝试 overlay + GPU
     ├─ try: mode = DRM_OUTPUT_PROPOSE_STATE_RENDERER_ONLY;  // 上面两点都不成功, 自然，只用GPU
     └─ drm_output_propose_state(mode)-------output级--------------
         └─ wl_list_for_each(pnode)------遍历pnode节点-----view级----------
@@ -189,30 +189,32 @@ output_repaint_timer_handler(compositor.c)
             │   ├─ 6、view被GPU render view遮挡的， if (pixman_region32_not_empty(&surface_overlap))  ----> TODO:本质原因是啥！！！！！！
             │   │   └─ 换言之，gpu view 以下（遮挡），必须是GPU！
             │   └─ 7、view在保护content-protection的强制mode下
-            ├─ ③--------对于非强制GPU的(即非②),尝试分配plane：drm_output_find_plane_for_view ---------
-            │   ├─ 1、检查buffer是否有效。无效则 FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE
-            │   ├─ 2、buffer类型是WESTON_BUFFER_SOLID ，分配plane失败， FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE
-            │   ├─ 3、buffer类型是WESTON_BUFFER_SHM，只允许是cursor_plane：
-            │   │   ├─ pixel_format格式是DRM_FORMAT_ARGB8888，失败，FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE
-            │   │   ├─ buffer的尺寸大于鼠标，失败
-            │   │   └─ 赋值：possible_plane_mask = (1 << output->cursor_plane->plane_idx);
-            │   ├─ 4、自然，尝试的mode = DRM_OUTPUT_PROPOSE_STATE_RENDERER_ONLY，失败
-            │   ├─ 5、wl_list_for_each(plane, &device->plane_list)遍历 硬件所有plane
-            │   │   └─ 跳过CURSOR类型的plane
-            │   │       └─ 赋值：possible_plane_mask |= 1 << plane->plane_idx;
-            │   ├─ 6、没有对应的drm_fb（Framebuffer），失败
-            │   └─ 7、有对应的drm_fb，赋值：possible_plane_mask &= fb->plane_mask
-            ├─ ④--------真正的分配（对于③中可能分配的possible_plane）-----------------------
-            └─ wl_list_for_each(plane, &device->plane_list)遍历plane_list：
-                ├─ plane可得性检查：drm_plane_is_available：output如果是virtual的，不能分配plane！
-                │   └─ The plane still 存在 a request
-                │       └─ The plane is still active on another output
-                │           └─ 检查 plane can be used with this CRTC
-                ├─ 检查 view对应的buffer有效性：assert(fb)
-                ├─ alpha已经安排过view，跳过： drm_output_check_plane_has_view_assigned()
-                ├─ alpha 检查：如果view有alpha值，但是该plane不支持alpha，跳过
-                └─ 最终绑定plane与view：drm_output_prepare_cursor_paint_node/drm_output_try_paint_node_on_plane
-                    └─ plane_state->ev = view  // TODO: 最终应该是，plane分配给view
+            └─ ③--------对于非强制GPU的尝试分配plane：drm_output_find_plane_for_view -----------
+                ├─ 1、检查buffer是否有效。无效则 FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE
+                ├─ 2、buffer类型是WESTON_BUFFER_SOLID ，分配plane失败， FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE
+                ├─ 3、buffer类型是WESTON_BUFFER_SHM，只允许是cursor_plane：
+                │   ├─ pixel_format格式是DRM_FORMAT_ARGB8888，失败，FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE
+                │   ├─ buffer的尺寸大于鼠标，失败
+                │   └─ 赋值：possible_plane_mask = (1 << output->cursor_plane->plane_idx);
+                ├─ 4、自然，尝试的mode = DRM_OUTPUT_PROPOSE_STATE_RENDERER_ONLY，失败
+                ├─ 5、wl_list_for_each(plane, &device->plane_list)遍历 硬件所有plane
+                │   └─ 跳过CURSOR类型的plane
+                │       └─ 赋值：possible_plane_mask |= 1 << plane->plane_idx;
+                ├─ 6、没有对应的drm_fb（Framebuffer），失败
+                ├─ 7、有对应的drm_fb，赋值：possible_plane_mask &= fb->plane_mask
+                ├─ ③_1--------真正的分配（对于③中可能分配的possible_plane）-----------------------
+                └─ wl_list_for_each(plane, &device->plane_list)遍历plane_list：
+                    ├─ plane可得性检查：drm_plane_is_available：
+                    │   ├─ output如果是virtual的，不能分配plane！！
+                    │   ├─ The plane still 存在 a request
+                    │   ├─ The plane is still active on another output
+                    │   └─ 检查 plane can be used with this CRTC
+                    ├─ 检查 view对应的buffer有效性：assert(fb)
+                    ├─ alpha已经安排过view，跳过： drm_output_check_plane_has_view_assigned()
+                    ├─ alpha 检查：如果view有alpha值，但是该plane不支持alpha，跳过
+                    └─ 最终绑定plane与view：drm_output_prepare_cursor_paint_node/drm_output_try_paint_node_on_plane
+                        └─ plane_state->ev = view  // TODO: 最终应该是，plane分配给view
+
 ```
 
 -<font color='red'>结论的物理级证明：</font>
@@ -234,7 +236,7 @@ output_repaint_timer_handler(compositor.c)
 ```java
 drm_assign_planes ----------output级
 	try: mode = DRM_OUTPUT_PROPOSE_STATE_PLANES_ONLY  //1、尝试只用 overlay
-	try: mode = DRM_OUTPUT_PROPOSE_STATE_MIXED;      // 2、只用overlay不成功，尝试 overlay + GPU
+	try: mode = DRM_OUTPUT_PROPOSE_STATE_MIXED;	  // 2、只用overlay不成功，尝试 overlay + GPU
 	try: mode = DRM_OUTPUT_PROPOSE_STATE_RENDERER_ONLY;  // 上面两点都不成功, 自然，只用GPU
 	drm_output_propose_state(mode)-------output级--------------
 		wl_list_for_each(pnode)------遍历pnode节点-----view级----------
@@ -265,18 +267,19 @@ drm_assign_planes ----------output级
 						赋值：possible_plane_mask |= 1 << plane->plane_idx;
 				6、没有对应的drm_fb（Framebuffer），失败
 				7、有对应的drm_fb，赋值：possible_plane_mask &= fb->plane_mask
-			④--------真正的分配（对于③中可能分配的possible_plane）-----------------------
-			wl_list_for_each(plane, &device->plane_list)遍历plane_list：
-				plane可得性检查：drm_plane_is_available：output如果是virtual的，不能分配plane！！
-														The plane still 存在 a request
-														The plane is still active on another output
-														检查 plane can be used with this CRTC
-				检查 view对应的buffer有效性：assert(fb)
-				alpha已经安排过view，跳过： drm_output_check_plane_has_view_assigned()
-				alpha 检查：如果view有alpha值，但是该plane不支持alpha，跳过
-				最终绑定plane与view：drm_output_prepare_cursor_paint_node/drm_output_try_paint_node_on_plane
-					plane_state->ev = view  // TODO: 最终应该是，plane分配给view
-					
+				③_1--------真正的分配（对于③中可能分配的possible_plane）-----------------------
+				wl_list_for_each(plane, &device->plane_list)遍历plane_list：
+					plane可得性检查：drm_plane_is_available：
+						output如果是virtual的，不能分配plane！！
+						The plane still 存在 a request
+						The plane is still active on another output
+						检查 plane can be used with this CRTC
+					检查 view对应的buffer有效性：assert(fb)
+					alpha已经安排过view，跳过： drm_output_check_plane_has_view_assigned()
+					alpha 检查：如果view有alpha值，但是该plane不支持alpha，跳过
+					最终绑定plane与view：drm_output_prepare_cursor_paint_node/drm_output_try_paint_node_on_plane
+						plane_state->ev = view  // TODO: 最终应该是，plane分配给view
+
 ```
 
 %/accordion%

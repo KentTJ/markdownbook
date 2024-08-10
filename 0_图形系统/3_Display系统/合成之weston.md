@@ -40,7 +40,7 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 
 
 
-## 1层生命周期图
+## when---1层生命周期图  TODO 
 
 
 
@@ -58,7 +58,9 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 
 
 
-## 1层纵向大图------repaint大纲字典
+## 1层纵向大图
+
+### 次要----repaint大纲字典
 
 【repaint流程】承载：将client的damage区域提交给compositor，compositor进行合成
 
@@ -200,7 +202,7 @@ output_repaint_timer_handler(compositor.c)
 
 ------------------------> 注意： 遍历 的plane_list，不代表硬件层级！！
 
-### drm_assign_planes大纲
+### 次要---drm_assign_planes大纲
 
 ```java
 └─ drm_assign_planes ----------output级

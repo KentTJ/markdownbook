@@ -62,7 +62,7 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 
 【repaint流程】承载：将client的damage区域提交给compositor，compositor进行合成
 
--<font color='red'>repaint的唯一目的：</font>就是拿到合成后大图（承载与drm_fb）与 简单图
+-<font color='red'>repaint的唯一目的：</font>就是拿到合成后大图（承载于drm_fb）与 简单图
 
 ![image-20240729012409994](合成之weston.assets/image-20240729012409994.png)
 
@@ -109,7 +109,39 @@ weston_output_repaint(compositor.c)
 
 %/accordion%
 
+
+
+**=================大纲的证明==================**
+
+drm_output_render<font color='red'>唯一目的</font>就是拿到合成后buffer对应的fd
+
+>   （1）自然，OpenGL合成后，拿到fd
+>
+>   （2） 一个client霸屏了，自然直接用client的fd
+
+
+
+直接overlay送的图呢？
+
+
+
 【2】 GPU（CPU）合成结果的承载者-------drm_fb
+
+
+
+
+
+**其他小点：**
+
+1、霸屏和GPU合成一样，都是用的 primary plane    -----------> 自然的，因为primary是每个屏必须的
+
+代码实现角度：
+
+>   ~~scanout_plane一定是 primary—plane  类型~~  自然
+>
+>   scanout_state-><font color='red'>fb 的指向不同</font>：霸屏下，是指向Client的fd；GPU合成是指向frameBuffer 
+
+
 
 
 
@@ -219,7 +251,7 @@ output_repaint_timer_handler(compositor.c)
 
 -<font color='red'>结论的物理级证明：</font>
 
-1、<font color='red'>物理上，必然：连续性结论：~~</font>**GPU合成的views必须连续**~~（~~因为只有一个GPU~~）
+1、<font color='red'>物理上，必然：连续性结论</font>：~~**GPU合成的views必须连续**~~（~~因为只有一个GPU~~）
 
 推论：所以，~~**代码策略：某view是GPU合成，以下（需要被遮挡）都必须是force-render**~~
 

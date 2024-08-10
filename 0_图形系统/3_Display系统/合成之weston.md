@@ -134,15 +134,13 @@ drm_output_render<font color='red'>唯一目的</font>就是拿到合成后buffe
 
 **其他小点：**
 
-
-
-3、直接overlay送的图的流程：
+1、直接overlay送的图的流程：
 
 （1）在 gl重绘窗口repaint_views时，过滤掉了
 
 ------------> 即啥也没做！！！！
 
-（2）TODO
+（2）scanout霸屏时，也是gl流程，直接return出去了
 
 
 
@@ -399,11 +397,11 @@ weston_compositor里的primary_plane;  // 【】指明了GPU的plane
 >   ​			例子：client  OpenGL画的， 软件合成器
 >   ​			TODO: 待验证
 
-![image-20240811052742769](合成之weston.assets/image-20240811052742769.png)
+![image-20240811061417190](合成之weston.assets/image-20240811061417190.png)
 
+[来源](https://kenttj.github.io/markdownbook/0_%E5%9B%BE%E5%BD%A2%E7%B3%BB%E7%BB%9F/3_Display%E7%B3%BB%E7%BB%9F/als2015_wayland_weston_v2.pdf)
 
-
-![image-20240811053113711](合成之weston.assets/image-20240811053113711.png)
+![image-20240811061502915](合成之weston.assets/image-20240811061502915.png)
 
 结论：
 
@@ -415,7 +413,9 @@ weston_compositor里的primary_plane;  // 【】指明了GPU的plane
 >
 >   2、<font color='red'>Full-screen 与  primary plane  没有任何区别</font> 
 >
->   ​        唯一区别：后者有个 合成过程
+>   ​        唯一区别：后者有个 合成过程，**见上图的 4和5**
+
+TODO:  上图中的GBM是啥？
 
 
 

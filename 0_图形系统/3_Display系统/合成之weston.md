@@ -81,8 +81,9 @@ weston_output_repaint(compositor.c)
 	drm_assign_planes // 【】具体见下
 	------------------计算damage---------------------------------
 	drm_output_repaint
-		drm_output_render
-			if：drm_fb_ref  硬件合成  自然，条件：damage为空(也是gl被拦截的地方)
+		drm_output_render-----------------只做了一件事情，拿到fd（内核的buffer）----------------------
+			if (scanout_state->fb) return // 【】霸屏模式scanout -----> 利用client的fd
+			if：drm_fb_ref  硬件合成  自然，条件：damage为空(也是gl被拦截的地方)？？？？？
 			eif:drm_output_render_pixman  软件合成
 			el：drm_output_render_gl //【】GPU合成     或 x11_output_repaint_gl  backend-x11/x11.c--->  weston合成器的output是X11
 				gl_renderer_repaint_output ----> 必然，在这里设置视口viewPort，视口是output级别的
@@ -91,7 +92,7 @@ weston_output_repaint(compositor.c)
 							------------------------attach？？？-----------------------------------
 							gl_renderer_attach(weston_surface, weston_buffer) // 【】核心
 					repaint_views  // 【】这里遍历node，必然
-						------------------绘制node的地方：OpenGL合成--------------------------
+						------------------【3】OpenGL合成, 前提：分配了primary plane--------------------------
 						draw_paint_node  // 【】有些node会走gl，有些走pixman？ node级别的还是合成器级别的 ？ 必然：这里初始化shader的config
 							gl_shader_config_init_for_paint_node // 必然：where---draw_paint_node之子，repaint_region之前
 							repaint_region  //【】
@@ -117,11 +118,11 @@ drm_output_render<font color='red'>唯一目的</font>就是拿到合成后buffe
 
 >   （1）自然，OpenGL合成后，拿到fd
 >
->   （2） 一个client霸屏了，自然直接用client的fd
+>   （2） 一个client霸屏了，自然直接用client的fd 。具体见《霸屏scanout》章节
+
+为啥要拿到fd？ 因为这是commit的前提！！！！！
 
 
-
-直接overlay送的图呢？
 
 
 
@@ -133,13 +134,15 @@ drm_output_render<font color='red'>唯一目的</font>就是拿到合成后buffe
 
 **其他小点：**
 
-1、霸屏和GPU合成一样，都是用的 primary plane    -----------> 自然的，因为primary是每个屏必须的
 
-代码实现角度：
 
->   ~~scanout_plane一定是 primary—plane  类型~~  自然
->
->   scanout_state-><font color='red'>fb 的指向不同</font>：霸屏下，是指向Client的fd；GPU合成是指向frameBuffer 
+3、直接overlay送的图的流程：
+
+（1）在 gl重绘窗口repaint_views时，过滤掉了
+
+------------> 即啥也没做！！！！
+
+（2）TODO
 
 
 
@@ -152,9 +155,10 @@ wl_timer_heap_dispatch // 【1】when：commit必然计时器触发
 output_repaint_timer_handler(compositor.c)
 	drm_repaint_flush(drm.c)
 		drm_pending_state_apply(kms.c)
-			drm_pending_state_apply_atomic(kms.c) // 【2】必然：自然以plane_list维度，去commit
-    			遍历 drm_plane_state（repaint后的大图存储的地方）
-    				plane_add_prop(req,plane_state->fb->fb_id); // 【】关键一行，关键出参：req 修改对应的配置参数
+			drm_pending_state_apply_atomic(kms.c)  // 遍历 pending_state->output_list
+				drm_output_apply_state_atomic(drm_output_state, drmModeAtomicReq)  // 【2】必然：自然以plane_list维度，去commit
+					遍历 drm_plane_state（repaint后的大图存储的地方）
+						plane_add_prop(req,plane_state->fb->fb_id); // 【】关键一行，关键出参：req 修改对应的配置参数
 				drmModeAtomicCommit(req)  // 【】关键一行：参数统一commit给drm（libdrm接口）
 ```
 
@@ -335,6 +339,83 @@ weston_compositor里的primary_plane;  // 【】指明了GPU的plane
 维测：
 
 
+
+### 补充特例--------霸屏scanout
+
+效果：
+
+>   ![image-20240811050811415](合成之weston.assets/image-20240811050811415.png)
+>
+>   [图来源](https://blog.csdn.net/u012839187/article/details/112415876#:~:text=an%20appropriate%20buffer)
+
+
+
+
+
+结论：
+
+>   1、霸屏和GPU合成一样，**都是用的那块 primary plane**    
+>
+>   -----------> 自然的，  （1）<font color='red'>目的一样：GPU合成目的也是拿到FullScreen的df </font>  （2）因为primary是每个屏必须的
+>
+>   代码实现角度：
+>
+>   >   ~~scanout_plane一定是 primary—plane  类型~~  自然
+>   >
+>   >   scanout_state-><font color='red'>fb 的指向不同</font>：霸屏下，是指向Client的fd；GPU合成是指向frameBuffer 
+>
+>   2、霸屏的判断：自然是FullScreen
+>
+>   4、<font color='red'>霸屏的唯一目</font>的就是 阻止 合成。[见](https://blog.csdn.net/u012839187/article/details/112415876#:~:text=%22Disables%22%20composition%20for%20fullscreen%20clients)
+>
+>   5、优点：一个client霸屏了，**自然直接用client的fd**
+>
+>   6、TODO:  霸屏 与 走overlay的 图，有本质区别嘛？
+>
+>   7、~~composition只会在primary  plane上发生~~。自然
+>
+>   8、物理角度决定了  full-screen  和 overlay，没有GPU的合成
+
+
+
+### 信息角度之    像素之旅
+
+参考：[像素之旅](https://blog.csdn.net/u012839187/article/details/112415876#:~:text=%E5%8D%A0%E6%8D%AEsprite%20plane%EF%BC%9B-,%E5%83%8F%E7%B4%A0%E4%B9%8B%E6%97%85,-%E4%BD%9C%E4%B8%BA%E8%AF%B4%E6%98%8E%EF%BC%8C%E8%AF%B7)
+
+
+整个图形，就是像素的生命周期：
+
+>   client像素:  产生--->流转给合成器 --->流转plane --->crtc ---->encoder ---->connector ----> 屏幕
+>
+
+像素的承载：buffer
+
+>   1、GPU buffer -----> client  OpenGL画的 & GPU 合成时： 这个时候是共享buffer？[共享纹理](https://blog.csdn.net/u012839187/article/details/112415876#:~:text=%E7%9A%84%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95%EF%BC%89-,%E5%9C%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E5%90%88%E6%88%90%E5%99%A8%E4%B9%8B%E9%97%B4%E5%85%B1%E4%BA%AB%E7%BA%B9%E7%90%86,-%E3%80%82%E5%9C%A8%E6%9C%AC%E4%BE%8B)？
+>
+>   2、CPU buffer -----> CPU绘制 & CPU合成
+>
+>   3、交叉---GPU buffer & CPU buffer：存在内存Copy: GPU buffer copy给CPU buffer ！！！！！！！
+>
+>   ​			例子：client  OpenGL画的， 软件合成器
+>   ​			TODO: 待验证
+
+![image-20240811052742769](合成之weston.assets/image-20240811052742769.png)
+
+
+
+![image-20240811053113711](合成之weston.assets/image-20240811053113711.png)
+
+结论：
+
+-<font color='red'>从本质上讲：</font>
+
+>    1、<font color='red'>Full-screen 与  overlay，没有任何区别</font> ------------->  自然，处理流程没有区别
+>
+>   ​      唯一区别：df 是不是全屏的？
+>
+>   2、<font color='red'>Full-screen 与  primary plane  没有任何区别</font> 
+>
+>   ​        唯一区别：后者有个 合成过程
 
 
 

@@ -66,7 +66,42 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 
 -<font color='red'>repaint的唯一目的：</font>就是拿到合成后大图（承载于drm_fb）与 简单图
 
-![image-20240729012409994](合成之weston.assets/image-20240729012409994.png)
+```java
+├─ wl_event_loop_dispatch // 【】 when：重绘必然是event触发（client告知、compositor请求等）
+├─ output_repaint_timer_handler(compositor.c)
+├─ weston_output_maybe_repaint(compositor.c)
+└─ weston_output_repaint(compositor.c)
+    ├─ ------------------为views分配planes--------------------------
+    ├─ drm_assign_planes // 【】具体见下
+    ├─ ------------------计算damage---------------------------------
+    └─ drm_output_repaint
+        └─ drm_output_render-----------------只做了一件事情，拿到fd（内核的buffer）----------------------
+            ├─ if (scanout_state->fb) return // 【】霸屏模式scanout -----> 利用client的fd
+            ├─ if：drm_fb_ref  硬件合成  自然，条件：damage为空(也是gl被拦截的地方)？？？？？
+            ├─ eif:drm_output_render_pixman  软件合成
+            ├─ el：drm_output_render_gl //【】GPU合成	 或 x11_output_repaint_gl  backend-x11/x11.c--->  weston合成器的output是X11
+            │   ├─ gl_renderer_repaint_output ----> 必然，在这里设置视口viewPort，视口是output级别的
+            │   │   ├─ get_surface_state(weston_surface)
+            │   │   │   └─ gl_renderer_create_surface
+            │   │   │       ├─ ------------------------attach？？？-----------------------------------
+            │   │   │       └─ gl_renderer_attach(weston_surface, weston_buffer) // 【】核心
+            │   │   ├─ repaint_views  // 【】这里遍历node，必然
+            │   │   │   ├─ ------------------【3】OpenGL合成, 前提：分配了primary plane--------------------------
+            │   │   │   └─ draw_paint_node  // 【】有些node会走gl，有些走pixman？ node级别的还是合成器级别的 ？ 必然：这里初始化shader的config
+            │   │   │       ├─ gl_shader_config_init_for_paint_node // 必然：where---draw_paint_node之子，repaint_region之前
+            │   │   │       ├─ repaint_region  //【】
+            │   │   │       └─ triangle_fan_debug 测试用的？？？
+            │   │   └─ blit_shadow_to_output // 【】阴影。开关："color-management"改为true
+            │   ├─ bo = gbm_surface_lock_front_buffer  // 拿到gbm buffer---> 承载合成结果
+            │   ├─ drm_fb_get_from_bo(bo, BUFFER_GBM_SURFACE)
+            │   │   └─ drm_fb_addfb(~bo)
+            │   │       └─ drmModeAddFB2WithModifiers/drmModeAddFB2   //libdrm 【】通过gbm buffer创建帧缓冲区（FrameBuffer）
+            │   │           └─ 实际上，已经将数据写给drm设备了。图：https://download.csdn.net/blog/column/11175480/133747645
+            │   └─ return drm_fb（指向DRM的FrameBuffer），并记录
+            ├─ scanout_state->fb = fb  // 合成大图，由 drm_plane_state->drm_fb 承载
+            └─ drmModeCreatePropertyBlob // 【2】libdrm接口，创建属性（后续用来设置CRTC（Crtc）、连接器（Connector）、平面（Plane））
+
+```
 
 ​             
 
@@ -87,7 +122,7 @@ weston_output_repaint(compositor.c)
 			if (scanout_state->fb) return // 【】霸屏模式scanout -----> 利用client的fd
 			if：drm_fb_ref  硬件合成  自然，条件：damage为空(也是gl被拦截的地方)？？？？？
 			eif:drm_output_render_pixman  软件合成
-			el：drm_output_render_gl //【】GPU合成     或 x11_output_repaint_gl  backend-x11/x11.c--->  weston合成器的output是X11
+			el：drm_output_render_gl //【】GPU合成	 或 x11_output_repaint_gl  backend-x11/x11.c--->  weston合成器的output是X11
 				gl_renderer_repaint_output ----> 必然，在这里设置视口viewPort，视口是output级别的
 					get_surface_state(weston_surface)
 						gl_renderer_create_surface
@@ -104,9 +139,9 @@ weston_output_repaint(compositor.c)
 				drm_fb_get_from_bo(bo, BUFFER_GBM_SURFACE)
 					drm_fb_addfb(~bo)
 						drmModeAddFB2WithModifiers/drmModeAddFB2   //libdrm 【】通过gbm buffer创建帧缓冲区（FrameBuffer）
-						                                                     实际上，已经将数据写给drm设备了。图：https://download.csdn.net/blog/column/11175480/133747645
+																			 实际上，已经将数据写给drm设备了。图：https://download.csdn.net/blog/column/11175480/133747645
 				return drm_fb（指向DRM的FrameBuffer），并记录
-            scanout_state->fb = fb  // 合成大图，由 drm_plane_state->drm_fb 承载
+			scanout_state->fb = fb  // 合成大图，由 drm_plane_state->drm_fb 承载
 			drmModeCreatePropertyBlob // 【2】libdrm接口，创建属性（后续用来设置CRTC（Crtc）、连接器（Connector）、平面（Plane））
 ```
 

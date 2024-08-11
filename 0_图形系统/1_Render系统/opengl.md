@@ -375,7 +375,7 @@ fs.glsl：
 
  precision mediump float;
  
- // add by cg
+ // add by chen
  in vec3 vertexcolor;
  
  out vec4 fragColor;
@@ -384,7 +384,7 @@ fs.glsl：
  void main()
  {
      // fragColor = vec4(1.0, 0.0, 0.0, 1.0);
-     // add by cg
+     // add by chen
      fragColor = vec4(vertexcolor.x, vertexcolor.y, vertexcolor.z, 1.0);
  }
 ```
@@ -416,7 +416,7 @@ RendererJNI.cpp：
      // Use the program object
      glUseProgram ( g_programObject );
  
-     // -------------------modify by cg------------------------------
+     // -------------------modify by chen------------------------------
      //  Load the vertex data ------> to glsl
      // location data------define location index = 0
      glVertexAttribPointer ( 0, 3, GL_FLOAT, GL_FALSE,  6 * sizeof(float),  vVertices);
@@ -432,7 +432,7 @@ RendererJNI.cpp：
      pVertices += 3; // 移动到第四个元素的位置
      glVertexAttribPointer ( 1, 3, GL_FLOAT, GL_FALSE,  6 * sizeof(float),    pVertices );
      glEnableVertexAttribArray ( 1 );
-     / -------------------modify by cg------------------------------
+     / -------------------modify by chen------------------------------
  
      glDrawArrays ( GL_TRIANGLES, 0, 3 );
  }
@@ -549,13 +549,61 @@ https://stackoverflow.com/questions/3420558/printf-in-glsl
 
 ## EGL操作
 
-### OpenGL ES EGL eglMakeCurrent
+###  清除GPU缓冲区buffer -------glClear & glClearColor
+
+
+
+#### 功能之  <font color='red'>按照区域clear：</font>
+
+```java
+// add by chen
+glScissor(0, 0, 800, 400);
+glEnable(GL_SCISSOR_TEST);
+
+// add by chen
+glClearColor(0.0, 0.0, 0.0, 0.0);
+glClear(GL_COLOR_BUFFER_BIT);
+
+// add by chen
+glDisable(GL_SCISSOR_TEST);
+
+
+
+// add by chen
+glScissor(800, 200, 800, 400);
+glEnable(GL_SCISSOR_TEST);
+
+// add by chen
+glClearColor(0.0, 0.0, 0.0, 0.0);
+glClear(GL_COLOR_BUFFER_BIT);
+
+// add by chen
+glDisable(GL_SCISSOR_TEST);
+```
+
+
+
+效果：
+
+>   ![image-20240811215751573](opengl.assets/image-20240811215751573.png)
+
+### eglMakeCurrent
 
 [OpenGL ES EGL eglMakeCurrent-CSDN博客](https://blog.csdn.net/ZhaDeNianQu/article/details/127412561)             ------------------>  非常详细，系列文章
+
+
 
 与线程绑定
 
 TODO: 多个**`EGLContext`**
+
+**具体例子，**见 《eglMakeCurrent 绑定、创造环境（为后续gl操作）》
+
+
+
+
+
+
 
 ### **顶点的属性值**（位置、颜色、纹理坐标）传递 给 **顶点shader**：
 
@@ -589,7 +637,9 @@ TODO: 多个**`EGLContext`**
 
 
 
+### eglSwapBuffers
 
+[eglSwapBuffers详解-CSDN博客](https://blog.csdn.net/happy19850920/article/details/50773875?spm=1001.2014.3001.5502)
 
 
 
@@ -1187,9 +1237,15 @@ TODO: 0层结构图
 
 > 见 eglMakeCurrent()详解-CSDN博客
 
-## eglSwapBuffers
 
-[eglSwapBuffers详解-CSDN博客](https://blog.csdn.net/happy19850920/article/details/50773875?spm=1001.2014.3001.5502)
+
+
+
+
+
+
+
+
 
 ## 与Skia渲染比较
 
@@ -1201,7 +1257,7 @@ Glsurfaceview的 onDrawFrame(GL10 gl)  ------> opengl引擎渲染 View的绘制o
 
 glsurfaceview的双缓冲机制： TODO:两块surface的交换： 一块渲染mEglSurface，一块显示mEglDisplay ------------> mEgl.eglSwapBuffers
 
-双缓冲，应该是buffer，不是两个surface！！！！
+双缓冲，应该是两个buffer，<font color='red'>不是两个surface！！</font>
 
 ## 其他demo
 

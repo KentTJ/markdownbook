@@ -186,6 +186,20 @@ drm_output_render<font color='red'>唯一目的</font>就是拿到合成后buffe
 -<font color='red'>【flush流程】目的：commit  大图与简单图  给DRM</font>
 
 ```java
+├─ wl_timer_heap_dispatch // 【1】when：commit必然计时器触发
+└─ output_repaint_timer_handler(compositor.c)
+    └─ drm_repaint_flush(drm.c)
+        └─ drm_pending_state_apply(kms.c)
+            └─ drm_pending_state_apply_atomic(kms.c)  // 遍历 pending_state->output_list
+                ├─ drm_output_apply_state_atomic(drm_output_state, drmModeAtomicReq)  // 【2】必然：自然以plane_list维度，去commit
+                │   └─ 遍历 drm_plane_state（repaint后的大图存储的地方）
+                │       └─ plane_add_prop(req,plane_state->fb->fb_id); // 【】关键一行，关键出参：req 修改对应的配置参数
+                └─ drmModeAtomicCommit(req)  // 【】关键一行：参数统一commit给drm（libdrm接口）
+```
+
+%accordion%hideContent%accordion%
+
+```java
 wl_timer_heap_dispatch // 【1】when：commit必然计时器触发
 output_repaint_timer_handler(compositor.c)
 	drm_repaint_flush(drm.c)
@@ -196,6 +210,8 @@ output_repaint_timer_handler(compositor.c)
 						plane_add_prop(req,plane_state->fb->fb_id); // 【】关键一行，关键出参：req 修改对应的配置参数
 				drmModeAtomicCommit(req)  // 【】关键一行：参数统一commit给drm（libdrm接口）
 ```
+
+%/accordion%
 
 详解【1】：commit 与 repaint流程，一定不在一个loop触发里：
 
@@ -1741,6 +1757,123 @@ https://blog.csdn.net/u012839187/article/details/116054755    agl-compositor
 
 
 https://fossies.org/dox/weston-13.0.3/structivi__shell.html     struct的类图
+
+
+
+# 显示性能优化
+
+## 优化之  只重绘damage区域
+
+### 标记 damage区域：
+
+1、client设置 surface_damage
+
+2、合成侧标记：
+
+```java
+weston_view_damage_below
+```
+
+3、移动窗口
+
+
+
+### 如何做到只重绘damage呢（how）
+
+```java
+// 遍历node：
+draw_paint_node  
+	pixman_region32_intersect(&repaint,
+				  &pnode->view->transform.boundingbox, damage); // repaint 区域是  damage与 view的交集
+	pixman_region32_subtract(&repaint, &repaint, &pnode->view->clip);  // 去掉clip区域  【】
+```
+
+----------->  
+
+**结论：** **静止的窗口，repaint区域为空**（~~每个view都会遍历到~~）
+
+
+
+
+
+TODO:  pnode->view->transform.boundingbox  与   weston_surface的宽高区别
+
+​              pnode->view-> transform.position				以及 weston_view的位置，之间的区别						
+
+
+
+
+
+【】 clip区域是啥？ 
+
+TODO： 似乎是不需要重绘的
+
+
+
+
+
+# 其他 次要功能
+
+
+
+## weston 截屏  & 录屏
+
+### ~~操作~~
+
+截屏：
+
+> 命令方式（需要debug模式运行）：
+>
+> ```java
+> weston --debug  //  【】     
+> 
+> weston-screenshooter
+> ```
+>
+> 
+>
+> 快捷键：
+>
+> Win+s      -----------> 验证OK
+
+------------------>  待完善功能，按照窗口截屏
+
+
+
+录屏：
+
+> 命令方式：  TODO:
+>
+> ```java
+> 
+> ```
+>
+> 
+>
+> 快捷键：
+>
+> Win+r 开始/停止屏幕录制     -----------> 验证OK
+>
+> ```java
+> 生成.wcap 格式的文件，这是一种低损耗的 weston 专有格式，可 以通过 wcap 工具进行解码:
+> 
+> wcap-decode --yuv4mpeg2 capture.wcap > capture.y4m
+> y4m 是一种原始格式，可以使用 vlc 打开，也可以使用 ffmpeg 进行编码:
+> 
+> ffmpeg -y -i capture.y4m -c:v libx264 -pix_fmt yuv420p capture.mp4
+> ```
+>
+> 
+
+
+
+### 原理：
+
+
+
+
+
+参考：     [ Weston 桌面使用简介](https://reimei.nxez.com/post/introduction-to-using-the-weston-desktop/)
 
 
 

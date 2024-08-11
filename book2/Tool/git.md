@@ -606,7 +606,7 @@ https://blog.csdn.net/renfeideboke/article/details/130930418?spm=1001.2101.3001.
 报错：
 
 ```java
-$ repo init -u git@e.coding.byd.com:dlc/bos/repo.git
+$ repo init -u /repo.git
  bash: repo: command not found
 ```
 
@@ -626,8 +626,7 @@ $ repo init -u git@e.coding.byd.com:dlc/bos/repo.git
 报错：
 
 ```java
-$ repo init -u 
-dlc/bos/repo.git File "C:/Users/chen.jinke/bin/repo", line 51 def print(self, *args, **kwargs): ^ SyntaxError: invalid syntax
+$ repo init -u  /repo.git File "C:/Users/chen.jinke/bin/repo", line 51 def print(self, *args, **kwargs): ^ SyntaxError: invalid syntax
 ```
 
 确认：

@@ -10,7 +10,7 @@
 
 # 其他次要软件/工具
 
-## 软件大全
+## win 软件大全
 
 推荐使用：
 
@@ -20,6 +20,18 @@
 | 录屏                   | EV录屏                                                       |      |      |
 | 安卓手机linux命令不全  | busybox的二进制                                              |      |      |
 | 像素测量，pixel测量    | 法一：1、图片的像素测量：Dorado_1.1.exe<br />法二：2、图片的像素测量：windows右键，查看图片属性<br />法三：测量window或者Linux 屏幕上的像素 --------> <font color='red'>snipaste截屏时，自带px的标尺！！！</font> |      |      |
+
+
+
+## linux 软件大全
+
+ htop    优点：
+
+> 1、图形化显示各个核心
+
+
+
+
 
 
 
@@ -1723,6 +1735,14 @@ table tr td {
 
 
 [参考](https://blog.csdn.net/weixin_53592372/article/details/136836628)
+
+
+
+
+
+### linux 安装 typora
+
+~~[linux 安装 typora](https://blog.csdn.net/qq_57200471/article/details/135424052)~~
 
 ## ~~del_默认打开根目录~~
 

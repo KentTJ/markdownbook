@@ -306,6 +306,18 @@ public abstract class InputMethodManagerInternal {
 
 
 
+# 测试维度
+
+1、多个demo验证（尽量不同类型）
+
+2、top ：查看cpu占用 
+
+3、查看编译的warining
+
+
+
+
+
 # 代码技巧：
 
 子类修改父类的属性值，`关于修改点：可以插到父类任意一行代码位置上！！！！`  <font color='green'>利用复写的截断流程思想</font>

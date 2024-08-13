@@ -1577,7 +1577,7 @@ Layer 0 (pos 0xffffffff):
 ### 启动日志
 
 ```java
-jx_nong@bigfish:~/workspace/westonProject/weston$ weston
+$ weston
 Date: 2024-07-15 HKT
 [14:46:44.556] weston 12.0.2
                https://wayland.freedesktop.org

@@ -40,9 +40,23 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 
 
 
-## when---1层生命周期图  TODO 
+## when---生命周期图 0层
 
-
+```java
+wet_main
+wl_display_run
+wl_event_loop_dispatch // ----------]【】大的消息模型驱动------------------
+	on_drm_input  // 【发车】TODO: 真正drm来的PageFlip消息
+		drmHandleEvent
+			atomic_flip_handler
+				drm_output_update_complete
+					weston_output_finish_frame // 为 output_repaint_timer_handler 计算time
+	wl_timer_heap_dispatch // timer 超时消息
+		output_repaint_timer_handler  // 【交货】timer启动
+			drm_repaint_begin  // 打印scene_graph日志
+    		遍历output，weston_output_maybe_repaint
+			drm_repaint_flush // 【车子回程】 提交
+```
 
 
 
@@ -59,6 +73,10 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 
 
 ## 1层纵向大图
+
+### 发车   代码大纲  TODO: 
+
+
 
 ### 次要----repaint大纲字典
 
@@ -100,7 +118,6 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
             │   └─ return drm_fb（指向DRM的FrameBuffer），并记录
             ├─ scanout_state->fb = fb  // 合成大图，由 drm_plane_state->drm_fb 承载
             └─ drmModeCreatePropertyBlob // 【2】libdrm接口，创建属性（后续用来设置CRTC（Crtc）、连接器（Connector）、平面（Plane））
-
 ```
 
 ​             
@@ -110,8 +127,7 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 %accordion%原大纲%accordion%
 
 ```java
-wl_event_loop_dispatch // 【】 when：重绘必然是event触发（client告知、compositor请求等）
-output_repaint_timer_handler(compositor.c)
+生命周期图 0层
 weston_output_maybe_repaint(compositor.c)
 weston_output_repaint(compositor.c)
 	------------------为views分配planes--------------------------
@@ -146,8 +162,6 @@ weston_output_repaint(compositor.c)
 ```
 
 %/accordion%
-
-
 
 **=================大纲的证明==================**
 
@@ -186,8 +200,7 @@ drm_output_render<font color='red'>唯一目的</font>就是拿到合成后buffe
 -<font color='red'>【flush流程】目的：commit  大图与简单图  给DRM</font>
 
 ```java
-├─ wl_timer_heap_dispatch // 【1】when：commit必然计时器触发
-└─ output_repaint_timer_handler(compositor.c)
+生命周期图 0层
     └─ drm_repaint_flush(drm.c)
         └─ drm_pending_state_apply(kms.c)
             └─ drm_pending_state_apply_atomic(kms.c)  // 遍历 pending_state->output_list
@@ -200,8 +213,7 @@ drm_output_render<font color='red'>唯一目的</font>就是拿到合成后buffe
 %accordion%hideContent%accordion%
 
 ```java
-wl_timer_heap_dispatch // 【1】when：commit必然计时器触发
-output_repaint_timer_handler(compositor.c)
+output_repaint_timer_handler(compositor.c) // repaint的timer里
 	drm_repaint_flush(drm.c)
 		drm_pending_state_apply(kms.c)
 			drm_pending_state_apply_atomic(kms.c)  // 遍历 pending_state->output_list
@@ -235,7 +247,7 @@ output_repaint_timer_handler(compositor.c)
 >
 >   ​                       **自然是**本轮考试结束的时候，timeOut的时候   ---------> <font color='red'>即commit是计时器触发</font>
 
-​	TODO: 一场考试需要多久？
+TODO: 一场考试需要多久？
 
 
 
@@ -256,6 +268,7 @@ output_repaint_timer_handler(compositor.c)
 ### 次要---drm_assign_planes大纲
 
 ```java
+repaint大纲字典
 └─ drm_assign_planes ----------output级
     ├─ try: mode = DRM_OUTPUT_PROPOSE_STATE_PLANES_ONLY  //1、尝试只用 overlay
     ├─ try: mode = DRM_OUTPUT_PROPOSE_STATE_MIXED;        // 2、只用overlay不成功，尝试 overlay + GPU
@@ -301,7 +314,6 @@ output_repaint_timer_handler(compositor.c)
                     ├─ alpha 检查：如果view有alpha值，但是该plane不支持alpha，跳过
                     └─ 最终绑定plane与view：drm_output_prepare_cursor_paint_node/drm_output_try_paint_node_on_plane
                         └─ plane_state->ev = view  // TODO: 最终应该是，plane分配给view
-
 ```
 
 -<font color='red'>结论的物理级证明：</font>
@@ -379,8 +391,6 @@ drm_assign_planes ----------output级
 
 ```java
 view->plane = primary_plane; //  把plane分配给view
-
-
 
 weston_compositor里的primary_plane;  // 【】指明了GPU的plane
 ```
@@ -737,6 +747,111 @@ compositor backend主要决定了compositor合成完后的结果怎么处置
 
 
 荣： compositor backend  相当于 HWC？？？？？
+
+
+
+## 多屏渲染流水线------important
+
+![image-20240817155924285](合成之weston.assets/image-20240817155924285.png)
+
+《weston.eddx》
+
+<font color='cornflowerblue'>核心点：</font>
+
+>   1、每个屏幕固定周期发车
+>
+>   2、<font color='red'>每个屏幕发车时间，没有任何关系！！！</font>
+
+
+
+**生活化模型，站在drm角度看图形流程：**
+
+>   -<font color='red'>why----最终目的：</font>
+>
+>   >   <font color='red'>1、drm发车，拉回client提供的货物      </font>                           
+>   >
+>   >   2、希望screen1的车子拿到 货物后 <font color='red'>能准时返回</font>（~~其他屏幕同理~~）
+>
+>   who：
+>
+>   >   1、DRM---------货车总站
+>   >
+>   >   2、货物------像素数据
+>   >
+>   >   3、screen ---- 发车员
+>   >
+>   >   4、weston ------ 货物交易中心（client送货、货车取货的地方）
+>   >
+>   >   5、min_timer ------------- <font color='red'>交易员（只有一个）</font>
+>   >
+>   >   6、client  ----------- 提供货物的人
+>
+>   when重要节点：
+>
+>   >   output_repaint --------------  真正进行交易，client的东西 交给 货车的过程
+>   >
+>   >   output_repaint_timer_handler  ----- 发车排班的班长
+>   >
+>   >   page_flip ------ 发车时刻 + 硬件周期，强约束 （自然：~~如果之前车子没回来commit，可能这次没有发车，**但是周期性，是强制的！！**！~~）
+>   >
+>   >   ​						在代码里，发了新车 page_flip ，也意味着 上一帧weston_output_finish_frame的结束
+>   >
+>   >   ​				 		自然，会在这里计算本次车辆返回的时刻
+>
+>   基本规则：
+>
+>   ```
+>   	1、硬件周期（发车时间）是一个强约束，|------1h-------|------1h-------|------1h-------|------1h-------|
+>   			车回程时刻不是！！！！
+>   	2、只有一辆车（一个屏幕）：需要等车子回来（commit，并且硬件处理完成后），才能发下一班车。
+>   			期望：车子的来回限制在一个小时里
+>   	3、硬件周期，  对于weston是PageFlip（硬件周期约束）
+>   				 对于安卓是vsync（不同点：安卓vsync信号给了应用）
+>   ```
+>
+>   <font color='red'>weston的多屏策略</font>： 希望<font color='red'>多个车子可以同时回程</font>（多个屏幕统一提交）
+>
+>   优点：
+>
+>   >   1、出现一个窗口跨屏时，可以完整显示（其实也不一定，另一个屏幕可能还没发车）
+>
+>   <font color='red'>缺点：</font>
+>
+>   >   <font color='red'>任务过于集中</font>，交易员在16ms内，未必做的完
+>
+>   
+
+
+
+特殊的点：
+
+>   这里的Timer，按道理是并行的  -----> **weston的做法是 求了min_Timer**，最后所有outPut统一绘制
+
+物理级的原因：
+
+>   weston的软件屏（一个） 是 所有硬键屏的总和（解决的问题场景：一个窗口，占两个屏时，不会不同步）
+>
+>   weston的一帧画面，是所有output绘制了一帧
+
+结论：
+
+>   weston的一帧，是所有屏的一帧
+
+
+
+### 从trace看多屏渲染流水线
+
+
+
+### 模型之任务队列
+
+
+
+TODO: 
+模型之任务队列 --------->  解决的问题：把集中的任务，平均化
+                                       即把CPU的使用，高峰，平均化 ------> 即 削峰
+最坏情况，直接for循环调用
+最好情况：刚刚满负荷，即一个任务完全执行完，另一个任务才加入队列
 
 
 

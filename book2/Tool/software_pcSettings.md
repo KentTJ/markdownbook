@@ -2064,59 +2064,17 @@ MOD是ALT键。详见： https://www.ngui.cc/zz/2053439.html?action=onClick
 
 
 
-## vs code
-
-### 快捷键
-
-```
-Ctrl + P                            打开指定文件
-
-Ctrl + G                             跳转指定行
-
-Ctrl+T                               跳转符号表
-
-F8                                    高亮
-```
 
 
 
-向前、后:  alt+左右
 
 
 
-~~当前页面查找：Ctrl + F~~
 
 
 
-技巧:
-
-> 工作区——》查找符号引用会减少
->
-> 隐藏文件夹
->
-> 符号调用栈
->
-> 查找函数调用
 
 
-
-### vs code优秀的点
-
-#### 多个符号高亮的插件
-
-MultiHighlight
-
-注意：可以修改keyMap （keyMap中搜索 MultiHighlight）
-
-
-
-AS 有同样的MultiHighlight
-
-
-
-#### 可以显示代码调用栈显示
-
-AS 有同样的Hierarchy
 
 
 
@@ -2253,6 +2211,245 @@ KDE安装
 > 方法二： 
 >
 > > Energy Saving  -------》 验证OK
+
+
+
+# vscode
+
+## bookmark使用：
+
+> [vscode的Bookmarks如何使用？_vscode bookmarks-CSDN博客](https://blog.csdn.net/m0_57236802/article/details/131736325)
+>
+> 定义的快捷键：
+>
+> 标记：
+>
+> 显示
+>
+> 取消
+>
+> 取消所有
+
+
+
+## 远程ssh
+
+vscode ssh看code（TODO:扩展）
+
+> 教程：https://blog.csdn.net/qq_50714222/article/details/136528536?utm_medium=distribute.pc_feed_404.none-task-blog-2~default~BlogCommendFromBaidu~activity-4-136528536-blog-null.262^v1^pc_404_mixedpudn&depth_1-utm_source=distribute.pc_feed_404.none-task-blog-2~default~BlogCommendFromBaidu~activity-4-136528536-blog-null.262^v1^pc_404_mixedpud          --------> 可以免密
+>
+> https://zhuanlan.zhihu.com/p/667236864    VSCode配置 SSH连接远程服务器+免密连接教程
+
+
+好处：能使用本地软件 且  不受本地加密软件影响
+
+
+
+
+
+免密（**优**）：关键步骤      ------------------- 验证OK
+
+>   win侧：
+>
+>   ```java
+>   C:\Users\Administrator> ssh-keygen -t rsa -b 2048 -f C:\Users\Administrator\.ssh\id_rsa_windows
+>   ```
+>
+>   生成两个文件：id_rsa_windows   和  id_rsa_windows.pub
+>
+>   1、前者填写到win  对应的vscode ssh配置里：
+>
+>   ```java
+>   ‪//C:\Users\Administrator\.ssh\config
+>   
+>   Host 192.168.177.130
+>     HostName 192.168.177.130
+>     User  ***********隐藏
+>     IdentityFile "C:\Users\Administrator\.ssh\id_rsa_windows"
+>   ```
+>
+>   2、后者 复制到 remote的 key里
+>
+>   ```java
+>   /home/liuwf/.ssh/authorized_keys
+>   ```
+>
+>   ![image-20240818151703215](software_pcSettings.assets/image-20240818151703215-1723965839445.png)
+
+
+
+## 设置导出  todo
+
+#### 云同步设置
+
+https://www.cnblogs.com/HDWdemo/p/13308309.html
+
+
+
+#### 手动
+
+[手动复制设置文件](https://docs.pingcode.com/ask/ask-ask/108222.html#:~:text=%E4%B8%89%E3%80%81-,%E6%89%8B%E5%8A%A8%E5%A4%8D%E5%88%B6%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6,-%E6%89%BE%E5%88%B0%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6)
+
+## 快捷键
+
+
+
+查看全局符号  `Ctrl + T`  
+
+查看当前file的符号 `Ctrl + Shift + O`
+
+bookmark:  `Shift + ALT +  + K`
+
+```
+Ctrl + P                            打开指定文件
+
+Ctrl + G                             跳转指定行
+
+F8                                    高亮
+```
+
+
+
+向前、后:  alt+左右
+
+
+
+~~当前页面查找：Ctrl + F~~
+
+
+
+技巧:
+
+> 工作区—-->  查找符号引用会减少
+>
+> 隐藏文件夹
+>
+> 符号调用栈
+>
+> 查找函数调用
+
+
+
+
+
+## 大纲
+
+法一：
+
+crtl + Shift + O   （**<font color='red'>优</font>**） ---------->  1、 顶部临时显示<font color='red'>本文件的大纲</font>
+
+​                                                      2、<font color='red'>可以搜索</font>
+
+法二
+
+> 大纲面板：
+
+
+
+参考：[vscode左下角显示大纲? vscode显示所有函数方法_编程开发_软件教程_脚本之家 (jb51.net)](https://www.jb51.net/softjc/918557.html)
+
+## 与SI的优势对比
+
+比SI更优的地方：
+
+> 1、远程ssh打开  ---------> 避免了本地加密软件问题
+>
+> 2、不依赖于samba，只需要ssh即可
+>
+> 3、远程同步配置（包括快捷键）
+>
+> 3、各种插件
+>
+> 4、**可以一点点添加目录！！！！按需添加** 
+>
+> 5、**多个符号高亮的插件**   MultiHighlight
+
+SI优势：
+
+> 1、<font color='red'>同时 java + cpp 混合代码 -------> 适合安卓代码</font>
+>
+> 2、**可以一点点添加目录！！！！按需添加** ！！！适合大工程
+>
+> 3、占用内存极小！！
+
+
+
+
+
+
+
+### 可以显示代码调用栈显示
+
+AS 有同样的Hierarchy
+
+
+
+
+
+
+
+## vscode 可以一点点添加目录！！！！按需添加
+
+教程：
+
+> 建立工作区，配置文件过滤
+>
+> [【工具】vscode搜索结果及工程目录的文件夹、文件的排除](https://blog.csdn.net/qxhgd/article/details/135352202)
+
+```java
+// aosp14.code-workspace
+
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+	  "files.exclude": {
+			"art/"   :true,
+			"bionic/"   :true,
+			"bootable/"   :true,
+			"build/"   :true,
+			"cts/"   :true,
+			"dalvik/"   :true,
+			"developers/"   :true,
+			"development/"   :true,
+			"device/"   :true,
+			"external/"   :true,
+			"git-repo/"   :true,
+			"hardware/"   :true,
+			"kernel/"   :true,
+			"libcore/"   :true,
+			"libnativehelper/"   :true,
+			"packages/"   :true,
+			"pdk/"   :true,
+			"platform_testing/"   :true,
+			"prebuilts/"   :true,
+			"sdk/"   :true,
+			"system/"   :true,
+			"test/"   :true,
+			"toolchain/"   :true,
+			"tools/"   :true,
+			"TRACE_FILE/"   :true
+	  }
+	}
+}
+```
+
+
+
+
+
+## vscode好用的插件
+
+1、**多个符号高亮的插件**   MultiHighlight
+
+>   注意：可以修改keyMap （keyMap中搜索 MultiHighlight）
+
+
+
+
 
 # 计算机其他问题及设置
 

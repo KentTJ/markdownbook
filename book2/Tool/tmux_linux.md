@@ -156,9 +156,19 @@ ctrl+b  1
 
 
 
-两个本地终端  + attached 两个会话
+~~两个本地终端 + attached 两个会话~~    ------> 删除
 
-![image-20230617173826941](tmux_linux.assets/image-20230617173826941.png)
+**一个本地shell** -------> attach 一个会话 -------> **开两个panel**
+
+比两个本地终端优，原因：左边仍然可以看到文件夹
+
+![image-20240818184146073](tmux_linux.assets/image-20240818184146073.png)
+
+
+
+好的参考文章： https://blog.csdn.net/qq_52145272/article/details/127557557
+
+
 
 
 

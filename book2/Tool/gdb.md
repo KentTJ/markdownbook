@@ -1737,3 +1737,83 @@ $ ldd $(which gdb)
     libbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0 (0x00007fb0e46bc000)
 ```
 
+
+
+# ldd 查看依赖结构 + 查看缺少
+
+```java
+# ldd Demo
+./Demo: /lib64/libm.so.6: version `GLIBC_2.38' not found (required by ./Demo)  //【】 缺少
+./Demo: /usr/lib64/libstdc++.so.6: version `GLIBCXX_3.4.32' not found (required by ./Demo)
+./Demo: /usr/lib64/libstdc++.so.6: version `GLIBCXX_3.4.30' not found (required by ./Demo)
+./Demo: /lib64/libc.so.6: version `GLIBC_2.38' not found (required by ./Demo)
+        linux-vdso.so.1 (0x0000007f85b89000)
+        libGLESv2.so.2 => /usr/lib64/libGLESv2.so.2 (0x0000007f80a80000) //【】 
+        libpthread.so.0 => /lib64/libpthread.so.0 (0x0000007f80a60000)
+        librt.so.1 => /lib64/librt.so.1 (0x0000007f80a40000)
+        libwayland-client.so.0 => /usr/lib64/libwayland-client.so.0 (0x0000007f80a20000)
+        libstdc++.so.6 => /usr/lib64/libstdc++.so.6 (0x0000007f80800000)
+        libm.so.6 => /lib64/libm.so.6 (0x0000007f80760000)
+        libgcc_s.so.1 => /lib64/libgcc_s.so.1 (0x0000007f80730000)
+        libc.so.6 => /lib64/libc.so.6 (0x0000007f80580000)
+        libwayland-server.so.0 => /usr/lib64/libwayland-server.so.0 (0x0000007f80550000)
+        libdrm.so.2 => /usr/lib64/libdrm.so.2 (0x0000007f80520000)
+        /lib/ld-linux-aarch64.so.1 => /lib64/ld-linux-aarch64.so.1 (0x0000007f85b50000)
+        libffi.so.8 => /usr/lib64/libffi.so.8 (0x0000007f80500000)
+```
+
+
+
+
+
+TODO: 递归查询，找出gdb所有依赖
+
+--------------> 避免要压缩所有 aarch64-poky-linux 文件
+
+
+
+
+
+# 问题
+
+## 问题：  /lib64/libc.so.6: version GLIBC_2.XX' not found
+
+kde+weston10环境下，
+
+```java
+提示：/lib64/libc.so.6: version GLIBC_2.XX' not found
+```
+
+
+
+解决方法：
+
+法一：
+
+> 编译对应版本的libc.so.6    --------> <font color='red'>没成功</font>
+>
+> 参考：[尝试解决Linux提示：/lib64/libc.so.6: version GLIBC_2.XX' not  found](https://zhuanlan.zhihu.com/p/515617907)         
+>
+> ```java
+> ../configure --prefix=/bin/myTmp/ --disable-profile --enable-add-ons --with-headers=/usr/include --with-binutils=/usr/bin
+> ```
+>
+> 
+
+法二：
+
+> 复制 chroot_arm环境下的       -----> OK
+
+
+
+# weston目前比较好的gdb环境：
+
+1、虚拟机X86，tty下，走drm 。linux gdb + source env.sh (weston的bin以及so) 
+
+​		 ------------->  <font color='red'>非常优，</font>1、无需手动加载so         2、无需指定源码
+
+​        **问题：不能看启动流程**
+
+2、板子，kde 环境下 gdb OK（**自带gdb**） ： 
+
+ 		可以用 weston --tty=1  --wait-for-debugger  看启动流程了！

@@ -42,21 +42,33 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 
 ## when---生命周期图 0层
 
+![image-20240817155924285](合成之weston.assets/image-20240817155924285.png)
+
+大的生命周期：上图1和2
+
 ```java
 wet_main
 wl_display_run
-wl_event_loop_dispatch // ----------]【】大的消息模型驱动------------------
-	on_drm_input  // 【发车】TODO: 真正drm来的PageFlip消息
+wl_event_loop_dispatch // 大的消息模型驱动
+	on_drm_input  // 【发车】TODO: 真正drm来的PageFlip消息 -----------上图1-----------------
 		drmHandleEvent
 			atomic_flip_handler
 				drm_output_update_complete
 					weston_output_finish_frame // 为 output_repaint_timer_handler 计算time
-	wl_timer_heap_dispatch // timer 超时消息
+	wl_timer_heap_dispatch // timer 超时消息 -----------上图2-----------------
 		output_repaint_timer_handler  // 【交货】timer启动
 			drm_repaint_begin  // 打印scene_graph日志
     		遍历output，weston_output_maybe_repaint
 			drm_repaint_flush // 【车子回程】 提交
 ```
+
+
+
+TODO: 真正drm来的PageFlip消息 ：
+
+​                 到底是drm怎么发的消息？？？？？？
+
+
 
 
 
@@ -747,6 +759,16 @@ compositor backend主要决定了compositor合成完后的结果怎么处置
 
 
 荣： compositor backend  相当于 HWC？？？？？
+
+
+
+## atomic_flip_handler ----- 发车
+
+
+
+
+
+
 
 
 

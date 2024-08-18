@@ -907,7 +907,7 @@ void GLESRenderEngine::drawLayersInternal(
         const std::shared_ptr<ExternalTexture>& buffer, const bool useFramebufferCache,
         base::unique_fd&& bufferFence) {
     ATRACE_CALL();
-    //省略
+    // ..................
     std::deque<const LayerSettings> blurLayers;
     if (CC_LIKELY(mBlurFilter != nullptr)) {
         for (const auto& layer : layers) {
@@ -917,7 +917,7 @@ void GLESRenderEngine::drawLayersInternal(
         }
     }
     const auto blurLayersSize = blurLayers.size();
-//省略
+    // ..................
 
     for (const auto& layer : layers) { //遍历所有图层layer进行相关的渲染,注意这里是从底到顶的顺序
         if (blurLayers.size() > 0 && blurLayers.front() == layer) {//如果遍历到了设置了blurebehind的layer
@@ -926,7 +926,7 @@ void GLESRenderEngine::drawLayersInternal(
             auto status = mBlurFilter->prepare(); //准备相关的模糊参数
 
             if (blurLayers.size() == 0) {//假设已经没有了那么就开始设置好相关的buffer
-                //这里很关键，会把已经绘制的FrameBuffer进行获取，后面把这个数据进行对应的blur
+                //【】这里很关键！！！！！会把已经绘制的FrameBuffer进行获取，后面把这个数据进行对应的blur
                 // Done blurring, time to bind the native FBO and render our blur onto it.
                 fbo = std::make_unique<BindNativeBufferAsFramebuffer>(*this,
                                                                       buffer.get()
@@ -938,7 +938,7 @@ void GLESRenderEngine::drawLayersInternal(
             } else {
               ............
             }
-                    //进行真的模糊
+            // 进行真的模糊
             status = mBlurFilter->render(blurLayersSize > 1);
         }
                 ............

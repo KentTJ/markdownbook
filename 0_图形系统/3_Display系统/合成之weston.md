@@ -63,7 +63,6 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
             ├─ drm_repaint_begin  // 打印scene_graph日志
             ├─ 遍历output，weston_output_maybe_repaint
             └─ drm_repaint_flush // 【车子回程】 提交
-
 ```
 
 
@@ -144,7 +143,7 @@ TODO: 真正drm来的PageFlip消息 ：
             │   │   │   └─ gl_renderer_create_surface
             │   │   │       ├─ ------------------------attach？？？-----------------------------------
             │   │   │       └─ gl_renderer_attach(weston_surface, weston_buffer) // 【】核心
-            │   │   ├─ repaint_views  // 【】这里遍历node，必然
+            │   │   ├─ repaint_views  // 【】这里遍历node，必然 从下往上叠图（合成的必然！！！）
             │   │   │   ├─ ------------------【3】OpenGL合成, 前提：分配了primary plane--------------------------
             │   │   │   └─ draw_paint_node  // 【】有些node会走gl，有些走pixman？ node级别的还是合成器级别的 ？ 必然：这里初始化shader的config
             │   │   │       ├─ gl_shader_config_init_for_paint_node // 必然：where---draw_paint_node之子，repaint_region之前
@@ -160,7 +159,6 @@ TODO: 真正drm来的PageFlip消息 ：
             │   └─ return drm_fb（指向DRM的FrameBuffer），并记录
             ├─ scanout_state->fb = fb  // 合成大图，由 drm_plane_state->drm_fb 承载
             └─ drmModeCreatePropertyBlob // 【2】libdrm接口，创建属性（后续用来设置CRTC（Crtc）、连接器（Connector）、平面（Plane））
-
 ```
 
 ​             

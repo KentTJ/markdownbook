@@ -881,7 +881,19 @@ package com.google.android.material.shadow;
 
 
 
-# 补充：高斯模糊
+# 高斯模糊
+
+高斯模糊的功能：
+
+> 使某个窗口的**外部背景**  模糊  ------>  不是内部背景！自然，应用自己不能做
+>
+> 产品视角：<font color='red'>模糊非焦点区域，突出焦点</font>
+>
+> 物理角度： **保持自我，模糊他人**  -------> 类似于Dialog的Dim层（**实际上就是用了高斯模糊**）
+>
+> ​					自我：可以透明，也可以不透明
+
+
 
 [aosp11/12/13 壁纸高斯模糊，毛玻璃SurfaceFlinger层面原理-第二节千里马framework实战_千里马aosp-CSDN博客](https://blog.csdn.net/learnframework/article/details/130778897)
 
@@ -942,7 +954,7 @@ void GLESRenderEngine::drawLayersInternal(
 
 
 
-# 待整理：高斯模糊
+## 待整理：高斯模糊
 
 
 
@@ -958,17 +970,7 @@ void GLESRenderEngine::drawLayersInternal(
 
 依附于合成流程：
 
-参考：
 
->  [Android R 原生模糊效果原理](https://blog.csdn.net/zhongyanghu27/article/details/116002774)
->
->  [SurfaceFlinger层原理-aosp11/12/13 壁纸高斯模糊毛玻璃-千里马framework实战](https://zhuanlan.zhihu.com/p/630891349)
-
-
-
-高斯模糊代码大纲：
-
-依附于合成流程：
 
 
 
@@ -987,12 +989,36 @@ Transaction setBackgroundBlurRadius(SurfaceControl sc, int radius)
 全局开关（Android S ）：
 
 ```java
+// 需要打开ro.surface_flinger.supports_background_blur 才能使用模糊效果，默认是关闭的
+
 property_get("ro.surface_flinger.supports_background_blur", value, "0");
 bool supportsBlurs = atoi(value);
 mSupportsBlur = supportsBlurs;
 ```
 
-使用例子 ---------- Launcher3 的模糊效果：
+
+
+安卓的 模糊特性: 
+
+>   1、是窗口级的。跟着窗口走的
+>
+>   2、模糊的是背后，而不是自己的窗口
+
+[应用角度](https://blog.csdn.net/qq_31138209/article/details/140096936?spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-3-140096936-blog-116002774.235%5Ev43%5Epc_blog_bottom_relevance_base5&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-3-140096936-blog-116002774.235%5Ev43%5Epc_blog_bottom_relevance_base5&utm_relevant_index=4)
+
+
+
+
+
+
+
+使用例子：~~Launcher3 的模糊效果~~
+
+>   <img src="https://img-blog.csdnimg.cn/img_convert/b4276b5b5a6d635366c213d34ac64de3.png" alt="仅模糊处理后方屏幕" style="zoom: 50%;" />
+
+
+
+
 
 
 
@@ -1092,6 +1118,8 @@ void main() {
 >  [Android R 原生模糊效果原理](https://blog.csdn.net/zhongyanghu27/article/details/116002774)
 
 
+
+Android R模糊效果使用效率更高的 Kawase blur.[具体见](https://blog.csdn.net/zhongyanghu27/article/details/116002774#:~:text=Kawase%20Blur%E4%BA%8EMasaki%20Kawase)
 
 
 

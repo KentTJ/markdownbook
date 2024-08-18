@@ -1701,7 +1701,7 @@ https://blog.csdn.net/weixin_33904522/article/details/112594152
 
 
 
-# so结构----so tree
+# ldd 查看so依赖结构----so tree
 
 依赖结构：
 
@@ -1739,27 +1739,27 @@ $ ldd $(which gdb)
 
 
 
-# ldd 查看依赖结构 + 查看缺少
+## 查看缺少
 
 ```java
 # ldd Demo
-./Demo: /lib64/libm.so.6: version `GLIBC_2.38' not found (required by ./Demo)  //【】 缺少
+./Demo: /lib64/libm.so.6: version `GLIBC_2.38' not found (required by ./Demo)  //【】 缺少!!!!!!!!!!!
 ./Demo: /usr/lib64/libstdc++.so.6: version `GLIBCXX_3.4.32' not found (required by ./Demo)
 ./Demo: /usr/lib64/libstdc++.so.6: version `GLIBCXX_3.4.30' not found (required by ./Demo)
 ./Demo: /lib64/libc.so.6: version `GLIBC_2.38' not found (required by ./Demo)
-        linux-vdso.so.1 (0x0000007f85b89000)
-        libGLESv2.so.2 => /usr/lib64/libGLESv2.so.2 (0x0000007f80a80000) //【】 
-        libpthread.so.0 => /lib64/libpthread.so.0 (0x0000007f80a60000)
-        librt.so.1 => /lib64/librt.so.1 (0x0000007f80a40000)
-        libwayland-client.so.0 => /usr/lib64/libwayland-client.so.0 (0x0000007f80a20000)
-        libstdc++.so.6 => /usr/lib64/libstdc++.so.6 (0x0000007f80800000)
-        libm.so.6 => /lib64/libm.so.6 (0x0000007f80760000)
-        libgcc_s.so.1 => /lib64/libgcc_s.so.1 (0x0000007f80730000)
-        libc.so.6 => /lib64/libc.so.6 (0x0000007f80580000)
-        libwayland-server.so.0 => /usr/lib64/libwayland-server.so.0 (0x0000007f80550000)
-        libdrm.so.2 => /usr/lib64/libdrm.so.2 (0x0000007f80520000)
-        /lib/ld-linux-aarch64.so.1 => /lib64/ld-linux-aarch64.so.1 (0x0000007f85b50000)
-        libffi.so.8 => /usr/lib64/libffi.so.8 (0x0000007f80500000)
+    linux-vdso.so.1 (0x0000007f85b89000)
+    libGLESv2.so.2 => /usr/lib64/libGLESv2.so.2 (0x0000007f80a80000) 
+    libpthread.so.0 => /lib64/libpthread.so.0 (0x0000007f80a60000)
+    librt.so.1 => /lib64/librt.so.1 (0x0000007f80a40000)
+    libwayland-client.so.0 => /usr/lib64/libwayland-client.so.0 (0x0000007f80a20000)
+    libstdc++.so.6 => /usr/lib64/libstdc++.so.6 (0x0000007f80800000)
+    libm.so.6 => /lib64/libm.so.6 (0x0000007f80760000)
+    libgcc_s.so.1 => /lib64/libgcc_s.so.1 (0x0000007f80730000)
+    libc.so.6 => /lib64/libc.so.6 (0x0000007f80580000)
+    libwayland-server.so.0 => /usr/lib64/libwayland-server.so.0 (0x0000007f80550000)
+    libdrm.so.2 => /usr/lib64/libdrm.so.2 (0x0000007f80520000)
+    /lib/ld-linux-aarch64.so.1 => /lib64/ld-linux-aarch64.so.1 (0x0000007f85b50000)
+    libffi.so.8 => /usr/lib64/libffi.so.8 (0x0000007f80500000)
 ```
 
 

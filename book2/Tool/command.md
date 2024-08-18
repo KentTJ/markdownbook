@@ -1208,16 +1208,22 @@ sudo nmcli device wifi hotspot
 >   解决方案：
 >
 >   ```
->    sudo usermod -a -G plugdev $USER
+>   sudo usermod -a -G plugdev $USER
 >   ```
 >
 >   参考： [adb -- no permissions (user in plugdev group； are your udev rules wrong?)解决方案_no permissions (user in plugdev group; are your ud-CSDN博客](https://blog.csdn.net/cccc_strive/article/details/128440644)
+>
+>   [解决错误“failed to open device: Access denied (insufficient permissions)” - 简书 (jianshu.com)](https://www.jianshu.com/p/c80b32b2756e)
 
 3、报错： 解决错误“failed to open device: Access denied (insufficient permissions)”
 
 >   解决：解决错误“failed to open device: Access denied (insufficient permissions)” - 简书 ([jianshu.com](http://jianshu.com))
 
 ------------------------> **验证ok**
+
+
+
+
 
 ## Ubuntu换源
 

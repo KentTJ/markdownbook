@@ -46,6 +46,30 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 
 大的生命周期：上图1和2
 
+
+
+```java
+
+├─ wet_main
+├─ wl_display_run
+└─ wl_event_loop_dispatch // 大的消息模型驱动
+    ├─ on_drm_input  // 【发车】TODO: 真正drm来的PageFlip消息 -----------上图1-----------------
+    │   └─ drmHandleEvent
+    │       └─ atomic_flip_handler
+    │           └─ drm_output_update_complete
+    │               └─ weston_output_finish_frame // 为 output_repaint_timer_handler 计算time
+    └─ wl_timer_heap_dispatch // timer 超时消息 -----------上图2-----------------
+        └─ output_repaint_timer_handler  // 【交货】timer启动
+            ├─ drm_repaint_begin  // 打印scene_graph日志
+            ├─ 遍历output，weston_output_maybe_repaint
+            └─ drm_repaint_flush // 【车子回程】 提交
+
+```
+
+
+
+%accordion%hideContent%accordion%
+
 ```java
 wet_main
 wl_display_run
@@ -61,6 +85,12 @@ wl_event_loop_dispatch // 大的消息模型驱动
     		遍历output，weston_output_maybe_repaint
 			drm_repaint_flush // 【车子回程】 提交
 ```
+
+
+
+%/accordion%
+
+
 
 
 
@@ -97,8 +127,7 @@ TODO: 真正drm来的PageFlip消息 ：
 -<font color='red'>repaint的唯一目的：</font>就是拿到合成后大图（承载于drm_fb）与 简单图
 
 ```java
-├─ wl_event_loop_dispatch // 【】 when：重绘必然是event触发（client告知、compositor请求等）
-├─ output_repaint_timer_handler(compositor.c)
+├─ 生命周期图 0层
 ├─ weston_output_maybe_repaint(compositor.c)
 └─ weston_output_repaint(compositor.c)
     ├─ ------------------为views分配planes--------------------------
@@ -109,7 +138,7 @@ TODO: 真正drm来的PageFlip消息 ：
             ├─ if (scanout_state->fb) return // 【】霸屏模式scanout -----> 利用client的fd
             ├─ if：drm_fb_ref  硬件合成  自然，条件：damage为空(也是gl被拦截的地方)？？？？？
             ├─ eif:drm_output_render_pixman  软件合成
-            ├─ el：drm_output_render_gl //【】GPU合成	 或 x11_output_repaint_gl  backend-x11/x11.c--->  weston合成器的output是X11
+            ├─ el：drm_output_render_gl //【】GPU合成    或 x11_output_repaint_gl  backend-x11/x11.c--->  weston合成器的output是X11
             │   ├─ gl_renderer_repaint_output ----> 必然，在这里设置视口viewPort，视口是output级别的
             │   │   ├─ get_surface_state(weston_surface)
             │   │   │   └─ gl_renderer_create_surface
@@ -121,7 +150,8 @@ TODO: 真正drm来的PageFlip消息 ：
             │   │   │       ├─ gl_shader_config_init_for_paint_node // 必然：where---draw_paint_node之子，repaint_region之前
             │   │   │       ├─ repaint_region  //【】
             │   │   │       └─ triangle_fan_debug 测试用的？？？
-            │   │   └─ blit_shadow_to_output // 【】阴影。开关："color-management"改为true
+            │   │   ├─ blit_shadow_to_output // 阴影。开关："color-management"改为true
+            │   │   └─ 【eglSwapBuffers】 // 关键一行，weston 与 drm侧交换buffer！！！！（不是与client侧！！！！！！！！）
             │   ├─ bo = gbm_surface_lock_front_buffer  // 拿到gbm buffer---> 承载合成结果
             │   ├─ drm_fb_get_from_bo(bo, BUFFER_GBM_SURFACE)
             │   │   └─ drm_fb_addfb(~bo)
@@ -130,6 +160,7 @@ TODO: 真正drm来的PageFlip消息 ：
             │   └─ return drm_fb（指向DRM的FrameBuffer），并记录
             ├─ scanout_state->fb = fb  // 合成大图，由 drm_plane_state->drm_fb 承载
             └─ drmModeCreatePropertyBlob // 【2】libdrm接口，创建属性（后续用来设置CRTC（Crtc）、连接器（Connector）、平面（Plane））
+
 ```
 
 ​             
@@ -162,7 +193,8 @@ weston_output_repaint(compositor.c)
 							gl_shader_config_init_for_paint_node // 必然：where---draw_paint_node之子，repaint_region之前
 							repaint_region  //【】
 							triangle_fan_debug 测试用的？？？
-					blit_shadow_to_output // 【】阴影。开关："color-management"改为true
+					blit_shadow_to_output // 阴影。开关："color-management"改为true
+					【eglSwapBuffers】 // 关键一行，weston 与 drm侧交换buffer！！！！（不是与client侧！！！！！！！！）
 				bo = gbm_surface_lock_front_buffer  // 拿到gbm buffer---> 承载合成结果
 				drm_fb_get_from_bo(bo, BUFFER_GBM_SURFACE)
 					drm_fb_addfb(~bo)
@@ -174,6 +206,22 @@ weston_output_repaint(compositor.c)
 ```
 
 %/accordion%
+
+
+
+【eglSwapBuffers】
+
+> ```
+> eglSwapBuffers(gr->egl_display, go->egl_surface)
+> ```
+>
+> 1、是个output级别的函数。weston 与 drm侧交换buffer！！！！（<font color='red'>不是与client侧！！！！！！！</font>）
+>
+> 2、client 也有 eglSwapBuffers 函数
+>
+> 3、<font color='red'>weston的 耗时很久，大概 1~3ms</font>       -------->  TODO: 不是交换地址吗？
+
+
 
 **=================大纲的证明==================**
 
@@ -865,6 +913,8 @@ compositor backend主要决定了compositor合成完后的结果怎么处置
 
 
 
+
+
 ### 优化之 任务过于集中  ----->   模型之任务队列
 
 
@@ -890,6 +940,169 @@ TODO:
 >   比较好的做法是，屏幕是线程级别的： 各个屏幕之间完全无关 ------------->  一个屏幕，一个线程（但是需要切换EGLcontext，耗时）
 >
 >   更优化的做法：屏幕是进程级别的：
+
+
+
+
+
+## 从buffer角度来看渲染流水线：
+
+### 物理
+
+物理基础：
+
+> 移动平台上，没有专门的显存   --------》  所以，GPU在移动平台上，使用的物理内存是CPU内存。[来自](https://blog.csdn.net/qqzhaojianbiao/article/details/129789575#:~:text=%E5%8E%BB%E5%88%9B%E5%BB%BAbuffer%E3%80%82-,%E5%9C%A8%E5%A4%A7%E5%A4%9A%E6%95%B0%E7%A7%BB%E5%8A%A8%E5%B9%B3%E5%8F%B0%E4%B8%8A%EF%BC%8C%E6%B2%A1%E6%9C%89%E4%B8%93%E9%97%A8%E7%9A%84%E6%98%BE%E5%AD%98,-%EF%BC%8C%E5%9B%A0%E6%AD%A4%E5%AE%83%E4%BB%AC%E6%9C%80%E7%BB%88)
+>
+> 
+
+SHM（ 普通共享内存）
+
+> 分配者： CPU malloc分配  ------->  自然，CPU认  ------> 自然，CPU软件渲染
+>
+> ​				**例外：GPU也可以用，但是要做一次copy，转化为连续的？？？？**  TODO
+>
+> 物理特性：   **物理不连续的**（<font color='red'>CPU软件渲染的根本原因</font>）
+>
+> 图像格式：RGBA ----CPU认识的格式
+>
+> <font color='red'>例外情况--------SHM的合成</font>：因为DRM不认识（~~不是DRM分配的~~），只能GPU兜底。但是GPU又不能使用不连续内存，所以，有一次copy
+>
+> 总结，<font color='red'>SHM的缺点：</font>
+>
+> > （1）**DRM不认识**（~~导致不能绑plane，必须GPU合成转一道~~）
+> >
+> > （2）**GPU半认识**（~~需要重新copy成连续内存~~）
+
+DMA:
+
+> <font color='red'>DMA传fd，0 copy，全程GPU用（从client到drm），CPU没有用</font>； 
+>
+> SHM GPU用不了，所以有copy
+
+GEM:
+
+> 分配者：   **DRM驱动 分配的buffer** ------>  自然，drm认识  ------> 自然，**可以绑定plane（直接送drm）**
+
+
+
+
+
+补充：SHM，有许多格式：
+
+> ```java
+> enum wl_shm_format {
+> 	WL_SHM_FORMAT_ARGB8888 = 0,
+> 	WL_SHM_FORMAT_XRGB8888 = 1,
+>  WL_SHM_FORMAT_YVYU
+>  WL_SHM_FORMAT_UYVY
+>  ....................
+> }
+> ```
+>
+> TODO: 物理级 区别是啥？  影响是啥？
+>
+> 
+
+
+
+### C-S
+
+Client buffer：
+类型 wl_buffer 
+向weston侧申请
+具体物理：GPU?????
+
+FrameBuffer:
+类型 gbm_surface
+向GBM侧申请
+		output->gbm_surface = gbm_surface_create(gbm,
+							 mode->width, mode->height,
+							 output->format->format,
+							 output->gbm_bo_flags);
+		【4】从gbm 创建gbm_surface（封装了最终的FrameBuffer）
+
+
+
+### gbm_surface  buffer
+
+问题：怎么给weston侧的OpenGL使用的？？？？
+
+drm_output_init_egl中，创建
+	指定了 (EGLNativeWindowType) output->gbm_surface;
+所以，没有glBindFramebuffer之前，都是在gbm提供的缓冲区里操作的
+
+
+
+
+
+
+
+
+
+
+切换缓冲区：
+glBindFramebuffer(GL_FRAMEBUFFER, fbo); // 使用新帧缓冲 【glBindFramebuffer(fbo)】 用作离屏渲染，TODO: 补充weston中例子。
+glBindFramebuffer(GL_FRAMEBUFFER, 0); // 切换回默认帧缓冲 （不进行bind，走的就是默认！）
+参考： https://blog.csdn.net/a277539277/article/details/129360001
+
+
+
+【glBindFramebuffer(fbo)】 
+1、用作离屏渲染，TODO: 补充weston中例子。
+2、自然，离屏渲染之后，还要切回默认，继续渲染屏幕内容
+
+
+commit与swap什么关系？
+
+https://www.jb51.net/article/264157.htm
+
+
+
+### wl_buffer  
+
+TODO: 
+
+这块buffer是 client向weston申请的。。。。weston做了什么事情？最终应该是GPU的！！！TODO
+
+结论：
+
+> swap 是 client 告诉OpenGL（<font color='red'>swap的对象是buffer，surface没变</font>）
+>
+> commit是  client告诉 weston（<font color='red'>commit的对象是 surface，buffer不用管</font>）
+
+补充：
+
+> surface是对外呈现，buffer是被封装的。。。不会出现在weston接口里！！！！
+
+证明：
+
+
+
+
+
+### eglSwapBuffers接口实现说明
+
+https://blog.csdn.net/qiuyun0214/article/details/54614892
+
+双缓冲，是封装在内部，我们不用关心 buffer
+
+但是需要知道swap时机------------------------即redraw完
+
+
+
+图来源：https://blog.csdn.net/kongbaidepao/article/details/109904963
+
+
+
+### dma-buf 文章
+
+好文：
+
+https://blog.csdn.net/hexiaolong2009/article/details/102596744    dma-buf  系列文章
+
+https://blog.csdn.net/hexiaolong2009/category_10838100.html    dma-buf  专题
+
+
 
 
 
@@ -1908,6 +2121,104 @@ https://blog.csdn.net/u012839187/article/details/116054755    agl-compositor
 
 
 https://fossies.org/dox/weston-13.0.3/structivi__shell.html     struct的类图
+
+
+
+
+
+# 霸屏模式
+
+## 必要条件（物理层面）
+
+1、全屏  & 不透明(opaque)
+
+2、自然，~~层级要顶层，要遮住其他所有view~~
+
+3、<font color='red'>关键物理因素：</font>drm要能识别对应buffer的fd（自然，weston能够拿到 client的buffer的fd）
+
+```java
+drm_fb_get_from_paint_node    drm_fb_get_from_view
+```
+
+
+
+补充：
+
+> 满足1和2，但是不满足3，显示上似乎是霸屏模式，但是实际还是GPU合成了！！！！！
+
+
+
+## 必要条件的代码大纲
+
+1、opaque：`需要client告诉合成器：`
+
+```java
+// 配置端----client： simple-egl.c
+if (window->opaque || window->fullscreen) {
+    region = wl_compositor_create_region(window->display->compositor);
+    wl_region_add(region, 0, 0, INT32_MAX, INT32_MAX);
+    wl_surface_set_opaque_region(window->surface, region); // 关键一行
+    wl_region_destroy(region);
+    
+    
+// 生效端------compos, 绑定plane时
+		totally_occluded = !pixman_region32_not_empty(&surface_overlap);
+		if (totally_occluded) { // 【】 关键一行：totally_occluded的view，会自动被忽略掉
+			drm_debug(b, "\t\t\t\t[view] ignoring view %p "
+			             "(occluded on our output)\n", ev); // 【】 关键日志
+			pixman_region32_fini(&surface_overlap);
+			pixman_region32_fini(&clipped_view);
+			continue;      
+		}
+```
+
+-<font color='red'>总之，结论：</font>
+
+全屏opaque client，会霸屏，即：
+
+> 1、被遮挡view----------合成器自动忽略
+>
+> 2、霸屏view，如果能被drm识别，会直接送给drm
+
+
+
+
+
+##  **关键性日志：**
+
+```java
+Layer 3 (pos 0xb0000000):
+	View 0 (role xdg_toplevel, PID 4239, surface ID 20, top-level window 'simple-egl' of org.freedesktop.weston.simple-egl, 0x55723634e0):
+		position: (0, 0) -> (1080, 1920)
+		[fully opaque]  // 【】完全opaque
+		outputs: 0 (DSI-1) (primary)
+		dmabuf buffer
+			[2 references may use buffer content]
+			format: 0x34324241 ABGR8888
+			modifier: LINEAR (0x0)
+			width: 1080, height: 1920
+	View 1 (role (null), PID 0, surface ID 0, black background surface for top-level window 'simple-egl' of org.freedesktop.weston.simple-egl, 0x557239b8e0):
+		position: (0, 0) -> (1080, 1920)
+		[fully opaque]
+		outputs: 0 (DSI-1) (primary)
+		solid-colour buffer
+			[R 0.000000, G 0.000000, B 0.000000, A 1.000000]
+			[2 references may use buffer content]
+			format: 0x34325258 XRGB8888
+			modifier: LINEAR (0x0)
+			width: 1, height: 1
+			
+[repaint] trying planes-only build state   ---------> // 【】 尝试plane-only一定要成功
+//[repaint] could not build planes-only state, trying mixed // 没有mixed一行！！！！！！！！
+```
+
+
+
+
+
+## TODO: weston 10上不生效
+
+原因，不详 
 
 
 

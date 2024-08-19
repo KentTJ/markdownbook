@@ -934,7 +934,7 @@ void GLESRenderEngine::drawLayersInternal(
                                                                               ->getNativeBuffer(),
                                                                       useFramebufferCache);
                 status = fbo->getStatus();
-                setViewportAndProjection(display.physicalDisplay, display.clip);
+                setViewportAndProjection(display.physicalDisplay, display.clip); //【】 这里自然设置全屏模糊
             } else {
               ............
             }

@@ -167,9 +167,15 @@ https://www.jianshu.com/p/a14bfdc4109a?utm_campaign=maleskine&utm_content=note&u
 
 ### 模拟器 perfetto命令 抓取 trace
 
-https://blog.csdn.net/Redmoon955331/article/details/129736238
+https://blog.csdn.net/Redmoon955331/article/details/129736238  perfetto命令 抓取 trace  ------>  安卓14上，验证OK
 
 https://blog.csdn.net/tyearlin/article/details/123426616
+
+
+
+
+
+
 
 
 

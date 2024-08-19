@@ -1600,6 +1600,14 @@ https://zhuanlan.zhihu.com/p/33000424
 
 
 
+-<font color='red'>强制折叠：</font>
+
+>   有些时候，代码没有主动显示折叠符号，点击：
+>
+>   ![image-20240819001847692](sourceInsight.assets/image-20240819001847692.png)
+
+
+
 ## 调用栈
 
 ### 调用栈深度

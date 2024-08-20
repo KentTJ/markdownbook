@@ -926,7 +926,7 @@ void GLESRenderEngine::drawLayersInternal(
             auto status = mBlurFilter->prepare(); //准备相关的模糊参数
 
             if (blurLayers.size() == 0) {//假设已经没有了那么就开始设置好相关的buffer
-                //【】这里很关键！！！！！会把已经绘制的FrameBuffer进行获取，后面把这个数据进行对应的blur
+                //【】这里很关键！！！！！会把已经绘制的FrameBuffer进行获取，后面把这个数据进行对应的blur ---> 胡扯八道！！！！
                 // Done blurring, time to bind the native FBO and render our blur onto it.
                 fbo = std::make_unique<BindNativeBufferAsFramebuffer>(*this,
                                                                       buffer.get()
@@ -962,7 +962,50 @@ void GLESRenderEngine::drawLayersInternal(
 
 >  [Android R 原生模糊效果原理](https://blog.csdn.net/zhongyanghu27/article/details/116002774)
 >
+>  
+>
 >  [SurfaceFlinger层原理-aosp11/12/13 壁纸高斯模糊毛玻璃-千里马framework实战](https://zhuanlan.zhihu.com/p/630891349)
+
+[android13 FLAG_BLUR_BEHIND 壁纸高斯模糊，毛玻璃背景方案设计-千里马framework实战](https://blog.csdn.net/learnframework/article/details/130767893)
+
+>   setBlurBehindRadius接口，最终实现思路：
+>
+>   ```java
+>   1、新加了一层dimLayer TODO:图
+>   2、DimLayer 设置t.setBackgroundBlurRadius(d.mDimLayer, blurRadius);//对这个图层进行BlurRadius设置
+>   ```
+>
+>   ---------------> 最终实现，是一个接口！！
+
+
+
+[aosp11/12/13 壁纸高斯模糊，毛玻璃SurfaceFlinger层面原理-第二节千里马framework实战](https://blog.csdn.net/learnframework/article/details/130778897?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522172417157816800186519684%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=172417157816800186519684&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-130778897-null-null.nonecase&utm_term=%E9%AB%98%E6%96%AF%E6%A8%A1%E7%B3%8A&spm=1018.2226.3001.4450)   -------->  垃圾，说的错的
+
+https://juejin.cn/post/7157984562428002334     DimLayer实现和setRelativeLayer分析【Android12】
+
+
+
+
+
+其他高斯模糊的实现：
+
+
+
+>   [Shader 高斯模糊和 Bloom](https://blog.csdn.net/sinat_34014668/article/details/129654222?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_utm_term~default-4-129654222-blog-130778897.235^v43^pc_blog_bottom_relevance_base7&spm=1001.2101.3001.4242.3&utm_relevant_index=7)-------> 与aosp的实现，非常接近！！！！！
+>
+>   [高斯模糊 Shader 实现](https://blog.csdn.net/m0_60259116/article/details/130889247?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-130889247-blog-129654222.235^v43^pc_blog_bottom_relevance_base7&spm=1001.2101.3001.4242.1&utm_relevant_index=3#:~:text=2.2%E3%80%81-,%E9%AB%98%E6%96%AF%E6%A8%A1%E7%B3%8A%20Shader%20%E5%AE%9E%E7%8E%B0,-%E6%88%91%E4%BB%AC%E4%BD%BF%E7%94%A8%20KFGLFilter)
+
+
+
+
+
+场景：
+
+>   TODO: 下拉菜单也是有状态栏               https://blog.csdn.net/learnframework/article/details/130767893
+
+观测日志：
+
+>   GLESRenderEngine::drawLayersInternal, blurLayersSize: 1
 
 
 
@@ -973,6 +1016,12 @@ void GLESRenderEngine::drawLayersInternal(
 
 
 
+
+
+
+app侧用力代码：
+
+>   http://681314.com/A/4XTmDHp2I0
 
 
 

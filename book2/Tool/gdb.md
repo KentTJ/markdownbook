@@ -1817,3 +1817,4 @@ kde+weston10环境下，
 2、板子，kde 环境下 gdb OK（**自带gdb**） ： 
 
  		可以用 weston --tty=1  --wait-for-debugger  看启动流程了！
+

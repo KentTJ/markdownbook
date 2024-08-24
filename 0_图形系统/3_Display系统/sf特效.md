@@ -1190,6 +1190,25 @@ Android R模糊效果使用效率更高的 Kawase blur.[具体见](https://blog.
 
 
 
+
+
+## 性能
+
+结论：
+
+>   1、VMware虚拟机内，OpenGL用的也是GPU
+>   2、高斯模糊相当耗GPU loading（VMware虚拟机已经验证）
+
+TODO:
+
+如何定量测？ （指标有哪些？）
+
+
+
+
+
+
+
 # todo:安卓截屏
 
 TODO:截屏接口也是等待返回

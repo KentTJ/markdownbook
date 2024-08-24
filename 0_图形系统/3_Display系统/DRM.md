@@ -17,7 +17,8 @@
 必然存在硬件图层（plane）：
 
 >   DRM_PLANE_TYPE_PRIMARY：主要图层，通常用于仅支持RGB格式的简单图层
->   DRM_PLANE_TYPE_OVERLAY：叠加图层，视频图层（YUV格式的）-----------> `现在也支持RGB格式的了，与PRIMARY无异了！！`
+>   DRM_PLANE_TYPE_OVERLAY：叠加图层，视频图层（YUV格式的）-----------> 现在也支持RGB格式的了，与PRIMARY无异 -------->了！！<font color='red'>意味着 GPU实际上可以合成两个硬件层！！！！</font>
+>
 >   DRM_PLANE_TYPE_CURSOR：光标图层，用于显示鼠标
 
 

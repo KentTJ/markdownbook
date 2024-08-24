@@ -1761,7 +1761,7 @@ $ export LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu
 >
 > ----------------> 还是不行，可能跟vnc有关？？？？
 
-### 强制走drm后端--------启动/home/chen/weston_install/bin/weston
+### 强制走drm后端-----启动weston_install/bin/weston
 
 必要性：
 
@@ -1913,7 +1913,7 @@ enum wdrm_plane_type {
 
 https://zhuanlan.zhihu.com/p/434869796
 
-### drm_output_find_special_plane 只是遍历查找 特定的plane
+### drm_output_find_special_plane 遍历查找 特定的plane
 
 ## panel(状态栏)
 
@@ -2572,7 +2572,31 @@ wl_callback_add_listener() wl_callback 由wl_surface_frame() 创建，每当服�
 
 
 
+# weston初始化
 
+
+
+
+
+```java
+// output 对应的 possible_crtcs
+时机：
+drm_output_create
+	drm_output_enable(struct weston_output *base) // 屏幕级别
+		drm_output_attach_crtc(output) //【】output 与 crtc的 绑定
+			possible_crtcs &= drm_connector_get_possible_crtcs_mask(&head->connector); // 拿到屏幕对应的connector
+				遍历drmModeConnector获取encoder = drmModeGetEncoder
+					从 possible_crtcs |= encoder->possible_crtcs encoder中获取possible_crtcs //【】关键一行，拿到屏幕对应的
+		drm_output_init_planes(output)
+			drm_output->scanout_plane = drm_output_find_special_plane 寻找的primary作为
+			
+		drm_output_pageflip_timer_create(output)
+		drm_output_init_egl(output, b)
+		挂output的各种钩子：
+			output->base.start_repaint_loop = drm_output_start_repaint_loop
+			output->base.repaint = drm_output_repaint
+			output->base.assign_planes = drm_assign_planes
+```
 
 
 
@@ -2655,11 +2679,13 @@ wl_callback_add_listener() wl_callback 由wl_surface_frame() 创建，每当服�
 
 # GStreamer——gst-launch-1.0
 
+
+
 参考：[GStreamer——gst-launch-1.0](https://blog.csdn.net/FREEDOM_X/article/details/140150939?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-140150939-blog-118488296.235^v43^pc_blog_bottom_relevance_base5&spm=1001.2101.3001.4242.1&utm_relevant_index=1)
 
 作用：  调试工具
 
-​			**在Linux上播放视频**
+## 在Linux上播放视频
 
 例1：
 
@@ -2705,6 +2731,13 @@ gst-launch-1.0 videotestsrc ! video/x-raw, width=1920, height=1080 ! autovideosi
 功能、结构、配置，永恒的主题
 
 > 都要（5w2h）
+
+## 播放图片
+
+```java
+gst-launch-1.0 playbin uri=file:///home/workingspace_disk2/scripts/gstream/image/mountain.jpeg  video-sink="imagefreeze ! videoconvert ! autovideosink" & sleep 10000 ; kill $!其中 
+#其中 10000是时间
+```
 
 
 

@@ -1381,29 +1381,7 @@ TODO:
 
 
 
-# todo:安卓截屏
 
-TODO:截屏接口也是等待返回
-
-截屏 SurfaceControl.ScreenshotHardwareBuffer
-
-要点：
-
-```java
- 截屏工具类ScreenCapture
-     captureDisplay  display维度  （captureLayers   layer维度）
-         nativeCaptureDisplay
-             ComposerService::getComposerService()->captureDisplay   // 【】 ComposerService（ISurfaceComposer）是sf的client端
- 
- 
- IServiceManager
-```
-
-ComposerService ---> sf  框架的搭建：
-
-[截屏流程 - 安卓R](https://blog.csdn.net/SSSxCCC/article/details/119253965 )
-
-[录屏流程 - 安卓R](https://blog.csdn.net/SSSxCCC/article/details/119253947)
 
 
 

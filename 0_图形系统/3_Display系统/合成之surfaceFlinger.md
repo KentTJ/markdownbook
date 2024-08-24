@@ -756,6 +756,34 @@ weston的贴图：
 
 
 
+# todo:安卓截屏
+
+TODO:截屏接口也是等待返回
+
+截屏 SurfaceControl.ScreenshotHardwareBuffer
+
+要点：
+
+```java
+ 截屏工具类ScreenCapture
+     captureDisplay  display维度  （captureLayers   layer维度）
+         nativeCaptureDisplay
+             ComposerService::getComposerService()->captureDisplay   // 【】 ComposerService（ISurfaceComposer）是sf的client端
+ 
+ 
+ IServiceManager
+```
+
+ComposerService ---> sf  框架的搭建：
+
+[截屏流程 - 安卓R](https://blog.csdn.net/SSSxCCC/article/details/119253965 )
+
+[录屏流程 - 安卓R](https://blog.csdn.net/SSSxCCC/article/details/119253947)
+
+[截图框架代码原理 android  11](https://blog.csdn.net/zxtanshui/article/details/130429687?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-130429687-blog-119253965.235^v43^pc_blog_bottom_relevance_base7&spm=1001.2101.3001.4242.1&utm_relevant_index=3)
+
+
+
 # 参考
 
 [Android 显示系统：SurfaceFlinger详解]( https://www.cnblogs.com/blogs-of-lxl/p/11272756.html )    ------------->  好文！！！！图很好
@@ -765,6 +793,8 @@ TODO：图很好，模仿他的图，为什么能画这么清晰，能承载的�
 [显示图形系统分析之SurfaceFlinger启动流程](https://juejin.cn/post/7055967248707485704)
 
 
+
+https://blog.csdn.net/sssxccc/category_11248337.html   很好的系列文章！！！
 
 
 

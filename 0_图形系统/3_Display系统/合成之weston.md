@@ -1,4 +1,5 @@
-
+>   
+>
 
 # Weston / wayland ----与A 无异
 
@@ -334,29 +335,28 @@ TODO: 一场考试需要多久？
 ​	 -<font color='red'>本质：就是GPU贴图</font>
 
 ```java
-├─ draw_paint_node
-│   ├─ pixman_region32_intersect(&repaint, damage); // 次要：用damage更新 repaint区域
-│   ├─ gl_shader_config_init_for_paint_node // 【】目的：需要参数封装到conf结构体里（用作shader）
-│   │   ├─ gl_shader_config_set_input_textures  // 【】关键：把client的texture封装到conf里
-│   │   │   └─ for: sconf->input_tex[i] = gb->textures[i] // 一个node，可能有多个Texture
-│   │   └─ gl_shader_config_set_color_transform 颜色变换？
-│   ├─ pixman_region32_subtract(&surface_blend, &surface_blend, &pnode->surface->opaque); // 扣除 完全不透明区域？
-│   └─ repaint_region(gr, pnode, &repaint, &surface_blend, &sconf); // 【】
-│       ├─ 【texture_region(pnode, region, surf_region)】 矩形窗口可能被其他窗口遮挡，会被分割成多个小矩形进行绘制
-│       ├─ /* position: */
-│       ├─ glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof *v, &v[0]);
-│       ├─ /* texcoord: */
-│       ├─ glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof *v, &v[2]);
-│       └─ gl_renderer_use_program(gr, sconf) // 【】
-│           └─ gl_renderer_get_program(gr, &sconf->req) // 获取glProgram
-│               ├─ 做了缓存，不用每次都编译gl_shader_requirements_cmp(&reqs, &shader->key)
-│               └─ gl_shader_create(gr, &reqs) // 没有的话，创建
-│                   └─ sources[0] = "#version 100
-└─ "; sources[1] = conf; sources[2] = fragment_shader; 具体的fragment.glsl
-    └─ glGetProgramiv(shader->program); //gl接口生成glProgram
-        ├─ shader->proj_uniform = glGetUniformLocation(shader->program, "proj");
-        │   ├─ shader->tex_uniforms[0] = glGetUniformLocation(shader->program, "tex"); // 【】 拿到.glsl中全局变量的索引，后面CPU给GPU赋值
-        │   │   └─ shader->tex_uniforms[1] = glGetUniformLocation(shader->program, "tex1");
+└─ draw_paint_node
+    ├─ pixman_region32_intersect(&repaint, damage); // 次要：用damage更新 repaint区域
+    ├─ gl_shader_config_init_for_paint_node // 【】目的：需要参数封装到conf结构体里（用作shader）
+    │   ├─ gl_shader_config_set_input_textures  // 【】关键：把client的texture封装到conf里
+    │   │   └─ for: sconf->input_tex[i] = gb->textures[i] // 一个node，可能有多个Texture
+    │   └─ gl_shader_config_set_color_transform 颜色变换？
+    ├─ pixman_region32_subtract(&surface_blend, &surface_blend, &pnode->surface->opaque); // 扣除 完全不透明区域？
+    └─ repaint_region(gr, pnode, &repaint, &surface_blend, &sconf); // 【】
+        ├─ 【texture_region(pnode, region, surf_region)】 矩形窗口可能被其他窗口遮挡，会被分割成多个小矩形进行绘制
+        ├─ /* position: */
+        ├─ glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof *v, &v[0]);
+        ├─ /* texcoord: */
+        ├─ glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof *v, &v[2]);
+        ├─ gl_renderer_use_program(gr, sconf) // 【】
+        │   ├─ gl_renderer_get_program(gr, &sconf->req) // 获取glProgram
+        │   │   ├─ 做了缓存，不用每次都编译gl_shader_requirements_cmp(&reqs, &shader->key)
+        │   │   └─ gl_shader_create(gr, &reqs) // 没有的话，创建
+        │   │       ├─ sources[2] = fragment_shader; 具体的fragment.glsl
+        │   │       └─ glGetProgramiv(shader->program); //gl接口生成glProgram
+        │   │           ├─ shader->proj_uniform = glGetUniformLocation(shader->program, "proj");
+        │   │           ├─ shader->tex_uniforms[0] = glGetUniformLocation(shader->program, "tex"); // 【】 拿到.glsl中全局变量的索引，后面CPU给GPU赋值
+        │   │           └─ shader->tex_uniforms[1] = glGetUniformLocation(shader->program, "tex1");
         │   ├─ glUseProgram(shader->program); // 激活glProgram（激活一个着色器程序，所有后续的绘制调用将使用这个程序中定义的顶点着色器和片段着色器）
         │   └─ gl_shader_load_config(shader, sconf) //
         │       ├─ glUniform1f(shader->view_alpha_uniform, sconf->view_alpha); // 【】CPU真正给GPU赋值的地方
@@ -364,6 +364,7 @@ TODO: 一场考试需要多久？
         │           ├─ glActiveTexture(GL_TEXTURE0 + i)  激活当前的纹理单元，使得后续的纹理操作会在这个纹理上进行
         │           └─ glBindTexture(GL_TEXTURE_2D, sconf->input_tex[i])  //相当create 2d texture_obj对象，并设置了sconf->input_tex[i];
         └─ 遍历所有矩形nfans， glDrawArrays(GL_TRIANGLE_FAN, first, vtxcnt[i]); //【】真正绘制
+
 ```
 
 
@@ -371,7 +372,7 @@ TODO: 一场考试需要多久？
 %accordion%hideContent%accordion%
 
 ```java
-draw_paint_node  
+draw_paint_node
 	pixman_region32_intersect(&repaint, damage); // 次要：用damage更新 repaint区域
 	gl_shader_config_init_for_paint_node // 【】目的：需要参数封装到conf结构体里（用作shader）
 		gl_shader_config_set_input_textures  // 【】关键：把client的texture封装到conf里
@@ -388,7 +389,7 @@ draw_paint_node
 			gl_renderer_get_program(gr, &sconf->req) // 获取glProgram
 				做了缓存，不用每次都编译gl_shader_requirements_cmp(&reqs, &shader->key)
 				gl_shader_create(gr, &reqs) // 没有的话，创建
-					sources[0] = "#version 100\n"; sources[1] = conf; sources[2] = fragment_shader; 具体的fragment.glsl
+					sources[2] = fragment_shader; 具体的fragment.glsl
 					glGetProgramiv(shader->program); //gl接口生成glProgram
 						shader->proj_uniform = glGetUniformLocation(shader->program, "proj"); 
 						shader->tex_uniforms[0] = glGetUniformLocation(shader->program, "tex"); // 【】 拿到.glsl中全局变量的索引，后面CPU给GPU赋值
@@ -399,7 +400,7 @@ draw_paint_node
 				for遍历，绑定纹理： // 贴图：一个client surface，只有一个（已经确认）
 					glActiveTexture(GL_TEXTURE0 + i)  激活当前的纹理单元，使得后续的纹理操作会在这个纹理上进行
 					glBindTexture(GL_TEXTURE_2D, sconf->input_tex[i])  //相当create 2d texture_obj对象，并设置了sconf->input_tex[i];
-		遍历所有矩形nfans， 【glDrawArrays(GL_TRIANGLE_FAN, first, vtxcnt[i])】真正绘制
+		遍历所有矩形nfans， glDrawArrays(GL_TRIANGLE_FAN, first, vtxcnt[i]); //【】真正绘制
 ```
 
 %/accordion%
@@ -2734,12 +2735,106 @@ gst-launch-1.0 videotestsrc ! video/x-raw, width=1920, height=1080 ! autovideosi
 
 ## 播放图片
 
+法一：
+
+>   ```java
+>   gst-launch-1.0 playbin uri=file:///home/workingspace_disk2/scripts/gstream/image/mountain.jpeg  video-sink="imagefreeze ! videoconvert ! autovideosink" & sleep 10000 ; kill $!其中 
+>   #其中 10000是时间
+>   ```
+>
+>   ----------------> weston上可以用
+
+法二：
+
+>    weston-image
+
+
+
+# weston的client------能力展示&功能入口
+
+参考：
+
+https://wiki.st.com/stm32mpu/wiki/Wayland_Weston_overview
+
+[Wayland开发入门系列1： 运行测试程序](https://blog.csdn.net/qq_26056015/article/details/122216771)
+
+
+
+## 图片查看 weston-image：
+
 ```java
-gst-launch-1.0 playbin uri=file:///home/workingspace_disk2/scripts/gstream/image/mountain.jpeg  video-sink="imagefreeze ! videoconvert ! autovideosink" & sleep 10000 ; kill $!其中 
-#其中 10000是时间
+ weston-image rose-flower-blossom-bloom-39517.jpeg rose-flower-blossom-bloom-39517.jpeg
 ```
 
+![Weston-image-screenshot.png](合成之weston.assets/480px-Weston-image-screenshot.png)
 
+优点：可以 **放大 & 移动 image**
+
+## weston-eventdemo 事件实时显示
+
+**展示了 touch事件 和 key事件**
+
+![image-20240824235343043](合成之weston.assets/image-20240824235343043.png)
+
+
+
+技巧：
+
+>   把client全屏，就可以像安卓一样，<font color='red'>实时显示touch位置</font>了
+>
+>   ![image-20240824235709515](合成之weston.assets/image-20240824235709515.png)
+
+## editor-----展示输入法框架能力
+
+TODO: 居然有控件？？？？？
+
+![image-20240824235938669](合成之weston.assets/image-20240824235938669.png)
+
+
+
+## dnd ------ 窗口之间传递
+
+Drag and drop
+
+![image-20240825000846160](合成之weston.assets/image-20240825000846160.png)
+
+## constraint
+
+限制鼠标出边界
+
+展示了画连续线的能力：
+
+![image-20240825001134782](合成之weston.assets/image-20240825001134782.png)
+
+## transformed
+
+
+
+## scaler
+
+
+
+
+
+
+
+## 其他：
+
+```java
+“weston-terminal”是一个简单的终端模拟器，不是很兼容但工作得足够好的bash
+“weston-flower”在屏幕上画了一朵花，测试框架协议
+“weston-gears” wayland的glxgears
+“weston-smoke”测试SHM缓冲区共享
+“weston-image”加载在命令行上传递的图像文件并显示它们
+“weston-view”对pdf文件也有同样的作用
+“weston-resizor”显示窗口大小（使用上下键）
+“weston-eventdemo”报告libtoytoolkit的事件到控制台（参见weston-eventdemo --help）
+————————————————
+
+                            版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+                        
+原文链接：https://blog.csdn.net/qq_26056015/article/details/122216771
+```
 
 
 

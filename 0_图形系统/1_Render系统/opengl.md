@@ -570,7 +570,7 @@ glDisable(GL_SCISSOR_TEST);
 
 
 // add by chen
-glScissor(800, 200, 800, 400);
+glScissor(800, 200, 800, 400); //  限制的区域
 glEnable(GL_SCISSOR_TEST);
 
 // add by chen
@@ -640,6 +640,28 @@ TODO: 多个**`EGLContext`**
 ### eglSwapBuffers
 
 [eglSwapBuffers详解-CSDN博客](https://blog.csdn.net/happy19850920/article/details/50773875?spm=1001.2014.3001.5502)
+
+
+
+### 优化之限制局部区域的操作 glScissors
+
+glScissors是OpenGL中的一个函数，用于定义一个矩形区域，只有在该区域内的像素才会被绘制。
+
+
+
+[参考](https://cloud.tencent.com/developer/information/OpenGL%20glScissors%E5%9D%90%E6%A0%87%E7%B3%BB%E7%9A%84%E4%B8%AD%E5%BF%83-ask)
+
+**glScissors  ------限制局部，操作比如：**
+
+>   限制gldraw
+>
+>   限制 glClear
+
+
+
+布局clear：
+
+>   ![image-20240811215751573](opengl.assets/image-20240811215751573.png)
 
 
 
@@ -967,13 +989,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 }
 ```
 
-### 优化之限制局部区域绘制 glScissors
 
-glScissors是OpenGL中的一个函数，用于定义一个矩形区域，只有在该区域内的像素才会被绘制。
-
-
-
-[参考](https://cloud.tencent.com/developer/information/OpenGL%20glScissors%E5%9D%90%E6%A0%87%E7%B3%BB%E7%9A%84%E4%B8%AD%E5%BF%83-ask)
 
 
 

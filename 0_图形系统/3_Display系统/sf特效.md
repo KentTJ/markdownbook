@@ -952,6 +952,180 @@ void GLESRenderEngine::drawLayersInternal(
 
 
 
+## 高斯模糊代码大纲：
+
+总体依附于合成流程：
+
+```java
+└─ GLESRenderEngine::drawLayersInternal // 自下而上
+    ├─ for (const auto& layer : layers) 遍历出所有的blurLayers   即有backgroundBlurRadius
+    ├─ .
+    ├─ ---------------------上屏or 临时mCompositionFbo-------------------------------
+    ├─ if (blurLayersSize > 0) 时：【】 关键行，一直绘制到mCompositionFbo里，没有上屏！！！！直到条件【if(blurLayersSize == 0)只有一层需要高斯模糊  】
+    │   └─ mBlurFilter->setAsDrawTarget(display, blurLayers.front().backgroundBlurRadius)
+    │       └─ mCompositionFbo.bind();
+    ├─ if(blurLayersSize == 0) 没有需要高斯模糊
+    │   ├─ 自然，上屏：fbo = std::make_unique<BindNativeBufferAsFramebuffer
+    │   └─ setViewportAndProjection(display) 视口是display
+    ├─ .
+    └─ for (const auto& layer : layers) { // 系统级遍历，合成，必然是从底到顶的顺序！
+        └─ if (blurLayers.size() > 0 && blurLayers.front() == layer) { // 当前遍历的layer是 blurLayers
+            ├─ blurLayers.pop_front();
+            ├─ ---------------------上屏or 临时mCompositionFbo-------------------------------
+            ├─ if (blurLayersSize > 0) 时：【】 关键行，一直绘制到mCompositionFbo里，没有上屏！！！！！！！！！
+            │   └─ mBlurFilter->setAsDrawTarget(display, blurLayers.front().backgroundBlurRadius)
+            │       └─ mCompositionFbo.bind();
+            ├─ 【if(blurLayersSize == 0) 只有一层需要高斯模糊 】 // 逐渐减少 blurLayersSize
+            │   ├─ 自然，上屏：fbo = std::make_unique<BindNativeBufferAsFramebuffer
+            │   └─ setViewportAndProjection(display) 视口是display
+            ├─
+            ├─ ------------------------blurLayer以下级？-------------------------------
+            ├─ 【BlurFilter->prepare()】--------产生真正的高斯模糊mBlurProgram----------
+            │   ├─ --------------在ping上贴原始图？？？？----------------------------
+            │   ├─ mBlurProgram.useProgram();
+            │   ├─ glActiveTexture(GL_TEXTURE0);
+            │   ├─ glUniform1i(mBTextureLoc, 0);
+            │   ├─ glBindTexture(GL_TEXTURE_2D, mCompositionFbo.getTextureName()); // -------> TODO: mCompositionFbo 是底下所有layer合成的效果总和    
+            │   ├─ glUniform2f(mBOffsetLoc, stepX, stepY);
+            │   ├─ glViewport(0, 0, mPingFbo.getBufferWidth(), mPingFbo.getBufferHeight());
+            │   ├─ mPingFbo.bind();
+            │   ├─ BlurFilter::drawMesh(mBUvLoc, mBPosLoc) // 参数是UV信息和位置信息
+            │   │   ├─ glEnableVertexAttribArray(uv);
+            │   │   ├─ glEnableVertexAttribArray(position);
+            │   │   ├─ mMeshBuffer.bind();
+            │   │   ├─ glBindBuffer(GL_ARRAY_BUFFER, mBufferName);
+            │   │   ├─ glVertexAttribPointer // 顶点属性
+            │   │   ├─ mMeshBuffer.unbind();
+            │   │   └─ glDrawArrays(GL_TRIANGLES, 0 /* first */, 3 /* count */); // 真正的draw
+            │   ├─ ------------pingpong流程-----------------------------
+            │   ├─ GLFramebuffer* read = &mPingFbo; // 初始化read和draw
+            │   ├─ GLFramebuffer* draw = &mPongFbo;
+            │   ├─ glViewport(0, 0, draw->getBufferWidth(), draw->getBufferHeight()); // TODO:视口为啥是？
+            │   ├─ 步进迭代for (auto i = 1; i < passes; i++) // 【】passes大概率等于设置的radius
+            │   │   ├─ draw->bind(); // 绑定draw的buffer,TODO: 没有清？？？？？？？？？？！！！！！！！！！！！
+            │   │   ├─ glBindTexture(GL_TEXTURE_2D, read->getTextureName());  // texture, 自然绑定read的
+            │   │   ├─ glUniform2f(mBOffsetLoc, stepX * i, stepY * i); // 给GPU程序设置步长
+            │   │   ├─ BlurFilter::drawMesh(mBUvLoc, mBPosLoc); // 【】draw
+            │   │   └─ 交换read和 draw的buffer
+            │   └─ mLastDrawTarget = read // 【】 最终模糊的结果！！！
+            ├─ if (blurLayers.size() == 0) { //【】 底下没有其他需要模糊的layer了
+            │   ├─ 自然，fbo = std::make_unique<BindNativeBufferAsFramebuffer // 【】 nativeBuffer被绑定用作 FrameBuffer，最终上屏的buffer！！！！！
+            │   └─ setViewportAndProjection(display) 视口是display
+            ├─ -------------------高斯模糊上屏（上一步决定了）：mMixProgram----------------------------
+            └─ 【BlurFilter::render(blurLayersSize > 1)】关键行  blurLayersSize > 1 当底下没有 需要模糊的了，才上屏！
+                ├─ mMixProgram.useProgram(); // 自然mMixProgram
+                ├─ glUniform1f(mMMixLoc, mix);
+                ├─ glActiveTexture(GL_TEXTURE0); // 激活TEXTURE0
+                ├─ glBindTexture(GL_TEXTURE_2D, mLastDrawTarget->getTextureName()); // 把模糊结果和TEXTURE0 绑定
+                ├─ glUniform1i(mMTextureLoc, 0);
+                ├─ glActiveTexture(GL_TEXTURE1); // 激活TEXTURE1
+                ├─ glBindTexture(GL_TEXTURE_2D, mCompositionFbo.getTextureName()); //
+                ├─ glUniform1i(mMCompositionTextureLoc, 1);
+                ├─ drawMesh(mMUvLoc, mMPosLoc);
+                ├─ ------------清理操作-----------------
+                ├─ glUseProgram(0);  // 反激活
+                └─ glActiveTexture(GL_TEXTURE0); //清理操作，确保下次绑定纹理时从 GL_TEXTURE0 开始
+```
+
+以上逻辑核心只有一条：
+1、只要上面有blurLayer，下面就不能绘制到屏幕上（污染屏幕）
+2、~~自然， 直到blurLayersSize==0时，发生改变，开始上屏（否则，一直被模糊）~~
+					（推论：①、多个应用都设置了blurLayerBehind，先看最底下的blurLayer，对下面高斯模糊。倒数第二个blurLayer，下面再被模糊 ------->  符合产品逻辑
+							②、多个应用时，存在多次模糊的情形 ）
+
+
+
+
+
+%accordion%hideContent%accordion%
+
+```java
+GLESRenderEngine::drawLayersInternal // 自下而上
+	for (const auto& layer : layers) 遍历出所有的blurLayers   即有backgroundBlurRadius
+	.
+	---------------------上屏or 临时mCompositionFbo-------------------------------
+	if (blurLayersSize > 0) 时：【】 关键行，一直绘制到mCompositionFbo里，没有上屏！！！！直到条件【if(blurLayersSize == 0) 只有一层需要高斯模糊  】
+		mBlurFilter->setAsDrawTarget(display, blurLayers.front().backgroundBlurRadius)
+			mCompositionFbo.bind();
+	if(blurLayersSize == 0) 没有需要高斯模糊
+		自然，上屏：fbo = std::make_unique<BindNativeBufferAsFramebuffer
+		setViewportAndProjection(display) 视口是display
+	.
+	for (const auto& layer : layers) { // 系统级遍历，合成，必然是从底到顶的顺序！
+		if (blurLayers.size() > 0 && blurLayers.front() == layer) { // 当前遍历的layer是 blurLayers
+			blurLayers.pop_front();
+			---------------------上屏or 临时mCompositionFbo-------------------------------
+			if (blurLayersSize > 0) 时：【】 关键行，一直绘制到mCompositionFbo里，没有上屏！！！！！！！！！
+				mBlurFilter->setAsDrawTarget(display, blurLayers.front().backgroundBlurRadius)
+					mCompositionFbo.bind();
+			【if(blurLayersSize == 0) 只有一层需要高斯模糊 】 // 逐渐减少 blurLayersSize
+				自然，上屏：fbo = std::make_unique<BindNativeBufferAsFramebuffer
+				setViewportAndProjection(display) 视口是display
+			
+			------------------------blurLayer以下级？-------------------------------
+			【BlurFilter->prepare()】--------产生真正的高斯模糊mBlurProgram----------
+				--------------在ping上贴原始图？？？？----------------------------
+				mBlurProgram.useProgram();
+				glActiveTexture(GL_TEXTURE0);
+				glUniform1i(mBTextureLoc, 0);
+				glBindTexture(GL_TEXTURE_2D, mCompositionFbo.getTextureName()); // -------> TODO: mCompositionFbo 是底下所有layer合成的效果总和
+				glUniform2f(mBOffsetLoc, stepX, stepY);
+				glViewport(0, 0, mPingFbo.getBufferWidth(), mPingFbo.getBufferHeight());
+				mPingFbo.bind();
+				BlurFilter::drawMesh(mBUvLoc, mBPosLoc) // 参数是UV信息和位置信息
+					glEnableVertexAttribArray(uv);
+					glEnableVertexAttribArray(position);
+					mMeshBuffer.bind();
+					glBindBuffer(GL_ARRAY_BUFFER, mBufferName);
+					glVertexAttribPointer // 顶点属性
+					mMeshBuffer.unbind();
+					glDrawArrays(GL_TRIANGLES, 0 /* first */, 3 /* count */); // 真正的draw
+				------------pingpong流程-----------------------------
+				GLFramebuffer* read = &mPingFbo; // 初始化read和draw
+				GLFramebuffer* draw = &mPongFbo;
+				glViewport(0, 0, draw->getBufferWidth(), draw->getBufferHeight()); // TODO:视口为啥是？
+				步进迭代for (auto i = 1; i < passes; i++) // 【】passes大概率等于设置的radius
+					draw->bind(); // 绑定draw的buffer,TODO: 没有清？？？？？？？？？？！！！！！！！！！！！
+					glBindTexture(GL_TEXTURE_2D, read->getTextureName());  // texture, 自然绑定read的
+					glUniform2f(mBOffsetLoc, stepX * i, stepY * i); // 给GPU程序设置步长
+					BlurFilter::drawMesh(mBUvLoc, mBPosLoc); // 【】draw
+					交换read和 draw的buffer
+				mLastDrawTarget = read // 【】 最终模糊的结果！！！
+			if (blurLayers.size() == 0) { //【】 底下没有其他需要模糊的layer了
+				自然，fbo = std::make_unique<BindNativeBufferAsFramebuffer // 【】 nativeBuffer被绑定用作 FrameBuffer，最终上屏的buffer！！！！！
+				setViewportAndProjection(display) 视口是display
+			-------------------高斯模糊上屏（上一步决定了）：mMixProgram----------------------------
+			【BlurFilter::render(blurLayersSize > 1)】关键行  blurLayersSize > 1 当底下没有 需要模糊的了，才上屏！
+				mMixProgram.useProgram(); // 自然mMixProgram
+				glUniform1f(mMMixLoc, mix); 
+				glActiveTexture(GL_TEXTURE0); // 激活TEXTURE0
+				glBindTexture(GL_TEXTURE_2D, mLastDrawTarget->getTextureName()); // 把模糊结果和 TEXTURE0 绑定
+				glUniform1i(mMTextureLoc, 0);
+				glActiveTexture(GL_TEXTURE1); // 激活TEXTURE1
+				glBindTexture(GL_TEXTURE_2D, mCompositionFbo.getTextureName()); // 
+				glUniform1i(mMCompositionTextureLoc, 1);
+				drawMesh(mMUvLoc, mMPosLoc);
+				------------清理操作-----------------
+				glUseProgram(0);  // 反激活
+				glActiveTexture(GL_TEXTURE0); //清理操作，确保下次绑定纹理时从 GL_TEXTURE0 开始
+```
+
+%/accordion%
+
+
+
+疑问：
+
+>   TODO:
+>   上面流程明明是  Blur behind，但是为啥用判断？ backgroundBlurRadius
+>
+>   TODO:
+>   上面流程，从始至终，没有看到对几块buffer的清理过程（上屏的那块buffer有清理）
+>
+>   ----------->  我理解，应该不用清理，只要图片不是透明的，会被覆盖！！！！！
+
+
+
 
 
 ## 待整理：高斯模糊
@@ -1009,9 +1183,7 @@ https://juejin.cn/post/7157984562428002334     DimLayer实现和setRelativeLayer
 
 
 
-高斯模糊代码大纲：
 
-依附于合成流程：
 
 
 

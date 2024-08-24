@@ -119,7 +119,7 @@ TODO: 真正drm来的PageFlip消息 ：
 
 
 
-### 次要----repaint大纲字典
+### 次要----output_repaint大纲字典
 
 【repaint流程】承载：将client的damage区域提交给compositor，compositor进行合成
 
@@ -187,7 +187,7 @@ weston_output_repaint(compositor.c)
 							gl_renderer_attach(weston_surface, weston_buffer) // 【】核心
 					repaint_views  // 【】这里遍历node，必然
 						------------------【3】OpenGL合成, 前提：分配了primary plane--------------------------
-						draw_paint_node  // 【】有些node会走gl，有些走pixman？ node级别的还是合成器级别的 ？ 必然：这里初始化shader的config
+						【draw_paint_node】展开见下。 有些node会走gl，有些走pixman？ node级别的还是合成器级别的 ？ 必然：这里初始化shader的config
 							gl_shader_config_init_for_paint_node // 必然：where---draw_paint_node之子，repaint_region之前
 							repaint_region  //【】
 							triangle_fan_debug 测试用的？？？
@@ -322,6 +322,97 @@ TODO: 一场考试需要多久？
 
 
 ------------------------> 注意： 遍历 的plane_list，不代表硬件层级！！
+
+
+
+#### draw_paint_node 画一个节点  大纲
+
+使用gl 接口，调用GPU画：
+
+​	 -<font color='red'>本质：就是GPU贴图</font>
+
+```java
+├─ draw_paint_node
+│   ├─ pixman_region32_intersect(&repaint, damage); // 次要：用damage更新 repaint区域
+│   ├─ gl_shader_config_init_for_paint_node // 【】目的：需要参数封装到conf结构体里（用作shader）
+│   │   ├─ gl_shader_config_set_input_textures  // 【】关键：把client的texture封装到conf里
+│   │   │   └─ for: sconf->input_tex[i] = gb->textures[i] // 一个node，可能有多个Texture
+│   │   └─ gl_shader_config_set_color_transform 颜色变换？
+│   ├─ pixman_region32_subtract(&surface_blend, &surface_blend, &pnode->surface->opaque); // 扣除 完全不透明区域？
+│   └─ repaint_region(gr, pnode, &repaint, &surface_blend, &sconf); // 【】
+│       ├─ 【texture_region(pnode, region, surf_region)】 矩形窗口可能被其他窗口遮挡，会被分割成多个小矩形进行绘制
+│       ├─ /* position: */
+│       ├─ glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof *v, &v[0]);
+│       ├─ /* texcoord: */
+│       ├─ glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof *v, &v[2]);
+│       └─ gl_renderer_use_program(gr, sconf) // 【】
+│           └─ gl_renderer_get_program(gr, &sconf->req) // 获取glProgram
+│               ├─ 做了缓存，不用每次都编译gl_shader_requirements_cmp(&reqs, &shader->key)
+│               └─ gl_shader_create(gr, &reqs) // 没有的话，创建
+│                   └─ sources[0] = "#version 100
+└─ "; sources[1] = conf; sources[2] = fragment_shader; 具体的fragment.glsl
+    └─ glGetProgramiv(shader->program); //gl接口生成glProgram
+        ├─ shader->proj_uniform = glGetUniformLocation(shader->program, "proj");
+        │   ├─ shader->tex_uniforms[0] = glGetUniformLocation(shader->program, "tex"); // 【】 拿到.glsl中全局变量的索引，后面CPU给GPU赋值
+        │   │   └─ shader->tex_uniforms[1] = glGetUniformLocation(shader->program, "tex1");
+        │   ├─ glUseProgram(shader->program); // 激活glProgram（激活一个着色器程序，所有后续的绘制调用将使用这个程序中定义的顶点着色器和片段着色器）
+        │   └─ gl_shader_load_config(shader, sconf) //
+        │       ├─ glUniform1f(shader->view_alpha_uniform, sconf->view_alpha); // 【】CPU真正给GPU赋值的地方
+        │       └─ for遍历，绑定纹理： // 贴图：一个client surface，只有一个（已经确认）
+        │           ├─ glActiveTexture(GL_TEXTURE0 + i)  激活当前的纹理单元，使得后续的纹理操作会在这个纹理上进行
+        │           └─ glBindTexture(GL_TEXTURE_2D, sconf->input_tex[i])  //相当create 2d texture_obj对象，并设置了sconf->input_tex[i];
+        └─ 遍历所有矩形nfans， glDrawArrays(GL_TRIANGLE_FAN, first, vtxcnt[i]); //【】真正绘制
+```
+
+
+
+%accordion%hideContent%accordion%
+
+```java
+draw_paint_node  
+	pixman_region32_intersect(&repaint, damage); // 次要：用damage更新 repaint区域
+	gl_shader_config_init_for_paint_node // 【】目的：需要参数封装到conf结构体里（用作shader）
+		gl_shader_config_set_input_textures  // 【】关键：把client的texture封装到conf里
+			for: sconf->input_tex[i] = gb->textures[i] // 一个node，可能有多个Texture
+		gl_shader_config_set_color_transform 颜色变换？
+	pixman_region32_subtract(&surface_blend, &surface_blend, &pnode->surface->opaque); // 扣除 完全不透明区域？
+	repaint_region(gr, pnode, &repaint, &surface_blend, &sconf); // 【】
+		【texture_region(pnode, region, surf_region)】 矩形窗口可能被其他窗口遮挡，会被分割成多个小矩形进行绘制
+		/* position: */
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof *v, &v[0]);
+		/* texcoord: */
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof *v, &v[2]);
+		gl_renderer_use_program(gr, sconf) // 【】
+			gl_renderer_get_program(gr, &sconf->req) // 获取glProgram
+				做了缓存，不用每次都编译gl_shader_requirements_cmp(&reqs, &shader->key)
+				gl_shader_create(gr, &reqs) // 没有的话，创建
+					sources[0] = "#version 100\n"; sources[1] = conf; sources[2] = fragment_shader; 具体的fragment.glsl
+					glGetProgramiv(shader->program); //gl接口生成glProgram
+						shader->proj_uniform = glGetUniformLocation(shader->program, "proj"); 
+						shader->tex_uniforms[0] = glGetUniformLocation(shader->program, "tex"); // 【】 拿到.glsl中全局变量的索引，后面CPU给GPU赋值
+						shader->tex_uniforms[1] = glGetUniformLocation(shader->program, "tex1");
+			glUseProgram(shader->program); // 激活glProgram（激活一个着色器程序，所有后续的绘制调用将使用这个程序中定义的顶点着色器和片段着色器）
+			gl_shader_load_config(shader, sconf) // 
+				glUniform1f(shader->view_alpha_uniform, sconf->view_alpha); // 【】CPU真正给GPU赋值的地方
+				for遍历，绑定纹理： // 贴图：一个client surface，只有一个（已经确认）
+					glActiveTexture(GL_TEXTURE0 + i)  激活当前的纹理单元，使得后续的纹理操作会在这个纹理上进行
+					glBindTexture(GL_TEXTURE_2D, sconf->input_tex[i])  //相当create 2d texture_obj对象，并设置了sconf->input_tex[i];
+		遍历所有矩形nfans， 【glDrawArrays(GL_TRIANGLE_FAN, first, vtxcnt[i])】真正绘制
+```
+
+%/accordion%
+
+
+
+关于weston 如何使用OpenGL<font color='red'>贴图，很好的参考：</font>
+
+>   weston现有的  shadow的画法  
+>
+>   高斯模糊的做法
+
+
+
+
 
 ### 次要---drm_assign_planes大纲
 

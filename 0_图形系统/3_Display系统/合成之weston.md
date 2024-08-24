@@ -170,7 +170,7 @@ TODO: 真正drm来的PageFlip消息 ：
 ```java
 生命周期图 0层
 weston_output_maybe_repaint(compositor.c)
-weston_output_repaint(compositor.c)
+weston_output_repaint(compositor.c) // output级
 	------------------为views分配planes--------------------------
 	drm_assign_planes // 【】具体见下
 	------------------计算damage---------------------------------
@@ -181,6 +181,8 @@ weston_output_repaint(compositor.c)
 			eif:drm_output_render_pixman  软件合成
 			el：drm_output_render_gl //【】GPU合成	 或 x11_output_repaint_gl  backend-x11/x11.c--->  weston合成器的output是X11
 				gl_renderer_repaint_output ----> 必然，在这里设置视口viewPort，视口是output级别的
+					use_output(output) // 自然，开始时，初始化EGL的环境，比如 eglMakeCurrent
+						eglMakeCurrent
 					get_surface_state(weston_surface)
 						gl_renderer_create_surface
 							------------------------attach？？？-----------------------------------
@@ -1178,7 +1180,7 @@ https://blog.csdn.net/hexiaolong2009/category_10838100.html    dma-buf  专题
 
 
 
-# 从驱动力来看图形
+# 能量----从驱动力来看图形
 
 ## **client** 与 server 之间的pingpong
 
@@ -2337,6 +2339,26 @@ https://fossies.org/dox/weston-13.0.3/structivi__shell.html     struct的类图
 
 
 
+
+# 物质---从buffer看图形
+
+【重要节点：client的gb->textures来源】
+
+```java
+gl_renderer_attach
+	gl_renderer_attach_shm  // shm格式,似乎是做了转化？
+		ensure_textures 
+			for glGenTextures(1, &gb->textures[i]); // 【从buffer生成纹理】
+	gl_renderer_attach_egl  //
+		gl_buffer_state *gb = buffer->renderer_private
+		glBindTexture(target, gb->textures[i]); // TODO: 直接从weston_buffer里拿到纹理-----> 【共享纹理】
+```
+
+展开：
+
+[【从buffer生成纹理】](https://blog.csdn.net/u012839187/article/details/100580627#:~:text=compositor%E5%B0%86%E8%AF%A5buffer%E8%BD%AC%E4%B8%BA%E7%BA%B9%E7%90%86)
+
+ [【共享纹理】](https://blog.csdn.net/u012839187/article/details/112415876#:~:text=%E7%9A%84%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95%EF%BC%89-,%E5%9C%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E5%90%88%E6%88%90%E5%99%A8%E4%B9%8B%E9%97%B4%E5%85%B1%E4%BA%AB%E7%BA%B9%E7%90%86,-%E3%80%82%E5%9C%A8%E6%9C%AC%E4%BE%8B)
 
 # 霸屏模式
 

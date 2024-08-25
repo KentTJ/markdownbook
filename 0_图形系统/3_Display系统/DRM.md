@@ -51,7 +51,7 @@ CRTC：
 
 ## Drm 0层链路
 
-<img src="https://i-blog.csdnimg.cn/blog_migrate/932b456a11141824d09bea9aa65ca7b1.png" alt="在这里插入图片描述" style="zoom: 67%;" />
+<img src="DRM.assets/932b456a11141824d09bea9aa65ca7b1.png" alt="在这里插入图片描述" style="zoom: 67%;" />
 
 
 
@@ -61,13 +61,13 @@ https://download.csdn.net/blog/column/11305753/120255137   **图显系统DRM CRT
 
 
 
-![img](https://img2024.cnblogs.com/blog/1083701/202403/1083701-20240316184458394-1479242202.jpg)
+![img](DRM.assets/1083701-20240316184458394-1479242202.jpg)
 
 [图](https://www.cnblogs.com/arnoldlu/p/17978715#:~:text=mode%2Dsetting%20pipeline%E5%A6%82%E4%B8%8B)
 
 
 
-![img](https://img2024.cnblogs.com/blog/1083701/202403/1083701-20240316220911628-1189732361.jpg)
+![img](DRM.assets/1083701-20240316220911628-1189732361.jpg)
 
 [图](https://www.cnblogs.com/arnoldlu/p/17978715#:~:text=%E8%B0%83%E7%94%A8%E5%BA%95%E5%B1%82-,%E6%98%BE%E7%A4%BA%E6%8E%A7%E5%88%B6%E5%92%8CGPU%E5%8A%9F%E8%83%BD%E7%AD%89%E7%AD%89,-%E3%80%82)
 

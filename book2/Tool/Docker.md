@@ -2327,6 +2327,8 @@ wmWare优点十分明显：
 >
 >   vMware软件走的代理是：**局域网** ， winIP:10813
 
+
+
 ### Ubuntu设置:
 
 1、全局代理设置：
@@ -2405,6 +2407,14 @@ Acquire::https::Proxy "http://username:password@proxy-IP-address:proxyport";
 ```
 
 参考： [Linux配置代理的方法](https://blog.csdn.net/m0_37132242/article/details/104553302)
+
+
+
+### 问题：以上步骤都执行了，仍然无网
+
+需要重启window侧的本地代理服务：
+
+![image-20240825113407142](Docker.assets/image-20240825113407142.png)
 
 
 

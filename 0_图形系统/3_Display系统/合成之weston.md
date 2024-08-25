@@ -2678,7 +2678,7 @@ drm_output_create
 
 
 
-# GStreamer——gst-launch-1.0
+# 次要---GStreamer——gst-launch-1.0
 
 
 
@@ -2703,9 +2703,7 @@ drm_output_create
 >
 > [图来源](https://blog.csdn.net/FREEDOM_X/article/details/140150939?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-140150939-blog-118488296.235^v43^pc_blog_bottom_relevance_base5&spm=1001.2101.3001.4242.1&utm_relevant_index=1#:~:text=%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%8A%E3%80%82-,%E8%BF%90%E8%A1%8C%E6%95%88%E6%9E%9C,-%EF%BC%9A)
 
-例2：
-
-播放网络视频：
+例2：播放网络视频：
 
 ```java
 gst-launch-1.0 playbin uri=https://www.freedesktop.org/software/gstreamer-sdk/data/media/sintel_trailer-480p.webm
@@ -2732,6 +2730,26 @@ gst-launch-1.0 videotestsrc ! video/x-raw, width=1920, height=1080 ! autovideosi
 功能、结构、配置，永恒的主题
 
 > 都要（5w2h）
+
+
+
+例4：播放本地视频
+
+>   ```java
+>   gst-launch-1.0 playbin uri=file:///home/chengang/workingspace_disk2/scripts/gstream/image/Raindrops_Videvo.mp4
+>   ```
+>
+>   报错： missing element H.264
+>
+>   ![image-20240825124408800](合成之weston.assets/image-20240825124408800.png)
+>
+>   安装：
+>
+>   ```java
+>   sudo apt-get install gstreamer1.0-plugins-ugly gstreamer1.0-libav
+>   ```
+
+
 
 ## 播放图片
 

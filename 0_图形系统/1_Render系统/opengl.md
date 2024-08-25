@@ -557,7 +557,7 @@ https://stackoverflow.com/questions/3420558/printf-in-glsl
 
 ```java
 // add by chen
-glScissor(0, 0, 800, 400);
+glScissor(0, 0, 800, 400);  //  限制的区域
 glEnable(GL_SCISSOR_TEST);
 
 // add by chen
@@ -565,12 +565,12 @@ glClearColor(0.0, 0.0, 0.0, 0.0);
 glClear(GL_COLOR_BUFFER_BIT);
 
 // add by chen
-glDisable(GL_SCISSOR_TEST);
+glDisable(GL_SCISSOR_TEST);  //  解除限制
 
 
 
 // add by chen
-glScissor(800, 200, 800, 400); //  限制的区域
+glScissor(800, 200, 800, 400); 
 glEnable(GL_SCISSOR_TEST);
 
 // add by chen
@@ -659,9 +659,28 @@ glScissors是OpenGL中的一个函数，用于定义一个矩形区域，只有�
 
 
 
-布局clear：
 
->   ![image-20240811215751573](opengl.assets/image-20240811215751573.png)
+
+
+
+局部clear：
+
+>   ```java
+>   // add by chen
+>   glScissor(0, 0, 800, 400);  //  限制的区域
+>   glEnable(GL_SCISSOR_TEST);
+>   
+>   // add by chen
+>   glClearColor(0.0, 0.0, 0.0, 0.0);
+>   glClear(GL_COLOR_BUFFER_BIT);
+>   
+>   // add by chen
+>   glDisable(GL_SCISSOR_TEST);  //  解除限制
+>   ```
+>
+>   
+>
+>   >   ![image-20240811215751573](opengl.assets/image-20240811215751573.png)
 
 
 

@@ -116,7 +116,9 @@ TODO: 真正drm来的PageFlip消息 ：
 
 ## 1层纵向大图
 
-### 发车   代码大纲  TODO: 
+### 发车**atomic_flip_handler**   代码大纲  TODO: 
+
+atomic_flip_handler ----- 发车
 
 
 
@@ -417,7 +419,7 @@ draw_paint_node
 
 
 
-### 次要---drm_assign_planes大纲
+### 次要---给view分配plane（drm_assign_planes）大纲
 
 ```java
 repaint大纲字典
@@ -456,11 +458,11 @@ repaint大纲字典
                 ├─ 7、有对应的drm_fb，赋值：possible_plane_mask &= fb->plane_mask
                 ├─ ③_1--------真正的分配（对于③中可能分配的possible_plane）-----------------------
                 └─ wl_list_for_each(plane, &device->plane_list)遍历plane_list：
-                    ├─ plane可得性检查：drm_plane_is_available：
+                    ├─ plane可得性检查：【drm_plane_is_available】
                     │   ├─ output如果是virtual的，不能分配plane！！
                     │   ├─ The plane still 存在 a request
                     │   ├─ The plane is still active on another output
-                    │   └─ 检查 plane can be used with this CRTC
+                    │   └─ 检查 plane can be used with this CRTC // 【】屏幕和plane的绑定关系！！！！
                     ├─ 检查 view对应的buffer有效性：assert(fb)
                     ├─ alpha已经安排过view，跳过： drm_output_check_plane_has_view_assigned()
                     ├─ alpha 检查：如果view有alpha值，但是该plane不支持alpha，跳过
@@ -553,6 +555,356 @@ weston_compositor里的primary_plane;  // 【】指明了GPU的plane
 
 
 
+#### 如何避免将屏幕1的plane分配给屏幕2的view呢？plane-output 绑定关系维护在哪里？
+
+必然是在驱动！！！因为plane的数据送给哪个屏幕，是drm决定的
+
+-<font color='red'>weston侧只是获取 绑定关系。</font>具体代码：
+
+```java
+drm_plane_is_available(plane, output)
+{
+	.................
+      if (plane->state_cur->output && plane->state_cur->output != output) // 第二次、第三次分配：维持第一次  plane与outPut的绑定关系
+		return false;
+    
+	/* Check whether the plane can be used with this CRTC; possible_crtcs
+	 * is a bitmask of CRTC indices (pipe), rather than CRTC object ID. */
+	return !!(plane->possible_crtcs & (1 << output->crtc->pipe));  // 第一次分配
+}
+```
+
+结论：
+
+>   1、outPut与crtc 一 一对应。。。。TODO: 验证
+>
+>   2、**plane->possible_crtcs，即对应的plane-crtc绑定关系**。。TODO: outPut 与 crtc绑定关系在哪里？？？？
+>
+>   TODO:  难道一个plane，可以绑定多个关系？
+
+
+
+plane->possible_crtcs来源：
+
+```java
+weston_backend_init
+	drm_backend_create
+		open_additional_devices
+			drm_device_create
+				create_sprites
+					drm_plane_create //【】 通过drmModePlane，拿到plane对应的 possible_crtcs、plane->plane_id
+```
+
+
+
+
+
+#### ~~次要 ------ compositor从drm获取plane信息~~
+
+硬件：
+
+plane的来源：
+
+> 不是跟着屏幕走的。而是硬件资源的限制（具体：CRTC、encode？？？？？？）
+
+<img src="https://i-blog.csdnimg.cn/blog_migrate/60ac77f9c6a429fe9fc02a3ec1ff9c61.png" alt="img" style="zoom: 50%;" />
+
+图来源
+
+
+
+代码大纲：
+
+```java
+weston_backend_init(drm.c)
+	drm_backend_create(drm.c)
+		drm_device_create(drm.c)
+			create_sprites(drm.c) sprites即overlay planes
+```
+
+
+
+关键一行： 
+
+```java
+kplane_res = drmModeGetPlaneResources(device->drm.fd); // 得到plane资源集
+for (i = 0; i < kplane_res->count_planes; i++) {
+    kplane = drmModeGetPlane(device->drm.fd, kplane_res->planes[i]); //  根据Plane ID得到Plane
+```
+
+
+
+在weston侧，**最终维护在plane_list中**
+
+
+
+TODO: 物理级的理解：
+
+> plane个数的限制，最终是来源哪里？硬件？具体哪个硬件
+>
+> ​							  最终配置在哪里？
+
+
+
+
+
+
+
+日志：
+
+```java
+[17:26:13.604] drm_plane_create: plane->plane_id: 49  // 从drm获取的id  【1】乱七八糟？？ 【2】这个值，重启后变化
+[17:26:13.605] drm_plane_create: plane->plane_id: 70 
+[17:26:13.605] drm_plane_create: plane->plane_id: 74 
+[17:26:13.606] drm_plane_create: plane->plane_id: 110 
+[17:26:13.606] drm_plane_create: plane->plane_id: 114 
+[17:26:13.606] drm_plane_create: plane->plane_id: 126 
+[17:26:13.607] drm_plane_create: plane->plane_id: 132 
+[17:26:13.607] drm_plane_create: plane->plane_id: 138 
+[17:26:13.608] drm_plane_create: plane->plane_id: 144 
+[17:26:13.609] drm_plane_create: plane->plane_id: 150 
+[17:26:13.609] create_sprites: drm_plane->plane_idx: 0   // weston，重新赋予的id值
+[17:26:13.609] create_sprites: drm_plane->plane_idx: 1 
+[17:26:13.609] create_sprites: drm_plane->plane_idx: 2 
+[17:26:13.609] create_sprites: drm_plane->plane_idx: 3 
+[17:26:13.609] create_sprites: drm_plane->plane_idx: 4 
+[17:26:13.609] create_sprites: drm_plane->plane_idx: 5 
+[17:26:13.609] create_sprites: drm_plane->plane_idx: 6 
+[17:26:13.609] create_sprites: drm_plane->plane_idx: 7 
+[17:26:13.609] create_sprites: drm_plane->plane_idx: 8 
+[17:26:13.609] create_sprites: drm_plane->plane_idx: 9 
+```
+
+
+
+
+
+### 主要----plane分配原则总结（物理级别）
+
+默认的view都是分给primary  ------>  啥是默认的view？？？
+
+video 占据sprite plane
+
+
+
+大致：
+
+> 1、overlay条件非常苛刻
+>
+> 2、GPU是用来兜底的。万能的
+>
+>   primary 层，物理上一定在下面
+
+
+
+
+
+#### 总结所有走GPU的（剩下走overlay）
+
+从GPU角度：
+
+> <font color='red'>GPU是DRM的兜底者</font>（~~比如，DRM不认识SHM~~）
+
+
+
+代码中：
+
+> ②强制走gpu的
+>
+> ③尝试分配plane失败的
+
+物理角度，只能GPU：
+
+> WESTON_BUFFER_SHM  --------->  <font color='red'>cpu分配的内存，drm不认识</font>。只能走GPU兜底转一道（~~cursor可以plane~~）
+>
+> WESTON_BUFFER_SOLID  
+
+
+
+#### WESTON_BUFFER_SHM  强制GPU
+
+代码证明：
+
+```java
+ else if (buffer->type == WESTON_BUFFER_SHM) {
+		if (!output->cursor_plane || device->cursors_are_broken) {
+			pnode->try_view_on_plane_failure_reasons |=
+				FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE;
+
+			// add by chen start
+			drm_debug(b, "\t\t\t\t ==chen==, drm_output_find_plane_for_view weston_view %p buffer->type == WESTON_BUFFER_SHM \n", ev);
+			return NULL;
+		}
+```
+
+
+
+例外：允许cursor的SHM 直接送drm
+
+```java
+drm_debug(b, "\t\t\t\t[view] not placing view %p on "
+		             "plane; SHM buffers must be ARGB8888 for "
+			     "cursor view\n", ev);   
+```
+
+
+
+
+
+
+
+#### 从日志看assign_plane
+
+
+
+
+
+output 0尝试混合模式：
+
+```java
+	[repaint] could not build planes-only state, trying mixed
+		[state] using renderer FB ID 164 for mixed mode for output DSI-1 (0)
+		[state] scanout will use for zpos 0
+			[view] evaluating view 0x55a6da1d40 for output DSI-1 (0)
+			[plane] started with zpos 18446744073709551615
+				[view] view 0x55a6da1d40 will be placed on the renderer
+			[view] evaluating view 0x55a6d9d1f0 for output DSI-1 (0)
+				[view] not assigning view 0x55a6d9d1f0 to plane (occluded by renderer views)
+				[view] view 0x55a6d9d1f0 will be placed on the renderer
+			[view] evaluating view 0x55a6da2210 for output DSI-1 (0)
+				[view] ignoring view 0x55a6da2210 (occluded on our output)
+			[view] evaluating view 0x55a6d8e060 for output DSI-1 (0)
+				[view] ignoring view 0x55a6d8e060 (occluded on our output)
+			[view] evaluating view 0x55a6d8eaf0 for output DSI-1 (0)
+				[view] ignoring view 0x55a6d8eaf0 (occluded on our output)
+			[view] evaluating view 0x55a6d8ccd0 for output DSI-1 (0)
+				[view] ignoring view 0x55a6d8ccd0 (occluded on our output)
+			[view] evaluating view 0x55a6d8efc0 for output DSI-1 (0)
+				[view] ignoring view 0x55a6d8efc0 (occluded on our output)
+			[view] evaluating view 0x55a6d72740 for output DSI-1 (0)
+				[view] ignoring view 0x55a6d72740 (occluded on our output)
+			[view] evaluating view 0x55a6e73a60 for output DSI-1 (0)
+				[view] not assigning view 0x55a6e73a60 to plane (occluded by renderer views)
+				[view] not assigning view 0x55a6e73a60 to plane (layer is or under BOS_SURFACE_LAYER_POSITION_BELOW)
+				[view] view 0x55a6e73a60 will be placed on the renderer
+			[view] evaluating view 0x55a6da0370 for output DSI-1 (0)
+				[view] not assigning view 0x55a6da0370 to plane (occluded by renderer views)
+				[view] view 0x55a6da0370 will be placed on the renderer
+			[view] evaluating view 0x55a6d9f750 for output DSI-1 (0)
+				[view] ignoring view 0x55a6d9f750 (not on our output)
+			[view] evaluating view 0x55a6d9eb30 for output DSI-1 (0)
+				[view] ignoring view 0x55a6d9eb30 (not on our output)
+			[view] evaluating view 0x55a6d9df10 for output DSI-1 (0)
+				[view] ignoring view 0x55a6d9df10 (not on our output)
+```
+
+测试output 0状态：
+
+```java
+		[atomic] testing output 0 (DSI-1) state
+			[CRTC:78] 23 (MODE_ID) -> 163 (0xa3)
+			[CRTC:78] 22 (ACTIVE) -> 1 (0x1)
+			[CRTC:78] 24 (VRR_ENABLED) -> 0 (0x0)
+			[CONN:34] 20 (CRTC_ID) -> 78 (0x4e)
+			[PLANE:49] 17 (FB_ID) -> 164 (0xa4)
+			[PLANE:49] 20 (CRTC_ID) -> 78 (0x4e)
+			[PLANE:49] 9 (SRC_X) -> 0 (0x0)
+			[PLANE:49] 10 (SRC_Y) -> 0 (0x0)
+			[PLANE:49] 11 (SRC_W) -> 113246208 (0x6c00000)
+			[PLANE:49] 12 (SRC_H) -> 123731968 (0x7600000)
+			[PLANE:49] 13 (CRTC_X) -> 0 (0x0)
+			[PLANE:49] 14 (CRTC_Y) -> 0 (0x0)
+			[PLANE:49] 15 (CRTC_W) -> 1728 (0x6c0)
+			[PLANE:49] 16 (CRTC_H) -> 1888 (0x760)
+			[PLANE:49] FORMAT: XRGB8888
+			[PLANE:49] 51 (alpha) -> 65535 (0xffff)
+```
+
+最终提交：------> **所有outPut**
+
+```java
+[atomic] drmModeAtomicCommit
+	[repaint] Using mixed state composition          ------> // TODO: 哪一个plane？？
+	[repaint] view 0x55a6da1d40 using renderer composition
+	[repaint] view 0x55a6d9d1f0 using renderer composition
+	[repaint] view 0x55a6da2210 using renderer composition
+	[repaint] view 0x55a6d8e060 using renderer composition
+	[repaint] view 0x55a6d8eaf0 using renderer composition
+	[repaint] view 0x55a6d8ccd0 using renderer composition
+	[repaint] view 0x55a6d8efc0 using renderer composition
+	[repaint] view 0x55a6d72740 using renderer composition
+	[repaint] view 0x55a6e73a60 using renderer composition
+	[repaint] view 0x55a6da0370 using renderer composition
+		[atomic] applying output 0 (DSI-1) state  // 【】 ----> 真正提交
+			[CRTC:78] 23 (MODE_ID) -> 163 (0xa3)
+			[CRTC:78] 22 (ACTIVE) -> 1 (0x1)
+			[CRTC:78] 24 (VRR_ENABLED) -> 0 (0x0)
+			[CONN:34] 20 (CRTC_ID) -> 78 (0x4e)
+			[PLANE:49] 17 (FB_ID) -> 38 (0x26)
+			[PLANE:49] 20 (CRTC_ID) -> 78 (0x4e)
+			[PLANE:49] 9 (SRC_X) -> 0 (0x0)
+			[PLANE:49] 10 (SRC_Y) -> 0 (0x0)
+			[PLANE:49] 11 (SRC_W) -> 113246208 (0x6c00000)
+			[PLANE:49] 12 (SRC_H) -> 123731968 (0x7600000)
+			[PLANE:49] 13 (CRTC_X) -> 0 (0x0)
+			[PLANE:49] 14 (CRTC_Y) -> 0 (0x0)
+			[PLANE:49] 15 (CRTC_W) -> 1728 (0x6c0)
+			[PLANE:49] 16 (CRTC_H) -> 1888 (0x760)
+			[PLANE:49] FORMAT: XRGB8888
+			[PLANE:49] 51 (alpha) -> 65535 (0xffff)
+[atomic] drmModeAtomicCommit
+	[CRTC:78] setting pending flip
+[repaint] flushed pending_state 0x55a6e45060
+[atomic][CRTC:78] flip processing started
+[atomic][CRTC:78] flip processing completed
+```
+
+
+
+### 从物理\硬件角度看Plane
+
+0、对于最终的显示（应用角度） ，<font color='red'>显示Zorder</font> = 窗口管理的Zorder =  <font color='red'>软件配置 + 硬件调整 </font>
+
+1、 GPU能叠一些奇怪的图（（1）、大于屏幕的图、（2）圆角 （3）subsurface）（~~这些overlay做不到~~）
+
+2、对于软件：**上面的view优先尝试分配overlay的**
+
+​      目的： 减少GPU的负载
+
+推论：
+
+>   2_1、：抛开项目， **weston原生逻辑，primary一定要在overlay之下的**（**上面的view先分配的overlay**，如果overlay在下面，那么上面的view显示到primary下面了---------->上面的view被遮挡）
+>
+>   2_2 、必然：某一层用了GPU，以下都必须是GPU（TODO: <font color='red'>必然性在哪里？</font>因为background一定走GPU，所有GPU最终只能合成一层？？？？？）
+
+
+
+
+
+一些结论：
+
+**自然情况下，设计理念：**
+
+> 先管重要的（上面的最重要）-------------------------**遍历views选择从上往下遍历**
+>
+> **年轻人在前，老人兜底** -------------------------为充分利用效率，自然先尽量分配给overlay
+>
+> ​            老人兜底 --------- primary在下
+
+**B的方式，不自然、反常**：
+
+> 不自然的点： primary弄上面了（因为A的割裂导致weston上面与下面的plane永久隔离）
+>
+> -------------> 后果，下面的overlay只能用作被遮挡场景
+>
+> ​                              老人放前面--------------1、效率变低
+>
+> ​							                                     2、（大致）意味着下面的overlay 无用了（这也是强制某个应用走的原因）
+
+
+
+
+
 ### 补充特例--------霸屏scanout
 
 效果：
@@ -639,93 +991,6 @@ TODO:  上图中的GBM是啥？
 
 
 
-
-
-
-## Weston启动流程
-
-参考： https://linduo.blog.csdn.net/article/details/122790158   【Wayland】Weston启动流程分析
-
-
-
-系统启动流程：
-
-> ![在这里插入图片描述](合成之weston.assets/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5p6X5aSa,size_20,color_FFFFFF,t_70,g_se,x_16.png)
->
-> [图来源](https://linduo.blog.csdn.net/article/details/122790158#:~:text=%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90-,%E6%B5%81%E7%A8%8B%E5%9B%BE,-%EF%BC%9A)
-
-
-
-weston进程拉起 **shell 进程**的细化：
-
-> ![img](合成之weston.assets/ijww35r58i.png)
-
-weston:  安卓systemServer + SF
-
-weston-desktop-shell :  安卓SystemUI + launcher    
-
-​                                       即，系统全局的界面，~~比如panel, background, cursor, app launcher, lock screen等~~
-
-weston-keyboard（软键盘面板）：安卓 输入法
-
-weston-screenshooter： 安卓截屏
-
-weston-screensaver：安卓屏保
-
-
-
-一些思考：
-
-> （1）从功能角度，为什么要剥离SystemUI逻辑呢？（从系统服务里）：
->
-> 方便定制化修改这部分逻辑。系统服务逻辑，是稳定的   ----->  设计思路：**稳定的逻辑放一起，不稳定的放一起**
->
-> 
-
-
-
-
-
-
-
-## 代码目录结构
-
-![img](合成之weston.assets/8791zfsdyb.jpeg)
-
-[图来源](https://cloud.tencent.com/developer/article/1445734#:~:text=%E5%92%8Ccompositor%20backend%E3%80%82-,%E5%AE%83%E4%BB%AC%E5%88%86%E5%88%AB%E7%94%A8%E4%BA%8E%E7%AA%97%E5%8F%A3%E7%AE%A1%E7%90%86,-%EF%BC%8C%E5%90%88%E6%88%90%E6%B8%B2%E6%9F%93%E5%92%8C)
-
-
-
-其中:
-
-
-
-
-
-
-
-```java
-├── clients--包含weston-desktop-shell、weston-keyboard、weston-screenshooter，以及一些client示例。
-├── compositor--输出weston主程序，以及libexec_weston.so.0.0.0、screen-share.so等库文件。
-├── data
-├── desktop-shell--desktop-shell.so
-├── doc
-├── fullscreen-shell--fullscreen-shell.so
-├── include
-├── ivi-shell--ivi-shell.so
-├── kiosk-shell--kiosk-shell.so
-├── libweston--输出libweston-11.so.0.0.0库文件，以及一系列compositor backend：drm-backend.so；render backend：gl-renderer.so。
-├── pam
-├── pipewire
-├── protocol--Wayland协议xml文件。
-├── README.md
-├── releasing.md
-├── remoting
-├── shared
-├── shell-utils
-├── tests--测试程序。
-└── xwayland--使用X11作为compositor backend的XWayland。
-```
 
 
 
@@ -887,7 +1152,7 @@ compositor backend主要决定了compositor合成完后的结果怎么处置
 
 
 
-## atomic_flip_handler ----- 发车
+
 
 
 
@@ -2507,7 +2772,7 @@ TODO： 似乎是不需要重绘的
 
 
 
-# weston侧的事件机制  TODO: 消息驱动模型？
+#  TODO: 消息驱动模型？
 
 epoll机制：
 
@@ -2573,9 +2838,85 @@ wl_callback_add_listener() wl_callback 由wl_surface_frame() 创建，每当服�
 
 
 
-# weston初始化
+# weston事件分发逻辑
+
+-<font color='red'>基本原则：</font>
+
+> <font color='red'>事件分发层级</font> = 窗口管理层级（大调：weston layer层级，小调：weston view_list），即weston framework层的**软件层级**
 
 
+
+技巧，可以判定   软件层级：
+
+> 将两个窗口重叠，拖动  -----------> **拖动的窗口一定在上**（事件是从上往下分发的）
+>
+> 注：可能是两个layer，也可能是同一layer，不同view_list层级
+
+
+
+
+
+-<font color='red'>显示层级 = </font>窗口管理层级 + 合成层级 + plane分配层级 + 硬件plane配置层级
+
+
+
+# weston启动
+
+参考： 
+
+>   https://linduo.blog.csdn.net/article/details/122790158   【Wayland】Weston启动流程分析
+
+
+
+系统启动流程：
+
+> ![在这里插入图片描述](合成之weston.assets/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5p6X5aSa,size_20,color_FFFFFF,t_70,g_se,x_16.png)
+>
+> [图来源](https://linduo.blog.csdn.net/article/details/122790158#:~:text=%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90-,%E6%B5%81%E7%A8%8B%E5%9B%BE,-%EF%BC%9A)
+
+
+
+## 启动代码大纲
+
+
+
+```java
+compositor/executable.c/main()-->
+	compositor/main.c-->wet_main()
+		-->verify_xdg_runtime_dir()//XDG_RUNTIME_DIR环境变量检查
+		-->wl_display_create//创建wayland显示对象
+		-->wl_display_get_event_loop
+		-->wl_event_loop_add_signal
+		-->load_configuration	//加载weston.ini
+		-->weston_config_get_section \ weston_config_section_get_bool\ weston_config_section_get_string
+		-->weston_choose_default_backend  //x11-backend.so
+		-->weston_compositor_create    //创建 compositor 实例
+                      -->weston_plane_init // 【】读取drm 的plane信息
+                      -->wl_data_device_manager_init
+                      -->wl_display_init_shm
+                      -->weston_layer_init(&ec->fade_layer, ec);
+                      -->weston_layer_init(&ec->cursor_layer, ec);
+		-->wl_display_add_protocol_logger
+		-->weston_compositor_init_config
+		-->load_backend	//根据启动参数-b，显式加载后端显示接口
+			-->load_x11_backend	//use-pixman? cpu:gpu
+				-->weston_compositor_load_backend
+					-->weston_load_module	//x11-backend.so
+						-->weston_backend_init
+							-->x11_backend_create	//use pixman?pixman_renderer_init:init_gl_renderer
+								-->init_gl_renderer	//weston_load_module(gl-renderer.so)
+            //或：
+            -->load_drm_backend
+                -->weston_compositor_load_backend(c, WESTON_BACKEND_DRM,&config.base);
+                    -->weston_load_module(backend_map[backend], "weston_backend_init");
+		-->weston_compositor_log_capabilities
+		-->wl_client_create
+		-->weston_compositor_wake
+		-->execute_autolaunch
+		-->wl_display_run
+```
+
+参考：   [03-weston启动过程](https://blog.csdn.net/yangchao315/article/details/123455439)
 
 
 
@@ -2598,6 +2939,126 @@ drm_output_create
 			output->base.repaint = drm_output_repaint
 			output->base.assign_planes = drm_assign_planes
 ```
+
+
+
+
+
+
+
+weston进程拉起 **shell 进程**的细化：
+
+> ![img](合成之weston.assets/ijww35r58i.png)
+
+weston:  安卓systemServer + SF
+
+weston-desktop-shell :  安卓SystemUI + launcher    
+
+​                                       即，系统全局的界面，~~比如panel, background, cursor, app launcher, lock screen等~~
+
+weston-keyboard（软键盘面板）：安卓 输入法
+
+weston-screenshooter： 安卓截屏
+
+weston-screensaver：安卓屏保
+
+
+
+一些思考：
+
+> （1）从功能角度，为什么要剥离SystemUI逻辑呢？（从系统服务里）：
+>
+> 方便定制化修改这部分逻辑。系统服务逻辑，是稳定的   ----->  设计思路：**稳定的逻辑放一起，不稳定的放一起**
+>
+> 
+
+
+
+
+
+
+
+## 代码目录结构
+
+![img](合成之weston.assets/8791zfsdyb.jpeg)
+
+[图来源](https://cloud.tencent.com/developer/article/1445734#:~:text=%E5%92%8Ccompositor%20backend%E3%80%82-,%E5%AE%83%E4%BB%AC%E5%88%86%E5%88%AB%E7%94%A8%E4%BA%8E%E7%AA%97%E5%8F%A3%E7%AE%A1%E7%90%86,-%EF%BC%8C%E5%90%88%E6%88%90%E6%B8%B2%E6%9F%93%E5%92%8C)
+
+
+
+其中:
+
+
+
+
+
+
+
+```java
+├── clients--包含weston-desktop-shell、weston-keyboard、weston-screenshooter，以及一些client示例。
+├── compositor--输出weston主程序，以及libexec_weston.so.0.0.0、screen-share.so等库文件。
+├── data
+├── desktop-shell--desktop-shell.so
+├── doc
+├── fullscreen-shell--fullscreen-shell.so
+├── include
+├── ivi-shell--ivi-shell.so
+├── kiosk-shell--kiosk-shell.so
+├── libweston--输出libweston-11.so.0.0.0库文件，以及一系列compositor backend：drm-backend.so；render backend：gl-renderer.so。
+├── pam
+├── pipewire
+├── protocol--Wayland协议xml文件。
+├── README.md
+├── releasing.md
+├── remoting
+├── shared
+├── shell-utils
+├── tests--测试程序。
+└── xwayland--使用X11作为compositor backend的XWayland。
+```
+
+
+
+
+
+
+
+## TODO: 如何在启动时 观察到 各种plane的上下级关系？
+
+drm驱动给到weston的plane日志，<font color='red'>但是似乎不是硬件的上下关系！！！！！！！！</font>
+
+> ```java
+> [drm-backend] zpos property not found. Using invented immutable zpos values:
+> 	[plane] primary plane 49, zpos_min 0, zpos_max 0
+> 	[plane] overlay plane 70, zpos_min 7, zpos_max 7
+> 	[plane] overlay plane 74, zpos_min 7, zpos_max 7
+> 	[plane] primary plane 110, zpos_min 0, zpos_max 0
+> 	[plane] overlay plane 114, zpos_min 7, zpos_max 7
+> 	[plane] primary plane 126, zpos_min 0, zpos_max 0
+> 	[plane] primary plane 132, zpos_min 0, zpos_max 0
+> 	[plane] primary plane 138, zpos_min 0, zpos_max 0
+> 	[plane] primary plane 144, zpos_min 0, zpos_max 0
+> 	[plane] primary plane 150, zpos_min 0, zpos_max 0
+> ```
+>
+> 注： （1）正常屏幕，上面的窗口，优先分配overlay ----------> 所以overlay在上
+>
+> ​          （2）**驱动给的plane顺序 必须 等于物理层级顺序**  （驱动寄存器配置错误时，就会颠倒）
+
+所有display信息：
+
+> ```java
+> [17:28:41.052] get screen_map info success, name = DSI-1, width = 1728, height = 1888, x = 0, y = 0, refresh = 59468
+> [17:28:41.052] get screen_map info success, name = eDP-1, width = 3840, height = 720, x = 1728, y = 0, refresh = 60000
+> [17:28:41.052] get screen_map info success, name = DP-1, width = 3840, height = 720, x = 5568, y = 0, refresh = 60000
+> [17:28:41.052] get screen_map info success, name = DP-2, width = 1920, height = 1080, x = 9408, y = 0, refresh = 60000
+> [17:28:41.052] get screen_map info success, name = DSI-2, width = 1920, height = 384, x = 11328, y = 0, refresh = 59999
+> [17:28:41.052] get screen_map info success, name = DSI-3, width = 1728, height = 1888, x = 13248, y = 0, refresh = 60032
+> ```
+>
+> 
+
+
 
 
 
@@ -2675,6 +3136,44 @@ drm_output_create
 ![img](合成之weston.assets/420f6ae98b5b5c7fc707a0fc76013367.png)
 
 [图来源](https://blog.csdn.net/yikunbai5708/article/details/103845086#:~:text=%E7%9A%84%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87-,%E4%B8%8B%E5%9B%BE%E8%BF%9B%E8%A1%8C%E8%A1%A8%E8%BF%B0,-UNI%2D%E5%B0%91%E6%9E%97%E5%AF%BA%E6%AD%A6%E5%8A%9F)
+
+
+
+
+
+## 一些量的级别
+
+weston_output /drm_output(自然scanout屏幕级别)   ------------- 屏幕级
+
+​					drm_output--->drm_device  屏幕
+
+plane_list ----  系统级   （所有屏幕的） ---> <font color='red'>分配时，考虑了plane-output绑定关系</font>（weston有拿到drm配置的  plane与crtc（output）绑定关系
+
+
+
+drm_assign_planes(weston_output)  --------------屏幕级别
+
+output----->paint_node_z_order_list   ------->  **outPut级别**
+
+drm_device ------> 即屏幕的软件抽象
+
+
+
+```java
+struct drm_output {
+	struct weston_output base;
+	struct drm_backend *backend;
+	struct drm_device *device;  // 屏幕
+	struct drm_crtc *crtc;  ----> // 【】硬件crtc，屏幕级！！！！
+```
+
+
+
+## weston日志 关键标识
+
+
+
+output对应的屏幕  ---------->      output->base.name
 
 
 

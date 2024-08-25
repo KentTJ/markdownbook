@@ -883,6 +883,8 @@ package com.google.android.material.shadow;
 
 # 高斯模糊
 
+## 功能角度
+
 高斯模糊的功能：
 
 > 使某个窗口的**外部背景**  模糊  ------>  不是内部背景！自然，应用自己不能做
@@ -895,64 +897,135 @@ package com.google.android.material.shadow;
 
 
 
-[aosp11/12/13 壁纸高斯模糊，毛玻璃SurfaceFlinger层面原理-第二节千里马framework实战_千里马aosp-CSDN博客](https://blog.csdn.net/learnframework/article/details/130778897)
+## 应用层接口
 
-具体流程，同圆角
+
+
+two types for blur：
+
+> https://source.android.com/docs/core/display/window-blurs    官网解释
+>
+> Background blur： 
+>
+> ​        对应接口：
+>
+> > SurfaceControl.Transaction.setBackgroundBlurRadius(dSurfaceControl.Transaction, blurRadius);
+> >
+> > Window.setBackgroundBlurRadius
+>
+> Blur behind：
+>
+> ​      对应接口：WindowManager.LayoutParams.setBlurBehindRadius( int blurBehindRadius)
+
+
+
+
+
+SurfaceControl.Transaction.setBackgroundBlurRadius 接口：
+
+> TODO: 图片  桌面上滑
+>
+> 流程： launcher3 调用了 Transaction setBackgroundBlurRadius，不断改变模糊半径
+
+
+
+
+
+
+
+开关：
 
 ```java
-1
-void GLESRenderEngine::drawLayersInternal(
-        const std::shared_ptr<std::promise<RenderEngineResult>>&& resultPromise,
-        const DisplaySettings& display, const std::vector<LayerSettings>& layers,
-        const std::shared_ptr<ExternalTexture>& buffer, const bool useFramebufferCache,
-        base::unique_fd&& bufferFence) {
-    ATRACE_CALL();
-    // ..................
-    std::deque<const LayerSettings> blurLayers;
-    if (CC_LIKELY(mBlurFilter != nullptr)) {
-        for (const auto& layer : layers) {
-            if (layer.backgroundBlurRadius > 0) { //遍历出这个backgroundBlurRadius的layer
-                blurLayers.push_back(layer);
-            }
-        }
-    }
-    const auto blurLayersSize = blurLayers.size();
-    // ..................
-
-    for (const auto& layer : layers) { //遍历所有图层layer进行相关的渲染,注意这里是从底到顶的顺序
-        if (blurLayers.size() > 0 && blurLayers.front() == layer) {//如果遍历到了设置了blurebehind的layer
-            blurLayers.pop_front();
-
-            auto status = mBlurFilter->prepare(); //准备相关的模糊参数
-
-            if (blurLayers.size() == 0) {//假设已经没有了那么就开始设置好相关的buffer
-                //【】这里很关键！！！！！会把已经绘制的FrameBuffer进行获取，后面把这个数据进行对应的blur ---> 胡扯八道！！！！
-                // Done blurring, time to bind the native FBO and render our blur onto it.
-                fbo = std::make_unique<BindNativeBufferAsFramebuffer>(*this,
-                                                                      buffer.get()
-                                                                              ->getBuffer()
-                                                                              ->getNativeBuffer(),
-                                                                      useFramebufferCache);
-                status = fbo->getStatus();
-                setViewportAndProjection(display.physicalDisplay, display.clip); //【】 这里自然设置全屏模糊
-            } else {
-              ............
-            }
-            // 进行真的模糊
-            status = mBlurFilter->render(blurLayersSize > 1);
-        }
-                ............
-        if (layer.source.buffer.buffer != nullptr) {//这里正常的layer渲染44
-          ............
-        }
-  ............
-    return;
-}
+vi /system/build.prop
 ```
 
 
 
-## 高斯模糊代码大纲：
+
+
+
+
+```java
+Transaction setBackgroundBlurRadius(SurfaceControl sc, int radius)
+```
+
+全局开关（Android S ）：
+
+```java
+// 需要打开ro.surface_flinger.supports_background_blur 才能使用模糊效果，默认是关闭的
+
+property_get("ro.surface_flinger.supports_background_blur", value, "0");
+bool supportsBlurs = atoi(value);
+mSupportsBlur = supportsBlurs;
+```
+
+
+
+安卓的 模糊特性: 
+
+>   1、是窗口级的。跟着窗口走的
+>
+>   2、模糊的是背后，而不是自己的窗口
+
+[应用角度](https://blog.csdn.net/qq_31138209/article/details/140096936?spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-3-140096936-blog-116002774.235%5Ev43%5Epc_blog_bottom_relevance_base5&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-3-140096936-blog-116002774.235%5Ev43%5Epc_blog_bottom_relevance_base5&utm_relevant_index=4)
+
+
+
+
+
+
+
+使用例子：~~Launcher3 的模糊效果~~
+
+>   <img src="https://img-blog.csdnimg.cn/img_convert/b4276b5b5a6d635366c213d34ac64de3.png" alt="仅模糊处理后方屏幕" style="zoom: 50%;" />
+
+
+
+[Android12 弹窗外部、 内部高斯模糊效果实现](https://blog.csdn.net/qq_35584878/article/details/129990471 )         ------> 参考实现！！！
+
+
+
+
+
+快速测试场景：
+
+>   1、AOSP原生手机，桌面上，向上滑动，出现下拉菜单：过程中会出现高斯模糊
+>
+>   2、下拉菜单也是有状态栏               https://blog.csdn.net/learnframework/article/details/130767893
+
+观测日志：
+
+>   GLESRenderEngine::drawLayersInternal, blurLayersSize: 1
+
+
+
+
+
+
+
+规定：
+
+> 所有的功能，必须有简单的测试demo
+>
+> 必须写清楚测试方法
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 功能实现----高斯模糊代码大纲：
+
+参考： [aosp11/12/13 壁纸高斯模糊，毛玻璃SurfaceFlinger层面原理-第二节千里马framework实战_千里马aosp-CSDN博客](https://blog.csdn.net/learnframework/article/details/130778897)
+
+
 
 总体依附于合成流程：
 
@@ -1173,18 +1246,6 @@ https://juejin.cn/post/7157984562428002334     DimLayer实现和setRelativeLayer
 
 
 
-场景：
-
->   TODO: 下拉菜单也是有状态栏               https://blog.csdn.net/learnframework/article/details/130767893
-
-观测日志：
-
->   GLESRenderEngine::drawLayersInternal, blurLayersSize: 1
-
-
-
-
-
 
 
 
@@ -1201,31 +1262,6 @@ app侧用力代码：
 
 
 
-## 应用层接口
-
-```java
-Transaction setBackgroundBlurRadius(SurfaceControl sc, int radius)
-```
-
-全局开关（Android S ）：
-
-```java
-// 需要打开ro.surface_flinger.supports_background_blur 才能使用模糊效果，默认是关闭的
-
-property_get("ro.surface_flinger.supports_background_blur", value, "0");
-bool supportsBlurs = atoi(value);
-mSupportsBlur = supportsBlurs;
-```
-
-
-
-安卓的 模糊特性: 
-
->   1、是窗口级的。跟着窗口走的
->
->   2、模糊的是背后，而不是自己的窗口
-
-[应用角度](https://blog.csdn.net/qq_31138209/article/details/140096936?spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-3-140096936-blog-116002774.235%5Ev43%5Epc_blog_bottom_relevance_base5&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-3-140096936-blog-116002774.235%5Ev43%5Epc_blog_bottom_relevance_base5&utm_relevant_index=4)
 
 
 
@@ -1233,17 +1269,6 @@ mSupportsBlur = supportsBlurs;
 
 
 
-使用例子：~~Launcher3 的模糊效果~~
-
->   <img src="https://img-blog.csdnimg.cn/img_convert/b4276b5b5a6d635366c213d34ac64de3.png" alt="仅模糊处理后方屏幕" style="zoom: 50%;" />
-
-
-
-
-
-
-
-## EGL环境：
 
 
 

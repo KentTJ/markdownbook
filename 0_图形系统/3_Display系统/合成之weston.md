@@ -1287,6 +1287,210 @@ TODO:
 
 
 
+
+
+
+
+# 能量----从驱动力来看图形
+
+## **client** 与 server 之间的pingpong
+
+### C-S 之间 buffer的传递
+
+#### 待整理
+
+https://blog.csdn.net/qqzhaojianbiao/article/details/129796828          Wayland中跨进程调用过程
+
+以Weston自带的例程simple-shm为例：
+
+> 共享内存，图：
+>
+> https://blog.csdn.net/qqzhaojianbiao/article/details/129796828#:~:text=wl_proxy%E7%9A%84event%E3%80%82-,%E8%BF%99%E4%B8%AA%E6%98%A0%E5%B0%84%E8%BF%87%E7%A8%8B%E5%A6%82%E4%B8%8B%E5%9B%BE%E6%89%80,-%E7%A4%BA(%E4%BB%A5wl_registry
+
+TODO:  安卓的buffer是共享内存嘛？
+
+### C的 wl_surface_commit 与  S的 wl_callback
+
+时机：
+
+> wl_surface_commit  时机：必然是client侧  redraw的结束
+>
+> wl_callback时机：必然是 compositor 侧  repaint_out 的结束
+
+simple-shm：
+
+```java
+server侧过来wl_callback消息 --> redraw --> wl_surface_commit
+```
+
+
+
+simple-egl:
+
+```java
+egl流程：也走了 wl_callback
+client -> server: 
+    EGL的eglSwapBuffers:包括  交换buffer + commit surface（所以client端，没有看到调用wl_surface_commit！）
+
+server -> client：
+	【compositor】weston_output_repaint
+	                 wl_callback_send_done
+					     -------【simple-egl】EGL 封装了callback的listener-------------------
+						【simple-egl】wl_display_dispatch 循环读取消息，处理
+							处理完所有事件，就redraw一帧
+```
+
+
+
+总结：
+
+> egl 与 weston交互**没有特别之处**（与shm一样）
+>
+> ~~唯一区别：~~
+>
+> > ​    client侧看不到显式的 提交wl_surface_commit和接受wl_callback （**都被EGL封装了！！！！！！**！）
+
+
+
+
+
+### c侧的帧率统计（驱动力的帧率）
+
+自然是， 统计redraw的 次数/时间
+
+redraw的本质，就是 合成器给的wl_callback 触发
+
+
+
+## weston与drm之间的pingpong
+
+pingpong：
+
+> weston  ------> drm:  drmModeAtomicCommit
+>
+> drm  ------> weston:  atomic_flip_handler
+
+
+
+drm  ------> weston: 定时触发 compositor：
+
+
+
+TODO:  
+
+发车（图形整体的pingpong）： 是由drm决定的
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 物质---从buffer看图形  TODO:
+
+【重要节点：client的gb->textures来源】
+
+```java
+gl_renderer_attach
+	gl_renderer_attach_shm  // shm格式,似乎是做了转化？
+		ensure_textures 
+			for glGenTextures(1, &gb->textures[i]); // 【从buffer生成纹理】
+	gl_renderer_attach_egl  //
+		gl_buffer_state *gb = buffer->renderer_private
+		glBindTexture(target, gb->textures[i]); // TODO: 直接从weston_buffer里拿到纹理-----> 【共享纹理】
+```
+
+展开：
+
+[【从buffer生成纹理】](https://blog.csdn.net/u012839187/article/details/100580627#:~:text=compositor%E5%B0%86%E8%AF%A5buffer%E8%BD%AC%E4%B8%BA%E7%BA%B9%E7%90%86)
+
+ [【共享纹理】](https://blog.csdn.net/u012839187/article/details/112415876#:~:text=%E7%9A%84%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95%EF%BC%89-,%E5%9C%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E5%90%88%E6%88%90%E5%99%A8%E4%B9%8B%E9%97%B4%E5%85%B1%E4%BA%AB%E7%BA%B9%E7%90%86,-%E3%80%82%E5%9C%A8%E6%9C%AC%E4%BE%8B)
+
+
+
+
+
+## 图形数据的承载者-----buffer：
+
+client   surface_commit给 weston的图形数据
+
+--------------->  TODO: 修改标题，目的是什么，为什么，功能是什么
+
+
+
+因为不同的buffer类型，处理的方式不同。
+
+自然，区分：
+
+> ```java
+> struct weston_buffer {
+> enum {
+> WESTON_BUFFER_SHM, // 【】 share mem 
+> WESTON_BUFFER_DMABUF,
+> WESTON_BUFFER_RENDERER_OPAQUE,  // 【】 egl数据
+> WESTON_BUFFER_SOLID,
+> } type;
+> ```
+
+处理方式差异：
+
+> ```java
+> gl_renderer_attach_shm  //
+> gl_renderer_attach_egl  //创建对应surface buffer的egl_image，激活绑定纹理。
+> gl_renderer_attach_dmabuf  //使用dmabuf时的函数
+> ```
+
+为什么处理方式会不一样？
+
+**最最最本质的原因是什么？**  **图形加速硬件**要求：
+
+>   **1、物理连续**且   
+>
+>   **2、符合对齐要求**的内存
+
+**如果是普通共享内存，一般是物理不连续的----------->多数情况用软件渲染。**
+
+------------->[参考](https://blog.csdn.net/u012839187/article/details/100580627#:~:text=%E5%A6%82%E6%9E%9C%E6%98%AF%E6%99%AE%E9%80%9A%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%EF%BC%8C%E4%B8%80%E8%88%AC%E6%98%AF%E7%89%A9%E7%90%86%E4%B8%8D%E8%BF%9E%E7%BB%AD%E7%9A%84%EF%BC%8C%E5%A4%9A%E6%95%B0%E6%83%85%E5%86%B5%E7%94%A8%E8%BD%AF%E4%BB%B6%E6%B8%B2%E6%9F%93) 
+
+
+
+gpt给出的对比：
+
+| 缓冲区类型                    | 描述                                                         | 机制                          | 物理层特性                                        | 用途                                 |
+| ----------------------------- | ------------------------------------------------------------ | ----------------------------- | ------------------------------------------------- | ------------------------------------ |
+| WESTON_BUFFER_SHM             | 共享内存缓冲区：使用共享内存机制进行数据存储和访问。         | POSIX 或 System V 共享内存    | 通过标准操作系统机制共享内存                      | 客户端和服务器之间的一般图像数据共享 |
+| WESTON_BUFFER_DMABUF          | DMA 缓冲区：使用 DMA-BUF 机制，在设备之间高效共享缓冲区数据。 | DMA-BUF（直接内存访问缓冲区） | 通过 DMA 共享内存，允许设备直接访问数据而无需复制 | GPU 和显示设备之间的高性能数据共享   |
+| WESTON_BUFFER_RENDERER_OPAQUE | 渲染器不透明缓冲区：由 OpenGL 等外部渲染器管理；数据对 Weston 不透明。 | OpenGL 或类似图形渲染器       | 由外部渲染系统管理，数据不可直接访问              | 由外部系统管理的渲染任务             |
+| WESTON_BUFFER_SOLID           | 纯色缓冲区：存储单一颜色值，用于简单背景或覆盖。             | 颜色值存储                    | 不存储实际图像数据，仅存储颜色值                  | 简单的颜色填充                       |
+
+这些缓冲区类型在物理层面的本质区别主要在于它们的数据存储和访问机制，以及它们在不同使用场景中的性能和效率。
+
+——来自AI问答宝 https://ai.wendabao.net
+
+
+
+
+
 ## 从buffer角度来看渲染流水线：
 
 ### 物理
@@ -1335,9 +1539,9 @@ GEM:
 > enum wl_shm_format {
 > 	WL_SHM_FORMAT_ARGB8888 = 0,
 > 	WL_SHM_FORMAT_XRGB8888 = 1,
->  WL_SHM_FORMAT_YVYU
->  WL_SHM_FORMAT_UYVY
->  ....................
+> WL_SHM_FORMAT_YVYU
+> WL_SHM_FORMAT_UYVY
+> ....................
 > }
 > ```
 >
@@ -1446,1185 +1650,7 @@ https://blog.csdn.net/hexiaolong2009/category_10838100.html    dma-buf  专题
 
 
 
-# 能量----从驱动力来看图形
 
-## **client** 与 server 之间的pingpong
-
-### C-S 之间 buffer的传递
-
-#### 待整理
-
-https://blog.csdn.net/qqzhaojianbiao/article/details/129796828          Wayland中跨进程调用过程
-
-以Weston自带的例程simple-shm为例：
-
-> 共享内存，图：
->
-> https://blog.csdn.net/qqzhaojianbiao/article/details/129796828#:~:text=wl_proxy%E7%9A%84event%E3%80%82-,%E8%BF%99%E4%B8%AA%E6%98%A0%E5%B0%84%E8%BF%87%E7%A8%8B%E5%A6%82%E4%B8%8B%E5%9B%BE%E6%89%80,-%E7%A4%BA(%E4%BB%A5wl_registry
-
-TODO:  安卓的buffer是共享内存嘛？
-
-### C的 wl_surface_commit 与  S的 wl_callback
-
-时机：
-
-> wl_surface_commit  时机：必然是client侧  redraw的结束
->
-> wl_callback时机：必然是 compositor 侧  repaint_out 的结束
-
-simple-shm：
-
-```java
-server侧过来wl_callback消息 --> redraw --> wl_surface_commit
-```
-
-
-
-simple-egl:
-
-```java
-egl流程：也走了 wl_callback
-client -> server: 
-    EGL的eglSwapBuffers:包括  交换buffer + commit surface（所以client端，没有看到调用wl_surface_commit！）
-
-server -> client：
-	【compositor】weston_output_repaint
-	                 wl_callback_send_done
-					     -------【simple-egl】EGL 封装了callback的listener-------------------
-						【simple-egl】wl_display_dispatch 循环读取消息，处理
-							处理完所有事件，就redraw一帧
-```
-
-
-
-总结：
-
-> egl 与 weston交互**没有特别之处**（与shm一样）
->
-> ~~唯一区别：~~
->
-> > ​    client侧看不到显式的 提交wl_surface_commit和接受wl_callback （**都被EGL封装了！！！！！！**！）
-
-
-
-
-
-### c侧的帧率统计（驱动力的帧率）
-
-自然是， 统计redraw的 次数/时间
-
-redraw的本质，就是 合成器给的wl_callback 触发
-
-
-
-## weston与drm之间的pingpong
-
-pingpong：
-
-> weston  ------> drm:  drmModeAtomicCommit
->
-> drm  ------> weston:  atomic_flip_handler
-
-
-
-drm  ------> weston: 定时触发 compositor：
-
-
-
-TODO:  
-
-发车（图形整体的pingpong）： 是由drm决定的
-
-
-
-
-
-## 窗口管理
-
-
-
-
-
-### opaque region管理
-
-https://blog.csdn.net/u012839187/article/details/120050552   display: weston: opaque region笔记
-
-
-
-
-
-### 窗口的移动----------system move
-
-图：	todo
-
-
-
-system move功能实现逻辑的证明：
-
-move 即 （每一帧的）事件event-重绘
-
-system move要解决的问题是（功能）：
-
-move的跟手性，即（2）保证 每一帧的 event-重绘  组合 -----> 必然：（1）在system侧 容易做到
-
-由（1）必然要client给一个start  ----------- （1_1）
-
-由（2），必然：之后client不管了  ----------- （1_2）
-
-"（1_1）client给一个start" 流程：
-
-```java
-xdg_toplevel_move // client端
-----------------wayland协议-------------------------
-weston_desktop_xdg_toplevel_protocol_move
-	weston_desktop_api_move
-		desktop_surface_move (shell.c)
-			surface_move (shell.c)
-				shell_grab_start(move->base, &move_grab_interface, shsurf,  // 【】必然给了初始位置
-				                 pointer, WESTON_DESKTOP_SHELL_CURSOR_MOVE) 
-								 // 【】1_2之后不管，必然要：告诉compositor干什么(WESTON_DESKTOP_SHELL_CURSOR_MOVE)， 1_2_1
-									                          告诉compositor怎么干(move_grab_interface)   1_2_2
-```
-
-
-
-1_2_2 compositor具体怎么干：
-
-```java
-// 必然定义在shell.c
-
-static const struct weston_pointer_grab_interface move_grab_interface = { 
-	noop_grab_focus,
-	move_grab_motion, //【】
-	move_grab_button,
-	noop_grab_axis,
-	noop_grab_axis_source,
-	noop_grab_frame,
-	move_grab_cancel,
-};
-```
-
-其中 move_grab_motion， 必然出发compositor移动位置1_2_2_1，必然触发重绘1_2_2_2:
-
-```java
-weston_pointer_move_to (input.c)
-	weston_pointer_move
-		weston_view_set_position(shsurf->view, cx, cy)  // 【】1_2_2_1
-			最终生效一行view->geometry.pos_offset && PAINT_NODE_VIEW_DIRTY
-		weston_compositor_schedule_repaint(surface->compositor)； // 【】1_2_2_2
-```
-
-
-
-when，触发时机：必然是client端，收到down事件
-
-```java
-static const struct wl_touch_listener touch_listener = {
-	touch_handle_down, //【】
-	touch_handle_up,
-	touch_handle_motion,
-	touch_handle_frame,
-	touch_handle_cancel,
-};
-```
-
-
-
-
-
-TODO: 触发存在 点击和move的 冲突问题：
-怎么解决？
-
-
-
-
-
-## 坐标系
-
-结论：
-
->   1、两个屏幕，共用一个坐标系：
->
->   ![image-20240707211513289](合成之weston.assets/image-20240707211513289.png)
->
->   2、一个屏幕 = 一个outPut
-
-
-
-```java
-// screen1:
-[12:55:06.684] gl_renderer_repaint_output, output: 0x58f59137bf80, glViewport:(0, 0, 564, 600) //【】------>  相对于screen1（output1）坐标系！！！！！！
-[12:55:06.684] gl_shader_config_init_for_paint_node. go->area:(0, 0, 564, 600)  
-[12:55:06.684] gl_shader_config_init_for_paint_node. surface->width: 1024, surface->height: 600, 
-[12:55:06.684] gl_shader_config_init_for_paint_node. pnode->view->geometry.pos_offset: (1024.000000, 0.000000) 
-[12:55:06.684] gl_shader_config_init_for_paint_node. pnode->output: (1024, 0, 564, 600) 
-[12:55:06.684] gl_shader_config_init_for_paint_node. go->area:(0, 0, 564, 600)  
-[12:55:06.684] gl_shader_config_init_for_paint_node. surface->width: 250, surface->height: 250, 
-[12:55:06.684] gl_shader_config_init_for_paint_node. pnode->view->geometry.pos_offset: (848.000000, 112.000000) //【】---> simple-egl的surface  相对于screen0 左上角（而不是screen1）
-[12:55:06.684] gl_shader_config_init_for_paint_node. pnode->output: (1024, 0, 564, 600) 
-[12:55:06.684] gl_shader_config_init_for_paint_node. go->area:(0, 0, 564, 600)  
-[12:55:06.684] gl_shader_config_init_for_paint_node. surface->width: 32, surface->height: 32, 
-[12:55:06.684] gl_shader_config_init_for_paint_node. pnode->view->geometry.pos_offset: (1015.000000, 508.000000) 
-[12:55:06.684] gl_shader_config_init_for_paint_node. pnode->output: (1024, 0, 564, 600)                          //【】--> output1 相对于screen0！！！
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// screen0:
-[12:55:06.694] gl_renderer_repaint_output, output: 0x58f59134d460, glViewport:(0, 0, 1024, 600) 
-[12:55:06.694] gl_shader_config_init_for_paint_node. go->area:(0, 0, 1024, 600)  
-[12:55:06.694] gl_shader_config_init_for_paint_node. surface->width: 1024, surface->height: 600, 
-[12:55:06.694] gl_shader_config_init_for_paint_node. pnode->view->geometry.pos_offset: (0.000000, 0.000000) 
-[12:55:06.694] gl_shader_config_init_for_paint_node. pnode->output: (0, 0, 1024, 600) 
-[12:55:06.694] gl_shader_config_init_for_paint_node. go->area:(0, 0, 1024, 600)  
-[12:55:06.694] gl_shader_config_init_for_paint_node. surface->width: 250, surface->height: 250, 
-[12:55:06.694] gl_shader_config_init_for_paint_node. pnode->view->geometry.pos_offset: (848.000000, 112.000000) 
-[12:55:06.694] gl_shader_config_init_for_paint_node. pnode->output: (0, 0, 1024, 600) 
-[12:55:06.695] surface_attach, buffer, (width:250, height:250), type:1 
-```
-
-
-
-
-
-## 输入管理
-
-
-
-## wayland协议
-
-### ~~Wayland核心协议，同安卓~~
-
-参考：  ~~[【Wayland】Wayland协议说明](https://blog.csdn.net/zxc024000/article/details/121196682 )~~
-
-位置： <font color='red'>系统中，不在weston中</font>
-
-> ​        ~~/usr/share/wayland/wayland.xml~~
-
-
-
-原理同 安卓AIDL：
-
-> ![在这里插入图片描述](合成之weston.assets/a652fd13220849bd9b7f268f1ce5815b.png)
->
-> [图来源](https://blog.csdn.net/zxc024000/article/details/121196682)
->
-> ![img](合成之weston.assets/5ebm9jbcsr.png)
->
-> [图来源](https://cloud.tencent.com/developer/article/1445734#:~:text=%E7%94%9F%E6%88%90Weston%E4%B8%AD%E7%9A%84-,Wayland%E6%89%A9%E5%B1%95%E5%8D%8F%E8%AE%AE%E4%B8%AD%E8%B5%B7%E5%90%8C%E6%A0%B7%E4%BD%9C%E7%94%A8,-%E3%80%82)
->
-> **关键：XXX**
-
-
-
-具体例子： 以 <font color='red'>wl_</font>surface_commit 接口为例：
-
-> ~~位置：/home/chen/kde/usr/share/wayland/~~
->
-> ~~wayland.xml  ：~~ 
->
-> ```java
-> <request name="commit">
-> <description summary="commit pending surface state">
-> ```
->
-> ----------> 生成：
->
-> ```java
-> // client
-> wayland-client-protocol.h(应该是kde目录下的)
-> 
-> wayland-protocol.c  // 【】 核心通信层
-> 
-> // server
-> wayland-server-protocol.h
-> ```
->
-> 
-
-
-
-Linux编译，查找.h
-
-```java
-/usr/         存放系统头文件的位置, 供编译器在编译过程中使用。
-/home/chen/kde/usr/
-```
-
-
-
-#### wayland-protocol.c  核心通信层
-
-位置： **不在weston项目里**
-
-
-
-图：
-
-> ![e6d2fde403dd452c9014ae02d97b44ee](合成之weston.assets/e6d2fde403dd452c9014ae02d97b44ee.png)
->
-> [图来源](https://blog.csdn.net/zxc024000/article/details/121196682#:~:text=%E4%BA%86%E6%B6%88%E6%81%AF%E7%9A%84-,%E5%9B%BA%E5%AE%9A%E6%A0%BC%E5%BC%8F,-%E3%80%82%E8%AF%A6%E7%BB%86%E8%AF%B7%E5%8F%82%E8%80%83)
-
-
-
-
-
-```java
-// code\wayland\build\src\wayland-protocol.c
-WL_EXPORT const struct wl_interface wl_surface_interface = {
-	"wl_surface", 6,
-	11, wl_surface_requests,  //
-	4, wl_surface_events,  // 
-};
-
-
-static const struct wl_message wl_surface_requests[] = {  // 【requests】  ---> 
-	{ "destroy", "", wayland_types + 0 },
-	{ "attach", "?oii", wayland_types + 58 },
-	{ "damage", "iiii", wayland_types + 0 },
-	{ "frame", "n", wayland_types + 61 },
-	{ "set_opaque_region", "?o", wayland_types + 62 },
-	{ "set_input_region", "?o", wayland_types + 63 },
-	{ "commit", "", wayland_types + 0 },     // 【】 对应 wl_surface_commit 
-	{ "set_buffer_transform", "2i", wayland_types + 0 },
-	{ "set_buffer_scale", "3i", wayland_types + 0 },
-	{ "damage_buffer", "4iiii", wayland_types + 0 },
-	{ "offset", "5ii", wayland_types + 0 },
-};
-
-同理，wl_shell_surface_requests[]  ----> move、resize、set_toplevel...........
-    
-
-static const struct wl_message wl_surface_events[] = {  // 【events】  <-----
-	{ "enter", "o", wayland_types + 64 },
-	{ "leave", "o", wayland_types + 65 },
-	{ "preferred_buffer_scale", "6i", wayland_types + 0 },
-	{ "preferred_buffer_transform", "6u", wayland_types + 0 },
-};
-```
-
- **【requests】的 具体实现**------------weston实现：
-
-> // 代码搜索： surface_interface 
->
-> ```java
-> // compositor.c
-> 
-> static const struct wl_surface_interface surface_interface = {
-> 	surface_destroy,
-> 	surface_attach,
-> 	surface_damage,
-> 	surface_frame,
-> 	surface_set_opaque_region,
-> 	surface_set_input_region,
-> 	surface_commit,  // 【】 最终走到这里
-> 	surface_set_buffer_transform,
-> 	surface_set_buffer_scale,
-> 	surface_damage_buffer,
-> 	surface_offset,
-> };
-> ```
->
-> 
-
-
-
-
-
-结论：
-
-> client的  commit直接提交给compositor了！！！！！
-
-
-
-
-
-
-
-
-
-TODO:
-
-1、底层原理，基于socket？
-
-底层原理：桥梁是如何搭建起来的？
-
-2、如何处理并发？
-
-
-
-### 扩展协议
-
-位置：
-
-> ~~自然，位于Weston工程中~~
->
-> ~~westonProject/weston/protocol/~~
->
-> ​                                                ~~weston-desktop-shell.xml~~
-
-
-
-### kwayland协议
-
-kwin扩展的
-
-
-
-https://zhuanlan.zhihu.com/p/690561669#:~:text=%E5%90%8C%E6%97%B6wayland%2Dscanner%E4%B9%9F%E9%9C%80%E8%A6%81%E5%9C%A8%E7%94%9F%E6%88%90Weston%E4%B8%AD%E7%9A%84
-
-对应用接口 ---->  kwayland client端接口 ---->  kwayland server端接口 ----> 系统侧server能力
-
-代码层面看结构：
-
-> 头文件名：kwyland-server- ...................h    -------------->   处于这个里面的是server侧的接口
->
-> 需要找
-
-
-
-### 参考
-
-TODO:    https://blog.csdn.net/jinzhuojun/article/details/40264449    Wayland中的跨进程过程调用浅析
-
-
-
-## 配置(~~weston.ini~~)
-
-
-
-所有的配置可选项：
-
-> [Ubuntu Manpage: weston.ini - configuration file for Weston - the reference Wayland compositor](https://manpages.ubuntu.com/manpages/xenial/en/man5/weston.ini.5.html#shell section)
-
-
-
-[weston.ini配置](https://www.cnblogs.com/arnoldlu/p/18091352#:~:text=3.2-,weston.ini%E9%85%8D%E7%BD%AE,-weston%E5%90%AF%E5%8A%A8%E5%88%9D%E5%A7%8B)
-
-详细解释：https://www.mankier.com/5/weston.ini   
-
-
-
-实战：
-
-```java
-weston_config_section_get_bool(s, "color-management",
-                   &color_management, false);
-//	//【】 add by cg
-//weston_config_section_get_bool(s, "color-management",
-                   //&color_management, true);
-```
-
-
-
-
-
-
-
-## 一些名词 TODO
-
-ivi-shell 
-
-```java
-https://wiki.automotivelinux.org/_media/agl-distro/agl_amm_xdg_support_a04.pdf
-ivi-shell类似移动操作系统环境，窗口的大小位置完全由系统来布局，ivi-shell可以自己配置窗口的层级，并且每个窗口都可以默认分配一个id号来管理，在窗口管理上更加友好一些，但是没办法支持xdg-shell的一些协议，比如窗口拖动，窗口resize，还有drag操作。
-desktop-shell就是一个类似PC多窗口的环境，只有固定的层级，进行层级扩展比较麻烦，并且窗口没有id号，只能通过窗口的name来管理窗口，但是desktop-shell和xdg是完全兼容的，所以现在做法其实就是在desktop的基础上扩展一些窗口管理的功能，这样比较好的兼容QT和Web。 
-    
-不改变wayland对生态的兼容性，这个是我们现在最基础原则， 不然摊子就太大了。除非后面我们有了自己的应用框架，再考虑随意改造。   
-```
-
-
-
-
-
-## 实操
-
-
-
-结论：
-
-> （1）显示在哪个环境下 = 哪个合成器合成 
->
-> ​     决定于环境变量：
->
-> ```java
-> WAYLAND_DISPLAY="wayland-1"
-> ```
->
-> （2） **哪里启动进程  与  显示在哪个环境下**，完全没有关系！！！！！
-
------------------> 技巧：
-
-在 ubuntu的 gnome桌面环境下，启动  weston-simple-egl：
-
-> 可以显示在gnome桌面里（gnome的合成）
->
-> 也可以显示在 weston桌面里 （weston合成）
-
-
-
-### ~~虚拟机ubuntu安装weston桌面（走drm后端）~~
-
--<font color='red'>不优：因为会改变/usr/local/</font>
-
-1、备份ubuntu（因为会改变系统）
-
-2、编译 & 安装：
-
-```java
-rm -rf build/ && meson build/  -Dimage-webp=false  -Dbackend-vnc=false &&  ninja -C build/ install
-```
-
-**不指定 安装目录**   --prefix=$HOME/weston_install  
-
-默认安装到系统目录下（/usr/local/）
-
-3、在Ubuntu 终端内验证 /usr/local/下weston是否OK
-
-```java
-$ which weston
-$  weston
-```
-
-报错：
-
-```java
-$ weston
-weston: error while loading shared libraries: libweston-12.so.0: cannot open shared object file: No such file or directory
-```
-
-解决：
-
-```java
-$ export LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu
-```
-
-----------------> ok, 但是weston作为桌面启动，需要加到   ~/.bashrc文件中
-
-4、log out，选择weston作为后端  -----> 大概率黑屏
-
--<font color='red'>解决黑屏：</font>
-
-> （1）先切换到<font color='red'>虚拟终端Ctrl+Alt+F4 /F3</font>, 手动起weston，查看报错：
->
-> ```java
-> weston --backend=drm
-> ```
->
-> ![image-20240715154124427](合成之weston.assets/image-20240715154124427.png)
->
-> 或者 jouranctl 查看报错
->
-> （2）添加环境变量：
->
-> ```java
-> // ~/.bashrc
-> export LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu
-> ```
->
-> ------------------> 已经验证OK，在<font color='red'>虚拟终端内</font>可以启动weston桌面
->
-> （3）验证OK后，<font color='red'>切换图形界面  Ctrl+Alt+F2</font>
->
-> ​	  log out， 重新登录
->
-> ----------------> 还是不行，可能跟vnc有关？？？？
-
-### 强制走drm后端-----启动weston_install/bin/weston
-
-必要性：
-
-> **走drm，才与真机最接近**
-
-结论： **对于Linux，<font color='red'>drm有独占性</font>  **
-
-所以：
-
-1、退出其他图形界面（其实不退也可以，似乎自动切换了）
-
-2、在<font color='red'>虚拟终端Ctrl+Alt+F4 /F3</font>, 手动启动source env.sh  &&  /home/chen/weston_install/bin/weston
-
-优点：
-
-> 1、不会改变ubuntu系统，**<font color='red'>极优</font>**
->
-> ​     不用修改~/.bashrc环境变量
->
-> 2、与在x11桌面环境下，运行的脚本&命令完全一致！！！！
-
-
-
-## 其他
-
-### 图形数据的承载者-----buffer：
-
-client   surface_commit给 weston的图形数据
-
---------------->  TODO: 修改标题，目的是什么，为什么，功能是什么
-
-
-
-因为不同的buffer类型，处理的方式不同。
-
-自然，区分：
-
-> ```java
-> struct weston_buffer {
-> enum {
-> WESTON_BUFFER_SHM, // 【】 share mem 
-> WESTON_BUFFER_DMABUF,
-> WESTON_BUFFER_RENDERER_OPAQUE,  // 【】 egl数据
-> WESTON_BUFFER_SOLID,
-> } type;
-> ```
-
-处理方式差异：
-
-> ```java
-> gl_renderer_attach_shm  //
-> gl_renderer_attach_egl  //创建对应surface buffer的egl_image，激活绑定纹理。
-> gl_renderer_attach_dmabuf  //使用dmabuf时的函数
-> ```
-
-为什么处理方式会不一样？
-
-**最最最本质的原因是什么？**  **图形加速硬件**要求：
-
->   **1、物理连续**且   
->
->    **2、符合对齐要求**的内存
-
-**如果是普通共享内存，一般是物理不连续的----------->多数情况用软件渲染。**
-
-------------->[参考](https://blog.csdn.net/u012839187/article/details/100580627#:~:text=%E5%A6%82%E6%9E%9C%E6%98%AF%E6%99%AE%E9%80%9A%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%EF%BC%8C%E4%B8%80%E8%88%AC%E6%98%AF%E7%89%A9%E7%90%86%E4%B8%8D%E8%BF%9E%E7%BB%AD%E7%9A%84%EF%BC%8C%E5%A4%9A%E6%95%B0%E6%83%85%E5%86%B5%E7%94%A8%E8%BD%AF%E4%BB%B6%E6%B8%B2%E6%9F%93) 
-
-
-
-gpt给出的对比：
-
-| 缓冲区类型                    | 描述                                                         | 机制                          | 物理层特性                                        | 用途                                 |
-| ----------------------------- | ------------------------------------------------------------ | ----------------------------- | ------------------------------------------------- | ------------------------------------ |
-| WESTON_BUFFER_SHM             | 共享内存缓冲区：使用共享内存机制进行数据存储和访问。         | POSIX 或 System V 共享内存    | 通过标准操作系统机制共享内存                      | 客户端和服务器之间的一般图像数据共享 |
-| WESTON_BUFFER_DMABUF          | DMA 缓冲区：使用 DMA-BUF 机制，在设备之间高效共享缓冲区数据。 | DMA-BUF（直接内存访问缓冲区） | 通过 DMA 共享内存，允许设备直接访问数据而无需复制 | GPU 和显示设备之间的高性能数据共享   |
-| WESTON_BUFFER_RENDERER_OPAQUE | 渲染器不透明缓冲区：由 OpenGL 等外部渲染器管理；数据对 Weston 不透明。 | OpenGL 或类似图形渲染器       | 由外部渲染系统管理，数据不可直接访问              | 由外部系统管理的渲染任务             |
-| WESTON_BUFFER_SOLID           | 纯色缓冲区：存储单一颜色值，用于简单背景或覆盖。             | 颜色值存储                    | 不存储实际图像数据，仅存储颜色值                  | 简单的颜色填充                       |
-
-这些缓冲区类型在物理层面的本质区别主要在于它们的数据存储和访问机制，以及它们在不同使用场景中的性能和效率。
-
-——来自AI问答宝 https://ai.wendabao.net
-
-
-
-
-
-### cursor_view的判断
-
-​	if (output->cursor_view) {
-
-
-
-### 硬件图层plane
-
-本质：<font color='red'>硬件</font>图层的层级  
-
-​          最终来源： My chips have four independent H/W overlays.
-
-
-
-硬件图层分类：
-
-- **Primary Plane**：主平面，负责显示桌面或主画面。每个 CRTC（显示控制器）至少有**一个 Primary Plane**。
-- **Overlay Plane**：覆盖平面，负责显示叠加在主画面上的图像，比如视频播放窗口、硬件加速的图形层等。一个显示控制器可以有**多个 Overlay Plane**。
-- **Cursor Plane**：光标平面，专门用于显示鼠标指针。
-
-
-
-
-
-
-
-软件的标识：
-
-```java
-enum wdrm_plane_type {
-	WDRM_PLANE_TYPE_PRIMARY = 0,  // 用于GPU的plane
-	WDRM_PLANE_TYPE_CURSOR,
-	WDRM_PLANE_TYPE_OVERLAY,  // 用于叠加的plane
-	WDRM_PLANE_TYPE__COUNT   
-};
-```
-
-
-
-注意： **Overlay** 是一种特殊的 plane，用于叠加显示额外的图像内容。
-
-
-
-#### Plane 的使用
-
-在实际使用中，开发者可以通过 DRM 的 API 来配置和操作 plane。以下是一个基本的步骤概述：
-
-1. **获取 Plane 信息**：
-    - 使用 `drmModeGetPlaneResources` 获取所有可用的 plane 资源。
-    - 使用 `drmModeGetPlane` 获取具体的 plane 信息。
-2. **设置 Plane**：
-    - 使用 `drmModeSetPlane` 将图像数据设置到指定的 plane 上，并定义其在屏幕上的位置和大小。
-
-
-
-### kanzi
-
-[Kanzi Engine C++ API: kanzi::wayland::XDGToplevel Class Reference](https://docs.kanzi.com/3.9.8/en/reference/kanzi-runtime-api/a01341.html)
-
-
-
-### Weston中HDMI热拔插检测原理
-
-https://zhuanlan.zhihu.com/p/434869796
-
-### drm_output_find_special_plane 遍历查找 特定的plane
-
-## panel(状态栏)
-
-### panel的配置
-
-详细流程：[ Weston中panel的设置过程](https://zhuanlan.zhihu.com/p/400013643) 
-
-​					[Weston中panel的渲染过程](https://zhuanlan.zhihu.com/p/402217843)
-
-配置panel：
-
-```java
-[shell]
-panel-color=0x90ff0000
-panel-position=none          // -----> 没有panel
-// 或 panel-position=top 
-```
-
-没有panel在 软件层的标志：
-
-> ```java
-> static void
-> parse_panel_position(struct desktop *desktop, struct weston_config_section *s)
-> {
-> char *position;
-> 
-> desktop->want_panel = 1;
-> 
-> weston_config_section_get_string(s, "panel-position", &position, "top");
-> if (strcmp(position, "top") == 0) {
-> desktop->panel_position = WESTON_DESKTOP_SHELL_PANEL_POSITION_TOP;
-> } else if (strcmp(position, "bottom") == 0) {
-> desktop->panel_position = WESTON_DESKTOP_SHELL_PANEL_POSITION_BOTTOM;
-> } else if (strcmp(position, "left") == 0) {
-> desktop->panel_position = WESTON_DESKTOP_SHELL_PANEL_POSITION_LEFT;
-> } else if (strcmp(position, "right") == 0) {
-> desktop->panel_position = WESTON_DESKTOP_SHELL_PANEL_POSITION_RIGHT;
-> } else {
-> /* 'none' is valid here */
-> if (strcmp(position, "none") != 0)
->    fprintf(stderr, "Wrong panel position: %s\n", position);
-> desktop->want_panel = 0;  // 【】没有panel在 软件层的标志
-> }
-> free(position);
-> }
-> ```
->
-> 特别注意：没有panel时，<font color='red'>desktop->panel_position 值没有赋值，为0</font>。 即  WESTON_DESKTOP_SHELL_PANEL_POSITION_TOP
-
-
-
-
-
-注意： panel有功能：显示应用图标，点击可以拉起应用？
-
-
-
-
-
-疑问，TODO：
-
-> panel的结构是怎样的？
->
-> 代码结构、进程结构、显示结构
-
-
-
-### 结构：panel走的是GPU合成
-
-支撑的功能是啥？
-
-
-
-
-
-## drm
-
-### 一些图
-
-0[层物理图](https://download.csdn.net/blog/column/11175480/133747645)
-
-
-
-![img](合成之weston.assets/d44299d4fc5a4b33967f15af85d585ce.png)
-
-[图片来源](https://download.csdn.net/blog/column/11175480/133747645#:~:text=%E6%9C%80%E5%B7%A6%E4%BE%A7%E2%80%9D%E5%86%85%E5%AE%B9%EF%BC%8C-,%E5%A6%82%E4%B8%8B%E5%9B%BE%E6%89%80%E7%A4%BA,-%EF%BC%9A)
-
-![0452b6c900ab4c5095cae5e0cbdd67ba.png](合成之weston.assets/0452b6c900ab4c5095cae5e0cbdd67ba.png)
-
-[图来源](https://blog.csdn.net/qq_33782617/article/details/126202800#:~:text=%E5%9D%97%E7%9A%84%E6%8A%BD%E8%B1%A1%E3%80%82-,%E5%A6%82%E5%9B%BE,-%EF%BC%9A)
-
-TODO:   **FrameBuffer是 plane级别的？？？？？？？？？？** 
-
-
-
-
-
-0[层调用图](https://blog.csdn.net/phmatthaus/article/details/133749323)
-
-![img](合成之weston.assets/01a1c7d5b06a4dfd8d5028dc12c4143d.png)
-
-
-
-
-
-
-
-
-
-
-
-![img](合成之weston.assets/ed7c090c41e046dfaf13fb9893fe5e35.png)
-
-
-
-[图来源：](https://blog.csdn.net/yangguoyu8023/article/details/129249184?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-2-129249184-blog-133749323.235%5Ev43%5Epc_blog_bottom_relevance_base5&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-2-129249184-blog-133749323.235%5Ev43%5Epc_blog_bottom_relevance_base5&utm_relevant_index=4#:~:text=%E5%B0%B1%E6%98%AFdrm_mode_addfb2%E6%8E%A5%E5%8F%A3%EF%BC%8C-,%E8%AF%A5%E6%8E%A5%E5%8F%A3%E5%AE%8C%E6%88%90%E4%BA%86%E4%B8%8B%E9%9D%A2%E7%9A%84%E5%8A%9F%E8%83%BD,-%E3%80%82)           图不好，上下关系不对
-
-
-
-
-
-
-
-[drm框架分析---drm_mode_addfb2](https://blog.csdn.net/yangguoyu8023/article/details/129249184?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-2-129249184-blog-133749323.235%5Ev43%5Epc_blog_bottom_relevance_base5&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-2-129249184-blog-133749323.235%5Ev43%5Epc_blog_bottom_relevance_base5&utm_relevant_index=4)
-
-
-
-
-
-
-
-
-
-drm_mode_addfb2调用流程：
-
-![img](合成之weston.assets/c9697785fb484fdab13803fc72bbfe28.jpeg)
-
-[图来源](https://blog.csdn.net/yangguoyu8023/article/details/129249184?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-2-129249184-blog-133749323.235%5Ev43%5Epc_blog_bottom_relevance_base5&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-2-129249184-blog-133749323.235%5Ev43%5Epc_blog_bottom_relevance_base5&utm_relevant_index=4#:~:text=5.-,%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B%E5%9B%BE,-%E6%96%87%E7%AB%A0%E7%9F%A5%E8%AF%86%E7%82%B9)
-
-
-
-
-
-
-
-### 参考：
-
-https://download.csdn.net/blog/column/11175480/133747645       KWin、libdrm、DRM从上到下全过程 —— drmModeAddFBxxx（1）
-
-
-
- [LCD DRM驱动框架分析一](https://blog.csdn.net/qq_33782617/article/details/126202800#:~:text=%E5%9D%97%E7%9A%84%E6%8A%BD%E8%B1%A1%E3%80%82-,%E5%A6%82%E5%9B%BE,-%EF%BC%9A) 
-
-
-
-
-
-## 大的ini配置流程：
-
-读取ini配置（~~weston_compositor_init_config流程~~），给到weston_output、weston_compositor
-
-在创建output流程里：gl_renderer_output_create()流程中可以拿到上述对象。。。部分数据封装给 gl_output_state 
-
-在render流程里（~~gl_renderer_repaint_output~~）：    draw_paint_node，拿到 gl_output_state里的配置
-
-
-
-
-
-
-
-### 具体weston.ini
-
-配置panel：
-
-```java
-[shell]
-panel-color=0x90ff0000
-panel-position=none          // -----> 没有panel
-```
-
-
-
-
-
-
-
-
-
-## update_opacity
-
-
-
-
-
-## 维测
-
-### 限定模块范围（SCOPE）的日志
-
---logger-scopes=SCOPE
-
-#### drm-backend日志
-
-weston --logger-scopes=drm-backend
-
---------> ok
-
-
-
-```java
-Output 0 (Virtual-1):  // 【】 Output 0 信息
-	position: (0, 0) -> (1920, 970)
-	mode: 1920x970@60.000Hz
-	scale: 1
-	repaint status: repaint scheduled
-	next repaint: 108788.723125666
-	Head 0 (Virtual-1): connected
-
-Layer 0 (pos 0xffffffff):
-	View 0 (role (null), PID 0, surface ID 0, desktop shell fade surface for Virtual-1, 0x5a553ad5e1e0):
-		position: (0, 0) -> (1920, 970)
-		[not opaque]
-		alpha: 0.039004
-		outputs: 0 (Virtual-1) (primary)
-		solid-colour buffer                 // 【】view对应的buffer
-			[R 0.000000, G 0.000000, B 0.000000, A 1.000000]
-			[2 references may use buffer content]
-			format: 0x34325258 XRGB8888
-			modifier: LINEAR (0x0)
-			width: 1, height: 1
-```
-
-
-
-
-
-
-
-### 启动日志
-
-```java
-$ weston
-Date: 2024-07-15 HKT
-[14:46:44.556] weston 12.0.2
-               https://wayland.freedesktop.org
-               Bug reports to: https://gitlab.freedesktop.org/wayland/weston/issues/
-               Build: 12.0.2
-[14:46:44.556] Command line: weston
-[14:46:44.556] OS: Linux, 6.2.0-36-generic, #37~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Mon Oct  9 15:34:04 UTC 2, x86_64
-[14:46:44.556] Flight recorder: enabled
-[14:46:44.556] Starting with no config file.
-[14:46:44.556] Output repaint window is 7 ms maximum.
-[14:46:44.556] Loading module '/home/cjk/weston_install/lib/x86_64-linux-gnu/libweston-12/x11-backend.so'  // 【】 这里说明了使用什么后端
-[14:46:44.557] Loading module '/home/cjk/weston_install/lib/x86_64-linux-gnu/libweston-12/gl-renderer.so'
-
-[14:46:48.343] Using rendering device: /dev/dri/renderD128
-[14:46:48.343] EGL version: 1.4  
-[14:46:48.343] EGL vendor: Mesa Project
-[14:46:48.343] EGL client APIs: OpenGL OpenGL_ES 
-[14:46:48.343] EGL features:
-               EGL Wayland extension: yes
-               context priority: no
-               buffer age: yes
-               partial update: no
-               swap buffers with damage: yes
-               configless context: yes
-               surfaceless context: yes
-               dmabuf support: modifiers
-[14:46:48.345] GL version: OpenGL ES 3.0 Mesa 23.0.4-0ubuntu1~22.04.1
-[14:46:48.345] GLSL version: OpenGL ES GLSL ES 3.00  // 【】说明 OpenGL ES的版本
-[14:46:48.345] GL vendor: VMware, Inc.
-[14:46:48.345] GL renderer: SVGA3D; build: RELEASE;  LLVM;
-[14:46:48.349] GL ES 3.0 - renderer features:
-               read-back format: ARGB8888 // 【】 TODO
-               glReadPixels supports y-flip: yes
-               wl_shm 10 bpc formats: yes
-               wl_shm 16 bpc formats: no
-               wl_shm half-float formats: no
-               internal R and RG formats: yes
-               OES_EGL_image_external: yes
-[14:46:48.349] Using GL renderer
-[14:46:48.352] Registered plugin API 'weston_windowed_output_api_v2' of size 16
-[14:46:48.352] Color manager: no-op
-[14:46:48.352] Output 'screen0' attempts EOTF mode: SDR
-[14:46:48.352] Output 'screen0' using color profile: built-in default sRGB SDR profile
-[14:46:48.352] Chosen EGL config details: id:   5 rgba: 8 8 8 0 buf: 24 dep:  0 stcl: 0 int: 0-1000 type: win|pix|pbf vis_id: 0x21
-[14:46:48.352] x11 output 1024x600, window id 14680069  // 【】  output大小
-[14:46:48.352] Output 'screen0' enabled with head(s) screen0
-[14:46:48.352] Compositor capabilities:
-               arbitrary surface rotation: yes
-               screen capture uses y-flip: yes
-               cursor planes: no
-               arbitrary resolutions: no
-               view mask clipping: yes
-               explicit sync: yes
-               color operations: no
-               presentation clock: CLOCK_MONOTONIC_RAW, id 4
-               presentation clock resolution: 0.000000001 s
-[14:46:48.352] Loading module '/home/cjk/weston_install/lib/x86_64-linux-gnu/weston/desktop-shell.so'   // 【】这里说明使用了什么桌面
-[14:46:48.352] launching '/home/cjk/weston_install/libexec/weston-keyboard'
-[14:46:48.353] launching '/home/cjk/weston_install/libexec/weston-desktop-shell'
-
-```
-
-
-
-TODO: 角度之启动日志
-
-​            初始化日志
-
-
-
-
-
-### export WAYLAND_DEBUG=1 
-
-
-
-### dump
-
-dump  surfaceFlinger：
-
-> ```java
-> weston-debug scene-graph
-> ```
->
-> 注意：**只能在arm后端**的环境下使用
->
-> 
-
-
-
-
-
-
-
-
-
-### weston区域维测-----打印矩形
-
-
-
-pixman_region32_t   的打印：
-
-> ```java
-> // 打印 pixman_box32_t
-> static void print_box(pixman_box32_t* box) {
-> 	if (box) {
-> 		weston_log("Box: (%d, %d, %d, %d).\n",  box->x1, box->y1, box->x2, box->y2);
-> 	}
-> }
-> 
-> // 打印 pixman_region32_t
-> static void print_region(char* tag, const pixman_region32_t* region) {
-> 	if (region) {
-> 	    int num_rects;
-> 	    const pixman_box32_t* rects = pixman_region32_rectangles(region, &num_rects);
-> 		weston_log("%s, Region has %d rectangles.\n", tag, num_rects);
-> 	    for (int i = 0; i < num_rects; ++i) {
-> 	        print_box(&rects[i]);
-> 	    }
-> 	}
-> }
-> ```
-
-
-
-
-
-
-
-
-
-## 资料
-
-https://wayland.pages.freedesktop.org/weston/    weston官网
-
-https://wayland.freedesktop.org/        wayland官网
-
-https://gitlab.freedesktop.org/wayland     代码托管
-
-https://cloud.tencent.com/developer/article/1445734       Wayland与Weston简介
-
-https://wayland.arktoria.org/1-introduction/high-level-design.html     The Wayland Protocol 中文版
-
- Wayland-book的中文翻译  https://mazelinux.github.io/ 
- Wayland-book原文链接:https://wayland-book.com/
-
-https://blog.csdn.net/u012839187/article/details/116054755    agl-compositor
-
-
-
-[display:weston:weston-simple-egl: server端-CSDN博客 ](https://blog.csdn.net/u012839187/article/details/113104654)      
-
-[display:weston渲染流程:buffer+attach+damage+frame_wayland渲染函数-CSDN博客](https://blog.csdn.net/u012839187/article/details/100580627)       buffer+attach+damage+frame
-
-[display:weston渲染流程:commit_weston display-CSDN博客](https://blog.csdn.net/u012839187/article/details/106469038)    commit
-
-[Wayland源码分析-Commit相关流程_wayland源码剖析-CSDN博客](https://blog.csdn.net/sinat_32596537/article/details/81625649?spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-3-81625649-blog-122790158.235^v43^pc_blog_bottom_relevance_base7&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-3-81625649-blog-122790158.235^v43^pc_blog_bottom_relevance_base7&utm_relevant_index=6)   commit
-
-
-
-[Weston中shm window渲染_weston gbm-CSDN博客](https://blog.csdn.net/qqzhaojianbiao/article/details/129789575)   ------>  整个渲染流程：从应用到**repaint_output**
-
-
-
-[Wayland源码分析-repaint相关流程 (happyseeker.github.io)](https://happyseeker.github.io/graphic/2016/11/11/wayland-repaint-relative-flow.html)    ------>   repaint相关流程
-
-
-
-[OpenHarmony 图形子系统（二）weston compositor分析-鸿蒙开发者社区-51CTO.COM](https://ost.51cto.com/posts/9993)        weston compositor分析
-
-
-
-[Weston中shm window渲染显示过程分析](https://zhuanlan.zhihu.com/p/419740978)   
-
-
-
-
-
-https://fossies.org/dox/weston-13.0.3/structivi__shell.html     struct的类图
-
-
-
-
-
-# 物质---从buffer看图形
-
-【重要节点：client的gb->textures来源】
-
-```java
-gl_renderer_attach
-	gl_renderer_attach_shm  // shm格式,似乎是做了转化？
-		ensure_textures 
-			for glGenTextures(1, &gb->textures[i]); // 【从buffer生成纹理】
-	gl_renderer_attach_egl  //
-		gl_buffer_state *gb = buffer->renderer_private
-		glBindTexture(target, gb->textures[i]); // TODO: 直接从weston_buffer里拿到纹理-----> 【共享纹理】
-```
-
-展开：
-
-[【从buffer生成纹理】](https://blog.csdn.net/u012839187/article/details/100580627#:~:text=compositor%E5%B0%86%E8%AF%A5buffer%E8%BD%AC%E4%B8%BA%E7%BA%B9%E7%90%86)
-
- [【共享纹理】](https://blog.csdn.net/u012839187/article/details/112415876#:~:text=%E7%9A%84%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95%EF%BC%89-,%E5%9C%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E5%90%88%E6%88%90%E5%99%A8%E4%B9%8B%E9%97%B4%E5%85%B1%E4%BA%AB%E7%BA%B9%E7%90%86,-%E3%80%82%E5%9C%A8%E6%9C%AC%E4%BE%8B)
 
 # 霸屏模式
 
@@ -3355,6 +2381,184 @@ Drag and drop
 
 
 
+
+
+# 维测
+
+## 限定模块范围（SCOPE）的日志
+
+--logger-scopes=SCOPE
+
+### drm-backend日志
+
+weston --logger-scopes=drm-backend
+
+--------> ok
+
+
+
+```java
+Output 0 (Virtual-1):  // 【】 Output 0 信息
+	position: (0, 0) -> (1920, 970)
+	mode: 1920x970@60.000Hz
+	scale: 1
+	repaint status: repaint scheduled
+	next repaint: 108788.723125666
+	Head 0 (Virtual-1): connected
+
+Layer 0 (pos 0xffffffff):
+	View 0 (role (null), PID 0, surface ID 0, desktop shell fade surface for Virtual-1, 0x5a553ad5e1e0):
+		position: (0, 0) -> (1920, 970)
+		[not opaque]
+		alpha: 0.039004
+		outputs: 0 (Virtual-1) (primary)
+		solid-colour buffer                 // 【】view对应的buffer
+			[R 0.000000, G 0.000000, B 0.000000, A 1.000000]
+			[2 references may use buffer content]
+			format: 0x34325258 XRGB8888
+			modifier: LINEAR (0x0)
+			width: 1, height: 1
+```
+
+
+
+
+
+
+
+## 启动日志
+
+```java
+$ weston
+Date: 2024-07-15 HKT
+[14:46:44.556] weston 12.0.2
+               https://wayland.freedesktop.org
+               Bug reports to: https://gitlab.freedesktop.org/wayland/weston/issues/
+               Build: 12.0.2
+[14:46:44.556] Command line: weston
+[14:46:44.556] OS: Linux, 6.2.0-36-generic, #37~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Mon Oct  9 15:34:04 UTC 2, x86_64
+[14:46:44.556] Flight recorder: enabled
+[14:46:44.556] Starting with no config file.
+[14:46:44.556] Output repaint window is 7 ms maximum.
+[14:46:44.556] Loading module '/home/cjk/weston_install/lib/x86_64-linux-gnu/libweston-12/x11-backend.so'  // 【】 这里说明了使用什么后端
+[14:46:44.557] Loading module '/home/cjk/weston_install/lib/x86_64-linux-gnu/libweston-12/gl-renderer.so'
+
+[14:46:48.343] Using rendering device: /dev/dri/renderD128
+[14:46:48.343] EGL version: 1.4  
+[14:46:48.343] EGL vendor: Mesa Project
+[14:46:48.343] EGL client APIs: OpenGL OpenGL_ES 
+[14:46:48.343] EGL features:
+               EGL Wayland extension: yes
+               context priority: no
+               buffer age: yes
+               partial update: no
+               swap buffers with damage: yes
+               configless context: yes
+               surfaceless context: yes
+               dmabuf support: modifiers
+[14:46:48.345] GL version: OpenGL ES 3.0 Mesa 23.0.4-0ubuntu1~22.04.1
+[14:46:48.345] GLSL version: OpenGL ES GLSL ES 3.00  // 【】说明 OpenGL ES的版本
+[14:46:48.345] GL vendor: VMware, Inc.
+[14:46:48.345] GL renderer: SVGA3D; build: RELEASE;  LLVM;
+[14:46:48.349] GL ES 3.0 - renderer features:
+               read-back format: ARGB8888 // 【】 TODO
+               glReadPixels supports y-flip: yes
+               wl_shm 10 bpc formats: yes
+               wl_shm 16 bpc formats: no
+               wl_shm half-float formats: no
+               internal R and RG formats: yes
+               OES_EGL_image_external: yes
+[14:46:48.349] Using GL renderer
+[14:46:48.352] Registered plugin API 'weston_windowed_output_api_v2' of size 16
+[14:46:48.352] Color manager: no-op
+[14:46:48.352] Output 'screen0' attempts EOTF mode: SDR
+[14:46:48.352] Output 'screen0' using color profile: built-in default sRGB SDR profile
+[14:46:48.352] Chosen EGL config details: id:   5 rgba: 8 8 8 0 buf: 24 dep:  0 stcl: 0 int: 0-1000 type: win|pix|pbf vis_id: 0x21
+[14:46:48.352] x11 output 1024x600, window id 14680069  // 【】  output大小
+[14:46:48.352] Output 'screen0' enabled with head(s) screen0
+[14:46:48.352] Compositor capabilities:
+               arbitrary surface rotation: yes
+               screen capture uses y-flip: yes
+               cursor planes: no
+               arbitrary resolutions: no
+               view mask clipping: yes
+               explicit sync: yes
+               color operations: no
+               presentation clock: CLOCK_MONOTONIC_RAW, id 4
+               presentation clock resolution: 0.000000001 s
+[14:46:48.352] Loading module '/home/cjk/weston_install/lib/x86_64-linux-gnu/weston/desktop-shell.so'   // 【】这里说明使用了什么桌面
+[14:46:48.352] launching '/home/cjk/weston_install/libexec/weston-keyboard'
+[14:46:48.353] launching '/home/cjk/weston_install/libexec/weston-desktop-shell'
+
+```
+
+
+
+TODO: 角度之启动日志
+
+​            初始化日志
+
+
+
+
+
+## export WAYLAND_DEBUG=1 
+
+
+
+## dump
+
+dump  surfaceFlinger：
+
+> ```java
+> weston-debug scene-graph
+> ```
+>
+> 注意：**只能在arm后端**的环境下使用
+>
+> 
+
+
+
+
+
+
+
+
+
+## weston区域维测-----打印矩形
+
+
+
+pixman_region32_t   的打印：
+
+> ```java
+> // 打印 pixman_box32_t
+> static void print_box(pixman_box32_t* box) {
+> 	if (box) {
+> 		weston_log("Box: (%d, %d, %d, %d).\n",  box->x1, box->y1, box->x2, box->y2);
+> 	}
+> }
+> 
+> // 打印 pixman_region32_t
+> static void print_region(char* tag, const pixman_region32_t* region) {
+> 	if (region) {
+> 	    int num_rects;
+> 	    const pixman_box32_t* rects = pixman_region32_rectangles(region, &num_rects);
+> 		weston_log("%s, Region has %d rectangles.\n", tag, num_rects);
+> 	    for (int i = 0; i < num_rects; ++i) {
+> 	        print_box(&rects[i]);
+> 	    }
+> 	}
+> }
+> ```
+
+
+
+
+
+
+
 # TODO:  问题定位
 
 见微知著  之  突变点
@@ -3372,3 +2576,132 @@ Drag and drop
 大略能力，
 
 见微知著能力
+
+
+
+# 资料
+
+https://wayland.pages.freedesktop.org/weston/    weston官网
+
+https://wayland.freedesktop.org/        wayland官网
+
+https://gitlab.freedesktop.org/wayland     代码托管
+
+https://cloud.tencent.com/developer/article/1445734       Wayland与Weston简介
+
+https://wayland.arktoria.org/1-introduction/high-level-design.html     The Wayland Protocol 中文版
+
+ Wayland-book的中文翻译  https://mazelinux.github.io/ 
+ Wayland-book原文链接:https://wayland-book.com/
+
+https://blog.csdn.net/u012839187/article/details/116054755    agl-compositor
+
+
+
+[display:weston:weston-simple-egl: server端-CSDN博客 ](https://blog.csdn.net/u012839187/article/details/113104654)      
+
+[display:weston渲染流程:buffer+attach+damage+frame_wayland渲染函数-CSDN博客](https://blog.csdn.net/u012839187/article/details/100580627)       buffer+attach+damage+frame
+
+[display:weston渲染流程:commit_weston display-CSDN博客](https://blog.csdn.net/u012839187/article/details/106469038)    commit
+
+[Wayland源码分析-Commit相关流程_wayland源码剖析-CSDN博客](https://blog.csdn.net/sinat_32596537/article/details/81625649?spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-3-81625649-blog-122790158.235^v43^pc_blog_bottom_relevance_base7&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-3-81625649-blog-122790158.235^v43^pc_blog_bottom_relevance_base7&utm_relevant_index=6)   commit
+
+
+
+[Weston中shm window渲染_weston gbm-CSDN博客](https://blog.csdn.net/qqzhaojianbiao/article/details/129789575)   ------>  整个渲染流程：从应用到**repaint_output**
+
+
+
+[Wayland源码分析-repaint相关流程 (happyseeker.github.io)](https://happyseeker.github.io/graphic/2016/11/11/wayland-repaint-relative-flow.html)    ------>   repaint相关流程
+
+
+
+[OpenHarmony 图形子系统（二）weston compositor分析-鸿蒙开发者社区-51CTO.COM](https://ost.51cto.com/posts/9993)        weston compositor分析
+
+
+
+[Weston中shm window渲染显示过程分析](https://zhuanlan.zhihu.com/p/419740978)   
+
+
+
+
+
+https://fossies.org/dox/weston-13.0.3/structivi__shell.html     struct的类图
+
+
+
+# 其他 待整理
+
+
+
+
+
+
+
+### cursor_view的判断
+
+​	if (output->cursor_view) {
+
+
+
+### 硬件图层plane
+
+本质：<font color='red'>硬件</font>图层的层级  
+
+​          最终来源： My chips have four independent H/W overlays.
+
+
+
+硬件图层分类：
+
+- **Primary Plane**：主平面，负责显示桌面或主画面。每个 CRTC（显示控制器）至少有**一个 Primary Plane**。
+- **Overlay Plane**：覆盖平面，负责显示叠加在主画面上的图像，比如视频播放窗口、硬件加速的图形层等。一个显示控制器可以有**多个 Overlay Plane**。
+- **Cursor Plane**：光标平面，专门用于显示鼠标指针。
+
+
+
+
+
+
+
+软件的标识：
+
+```java
+enum wdrm_plane_type {
+	WDRM_PLANE_TYPE_PRIMARY = 0,  // 用于GPU的plane
+	WDRM_PLANE_TYPE_CURSOR,
+	WDRM_PLANE_TYPE_OVERLAY,  // 用于叠加的plane
+	WDRM_PLANE_TYPE__COUNT   
+};
+```
+
+
+
+注意： **Overlay** 是一种特殊的 plane，用于叠加显示额外的图像内容。
+
+
+
+#### Plane 的使用
+
+在实际使用中，开发者可以通过 DRM 的 API 来配置和操作 plane。以下是一个基本的步骤概述：
+
+1. **获取 Plane 信息**：
+    - 使用 `drmModeGetPlaneResources` 获取所有可用的 plane 资源。
+    - 使用 `drmModeGetPlane` 获取具体的 plane 信息。
+2. **设置 Plane**：
+    - 使用 `drmModeSetPlane` 将图像数据设置到指定的 plane 上，并定义其在屏幕上的位置和大小。
+
+
+
+### kanzi
+
+[Kanzi Engine C++ API: kanzi::wayland::XDGToplevel Class Reference](https://docs.kanzi.com/3.9.8/en/reference/kanzi-runtime-api/a01341.html)
+
+
+
+### Weston中HDMI热拔插检测原理
+
+https://zhuanlan.zhihu.com/p/434869796
+
+### drm_output_find_special_plane 遍历查找 特定的plane
+

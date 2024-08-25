@@ -316,6 +316,8 @@ TODO：
 
 # Opengl
 
+
+
 ## OpenGL课程
 
 第9章
@@ -1339,6 +1341,46 @@ mainActivity的surface 与 GLSurfaceView 的surface 如何做混合，显示底�
 
 开发者的开发的部分，强制放到回调里，比如onDraw（同理，Activity的设计，onCreate等）
 
+# OpenGL状态机的理解
+
+-<font color='red'>OpenGL是状态机 </font>
+
+所以，glBindTexture  ，所以 makeCurentt
+
+所以，glReadPixels没有指定读取的buffer，因为就是当前缓冲区
+
+```
+glReadPixels(rect->x, rect->y, rect->width, rect->height,
+		     fmt->gl_format, fmt->gl_type, out);
+```
+
+例1：
+
+```java
+// 使用glBindTexture绑定一张纹理后，如果不再绑定新的纹理，则OpenGL之后的操作都会对应此纹理，当一个纹理与目标绑定时，该目标之前的绑定关系将自动被打破。
+
+
+mMixProgram.useProgram(); // 激活着色器程序（后续的绘制操作都会使用这个程序）
+glUniform1f(mMMixLoc, mix);  // mMixProgram.getUniformLocation("uMix"); uMix赋值
+
+glActiveTexture(GL_TEXTURE0); // 激活纹理单元0
+glBindTexture(GL_TEXTURE_2D, mLastDrawTarget->getTextureName()); // 状态机选择了 mLastDrawTarget的texture作为 操作纹理
+																//  绑到  纹理单元0 上
+glUniform1i(mMTextureLoc, 0);// mMixProgram.getUniformLocation("uTexture"); // uTexture赋值
+
+glActiveTexture(GL_TEXTURE1);
+glBindTexture(GL_TEXTURE_2D, mCompositionFbo.getTextureName());
+glUniform1i(mMCompositionTextureLoc, 1); // mMixProgram.getUniformLocation("uCompositionTexture"); uCompositionTexture赋值
+
+drawMesh(mMUvLoc, mMPosLoc); // glDrawArrays
+```
+
+
+
+
+
+对于贴图而言，状态机需要的设置：
+
 
 
 # shader编程实战
@@ -1596,6 +1638,186 @@ vec2 iResolution = univiewPortSize;
 > 多个变量中，取一个为固定值
 
 
+
+
+
+# OpenGL调试
+
+## glgetError  封装函数，每次执行gl操作，执行一行
+
+--------------> 检查基本的使用错误
+
+```java
+// .c 文件里添加
+GLenum glCheckError_(const char *file, int line)
+{
+    GLenum errorCode;
+    while ((errorCode = glGetError()) != GL_NO_ERROR)
+    {
+        char* error;
+        switch (errorCode)
+        {
+            case GL_INVALID_ENUM:                  error = "INVALID_ENUM"; break;
+            case GL_INVALID_VALUE:                 error = "INVALID_VALUE"; break;
+            case GL_INVALID_OPERATION:             error = "INVALID_OPERATION"; break;
+            // case GL_STACK_OVERFLOW:                error = "STACK_OVERFLOW"; break;
+            // case GL_STACK_UNDERFLOW:               error = "STACK_UNDERFLOW"; break;
+            case GL_OUT_OF_MEMORY:                 error = "OUT_OF_MEMORY"; break;
+            case GL_INVALID_FRAMEBUFFER_OPERATION: error = "INVALID_FRAMEBUFFER_OPERATION"; break;
+			default:                               error = "other"; break;
+        }
+        //std::cout << error << " | " << file << " (" << line << ")" << std::endl;
+		weston_log("chen, glCheckError. file:%s line:%d  error:%s\n", file, line, error);
+    }
+    return errorCode;
+}
+#define myglCheckError() glCheckError_(__FILE__, __LINE__)
+```
+
+使用：
+
+```java
+glBindFramebuffer(GL_FRAMEBUFFER, go->blurFilter.mPingFbo.fbo);
+myglCheckError();
+glViewport(0, 0, go->area.width, go->area.height);
+myglCheckError();
+```
+
+
+
+
+
+## 捞取实时图片：glReadpixels 从缓冲区里-------大招
+
+大招：可以获取  <font color='red'>任意Tex（buffer）在任意时刻 的图片</font>
+
+> https://blog.csdn.net/June_we/article/details/123420398
+>
+> https://blog.csdn.net/u013412391/article/details/120565095  
+>
+> https://download.csdn.net/blog/column/12324820/132423172   **OpenGL调试时输出显存帧到图片的一些方法**
+>
+> > 从帧缓存读取像素
+> >
+> > 从纹理读取
+> >
+> > GraphicBuffer或ANativeWindowBuffer保存
+>
+> python批量将RGBA8888裸数据保存到png
+
+
+
+C代码：
+
+```java
+
+// 1、辅助函数
+static int32_t * outputValues_debug;
+static int32_t  w_debug = 0;
+static int32_t  h_debug = 0;
+static bool debug_pixel = true;
+bool GLUtils_saveRender(int w, int h) {
+	if (w == 0 || h == 0) {
+		return false;
+	}
+    // 使用malloc动态分配内存来替代std::vector
+	if (outputValues_debug == NULL) {
+		outputValues_debug = (int32_t *)malloc(w * h * sizeof(int32_t)); // TODO: 这里不停的malloc了	
+	}
+	memset(outputValues_debug, 0, w * h * sizeof(int32_t));
+    if (outputValues_debug == NULL) {
+        fprintf(stderr, "Failed to allocate memory for outputValues_debug\n");
+        return false;
+    }
+
+    // // 从帧缓冲区读取像素数据
+	glPixelStorei(GL_PACK_ALIGNMENT, 4);
+	glPixelStorei(GL_PACK_REVERSE_ROW_ORDER_ANGLE, GL_TRUE);
+    //glReadPixels(0, 0, w, h, GL_RGBA, GL_UNSIGNED_BYTE, outputValues_debug);
+    glReadPixels(0, 0, w, h, 32993, GL_UNSIGNED_BYTE, outputValues_debug); // GL_UNSIGNED_BYTE = 5121
+
+    // 调用保存图像的函数
+    //bool result = savePicture(w, h, outputValues_debug);
+
+    // 释放动态分配的内存
+    //free(outputValues_debug);
+
+    //return result;
+    return true;
+}
+
+
+
+// 2、同时修改 gl_renderer_do_capture函数----------> 借助截屏流程，保存为png图片
+	
+	//--------------------add start-------------------
+	w_debug = rect->width; h_debug = rect->height; 
+	if (debug_pixel && outputValues_debug != NULL) {
+		//read_target = outputValues;
+		//memcpy(read_target, outputValues_debug, sizeof(rect->width * rect->height * sizeof(int32_t)));
+		memcpy(read_target, outputValues_debug, rect->width * rect->height * sizeof(int32_t));
+	//--------------------add end-------------------
+	} else {
+			// glReadPixels(rect->x, rect->y, rect->width, rect->height,
+			// 	fmt->gl_format, fmt->gl_type, read_target);
+    }
+```
+
+------------------> 小bug，第一次win + s截图失败，第二次以后会成功（w_debug，没有初始化成功造成的）
+
+
+
+
+
+
+
+
+
+
+
+## 向后输出-----颜色输出：
+
+```java
+if ((color.r > 0.0) || (color.g > 0.0) || (color.b > 0.0)) { // 黑屏时，判断color的值是不是0
+    gl_FragColor = color*0.01 + vec4(0.0, 0.4, 0.0, 0.8);
+} else {
+    gl_FragColor = color;
+}
+```
+
+
+
+
+
+一些基础的获取接口：
+
+glGetBufferParameteriv
+
+
+
+## 思想：
+
+像素数据对应的fd（像素数据一直在内存里）
+
+>   ----> client  ----> weston ----> GPU（opengl调用）----> 处理后weston ----> drm  ----> 上屏
+
+结论: <font color='red'>各个阶段，理论上都可以观察像素数据：</font>
+
+方式：
+
+>   <font color='red'> 向后输出：</font>shader 输出颜色观察     ------>  上屏
+>
+>   直接输出某个buffer或者Tex  ------>  上屏
+>
+>   <font color='red'>中间捞出来：</font>glReadpixels 缓冲区 回读像素  ------>  **反馈型！！！！王炸！！！**
+
+<font color='red'> 向后输出前提：</font>  上屏流程没有问题
+
+
+
+
+
+  
 
 # 网站
 

@@ -180,6 +180,10 @@ https://baike.baidu.com/item/sizeof/6349467
 
 
 
+
+
+
+
 # 如何学习一门语言
 
 
@@ -1456,6 +1460,17 @@ shape->getGLSLFragmentShader(); //【3】
 >     return triangl;
 > }
 > ```
+
+
+
+## 打印log
+
+打印布尔值：
+
+```
+bool ret = true; // 或者 false
+ALOGI("The value of ret is: %s", ret ? "true" : "false");
+```
 
 
 

@@ -2300,7 +2300,7 @@ https://www.cnblogs.com/HDWdemo/p/13308309.html
 
 ## 快捷键
 
-
+最近文件： Ctrl + E
 
 查看全局符号  `Ctrl + T`  
 

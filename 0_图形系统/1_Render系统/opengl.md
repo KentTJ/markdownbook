@@ -645,6 +645,10 @@ TODO: 多个**`EGLContext`**
 
 
 
+
+
+
+
 ### 优化之限制局部区域的操作 glScissors
 
 glScissors是OpenGL中的一个函数，用于定义一个矩形区域，只有在该区域内的像素才会被绘制。
@@ -683,6 +687,20 @@ glScissors是OpenGL中的一个函数，用于定义一个矩形区域，只有�
 >   
 >
 >   >   ![image-20240811215751573](opengl.assets/image-20240811215751573.png)
+
+
+
+
+
+### glPixelStorei  TODO
+
+https://blog.csdn.net/weixin_38432324/article/details/135251289
+
+
+
+### 捞取实时图片：glReadpixels 从缓冲区里
+
+
 
 
 
@@ -1771,7 +1789,13 @@ bool GLUtils_saveRender(int w, int h) {
 
 
 
+## TODO  其他回捞函数
 
+
+
+一些基础的获取接口：
+
+glGetBufferParameteriv
 
 
 
@@ -1789,9 +1813,7 @@ if ((color.r > 0.0) || (color.g > 0.0) || (color.b > 0.0)) { // 黑屏时，判�
 
 
 
-一些基础的获取接口：
 
-glGetBufferParameteriv
 
 
 

@@ -358,6 +358,8 @@ TODO:    https://blog.csdn.net/jinzhuojun/article/details/40264449    Wayland中
 所有的配置可选项：
 
 > [Ubuntu Manpage: weston.ini - configuration file for Weston - the reference Wayland compositor](https://manpages.ubuntu.com/manpages/xenial/en/man5/weston.ini.5.html#shell section)
+>
+> https://blog.guoxiaozhong.cn/archives/1705288043757    有多屏管理的   ！！！！！好文！！！
 
 
 

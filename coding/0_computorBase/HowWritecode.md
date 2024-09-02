@@ -304,6 +304,38 @@ public abstract class InputMethodManagerInternal {
 
 
 
+## 最小化原则  之 传参：
+
+```java
+prepareblur(struct weston_output *output, struct weston_blurFilter* blurFilter)
+{
+		struct gl_output_state *go = get_output_state(output); // 没有用到output里其他 参数，直接用传  gl_output_state *go
+```
+
+
+
+
+
+##  想**复用已有函数的部分功能：**
+
+1、复用即相同部分
+
+2、差异部分：
+
+> （1）函数内部 用if  else分支隔离
+>
+> （2）最保险的做法：复制代码，新增函数(不会影响老的流程)  （  如果用 if 或者 else ，改动较大时）
+>
+> -----------> <font color='red'>总之一句话， 到底谁来承载差异（if else，函数，还是类）</font>
+>
+> ​								 	<font color='red'>剩余复用</font>
+
+
+
+修改代码之 <font color='red'>纯数学等价替换</font>-----------与业务无关
+
+
+
 
 
 # 测试维度
@@ -314,7 +346,13 @@ public abstract class InputMethodManagerInternal {
 
 3、查看编译的warining
 
+4、完成功能后，注意 所有类的销毁逻辑！！！！！（没有被 功能测试 测到！！！）
 
+>   内存是否释放
+
+5、内存泄漏排查
+
+6、多个屏幕
 
 
 

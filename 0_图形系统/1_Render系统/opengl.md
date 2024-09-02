@@ -704,6 +704,18 @@ https://blog.csdn.net/weixin_38432324/article/details/135251289
 
 
 
+
+
+### glDrawArrays(GL_TRIANGLE_FAN, 0, 3);
+
+
+
+https://blog.csdn.net/code09/article/details/41377847   绘制三角形序列的三种方式 ：GL_TRIANGLES、GL_TRIANGLE_STRIP和GL_TRIANGLE_FAN
+
+>   ![img](opengl.assets/35a15308288155090ab0eb8576e1468e.jpeg)
+
+
+
 ## 内建变量
 
 大全 ： [GLSL内置变量和内置函数](https://blog.csdn.net/danshiming/article/details/131511445)

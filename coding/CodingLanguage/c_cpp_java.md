@@ -180,6 +180,32 @@ https://baike.baidu.com/item/sizeof/6349467
 
 
 
+## C语言 空指针 NULL
+
+
+
+```java
+struct weston_paint_node *blurNode;
+if (blurNode) {  
+	// 进入了！！！！！！
+}
+```
+
+
+
+
+
+安全起见，<font color='red'>需要判断的指针，先赋值NULL：</font>
+
+```java
+struct weston_paint_node *blurNode = NULL;
+if (blurNode) {  
+	// 没进入
+}
+```
+
+
+
 
 
 
@@ -1471,6 +1497,28 @@ shape->getGLSLFragmentShader(); //【3】
 bool ret = true; // 或者 false
 ALOGI("The value of ret is: %s", ret ? "true" : "false");
 ```
+
+# cpp代码与C代码的转换：
+
+```java
+// cpp 
+BlurFilter::prepare()
+```
+
+
+
+```java
+// C
+prepare(BlurFilter blurFilter)
+```
+
+
+
+
+
+
+
+
 
 
 

@@ -47,6 +47,8 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 
 大的生命周期：上图1和2
 
+**目前不合理的地方**：统一repaint & <font color='red'>统一提交commit</font>
+
 
 
 ```java
@@ -2088,6 +2090,20 @@ drm驱动给到weston的plane日志，<font color='red'>但是似乎不是硬件
 
 
 
+# weston之多屏
+
+1、发车pageFlip不是统一
+
+repaint和提交给drm，是统一的
+
+见《when---生命周期图 0层》图
+
+2、outPut-> viewlist            这个viewlist是系统级别的！！！！！不是屏幕级别的！！！！！
+
+
+
+
+
 # 其他 次要功能
 
 
@@ -2374,8 +2390,8 @@ Drag and drop
 “weston-eventdemo”报告libtoytoolkit的事件到控制台（参见weston-eventdemo --help）
 ————————————————
 
-                            版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
-                        
+版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+       
 原文链接：https://blog.csdn.net/qq_26056015/article/details/122216771
 ```
 

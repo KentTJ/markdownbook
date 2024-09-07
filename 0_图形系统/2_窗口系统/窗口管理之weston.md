@@ -151,19 +151,17 @@ TODO: 触发存在 点击和move的 冲突问题：
 
 
 
-
-
 # wayland协议
 
 ## ~~Wayland核心协议，同安卓~~
 
 参考：  ~~[【Wayland】Wayland协议说明](https://blog.csdn.net/zxc024000/article/details/121196682 )~~
 
-位置： <font color='red'>系统中，不在weston中</font>
+位置： <font color='red'>系统中，自然，不在weston中（因为不是weston定义的！！！）</font>
 
 > ​        ~~/usr/share/wayland/wayland.xml~~
 
-
+在线：https://github.com/nobled/wayland/blob/master/protocol/wayland.xml
 
 原理同 安卓AIDL：
 
@@ -176,6 +174,12 @@ TODO: 触发存在 点击和move的 冲突问题：
 > [图来源](https://cloud.tencent.com/developer/article/1445734#:~:text=%E7%94%9F%E6%88%90Weston%E4%B8%AD%E7%9A%84-,Wayland%E6%89%A9%E5%B1%95%E5%8D%8F%E8%AE%AE%E4%B8%AD%E8%B5%B7%E5%90%8C%E6%A0%B7%E4%BD%9C%E7%94%A8,-%E3%80%82)
 >
 > **关键：XXX**
+
+
+
+
+
+
 
 
 
@@ -325,6 +329,14 @@ TODO:
 >
 > ​                                                ~~weston-desktop-shell.xml~~
 
+-<font color='red'>TODO: </font>
+
+重要！！！！！，为啥要扩展协议？，即：
+
+>   wayland协议包括哪些？（为什么只包括这些？）
+>
+>   还需要哪些？（为什么需要这些？）、如何扩展？
+
 
 
 ## kwayland协议
@@ -349,7 +361,9 @@ https://zhuanlan.zhihu.com/p/690561669#:~:text=%E5%90%8C%E6%97%B6wayland%2Dscann
 
 TODO:    https://blog.csdn.net/jinzhuojun/article/details/40264449    Wayland中的跨进程过程调用浅析
 
+https://wayland.arktoria.org/2-protocol-design/high-level.html        The Wayland Protocol 中文版
 
+https://wayland.app/protocols/               A better way to read Wayland documentation
 
 # 配置(~~weston.ini~~)
 

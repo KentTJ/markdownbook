@@ -1264,6 +1264,28 @@ app侧用力代码：
 
 
 
+腾讯技术工程官方号的专栏：
+
+> [十种图像模糊算法的总结与实现](https://cloud.tencent.com/developer/article/1614858)    
+>
+> [GPU 渲染管线和硬件架构浅谈](https://cloud.tencent.com/developer/article/2016951)       
+
+[GPU 性能原理拆解](https://cloud.tencent.com/developer/article/2442873)：
+
+> **不要在 Shader 中使用分支**
+>
+> 
+
+
+
+
+
+
+
+结合实例深入理解C++对象的内存布局    https://cloud.tencent.com/developer/article/2442869
+
+
+
 
 
 

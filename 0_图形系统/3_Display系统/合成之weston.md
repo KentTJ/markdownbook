@@ -733,8 +733,8 @@ video 占据sprite plane
 			pnode->try_view_on_plane_failure_reasons |=
 				FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE;
 
-			// add by chen start
-			drm_debug(b, "\t\t\t\t ==chen==, drm_output_find_plane_for_view weston_view %p buffer->type == WESTON_BUFFER_SHM \n", ev);
+			// add by kent start
+			drm_debug(b, "\t\t\t\t ==kent==, drm_output_find_plane_for_view weston_view %p buffer->type == WESTON_BUFFER_SHM \n", ev);
 			return NULL;
 		}
 ```
@@ -2277,7 +2277,7 @@ gst-launch-1.0 videotestsrc ! video/x-raw, width=1920, height=1080 ! autovideosi
 例4：播放本地视频
 
 >   ```java
->   gst-launch-1.0 playbin uri=file:///home/chengang/workingspace_disk2/scripts/gstream/image/Raindrops_Videvo.mp4
+>   gst-launch-1.0 playbin uri=file:///home/kent/workingspace_disk2/scripts/gstream/image/Raindrops_Videvo.mp4
 >   ```
 >
 >   报错： missing element H.264

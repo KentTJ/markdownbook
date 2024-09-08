@@ -763,11 +763,32 @@ tar -xvf test.tar -C  ./laji   //到特定目录
 
 ## linux目录共享给 win-------Samba
 
-Samba环境搭建：
+### Samba环境搭建：
 
 > https://blog.csdn.net/weixin_44147894/article/details/130225195      笔记-Samba服务器的安装与配置
 >
 > -------> 验证ok
+
+
+
+### linux 共享多个目录 给win
+
+场景： **linux有多个磁盘，没有挂在同一路径下面**
+
+参考： https://blog.csdn.net/qq_45875853/article/details/134601490#:~:text=%E6%96%87%E4%BB%B6%E5%A4%B9%E4%BA%86%E3%80%82-,%E5%85%B1%E4%BA%AB%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9,-%E5%85%B1%E4%BA%AB%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6
+
+
+
+保存文件后，重启Samba服务使配置生效：
+
+```java
+sudo systemctl restart smbd
+sudo systemctl restart nmbd
+```
+
+
+
+
 
 ## linux1 目录共享给 linux2-------sshfs
 

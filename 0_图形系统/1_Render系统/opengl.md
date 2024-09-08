@@ -377,7 +377,7 @@ fs.glsl：
 
  precision mediump float;
  
- // add by chen
+ // add by kent
  in vec3 vertexcolor;
  
  out vec4 fragColor;
@@ -386,7 +386,7 @@ fs.glsl：
  void main()
  {
      // fragColor = vec4(1.0, 0.0, 0.0, 1.0);
-     // add by chen
+     // add by kent
      fragColor = vec4(vertexcolor.x, vertexcolor.y, vertexcolor.z, 1.0);
  }
 ```
@@ -418,7 +418,7 @@ RendererJNI.cpp：
      // Use the program object
      glUseProgram ( g_programObject );
  
-     // -------------------modify by chen------------------------------
+     // -------------------modify by kent------------------------------
      //  Load the vertex data ------> to glsl
      // location data------define location index = 0
      glVertexAttribPointer ( 0, 3, GL_FLOAT, GL_FALSE,  6 * sizeof(float),  vVertices);
@@ -434,7 +434,7 @@ RendererJNI.cpp：
      pVertices += 3; // 移动到第四个元素的位置
      glVertexAttribPointer ( 1, 3, GL_FLOAT, GL_FALSE,  6 * sizeof(float),    pVertices );
      glEnableVertexAttribArray ( 1 );
-     / -------------------modify by chen------------------------------
+     / -------------------modify by kent------------------------------
  
      glDrawArrays ( GL_TRIANGLES, 0, 3 );
  }
@@ -558,28 +558,28 @@ https://stackoverflow.com/questions/3420558/printf-in-glsl
 #### 功能之  <font color='red'>按照区域clear：</font>
 
 ```java
-// add by chen
+// add by kent
 glScissor(0, 0, 800, 400);  //  限制的区域
 glEnable(GL_SCISSOR_TEST);
 
-// add by chen
+// add by kent
 glClearColor(0.0, 0.0, 0.0, 0.0);
 glClear(GL_COLOR_BUFFER_BIT);
 
-// add by chen
+// add by kent
 glDisable(GL_SCISSOR_TEST);  //  解除限制
 
 
 
-// add by chen
+// add by kent
 glScissor(800, 200, 800, 400); 
 glEnable(GL_SCISSOR_TEST);
 
-// add by chen
+// add by kent
 glClearColor(0.0, 0.0, 0.0, 0.0);
 glClear(GL_COLOR_BUFFER_BIT);
 
-// add by chen
+// add by kent
 glDisable(GL_SCISSOR_TEST);
 ```
 
@@ -672,15 +672,15 @@ glScissors是OpenGL中的一个函数，用于定义一个矩形区域，只有�
 局部clear：
 
 >   ```java
->   // add by chen
+>   // add by kent
 >   glScissor(0, 0, 800, 400);  //  限制的区域
 >   glEnable(GL_SCISSOR_TEST);
 >   
->   // add by chen
+>   // add by kent
 >   glClearColor(0.0, 0.0, 0.0, 0.0);
 >   glClear(GL_COLOR_BUFFER_BIT);
 >   
->   // add by chen
+>   // add by kent
 >   glDisable(GL_SCISSOR_TEST);  //  解除限制
 >   ```
 >
@@ -1697,7 +1697,7 @@ GLenum glCheckError_(const char *file, int line)
 			default:                               error = "other"; break;
         }
         //std::cout << error << " | " << file << " (" << line << ")" << std::endl;
-		weston_log("chen, glCheckError. file:%s line:%d  error:%s\n", file, line, error);
+		weston_log("kent, glCheckError. file:%s line:%d  error:%s\n", file, line, error);
     }
     return errorCode;
 }
@@ -1740,29 +1740,30 @@ myglCheckError();
 C代码：
 
 ```java
-
 // 1、辅助函数
 static int32_t * outputValues_debug;
-static int32_t  w_debug = 0;
-static int32_t  h_debug = 0;
+static int32_t  w_debug = 1728;  // 待捞出的图片大小
+static int32_t  h_debug = 1888;
 static bool debug_pixel = true;
+static int32_t times = 2;
 bool GLUtils_saveRender(int w, int h) {
-	if (w == 0 || h == 0) {
-		return false;
-	}
+    if (w == 0 || h == 0) {
+        return false;
+    }
+	weston_log("kent, GLUtils_saveRender, %d: %d\n", w, h);
     // 使用malloc动态分配内存来替代std::vector
-	if (outputValues_debug == NULL) {
-		outputValues_debug = (int32_t *)malloc(w * h * sizeof(int32_t)); // TODO: 这里不停的malloc了	
-	}
-	memset(outputValues_debug, 0, w * h * sizeof(int32_t));
+    if (outputValues_debug == NULL) {
+        outputValues_debug = (int32_t *)malloc(w * h * sizeof(int32_t)); // TODO: 这里不停的malloc了    
+    }
+    memset(outputValues_debug, 0, w * h * sizeof(int32_t));
     if (outputValues_debug == NULL) {
         fprintf(stderr, "Failed to allocate memory for outputValues_debug\n");
         return false;
     }
 
     // // 从帧缓冲区读取像素数据
-	glPixelStorei(GL_PACK_ALIGNMENT, 4);
-	glPixelStorei(GL_PACK_REVERSE_ROW_ORDER_ANGLE, GL_TRUE);
+    glPixelStorei(GL_PACK_ALIGNMENT, 4);
+    glPixelStorei(GL_PACK_REVERSE_ROW_ORDER_ANGLE, GL_TRUE);
     //glReadPixels(0, 0, w, h, GL_RGBA, GL_UNSIGNED_BYTE, outputValues_debug);
     glReadPixels(0, 0, w, h, 32993, GL_UNSIGNED_BYTE, outputValues_debug); // GL_UNSIGNED_BYTE = 5121
 
@@ -1773,6 +1774,19 @@ bool GLUtils_saveRender(int w, int h) {
     //free(outputValues_debug);
 
     //return result;
+
+
+	
+	// Save to image
+	// if (times > 1) {
+	// 	stbi_write_png("output.png", w, h, sizeof(int32_t), outputValues_debug, 0);
+	// 	weston_log("kent, stbi_write_png\n");
+
+	// 	times = times - 1;
+	// }
+
+
+
     return true;
 }
 
@@ -1780,20 +1794,32 @@ bool GLUtils_saveRender(int w, int h) {
 
 // 2、同时修改 gl_renderer_do_capture函数----------> 借助截屏流程，保存为png图片
 	
-	//--------------------add start-------------------
-	w_debug = rect->width; h_debug = rect->height; 
-	if (debug_pixel && outputValues_debug != NULL) {
-		//read_target = outputValues;
-		//memcpy(read_target, outputValues_debug, sizeof(rect->width * rect->height * sizeof(int32_t)));
-		memcpy(read_target, outputValues_debug, rect->width * rect->height * sizeof(int32_t));
-	//--------------------add end-------------------
-	} else {
-			// glReadPixels(rect->x, rect->y, rect->width, rect->height,
-			// 	fmt->gl_format, fmt->gl_type, read_target);
+
+	    //--------------------add start-------------------
+	// if (rect->width == 1728) { // 选择屏幕
+	// 	w_debug = rect->width; h_debug = rect->height;
+	// }
+	weston_log("kent, gl_renderer_do_capture, rect->width: %d, rect->height: %d: \n", rect->width, rect->height); 
+    if (debug_pixel && outputValues_debug != NULL && rect->width == w_debug) {
+        //read_target = outputValues;
+        //memcpy(read_target, outputValues_debug, sizeof(rect->width * rect->height * sizeof(int32_t)));
+        memcpy(read_target, outputValues_debug, rect->width * rect->height * sizeof(int32_t));
+    //--------------------add end-------------------
+    } else {
+            glReadPixels(rect->x, rect->y, rect->width, rect->height,
+                fmt->gl_format, fmt->gl_type, read_target);
     }
+
+	// glReadPixels(rect->x, rect->y, rect->width, rect->height,
+	// 	     fmt->gl_format, fmt->gl_type, read_target);
 ```
 
-------------------> 小bug，第一次win + s截图失败，第二次以后会成功（w_debug，没有初始化成功造成的）
+------------------> 使用：
+
+```java
+// 任意一个想要获取 GPU缓冲区图像的位置 加入：
+GLUtils_saveRender(w_debug, h_debug)
+```
 
 
 
@@ -1813,6 +1839,8 @@ glGetBufferParameteriv
 
 ## 向后输出-----颜色输出：
 
+例1，判断颜色：
+
 ```java
 if ((color.r > 0.0) || (color.g > 0.0) || (color.b > 0.0)) { // 黑屏时，判断color的值是不是0
     gl_FragColor = color*0.01 + vec4(0.0, 0.4, 0.0, 0.8);
@@ -1822,6 +1850,30 @@ if ((color.r > 0.0) || (color.g > 0.0) || (color.b > 0.0)) { // 黑屏时，判�
 ```
 
 
+
+例2：观察alpha值：
+
+```java
+if (Alpha > 0.1 && Alpha < 0.3) {
+	输出绿色
+}
+```
+
+
+
+
+
+
+
+## 像素级操作：TODO
+
+> 查： 像素级 判断
+>
+> 改：
+
+
+
+对比两张图片
 
 
 

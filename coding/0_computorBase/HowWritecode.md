@@ -344,7 +344,7 @@ prepareblur(struct weston_output *output, struct weston_blurFilter* blurFilter)
 
 2、top ：查看cpu占用 
 
-3、查看编译的warining
+3、查看编译告警warning，会有提示  
 
 4、完成功能后，注意 所有类的销毁逻辑！！！！！（没有被 功能测试 测到！！！）
 
@@ -353,6 +353,24 @@ prepareblur(struct weston_output *output, struct weston_blurFilter* blurFilter)
 5、内存泄漏排查
 
 6、多个屏幕
+
+
+
+
+
+
+
+对外接口：
+
+> 参数校验
+>
+> 接口说明：取值范围
+>
+> 多线程校验
+>
+> 并发数量校验
+
+
 
 
 

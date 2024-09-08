@@ -45,38 +45,7 @@
 
 
 
-## vscode
 
-编译环境的搭建：
-https://chowdera.com/2020/12/20201229202248553i.html
-
-https://code.visualstudio.com/docs/languages/cpp   官方文档
-
-AddressSanitizer工具
-https://docs.microsoft.com/en-us/cpp/sanitizers/asan?view=msvc-170   
-
-
-
-高亮变量: vscode的highlight-words：
-https://blog.csdn.net/u013171226/article/details/108868425                 
-
-
-
-​      TODO: Ubutu上安装vscode，并搭建Frame native断点调试环境    :
-https://www.jianshu.com/p/d84a2ec948be     使用VsCode调试Android Framework C/C++源代码
-https://blog.csdn.net/zhaojia92/article/details/99774704      
-
-
-
-### 补充 vscode
-
-vscode可以断点调试bin：（确定可以）
-
-> 指定bin路径
-
-参考： https://blog.csdn.net/weixin_39258979/article/details/111292273
-
--------------------> TODO: 还未验证
 
 
 
@@ -2286,6 +2255,62 @@ vscode ssh看code（TODO:扩展）
 
 
 
+### 免密失败  ----ssh链接调试
+
+比如vscode ssh免密  失败
+
+-------------------> 手动ssh链接调试：
+
+
+
+1、server侧（linux）启动server，**指定新端口2222专门用来调试**
+
+```java
+sudo /usr/sbin/sshd -d -p 2222
+```
+
+2、win侧（client）
+
+```java
+ssh -vvv chen@192.168.57.14 -p 2222 -i C:\Users\chen\.ssh\id_rsa
+```
+
+
+
+比如server侧报错：
+
+```java
+Failed publickey for chen from 10.82.228.209 port 62066 ssh2: RSA SHA256:4WkV2bdDoAzKxAzQ7FGHku77yeNWlMu1evMbXyD+Oj0
+---------> publickey出错了：从windows  copy  id_rsa.pub 到authorized_keys中
+```
+
+比如server侧报错：
+
+```java
+Authentication refused: bad ownership or modes for file /home/chen/.ssh/authorized_keys
+----------> 权限不对，.ssh目录相关权限：https://blog.csdn.net/m0_46093121/article/details/124758723
+```
+
+
+
+
+
+参考：        
+
+> [VSCode SSH免密登录失败原因 原因分析及解决](https://blog.csdn.net/sinat_16489689/article/details/127192214)
+>
+> [ssh设置免密登录后登录仍需密码可能的原因，以及 ssh 出问题或的调试方法      ](https://developer.aliyun.com/article/1169754)
+>
+> [【免密登录】Vscode 免密登录 SSH 失败     ](https://blog.csdn.net/m0_46093121/article/details/124758723)
+>
+> 
+
+
+
+
+
+
+
 ## 设置导出  todo
 
 #### 云同步设置
@@ -2459,9 +2484,58 @@ AS 有同样的Hierarchy
 
 >   注意：可以修改keyMap （keyMap中搜索 MultiHighlight）
 
+2、Git Blame
+
+推荐几个 VSCode 中的 Git Blame 插件   ----->   <font color='red'>较优：GitLens</font>
+
+参考： https://blog.51cto.com/englyf/6429156
 
 
 
+
+
+
+
+### 其他插件：
+
+https://mp.weixin.qq.com/s?__biz=MzU0NjgzMDIxMQ==&mid=2247616586&idx=1&sn=3219c2a691ccc15abbb5dafa09fc6a2f&chksm=fb54eaa6cc2363b0db06ae00879b4bccb5d296b8fdff93dd9d073eb102540b0bf97433e2a1de&scene=27    60 个神级 VS Code 插件！
+
+
+
+
+
+## 其他
+
+编译环境的搭建：
+https://chowdera.com/2020/12/20201229202248553i.html
+
+https://code.visualstudio.com/docs/languages/cpp   官方文档
+
+AddressSanitizer工具
+https://docs.microsoft.com/en-us/cpp/sanitizers/asan?view=msvc-170   
+
+
+
+高亮变量: vscode的highlight-words：
+https://blog.csdn.net/u013171226/article/details/108868425                 
+
+
+
+​      TODO: Ubutu上安装vscode，并搭建Frame native断点调试环境    :
+https://www.jianshu.com/p/d84a2ec948be     使用VsCode调试Android Framework C/C++源代码
+https://blog.csdn.net/zhaojia92/article/details/99774704      
+
+
+
+### 补充 vscode
+
+vscode可以断点调试bin：（确定可以）
+
+> 指定bin路径
+
+参考： https://blog.csdn.net/weixin_39258979/article/details/111292273
+
+-------------------> TODO: 还未验证
 
 # 计算机其他问题及设置
 

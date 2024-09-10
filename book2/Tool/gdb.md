@@ -1814,7 +1814,12 @@ kde+weston10环境下，
 
 ​        **问题：不能看启动流程**
 
-2、板子，kde 环境下 gdb OK（**自带gdb**） ： 
+2、kde板子，kde 环境下 gdb OK（**自带gdb**） ： 
 
- 		可以用 weston --tty=1  --wait-for-debugger  看启动流程了！
+优： 	**--wait-for-debugger 可以使用**
 
+>   可以用 weston --tty=1  --wait-for-debugger  **可以看启动流程了**！
+
+--------------------> 使用gdb_arm  attach
+
+3、78板子，导入gdb

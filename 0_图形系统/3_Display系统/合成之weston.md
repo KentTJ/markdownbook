@@ -136,7 +136,7 @@ atomic_flip_handler ----- 发车
 └─ weston_output_repaint(compositor.c)
     ├─ ------------------为views分配planes--------------------------
     ├─ drm_assign_planes // 【】具体见下
-    ├─ ------------------计算damage---------------------------------
+    ├─ ------------------【计算damage】---------------------------------
     └─ drm_output_repaint
         └─ drm_output_render-----------------只做了一件事情，拿到fd（内核的buffer）----------------------
             ├─ if (scanout_state->fb) return // 【】霸屏模式scanout -----> 利用client的fd
@@ -1754,7 +1754,7 @@ Layer 3 (pos 0xb0000000):
 
 ## 优化之  只重绘damage区域
 
-### 标记 damage区域：
+### 标记 damage区域----大纲之【计算damage】：
 
 1、client设置 surface_damage
 
@@ -1765,6 +1765,10 @@ weston_view_damage_below
 ```
 
 3、移动窗口
+
+
+
+-<font color='red'>view->plane->damage   自然，我们的终极目的是plane的damage</font>！！！！（view的damage，更新到plane的damage上！！！）
 
 
 

@@ -90,8 +90,6 @@ t.apply()
 
 
 
-
-
 下一帧vsync后： SurfaceFlinger处理事务（onMessageInvalidate函数）： 
 
 1、处理事务

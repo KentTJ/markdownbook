@@ -1410,6 +1410,41 @@ TODO:
 
 # 物质---从buffer看图形  TODO:
 
+## 待整理
+
+```java
+surface_attach  // 应用侧调用
+【weston_buffer_from_resource】  // 往 weston_buffer填充真正的buffer内容（从wl_resource中获取）
+	if ((shm = wl_shm_buffer_get(buffer->resource)) // 判断是不是shm
+	ef：dmabuf = linux_dmabuf_buffer_get(buffer->resource) // dma 判断
+        格式有YUV
+	ef：solid = single_pixel_buffer_get(buffer->resource)  // 纯色判断
+	else: ec->renderer->fill_buffer_info(ec, buffer) // EGL类型的buffer
+			buffer->legacy_buffer = (struct wl_buffer *)buffer->resource //【】 直接把wl_resource赋值给了buffer！！！！！
+			向EGL查询 legacy_buffer 宽高和格式（很多：DRM_FORMAT_XRGB8888、DRM_FORMAT_ARGB8888、DRM_FORMAT_YUYV、DRM_FORMAT_NV12、DRM_FORMAT_YUV420）
+			gb->images[i] = gr->create_image(gr->egl_display, EGL_WAYLAND_BUFFER_WL, buffer->legacy_buffer); // 【】 buffer转化为opengl的Image
+			weston_buffer->renderer_private = gl_buffer_state //【】封装了 EGLImageKHR、textures
+			 
+
+【weston_buffer_from_resource】
+1、是一个频繁调用函数！！！！！（第一次会填充buffer，后面都是直接返回）
+2、TODO: 虚拟机上simple-egl这里送过来的buffer是dmabuf。所以，可能是虚拟机的EGL做的！！！！！为了兼容 
+
+gl_renderer_attach // 【】 可见，GL啥格式都能画！！！！！！
+    gl_renderer_attach_shm
+    gl_renderer_attach_dmabuf
+    gl_renderer_attach_egl
+        glBindTexture(target, gb->textures[i]);
+        gr->image_target_texture_2d(target, gb->images[i]); // 【】texture 与 image的绑定！！！！！！！！
+    gl_renderer_attach_solid
+```
+
+
+
+
+
+
+
 【重要节点：client的gb->textures来源】
 
 ```java
@@ -1447,17 +1482,17 @@ client   surface_commit给 weston的图形数据
 > ```java
 > struct weston_buffer {
 >    enum {
->         WESTON_BUFFER_SHM, // 【】 share mem 
+>         WESTON_BUFFER_SHM,
 >         WESTON_BUFFER_DMABUF,
->         WESTON_BUFFER_RENDERER_OPAQUE,  // 【】 egl数据
+>         WESTON_BUFFER_RENDERER_OPAQUE,  
 >         WESTON_BUFFER_SOLID,
 >     } type;
 > 
 >     union {
-> 		struct wl_shm_buffer *shm_buffer;  // 90
-> 		void *dmabuf;
-> 		void *legacy_buffer;
-> 		struct weston_solid_buffer_values solid;
+> 		struct wl_shm_buffer *shm_buffer;  // 【】终极承载者
+> 		void *dmabuf; // 【】
+> 		void *legacy_buffer; // 【】 egl数据!!!!!!!
+> 		struct weston_solid_buffer_values solid;  // 【】
 > 	};
 > }
 > ```

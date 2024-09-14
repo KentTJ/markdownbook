@@ -1446,12 +1446,20 @@ client   surface_commit给 weston的图形数据
 
 > ```java
 > struct weston_buffer {
-> enum {
-> WESTON_BUFFER_SHM, // 【】 share mem 
-> WESTON_BUFFER_DMABUF,
-> WESTON_BUFFER_RENDERER_OPAQUE,  // 【】 egl数据
-> WESTON_BUFFER_SOLID,
-> } type;
+>    enum {
+>         WESTON_BUFFER_SHM, // 【】 share mem 
+>         WESTON_BUFFER_DMABUF,
+>         WESTON_BUFFER_RENDERER_OPAQUE,  // 【】 egl数据
+>         WESTON_BUFFER_SOLID,
+>     } type;
+> 
+>     union {
+> 		struct wl_shm_buffer *shm_buffer;  // 90
+> 		void *dmabuf;
+> 		void *legacy_buffer;
+> 		struct weston_solid_buffer_values solid;
+> 	};
+> }
 > ```
 
 处理方式差异：
@@ -2108,6 +2116,24 @@ repaint和提交给drm，是统一的
 
 
 
+# 休眠与唤醒
+
+## weston12原生
+
+使用keyboard唤醒的：
+
+```java
+session_notify
+	---------------------wake--------------------------
+	weston_compositor_wake  
+	weston_compositor_damage_all  // 【】 所有output都damage
+	---------------------wake--------------------------
+	weston_compositor_offscreen;
+	for遍历：output->repaint_needed = false; // 关闭所有的
+```
+
+
+
 # 其他 次要功能
 
 
@@ -2182,6 +2208,66 @@ repaint和提交给drm，是统一的
 ![img](合成之weston.assets/420f6ae98b5b5c7fc707a0fc76013367.png)
 
 [图来源](https://blog.csdn.net/yikunbai5708/article/details/103845086#:~:text=%E7%9A%84%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87-,%E4%B8%8B%E5%9B%BE%E8%BF%9B%E8%A1%8C%E8%A1%A8%E8%BF%B0,-UNI%2D%E5%B0%91%E6%9E%97%E5%AF%BA%E6%AD%A6%E5%8A%9F)
+
+
+
+
+
+### 待整理
+
+```java
+必然，初始化时机：
+weston_screenshooter_shoot
+	绑定frame_signal信号 和 screenshooter_frame_notify
+
+
+触发信号
+weston_capture_source_v1_capture(wl_resource *buffer_resource) // client来的buffer
+	weston_capture_task_create // weston侧创建 截屏任务
+	weston_output_schedule_repaint // 强迫去绘制一帧
+
+
+
+
+信号执行：
+gl_renderer_repaint_output // 或者gl_pixmal 一样
+	----------------------绘制的动作--------------
+	gl_renderer_do_capture_tasks
+		gl_renderer_do_capture(buffer) // 任务list里拿到空容器buffer
+			assert(into->type == WESTON_BUFFER_SHM); // screenShoter给的buffer，一定要是shm类型的！！！
+			glReadPixels(read_target) // 【】关键一行，从GPU里拿
+	wl_signal_emit(&output->frame_signal, output_damage);
+		frame_signal信号通知 screenshooter_frame_notify
+			l->buffer->shm_buffer  // 【】各种PIXMAN_格式数据，都被copy到shm_buffer（pixels）
+
+
+
+malloc 图像的buffer：
+	stride = l->buffer->width * (PIXMAN_FORMAT_BPP(pixman_format) / 8);
+	pixels = malloc(stride * l->buffer->height);
+
+
+
+
+ weston_buffer *buffer = gs->buffer_ref.buffer //
+
+
+
+------------------------------信号机制------------------
+
+绑定处理：
+
+
+
+触发信号：
+wl_signal_emit(&output->frame_signal, output_damage);
+```
+
+
+
+
+
+
 
 
 

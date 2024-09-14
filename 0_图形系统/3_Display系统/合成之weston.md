@@ -1417,8 +1417,9 @@ surface_attach  // 应用侧调用
 【weston_buffer_from_resource】  // 往 weston_buffer填充真正的buffer内容（从wl_resource中获取）
 	if ((shm = wl_shm_buffer_get(buffer->resource)) // 判断是不是shm
 	ef：dmabuf = linux_dmabuf_buffer_get(buffer->resource) // dma 判断
-        格式有YUV
+        格式：WL_SHM_FORMAT_ARGB8888（即DRM_FORMAT_ARGB8888）、WL_SHM_FORMAT_XRGB8888（即DRM_FORMAT_XRGB8888）、WL_SHM_FORMAT_C8 = 0x20203843
 	ef：solid = single_pixel_buffer_get(buffer->resource)  // 纯色判断
+        格式：DRM_FORMAT_XRGB8888、DRM_FORMAT_ARGB8888
 	else: ec->renderer->fill_buffer_info(ec, buffer) // EGL类型的buffer
 			buffer->legacy_buffer = (struct wl_buffer *)buffer->resource //【】 直接把wl_resource赋值给了buffer！！！！！
 			向EGL查询 legacy_buffer 宽高和格式（很多：DRM_FORMAT_XRGB8888、DRM_FORMAT_ARGB8888、DRM_FORMAT_YUYV、DRM_FORMAT_NV12、DRM_FORMAT_YUV420）
@@ -1430,7 +1431,9 @@ surface_attach  // 应用侧调用
 1、是一个频繁调用函数！！！！！（第一次会填充buffer，后面都是直接返回）
 2、TODO: 虚拟机上simple-egl这里送过来的buffer是dmabuf。所以，可能是虚拟机的EGL做的！！！！！为了兼容 
 
-gl_renderer_attach // 【】 可见，GL啥格式都能画！！！！！！
+        
+
+gl_renderer_attach // 【】 可见，GL啥buffer都能画！！！！！！
     gl_renderer_attach_shm
     gl_renderer_attach_dmabuf
     gl_renderer_attach_egl
@@ -1439,7 +1442,7 @@ gl_renderer_attach // 【】 可见，GL啥格式都能画！！！！！！
     gl_renderer_attach_solid
 ```
 
-
+TODO: 格式与buffer是两回事
 
 
 

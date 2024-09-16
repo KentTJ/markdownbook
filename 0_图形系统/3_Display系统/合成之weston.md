@@ -3003,3 +3003,47 @@ https://zhuanlan.zhihu.com/p/434869796
 
 ### drm_output_find_special_plane 遍历查找 特定的plane
 
+
+
+
+
+# Mesa
+
+## 与weston12的匹配关系：
+
+weston12  -----------------    OpenGL ES 3.1 Mesa 23.0.4           **完美匹配**
+
+​										     OpenGL ES 2.0  Mesa 21     也可以匹配
+
+
+
+## 编译
+
+代码下载：
+
+
+
+依赖安装：
+
+```java
+sudo apt install clang llvm libclang-dev
+
+cargo install bindgen-cli
+
+sudo apt-get install libclc-dev   pkg-config
+
+sudo apt upgrade libdrm-intel1 libdrm-dev libxcb-glx0-dev libxcb-dri2-0-dev   libxshmfence-dev  libxcb-dri3-dev  libxcb-present-dev
+                 llvm-dev
+```
+
+切换到
+
+>   remotes/origin/23.0
+
+
+
+想要weston调用mesa的EGL库：
+
+>   1、自然，就要把mesa编译结果安装到weston_install下
+>
+>   2、自然，先编译mesa，再编译weston（基于mesa的结果）

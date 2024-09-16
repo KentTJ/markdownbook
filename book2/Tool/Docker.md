@@ -2412,11 +2412,16 @@ Acquire::https::Proxy "http://username:password@proxy-IP-address:proxyport";
 
 ### 问题：以上步骤都执行了，仍然无网
 
-需要重启window侧的本地代理服务：
+方法一：
 
-![image-20240825113407142](Docker.assets/image-20240825113407142.png)
+>   需要重启window侧的本地代理服务：
+>
+>   ![image-20240825113407142](Docker.assets/image-20240825113407142.png)
+>
 
+方法二：
 
+>   **重启windows**            
 
 ### 参考：
 

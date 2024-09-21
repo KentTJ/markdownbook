@@ -1313,6 +1313,14 @@ TODO:  安卓的buffer是共享内存嘛？
 
 ### C的 wl_surface_commit 与  S的 wl_callback
 
+TODO:  模型图
+
+simple-egl                  ------------- EGL的swapbuffer ------wl_surface_commit----------------->    -  weston
+
+​	              循环读取    <----------- EGL的callback的listener ---(wl_callback_send_done)   --------  
+
+
+
 时机：
 
 > wl_surface_commit  时机：必然是client侧  redraw的结束
@@ -1344,13 +1352,41 @@ server -> client：
 
 
 
+mesa注解： wl_callback_add_listener(dri2_surf->throttle_callback）
+
+```java
+sync callback so that we always give a chance for the compositor to
+handle the commit and send a release event before checking for a free
+buffer 
+```
+
+
+
+
+
 总结：
 
-> egl 与 weston交互**没有特别之处**（与shm一样）
+> <font color='red'>egl 与 weston交互**没有特别之处**（与shm一样）</font>
 >
 > ~~唯一区别：~~
 >
 > > ​    client侧看不到显式的 提交wl_surface_commit和接受wl_callback （**都被EGL封装了！！！！！！**！）
+
+
+
+
+
+一个极其重要的结论：
+
+>   >   <font color='red'>从wayland协议角度（即接口调用角度），openGL就是 shm</font>
+>
+>   推论：
+>
+>   >   技巧：如何阅读openGL，从shm例子理解
+>   >
+>   >   自然，~~wayland协议，opengl也逃脱不了~~
+
+
 
 
 
@@ -1412,12 +1448,14 @@ TODO:
 
 ## 待整理
 
+TODO: 焦点：simple-egl 如何申请buffer？
+
 ```java
 surface_attach  // 应用侧调用
 【weston_buffer_from_resource】  // 往 weston_buffer填充真正的buffer内容（从wl_resource中获取）
 	if ((shm = wl_shm_buffer_get(buffer->resource)) // 判断是不是shm
 	ef：dmabuf = linux_dmabuf_buffer_get(buffer->resource) // dma 判断
-        格式：WL_SHM_FORMAT_ARGB8888（即DRM_FORMAT_ARGB8888）、WL_SHM_FORMAT_XRGB8888（即DRM_FORMAT_XRGB8888）、WL_SHM_FORMAT_C8 = 0x20203843
+        格式：WL_SHM_FORMAT_ARGB8888（即DRM_FORMAT_ARGB8888）、_XRGB8888（即DRM_FORMAT_XRGB8888）、WL_SHM_FORMAT_C8 = 0x20203843
 	ef：solid = single_pixel_buffer_get(buffer->resource)  // 纯色判断
         格式：DRM_FORMAT_XRGB8888、DRM_FORMAT_ARGB8888
 	else: ec->renderer->fill_buffer_info(ec, buffer) // EGL类型的buffer
@@ -1431,7 +1469,7 @@ surface_attach  // 应用侧调用
 1、是一个频繁调用函数！！！！！（第一次会填充buffer，后面都是直接返回）
 2、TODO: 虚拟机上simple-egl这里送过来的buffer是dmabuf。所以，可能是虚拟机的EGL做的！！！！！为了兼容 
 
-        
+
 
 gl_renderer_attach // 【】 可见，GL啥buffer都能画！！！！！！
     gl_renderer_attach_shm
@@ -3027,13 +3065,10 @@ weston12  -----------------    OpenGL ES 3.1 Mesa 23.0.4           **完美匹�
 
 ```java
 sudo apt install clang llvm libclang-dev
-
-cargo install bindgen-cli
-
-sudo apt-get install libclc-dev   pkg-config
-
-sudo apt upgrade libdrm-intel1 libdrm-dev libxcb-glx0-dev libxcb-dri2-0-dev   libxshmfence-dev  libxcb-dri3-dev  libxcb-present-dev
-                 llvm-dev
+sudo apt install libclc-dev   pkg-config
+sudo apt install libdrm-intel1 libdrm-dev libxcb-glx0-dev libxcb-dri2-0-dev   libxshmfence-dev   
+sudo apt install libxcb-dri3-dev  libxcb-present-dev   llvm-dev  libxxf86vm-dev
+cargo install bindgen-cli  -----> 似乎不重要！！！？？？
 ```
 
 切换到

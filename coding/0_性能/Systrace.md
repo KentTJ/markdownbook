@@ -970,6 +970,59 @@ atrace.out  转   perfetto显示
 
 
 
+
+
+# 实操（验证ok）-----trace工具编译
+
+**下载源码：**
+
+```java
+git clone https://android.googlesource.com/platform/external/perfetto/ && cd perfetto
+tools/install-build-deps   --------->  install the build dependencies：可能会失败，要执行很多次
+```
+
+**build：**
+
+```java
+tools/gn gen --args='is_debug=false' out/linux
+tools/ninja -C out/linux tracebox traced traced_probes perfetto
+```
+
+TODO: 
+
+
+
+**Running a Trace**:
+
+```java
+out/linux/tracebox -o trace_file.perfetto-trace --txt -c test/configs/scheduling.cfg
+out/linux/tracebox -o trace_file.perfetto-trace --txt -c test/configs/android_log.cfg
+```
+
+# 源码分析
+
+## 写trace源码分析--TODO
+
+代码实现，参考weston的：
+
+```java
+trace_init(void);
+trace_begin(const char* name);
+trace_end(void);
+```
+
+原理：往tracing节点，按照固定格式写东西！！！！
+
+```java
+"/sys/kernel/tracing/trace111", O_WRONLY | O_CLOEXEC)
+```
+
+## 抓trace的源码分析--TODO
+
+
+
+
+
 # Oprofile
 
 

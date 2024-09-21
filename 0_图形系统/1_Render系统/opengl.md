@@ -1373,7 +1373,7 @@ mainActivity的surface 与 GLSurfaceView 的surface 如何做混合，显示底�
 
 # OpenGL状态机的理解
 
--<font color='red'>OpenGL是状态机 </font>
+-<font color='red'>1、OpenGL是状态机 </font>
 
 所以，glBindTexture  ，所以 makeCurentt
 
@@ -1405,7 +1405,7 @@ glUniform1i(mMCompositionTextureLoc, 1); // mMixProgram.getUniformLocation("uCom
 drawMesh(mMUvLoc, mMPosLoc); // glDrawArrays
 ```
 
-
+2、既然是状态机，**必然有唯一生效时机**： glDrawArrays
 
 
 
@@ -1983,3 +1983,58 @@ opengl 与surface的关系，尤其是opengl  与 **GLSurfaceView** 的关系
 
 [使用参考]: 
 
+
+
+
+
+
+
+# Mesa(OpenGL的最优实现)
+
+## 与weston12的匹配关系：
+
+weston12  -----------------    OpenGL ES 3.1 Mesa 23.0.4           **完美匹配**
+
+​										     OpenGL ES 2.0  Mesa 21     也可以匹配
+
+
+
+## 编译
+
+代码下载：
+
+
+
+依赖安装：
+
+```java
+sudo apt install clang llvm libclang-dev
+sudo apt install libclc-dev   pkg-config
+sudo apt install libdrm-intel1 libdrm-dev libxcb-glx0-dev libxcb-dri2-0-dev   libxshmfence-dev   
+sudo apt install libxcb-dri3-dev  libxcb-present-dev   llvm-dev  libxxf86vm-dev
+cargo install bindgen-cli  -----> 似乎不重要！！！？？？
+```
+
+切换到
+
+>   remotes/origin/23.0
+
+
+
+想要weston调用mesa的EGL库：
+
+>   1、自然，就要把mesa编译结果安装到weston_install下
+>
+>   2、自然，先编译mesa，再编译weston（基于mesa的结果）
+
+
+
+
+
+## 参考
+
+https://winddoing.github.io/post/39ae47e2.html    mesa 框架与目录结构
+
+https://blog.csdn.net/u012839187/article/details/120844766     Linux GPU系列-05-MESA架构 [转载]
+
+https://blog.csdn.net/HaoBBNuanMM/article/details/109054106   【架构分析】MESA （EGL/GLES）架构分析  ------> 好文！！！

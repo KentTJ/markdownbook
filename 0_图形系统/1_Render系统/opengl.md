@@ -2038,3 +2038,13 @@ https://winddoing.github.io/post/39ae47e2.html    mesa 框架与目录结构
 https://blog.csdn.net/u012839187/article/details/120844766     Linux GPU系列-05-MESA架构 [转载]
 
 https://blog.csdn.net/HaoBBNuanMM/article/details/109054106   【架构分析】MESA （EGL/GLES）架构分析  ------> 好文！！！
+
+https://crab2313.github.io/      [MESA源码分析：EGL](https://crab2313.github.io/post/mesa-egl/)        [MESA源码分析：GBM](https://crab2313.github.io/post/mesa-gbm/)
+
+ https://blog.csdn.net/tkwxty/category_12685596.html      Mesa框架学习 -----> 系列文章
+
+>   [Android环境下Mesa初始化流程重学习之eglCreateContext](https://blog.csdn.net/tkwxty/article/details/139273226)
+>
+>   [Mesa GL Dispatch分发分析与理解](https://blog.csdn.net/tkwxty/article/details/139272231)
+>
+>   

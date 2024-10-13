@@ -2457,8 +2457,6 @@ weston_capture_source_v1_capture(wl_resource *buffer_resource) // client来的bu
 	weston_output_schedule_repaint // 强迫去绘制一帧
 
 
-
-
 信号执行：
 gl_renderer_repaint_output // 或者gl_pixmal 一样
 	----------------------绘制的动作--------------

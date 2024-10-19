@@ -185,3 +185,13 @@ https://blog.csdn.net/u012839187/article/details/106469038      display:weston�
 
 https://blog.csdn.net/hexiaolong2009/article/details/84934294
 
+
+
+# 一些基本常识
+
+us级别：上屏（~~硬件从buffer上读取数据 -----> 屏幕~~）
+
+ms级别：一屏数据内存copy（~~10M数据的内存copy = 中控屏截图的内存copy~~）
+
+----------------> 上屏快很多
+

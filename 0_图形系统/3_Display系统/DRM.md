@@ -187,7 +187,7 @@ https://blog.csdn.net/hexiaolong2009/article/details/84934294
 
 
 
-# 一些基本常识
+# 大致数据
 
 us级别：上屏（~~硬件从buffer上读取数据 -----> 屏幕~~）
 

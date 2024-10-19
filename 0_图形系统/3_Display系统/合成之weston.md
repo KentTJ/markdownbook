@@ -1,6 +1,3 @@
->   
->
-
 # Weston / wayland ----与A 无异
 
 ## 功能架构----0层
@@ -52,7 +49,6 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 
 
 ```java
-
 ├─ wet_main
 ├─ wl_display_run
 └─ wl_event_loop_dispatch // 大的消息模型驱动
@@ -298,7 +294,7 @@ output_repaint_timer_handler(compositor.c) // repaint的timer里
 >
 >   GPU ------------- 有能力的老人
 >
->    DPU 叠图 ----------考试结束，画挂墙（挂墙展示评分）
+>   DPU 叠图 ----------考试结束，画挂墙（挂墙展示评分）
 >
 >   （1）<font color='red'>事件驱动（client的dirty） 触发重绘：</font> ~~多个画家画画，画完送给  张贴人 （合成器），合成器触发重绘~~
 >
@@ -324,7 +320,7 @@ TODO: 一场考试需要多久？
 >
 >   （2） overlay对应的view，没有合成 ------> 直接以overlay_plane，送给DPU
 >
->      (3)  cursor_plane ，也被提交给DPU
+>     (3)  cursor_plane ，也被提交给DPU
 
 
 
@@ -695,7 +691,7 @@ video 占据sprite plane
 >
 > 2、GPU是用来兜底的。万能的
 >
->   primary 层，物理上一定在下面
+> primary 层，物理上一定在下面
 
 
 
@@ -953,7 +949,6 @@ output 0尝试混合模式：
 整个图形，就是像素的生命周期：
 
 >   client像素:  产生--->流转给合成器 --->流转plane --->crtc ---->encoder ---->connector ----> 屏幕
->
 
 像素的承载：buffer
 
@@ -978,11 +973,11 @@ output 0尝试混合模式：
 
 >    1、<font color='red'>Full-screen 与  overlay，没有任何区别</font> ------------->  自然，处理流程没有区别
 >
->   ​      唯一区别：df 是不是全屏的？
+>    ​      唯一区别：df 是不是全屏的？
 >
->   2、<font color='red'>Full-screen 与  primary plane  没有任何区别</font> 
+>    2、<font color='red'>Full-screen 与  primary plane  没有任何区别</font> 
 >
->   ​        唯一区别：后者有个 合成过程，**见上图的 4和5**
+>    ​        唯一区别：后者有个 合成过程，**见上图的 4和5**
 
 TODO:  上图中的GBM是啥？
 
@@ -1265,7 +1260,7 @@ compositor backend主要决定了compositor合成完后的结果怎么处置
 模型之任务队列 
 
 >   --------->  解决的问题：把集中的任务，平均化
->                                          即把CPU的使用，高峰，平均化 ------> 即 削峰
+>                                         即把CPU的使用，高峰，平均化 ------> 即 削峰
 >
 >   最坏情况，直接for循环调用
 >
@@ -1315,7 +1310,7 @@ TODO:  安卓的buffer是共享内存嘛？
 
 TODO:  模型图
 
-simple-egl                  ------------- EGL的swapbuffer ------wl_surface_commit----------------->    -  weston
+simple-egl                  ------------- EGL的swapbuffer ------wl_surface_commit----------------->      weston
 
 ​	              循环读取    <----------- EGL的callback的listener ---(wl_callback_send_done)   --------  
 
@@ -1522,14 +1517,14 @@ client   surface_commit给 weston的图形数据
 
 > ```java
 > struct weston_buffer {
->    enum {
->         WESTON_BUFFER_SHM,
->         WESTON_BUFFER_DMABUF,
->         WESTON_BUFFER_RENDERER_OPAQUE,  
->         WESTON_BUFFER_SOLID,
->     } type;
+> enum {
+>      WESTON_BUFFER_SHM,
+>      WESTON_BUFFER_DMABUF,
+>      WESTON_BUFFER_RENDERER_OPAQUE,  
+>      WESTON_BUFFER_SOLID,
+>  } type;
 > 
->     union {
+>  union {
 > 		struct wl_shm_buffer *shm_buffer;  // 【】终极承载者
 > 		void *dmabuf; // 【】
 > 		void *legacy_buffer; // 【】 egl数据!!!!!!!
@@ -1652,6 +1647,38 @@ FrameBuffer:
 							 output->format->format,
 							 output->gbm_bo_flags);
 		【4】从gbm 创建gbm_surface（封装了最终的FrameBuffer）
+
+
+
+
+
+buffer的分配（when）：
+
+>   weston：从client端分配的（~~自然，client自行设计buffer的管理原则~~）
+>
+>   Android：server端（SF）分配（~~自然，server管理~~）
+>
+>   **通用原则：谁分配，谁管理**       [参考](https://topic.alibabacloud.com/tc/a/brief-introduction-of-wayland-and-weston_8_8_31415280.html)
+
+buffer的管理（how）-------buffer Queue：
+
+>   极限情况：一个buffer就可以了（~~client绘制的时候，其他都等着~~），性能很差
+>
+>   bufferQueue，对于wayland，是client来实现的
+>
+>   
+
+buffer的传递：
+
+>   自然，传fd（~~不会进行数据的copy~~）
+>
+>   方式：binder, domain socket和pipe等
+>
+>   ​           对于wayland，底层用的是domain socket
+>
+>   
+
+
 
 
 
@@ -1875,7 +1902,6 @@ ChatGPT
 对于通过 `EGL` 发送的 `wl_buffer`，如果你已经设置了 `EGLContext`，你可以使用 `glReadPixels()` 函数从 `EGL` 表面读取像素数据。
 
 ```
-
 Copy code
 glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixel_data);
 ```
@@ -2537,6 +2563,29 @@ output对应的屏幕  ---------->      output->base.name
 
 
 
+# Fence机制
+
+## why---存在的必要性
+
+同步机制：
+
+>   vsync------跨空间（进程与进程之间、内核与用户空间之间）
+>
+>   fence------跨空间 + 跨设备（两个设备的驱动之间、驱动与进程之间）
+>
+>   参考：[深入理解Android图形系统](https://cloud.tencent.com/developer/article/2127018#:~:text=ION%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98%E3%80%82-,ION%E6%98%AF%E5%BB%BA%E7%AB%8B%E5%9C%A8,-DMA%2DBUF%E7%9A%84)
+
+可见：<font color='red'>DMA-BUF 与 Fence机制关系密切！！！都是跨设备</font>
+
+位置：
+
+>   ![img](合成之weston.assets/bcf604a92085bc7f5cda2aa6ee0e6244.png)
+>
+
+
+
+
+
 # 次要---GStreamer——gst-launch-1.0
 
 
@@ -2551,7 +2600,7 @@ output对应的屏幕  ---------->      output->base.name
 
 > ```java
 > gst-launch-1.0 videotestsrc   !   autovideosink
->         管道起始点    连接   管道的终点
+>      管道起始点    连接   管道的终点
 > 
 > gst-launch-1.0 videotestsrc   !   autovideosink  ! waylandsink sync=false render-rectangle="<5568,0,-1,-1>"
 > ```
@@ -3038,7 +3087,6 @@ enum wdrm_plane_type {
 https://zhuanlan.zhihu.com/p/434869796
 
 ### drm_output_find_special_plane 遍历查找 特定的plane
-
 
 
 

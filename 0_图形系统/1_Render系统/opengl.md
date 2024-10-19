@@ -1991,7 +1991,9 @@ opengl 与surface的关系，尤其是opengl  与 **GLSurfaceView** 的关系
 
 # Mesa(OpenGL的最优实现)
 
-## 与weston12的匹配关系：
+## 环境 & 编译
+
+### 与weston12的匹配关系：
 
 weston12  -----------------    OpenGL ES 3.1 Mesa 23.0.4           **完美匹配**
 
@@ -1999,7 +2001,7 @@ weston12  -----------------    OpenGL ES 3.1 Mesa 23.0.4           **完美匹�
 
 
 
-## 编译
+### 编译
 
 代码下载：
 
@@ -2026,6 +2028,12 @@ cargo install bindgen-cli  -----> 似乎不重要！！！？？？
 >   1、自然，就要把mesa编译结果安装到weston_install下
 >
 >   2、自然，先编译mesa，再编译weston（基于mesa的结果）
+
+
+
+
+
+
 
 
 

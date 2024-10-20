@@ -1284,10 +1284,6 @@ TODO:
 
 
 
-
-
-
-
 # 能量----从驱动力来看图形
 
 ## **client** 与 server 之间的pingpong
@@ -1306,7 +1302,7 @@ https://blog.csdn.net/qqzhaojianbiao/article/details/129796828          Wayland�
 
 TODO:  安卓的buffer是共享内存嘛？
 
-### C的 wl_surface_commit 与  S的 wl_callback
+### C的 wl_surface_commit 与  S的 wl_callback（~~wl_callback_listener~~）
 
 TODO:  模型图
 
@@ -1382,6 +1378,20 @@ buffer
 >   >   自然，~~wayland协议，opengl也逃脱不了~~
 
 
+
+
+
+wl_callback_listener 协议：
+
+>   表征server合成完一帧，通知client redraw：client  <--------------    server.wl_callback_send_done
+
+wl_buffer_listener  协议:       
+
+>   表征 server侧对buffer 使用权的释放，通知client可以 重新获取使用权（使用或者销毁）
+
+
+
+两个协议之间，啥关系？
 
 
 
@@ -1632,7 +1642,138 @@ GEM:
 
 
 
-### C-S
+### wl_buffer的分配 & 管理
+
+几大原则：
+
+buffer的分配者（when）：**分配者-------决定数量和分配时间**
+
+>   <font color='red'>weston：从client端分配的</font>（~~自然，client自行设计buffer的管理原则~~），见【例1---shm】
+>
+>     
+>
+>   Android：server端（SF）分配（~~自然，server管理~~）
+>
+>   **通用原则：<font color='red'>谁分配，谁管理</font>**  ，见【例1---shm】     [参考](https://topic.alibabacloud.com/tc/a/brief-introduction-of-wayland-and-weston_8_8_31415280.html)
+
+
+
+buffer的管理（how）-------buffer Queue：
+
+>   极限情况：一个buffer就可以了（~~client绘制的时候，其他都等着~~），性能很差
+>
+>   bufferQueue，对于wayland，是client来实现的
+>
+>   
+>
+>   server侧对 buffer的释放：协议-----wl_buffer_listener
+>
+>   ​                         when：
+
+
+
+#### 例1---shm:
+
+ 1、第一帧之前，client分配buffer。 代码：
+
+```java
+// simple-shm.c
+
+server--->
+xdg_surface_listener协议--------
+	redraw
+		window_next_buffer
+			for (i = 0; i < 2; i++)  // shm分配了两个buffer！！！！！
+				struct buffer *buffer = calloc(1, sizeof(*buffer)); // 【不是真实wl_buffer，是结构体】
+				wl_list_insert(&window->buffer_list); // 【即所谓的buffer Queue】
+			create_shm_buffer(window, buffer, WL_SHM_FORMAT_XRGB8888);
+				fd = memfd_create("weston-shared"); 【创建fd】
+				data = mmap(size, PROT_READ | PROT_WRITE, MAP_SHARED, fd);【fd映射到一段client的内存上！！！返回内存地址】
+				
+				wl_shm_pool pool= wl_shm_create_pool(fd)--------【协议，传fd给server】 TODO:server侧到底做了什么
+				wl_buffer *buffer = wl_shm_pool_create_buffer(wl_shm_pool, width, height，stride, format) ----【协议，让server侧创建wl_buffer】 TODO:server侧到底做了什么
+				
+				wl_buffer_add_listener(buffer->buffer, &buffer_listener, buffer); // server 与 client 关于buffer使用权的协议
+
+				wl_shm_pool_destroy(pool); // 【过河拆桥：pool和fd是工具，当wl_buffer创建完毕后，就没有存在的必要了！！！TODO】
+				close(fd);
+```
+
+一些基本结论：
+
+>   ​    （1）shm    **client分配了两个buffer**，维护在 buffer_list里
+
+-<font color='red'>所谓的共享本质：</font>
+
+>   1、server能看到&操作 client的内存！！！！！！
+>
+>   2、<font color='red'>wl_buffer的shm实现，理解</font>，TODO：
+>
+>   （1）where---在client的内存里：fd mmap的内存是client的
+>
+>   （2）when--client触发：wl_shm_pool_create_buffer
+>
+>   （3）who---server去分配create的：wl_shm_pool_create_buffer，server拿到fd，能看到client的内存
+>
+>   ​		Q: 如何保证server的create buffer大小，和 映射的 内存大小一致？
+>
+>   ​		A：mmap的size = create_buffer的   height\*stride\*format
+>
+>   ​		
+>
+>   ​		Q:为啥一定要server端去创建 wl_buffer？
+>
+>   ​		A: TODO
+>
+>   （4）what---<font color='red'> wl_buffer 是协议、是抽象</font>，两边都能使用的协议
+>
+>   ​			-<font color='red'>具体实现可以是 共享内存、dma_buffer</font>
+>
+>   （5）how---wl_buffer协议的实现shm_buffer，根本机制：
+>
+>   >   本质通过mmap和fd
+>
+>    		how2---wl_buffer使用权的协议：wl_buffer_listener
+
+
+
+2、第一帧之后，**client管理buffer Queue**： buffer_list + 标记buffer是否被server释放。 代码：
+
+```java
+// simple-shm.c
+
+// 标记buffer是否被server释放:
+server ---->
+	wl_buffer_listener协议-----  
+		client.buffer_release
+			buffer.busy = 0
+```
+
+
+
+#### 例2----dma
+
+
+
+buffer的传递：
+
+>   自然，传fd（~~不会进行数据的copy~~）
+>
+>   方式：binder, domain socket和pipe等
+>
+>   ​           对于wayland，底层用的是domain socket
+>
+>   
+
+关于协议wl_callback_listener （驱动力），见《能量》
+
+
+
+
+
+
+
+### 待整理
 
 Client buffer：
 类型 wl_buffer 
@@ -1647,36 +1788,6 @@ FrameBuffer:
 							 output->format->format,
 							 output->gbm_bo_flags);
 		【4】从gbm 创建gbm_surface（封装了最终的FrameBuffer）
-
-
-
-
-
-buffer的分配（when）：
-
->   weston：从client端分配的（~~自然，client自行设计buffer的管理原则~~）
->
->   Android：server端（SF）分配（~~自然，server管理~~）
->
->   **通用原则：谁分配，谁管理**       [参考](https://topic.alibabacloud.com/tc/a/brief-introduction-of-wayland-and-weston_8_8_31415280.html)
-
-buffer的管理（how）-------buffer Queue：
-
->   极限情况：一个buffer就可以了（~~client绘制的时候，其他都等着~~），性能很差
->
->   bufferQueue，对于wayland，是client来实现的
->
->   
-
-buffer的传递：
-
->   自然，传fd（~~不会进行数据的copy~~）
->
->   方式：binder, domain socket和pipe等
->
->   ​           对于wayland，底层用的是domain socket
->
->   
 
 
 

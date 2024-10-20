@@ -1383,11 +1383,32 @@ buffer
 
 wl_callback_listener 协议：
 
->   表征server合成完一帧，通知client redraw：client  <--------------    server.wl_callback_send_done
+>   <font color='red'>表征server合成完一帧</font>，通知client redraw：client  <--------------    server.wl_callback_send_done
+>
+>   代码：
+>
+>   ```java
+>   // 1、结构：(1)listener 的 在server侧的维护, 自然是list（frame_callback_list）
+>   //         (2)client侧wl_callback 是 server侧frame_callback 的代理！！！ !!!
+>   
+>   // 2、结构增：
+>   client侧：
+>   	wl_callback callback = wl_surface_frame(window->surface); // 触发server侧创建frame_callback（client侧wl_callback）
+>   	wl_callback_add_listener(wl_callback)
+>   
+>   server侧： 
+>       surface_frame
+>   		cb = wl_resource_create(client, &wl_callback_interface, 1, callback); // 创建并添加
+>   		wl_list_insert(surface->pending.frame_callback_list.prev,wl_resource_get_link(cb));
+>   // 3、结构减
+>   
+>   ```
+>
+>   [参考 Wayland中的跨进程过程调用浅析](https://blog.csdn.net/jinzhuojun/article/details/40264449#:~:text=wl_callback_add_listener)
 
 wl_buffer_listener  协议:       
 
->   表征 server侧对buffer 使用权的释放，通知client可以 重新获取使用权（使用或者销毁）：
+>   <font color='red'>表征 server侧对buffer 使用权的释放</font>，通知client可以 重新获取使用权（使用或者销毁）：
 >
 >   ​                                         
 
@@ -1656,7 +1677,7 @@ buffer的分配者（when）：**分配者-------决定数量和分配时间**
 >
 >   Android：server端（SF）分配（~~自然，server管理~~）
 >
->   **通用原则：<font color='red'>谁分配，谁管理</font>**  ，见【例1---shm】     [参考](https://topic.alibabacloud.com/tc/a/brief-introduction-of-wayland-and-weston_8_8_31415280.html)
+>   **通用原则：<font color='red'>谁分配，谁管理(维护生命周期)</font>**  ，见【例1---shm】     [参考](https://topic.alibabacloud.com/tc/a/brief-introduction-of-wayland-and-weston_8_8_31415280.html)
 
 
 
@@ -1690,7 +1711,7 @@ xdg_surface_listener协议--------
 				wl_list_insert(&window->buffer_list); // 【即所谓的buffer Queue】
 			create_shm_buffer(window, buffer, WL_SHM_FORMAT_XRGB8888);
 				fd = memfd_create("weston-shared"); 【创建fd】
-				data = mmap(size, PROT_READ | PROT_WRITE, MAP_SHARED, fd);【fd映射到一段client的内存上！！！返回内存地址】
+				data = mmap(size, PROT_READ | PROT_WRITE, MAP_SHARED, fd);【fd映射到一段client的内存空间！！！返回内存地址】
 				
 				wl_shm_pool pool= wl_shm_create_pool(fd)--------【协议，传fd给server】 TODO:server侧到底做了什么
 				wl_buffer *buffer = wl_shm_pool_create_buffer(wl_shm_pool, width, height，stride, format) ----【协议，让server侧创建wl_buffer】 TODO:server侧到底做了什么
@@ -1711,7 +1732,7 @@ xdg_surface_listener协议--------
 >
 >   2、<font color='red'>wl_buffer的shm实现，理解</font>，TODO：
 >
->   （1）where---在client的内存里：fd mmap的内存是client的
+>   （1）where---在client的内存里：<font color='red'>fd mmap的内存是client的</font>   [参考](https://blog.csdn.net/jinzhuojun/article/details/40264449#:~:text=%E5%B0%86%E8%AF%A5%E6%96%87%E4%BB%B6%E5%85%88%E6%98%A0%E5%B0%84%E5%88%B0Client%E7%AB%AF%E7%9A%84%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4)
 >
 >   （2）when--client触发：wl_shm_pool_create_buffer
 >
@@ -1753,7 +1774,7 @@ server ---->
 
 
 
-#### 例2----dma
+#### 例2----dma/egl
 
 
 
@@ -3126,7 +3147,7 @@ https://blog.csdn.net/u012839187/article/details/116054755    agl-compositor
 
 
 
-
+[Wayland中的跨进程过程调用浅析](https://blog.csdn.net/jinzhuojun/article/details/40264449 )    -----> 好文
 
 https://fossies.org/dox/weston-13.0.3/structivi__shell.html     struct的类图
 

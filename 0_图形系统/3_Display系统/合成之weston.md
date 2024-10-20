@@ -1404,13 +1404,35 @@ wl_callback_listener 协议：
 >   
 >   ```
 >
+>   
+>
 >   [参考 Wayland中的跨进程过程调用浅析](https://blog.csdn.net/jinzhuojun/article/details/40264449#:~:text=wl_callback_add_listener)
+>
+>   wl_callback_listener 回调时机：
+>
+>   ```java
+>   【compositor】weston_output_repaint
+>   	       wl_callback_send_done
+>   ```
+>
+>   
 
 wl_buffer_listener  协议:       
 
 >   <font color='red'>表征 server侧对buffer 使用权的释放</font>，通知client可以 重新获取使用权（使用或者销毁）：
 >
->   ​                                         
+>    回调时机： 
+>
+>   ```java
+>   weston_buffer_reference(
+>   	wl_buffer_send_release(struct wl_resource *resource_) // server侧维护的old_ref.buffer->busy_count == 0
+>       
+>   
+>   // 调用点很多：
+>       
+>   ```
+>
+>   
 
  
 
@@ -1615,7 +1637,7 @@ gpt给出的对比：
 >
 > 
 
-SHM（ 普通共享内存）
+SHM（ 普通共享内存）-----------例子simple-shm
 
 > 分配者： CPU malloc分配  ------->  自然，CPU认  ------> 自然，CPU软件渲染
 >
@@ -1633,7 +1655,7 @@ SHM（ 普通共享内存）
 > >
 > > （2）**GPU半认识**（~~需要重新copy成连续内存~~）
 
-DMA:
+DMA-----------例子
 
 > <font color='red'>DMA传fd，0 copy，全程GPU用（从client到drm），CPU没有用</font>； 
 >
@@ -1695,7 +1717,7 @@ buffer的管理（how）-------buffer Queue：
 
 
 
-#### 例1---shm:
+#### shmbuffer  例---simple-shm:
 
  1、第一帧之前，client分配buffer。 代码：
 
@@ -1774,7 +1796,15 @@ server ---->
 
 
 
-#### 例2----dma/egl
+#### dma_buffer 例------simple-egl
+
+实验的结论：
+
+>   虚拟机上simple-egl这里送过来的buffer是dmabuf
+>
+>   真实板子上 simple-egl 送过来的buffer也是 dmabuf ！！！！TODO: 
+
+TODO:  为啥不是 WESTON_BUFFER_RENDERER_OPAQUE ???
 
 
 
@@ -1813,6 +1843,10 @@ FrameBuffer:
 		【4】从gbm 创建gbm_surface（封装了最终的FrameBuffer）
 
 
+
+
+
+create_gbm_surface
 
 
 

@@ -1782,8 +1782,8 @@
 <li><div><a href="#&#x7269;&#x7406;">&#x7269;&#x7406;</a><i></i></div></li>
 <li><div><a href="#wlbuffer&#x7684;&#x5206;&#x914D;-amp-&#x7BA1;&#x7406;">wl_buffer&#x7684;&#x5206;&#x914D; &amp; &#x7BA1;&#x7406;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
 <ul>
-<li><div><a href="#&#x4F8B;1---shm">&#x4F8B;1---shm:</a><i></i></div></li>
-<li><div><a href="#&#x4F8B;2----dmaegl">&#x4F8B;2----dma/egl</a><i></i></div></li>
+<li><div><a href="#shmbuffer--&#x4F8B;---simple-shm">shmbuffer  &#x4F8B;---simple-shm:</a><i></i></div></li>
+<li><div><a href="#dmabuffer-&#x4F8B;------simple-egl">dma_buffer &#x4F8B;------simple-egl</a><i></i></div></li>
 </ul></li>
 <li><div><a href="#&#x5F85;&#x6574;&#x7406;">&#x5F85;&#x6574;&#x7406;</a><i></i></div></li>
 <li><div><a href="#gbmsurface--buffer">gbm_surface  buffer</a><i></i></div></li>
@@ -2822,11 +2822,21 @@ buffer
   <span class="token comment">// 3&#x3001;&#x7ED3;&#x6784;&#x51CF;</span>
 </code></pre>
 <p>  <a href="https://blog.csdn.net/jinzhuojun/article/details/40264449#:~:text=wl_callback_add_listener" target="_blank">&#x53C2;&#x8003; Wayland&#x4E2D;&#x7684;&#x8DE8;&#x8FDB;&#x7A0B;&#x8FC7;&#x7A0B;&#x8C03;&#x7528;&#x6D45;&#x6790;</a></p>
+<p>  wl_callback_listener &#x56DE;&#x8C03;&#x65F6;&#x673A;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java">  &#x3010;compositor&#x3011;weston_output_repaint
+             wl_callback_send_done
+</code></pre>
 </blockquote>
 <p>wl_buffer_listener  &#x534F;&#x8BAE;:       </p>
 <blockquote>
 <p>  <font color="red">&#x8868;&#x5F81; server&#x4FA7;&#x5BF9;buffer &#x4F7F;&#x7528;&#x6743;&#x7684;&#x91CA;&#x653E;</font>&#xFF0C;&#x901A;&#x77E5;client&#x53EF;&#x4EE5; &#x91CD;&#x65B0;&#x83B7;&#x53D6;&#x4F7F;&#x7528;&#x6743;&#xFF08;&#x4F7F;&#x7528;&#x6216;&#x8005;&#x9500;&#x6BC1;&#xFF09;&#xFF1A;</p>
-<p>  &#x200B;                                         </p>
+<p>   &#x56DE;&#x8C03;&#x65F6;&#x673A;&#xFF1A; </p>
+<pre class="language-"><code class="lang-java">  <span class="token function">weston_buffer_reference</span><span class="token punctuation">(</span>
+      <span class="token function">wl_buffer_send_release</span><span class="token punctuation">(</span>struct wl_resource <span class="token operator">*</span>resource_<span class="token punctuation">)</span> <span class="token comment">// server&#x4FA7;&#x7EF4;&#x62A4;&#x7684;old_ref.buffer-&gt;busy_count == 0</span>
+
+
+  <span class="token comment">// &#x8C03;&#x7528;&#x70B9;&#x5F88;&#x591A;&#xFF1A;</span>
+</code></pre>
 </blockquote>
 <p>&#x4E24;&#x4E2A;&#x534F;&#x8BAE;&#x4E4B;&#x95F4;&#xFF0C;&#x5565;&#x5173;&#x7CFB;&#xFF1F;</p>
 <h3 id="c&#x4FA7;&#x7684;&#x5E27;&#x7387;&#x7EDF;&#x8BA1;&#xFF08;&#x9A71;&#x52A8;&#x529B;&#x7684;&#x5E27;&#x7387;&#xFF09;"><a name="c&#x4FA7;&#x7684;&#x5E27;&#x7387;&#x7EDF;&#x8BA1;&#xFF08;&#x9A71;&#x52A8;&#x529B;&#x7684;&#x5E27;&#x7387;&#xFF09;" class="anchor-navigation-ex-anchor" href="#c&#x4FA7;&#x7684;&#x5E27;&#x7387;&#x7EDF;&#x8BA1;&#xFF08;&#x9A71;&#x52A8;&#x529B;&#x7684;&#x5E27;&#x7387;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1.3. c&#x4FA7;&#x7684;&#x5E27;&#x7387;&#x7EDF;&#x8BA1;&#xFF08;&#x9A71;&#x52A8;&#x529B;&#x7684;&#x5E27;&#x7387;&#xFF09;</h3>
@@ -2973,7 +2983,7 @@ gl_renderer_attach_dmabuf  <span class="token comment">//&#x4F7F;&#x7528;dmabuf&
 <blockquote>
 <p>&#x79FB;&#x52A8;&#x5E73;&#x53F0;&#x4E0A;&#xFF0C;&#x6CA1;&#x6709;&#x4E13;&#x95E8;&#x7684;&#x663E;&#x5B58;   --------&#x300B;  &#x6240;&#x4EE5;&#xFF0C;GPU&#x5728;&#x79FB;&#x52A8;&#x5E73;&#x53F0;&#x4E0A;&#xFF0C;&#x4F7F;&#x7528;&#x7684;&#x7269;&#x7406;&#x5185;&#x5B58;&#x662F;CPU&#x5185;&#x5B58;&#x3002;<a href="https://blog.csdn.net/qqzhaojianbiao/article/details/129789575#:~:text=%E5%8E%BB%E5%88%9B%E5%BB%BAbuffer%E3%80%82-,%E5%9C%A8%E5%A4%A7%E5%A4%9A%E6%95%B0%E7%A7%BB%E5%8A%A8%E5%B9%B3%E5%8F%B0%E4%B8%8A%EF%BC%8C%E6%B2%A1%E6%9C%89%E4%B8%93%E9%97%A8%E7%9A%84%E6%98%BE%E5%AD%98,-%EF%BC%8C%E5%9B%A0%E6%AD%A4%E5%AE%83%E4%BB%AC%E6%9C%80%E7%BB%88" target="_blank">&#x6765;&#x81EA;</a></p>
 </blockquote>
-<p>SHM&#xFF08; &#x666E;&#x901A;&#x5171;&#x4EAB;&#x5185;&#x5B58;&#xFF09;</p>
+<p>SHM&#xFF08; &#x666E;&#x901A;&#x5171;&#x4EAB;&#x5185;&#x5B58;&#xFF09;-----------&#x4F8B;&#x5B50;simple-shm</p>
 <blockquote>
 <p>&#x5206;&#x914D;&#x8005;&#xFF1A; CPU malloc&#x5206;&#x914D;  -------&gt;  &#x81EA;&#x7136;&#xFF0C;CPU&#x8BA4;  ------&gt; &#x81EA;&#x7136;&#xFF0C;CPU&#x8F6F;&#x4EF6;&#x6E32;&#x67D3;</p>
 <p>&#x200B;                <strong>&#x4F8B;&#x5916;&#xFF1A;GPU&#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#xFF0C;&#x4F46;&#x662F;&#x8981;&#x505A;&#x4E00;&#x6B21;copy&#xFF0C;&#x8F6C;&#x5316;&#x4E3A;&#x8FDE;&#x7EED;&#x7684;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;</strong>  TODO</p>
@@ -2988,7 +2998,7 @@ gl_renderer_attach_dmabuf  <span class="token comment">//&#x4F7F;&#x7528;dmabuf&
 <p>&#xFF08;2&#xFF09;<strong>GPU&#x534A;&#x8BA4;&#x8BC6;</strong>&#xFF08;<del>&#x9700;&#x8981;&#x91CD;&#x65B0;copy&#x6210;&#x8FDE;&#x7EED;&#x5185;&#x5B58;</del>&#xFF09;</p>
 </blockquote>
 </blockquote>
-<p>DMA:</p>
+<p>DMA-----------&#x4F8B;&#x5B50;</p>
 <blockquote>
 <p><font color="red">DMA&#x4F20;fd&#xFF0C;0 copy&#xFF0C;&#x5168;&#x7A0B;GPU&#x7528;&#xFF08;&#x4ECE;client&#x5230;drm&#xFF09;&#xFF0C;CPU&#x6CA1;&#x6709;&#x7528;</font>&#xFF1B; </p>
 <p>SHM GPU&#x7528;&#x4E0D;&#x4E86;&#xFF0C;&#x6240;&#x4EE5;&#x6709;copy</p>
@@ -3024,7 +3034,7 @@ gl_renderer_attach_dmabuf  <span class="token comment">//&#x4F7F;&#x7528;dmabuf&
 <p>  server&#x4FA7;&#x5BF9; buffer&#x7684;&#x91CA;&#x653E;&#xFF1A;&#x534F;&#x8BAE;-----wl_buffer_listener</p>
 <p>  &#x200B;                         when&#xFF1A;</p>
 </blockquote>
-<h4 id="&#x4F8B;1---shm"><a name="&#x4F8B;1---shm" class="anchor-navigation-ex-anchor" href="#&#x4F8B;1---shm"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4F8B;1---shm:</h4>
+<h4 id="shmbuffer--&#x4F8B;---simple-shm"><a name="shmbuffer--&#x4F8B;---simple-shm" class="anchor-navigation-ex-anchor" href="#shmbuffer--&#x4F8B;---simple-shm"><i class="fa fa-link" aria-hidden="true"></i></a>shmbuffer  &#x4F8B;---simple-shm:</h4>
 <p> 1&#x3001;&#x7B2C;&#x4E00;&#x5E27;&#x4E4B;&#x524D;&#xFF0C;client&#x5206;&#x914D;buffer&#x3002; &#x4EE3;&#x7801;&#xFF1A;</p>
 <pre class="language-"><code class="lang-java"><span class="token comment">// simple-shm.c</span>
 
@@ -3080,7 +3090,13 @@ server <span class="token operator">--</span><span class="token operator">--</sp
         client<span class="token punctuation">.</span>buffer_release
             buffer<span class="token punctuation">.</span>busy <span class="token operator">=</span> <span class="token number">0</span>
 </code></pre>
-<h4 id="&#x4F8B;2----dmaegl"><a name="&#x4F8B;2----dmaegl" class="anchor-navigation-ex-anchor" href="#&#x4F8B;2----dmaegl"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4F8B;2----dma/egl</h4>
+<h4 id="dmabuffer-&#x4F8B;------simple-egl"><a name="dmabuffer-&#x4F8B;------simple-egl" class="anchor-navigation-ex-anchor" href="#dmabuffer-&#x4F8B;------simple-egl"><i class="fa fa-link" aria-hidden="true"></i></a>dma_buffer &#x4F8B;------simple-egl</h4>
+<p>&#x5B9E;&#x9A8C;&#x7684;&#x7ED3;&#x8BBA;&#xFF1A;</p>
+<blockquote>
+<p>  &#x865A;&#x62DF;&#x673A;&#x4E0A;simple-egl&#x8FD9;&#x91CC;&#x9001;&#x8FC7;&#x6765;&#x7684;buffer&#x662F;dmabuf</p>
+<p>  &#x771F;&#x5B9E;&#x677F;&#x5B50;&#x4E0A; simple-egl &#x9001;&#x8FC7;&#x6765;&#x7684;buffer&#x4E5F;&#x662F; dmabuf &#xFF01;&#xFF01;&#xFF01;&#xFF01;TODO: </p>
+</blockquote>
+<p>TODO:  &#x4E3A;&#x5565;&#x4E0D;&#x662F; WESTON_BUFFER_RENDERER_OPAQUE ???</p>
 <p>buffer&#x7684;&#x4F20;&#x9012;&#xFF1A;</p>
 <blockquote>
 <p>  &#x81EA;&#x7136;&#xFF0C;&#x4F20;fd&#xFF08;<del>&#x4E0D;&#x4F1A;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x7684;copy</del>&#xFF09;</p>
@@ -3101,6 +3117,7 @@ server <span class="token operator">--</span><span class="token operator">--</sp
                              output-&gt;format-&gt;format,
                              output-&gt;gbm_bo_flags);
         &#x3010;4&#x3011;&#x4ECE;gbm &#x521B;&#x5EFA;gbm_surface&#xFF08;&#x5C01;&#x88C5;&#x4E86;&#x6700;&#x7EC8;&#x7684;FrameBuffer&#xFF09;</p>
+<p>create_gbm_surface</p>
 <h3 id="gbmsurface--buffer"><a name="gbmsurface--buffer" class="anchor-navigation-ex-anchor" href="#gbmsurface--buffer"><i class="fa fa-link" aria-hidden="true"></i></a>3.3.4. gbm_surface  buffer</h3>
 <p>&#x95EE;&#x9898;&#xFF1A;&#x600E;&#x4E48;&#x7ED9;weston&#x4FA7;&#x7684;OpenGL&#x4F7F;&#x7528;&#x7684;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;</p>
 <p>drm_output_init_egl&#x4E2D;&#xFF0C;&#x521B;&#x5EFA;
@@ -3988,7 +4005,7 @@ gst<span class="token operator">-</span>launch<span class="token operator">-</sp
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"合成之weston","level":"1.2.4.5","depth":3,"next":{"title":"其他","level":"1.2.5","depth":2,"path":"0_图形系统/其他/README.md","ref":"0_图形系统/其他/README.md","articles":[{"title":"QT","level":"1.2.5.1","depth":3,"path":"0_图形系统/其他/QT.md","ref":"0_图形系统/其他/QT.md","articles":[]},{"title":"多屏显示分析","level":"1.2.5.2","depth":3,"path":"0_图形系统/其他/多屏显示分析.md","ref":"0_图形系统/其他/多屏显示分析.md","articles":[]}]},"previous":{"title":"合成之surfaceFlinger","level":"1.2.4.4","depth":3,"path":"0_图形系统/3_Display系统/合成之surfaceFlinger.md","ref":"0_图形系统/3_Display系统/合成之surfaceFlinger.md","articles":[]},"dir":"ltr"},"config":{"//":["这是多行注释：    anchor-navigation-ex 是","anchor-navigation-ex 是","click-reveal 本地使用ok，但是github在build pages时，不识别click-reveal","accordion 也是折叠代码段","anchor-navigation-ex 是"],"plugins":["anchor-navigation-ex","toggle-chapters","expandable-chapters-small","splitter","code","page-treeview","popup","-search","-lunr","sidebar-style","auto-scroll-table","click-reveal","accordion","pageview-count","search-pro","prism","prism-themes","-highlight"],"root":"./markdownsFiles","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"Kent","title":"《prove》"},"tbfed-pagefooter":{"copyright":"Copyright &copy ershouche-FE 2019","modify_label":"文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"page-treeview":{"collapsed":false,"copyright":"Copyright © aleen42","minHeaderCount":"1","minHeaderDeep":"1"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"disqus":{"shortName":"gitbookuse"},"splitter":{},"search-pro":{},"accordion":{},"auto-scroll-table":{},"popup":{},"lunr":{"maxIndexSize":400000},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"click-reveal":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"pageview-count":{},"prism-themes":{},"expandable-chapters-small":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"toggle-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"bookname":"笔记","variables":{},"title":"Kent的博客","gitbook":"*"},"file":{"path":"0_图形系统/3_Display系统/合成之weston.md","mtime":"2024-10-20T15:28:33.539Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-10-20T15:30:44.106Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"合成之weston","level":"1.2.4.5","depth":3,"next":{"title":"其他","level":"1.2.5","depth":2,"path":"0_图形系统/其他/README.md","ref":"0_图形系统/其他/README.md","articles":[{"title":"QT","level":"1.2.5.1","depth":3,"path":"0_图形系统/其他/QT.md","ref":"0_图形系统/其他/QT.md","articles":[]},{"title":"多屏显示分析","level":"1.2.5.2","depth":3,"path":"0_图形系统/其他/多屏显示分析.md","ref":"0_图形系统/其他/多屏显示分析.md","articles":[]}]},"previous":{"title":"合成之surfaceFlinger","level":"1.2.4.4","depth":3,"path":"0_图形系统/3_Display系统/合成之surfaceFlinger.md","ref":"0_图形系统/3_Display系统/合成之surfaceFlinger.md","articles":[]},"dir":"ltr"},"config":{"//":["这是多行注释：    anchor-navigation-ex 是","anchor-navigation-ex 是","click-reveal 本地使用ok，但是github在build pages时，不识别click-reveal","accordion 也是折叠代码段","anchor-navigation-ex 是"],"plugins":["anchor-navigation-ex","toggle-chapters","expandable-chapters-small","splitter","code","page-treeview","popup","-search","-lunr","sidebar-style","auto-scroll-table","click-reveal","accordion","pageview-count","search-pro","prism","prism-themes","-highlight"],"root":"./markdownsFiles","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"Kent","title":"《prove》"},"tbfed-pagefooter":{"copyright":"Copyright &copy ershouche-FE 2019","modify_label":"文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"page-treeview":{"collapsed":false,"copyright":"Copyright © aleen42","minHeaderCount":"1","minHeaderDeep":"1"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"disqus":{"shortName":"gitbookuse"},"splitter":{},"search-pro":{},"accordion":{},"auto-scroll-table":{},"popup":{},"lunr":{"maxIndexSize":400000},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"click-reveal":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"pageview-count":{},"prism-themes":{},"expandable-chapters-small":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"toggle-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"bookname":"笔记","variables":{},"title":"Kent的博客","gitbook":"*"},"file":{"path":"0_图形系统/3_Display系统/合成之weston.md","mtime":"2024-10-20T16:37:11.831Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-10-20T16:37:50.727Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

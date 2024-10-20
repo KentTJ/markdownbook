@@ -1804,7 +1804,7 @@ server ---->
 >
 >   真实板子上 simple-egl 送过来的buffer也是 dmabuf ！！！！TODO: 
 
-TODO:  为啥不是 WESTON_BUFFER_RENDERER_OPAQUE ???
+TODO:  为啥不是 WESTON_BUFFER_RENDERER_OPAQUE ???  ------>  <font color='red'>跟EGL的实现有关，申请的DMA</font>
 
 
 
@@ -1822,25 +1822,51 @@ buffer的传递：
 
 
 
+#### dma_buffer 例------simple-dmabuf-egl
+
+<img src="合成之weston.assets/image-20241021014700786.png" alt="image-20241021014700786" style="zoom:50%;" />
+
+该例子教会我们：
+
+1、**client申请了四个dmabuffer**
 
 
 
+```java
+// simple-dmabuf-egl.c
+create_window
+    for (i = 0; i < 4; ++i) { // 4个
+        buffer->bo = gbm_bo_create_with_modifiers2(display->gbm.device)
+```
+
+2、opengl如何使用四个buffer轮转：
+
+​      fence机制  TODO:  wait_for_buffer_release_fence
 
 ### 待整理
 
 Client buffer：
+
+```java
 类型 wl_buffer 
 向weston侧申请
 具体物理：GPU?????
+```
+
+
 
 FrameBuffer:
+
 类型 gbm_surface
+
+```java
 向GBM侧申请
 		output->gbm_surface = gbm_surface_create(gbm,
 							 mode->width, mode->height,
 							 output->format->format,
 							 output->gbm_bo_flags);
 		【4】从gbm 创建gbm_surface（封装了最终的FrameBuffer）
+```
 
 
 

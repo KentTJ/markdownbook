@@ -1387,9 +1387,11 @@ wl_callback_listener 协议：
 
 wl_buffer_listener  协议:       
 
->   表征 server侧对buffer 使用权的释放，通知client可以 重新获取使用权（使用或者销毁）
+>   表征 server侧对buffer 使用权的释放，通知client可以 重新获取使用权（使用或者销毁）：
+>
+>   ​                                         
 
-
+ 
 
 两个协议之间，啥关系？
 
@@ -2199,6 +2201,12 @@ epoll机制：
 > |     缺点     |       ~~自然~~       | 有一个事件耗时，会阻塞其他 |
 >
 > [参考：](https://cloud.tencent.com/developer/article/1445734#:~:text=%E6%96%87%E4%BB%B6fd%E4%B8%8A%E3%80%82-,%E8%BF%99%E7%A7%8D%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%BA%BF%E7%A8%8B%E7%9A%84binder%E4%B8%8D%E5%90%8C,-%EF%BC%8C%E6%98%AF%E4%B8%80%E7%A7%8D%E4%B8%B2)
+
+
+
+-**跨进程调用的通用套路：**
+
+>   消息，转化为 函数调用（<font color='red'>根本原因</font>：**消息可以 跨进程**）
 
 
 

@@ -361,6 +361,61 @@ https://zhuanlan.zhihu.com/p/690561669#:~:text=%E5%90%8C%E6%97%B6wayland%2Dscann
 
 
 
+## 协议之 代码跳转技巧
+
+### 技巧一：搜索 @ingroup iface
+
+原理：client的 侧.h 与 server侧.h   <font color='red'>相关接口 共  @ingroup iface</font>
+
+例1：client 侧 wl_callback_add_listener，server侧是如何回调的呢？
+
+>   ![image-20241020223743431](窗口管理之weston.assets/image-20241020223743431.png)
+>
+>   ```java
+>   // wayland-client-protocol.h
+>   /**
+>    * @ingroup iface_wl_callback
+>    * @struct wl_callback_listener
+>    */
+>   struct wl_callback_listener {
+>   	void (*done)(void *data,
+>   		     struct wl_callback *wl_callback,
+>   		     uint32_t callback_data);
+>   };
+>   
+>   /**
+>    * @ingroup iface_wl_callback
+>    */
+>   static inline int
+>   wl_callback_add_listener(struct wl_callback *wl_callback,
+>   			 const struct wl_callback_listener *listener, void *data)
+>   {
+>   	return wl_proxy_add_listener((struct wl_proxy *) wl_callback,
+>   				     (void (**)(void)) listener, data);
+>   }
+>   ```
+>
+>   
+>
+>   ```java
+>   // wayland-server-protocol.h
+>   
+>   /**
+>    * @ingroup iface_wl_callback
+>    */
+>   static inline void
+>   wl_callback_send_done(struct wl_resource *resource_, uint32_t callback_data)
+>   {
+>   	wl_resource_post_event(resource_, WL_CALLBACK_DONE, callback_data);
+>   }
+>   ```
+>
+>   结论： client 侧 wl_callback_add_listener  导致
+>
+>   ​             server侧 可以 wl_callback_send_done
+
+
+
 ## 参考
 
 TODO:    https://blog.csdn.net/jinzhuojun/article/details/40264449    Wayland中的跨进程过程调用浅析

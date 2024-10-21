@@ -1302,7 +1302,7 @@ https://blog.csdn.net/qqzhaojianbiao/article/details/129796828          Wayland�
 
 TODO:  安卓的buffer是共享内存嘛？
 
-### C的 wl_surface_commit 与  S的 wl_callback（~~wl_callback_listener~~）
+### C的 wl_surface_commit 与  S的 wl_callback协议（~~wl_callback_listener~~）
 
 TODO:  模型图
 
@@ -1417,7 +1417,7 @@ wl_callback_listener 协议：
 >
 >   
 
-wl_buffer_listener  协议:       
+### TODO: wl_buffer_listener  协议 与谁 pingpong？:       
 
 >   <font color='red'>表征 server侧对buffer 使用权的释放</font>，通知client可以 重新获取使用权（使用或者销毁）：
 >
@@ -1429,14 +1429,56 @@ wl_buffer_listener  协议:
 >       
 >   
 >   // 调用点很多：
->       
+>   
 >   ```
 >
 >   
 
  
 
-两个协议之间，啥关系？
+TODO:
+
+```java
+surface_commit
+	weston_surface_commit
+		weston_surface_commit_state
+			weston_surface_attach
+				gl_renderer_attach //surface 绑定新的buffer
+					weston_buffer_reference // 占有新buffer的使用权
+						wl_buffer_send_release(old_ref.buffer->resource) // release老的buffer，让渡给client
+				or：软件pixman_renderer_attach
+				
+与surface_attach 什么关系？
+```
+
+
+
+### 两个协议之间，啥关系？ 关联是啥？差异又是啥？为啥要有两个？
+
+
+
+
+
+### wl_surface.commit 与 zwp_linux_buffer_release_v1_listener  ----------release buffer with fence
+
+<font color='red'>1、同wl_buffer_listener  ， ~~也是表征 server侧对buffer 使用权的释放~~</font>，
+
+2、不同点：**通过fence机制（仅限于dma_buf）**
+
+```java
+struct zwp_linux_buffer_release_v1_listener {
+	void (*fenced_release)(void *data,          // release buffer with fence
+			       struct zwp_linux_buffer_release_v1 *zwp_linux_buffer_release_v1,
+			       int32_t fence);
+
+	void (*immediate_release)(void *data,
+				  struct zwp_linux_buffer_release_v1 *zwp_linux_buffer_release_v1);
+};
+```
+
+
+
+
 
 
 
@@ -1842,6 +1884,8 @@ create_window
 2、opengl如何使用四个buffer轮转：
 
 ​      fence机制  TODO:  wait_for_buffer_release_fence
+
+
 
 ### 待整理
 

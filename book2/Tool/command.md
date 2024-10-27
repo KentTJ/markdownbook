@@ -1262,6 +1262,66 @@ sudo nmcli device wifi hotspot
 >       -ex "source /tmp/gdb_dirs.txt"
 >   ```
 
+## history命令
+
+### 弱同步配置（~~不同终端之间~~）
+
+弱同步：~~只同步文件，不同步内存~~
+
+结构：
+
+> history命令  -----> 内存里的
+> ~/.bash_history -----> 文件中
+
+现状：
+
+> 内存里的命令 ---》 文件里，时机：bash退出时
+>
+> who：bash做的事情
+
+优化写入时机：实时写入文件（对内存里没影响！！！！！！）
+
+~~操作：~~
+
+```java
+vim ~/.bashrc  
+#add by chen               
+shopt -s histappend        
+PROMPT_COMMAND="history -a"
+```
+
+
+
+
+
+参考：
+
+https://www.cnblogs.com/yaok430/p/17431125.html   
+
+### 优的配置
+
+增大命令记录的个数：
+
+```java
+vim ~/.bashrc  
+
+#add by chen
+export HISTSIZE=3000         # 设置内存中的 history 命令的个数，1000默认值
+export HISTFILESIZE=3000     # 设置文件中的 history 命令的个数
+```
+
+其他：
+
+```java
+#add by chen
+export HISTCONTROL=erasedups    # 清除整个命令历史中的重复条目！！！！
+export HISTCONTROL=ignoredups   # 忽略记录命令历史中连续重复的命令
+export HISTCONTROL=ignorespace  # 忽略记录空格开始的命令！！！！！！！
+export HISTCONTROL=ignoreboth   # 等价于ignoredups和ignorespace
+```
+
+
+
 
 
 ## TODO: 补充tty

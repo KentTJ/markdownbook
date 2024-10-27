@@ -1732,6 +1732,29 @@ https://blog.csdn.net/zhangye3017/article/details/80382496#:~:text=线程ID-,查
 
 
 
+
+
+## 技巧：全局监控改变（优：监控地址，不监控变量）
+
+目的：监控某个变量/地址值谁改变的，<font color='red'>并在改变的时候暂停住</font>
+
+因为**变量是有作用域的：**
+
+> Watchpoint 2 deleted because the program has left the block in   which its expression is valid.
+
+**地址是全局的：**
+
+```java
+(gdb) p &output->repaint_needed
+$1 = (_Bool *) 0x55838a0e20    
+
+watch *(_Bool *)0x55838a0e20
+```
+
+
+
+
+
 ## **gdb调试异常**
 
 ---->  适用于，**程序直接挂了**

@@ -1766,6 +1766,9 @@ bool GLUtils_saveRender(int w, int h) {
     glPixelStorei(GL_PACK_REVERSE_ROW_ORDER_ANGLE, GL_TRUE);
     //glReadPixels(0, 0, w, h, GL_RGBA, GL_UNSIGNED_BYTE, outputValues_debug);
     glReadPixels(0, 0, w, h, 32993, GL_UNSIGNED_BYTE, outputValues_debug); // GL_UNSIGNED_BYTE = 5121
+	//  32993  是  GL_BGRA_EXT
+
+
 
     // 调用保存图像的函数
     //bool result = savePicture(w, h, outputValues_debug);
@@ -1814,11 +1817,17 @@ bool GLUtils_saveRender(int w, int h) {
 	// 	     fmt->gl_format, fmt->gl_type, read_target);
 ```
 
-------------------> 使用：
+------------------>使用方法：
 
 ```java
+// 切换要读取的buffer
+glBindFramebuffer(GL_FRAMEBUFFER, go->damage_filter_debug.composition_fbo.fbo);
+glViewport(0, 0, go->area.width, go->area.height);
+
+w_debug = go->area.width;
+h_debug =  go->area.height;
 // 任意一个想要获取 GPU缓冲区图像的位置 加入：
-GLUtils_saveRender(w_debug, h_debug)
+GLUtils_saveRender(w_debug, h_debug);
 ```
 
 

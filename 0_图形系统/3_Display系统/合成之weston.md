@@ -2781,7 +2781,22 @@ plane_list ----  系统级   （所有屏幕的） ---> <font color='red'>分配
 
 drm_assign_planes(weston_output)  --------------屏幕级别
 
-output----->paint_node_z_order_list   ------->  **outPut级别**
+output->paint_node_z_order_list  -------><font color='red'> 这个是系统级别，使用时，要过滤！！！！</font>
+
+```
+wl_list_for_each(pnode, &output->paint_node_z_order_list, // from top to bottom
+             z_order_link) {
+
+    /* If this view doesn't in our output at all, there's no
+     * reason to do anything with it. */
+    if (!(pnode->view->output_mask & (1u << output->id))) {
+        continue;
+    }
+```
+
+
+
+
 
 drm_device ------> 即屏幕的软件抽象
 

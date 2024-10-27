@@ -186,6 +186,18 @@ md %subPath%
 xcopy  %sourcePathRoot%\%subPath%    %subPath%  /s/y/h
 ```
 
+# 技巧之  禁止使用cmd
+
+目的：<font color='red'>追求one</font>
+
+
+
+方法一：直接使用编译服务器（物理机）连 手机
+
+方法二： **使用win中的虚拟机linux连 手机**
+
+​                 需要编译服务器的编译结果（远程ssh挂载 编译服务器磁盘到  虚拟机）
+
 
 
 # linux

@@ -1461,7 +1461,7 @@ surface_commit
 
 ### wl_surface.commit 与 zwp_linux_buffer_release_v1_listener  ----------release buffer with fence
 
-<font color='red'>1、同wl_buffer_listener  ， ~~也是表征 server侧对buffer 使用权的释放~~</font>，
+-<font color='red'>1、同wl_buffer_listener  ， ~~也是表征 server侧对buffer 使用权的释放~~</font>，
 
 2、不同点：**通过fence机制（仅限于dma_buf）**
 
@@ -1475,10 +1475,6 @@ struct zwp_linux_buffer_release_v1_listener {
 				  struct zwp_linux_buffer_release_v1 *zwp_linux_buffer_release_v1);
 };
 ```
-
-
-
-
 
 
 

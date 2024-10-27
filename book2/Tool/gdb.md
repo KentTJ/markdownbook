@@ -126,17 +126,78 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0")
 
 
 
-### meson.build  编译
+
+
+### meson编译
+
+方法（已经验证OK）:  
 
 ```java
-W:\workingspace\frameworks\window\windowmanager\weston\meson.build
+// 以mesa为例， meson.build
 
+project(
+  'mesa',
+  ['c', 'cpp'],
+  version : run_command(
+    [find_program('python3', 'python'), 'bin/meson_get_version.py',
+     meson.version().version_compare('>= 0.56') ? meson.project_source_root() : meson.source_root()],
+    check : true
+  ).stdout(),
+   
+  ....................
 
-add_project_arguments(global_args, language: 'c')
-#add by cg
-add_global_arguments('-O0', language: 'c')
-add_global_arguments('-g', language: 'c')
+  default_options : ['buildtype=debug', 'b_ndebug=if-release', 'c_std=c11', 'cpp_std=c++17', 'rust_std=2021']
+)
+    
+
+// 修改buildtype 为 debug
+// 可选：  --buildtype {plain,debug,debugoptimized,release,minsize,custom}  
 ```
+
+参考：[【Meson】Meson 构建系统](https://blog.csdn.net/qq_43298381/article/details/141934717)
+
+
+
+
+
+### yocto编译系统下，编译优化配置 -O0 与-O2 
+
+**现有结论：**
+
+> 1、~~一般情况下，研发阶段，编译都是配置的O2~~
+>
+> 2、yocto的编译：（1）bb编译 -----> 调用各个仓的编译（cmake、meson等）
+>
+> ​                             （2）一个重要的点是，**bb的编译配置会 override  各个仓的配置（cmake or meson）**
+
+所以，meson.build中添加的-O2/O0是无效的
+
+**观察成功与否的标准：**
+
+```java
+ build work 目录下，/temp/log.do_compile里搜索 -O0
+ 
+例如：native= -g -O0 -fPIC gl-renderer.so.p
+-----------> 给出了每个so的编译指令
+```
+
+**bb编译下，O0的配置：**
+
+```java
+CFLAGS += "-g -O0"  // 这里添加
+
+    
+
+LDFLAGS += ..........
+```
+
+
+
+补充：
+
+
+
+
 
 
 

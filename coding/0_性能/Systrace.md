@@ -974,6 +974,8 @@ atrace.out  转   perfetto显示
 
 # 实操（验证ok）-----trace工具编译
 
+## trace工具编译
+
 **下载源码：**
 
 ```java
@@ -998,6 +1000,16 @@ TODO:
 out/linux/tracebox -o trace_file.perfetto-trace --txt -c test/configs/scheduling.cfg
 out/linux/tracebox -o trace_file.perfetto-trace --txt -c test/configs/android_log.cfg
 ```
+
+## 源码中，如何集成trace？
+
+----------------本质就是：按照Google的原则，写 内核节点！！！！
+
+代码例子：
+
+见《mesa代码》
+
+
 
 # 源码分析
 

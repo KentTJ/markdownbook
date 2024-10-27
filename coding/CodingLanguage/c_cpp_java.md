@@ -48,6 +48,57 @@ c： char ** wordDict_c, int wordDictSize   ------>多重指针，指针的指�
 
 （2）<font color='red'>c表达字符串数组时：指针数组<-------> 多重指针 </font>
 
+## 字符串的数组（c指针数组）以及二级指针的理解
+
+**锚点/化简：**关于指针：
+
+```java
+// 【char *  当做int来理解，没有本质区别!!!：】
+1、使用上没有区别，把char * 当做int来理解 -------- 字符串与int没区别
+2、关于二级指针，char **  即是 int * 
+```
+
+~~自然：~~
+
+> ~~获取一级指针使用二级指针承载。获取0级（值）用一级承载~~
+>
+> 例：
+>
+> ```java
+> // 通过函数出参获取int值
+> get_target_plane(int *target_screen) {
+>  *target_screen = 1；
+> }
+> 
+> int target_screen = NULL;
+> get_target_plane(&target_screen)
+> ```
+>
+> <font color='red'>数学上的等价替换：int 与 char \*  </font>
+>
+> ```java
+> // 通过函数出参获取char * 值： 
+> get_target_plane(char * *target_screen) {  // --------> 这里便是二级指针
+>  *target_screen = 1；
+> }
+> 
+> char * target_screen = NULL;
+> get_target_plane(&target_screen)
+> ```
+
+扩展：<font color='red'>1、 二级指针的理解： 与一级可以等价替换</font>
+
+​           <font color='red'>2、与数学上的导数，是一个模型</font>
+
+```
+如果不理解 类型**
+-----------》令 类型** = 
+             则 类型*  = & (类型2 *)
+替换所有的 类型** 和 
+```
+
+
+
 
 
 ## memset、memcmp、strcmp比较
@@ -203,6 +254,55 @@ if (blurNode) {
 	// 没进入
 }
 ```
+
+
+
+
+
+## c语言的动态链接 
+
+好处：用时决定加不加载（做到解耦，用不到就不加载）
+
+形式：**两个so（意味着不能直接调用）**。   
+
+例子：
+
+> compositor.c 中 无法直接调用 gl_renderer.c中的函数（**两个so**）
+>
+> ```java
+> // compositor.c 中
+> const struct gl_renderer_interface *gl_renderer;
+> gl_renderer = weston_load_module("gl-renderer.so",
+>               "gl_renderer_interface",
+>               LIBWESTON_MODULEDIR);
+> ```
+>
+> gl-renderer.c:
+>
+> ```java
+> // gl-renderer.c
+> WL_EXPORT struct gl_renderer_interface gl_renderer_interface = {
+> 	.display_create = gl_renderer_display_create,
+> 	.output_window_create = gl_renderer_output_window_create,
+> 	.output_pbuffer_create = gl_renderer_output_pbuffer_create,
+> 	.output_destroy = gl_renderer_output_destroy,
+> 	.output_set_border = gl_renderer_output_set_border,
+> 	.create_fence_fd = gl_renderer_create_fence_fd,
+> };
+> ```
+>
+> 
+
+
+
+推论：
+
+> compositor.c里引入 gl-renderer.h，运行时不一定调用了里面的函数！！！！！！！
+>
+> ```
+> // compositor.c
+> #include "gl-renderer.h"
+> ```
 
 
 

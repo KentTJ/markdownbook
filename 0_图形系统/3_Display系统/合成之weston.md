@@ -2791,7 +2791,7 @@ wl_list_for_each(pnode, &output->paint_node_z_order_list, // from top to bottom
      * reason to do anything with it. */
     if (!(pnode->view->output_mask & (1u << output->id))) {
         continue;
-    }
+}
 ```
 
 

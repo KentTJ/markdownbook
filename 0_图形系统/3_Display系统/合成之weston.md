@@ -1999,6 +1999,16 @@ https://blog.csdn.net/hexiaolong2009/category_10838100.html    dma-buf  专题
 
 
 
+## buffer之fence
+
+-<font color='red'>fence 主要用于dma_buffer</font>（shm主要是buffer_release来释放）----------->**必然性在哪里？**
+
+>   shm的使用：    client ---(shm)--->weston ------(dma_buffer,primary)-----> display
+>
+>    dma的使用：  client ---(dma1)--->weston ------(dma1)-----> display
+>
+>   
+
 
 
 

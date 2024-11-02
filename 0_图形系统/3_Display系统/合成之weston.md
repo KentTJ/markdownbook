@@ -2003,7 +2003,17 @@ https://blog.csdn.net/hexiaolong2009/category_10838100.html    dma-buf  专题
 
 认识fence：
 
->   1、从<font color='red'>同步模型</font>的角度：解决异步的方式（与java的）
+>   1、从<font color='red'>同步模型</font>的角度：解决异步的方式（与java的wait/notify、C++中条件变量的wait/signal的语义是一样的）
+>
+>   ​                                        **不同的是**：
+>
+>   >   ​														fence跨空间（指进程与进程之间、内核与用户空间之间）跨设备（两个设备的驱动之间或者驱动与进程之间，实际上就是指<font color='red'>CPU与GPU之间</font>）
+>   >
+>   >   ​                                                         java的wait/notify  只是跨线程
+>
+>   ​                                                          
+>
+>   ​                                                 
 >
 >   2、从buffer的角度：<font color='red'>表征dma_buffer的使用</font>权
 >
@@ -2021,9 +2031,13 @@ where ----------fence实现在内核中 TODO
 
 
 
+### 扩展
 
+同步：可能是线程之间同步、进程之间同步、设备之间同步、两个操作系统的同步
 
-参考： 
+ “两个&独立”  ------> 自然需要同步
+
+### 参考： 
 
 https://www.51cto.com/article/717713.html   深入理解Android图形系统
 

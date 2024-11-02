@@ -307,7 +307,7 @@ public abstract class InputMethodManagerInternal {
 ## 最小化原则  之 传参：
 
 ```java
-prepareblur(struct weston_output *output, struct weston_blurFilter* blurFilter)
+prepare(struct weston_output *output, struct blurFilter* blurFilter)
 {
 		struct gl_output_state *go = get_output_state(output); // 没有用到output里其他 参数，直接用传  gl_output_state *go
 ```
@@ -333,6 +333,30 @@ prepareblur(struct weston_output *output, struct weston_blurFilter* blurFilter)
 
 
 修改代码之 <font color='red'>纯数学等价替换</font>-----------与业务无关
+
+
+
+## cpp代码与C代码的转换：
+
+```java
+// cpp 
+BlurFilter::prepare()
+```
+
+
+
+```java
+// C
+prepare(BlurFilter blurFilter)
+```
+
+
+
+
+
+## 注意事项
+
+完成功能后，注意 所有的销毁逻辑！！！！！（没有被 功能测试 测到！！！）
 
 
 

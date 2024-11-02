@@ -2001,7 +2001,15 @@ https://blog.csdn.net/hexiaolong2009/category_10838100.html    dma-buf  专题
 
 ## buffer之fence
 
--<font color='red'>fence 主要用于dma_buffer</font>（shm主要是buffer_release来释放）----------->**必然性在哪里？**
+认识fence：
+
+>   1、从<font color='red'>同步模型</font>的角度：解决异步的方式（与java的）
+>
+>   2、从buffer的角度：<font color='red'>表征dma_buffer的使用</font>权
+>
+>   3、
+
+-who---------<font color='red'>fence 主要用于dma_buffer</font>（shm主要是buffer_release来释放）-----------> [参考](https://www.51cto.com/article/717713.html#:~:text=%E5%AE%9E%E7%8E%B0%E4%BA%86Fence%EF%BC%8C-,%E5%AE%83%E4%B8%BB%E8%A6%81%E6%98%AF%E7%BB%99DMA%2DBUF%E7%94%A8%E7%9A%84,-%EF%BC%8C%E6%89%80%E4%BB%A5%E5%AE%83%E4%B9%9F%E6%98%AF)
 
 >   shm的使用：    client ---(shm)--->weston ------(dma_buffer,primary)-----> display
 >
@@ -2009,7 +2017,17 @@ https://blog.csdn.net/hexiaolong2009/category_10838100.html    dma-buf  专题
 >
 >   
 
+where ----------fence实现在内核中 TODO
 
+
+
+
+
+参考： 
+
+https://www.51cto.com/article/717713.html   深入理解Android图形系统
+
+[深入理解 Linux  OS](https://zhuanlan.zhihu.com/p/543222402#:~:text=%E8%B7%A8%E8%AE%BE%E5%A4%87%E6%8C%87%E7%9A%84%E6%98%AF%E4%B8%A4%E4%B8%AA%E8%AE%BE%E5%A4%87%E7%9A%84%E9%A9%B1%E5%8A%A8%E4%B9%8B%E9%97%B4%E6%88%96%E8%80%85%E9%A9%B1%E5%8A%A8%E4%B8%8E%E8%BF%9B%E7%A8%8B)
 
 
 

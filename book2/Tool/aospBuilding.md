@@ -1179,7 +1179,11 @@ mm compiles all modules in a directory, you are missing a dependency of one of t
 
 
 
+###  external/grpc-grpc-java/protobuf-lite/Android.bp:26:1 <-- previous definition here
 
+办法：文件夹bin/删了
+
+参考： https://blog.csdn.net/chan_fan/article/details/125408477
 
 
 

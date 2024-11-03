@@ -2001,7 +2001,7 @@ https://blog.csdn.net/hexiaolong2009/category_10838100.html    dma-buf  专题
 
 ## buffer之fence
 
-认识fence：
+初步认识fence：
 
 >   1、从<font color='red'>同步模型</font>的角度：解决异步的方式（与java的wait/notify、C++中条件变量的wait/signal的语义是一样的）
 >
@@ -2011,15 +2011,17 @@ https://blog.csdn.net/hexiaolong2009/category_10838100.html    dma-buf  专题
 >   >
 >   >   ​                                                         java的wait/notify  只是跨线程
 >
->   ​                                                          
->
->   ​                                                 
+>   ​                                       
 >
 >   2、从buffer的角度：<font color='red'>表征dma_buffer的使用</font>权
 >
->   3、
+>   3、从实现角度：**就是信号量**
 
--who---------<font color='red'>fence 主要用于dma_buffer</font>（shm主要是buffer_release来释放）-----------> [参考](https://www.51cto.com/article/717713.html#:~:text=%E5%AE%9E%E7%8E%B0%E4%BA%86Fence%EF%BC%8C-,%E5%AE%83%E4%B8%BB%E8%A6%81%E6%98%AF%E7%BB%99DMA%2DBUF%E7%94%A8%E7%9A%84,-%EF%BC%8C%E6%89%80%E4%BB%A5%E5%AE%83%E4%B9%9F%E6%98%AF)
+
+
+
+
+-who---------<font color='red'>fence 主要用于dma_buffer</font>（shm主要是buffer_release来释放）-----------> [参考](https://www.51cto.com/article/717713.html#:~:text=%E5%AE%9E%E7%8E%B0%E4%BA%86Fence%EF%BC%8C-,%E5%AE%83%E4%B8%BB%E8%A6%81%E6%98%AF%E7%BB%99DMA%2DBUF%E7%94%A8%E7%9A%84,-%EF%BC%8C%E6%89%80%E4%BB%A5%E5%AE%83%E4%B9%9F%E6%98%AF)     这也是fence跨空间跨设备的根源（因**为dma_buffer是跨空间跨设备的**）
 
 >   shm的使用：    client ---(shm)--->weston ------(dma_buffer,primary)-----> display
 >
@@ -2027,9 +2029,19 @@ https://blog.csdn.net/hexiaolong2009/category_10838100.html    dma-buf  专题
 >
 >   
 
-where ----------fence实现在内核中 TODO
+where1 ----------fence实现在内核中 TODO 
 
+where2  -----------应用
 
+>   ![图片](合成之weston.assets/d561265866f66a9a4f3716b1b8d9e15d40788a.png)
+>
+>   
+>
+>   ![图片](合成之weston.assets/e1772417297e71c6fda324e6f6957ef6126781.png)
+
+how -------------fence的实现：
+
+![图片](合成之weston.assets/c3c180c976f55f3000561960504b6641155b9e.png)
 
 ### 扩展
 

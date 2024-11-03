@@ -1741,11 +1741,11 @@ C代码：
 
 ```java
 // 1、辅助函数
-static int32_t * outputValues_debug;
-static int32_t  w_debug = 1728;  // 待捞出的图片大小
-static int32_t  h_debug = 1888;
-static bool debug_pixel = true;
-static int32_t times = 2;
+int32_t * outputValues_debug;
+int32_t  w_debug = 1728;  // 待捞出的图片大小
+int32_t  h_debug = 1888;
+bool debug_pixel = true; // 注意，不是 static。。。。gdb debug时，作用域仅限于当前文件
+int32_t times = 2;
 bool GLUtils_saveRender(int w, int h) {
     if (w == 0 || h == 0) {
         return false;
@@ -2014,7 +2014,11 @@ weston12  -----------------    OpenGL ES 3.1 Mesa 23.0.4           **完美匹�
 
 代码下载：
 
+```java
+参考： https://blog.csdn.net/vviccc/article/details/126104486   Linux aarch64交叉编译之mesa图形库  ----> 与weston的交叉编译一样
 
+源码： https://gitlab.freedesktop.org/mesa/mesa/
+```
 
 依赖安装：
 
@@ -2024,6 +2028,8 @@ sudo apt install libclc-dev   pkg-config
 sudo apt install libdrm-intel1 libdrm-dev libxcb-glx0-dev libxcb-dri2-0-dev   libxshmfence-dev   
 sudo apt install libxcb-dri3-dev  libxcb-present-dev   llvm-dev  libxxf86vm-dev
 cargo install bindgen-cli  -----> 似乎不重要！！！？？？
+    
+ sudo apt install glslang-tools rustc
 ```
 
 切换到
@@ -2048,7 +2054,391 @@ cargo install bindgen-cli  -----> 似乎不重要！！！？？？
 
 
 
+
+
+## 代码结构
+
+```java
+├── bin # 一些python和shell脚本类工具
+│   └── pick # git cherry-pick相关的python脚本
+├── build-support
+├── docs # 文档
+│   ├── relnotes # release notes
+│   └── specs # Mesa相关的OpenGL扩展规范
+│       └── OLD
+├── doxygen
+├── include # 公用的OpenGL头文件
+│   ├── c11
+│   ├── CL
+│   ├── D3D9
+│   ├── d3dadapter
+│   ├── drm-uapi
+│   ├── EGL
+│   ├── GL
+│   │   └── internal
+│   ├── GLES
+│   ├── GLES2
+│   ├── GLES3
+│   ├── HaikuGL
+│   ├── KHR
+│   ├── pci_ids
+│   └── vulkan
+├── src
+│   ├── amd # AMD相关的源代码
+│   │   ├── addrlib # common sources for creating images, (calculate texture addresses ??)
+│   │   │   ├── inc
+│   │   │   └── src
+│   │   │       ├── chip
+│   │   │       │   ├── gfx10
+│   │   │       │   ├── gfx9
+│   │   │       │   └── r800
+│   │   │       ├── core
+│   │   │       ├── gfx10
+│   │   │       ├── gfx9
+│   │   │       └── r800
+│   │   ├── common # common code between RADV, randeonsi and ACO
+│   │   ├── compiler # ACO shader compiler
+│   │   ├── llvm # common code between RADV and radeonsi for compiling shaders using LLVM
+│   │   ├── registers # register definitions
+│   │   └── vulkan # RADV Vulkan implementation for AMD Southern Island and newer
+│   │       └── winsys
+│   │           ├── amdgpu
+│   │           └── null
+│   ├── broadcom
+│   │   ├── cle
+│   │   ├── clif
+│   │   ├── common
+│   │   ├── compiler
+│   │   ├── drm-shim
+│   │   └── qpu
+│   ├── compiler # Common utility sources for different compilers
+│   │   ├── glsl # the GLSL IR and compiler
+│   │   │   └── glcpp
+│   │   ├── nir # the NIR IR and compiler
+│   │   └── spirv # the SPIR-V compiler
+│   ├── drm-shim
+│   ├── egl # EGL library sources
+│   │   ├── drivers # EGL drivers
+│   │   │   ├── dri2
+│   │   │   └── haiku
+│   │   ├── generate
+│   │   ├── main # main EGL library implementation. This is where all the EGL API functions are implemented, like eglCreateContext().
+│   │   └── wayland
+│   │       └── wayland-drm
+│   ├── etnaviv
+│   │   ├── drm
+│   │   └── drm-shim
+│   ├── freedreno # Qualcomm Adreno-specific sources(高通)
+│   │   ├── drm
+│   │   ├── drm-shim
+│   │   ├── fdl # mipmap layout manager
+│   │   ├── ir3
+│   │   ├── perfcntrs
+│   │   ├── registers
+│   │   └── vulkan # Turnip is a Vulkan implementation for Qualcomm Adreno
+│   ├── gallium # Galllium3D source code
+│   │   ├── auxiliary # Gallium suport code
+│   │   │   ├── cso_cache # Constant State Objects Cache. Used to filter out redundant state
+│   │   │   │             # changes between frontends and drivers.
+│   │   │   ├── draw # Software vertex processing and primitive assembly module.
+│   │   │   │        # This include vertex program execution, clipping, culling and optional
+│   │   │   │        # stages for drawing wide lines, stippled lines, polygon stippling, two-sided
+│   │   │   │        # lighting, etc. Intended for use by drivers for hardware that does not have
+│   │   │   │        # vertex shaders. Geometry shaders will also be implemented in this module. 
+│   │   │   │ 
+│   │   │   ├── driver_ddebug
+│   │   │   ├── driver_noop
+│   │   │   ├── driver_rbug # Gallium remote debug utility ???
+│   │   │   ├── driver_trace
+│   │   │   ├── gallivm # LLVM module for Gallium. For LLVM-based compilation, optimization and 
+│   │   │   │           # code generation for TGSI shaders. Incomplete.??
+│   │   │   │           
+│   │   │   ├── hud # Heads-Up Display, an overlay showing GPU statistics
+│   │   │   ├── indices
+│   │   │   ├── nir
+│   │   │   ├── os
+│   │   │   ├── pipebuffer # utility module for managing buffers
+│   │   │   ├── pipe-loader
+│   │   │   ├── postprocess
+│   │   │   ├── rbug
+│   │   │   ├── renderonly
+│   │   │   ├── rtasm # run-time assembly/machine code generation. Currently there's run-time code
+│   │   │   │         # generation for x86/SSE, PowerPC and Cell SPU.
+│   │   │   ├── target-helpers
+│   │   │   ├── tgsi # TG Shader Infrastructure. Code for encoding, manipulating and 
+│   │   │   │        # interpreting GPU programs.
+│   │   │   ├── translate # module for translating vertex data from one format to another
+│   │   │   ├── util # assorted utilities for arithmetic, hashing, surface creation, 
+│   │   │   │        # memory management, 2D blitting, simple rendering, etc.
+│   │   │   └── vl # utility code for video decode/encode
+│   │   ├── docs # 里面有个pipeline.txt需要仔细读一下
+│   │   │   └── source
+│   │   │       ├── cso
+│   │   │       ├── drivers
+│   │   │       │   ├── freedreno
+│   │   │       │   └── openswr
+│   │   │       └── exts
+│   │   ├── drivers # Gallium3D device drivers
+│   │   │   ├── etnaviv # Driver for Vivante.
+│   │   │   │   └── hw
+│   │   │   ├── freedreno # Driver for Qualcomm Adreno
+│   │   │   │   ├── a2xx
+│   │   │   │   ├── a3xx
+│   │   │   │   ├── a4xx
+│   │   │   │   ├── a5xx
+│   │   │   │   ├── a6xx
+│   │   │   │   └── ir3
+│   │   │   ├── i915 # Driver for Intel i915/i945.
+│   │   │   ├── iris # Driver for Intel gen 8 (Broadwell) and newer.
+│   │   │   ├── kmsro #
+│   │   │   ├── lima # Driver for ARM Mali-400 (Utgard) series.
+│   │   │   │   ├── ir
+│   │   │   │   │   ├── gp
+│   │   │   │   │   └── pp
+│   │   │   │   └── standalone
+│   │   │   ├── llvmpipe # Software driver using LLVM for runtime code generation.
+│   │   │   ├── nouveau # Driver for NVIDIA GPUs.
+│   │   │   │   ├── codegen
+│   │   │   │   │   └── lib
+│   │   │   │   ├── nv30
+│   │   │   │   ├── nv50
+│   │   │   │   └── nvc0
+│   │   │   │       └── mme
+│   │   │   ├── panfrost # Driver for ARM Mali Txxx (Midgard) and Gxx (Bifrost) GPUs.
+│   │   │   │   └── nir
+│   │   │   ├── r300 # Driver for ATI R300 - R500.
+│   │   │   │   └── compiler
+│   │   │   ├── r600 # Driver for ATI/AMD R600 - Northern Island (Terascale).
+│   │   │   │   └── sb
+│   │   │   ├── radeon # Shared module for the r600 and radeonsi drivers.
+│   │   │   ├── radeonsi # Driver for AMD Southern Island and newer (GCN, RDNA).
+│   │   │   ├── softpipe # Software reference driver.
+│   │   │   ├── svga #  Driver for VMware’s SVGA virtual GPU.
+│   │   │   │   ├── include
+│   │   │   │   └── svgadump
+│   │   │   ├── swr # Software driver with massively parellel vertex processing.
+│   │   │   │   └── rasterizer
+│   │   │   │       ├── archrast
+│   │   │   │       ├── codegen
+│   │   │   │       │   └── templates
+│   │   │   │       ├── common
+│   │   │   │       ├── core
+│   │   │   │       │   └── backends
+│   │   │   │       ├── jitter
+│   │   │   │       │   ├── functionpasses
+│   │   │   │       │   └── shader_lib
+│   │   │   │       └── memory
+│   │   │   ├── tegra # Driver for NVIDIA Tegra GPUs.
+│   │   │   ├── v3d # Driver for Broadcom VideoCore 5 and newer.
+│   │   │   ├── vc4 # Driver for Broadcom VideoCore 4.
+│   │   │   │   └── kernel
+│   │   │   ├── virgl # Driver for Virtio virtual GPU of QEMU.
+│   │   │   └── zink # Driver that uses Vulkan for rendering.
+│   │   │       └── nir_to_spirv
+│   │   ├── include # Gallium3D header files which define the Gallium3D interfaces
+│   │   │   ├── pipe
+│   │   │   └── state_tracker
+│   │   ├── state_trackers # fontends?  These implement various libraries using the device drivers
+│   │   │   ├── clover # OpenCL frontend
+│   │   │   │   ├── api
+│   │   │   │   ├── core
+│   │   │   │   ├── llvm
+│   │   │   │   │   └── codegen
+│   │   │   │   ├── nir
+│   │   │   │   ├── spirv
+│   │   │   │   └── util
+│   │   │   ├── dri # Meta frontend for DRI drivers, see mesa/state_tracker
+│   │   │   ├── glx # Meta frontend for GLX
+│   │   │   │   └── xlib
+│   │   │   ├── hgl # Haiku OpenGL
+│   │   │   ├── nine # D3D9 frontend, see targets/d3dadapter9
+│   │   │   ├── omx # OpenMAX Bellagio frontend
+│   │   │   │   ├── bellagio
+│   │   │   │   └── tizonia
+│   │   │   ├── osmesa # Off-screen OpenGL rendering library
+│   │   │   ├── va # VA-API frontend
+│   │   │   ├── vdpau # VDPAU frontend
+│   │   │   ├── wgl # Windows WGL frontend
+│   │   │   ├── xa # XA frontend
+│   │   │   └── xvmc # XvMC frontend
+│   │   ├── targets # These control how the Gallium code is compiled into different libraries.
+│   │   │   │       # Each of these roughly corresponds to one frontend.  
+│   │   │   ├── d3dadapter9 # d3dadapter9.so for Wine
+│   │   │   ├── dri # libgallium_dri.so loaded by libGL.so
+│   │   │   ├── graw-gdi # 'graw' means ' raw Gallium interface without a frontend'
+│   │   │   ├── graw-null
+│   │   │   ├── graw-xlib
+│   │   │   ├── haiku-softpipe
+│   │   │   ├── libgl-gdi
+│   │   │   ├── libgl-xlib
+│   │   │   ├── omx
+│   │   │   ├── opencl
+│   │   │   ├── osmesa
+│   │   │   ├── pipe-loader
+│   │   │   ├── va
+│   │   │   ├── vdpau
+│   │   │   ├── xa
+│   │   │   └── xvmc
+│   │   ├── tools
+│   │   │   └── trace
+│   │   └── winsys # The device drivers are platform-independent, the winsys connects them to 
+│   │       │      # various platforms. There is usually one winsys per device family, and within
+│   │       │      # the winsys directory there can be multiple flavors connecting to different
+│   │       │      # platforms
+│   │       ├── amdgpu
+│   │       │   └── drm
+│   │       ├── etnaviv
+│   │       │   └── drm
+│   │       ├── freedreno
+│   │       │   └── drm
+│   │       ├── i915
+│   │       │   └── drm
+│   │       ├── iris
+│   │       │   └── drm
+│   │       ├── kmsro
+│   │       │   └── drm
+│   │       ├── lima
+│   │       │   └── drm
+│   │       ├── nouveau
+│   │       │   └── drm
+│   │       ├── panfrost
+│   │       │   └── drm
+│   │       ├── radeon
+│   │       │   └── drm
+│   │       ├── svga
+│   │       │   └── drm
+│   │       ├── sw
+│   │       │   ├── dri
+│   │       │   ├── gdi # Windows
+│   │       │   ├── hgl
+│   │       │   ├── kms-dri
+│   │       │   ├── null
+│   │       │   ├── wrapper
+│   │       │   └── xlib # indirect rendering on X Window System
+│   │       ├── tegra
+│   │       │   └── drm
+│   │       ├── v3d
+│   │       │   └── drm
+│   │       ├── vc4
+│   │       │   └── drm
+│   │       └── virgl
+│   │           ├── common
+│   │           └── drm
+│   ├── gbm # Generic Buffer Manager is memory allocator for device
+│   │   ├── backends
+│   │   │   └── dri
+│   │   └── main
+│   ├── getopt
+│   ├── glx # The GLX library code for building libGL.so using DRI drivers.
+│   │   ├── apple
+│   │   └── windows
+│   ├── hgl
+│   ├── imgui
+│   ├── intel # Intel-specific source
+│   │   ├── blorp # BLit Or Resolve Pass is blit and HiZ resolve framework
+│   │   ├── common
+│   │   ├── compiler
+│   │   ├── dev
+│   │   ├── genxml
+│   │   ├── isl
+│   │   ├── perf
+│   │   ├── tools
+│   │   │   └── imgui
+│   │   └── vulkan # Anvil is a Vulkan implementation for Intel gen 7(Ivy Bridge) and newer
+│   ├── loader # Used by libGL.so to find and load the appropriate DRI driver.
+│   ├── mapi # Mesa APIs
+│   │   ├── es1api
+│   │   ├── es2api
+│   │   ├── glapi # OpenGL API dispatch layer. This is where all the GL entrypoints like glClear,
+│   │   │   │     # glBegin, etc. are generated, as well as the GL dispatch table. All GL function
+│   │   │   │     # calls jump through the dispatch table to functions found in main/.
+│   │   │   │ 
+│   │   │   ├── gen
+│   │   │   └──registry
+│   │   ├── new
+│   │   └── shared-glapi
+│   ├── mesa # Main Mesa sources
+│   │   ├── drivers # Mesa drivers(not used with Gallium)
+│   │   │   ├── common # code which may be shared by all drivers
+│   │   │   ├── dri # Direct Rendering Infrastructure drivers
+│   │   │   │   ├── common # code shared by all DRI drivers
+│   │   │   │   ├── i915 # driver for Intel i915/i945
+│   │   │   │   ├── i965 # driver for Intel i965
+│   │   │   │   ├── nouveau # driver for nVidia nv04/nv10/nv20
+│   │   │   │   ├── r200 # driver for ATI R100
+│   │   │   │   │   └── server
+│   │   │   │   ├── radeon # driver for ATI R200
+│   │   │   │   │   └── server
+│   │   │   │   └── swrast # software rasterizer driver the uses the swrast module
+│   │   │   ├── osmesa # off-screen software driver
+│   │   │   └── x11 # Xlib-based software driver
+│   │   ├── main # The core Mesa code(mainly state management)
+│   │   ├── math # vertex array translation and transformation code(not used with Gallium)
+│   │   ├── program # Vertex/fragment shader and GLSL compiler code
+│   │   ├── sparc # Assembly code/optimizations for SPARC systems(not used with Gallium)
+│   │   ├── state_tracker # Translator from Mesa to Gallium. This is basically a Mesa device
+│   │   │   			  # driver the speaks to Gallium. This directory may be moved to 	
+│   │   │                 # src/mesa/drivers/gallium at some point.
+│   │   ├── swrast # Software rasterization module. For drawing points, lines, triangles,
+│   │   │          # bitmaps, images, etc. in software. (not used with Gallium)
+│   │   ├── swrast_setup # Software primitive setup. Does things like polygon culling, 
+│   │   │                # glPolygonMode, polygon offset, etc. (not used with Gallium)
+│   │   ├── tnl # Software vertex Transformation and Lighting. (not used with Gallium)
+│   │   ├── tnl_dd # TNL code for device drivers. (not used with Gallium)
+│   │   ├── vbo # Vertex Buffer Object code. All drawing with glBegin/glEnd, glDrawArrays,
+│   │   │       # display lists, etc. goes through this module. The results is a well-defined
+│   │   │       # set of vertext arrays which are passed to the device driver (or tnl module)
+│   │   │       # for rendering.
+│   │   ├── x86 # Assembly code/optimizations for 32-bit x86 systems(not used with Gallium)
+│   │   │   └── rtasm
+│   │   └── x86-64 # Assembly code/optimizations for 64-bit x86 systems(not used with Gallium)
+│   ├── panfrost # Panfrost-specific sources(for ARM Mali Midgard and Bifrost GPUs).
+│   │   ├── bifrost # shader compiler for the Bifrost generation GPUs
+│   │   ├── encoder
+│   │   ├── include
+│   │   ├── midgard # shader compiler for the Midgard generations GPUs
+│   │   ├── pandecode
+│   │   └── shared # shared Mali code between Lima and Panfrost
+│   ├── util # Various utility codes
+│   │   ├── format
+│   │   ├── sha1
+│   │   └── xmlpool
+│   └── vulkan # Common code for Vulkan drivers
+│       ├── overlay-layer
+│       ├── registry
+│       ├── util
+│       └── wsi
+└── subprojects
+
+```
+
+
+
+参考
+
+>  https://blog.csdn.net/fengningning/article/details/111412243
+>
+>  https://docs.mesa3d.org/sourcetree.html#source-code-tree           官网给出的代码结构
+
+ 
+
+
+
+
+
+
+
+
+
+
+
 ## 参考
+
+https://docs.mesa3d.org/sourcetree.html#source-code-tree      官网的[Documentation](https://docs.mesa3d.org/index.html)
+
+https://www.mesa3d.org/
+
+
 
 https://winddoing.github.io/post/39ae47e2.html    mesa 框架与目录结构
 
@@ -2065,3 +2455,12 @@ https://crab2313.github.io/      [MESA源码分析：EGL](https://crab2313.githu
 >   [Mesa GL Dispatch分发分析与理解](https://blog.csdn.net/tkwxty/article/details/139272231)
 >
 >   
+
+https://gitlab.freedesktop.org/mesa   官网
+
+https://blog.csdn.net/leionway/article/details/102349382   mesa 源码分析
+
+
+
+https://blog.csdn.net/fengningning/category_10663771.html    mesa系列
+

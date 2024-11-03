@@ -1429,29 +1429,94 @@ wl_callback_listener 协议：
 >       
 >   
 >   // 调用点很多：
->   
 >   ```
->
 >   
+>
 
- 
-
-TODO:
+ wl_surface_commit 大纲：
 
 ```java
+├─ wl_surface_commit -----client侧
+└─ surface_commit
+    └─ weston_surface_commit
+        └─ weston_surface_commit_state
+            └─ weston_surface_attach
+                ├─ gl_renderer_attach // 1、surface绑定新的buffer 2、可见，任意buffer类型，都可以用GPU
+                │   ├─ gl_renderer_attach_shm  // shm格式,似乎是做了转化？
+                │   │   ├─ ARRAY_COPY(gb->gl_format, gl_format); // 即 memcpy 【shm存在内存copy！！！！！做转化！！TODO】
+                │   │   └─ ensure_textures
+                │   │       └─ for glGenTextures(1, &gb->textures[i]); // 【从buffer生成纹理】【重要节点：textures来源!!!!】
+                │   ├─ gl_renderer_attach_dmabuf
+                │   │   └─ for glBindTexture(target, gb->textures[i]); // 【从buffer生成纹理】
+                │   ├─ gl_renderer_attach_egl  //
+                │   │   ├─ gl_buffer_state *gb = buffer->renderer_private
+                │   │   ├─ glBindTexture(target, gb->textures[i]); // TODO: 直接从weston_buffer里拿到纹理-----> 【共享纹理】
+                │   │   └─ gr->image_target_texture_2d(target, gb->images[i]); // 【】texture 与 image的绑定
+                │   ├─ gl_renderer_attach_solid
+                │   ├─ .// 【以上获取texture。获取完，以下自然释放buffer？】
+                │   ├─ weston_buffer_reference // 占有新buffer的使用权
+                │   │   └─ wl_buffer_send_release(old_ref.buffer->resource) // release老的buffer，让渡给client
+                │   │       └─ ----------------client侧 buffer_release
+                │   ├─ weston_buffer_release_reference
+                │   │   └─ weston_buffer_release_destroy
+                │   │       └─ zwp_linux_buffer_release_v1_send_fenced_release // 【利用fence机制释放buffer】TODO: fence来源；与上面区别
+                │   │           └─ -------------client侧
+                │   └─ .
+                └─ or：软件pixman_renderer_attach
+
+```
+
+%accordion%hideContent%accordion%
+
+```java
+wl_surface_commit -----client侧
 surface_commit
 	weston_surface_commit
 		weston_surface_commit_state
 			weston_surface_attach
-				gl_renderer_attach //surface 绑定新的buffer
+				gl_renderer_attach // 1、surface绑定新的buffer 2、
+					gl_renderer_attach_shm  // shm格式,似乎是做了转化？
+						ARRAY_COPY(gb->gl_format, gl_format); // 即 memcpy 【shm存在内存copy！！！！！做转化！！TODO】
+						ensure_textures 
+							for glGenTextures(1, &gb->textures[i]); // 【从buffer生成纹理】【重要节点：textures来源!!!!】
+					gl_renderer_attach_dmabuf
+							for glBindTexture(target, gb->textures[i]); // 【从buffer生成纹理】
+					gl_renderer_attach_egl  //
+						gl_buffer_state *gb = buffer->renderer_private
+						glBindTexture(target, gb->textures[i]); // TODO: 直接从weston_buffer里拿到纹理-----> 【共享纹理】
+						gr->image_target_texture_2d(target, gb->images[i]); // 【】texture 与 image的绑定
+					gl_renderer_attach_solid
+					.// 【以上获取texture。获取完，以下自然释放buffer？】
 					weston_buffer_reference // 占有新buffer的使用权
 						wl_buffer_send_release(old_ref.buffer->resource) // release老的buffer，让渡给client
+							----------------client侧 buffer_release
+					weston_buffer_release_reference
+						weston_buffer_release_destroy
+							zwp_linux_buffer_release_v1_send_fenced_release // 【利用fence机制释放buffer】TODO: fence来源；与上面区别
+								-------------client侧
+					.
 				or：软件pixman_renderer_attach
-				
-与surface_attach 什么关系？
 ```
 
+%/accordion%
 
+
+
+总之，client侧的commit，server侧做的事情: 
+
+>   1、得到纹理数据
+>
+>   2、释放前一块buffer？
+
+TODO : fence
+
+
+
+
+
+TODO:
+
+>   与surface_attach 什么关系？
 
 ### 两个协议之间，啥关系？ 关联是啥？差异又是啥？为啥要有两个？
 
@@ -1558,16 +1623,6 @@ surface_attach  // 应用侧调用
 【weston_buffer_from_resource】
 1、是一个频繁调用函数！！！！！（第一次会填充buffer，后面都是直接返回）
 2、TODO: 虚拟机上simple-egl这里送过来的buffer是dmabuf。所以，可能是虚拟机的EGL做的！！！！！为了兼容 
-
-
-
-gl_renderer_attach // 【】 可见，GL啥buffer都能画！！！！！！
-    gl_renderer_attach_shm
-    gl_renderer_attach_dmabuf
-    gl_renderer_attach_egl
-        glBindTexture(target, gb->textures[i]);
-        gr->image_target_texture_2d(target, gb->images[i]); // 【】texture 与 image的绑定！！！！！！！！
-    gl_renderer_attach_solid
 ```
 
 TODO: 格式与buffer是两回事
@@ -1576,23 +1631,9 @@ TODO: 格式与buffer是两回事
 
 
 
-【重要节点：client的gb->textures来源】
 
-```java
-gl_renderer_attach
-	gl_renderer_attach_shm  // shm格式,似乎是做了转化？
-		ensure_textures 
-			for glGenTextures(1, &gb->textures[i]); // 【从buffer生成纹理】
-	gl_renderer_attach_egl  //
-		gl_buffer_state *gb = buffer->renderer_private
-		glBindTexture(target, gb->textures[i]); // TODO: 直接从weston_buffer里拿到纹理-----> 【共享纹理】
-```
 
-展开：
 
-[【从buffer生成纹理】](https://blog.csdn.net/u012839187/article/details/100580627#:~:text=compositor%E5%B0%86%E8%AF%A5buffer%E8%BD%AC%E4%B8%BA%E7%BA%B9%E7%90%86)
-
- [【共享纹理】](https://blog.csdn.net/u012839187/article/details/112415876#:~:text=%E7%9A%84%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95%EF%BC%89-,%E5%9C%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E5%90%88%E6%88%90%E5%99%A8%E4%B9%8B%E9%97%B4%E5%85%B1%E4%BA%AB%E7%BA%B9%E7%90%86,-%E3%80%82%E5%9C%A8%E6%9C%AC%E4%BE%8B)
 
 
 

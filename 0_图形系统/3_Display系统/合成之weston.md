@@ -2042,7 +2042,7 @@ https://blog.csdn.net/hexiaolong2009/category_10838100.html    dma-buf  专题
 
 ## buffer之fence
 
-初步认识fence：
+### 初步认识fence：
 
 >   1、从<font color='red'>同步模型</font>的角度：解决异步的方式（与java的wait/notify、C++中条件变量的wait/signal的语义是一样的）
 >
@@ -2083,6 +2083,20 @@ where2  -----------应用
 how -------------fence的实现：
 
 ![图片](合成之weston.assets/c3c180c976f55f3000561960504b6641155b9e.png)
+
+
+
+### fence的 创建------以simple-dmabuf-egl为例
+
+fence的 fd的创建：
+
+```java
+gl_renderer_create_fence_fd
+	fd = gr->dup_native_fence_fd(gr->egl_display, go->render_sync); 
+	// EGL的PFNEGLDUPNATIVEFENCEFDANDROIDPROC
+```
+
+
 
 ### 扩展
 

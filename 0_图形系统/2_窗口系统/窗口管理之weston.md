@@ -426,6 +426,8 @@ https://wayland.app/protocols/               A better way to read Wayland docume
 
 # 配置(~~weston.ini~~)
 
+## 参考+
+
 
 
 所有的配置可选项：
@@ -450,6 +452,76 @@ weston_config_section_get_bool(s, "color-management",
 //	//【】 add by cg
 //weston_config_section_get_bool(s, "color-management",
                    //&color_management, true);
+```
+
+
+
+
+
+
+
+
+
+## 配置入口
+
+执行：
+
+```java
+--config=FILE     Config file to load, defaults to weston.
+
+weston --config=weston.ini
+```
+
+
+
+ini的来源 & 参考：
+
+```java
+// build目录下：
+/weston/build/compositor/weston.ini
+/weston/build/ivi-shell/weston.ini
+```
+
+
+
+
+
+C语言，环境变量的获取：TODO
+
+```java
+1、获取特定的环境变量值
+getenv(char *)
+
+2、所有环境变量environ：
+char **env = environ;  // 获取环境变量数组
+// 遍历并打印所有环境变量
+while (*env) {
+	printf("%s\n", *env);
+	// fprintf(stderr, ": %s \n", *env);
+	env++;
+}
+```
+
+
+
+C语言，写入文件：
+
+```java
+char **env = environ;  // 获取环境变量数组
+FILE *file = fopen("/tmp/env_variables.txt", "w");  // 打开文件用于写入
+
+if (file == NULL) {
+    perror("无法打开文件");
+    return ;
+}
+
+// 遍历并将所有环境变量写入文件
+while (*env) {
+    fprintf(file, "%s\n", *env);
+    env++;
+}
+
+fclose(file);  // 关闭文件
 ```
 
 
@@ -480,9 +552,21 @@ panel-position=none          // -----> 没有panel
 
 
 
+# client - weston的链接
+
+通信：socket
+
+所以client链接失败的原因：
+
+>   1、weston挂了  
+>
+>   2、环境变量问题
 
 
 
+# shell
+
+不同的shell，对应不同的 桌面布局/窗口管理布局
 
 
 

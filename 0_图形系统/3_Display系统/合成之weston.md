@@ -2602,11 +2602,12 @@ weston-screensaver：安卓屏保
 以及output 对应的 possible_crtcs：
 
 ```java
+
 ├─ // output 对应的 possible_crtcs
 ├─ 时机：
-├─ weston_load_module
-└─ weston_backend_init
-    ├─ drm_backend_create
+├─ weston_load_module(/compositor.c)
+└─ weston_backend_init(/drm.c)
+    ├─ drm_backend_create(/drm.c)
     │   ├─ // 挂weston_backend的create_output钩子
     │   ├─ b->base.create_output = drm_output_create;
     │   │   ├─ // 挂weston_output.enable钩子，调用时机：
@@ -2622,7 +2623,7 @@ weston-screensaver：安卓屏保
     │   │   │   └─ drm_output_init_egl(output, b)
     │   │   │       ├─ //挂weston_output的各种钩子：
     │   │   │       ├─ output->base.start_repaint_loop = drm_output_start_repaint_loop
-    │   │   │       ├─ output->base.repaint = drm_output_repaint
+    │   │   │       ├─ output->base.repaint = drm_output_repaint // 【绘制的钩子】
     │   │   │       └─ output->base.assign_planes = drm_assign_planes
     │   │   ├─ // 挂其他钩子
     │   │   ├─ output->base.destroy = drm_output_destroy;
@@ -2637,6 +2638,7 @@ weston-screensaver：安卓屏保
     │   ├─ b->base.device_changed = drm_device_changed;
     │   └─ b->base.can_scanout_dmabuf = drm_can_scanout_dmabuf;
     └─ 或者其他 wayland_backend_create
+
 ```
 
 
@@ -2646,9 +2648,9 @@ weston-screensaver：安卓屏保
 ```java
 // output 对应的 possible_crtcs
 时机：
-weston_load_module
-weston_backend_init
-	drm_backend_create
+weston_load_module(/compositor.c)
+weston_backend_init(/drm.c)
+	drm_backend_create(/drm.c)
 		// 挂weston_backend的create_output钩子 
 		b->base.create_output = drm_output_create;
 			// 挂weston_output.enable钩子，调用时机：
@@ -2664,7 +2666,7 @@ weston_backend_init
 				drm_output_init_egl(output, b)
 					//挂weston_output的各种钩子：
 					output->base.start_repaint_loop = drm_output_start_repaint_loop
-					output->base.repaint = drm_output_repaint
+					output->base.repaint = drm_output_repaint // 【绘制的钩子】
 					output->base.assign_planes = drm_assign_planes
 			// 挂其他钩子
 			output->base.destroy = drm_output_destroy;
@@ -2691,7 +2693,7 @@ weston_backend_init
 
 ```java
 ├─ 极其类似：
-└─ weston_plugin_api_register(virt_api) // drm_virtual被注册为插件，最后被远程桌面应用
+└─ weston_plugin_api_register(virt_api)---drm-virtual.c // drm_virtual被注册为插件，最后被远程桌面应用
     ├─ drm_virtual_output_create,
     │   ├─ // 挂 weston_output的一些钩子
     │   ├─ output->base.enable = drm_virtual_output_enable;
@@ -2724,7 +2726,7 @@ weston_backend_init
 
 ```java
 极其类似：
-weston_plugin_api_register(virt_api) // drm_virtual被注册为插件，最后被远程桌面应用
+weston_plugin_api_register(virt_api)---drm-virtual.c // drm_virtual被注册为插件，最后被远程桌面应用
 	drm_virtual_output_create,
 		// 挂 weston_output的一些钩子
 		output->base.enable = drm_virtual_output_enable;

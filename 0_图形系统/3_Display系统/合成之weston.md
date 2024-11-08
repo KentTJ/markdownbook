@@ -2567,32 +2567,6 @@ compositor/executable.c/main()-->
 
 
 
-```java
-// output 对应的 possible_crtcs
-时机：
-drm_output_create
-	drm_output_enable(struct weston_output *base) // 屏幕级别
-		drm_output_attach_crtc(output) //【】output 与 crtc的 绑定
-			possible_crtcs &= drm_connector_get_possible_crtcs_mask(&head->connector); // 拿到屏幕对应的connector
-				遍历drmModeConnector获取encoder = drmModeGetEncoder
-					从 possible_crtcs |= encoder->possible_crtcs encoder中获取possible_crtcs //【】关键一行，拿到屏幕对应的
-		drm_output_init_planes(output)
-			drm_output->scanout_plane = drm_output_find_special_plane 寻找的primary作为
-			
-		drm_output_pageflip_timer_create(output)
-		drm_output_init_egl(output, b)
-		挂output的各种钩子：
-			output->base.start_repaint_loop = drm_output_start_repaint_loop
-			output->base.repaint = drm_output_repaint
-			output->base.assign_planes = drm_assign_planes
-```
-
-
-
-
-
-
-
 weston进程拉起 **shell 进程**的细化：
 
 > ![img](合成之weston.assets/ijww35r58i.png)
@@ -2621,9 +2595,158 @@ weston-screensaver：安卓屏保
 
 
 
+## 初始化时，挂的各种钩子：
+
+### drm_backend 初始化 钩子----------weston_backend级别？
+
+以及output 对应的 possible_crtcs：
+
+```java
+├─ // output 对应的 possible_crtcs
+├─ 时机：
+├─ weston_load_module
+└─ weston_backend_init
+    ├─ drm_backend_create
+    │   ├─ // 挂weston_backend的create_output钩子
+    │   ├─ b->base.create_output = drm_output_create;
+    │   │   ├─ // 挂weston_output.enable钩子，调用时机：
+    │   │   ├─ output->base.enable = drm_output_enable(struct weston_output *base) // 屏幕级别
+    │   │   │   ├─ drm_output_attach_crtc(output) //【】output 与 crtc的 绑定
+    │   │   │   │   └─ possible_crtcs &= drm_connector_get_possible_crtcs_mask(&head->connector); // 拿到屏幕对应的connector
+    │   │   │   │       └─ 遍历drmModeConnector获取encoder = drmModeGetEncoder
+    │   │   │   │           └─ 从 possible_crtcs |= encoder->possible_crtcs encoder中获取possible_crtcs //【】关键一行，拿到屏幕对应的
+    │   │   │   ├─ drm_output_init_planes(output)
+    │   │   │   │   ├─ drm_output->scanout_plane = drm_output_find_special_plane 寻找的primary作为
+    │   │   │   │   └─ .
+    │   │   │   ├─ drm_output_pageflip_timer_create(output)
+    │   │   │   └─ drm_output_init_egl(output, b)
+    │   │   │       ├─ //挂weston_output的各种钩子：
+    │   │   │       ├─ output->base.start_repaint_loop = drm_output_start_repaint_loop
+    │   │   │       ├─ output->base.repaint = drm_output_repaint
+    │   │   │       └─ output->base.assign_planes = drm_assign_planes
+    │   │   ├─ // 挂其他钩子
+    │   │   ├─ output->base.destroy = drm_output_destroy;
+    │   │   ├─ output->base.disable = drm_output_disable;
+    │   │   ├─ output->base.attach_head = drm_output_attach_head;
+    │   │   └─ output->base.detach_head = drm_output_detach_head;
+    │   ├─ .
+    │   ├─ b->base.destroy = drm_destroy;
+    │   ├─ b->base.repaint_begin = drm_repaint_begin;
+    │   ├─ b->base.repaint_flush = drm_repaint_flush;
+    │   ├─ b->base.repaint_cancel = drm_repaint_cancel;
+    │   ├─ b->base.device_changed = drm_device_changed;
+    │   └─ b->base.can_scanout_dmabuf = drm_can_scanout_dmabuf;
+    └─ 或者其他 wayland_backend_create
+```
 
 
 
+%accordion%hideContent%accordion%
+
+```java
+// output 对应的 possible_crtcs
+时机：
+weston_load_module
+weston_backend_init
+	drm_backend_create
+		// 挂weston_backend的create_output钩子 
+		b->base.create_output = drm_output_create;
+			// 挂weston_output.enable钩子，调用时机：
+			output->base.enable = drm_output_enable(struct weston_output *base) // 屏幕级别
+				drm_output_attach_crtc(output) //【】output 与 crtc的 绑定
+					possible_crtcs &= drm_connector_get_possible_crtcs_mask(&head->connector); // 拿到屏幕对应的connector
+						遍历drmModeConnector获取encoder = drmModeGetEncoder
+							从 possible_crtcs |= encoder->possible_crtcs encoder中获取possible_crtcs //【】关键一行，拿到屏幕对应的
+				drm_output_init_planes(output)
+					drm_output->scanout_plane = drm_output_find_special_plane 寻找的primary作为
+					.
+				drm_output_pageflip_timer_create(output)
+				drm_output_init_egl(output, b)
+					//挂weston_output的各种钩子：
+					output->base.start_repaint_loop = drm_output_start_repaint_loop
+					output->base.repaint = drm_output_repaint
+					output->base.assign_planes = drm_assign_planes
+			// 挂其他钩子
+			output->base.destroy = drm_output_destroy;
+			output->base.disable = drm_output_disable;
+			output->base.attach_head = drm_output_attach_head;
+			output->base.detach_head = drm_output_detach_head;
+		.
+		b->base.destroy = drm_destroy;
+		b->base.repaint_begin = drm_repaint_begin;
+		b->base.repaint_flush = drm_repaint_flush;
+		b->base.repaint_cancel = drm_repaint_cancel;
+		b->base.device_changed = drm_device_changed;
+		b->base.can_scanout_dmabuf = drm_can_scanout_dmabuf;
+	或者其他 wayland_backend_create
+```
+
+%/accordion%
+
+
+
+### drm_virtual_output 初始化 钩子 -------output级别
+
+
+
+```java
+├─ 极其类似：
+└─ weston_plugin_api_register(virt_api) // drm_virtual被注册为插件，最后被远程桌面应用
+    ├─ drm_virtual_output_create,
+    │   ├─ // 挂 weston_output的一些钩子
+    │   ├─ output->base.enable = drm_virtual_output_enable;
+    │   │   ├─ //挂weston_output的各种钩子：
+    │   │   ├─ output->base.start_repaint_loop = drm_virtual_output_start_repaint_loop;
+    │   │   ├─ output->base.repaint = drm_virtual_output_repaint;
+    │   │   ├─ output->base.assign_planes = drm_assign_planes;
+    │   │   ├─ output->base.set_dpms = NULL;
+    │   │   ├─ output->base.switch_mode = NULL;
+    │   │   ├─ output->base.gamma_size = 0;
+    │   │   └─ output->base.set_gamma = NULL;
+    │   ├─ output->base.destroy = drm_virtual_output_destroy;
+    │   ├─ output->base.disable = drm_virtual_output_disable;
+    │   └─ output->base.attach_head = NULL;
+    ├─ drm_virtual_output_set_gbm_format,
+    ├─ drm_virtual_output_set_submit_frame_cb,
+    ├─ drm_virtual_output_get_fence_fd,
+    ├─ drm_virtual_output_buffer_released,
+    └─ drm_virtual_output_finish_frame
+
+```
+
+
+
+
+
+
+
+%accordion%hideContent%accordion%
+
+```java
+极其类似：
+weston_plugin_api_register(virt_api) // drm_virtual被注册为插件，最后被远程桌面应用
+	drm_virtual_output_create,
+		// 挂 weston_output的一些钩子
+		output->base.enable = drm_virtual_output_enable;
+			//挂weston_output的各种钩子：
+			output->base.start_repaint_loop = drm_virtual_output_start_repaint_loop;
+			output->base.repaint = drm_virtual_output_repaint;
+			output->base.assign_planes = drm_assign_planes;
+			output->base.set_dpms = NULL;
+			output->base.switch_mode = NULL;
+			output->base.gamma_size = 0;
+			output->base.set_gamma = NULL;
+		output->base.destroy = drm_virtual_output_destroy;
+		output->base.disable = drm_virtual_output_disable;
+		output->base.attach_head = NULL;
+	drm_virtual_output_set_gbm_format,
+	drm_virtual_output_set_submit_frame_cb,
+	drm_virtual_output_get_fence_fd,
+	drm_virtual_output_buffer_released,
+	drm_virtual_output_finish_frame
+```
+
+%/accordion%
 
 ## 代码目录结构
 

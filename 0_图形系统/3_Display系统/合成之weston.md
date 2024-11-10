@@ -61,10 +61,13 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
         └─ output_repaint_timer_handler(/compositor.c)  // 【交货】repaint_timer的处理
             ├─ drm_repaint_begin(/drm.c)  // 打印scene_graph日志
             ├─ 遍历output，weston_output_maybe_repaint
+            │   └─ output->repainted = true;
             ├─ drm_repaint_flush(/drm.c) // 【车子回程】 提交
             ├─ .
             ├─ output->repainted = false;
-            └─ output_repaint_timer_arm(/compositor.c); // 【下一次repaint，构成循环】
+            └─ output_repaint_timer_arm(/compositor.c); // 【下一次repaint，构成循环--->output_repaint_timer_handler】
+                └─ wl_event_source_timer_update(compositor->repaint_timer, msec_to_next); // 【关键一行】
+
 
 ```
 
@@ -85,7 +88,7 @@ wl_event_loop_dispatch // 【大的event_loop模型驱动】
 		output_repaint_timer_handler(/compositor.c)  // 【交货】repaint_timer的处理
 			drm_repaint_begin(/drm.c)  // 打印scene_graph日志
 			遍历output，weston_output_maybe_repaint
-    			output->repainted = true;
+				output->repainted = true;
 			drm_repaint_flush(/drm.c) // 【车子回程】 提交
 			.
 			output->repainted = false;

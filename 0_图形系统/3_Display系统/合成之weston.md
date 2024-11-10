@@ -1302,7 +1302,43 @@ TODO:
 >
 >   更优化的做法：屏幕是进程级别的：
 
+# 临时，pending_state 概念：
 
+```java
+0、作用：给drm用的 -----> 自然，系统级别：
+				自然，持有output_list;
+pending_state 功能链接：https://gitlab.freedesktop.org/wayland/weston/-/commit/eedf84c68f57c5d9d171520d8984e5ef293035f7
+
+1、创建时机：0层大纲里的 repaint_begin
+	每一次repaint都要分配一个新的drm_pending_state给drm使用
+	
+具体代码：
+drm_repaint_begin(drm.c)
+	device->repaint_data = drm_pending_state_alloc(device) // 【初始化drm_pending_state】
+
+
+
+2、使用时机：
+	drm_repaint_flush 应用pending state
+
+具体代码：
+drm_repaint_flush(/drm.c)
+	drm_pending_state_apply(pending_state)
+		遍历pending_state->output_list
+			drm_output_apply_state_legacy(struct drm_output_state *state)
+				drmModeSetCrtc
+				drm_output_assign_state(state, DRM_STATE_APPLY_ASYNC);
+	device->repaint_data = NULL; // 呼应
+
+其他类似：
+drm_pending_state_apply_atomic
+drm_pending_state_apply_sync
+
+3、其他非核心：
+drm_repaint_cancel
+	drm_pending_state_free(pending_state); 【释放】
+	device->repaint_data = NULL;
+```
 
 
 

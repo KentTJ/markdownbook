@@ -101,9 +101,12 @@ wl_event_loop_dispatch // 【大的event_loop模型驱动】
 %/accordion%
 
 -<font color='red'>注意两个循环：</font>
-1、大的event_loop
-2、小的repaint_timer循环
-3、**2 依赖于1，是1的一个特例**
+
+>   1、大的event_loop
+>
+>   2、小的repaint_timer循环
+>
+>   3、**2 依赖于1，是1的一个特例**
 
 
 

@@ -51,17 +51,21 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 ```java
 ├─ wet_main
 ├─ wl_display_run
-└─ wl_event_loop_dispatch // 大的消息模型驱动
-    ├─ on_drm_input  // 【发车】TODO: 真正drm来的PageFlip消息 -----------上图1-----------------
+└─ wl_event_loop_dispatch // 【大的event_loop模型驱动】
+    ├─ on_drm_input(/kms.c)  // 【发车】TODO: 真正drm来的PageFlip消息 -----------上图1-----------------
     │   └─ drmHandleEvent
-    │       └─ atomic_flip_handler
-    │           └─ drm_output_update_complete
-    │               └─ weston_output_finish_frame // 为 output_repaint_timer_handler 计算time
-    └─ wl_timer_heap_dispatch // timer 超时消息 -----------上图2-----------------
-        └─ output_repaint_timer_handler  // 【交货】timer启动
-            ├─ drm_repaint_begin  // 打印scene_graph日志
+    │       └─ atomic_flip_handler(/kms.c)
+    │           └─ drm_output_update_complete(/drm.c)
+    │               └─ weston_output_finish_frame(/compositor.c) // 为 output_repaint_timer_handler 计算time
+    └─ wl_timer_heap_dispatch // timer 【即小的repaint_timer循环】-------上图2-----------------
+        └─ output_repaint_timer_handler(/compositor.c)  // 【交货】repaint_timer的处理
+            ├─ drm_repaint_begin(/drm.c)  // 打印scene_graph日志
             ├─ 遍历output，weston_output_maybe_repaint
-            └─ drm_repaint_flush // 【车子回程】 提交
+            ├─ drm_repaint_flush(/drm.c) // 【车子回程】 提交
+            ├─ .
+            ├─ output->repainted = false;
+            └─ output_repaint_timer_arm(/compositor.c); // 【下一次repaint，构成循环】
+
 ```
 
 
@@ -71,22 +75,32 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 ```java
 wet_main
 wl_display_run
-wl_event_loop_dispatch // 大的消息模型驱动
-	on_drm_input  // 【发车】TODO: 真正drm来的PageFlip消息 -----------上图1-----------------
+wl_event_loop_dispatch // 【大的event_loop模型驱动】
+	on_drm_input(/kms.c)  // 【发车】TODO: 真正drm来的PageFlip消息 -----------上图1-----------------
 		drmHandleEvent
-			atomic_flip_handler
-				drm_output_update_complete
-					weston_output_finish_frame // 为 output_repaint_timer_handler 计算time
-	wl_timer_heap_dispatch // timer 超时消息 -----------上图2-----------------
-		output_repaint_timer_handler  // 【交货】timer启动
-			drm_repaint_begin  // 打印scene_graph日志
-    		遍历output，weston_output_maybe_repaint
-			drm_repaint_flush // 【车子回程】 提交
+			atomic_flip_handler(/kms.c)
+				drm_output_update_complete(/drm.c)
+					weston_output_finish_frame(/compositor.c) // 为 output_repaint_timer_handler 计算time
+	wl_timer_heap_dispatch // timer 【即小的repaint_timer循环】-------上图2-----------------
+		output_repaint_timer_handler(/compositor.c)  // 【交货】repaint_timer的处理
+			drm_repaint_begin(/drm.c)  // 打印scene_graph日志
+			遍历output，weston_output_maybe_repaint
+			drm_repaint_flush(/drm.c) // 【车子回程】 提交
+			.
+			output->repainted = false;
+			output_repaint_timer_arm(/compositor.c); // 【下一次repaint，构成循环--->output_repaint_timer_handler】
 ```
 
 
 
 %/accordion%
+
+-<font color='red'>注意两个循环：</font>
+1、大的event_loop
+2、小的repaint_timer循环
+3、**2 依赖于1，是1的一个特例**
+
+
 
 
 
@@ -176,7 +190,7 @@ weston_output_repaint(compositor.c) // output级
 	drm_assign_planes // 【】具体见下
 	------------------计算damage---------------------------------
 	drm_output_repaint
-		drm_output_render-----------------只做了一件事情，拿到fd（内核的buffer）----------------------
+		drm_output_render-----------1、只做了一件事情，拿到fd（内核的buffer）2、涉及render，非硬件合成-------
 			if (scanout_state->fb) return // 【】霸屏模式scanout -----> 利用client的fd
 			if：drm_fb_ref  硬件合成  自然，条件：damage为空(也是gl被拦截的地方)？？？？？
 			eif:drm_output_render_pixman  软件合成

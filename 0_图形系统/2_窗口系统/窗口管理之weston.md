@@ -676,15 +676,7 @@ wet_load_shell(struct weston_compositor *compositor,
 #### **核心逻辑**
 
 -   `desktop-shell` 是服务端 `shell` 的用户级实现，提供更高层的 UI 和交互功能。
-
--   通过与 Weston 的 
-
-    ```
-    shell.c
-    ```
-
-     通信，指定窗口的具体外观和行为，例如：
-
+-   通过与 Weston 的 shell.c通信，指定窗口的具体外观和行为，例如：
     -   哪些窗口是面板或背景。
     -   窗口的状态（最大化、最小化、全屏等）。
     -   响应输入事件并更新桌面外观。
@@ -734,10 +726,6 @@ wet_load_shell(struct weston_compositor *compositor,
 
 -   **`shell.c`**：服务端模块，负责 Weston 的窗口管理和外壳框架，运行在 Weston 进程中。
 -   **`desktop-shell.c`**：客户端模块，负责桌面外观和用户界面，运行在独立的外壳客户端进程中。
-
-
-
-
 
 
 

@@ -602,7 +602,30 @@ shell.c----------即 <font color='red'>安卓的wms：</font>
 
 
 
-## weston的 wms的选择 ：--shell=desktop
+## 次要：weston的 wms的选择 ：--shell=desktop
+
+代码-----------------desktop-shell.so加载  ：
+
+```java
+// main.c
+static int
+wet_load_shell(struct weston_compositor *compositor,
+	       const char *_name, int *argc, char *argv[])
+{
+	char *name;
+	int (*shell_init)(struct weston_compositor *ec,
+			  int *argc, char *argv[]);
+
+	if (strstr(_name, "-shell.so"))
+		name = strdup(_name);
+	else
+		str_printf(&name, "%s-shell.so", _name); // 加载对应的so
+	assert(name);
+    
+    shell_init = weston_load_module(name, "wet_shell_init", MODULEDIR);
+```
+
+## 次要：client desktop-shell 进程的启动
 
 
 

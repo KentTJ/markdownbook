@@ -633,7 +633,7 @@ wet_load_shell(struct weston_compositor *compositor,
 
 ## weston中shell.c 与 desktop-shell.c文件的差别，分别跑在哪个进程-----chatGpt回答
 
-### **1. `shell.c`**
+### **`shell.c`**
 
 #### **作用**
 
@@ -657,7 +657,7 @@ wet_load_shell(struct weston_compositor *compositor,
 
 ------
 
-### **2. `desktop-shell.c`**
+### **`desktop-shell.c`**
 
 #### **作用**
 
@@ -683,7 +683,7 @@ wet_load_shell(struct weston_compositor *compositor,
 
 ------
 
-### **3. 两者的关系**
+### **两者的关系**
 
 -   **`shell.c`** 是运行在服务端的 **外壳管理框架**，它通过 Wayland 协议与客户端通信，并加载具体的外壳实现（如 `desktop-shell`）。
 -   **`desktop-shell.c`** 是运行在客户端的具体外壳实现，通过提供用户界面组件（如面板和背景）与 Weston 服务端协作。
@@ -699,7 +699,7 @@ wet_load_shell(struct weston_compositor *compositor,
 
 ------
 
-### **4. 运行进程对比**
+### **运行进程对比**
 
 | 文件                  | 所属进程   | 主要职责                                                     |
 | --------------------- | ---------- | ------------------------------------------------------------ |
@@ -708,19 +708,28 @@ wet_load_shell(struct weston_compositor *compositor,
 
 ------
 
-### **5. 举例：窗口布局调整流程**
+### **举例：窗口布局调整流程** -------> TODO:!!!!!!
 
 假设用户拖动窗口改变布局，以下是 `shell.c` 和 `desktop-shell.c` 的协作：
 
 1.  **服务端 `shell.c`：**
+
     -   接收到用户输入事件。
     -   根据输入事件找到目标窗口并更新窗口的几何属性（`weston_view`）。
     -   更新 `view_list` 确定窗口的叠放次序。
+
 2.  **客户端 `desktop-shell.c`：**
-    -   响应服务端的状态变化（如窗口属性或布局变化）。
+
+    -   响应服务端的状态变化（如窗口属性或布局变化）。---------> **resize，是<font color='red'>客户端systemUI 被动响应  </font>窗口大小改变的事件！！**
     -   如果需要，重新绘制面板或启动器来反映新状态。
 
-------
+    
+
+    
+
+    ### 举例2：TODO: 点击底下窗口，下面窗口active
+
+    
 
 ### **总结**
 
@@ -728,6 +737,128 @@ wet_load_shell(struct weston_compositor *compositor,
 -   **`desktop-shell.c`**：客户端模块，负责桌面外观和用户界面，运行在独立的外壳客户端进程中。
 
 
+
+# xdg协议 与 wayland协议
+
+## chatGpt回答：xdg协议 与 wayland协议 之间，什么关系？区别与联系是什么
+
+### ** 基本概念**
+
+#### **Wayland 协议**
+
+-   **核心定义**：
+    Wayland 协议是一个轻量级的显示服务器协议，定义了客户端（应用程序）与服务端（合成器，如 Weston）之间的通信方式。
+
+-   主要职责
+
+    ：
+
+    提供最基础的窗口系统功能，比如：
+
+    -   绘图缓冲管理。
+    -   输入事件（鼠标、键盘、触摸）传递。
+    -   表面（surface）的创建和管理。
+
+-   **核心组件**：包括 `wl_surface`、`wl_output`、`wl_keyboard`、`wl_pointer` 等。
+
+#### **XDG 协议**
+
+-   **核心定义**：
+    XDG 协议是 Wayland 协议的扩展之一，专注于桌面环境中窗口管理的高级功能。它是 `xdg-shell` 的实现协议。
+
+-   主要职责
+
+    ：
+
+    提供桌面环境中窗口管理的高级功能，比如：
+
+    -   窗口生命周期管理。
+    -   窗口状态（最大化、最小化、全屏等）。
+    -   应用启动上下文（如桌面启动器）。
+
+XDG 协议主要通过 `xdg_shell` 接口实现，进一步抽象出桌面特有的功能。
+
+------
+
+### **作用和目标对比**
+
+| 特性         | **Wayland 协议**                                 | **XDG 协议**                                    |
+| ------------ | ------------------------------------------------ | ----------------------------------------------- |
+| **功能范围** | 定义客户端与服务端通信的基础协议，提供底层功能。 | 提供桌面环境的窗口管理功能扩展。                |
+| **目标场景** | 所有基于 Wayland 的场景，包括嵌入式、桌面等。    | 专注于桌面环境中的高级窗口管理。                |
+| **是否必须** | 是，Wayland 是基础协议。                         | 否，但在桌面系统中几乎必需。                    |
+| **协议接口** | `wl_surface`、`wl_buffer`、`wl_pointer` 等。     | `xdg_surface`、`xdg_toplevel`、`xdg_popup` 等。 |
+| **窗口管理** | 不关心窗口的状态或行为，只提供表面管理。         | 处理窗口状态，如最大化、最小化等。              |
+
+------
+
+### **联系**
+
+-   **依赖关系**：
+    -   XDG 协议是基于 Wayland 协议的扩展，XDG 协议的实现依赖于 Wayland 提供的基础功能。例如，`xdg_surface` 是 `wl_surface` 的扩展。
+    -   在实现 XDG 协议时，必须先使用 Wayland 协议创建基础的表面（`wl_surface`），再通过 XDG 协议为该表面绑定窗口管理功能。
+-   **协作方式**：
+    Wayland 负责基础的表面绘制和输入分发，XDG 协议通过高层接口定义窗口的行为（如最大化、全屏等），并通知 Wayland 服务端如何调整表面的布局。
+
+------
+
+### ** 区别**
+
+| **类别**       | **Wayland 协议**                        | **XDG 协议**                               |
+| -------------- | --------------------------------------- | ------------------------------------------ |
+| **定位**       | 基础协议，提供最基本的绘制和输入功能。  | 高级协议，管理桌面系统中的窗口行为。       |
+| **实现模块**   | 服务端和客户端都必须实现。              | 通常由桌面外壳（如 Weston 的 shell）实现。 |
+| **功能细节**   | 不关心窗口状态，只管理表面（surface）。 | 提供窗口的高级状态（如全屏、弹窗）。       |
+| **适用场景**   | 通用图形系统（嵌入式、桌面）。          | 专注于桌面系统的需求。                     |
+| **开发复杂度** | 相对简单。                              | 更加复杂，需要定义高级窗口行为。           |
+
+------
+
+### ** 示例：创建一个窗口的流程**
+
+#### 使用 Wayland 协议（基础流程）
+
+1.  客户端向服务端创建一个 `wl_surface` 表面。
+2.  客户端绑定绘图缓冲区（`wl_buffer`）。
+3.  服务端合成并显示表面。
+
+```
+cCopy codestruct wl_surface *surface = wl_compositor_create_surface(compositor);
+wl_surface_attach(surface, buffer, 0, 0);
+wl_surface_commit(surface);
+```
+
+#### 使用 XDG 协议（高级流程）
+
+1.  客户端首先创建 `wl_surface` 表面（Wayland 提供）。
+2.  将 `wl_surface` 绑定到 `xdg_surface` 接口。
+3.  设置 `xdg_toplevel`（窗口类型，如普通窗口）。
+4.  服务端根据窗口属性（如全屏）调整表面布局。
+
+```
+cCopy codestruct wl_surface *surface = wl_compositor_create_surface(compositor);
+struct xdg_surface *xdg_surface = xdg_wm_base_get_xdg_surface(wm_base, surface);
+struct xdg_toplevel *toplevel = xdg_surface_get_toplevel(xdg_surface);
+
+xdg_toplevel_set_title(toplevel, "My Window");
+xdg_surface_commit(xdg_surface);
+```
+
+------
+
+### **总结**
+
+#### **联系**
+
+-   Wayland 协议是基础协议，XDG 协议是 Wayland 的扩展协议。
+-   XDG 协议依赖 Wayland 协议来提供低层表面和输入管理功能。
+
+#### **区别**
+
+-   Wayland 协议仅提供最基础的通信和表面管理功能，与窗口行为无关。
+-   XDG 协议则为桌面系统增加了高级窗口管理功能，如最大化、最小化和弹窗等。
+
+Wayland 是整个协议栈的基础，而 XDG 协议让 Wayland 在桌面环境中更加实用。两者相辅相成，共同构建现代 Wayland 桌面生态系统。
 
 # panel(状态栏)
 

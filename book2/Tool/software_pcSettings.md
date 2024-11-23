@@ -2492,7 +2492,11 @@ AS 有同样的Hierarchy
 
 
 
+## vscode 查看 某一笔提交：
 
+工具：gitLen
+
+右键：查看   或者  <font color='red'>Open网页 --------> 很优，功能聚集</font>
 
 
 

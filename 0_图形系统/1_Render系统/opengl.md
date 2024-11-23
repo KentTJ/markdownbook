@@ -1912,7 +1912,107 @@ if (Alpha > 0.1 && Alpha < 0.3) {
 
 
 
-  
+#   显存 
+
+TODO:  <font color='red'>具体哪些会存在显存里？  </font>
+
+​            用户使用的接口是什么？
+
+
+
+结论：
+
+> 1、arm上，显存用的就是内存（切割了内存的一部分作为显存）
+>
+> 2、**只有用到gpu的进程**（调用opengl、OpenCV）才会用到显存
+>
+> 3、每个进程显存的用量 是区分开的（虽然共用一个GPU）
+>
+> ​          对于双系统而言，~~linux侧角度： gpu_server进程显存的用量，就是Android总用量~~
+>
+> ​                                       Android内部角度：这个进程之间，怎么分布的？可以维测嘛？TODO
+
+
+
+
+
+维测：
+
+```java
+sh-3.2# cat /proc/mtk_mali/gpu_memory
+mali0                 793428   //使用量   //进程号
+  kctx-0x0000000085e231c1       1876      17823   
+  kctx-0x00000000ab5448d4      49405       5073    // 仪表app
+  kctx-0x00000000b7ce29b1     658684       3777    // gpu_server
+  kctx-0x00000000f1eb58e5      34073       3724    // egl
+  kctx-0x0000000017b194f9      49381       3428    // weston
+```
+
+
+
+
+
+双系统：
+
+> 1、3727这个进程统计的，就是全体Andorid占用的显存（即gpu_server使用的）
+>
+> 2、剩下的几个，都是yocot上的进程
+
+
+
+
+
+
+
+补充：
+
+> 1、**glReadPixel 读**的区域是**gpu的显存**（**模糊说法是 gpu缓冲区**）
+>
+> 2、不会绘制的buffer里！！！！！！！
+
+
+
+
+
+## opengl直接 copy Framebuffer 到另一个buffer上
+
+即 copy一个图片到另一个buffer上
+
+注意：**是硬件copy，不是软件copy（cpu copy）-----------> 速度非常快，us级别！！！！**
+
+
+
+```
+// copy texture Framebuffer without color 2 damage_filter_debug->composition_fbo
+static struct gl_fbo_texture*
+prepare_texture_without_color(struct weston_output *output, struct weston_blurFilter* damage_filter_debug)
+{
+		struct gl_output_state *go = get_output_state(output);
+		// 先清理
+		glBindFramebuffer(GL_FRAMEBUFFER, go->damage_filter_debug->composition_fbo.fbo);
+		glClearColor(0.0, 0.0, 0.0, 0.0);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+		glViewport(0, 0, go->area.width, go->area.height);
+
+		
+
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, go->damage_filter_debug->composition_fbo.fbo);
+
+		// 拷贝颜色缓冲区
+		glBlitFramebuffer(0, 0, go->area.width, go->area.height, 0, 0, go->area.width, go->area.height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+
+		return &damage_filter_debug->composition_fbo;
+}
+
+```
+
+
+
+
+
+
 
 # 网站
 
@@ -2472,3 +2572,8 @@ https://blog.csdn.net/leionway/article/details/102349382   mesa 源码分析
 
 https://blog.csdn.net/fengningning/category_10663771.html    mesa系列
 
+
+
+#  3D 性能测试 ：GLmark2 
+
+编译： https://www.cnblogs.com/xiaomawo/p/17984783

@@ -2168,6 +2168,18 @@ https://www.51cto.com/article/717713.html   深入理解Android图形系统
 
 [深入理解 Linux  OS](https://zhuanlan.zhihu.com/p/543222402#:~:text=%E8%B7%A8%E8%AE%BE%E5%A4%87%E6%8C%87%E7%9A%84%E6%98%AF%E4%B8%A4%E4%B8%AA%E8%AE%BE%E5%A4%87%E7%9A%84%E9%A9%B1%E5%8A%A8%E4%B9%8B%E9%97%B4%E6%88%96%E8%80%85%E9%A9%B1%E5%8A%A8%E4%B8%8E%E8%BF%9B%E7%A8%8B)
 
+## gpu与display之间
+
+**从display的角度来看：**  无论是overlay、还是primary，<font color='red'>图像数据</font>都是**从gpu直接过来的数据**
+
+> 1、 app使用GPU -------> display
+>
+> 2、weston使用GPU  ---------> display
+
+
+
+所以，从硬件角度：图形数据，只是在几个硬件之间传递
+
 
 
 ## 待整理2
@@ -3146,7 +3158,155 @@ output对应的屏幕  ---------->      output->base.name
 
 
 
-# Fence机制
+# Fence ------GPU与CPU同步的一种方式
+
+从两个函数说起：
+
+>   glFlush() ： 强制将**当前context中的所有命令**送入GPU执行   +   不会等待，立即返回，CPU继续执行
+>
+>   glFinish()： 。。。。。。。。。。。。。。。。。。。。 +  等待GPU执行完所有命令，才会返回（CPU阻塞）
+
+-------------> <font color='red'>glFinish()弊端很大，CPU与GPU之间完全同步</font>。
+
+​					<font color='red'>而 glFlush()，CPU与GPU完全异步</font>    ----------> 不安全，<font color='red'>fence机制 ，就是对glFlush()的补救</font>
+
+Fence字面意思：
+
+> fence ----- 屏障。。。。memery 屏障  （扩展：handler里也有msg的屏障）
+
+
+
+问题来源：
+
+why-------CPU与 GPU的异步造成的：
+
+> 1、从代码调用角度-----------opengl接口调用：cpu 没有等GPU 执行完，就继续执行了。。。。TODO:图
+>
+> > 仅仅是把GL command命令放在本地的command buffer里
+>
+> 所以，<font color='red'>CPU 从client传递fd给 weston，这块buffer内容是未知的（可能GPU已经画完，也可能GPU还在画，也有可能GPU还没开始画？）</font>
+>
+> 2、从关系角度:fence是buffer的使用权（约等于buffer_release）。。所以：
+>
+> （1）与buffer高度重合
+>
+> （2）如果只有CPU画图，那么就不需要fence ---------- buffer_release 解决了CPU对 buffer的使用冲突
+>
+> （3）fence的使用同 buffer：
+>
+> > ​         传递buffer的时候，传递fence
+> >
+> > ​         画buffer的时候，等fence
+> >
+> > ![img](合成之weston.assets/9950366-1f9efd7d195df02d.png)
+> >
+> >  [图](https://www.jianshu.com/p/a7261bc82bca#:~:text=%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B%EF%BC%9A-,acquireFence%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B,-%E5%BD%93App%E7%AB%AF)
+>
+> 3、从**CPU阻塞**角度：**fence是一种CPU延迟的阻塞的方法**
+>
+> ​      《见how》
+>
+> 4、从  硬件buffer 的冲突 角度上：
+>
+> ​     <font color='red'>CPU使用buffer的冲突（ = 进程与进程之间同步）</font> ：~~通过进程之间同步 buffer_release  解决~~
+>
+> ​     <font color='red'>  CPU1与GPU之间，抢占 硬件buffer：</font> fence机制
+>
+> 5、从级别来看：
+>
+> > fence跟着buffer走，但是可见范围是整个系统 & 各个进程
+> >
+> > 但是代码角度：产生 fence，释放fence，都是CPU的代码？  TODO:  
+>
+> 6、从异步/同步角度：fence是CPU与GPU的一种同步方案（类似于锁、callback）
+>
+> 
+
+进一步抽象：**所有同步/异步问题的根源在于**  “两个”对<font color='red'>硬件资源</font>的抢占造成的
+
+> CPU1与CPU2之间，抢占 硬件buffer
+>
+> CPU1与GPU之间，抢占 硬件buffer
+>
+> 其他：
+>
+> > 两个进程，抢占  硬件CPU资源
+
+
+
+
+
+how-----<font color='red'>解决方法：</font>
+
+> 方法一：CPU等待这些命令运行完-------即CPU侧glFinish()   TODO: simple-egl里没有调用，为啥？
+>
+> ​              <font color='red'> 阻塞在当前frame1 使用  GPU画 buffer1  这个时间点！！！！</font>
+>
+> 方法二：Fence机制。
+>
+> ​           <font color='red'>    在绘制frame2的图时，才阻塞，等待buffer1  的fence  ！！！！</font>     -------->  TODO: buffer 1 还是 buffer2？
+
+
+
+
+
+fence，在各个系统中的应用：
+
+> 1、Android系统中：App中的renderer   与  SurfaceFlinger。 TODO: [图](https://blog.csdn.net/wjky2014/article/details/141907903#:~:text=%E6%8B%A5%E6%9C%89%E4%BD%BF%E7%94%A8%E6%9D%83%E3%80%82-,%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8C%96%E7%9A%84%E6%A8%A1%E5%9E%8B%E4%BE%8B%E5%A6%82%E4%BB%A5%E4%B8%8B%EF%BC%9A,-Fence%E7%9A%84%E7%AE%80%E5%8C%96)
+>
+> TODO: Android的hwc 与 drm呢
+>
+> ​     https://blog.csdn.net/bruce_zhang123/article/details/124848001  Android SurfaceFlinger中Fence机制--个人理解整理
+>
+> 2、drm中：drm之dma-fence       https://blog.csdn.net/zhexingsunba/article/details/128510885   drm之dma-fence介绍     
+>
+> ​                              TODO: [图](https://blog.csdn.net/zhexingsunba/article/details/128510885#:~:text=%E6%8A%8Abuffer%E7%9A%84%E6%8E%A7%E5%88%B6%E6%9D%83%E6%B5%81%E8%BD%AC%E7%94%BB%E7%9A%84%E7%89%B9%E5%88%AB%E5%A5%BD%EF%BC%8C%E7%9B%B4%E6%8E%A5%E5%BC%95%E7%94%A8)
+>
+> 3、weston中：
+>
+> 结论：[参考 Fence实现的层级关系](https://blog.csdn.net/bruce_zhang123/article/details/124848001#:~:text=driver%20%E5%B1%82%EF%BC%9A-,fence%E5%85%B6%E5%AE%9E%E6%98%AF%E7%A1%AC%E4%BB%B6%E7%9A%84%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6,-%EF%BC%8C%E6%89%80%E6%9C%89%E7%9C%9F%E6%AD%A3%E7%9A%84)
+>
+> > （1）fence最终的实现就是drm 驱动的实现（或者硬件实现）
+> >
+> > （2）上层，都是封装的接口
+> >
+> > （3）扩展： EGL的扩展----------------同步对象的扩展KHR_fence_sync，**自然是用于EGL的command**
+> >
+> > （4）扩展：Android的扩展------------ANDROID_native_fence_sync
+> >
+> > ​                                   Android还进一步丰富了Fence的software stack：~~C++ Fence类位于/frameworks/native/libs/ui/Fence.cpp~~
+> >
+> > ​                                                                                                                 ~~C的libsync库位于/system/core/libsync/sync.c~~
+> >
+> > ​                                                                                                                  ~~Kernel driver部分位于/drivers/base/sync.c~~
+> >
+> > [参考 Android 图形显示系统（十三）Fence同步机制](https://www.jianshu.com/p/a7261bc82bca)
+
+
+
+
+
+
+
+
+
+[从buffer角度，看Android的整个显示流程](https://blog.csdn.net/wjky2014/article/details/141907903#:~:text=%E6%98%AF%E6%B6%88%E8%B4%B9%E8%80%85%E3%80%82-,%E6%95%B4%E4%B8%AA%E5%A4%A7%E8%87%B4%E6%B5%81%E7%A8%8B%E5%A6%82%E5%9B%BE,-%EF%BC%9A)
+
+> 非Overlay的层 --------  两个生产消费者模型，结构一模一样。[图](https://blog.csdn.net/wjky2014/article/details/141907903#:~:text=%E4%BD%9C%E4%B8%BA%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E3%80%82-,GraphicBuffer%E6%A8%A1%E5%9E%8B,-%E5%9B%A0%E4%B8%BA%E6%9C%8D%E5%8A%A1%E5%92%8C)
+>
+> > ​                                  acquireFence的使用流程，[图](https://blog.csdn.net/wjky2014/article/details/141907903#:~:text=%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B%EF%BC%9A-,acquireFence%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B,-%E5%BD%93App%E7%AB%AF)
+> >
+> > ​								  releaseFence的使用流程，[图](https://blog.csdn.net/wjky2014/article/details/141907903#:~:text=%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B%EF%BC%9A-,releaseFence%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B,-%E5%89%8D%E9%9D%A2%E6%8F%90%E5%88%B0%E5%90%88%E6%88%90)
+>
+> Overlay的层 -----------  一个生产者消费者模型，APP ---> HWC([SF把这些层相应的acquireFence传到HWC中](https://www.jianshu.com/p/a7261bc82bca#:~:text=%E4%B8%8D%E9%A1%BB%E8%A6%81%E7%BB%8F%E8%BF%87GPU%EF%BC%8C%E9%82%A3%E5%B0%B1%E9%A1%BB%E8%A6%81%E6%8A%8A%E8%BF%99%E4%BA%9B%E5%B1%82%E7%9B%B8%E5%BA%94%E7%9A%84acquireFence%E4%BC%A0%E5%88%B0HWC%E4%B8%AD))
+
+ 
+
+> 
+
+
+
+
 
 ## why---存在的必要性
 
@@ -3164,6 +3324,74 @@ output对应的屏幕  ---------->      output->base.name
 
 >   ![img](合成之weston.assets/bcf604a92085bc7f5cda2aa6ee0e6244.png)
 >
+
+
+
+## 参考：
+
+> ~~https://blog.csdn.net/wjky2014/article/details/141907903  Android 显示 Fence 机制  ---> 好文~~
+>
+> https://www.jianshu.com/p/a7261bc82bca     Android 图形显示系统（十三）Fence同步机制    ---> 好文
+>
+> http://tangzm.com/blog/?p=167     Android中的EGL扩展
+
+
+
+
+
+## weston中 fence机制 
+
+搜索：
+
+>   FENCE_
+>
+>   WDRM_PLANE_IN_FENCE_FD  
+>
+>   state->in_fence_fd = ev->surface->acquire_fence_fd;  
+>
+
+weston层面：
+
+
+
+
+
+
+
+
+
+## display的fence
+
+
+
+
+
+```java
+// kms.c
+drm_output_apply_state_atomic() {
+    if (plane_state->in_fence_fd >= 0) {
+        ret |= plane_add_prop(req, plane,
+                      WDRM_PLANE_IN_FENCE_FD,
+                      plane_state->in_fence_fd);
+    }    
+}
+```
+
+
+
+
+
+### 补充初步认识fence：
+
+从退帧问题来看，完全可以不要fence：
+
+CPU是大调，fence是微调！！！！！(cpu的commit、callback是必要的)
+
+> ​                    fence是极限情况下的微调!!!!!!!!! 不要照样跑
+>
+> ​					buffer release：CPU画的情况下是bufferRelease；GPU画的情况下，是fence
+
+
 
 
 
@@ -3269,6 +3497,57 @@ https://wiki.st.com/stm32mpu/wiki/Wayland_Weston_overview
 
 
 
+## dmabuf-egl
+
+### 如何运行：
+
+在virtualBox内，报错：
+
+```
+MESA-LOADER: failed to open zink:/home/chenjinke/weston_install/li
+/x86 64-linux-gnu/dri/zink_dri.so:cannot open shared object file: No such file
+or directory(search paths /home/chenjinke/weston install/lib/x86 64-linux-gr
+I/dri, suffix dri)
+Warning:zwp linux explicit synchronization vl not supported,
+will not use explicit synchronization
+KMS:DRM IOCTL MODE CREATE DUMB failed:Permission denied
+create bo failed
+```
+
+----------------->  没有找到zink_dri.so
+
+根本原因：
+
+> mesa应该编译出zink_dri.so, 却没有
+
+**解决办法1：**
+
+> 发现VMware内是OK，底层跟踪代码，走了vmsvga
+>
+> ----------->  **设置virtualBox的显卡控制器为  vmsvga：（1）显示---屏幕----显卡控制器：vmsvga + 启动3D加速**
+
+
+
+其他：
+
+> virtualBox一定要开启硬件加速，否则很慢
+
+
+
+方法二：
+
+**运行时，指定drm驱动路径 ：**
+
+```java
+weston-dmabuf-egl -d /dev/dri/card0
+或者
+weston-dmabuf-egl -d /dev/dri/RenderD128
+```
+
+
+
+
+
 ## 图片查看 weston-image：
 
 ```java
@@ -3346,6 +3625,36 @@ Drag and drop
 ```
 
 
+
+# 几种后端
+
+## wayland后端
+
+weston1 架在 wayland(另一个weston2)之上：
+
+1、上面weston，内部先通过GPU进行合成-------> 合成一张图给到wayland
+
+wayland协议是  client 与  weston之间
+
+ -<font color='red'>weston1  与  weston2之间具体走的什么协议？------------- wayland协议</font>  
+
+-<font color='red'>此时weston1就是一个client，与simple-shm无异：</font>
+
+> 1、~~与weston2之间走wayland协议~~
+>
+> 2、其 拿到frame方式、获取release_buffer、call_back、提交........ <font color='red'>都和simple-egl 一样</font>
+>
+> 具体代码：
+>
+> ```java
+> // wayland.c
+> frame_done
+> 
+> 
+> 提交仍然是合成后的glswapbuffer
+> ```
+>
+> 
 
 
 

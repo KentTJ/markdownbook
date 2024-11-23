@@ -115,6 +115,35 @@ https://download.csdn.net/blog/column/11175480/133747645       KWin、libdrm、D
 
 
 
+
+
+# modetest里，怎么看两个硬件overlay的上下关系？
+
+> 盖房子顺序（~~id小的在下面~~）
+
+
+
+
+
+```java
+struct drm_plane {
+	struct weston_plane base;
+
+	struct drm_device *device;
+
+	enum wdrm_plane_type type;
+
+	uint32_t possible_crtcs;
+	uint32_t plane_id; // hard
+	uint32_t plane_idx; // soft
+```
+
+
+
+
+
+
+
 # 好文
 
 
@@ -195,3 +224,6 @@ ms级别：一屏数据内存copy（~~10M数据的内存copy = 中控屏截图�
 
 ----------------> 上屏快很多
 
+# 疑问
+
+为啥后面有硬件编解码？？？？？？？必要性在哪里？？？

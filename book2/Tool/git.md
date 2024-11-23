@@ -599,9 +599,9 @@ https://blog.csdn.net/renfeideboke/article/details/130930418?spm=1001.2101.3001.
 
 
 
+# repo
 
-
-# ~~repo的安装~~
+## ~~repo的安装~~
 
 报错：
 
@@ -648,6 +648,25 @@ $ repo init -u  /repo.git File "C:/Users/chen.jinke/bin/repo", line 51 def print
 > > 修改环境变量PATH
 
 
+
+## repo 将项目回退到 特定版本（已验证）
+
+回退repo下所有git仓：
+
+1、找到 版本里的 xml
+
+2、替换 
+
+```java
+// 替换.repo/manifests/下的xml
+
+cp .repo/manifests/default.xml default.xml.bak
+   xml .repo/manifests/default.xml
+```
+
+3、repo  sync
+
+注意：没有 -c
 
 
 

@@ -2319,6 +2319,40 @@ glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixel_data);
 
 
 
+# dma 
+
+
+
+## GEM handles -----> DMA-BUF的fd
+
+
+
+```java
+void *va = NULL;
+int fd, rr;
+
+// GEM handles -----> DMA-BUF的fd
+rr = drmPrimeHandleToFD(device->drm.fd, plane_state->fb->handles[0], DRM_CLOEXEC | DRM_RDWR, &fd);
+
+// 拿到fd，可以做内存映射，映射到用户空间
+va = mmap(NULL, plane_state->fb->height*plane_state->fb->strides[0], PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+
+
+
+rr = fwrite(va, 1, target_height*plane_state->fb->strides[0], fp);
+
+// 收尾
+munmap(va, plane_state->fb->height*plane_state->fb->strides[0]);
+```
+
+补充： GEM handles 与 DMA-BUF的fd 可以互转
+
+
+
+### drmPrimeHandleToFD  导出dmafd
+
+https://blog.csdn.net/weixin_41176628/article/details/114312054
+
 
 
 # 霸屏模式

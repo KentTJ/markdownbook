@@ -2004,9 +2004,23 @@ opengl 与surface的关系，尤其是opengl  与 **GLSurfaceView** 的关系
 
 ### 与weston12的匹配关系：
 
-weston12  -----------------    OpenGL ES 3.1 Mesa 23.0.4           **完美匹配**
+>   weston12  -----------------    OpenGL ES 3.1 Mesa 23.0.4           **完美匹配**
+>
+>   ​										     OpenGL ES 2.0  Mesa 21     也可以匹配
+>
+>   weston12 ----------------- OpenGL ES 3.2     Mesa 23.2.1  也能匹配
 
-​										     OpenGL ES 2.0  Mesa 21     也可以匹配
+
+
+~~版本查看：~~
+
+>   ```java
+>   环境中查看opengl ES 版本：
+>   
+>       $ glxinfo | grep "OpenGL ES"
+>       OpenGL ES profile version string: OpenGL ES 3.2 Mesa 23.2.1 (git-49a47f187e)
+>       OpenGL ES profile shading language version string: OpenGL ES GLSL ES 3.20
+>   ```
 
 
 
@@ -2043,12 +2057,6 @@ cargo install bindgen-cli  -----> 似乎不重要！！！？？？
 >   1、自然，就要把mesa编译结果安装到weston_install下
 >
 >   2、自然，先编译mesa，再编译weston（基于mesa的结果）
-
-
-
-
-
-
 
 
 

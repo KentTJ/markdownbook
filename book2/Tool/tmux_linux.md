@@ -170,6 +170,20 @@ ctrl+b  1
 
 
 
+# tmux增大窗格的显示缓存区
+
+增大窗格的显示缓存区：
+
+方法一：
+
+> 直接在~/.tmux.conf添加下列内容 set -g history-limit 50000 (默认为2000行，这里设置为5000行)，然后重启会话
+
+方法二：优
+
+> 直接执行如下命令 tmux set-option history-limit 50000 然后重启会话。
+
+原文链接：https://blog.csdn.net/little1212/article/details/128965993
+
 
 
 # 最优的环境

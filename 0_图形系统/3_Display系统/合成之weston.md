@@ -1363,7 +1363,7 @@ https://blog.csdn.net/qqzhaojianbiao/article/details/129796828          Wayland�
 
 TODO:  安卓的buffer是共享内存嘛？
 
-### C的 wl_surface_commit 与  S的 wl_callback协议（~~wl_callback_listener~~）
+### C的 wl_surface_commit 与  S的 wl_callback协议
 
 TODO:  模型图
 
@@ -1585,7 +1585,7 @@ TODO:
 
 
 
-### wl_surface.commit 与 zwp_linux_buffer_release_v1_listener  ------release buffer with fence
+### wl_surface.commit 与 zwp_linux_buffer_release_v1_listener --fence机制
 
 -<font color='red'>1、同wl_buffer_listener  ， ~~也是表征 server侧对buffer 使用权的释放~~</font>，
 
@@ -2734,7 +2734,7 @@ weston-screensaver：安卓屏保
 
 ## 初始化时，挂的各种钩子：
 
-### drm_backend 初始化 钩子----------weston_backend级别？
+### drm_backend 初始化 钩子----weston_backend级别？
 
 以及output 对应的 possible_crtcs：
 

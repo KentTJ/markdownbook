@@ -1340,6 +1340,53 @@ export HISTCONTROL=ignoreboth   # 等价于ignoredups和ignorespace
 
 
 
+
+
+## lsof（List Open Files）命令
+
+​	lsof /dev/dri/renderD128     找到打开文件的进程
+
+```java
+lsof（List Open Files）
+按进程 ID 过滤：
+-p PID：显示指定进程 ID 的打开文件。
+示例：lsof -p 1234
+按用户名过滤：
+-u username：显示指定用户的打开文件。
+示例：lsof -u john
+按文件路径过滤：
+lsof /path/to/file：显示打开指定文件的进程。
+示例：lsof /var/log/syslog
+	lsof /dev/dri/renderD128
+
+按网络连接过滤：
+-i：显示所有网络连接。
+-i :port：显示指定端口的网络连接。
+-i @host：显示与指定主机的网络连接。
+示例：lsof -i :80，lsof -i @192.168.1.1
+按协议过滤：
+-i TCP：显示所有 TCP 连接。
+-i UDP：显示所有 UDP 连接。
+示例：lsof -i TCP
+按文件描述符过滤：
+-d FD：显示指定文件描述符的打开文件。
+示例：lsof -d 3
+组合过滤：
+可以组合多个选项来过滤结果。
+示例：lsof -u john -i :80
+显示更多信息：
+-a：逻辑与操作，用于组合多个条件。
+-n：不解析主机名，直接显示 IP 地址。
+-P：不解析端口号，直接显示数字端口。
+示例：lsof -i -n -P
+```
+
+
+
+
+
+
+
 # Linux程序一定 可以在安卓上运行
 
 TODO: 可以做很多扩展，比如：

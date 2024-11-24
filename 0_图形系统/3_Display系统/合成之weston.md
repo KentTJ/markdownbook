@@ -2338,19 +2338,29 @@ https://blog.csdn.net/weixin_41176628/article/details/114312054
 
 
 
-## 内存映射的耗时
+## 跨进程传int fd的耗时 -------TODO
 
-跨进程传输时：两边的int  fd不一样，存在内存copy
+跨进程传输fd时：
 
-dma 实际上是GPU地址   -----------> fd1 （CPU1 地址）
+>   1、两边的int  fd不一样，存在内存copy：产生新的内核的int fd，内核做了copy
+>
+>   2、<font color='red'>每次传输都不一样?</font>   TODO:
 
-​                                           -----------> fd2 （CPU2 地址）
+根因：
 
+>   dma 实际上是GPU地址   -----------> fd1 （CPU1 地址）
+>
+>   ​                                           -----------> fd2 （CPU2 地址）
+>
+>   todo：
+>
+>   >   [IOMMU 扫盲](https://blog.csdn.net/liyucheng987/article/details/109303949)
 
+解决办法：
 
-
-
-[IOMMU 扫盲](https://blog.csdn.net/liyucheng987/article/details/109303949)
+>   只传递框架层的int  bufferId，避免传int fd，造成内核做内存copy（<font color='red'>当然第一次传fd，无法避免</font>）
+>
+>   具体代码：TODO
 
 
 

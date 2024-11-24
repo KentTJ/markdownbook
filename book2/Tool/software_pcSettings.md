@@ -31,7 +31,12 @@
 
 
 
+应用市场：apt 和 snap
 
+```java
+sudo snap install tree 
+sudo apt  install tree 
+```
 
 
 

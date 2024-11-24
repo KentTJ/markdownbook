@@ -1373,7 +1373,7 @@ mainActivity的surface 与 GLSurfaceView 的surface 如何做混合，显示底�
 
 # OpenGL状态机的理解
 
--<font color='red'>1、OpenGL是状态机 </font>
+## -<font color='red'>1、OpenGL是状态机 </font>
 
 所以，glBindTexture  ，所以 makeCurentt
 
@@ -1410,6 +1410,14 @@ drawMesh(mMUvLoc, mMPosLoc); // glDrawArrays
 
 
 对于贴图而言，状态机需要的设置：
+
+
+
+
+
+## **glGetError 也体现了opengl是状态机：**
+
+> 只要没有其他gl操作，glGetError多次获取，仍然是一个error值！！
 
 
 
@@ -1671,6 +1679,20 @@ vec2 iResolution = univiewPortSize;
 
 
 
+## 关于weston中 shader
+
+```java
+void main()
+{
+	gl_Position = proj * vec4(position, 0.0, 1.0); // 同 安卓的 gl_Position....proj投影矩阵！！！！
+	v_texcoord = texcoord;  // TODO: v_texcoord 相当于 安卓的 vUV
+}
+```
+
+
+
+
+
 # OpenGL调试
 
 ## glgetError  封装函数，每次执行gl操作，执行一行
@@ -1832,7 +1854,30 @@ GLUtils_saveRender(w_debug, h_debug);
 
 
 
+## glReadPixels方法------github里的实现
 
+
+
+```java
+# include "stb_image_write.h"    ------> github
+
+// Read pixels
+std::vector<unsigned char> pixels( TEXTURE_WIDTH* TEXTURE_HEIGHT * 4);
+glReadPixels(0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, pixels.data());
+
+// 保存为png
+stbi_write_png("output.png", TEXTURE_WIDTH, TEXTURE_HEIGHT, 4, pixels.data(), 0);
+```
+
+
+
+
+
+规定：
+
+> 新增的代码，如果调用了gl接口，必须加 myglCheckError2()去检查
+>
+> **<------------ 有时候，显示OK了，但是仍然存在 myglCheckError2可以获取到error的情况**！！！！！
 
 
 

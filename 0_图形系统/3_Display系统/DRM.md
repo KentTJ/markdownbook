@@ -302,6 +302,22 @@ atomic 的好处：
 
  [DRM全解析 —— CRTC详解（1）-CSDN博客.html](DRM.assets\DRM全解析 —— CRTC详解（1）-CSDN博客.html) 
 
+# 显示服务器实现 ---!!!!!!!!!
+
+https://zhuanlan.zhihu.com/p/268527301   显示服务器实现（一）
+
+https://zhuanlan.zhihu.com/p/321297532   显示服务器实现（二）
+
+
+
+
+
+##  **图形流水线(了解)**  -------GPU 与 MEM
+
+![img](DRM.assets/3348dd28731f4665e9aed38df404468b.png)
+
+[图来源](https://blog.csdn.net/sinat_16489689/article/details/127192214)
+
 
 
 # 大致数据

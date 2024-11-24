@@ -1586,6 +1586,22 @@ https://blog.csdn.net/yasi_xi/article/details/12784507
 
   thread apply N command
 
+### gdb中忽略信号处理
+
+使用场景：监听了太多的信号，导致程序不断停住
+
+https://blog.csdn.net/brucexu1978/article/details/7721321
+
+
+
+​	-<font color='red'>信号是一种软中断</font>！！！！！！！！！！
+
+
+
+
+
+
+
 ## **变量操作**
 
 ​    设置变量：set var n=47
@@ -1755,8 +1771,6 @@ $1 = (_Bool *) 0x55838a0e20
 
 watch *(_Bool *)0x55838a0e20
 ```
-
-
 
 
 

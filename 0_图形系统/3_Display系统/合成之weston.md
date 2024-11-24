@@ -575,9 +575,12 @@ weston_compositor里的primary_plane;  // 【】指明了GPU的plane
 
 
 
-#### 如何避免将屏幕1的plane分配给屏幕2的view呢？plane-output 绑定关系维护在哪里？
+#### 如何避免将屏幕1的plane分配给屏幕2的view呢？
 
-必然是在驱动！！！因为plane的数据送给哪个屏幕，是drm决定的
+plane-output 绑定关系配置在哪里？
+
+>   必然是在驱动！！！因为plane的数据送给哪个屏幕，是drm决定的
+>
 
 -<font color='red'>weston侧只是获取 绑定关系。</font>具体代码：
 
@@ -1582,7 +1585,7 @@ TODO:
 
 
 
-### wl_surface.commit 与 zwp_linux_buffer_release_v1_listener  ----------release buffer with fence
+### wl_surface.commit 与 zwp_linux_buffer_release_v1_listener  ------release buffer with fence
 
 -<font color='red'>1、同wl_buffer_listener  ， ~~也是表征 server侧对buffer 使用权的释放~~</font>，
 
@@ -1633,30 +1636,6 @@ TODO:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # 物质---从buffer看图形  TODO:
 
 ## 待整理
@@ -1684,16 +1663,6 @@ surface_attach  // 应用侧调用
 ```
 
 TODO: 格式与buffer是两回事
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1772,7 +1741,7 @@ gpt给出的对比：
 
 物理基础：
 
-> 移动平台上，没有专门的显存   --------》  所以，GPU在移动平台上，使用的物理内存是CPU内存。[来自](https://blog.csdn.net/qqzhaojianbiao/article/details/129789575#:~:text=%E5%8E%BB%E5%88%9B%E5%BB%BAbuffer%E3%80%82-,%E5%9C%A8%E5%A4%A7%E5%A4%9A%E6%95%B0%E7%A7%BB%E5%8A%A8%E5%B9%B3%E5%8F%B0%E4%B8%8A%EF%BC%8C%E6%B2%A1%E6%9C%89%E4%B8%93%E9%97%A8%E7%9A%84%E6%98%BE%E5%AD%98,-%EF%BC%8C%E5%9B%A0%E6%AD%A4%E5%AE%83%E4%BB%AC%E6%9C%80%E7%BB%88)
+> 移动平台上，没有专门的显存   -------->  所以，GPU在移动平台上，使用的物理内存是CPU内存。[来自](https://blog.csdn.net/qqzhaojianbiao/article/details/129789575#:~:text=%E5%8E%BB%E5%88%9B%E5%BB%BAbuffer%E3%80%82-,%E5%9C%A8%E5%A4%A7%E5%A4%9A%E6%95%B0%E7%A7%BB%E5%8A%A8%E5%B9%B3%E5%8F%B0%E4%B8%8A%EF%BC%8C%E6%B2%A1%E6%9C%89%E4%B8%93%E9%97%A8%E7%9A%84%E6%98%BE%E5%AD%98,-%EF%BC%8C%E5%9B%A0%E6%AD%A4%E5%AE%83%E4%BB%AC%E6%9C%80%E7%BB%88)
 >
 > 
 
@@ -2364,6 +2333,24 @@ munmap(va, plane_state->fb->height*plane_state->fb->strides[0]);
 ### drmPrimeHandleToFD  导出dmafd
 
 https://blog.csdn.net/weixin_41176628/article/details/114312054
+
+
+
+
+
+## 内存映射的耗时
+
+跨进程传输时：两边的int  fd不一样，存在内存copy
+
+dma 实际上是GPU地址   -----------> fd1 （CPU1 地址）
+
+​                                           -----------> fd2 （CPU2 地址）
+
+
+
+
+
+[IOMMU 扫盲](https://blog.csdn.net/liyucheng987/article/details/109303949)
 
 
 
@@ -3498,6 +3485,8 @@ https://wiki.st.com/stm32mpu/wiki/Wayland_Weston_overview
 
 
 ## dmabuf-egl
+
+<img src="合成之weston.assets/image-20241021014700786.png" alt="image-20241021014700786" style="zoom:50%;" />
 
 ### 如何运行：
 

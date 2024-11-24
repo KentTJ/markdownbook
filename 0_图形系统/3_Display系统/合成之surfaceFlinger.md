@@ -1038,3 +1038,9 @@ TODO:  https://www.bilibili.com/video/BV1py411q7BV?t=8148.3
 
 
 
+# 安卓图形之  模拟器
+
+[安卓模拟器图像合成介绍](https://www.ctyun.cn/developer/article/379837121056837)  -----> VirtIO-GPU !!!!!
+
+virtio-gpu   https://blog.csdn.net/stray2b/article/details/123487106
+

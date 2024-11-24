@@ -21,10 +21,12 @@ https://blog.csdn.net/weixin_45380951/article/details/100699751?spm=1001.2101.30
 
 ## 字符串的数组（c指针数组）
 
+```java
 cpp：vector<string>& wordDict_cpp
 
 c： char ** wordDict_c, int wordDictSize   ------>多重指针，指针的指针
-       char \*  wordDict_c[3]     ------>指针数组
+       char *  wordDict_c[3]     ------>指针数组
+```
 
 -------->**使用方法完全一样：**
 ~~取第0个字符串  wordDict_cpp[0],     wordDict_c[0]~~
@@ -321,6 +323,35 @@ if (blurNode) {
 补充：  unsigned int 自增，不会溢出，会从0循环
 
 ​             int 会溢出
+
+
+
+## 初始化结构体
+
+在C语言中，任何未显式初始化的变量，其值是 **未定义的**， 可以是任何随机值！！！！！！！！
+
+```java
+#include <stdio.h>
+
+struct MyStruct {
+    float myFloat;
+};
+
+int main() {
+    struct MyStruct localStruct;  // 局部变量，字段未初始化
+    printf("localStruct.myFloat = %f\n", localStruct.myFloat);  // 输出未定义的随机值
+
+    static struct MyStruct staticStruct;  // 静态变量，字段默认初始化为 0.0
+    printf("staticStruct.myFloat = %f\n", staticStruct.myFloat);  // 输出 0.0
+
+    return 0;
+}
+
+```
+
+--------------->  所以，不要依赖自动初始化：
+
+>   -<font color='red'>尽量初始化时，显式地给明确的数值</font>
 
 
 

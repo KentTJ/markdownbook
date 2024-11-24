@@ -151,6 +151,36 @@ TODO: 触发存在 点击和move的 冲突问题：
 
 # 输入管理
 
+## 事件的热插拔
+
+weston 代码入口：
+
+```java
+// libweston/libinput-seat.c
+udev_input_process_event(struct libinput_event *event)
+{
+	struct libinput *libinput = libinput_event_get_context(event);
+	struct libinput_device *libinput_device =
+		libinput_event_get_device(event);
+	struct udev_input *input = libinput_get_user_data(libinput);
+	int ret = 0;
+
+	switch (libinput_event_get_type(event)) {
+	case LIBINPUT_EVENT_DEVICE_ADDED:
+		ret = device_added(input, libinput_device);
+		break;
+	case LIBINPUT_EVENT_DEVICE_REMOVED:
+		ret = device_removed(input, libinput_device);
+		break;
+	default:
+		evdev_device_process_event(event);
+		break;
+	}
+
+	return ret;
+}
+```
+
 
 
 # 事件

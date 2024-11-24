@@ -2364,6 +2364,24 @@ https://blog.csdn.net/weixin_41176628/article/details/114312054
 
 
 
+# TODO: opengl角度： APP做了哪些，EGL做了哪些
+
+为什么EGL只能做一部分？如何证明只能做到目前的架构
+
+
+
+
+
+
+
+## Weston中dmabuf client使用分析 ------TODO
+
+https://zhuanlan.zhihu.com/p/425098578
+
+gbm设备
+
+
+
 # 霸屏模式
 
 ## 必要条件（物理层面）

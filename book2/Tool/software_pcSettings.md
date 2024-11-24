@@ -40,7 +40,15 @@ sudo apt  install tree
 
 
 
+tree：
 
+>   多用tree，其优点：
+>
+>   （1）<font color='red'>类似于win，图形化的file manage，看的更清楚</font>
+>
+>   （2）让我们对 目录下有哪些文件，<font color='red'>有个整体的了结</font>   ----> 尤其编译产物，有哪些
+>
+>   ![image-20241124105041268](software_pcSettings.assets/image-20241124105041268.png)
 
 ## Source Insight
 

@@ -62,6 +62,8 @@ tree：
 
 
 
+
+
 ​                                                                                                                                                                                                                                                                                                                                                                                                        
 
 ## markdown
@@ -1325,6 +1327,12 @@ https://cs.android.com/
 ![image-20221102180551206](software_pcSettings.assets/image-20221102180551206.png)
 
 ![image-20221102180523062](software_pcSettings.assets/image-20221102180523062.png)
+
+
+
+
+
+
 
 
 
@@ -2781,7 +2789,161 @@ Volume Booster
 
 教程：https://jingyan.baidu.com/article/f71d6037a838145bb741d14a.html
 
+# 技巧之保存离线网页
 
+步骤：
+
+0、网页，右键，保存为html
+
+## **防止离线网页自动跳转之 window.location.href**
+
+----------------> 方法：
+
+>   用记录本 或 其它文件编辑 软件 打开主页面，
+>   ![我](software_pcSettings.assets/a380117c59712a97a7e41ea7d7347c2c.png)
+>   搜索 window.location.href， 把那一段 注释掉 就OK了！
+>
+>   ```java
+>   <!--        -->
+>   ```
+>
+>   ![在这里插入图片描述](../DRM系列_html.assets/1a17cae12137e1b50a0b66ca46474065.png)
+
+## 防止跳转之meta http-equiv=
+
+```java
+搜索<<meta http-equiv=
+ 清空其content
+```
+
+![image-20241124114154666](../DRM系列_html.assets/image-20241124114154666.png)
+
+
+
+## copy到asset里
+
+如同图片，插入md！！！！在网页里可以跳转
+
+![image-20241124173111287](../DRM系列_html.assets/image-20241124173111287.png)
+
+
+
+##  注意：保存离线html前，折叠的内容都要打开
+
+![image-20240811075108545](../DRM系列_html.assets/image-20240811075108545.png)
+
+## chatGPT的回答
+
+要让本地保存的 HTML 文件在浏览器中打开时不跳转到在线网页，可以通过以下方法排查和修改 HTML 文件中的跳转逻辑：
+
+------
+
+### 1. **检查 HTML 文件中的跳转代码**
+
+#### (1) 查找 `<meta>` 标签中的跳转
+
+在 HTML 文件的 `<head>` 部分，可能存在如下代码：
+
+```
+html
+
+
+Copy code
+<meta http-equiv="refresh" content="X; url=https://example.com">
+```
+
+-   **解决方法**：删除该 `<meta>` 标签或将其 `content` 属性清空。
+
+#### (2) 检查 `<script>` 中的跳转
+
+在 HTML 文件中搜索以下常见的跳转代码：
+
+```
+javascriptCopy codewindow.location.href = "https://example.com";
+window.location.replace("https://example.com");
+document.location = "https://example.com";
+```
+
+-   **解决方法**：注释掉或删除这些跳转代码。
+
+#### (3) 检查 `<a>` 标签
+
+某些链接可能设置了 `target="_top"` 或 `target="_parent"`，当你点击某些内容时可能会触发跳转。
+
+-   **解决方法**：将所有外部链接替换为相对路径，或者删除不需要的链接。
+
+------
+
+### 2. **修改本地引用的资源路径**
+
+如果本地 HTML 文件加载的外部资源（如 CSS、JS）中含有跳转逻辑，也需要解决：
+
+#### (1) 确保所有资源都本地化
+
+检查 HTML 中的以下标签：
+
+-   `<link href="...">`（CSS文件）
+-   `<script src="...">`（JS文件）
+-   `<img src="...">`（图片）
+
+**解决方法**：
+
+-   将所有引用的外部资源文件下载到本地。
+-   修改 HTML 文件中的路径，将其改为相对路径或绝对本地路径。
+
+#### (2) 禁用外部脚本中的跳转逻辑
+
+如果你发现某些外部脚本仍然导致跳转，可以直接注释掉或删除这些脚本的引用：
+
+```
+html
+
+
+Copy code
+<script src="https://example.com/redirect.js"></script>
+```
+
+改为：
+
+```
+html
+
+
+Copy code
+<!-- <script src="https://example.com/redirect.js"></script> -->
+```
+
+------
+
+### 3. **检查 HTML 文件的 DOM 自动跳转行为**
+
+某些 HTML 文件可能使用以下方式自动跳转：
+
+```
+html
+
+
+Copy code
+<body onload="location.href='https://example.com'">
+```
+
+-   **解决方法**：删除或修改 `onload` 属性。
+
+------
+
+### 4. **使用浏览器的开发者工具排查**
+
+1.  打开浏览器，按下 `F12` 调出开发者工具。
+2.  切换到“控制台”或“网络”选项卡，查看是否有跳转的相关信息。
+3.  根据跳转来源定位问题代码，并在 HTML 文件中修复。
+
+------
+
+### 5. **保存修改后的 HTML 文件**
+
+修改完成后，使用浏览器重新打开该文件，确认跳转问题是否已解决。
+
+如果你需要进一步帮助，可以将跳转相关的 HTML 代码片段提供给我，我可以帮你更具体地分析。
 
 
 

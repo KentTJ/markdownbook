@@ -296,11 +296,11 @@ atomic 的好处：
 
 # DRM系列文章
 
- [图显系统DRM CRTC完全解析-CSDN博客.html](DRM系列.assets\图显系统DRM CRTC完全解析-CSDN博客.html) 
+ [图显系统DRM CRTC完全解析-CSDN博客.html](DRM.assets\图显系统DRM CRTC完全解析-CSDN博客.html) 
 
- [DRM全解析 —— plane详解（1）_framebuffer与plane的区别-CSDN博客.html](DRM系列.assets\DRM全解析 —— plane详解（1）_framebuffer与plane的区别-CSDN博客.html) 
+ [DRM全解析 —— plane详解（1）_framebuffer与plane的区别-CSDN博客.html](DRM.assets\DRM全解析 —— plane详解（1）_framebuffer与plane的区别-CSDN博客.html) 
 
- [DRM全解析 —— CRTC详解（1）-CSDN博客.html](DRM系列.assets\DRM全解析 —— CRTC详解（1）-CSDN博客.html) 
+ [DRM全解析 —— CRTC详解（1）-CSDN博客.html](DRM.assets\DRM全解析 —— CRTC详解（1）-CSDN博客.html) 
 
 
 

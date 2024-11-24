@@ -2370,6 +2370,29 @@ https://blog.csdn.net/weixin_41176628/article/details/114312054
 
 TODO: 不耗时吗？
 
+## 实操---- dma_buffer 查看命令
+
+```java
+cat /sys/kernel/debug/dma_buf/bufinfo
+
+Dma-buf Objects:
+size            flags           mode            count           exp_name        ino             name
+00004096        00000002        00080007        00000003        system  00000706        system
+        Attached Devices:
+Total 0 devices attached
+
+00008192        00000002        00080007        00000004        virtio_gpu      00000705        <none>
+        write fence:virtio_gpu controlq seq 10149 signalled
+        Attached Devices:
+Total 0 devices attached
+
+00004096        00000002        00080007        00000003        system  00000702        system
+        Attached Devices:
+Total 0 devices attached
+
+00008192        00000002        00080007        00000004        virtio_gpu      00000701        <none>    请解释各个字段的含义
+```
+
 
 
 # TODO: opengl角度： APP做了哪些，EGL做了哪些

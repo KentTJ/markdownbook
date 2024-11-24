@@ -1,4 +1,4 @@
-# Weston / wayland ----与A 无异
+Weston / wayland ----与A 无异
 
 ## 功能架构----0层
 
@@ -2528,13 +2528,13 @@ CPU是大调，fence是微调！！！！！(cpu的commit、callback是必要的
 对于多屏，自然是多个output的时间之和（7ms以内）
 
 
-PageFlip没有对齐：问题？？？？
+多屏之  PageFlip没有对齐：问题？？？？
 从frame角度来看：frame1、frame2、frame3
 ```
 
 ## 多屏渲染流水线------important
 
-![image-20240817155924285](合成之weston.assets/image-20240817155924285.png)
+![image-20241125012358247](合成之weston.assets/image-20241125012358247.png)
 
 《weston.eddx》
 

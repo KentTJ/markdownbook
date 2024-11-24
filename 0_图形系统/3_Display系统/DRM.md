@@ -216,6 +216,94 @@ https://blog.csdn.net/hexiaolong2009/article/details/84934294
 
 
 
+
+
+# drm-kms调试手段---modetest
+
+DRM 
+
+
+
+
+
+
+
+参考：
+
+https://blog.csdn.net/weixin_35723192/article/details/135088802   modetest
+
+https://blog.csdn.net/gjioui123/article/details/129903320   modetest工具测试(linux-5.10)
+
+
+
+# **KMS 的两套 api: legacy api (已过时) 和 atomic api：**
+
+```java
+作者：嵌入式开发小美
+链接：https://www.zhihu.com/question/26116500/answer/2367137532
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+int main(int argc, char **argv)
+{
+ int fd;
+ drmModeConnector *conn;
+ drmModeRes *res;
+ uint32_t conn_id;
+ uint32_t crtc_id;
+
+ /* open the drm device */
+ fd = open("/dev/dri/card0");
+
+ /* get crtc/encoder/connector id */
+ res = drmModeGetResources(fd);
+ crtc_id = res->crtcs[0];
+ conn_id = res->connectors[0];
+
+ /* get connector for display mode */
+ conn = drmModeGetConnector(fd, conn_id);
+
+ /* create a dumb-buffer */
+ drmIoctl(DRM_IOCTL_MODE_CREATE_DUMB);
+
+ /* bind the dumb-buffer to an FB object */
+ fb_id = drmModeAddFB(...);     // 将创建好的buffer与 FB object绑定，返回 fb_id
+
+ /* map the dumb buffer for userspace drawing */
+ drmIoctl(DRM_IOCTL_MODE_MAP_DUMB);
+ mmap(...);
+
+ /* start display */
+ drmModeSetCrtc(crtc_id, fb_id, connector_id, mode);
+}
+```
+
+**大致的思路是：**
+
+```java
+通过 drmModeGetResources() 获取到 crtc、connector 等对象的 id，然后通过 id 获取到具体的 object;
+通过 ioctl(DRM_IOCTL_MODE_CREATE_DUMB) 和 drmModeAddFB() 创建 DRM framebuffer object，并获得 fb id;
+通过 ioctl(DRM_IOCTL_MODE_MAP_DUMB) 和 mmap() 将 framebuffer 映射到用户空间，应用将自己要显示的内容写到 framebuffer 中;
+将 crtc、connector、fb 的id 通过 drmModeSetCrtc() 告诉 DRM driver，让内核帮我们配置好 display pipeline，从而将 framebuffer 里的内容显示出来;
+
+链接：https://www.zhihu.com/question/26116500/answer/2367137532
+
+```
+
+atomic 的好处：
+
+>  将各种设置都保存在一个个的 property 里，最后将所有 property 一次性提交给内核
+
+# DRM系列文章
+
+ [图显系统DRM CRTC完全解析-CSDN博客.html](DRM系列.assets\图显系统DRM CRTC完全解析-CSDN博客.html) 
+
+ [DRM全解析 —— plane详解（1）_framebuffer与plane的区别-CSDN博客.html](DRM系列.assets\DRM全解析 —— plane详解（1）_framebuffer与plane的区别-CSDN博客.html) 
+
+ [DRM全解析 —— CRTC详解（1）-CSDN博客.html](DRM系列.assets\DRM全解析 —— CRTC详解（1）-CSDN博客.html) 
+
+
+
 # 大致数据
 
 us级别：上屏（~~硬件从buffer上读取数据 -----> 屏幕~~）

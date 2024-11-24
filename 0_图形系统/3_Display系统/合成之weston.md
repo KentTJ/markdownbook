@@ -2362,15 +2362,33 @@ https://blog.csdn.net/weixin_41176628/article/details/114312054
 >
 >   具体代码：TODO
 
+## buffer的流转（fd？？？？）
+
+![img](合成之weston.assets/69ecd3dc3fdb16e0f631ebf657c7757c.png)
+
+[图片来源](https://kenttj.github.io/markdownbook/0_%E5%9B%BE%E5%BD%A2%E7%B3%BB%E7%BB%9F/3_Display%E7%B3%BB%E7%BB%9F/%E5%90%88%E6%88%90%E4%B9%8Bweston.assets/wayland%E6%B5%85%E6%9E%90%E4%B9%8BEGL%E3%80%81Opengles%E3%80%81GBM_linux_%E7%A7%8D%E7%93%9C%E5%A4%A7%E7%88%B7-%E5%BC%80%E6%94%BE%E5%8E%9F%E5%AD%90%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E4%BD%9C%E5%9D%8A.html)：
+
+TODO: 不耗时吗？
+
 
 
 # TODO: opengl角度： APP做了哪些，EGL做了哪些
 
 为什么EGL只能做一部分？如何证明只能做到目前的架构
 
+<img src="合成之weston.assets/680aeba244e33060ac81416b8f841963.png" alt="在这里插入图片描述" style="zoom:50%;" />
+
+[图片来源](https://kenttj.github.io/markdownbook/0_%E5%9B%BE%E5%BD%A2%E7%B3%BB%E7%BB%9F/3_Display%E7%B3%BB%E7%BB%9F/%E5%90%88%E6%88%90%E4%B9%8Bweston.assets/wayland%E6%B5%85%E6%9E%90%E4%B9%8BEGL%E3%80%81Opengles%E3%80%81GBM_linux_%E7%A7%8D%E7%93%9C%E5%A4%A7%E7%88%B7-%E5%BC%80%E6%94%BE%E5%8E%9F%E5%AD%90%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E4%BD%9C%E5%9D%8A.html)：
 
 
 
+![img](合成之weston.assets/69ecd3dc3fdb16e0f631ebf657c7757c.png)
+
+[图片来源](https://kenttj.github.io/markdownbook/0_%E5%9B%BE%E5%BD%A2%E7%B3%BB%E7%BB%9F/3_Display%E7%B3%BB%E7%BB%9F/%E5%90%88%E6%88%90%E4%B9%8Bweston.assets/wayland%E6%B5%85%E6%9E%90%E4%B9%8BEGL%E3%80%81Opengles%E3%80%81GBM_linux_%E7%A7%8D%E7%93%9C%E5%A4%A7%E7%88%B7-%E5%BC%80%E6%94%BE%E5%8E%9F%E5%AD%90%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E4%BD%9C%E5%9D%8A.html)：
+
+参考：
+
+>   [**wayland浅析之EGL、Opengles、GBM**](https://kenttj.github.io/markdownbook/0_%E5%9B%BE%E5%BD%A2%E7%B3%BB%E7%BB%9F/3_Display%E7%B3%BB%E7%BB%9F/%E5%90%88%E6%88%90%E4%B9%8Bweston.assets/wayland%E6%B5%85%E6%9E%90%E4%B9%8BEGL%E3%80%81Opengles%E3%80%81GBM_linux_%E7%A7%8D%E7%93%9C%E5%A4%A7%E7%88%B7-%E5%BC%80%E6%94%BE%E5%8E%9F%E5%AD%90%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E4%BD%9C%E5%9D%8A.html)            ---------->  超级好文！！！！
 
 
 

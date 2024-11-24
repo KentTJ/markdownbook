@@ -160,6 +160,14 @@ TODO: 触发存在 点击和move的 冲突问题：
 >   vivo X100 Ultra屏幕触控采样率是多少
 >   普通场景采样率是130HZ，部分游戏场景采样率是300Hz，部分游戏场景瞬时采样率是2000HZ
 
+## 设备树下的input子系统
+
+<img src="窗口管理之weston.assets/v2-0c133e0fab67b4ad1b318474d7737995_1440w.jpg" alt="img" style="zoom:200%;" />
+
+[图](https://zhuanlan.zhihu.com/p/265078853#:~:text=%E5%A6%82%E5%9B%BE%2058.1.1.1-,%E6%89%80%E7%A4%BA,-%EF%BC%9A)
+
+参考：https://zhuanlan.zhihu.com/p/265078853
+
 ## 事件的热插拔
 
 weston 代码入口：

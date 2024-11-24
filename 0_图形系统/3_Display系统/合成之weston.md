@@ -40,7 +40,7 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 
 ## when---生命周期图 0层
 
-![image-20240817155924285](合成之weston.assets/image-20240817155924285.png)
+![image-20241125011949819](合成之weston.assets/image-20241125011949819.png)
 
 大的生命周期：上图1和2
 
@@ -1184,126 +1184,7 @@ compositor backend主要决定了compositor合成完后的结果怎么处置
 
 
 
-## 多屏渲染流水线------important
-
-![image-20240817155924285](合成之weston.assets/image-20240817155924285.png)
-
-《weston.eddx》
-
-<font color='cornflowerblue'>核心点：</font>
-
->   1、每个屏幕固定周期发车
->
->   2、<font color='red'>每个屏幕发车时间，没有任何关系！！！</font>
-
-
-
-**生活化模型，站在drm角度看图形流程：**
-
->   -<font color='red'>why----最终目的：</font>
->
->   >   <font color='red'>1、drm发车，拉回client提供的货物      </font>                           
->   >
->   >   2、希望screen1的车子拿到 货物后 <font color='red'>能准时返回</font>（~~其他屏幕同理~~）
->
->   who：
->
->   >   1、DRM---------货车总站
->   >
->   >   2、货物------像素数据
->   >
->   >   3、screen ---- 发车员
->   >
->   >   4、weston ------ 货物交易中心（client送货、货车取货的地方）
->   >
->   >   5、min_timer ------------- <font color='red'>交易员（只有一个）</font>
->   >
->   >   6、client  ----------- 提供货物的人
->
->   when重要节点：
->
->   >   output_repaint --------------  真正进行交易，client的东西 交给 货车的过程
->   >
->   >   output_repaint_timer_handler  ----- 发车排班的班长
->   >
->   >   page_flip ------ 发车时刻 + 硬件周期，强约束 （自然：~~如果之前车子没回来commit，可能这次没有发车，**但是周期性，是强制的！！**！~~）
->   >
->   >   ​						在代码里，发了新车 page_flip ，也意味着 上一帧weston_output_finish_frame的结束
->   >
->   >   ​				 		自然，会在这里计算本次车辆返回的时刻
->
->   基本规则：
->
->   ```
->   	1、硬件周期（发车时间）是一个强约束，|------1h-------|------1h-------|------1h-------|------1h-------|
->   			车回程时刻不是！！！！
->   	2、只有一辆车（一个屏幕）：需要等车子回来（commit，并且硬件处理完成后），才能发下一班车。
->   			期望：车子的来回限制在一个小时里
->   	3、硬件周期，  对于weston是PageFlip（硬件周期约束）
->   				 对于安卓是vsync（不同点：安卓vsync信号给了应用）
->   ```
->
->   <font color='red'>weston的多屏策略</font>： 希望<font color='red'>多个车子可以同时回程</font>（多个屏幕统一提交）
->
->   优点：
->
->   >   1、出现一个窗口跨屏时，可以完整显示（其实也不一定，另一个屏幕可能还没发车）
->
->   <font color='red'>缺点：</font>
->
->   >   <font color='red'>任务过于集中</font>，交易员在16ms内，未必做的完
->
 >   
-
-
-
-特殊的点：
-
->   这里的Timer，按道理是并行的  -----> **weston的做法是 求了min_Timer**，最后所有outPut统一绘制
-
-物理级的原因：
-
->   weston的软件屏（一个） 是 所有硬键屏的总和（解决的问题场景：一个窗口，占两个屏时，不会不同步）
->
->   weston的一帧画面，是所有output绘制了一帧
-
-结论：
-
->   weston的一帧，是所有屏的一帧
-
-
-
-### 从trace看多屏渲染流水线
-
-
-
-
-
-### 优化之 任务过于集中  ----->   模型之任务队列
-
-
-模型之任务队列 
-
->   --------->  解决的问题：把集中的任务，平均化
->                                         即把CPU的使用，高峰，平均化 ------> 即 削峰
->
->   最坏情况，直接for循环调用
->
->   最好情况：刚刚满负荷，即一个任务完全执行完，另一个任务才加入队列
-
-
-
-应用：
-
->   例子1：可以应用于weston，把 多屏串行，改成任务队列，提交到一个render线程上运行
-
-
-
-TODO:
-
->   比较好的做法是，屏幕是线程级别的： 各个屏幕之间完全无关 ------------->  一个屏幕，一个线程（但是需要切换EGLcontext，耗时）
->
->   更优化的做法：屏幕是进程级别的：
 
 # 临时，pending_state 概念：
 
@@ -2067,62 +1948,6 @@ https://blog.csdn.net/hexiaolong2009/category_10838100.html    dma-buf  专题
 
 
 
-## buffer之fence
-
-### 初步认识fence：
-
->   1、从<font color='red'>同步模型</font>的角度：解决异步的方式（与java的wait/notify、C++中条件变量的wait/signal的语义是一样的）
->
->   ​                                        **不同的是**：
->
->   >   ​														fence跨空间（指进程与进程之间、内核与用户空间之间）跨设备（两个设备的驱动之间或者驱动与进程之间，实际上就是指<font color='red'>CPU与GPU之间</font>）
->   >
->   >   ​                                                         java的wait/notify  只是跨线程
->
->   ​                                       
->
->   2、从buffer的角度：<font color='red'>表征dma_buffer的使用</font>权
->
->   3、从实现角度：**就是信号量**
-
-
-
-
-
--who---------<font color='red'>fence 主要用于dma_buffer</font>（shm主要是buffer_release来释放）-----------> [参考](https://www.51cto.com/article/717713.html#:~:text=%E5%AE%9E%E7%8E%B0%E4%BA%86Fence%EF%BC%8C-,%E5%AE%83%E4%B8%BB%E8%A6%81%E6%98%AF%E7%BB%99DMA%2DBUF%E7%94%A8%E7%9A%84,-%EF%BC%8C%E6%89%80%E4%BB%A5%E5%AE%83%E4%B9%9F%E6%98%AF)     这也是fence跨空间跨设备的根源（因**为dma_buffer是跨空间跨设备的**）
-
->   shm的使用：    client ---(shm)--->weston ------(dma_buffer,primary)-----> display
->
->    dma的使用：  client ---(dma1)--->weston ------(dma1)-----> display
->
->   
-
-where1 ----------fence实现在内核中 TODO 
-
-where2  -----------应用
-
->   ![图片](合成之weston.assets/d561265866f66a9a4f3716b1b8d9e15d40788a.png)
->
->   
->
->   ![图片](合成之weston.assets/e1772417297e71c6fda324e6f6957ef6126781.png)
-
-how -------------fence的实现：
-
-![图片](合成之weston.assets/c3c180c976f55f3000561960504b6641155b9e.png)
-
-
-
-### fence的 创建------以simple-dmabuf-egl为例
-
-fence的 fd的创建：
-
-```java
-gl_renderer_create_fence_fd
-	fd = gr->dup_native_fence_fd(gr->egl_display, go->render_sync); 
-	// EGL的PFNEGLDUPNATIVEFENCEFDANDROIDPROC
-```
-
 
 
 ### 扩展
@@ -2395,6 +2220,451 @@ Total 0 devices attached
 
 
 
+
+
+# Fence ------GPU与CPU同步的一种方式
+
+从两个函数说起：
+
+>   glFlush() ： 强制将**当前context中的所有命令**送入GPU执行   +   不会等待，立即返回，CPU继续执行
+>
+>   glFinish()： 。。。。。。。。。。。。。。。。。。。。 +  等待GPU执行完所有命令，才会返回（CPU阻塞）
+
+-------------> <font color='red'>glFinish()弊端很大，CPU与GPU之间完全同步</font>。
+
+​					<font color='red'>而 glFlush()，CPU与GPU完全异步</font>    ----------> 不安全，<font color='red'>fence机制 ，就是对glFlush()的补救</font>
+
+Fence字面意思：
+
+> fence ----- 屏障。。。。memery 屏障  （扩展：handler里也有msg的屏障）
+
+
+
+问题来源：
+
+why-------CPU与 GPU的异步造成的：
+
+> 1、从代码调用角度-----------opengl接口调用：cpu 没有等GPU 执行完，就继续执行了。。。。TODO:图
+>
+> > 仅仅是把GL command命令放在本地的command buffer里
+>
+> 所以，<font color='red'>CPU 从client传递fd给 weston，这块buffer内容是未知的（可能GPU已经画完，也可能GPU还在画，也有可能GPU还没开始画？）</font>
+>
+> 2、从关系角度:fence是buffer的使用权（约等于buffer_release）。。所以：
+>
+> （1）与buffer高度重合
+>
+> （2）如果只有CPU画图，那么就不需要fence ---------- buffer_release 解决了CPU对 buffer的使用冲突
+>
+> （3）fence的使用同 buffer：
+>
+> > ​         传递buffer的时候，传递fence
+> >
+> > ​         画buffer的时候，等fence
+> >
+> > ![img](合成之weston.assets/9950366-1f9efd7d195df02d.png)
+> >
+> >  [图](https://www.jianshu.com/p/a7261bc82bca#:~:text=%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B%EF%BC%9A-,acquireFence%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B,-%E5%BD%93App%E7%AB%AF)
+>
+> 3、从**CPU阻塞**角度：**fence是一种CPU延迟的阻塞的方法**
+>
+> ​      《见how》
+>
+> 4、从  硬件buffer 的冲突 角度上：
+>
+> ​     <font color='red'>CPU使用buffer的冲突（ = 进程与进程之间同步）</font> ：~~通过进程之间同步 buffer_release  解决~~
+>
+> ​     <font color='red'>  CPU1与GPU之间，抢占 硬件buffer：</font> fence机制
+>
+> 5、从级别来看：
+>
+> > fence跟着buffer走，但是可见范围是整个系统 & 各个进程
+> >
+> > 但是代码角度：产生 fence，释放fence，都是CPU的代码？  TODO:  
+>
+> 6、从异步/同步角度：fence是CPU与GPU的一种同步方案（类似于锁、callback）
+>
+> 
+
+进一步抽象：**所有同步/异步问题的根源在于**  “两个”对<font color='red'>硬件资源</font>的抢占造成的
+
+> CPU1与CPU2之间，抢占 硬件buffer
+>
+> CPU1与GPU之间，抢占 硬件buffer
+>
+> 其他：
+>
+> > 两个进程，抢占  硬件CPU资源
+
+
+
+
+
+how-----<font color='red'>解决方法：</font>
+
+> 方法一：CPU等待这些命令运行完-------即CPU侧glFinish()   TODO: simple-egl里没有调用，为啥？
+>
+> ​              <font color='red'> 阻塞在当前frame1 使用  GPU画 buffer1  这个时间点！！！！</font>
+>
+> 方法二：Fence机制。
+>
+> ​           <font color='red'>    在绘制frame2的图时，才阻塞，等待buffer1  的fence  ！！！！</font>     -------->  TODO: buffer 1 还是 buffer2？
+
+
+
+
+
+fence，在各个系统中的应用：
+
+> 1、Android系统中：App中的renderer   与  SurfaceFlinger。 TODO: [图](https://blog.csdn.net/wjky2014/article/details/141907903#:~:text=%E6%8B%A5%E6%9C%89%E4%BD%BF%E7%94%A8%E6%9D%83%E3%80%82-,%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8C%96%E7%9A%84%E6%A8%A1%E5%9E%8B%E4%BE%8B%E5%A6%82%E4%BB%A5%E4%B8%8B%EF%BC%9A,-Fence%E7%9A%84%E7%AE%80%E5%8C%96)
+>
+> TODO: Android的hwc 与 drm呢
+>
+> ​     https://blog.csdn.net/bruce_zhang123/article/details/124848001  Android SurfaceFlinger中Fence机制--个人理解整理
+>
+> 2、drm中：drm之dma-fence       https://blog.csdn.net/zhexingsunba/article/details/128510885   drm之dma-fence介绍     
+>
+> ​                              TODO: [图](https://blog.csdn.net/zhexingsunba/article/details/128510885#:~:text=%E6%8A%8Abuffer%E7%9A%84%E6%8E%A7%E5%88%B6%E6%9D%83%E6%B5%81%E8%BD%AC%E7%94%BB%E7%9A%84%E7%89%B9%E5%88%AB%E5%A5%BD%EF%BC%8C%E7%9B%B4%E6%8E%A5%E5%BC%95%E7%94%A8)
+>
+> 3、weston中：
+>
+> 结论：[参考 Fence实现的层级关系](https://blog.csdn.net/bruce_zhang123/article/details/124848001#:~:text=driver%20%E5%B1%82%EF%BC%9A-,fence%E5%85%B6%E5%AE%9E%E6%98%AF%E7%A1%AC%E4%BB%B6%E7%9A%84%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6,-%EF%BC%8C%E6%89%80%E6%9C%89%E7%9C%9F%E6%AD%A3%E7%9A%84)
+>
+> > （1）fence最终的实现就是drm 驱动的实现（或者硬件实现）
+> >
+> > （2）上层，都是封装的接口
+> >
+> > （3）扩展： EGL的扩展----------------同步对象的扩展KHR_fence_sync，**自然是用于EGL的command**
+> >
+> > （4）扩展：Android的扩展------------ANDROID_native_fence_sync
+> >
+> > ​                                   Android还进一步丰富了Fence的software stack：~~C++ Fence类位于/frameworks/native/libs/ui/Fence.cpp~~
+> >
+> > ​                                                                                                                 ~~C的libsync库位于/system/core/libsync/sync.c~~
+> >
+> > ​                                                                                                                  ~~Kernel driver部分位于/drivers/base/sync.c~~
+> >
+> > [参考 Android 图形显示系统（十三）Fence同步机制](https://www.jianshu.com/p/a7261bc82bca)
+
+
+
+
+
+
+
+
+
+[从buffer角度，看Android的整个显示流程](https://blog.csdn.net/wjky2014/article/details/141907903#:~:text=%E6%98%AF%E6%B6%88%E8%B4%B9%E8%80%85%E3%80%82-,%E6%95%B4%E4%B8%AA%E5%A4%A7%E8%87%B4%E6%B5%81%E7%A8%8B%E5%A6%82%E5%9B%BE,-%EF%BC%9A)
+
+> 非Overlay的层 --------  两个生产消费者模型，结构一模一样。[图](https://blog.csdn.net/wjky2014/article/details/141907903#:~:text=%E4%BD%9C%E4%B8%BA%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E3%80%82-,GraphicBuffer%E6%A8%A1%E5%9E%8B,-%E5%9B%A0%E4%B8%BA%E6%9C%8D%E5%8A%A1%E5%92%8C)
+>
+> > ​                                  acquireFence的使用流程，[图](https://blog.csdn.net/wjky2014/article/details/141907903#:~:text=%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B%EF%BC%9A-,acquireFence%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B,-%E5%BD%93App%E7%AB%AF)
+> >
+> > ​								  releaseFence的使用流程，[图](https://blog.csdn.net/wjky2014/article/details/141907903#:~:text=%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B%EF%BC%9A-,releaseFence%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B,-%E5%89%8D%E9%9D%A2%E6%8F%90%E5%88%B0%E5%90%88%E6%88%90)
+>
+> Overlay的层 -----------  一个生产者消费者模型，APP ---> HWC([SF把这些层相应的acquireFence传到HWC中](https://www.jianshu.com/p/a7261bc82bca#:~:text=%E4%B8%8D%E9%A1%BB%E8%A6%81%E7%BB%8F%E8%BF%87GPU%EF%BC%8C%E9%82%A3%E5%B0%B1%E9%A1%BB%E8%A6%81%E6%8A%8A%E8%BF%99%E4%BA%9B%E5%B1%82%E7%9B%B8%E5%BA%94%E7%9A%84acquireFence%E4%BC%A0%E5%88%B0HWC%E4%B8%AD))
+
+ 
+
+
+
+
+
+## why---存在的必要性
+
+同步机制：
+
+>   vsync------跨空间（进程与进程之间、内核与用户空间之间）
+>
+>   fence------跨空间 + 跨设备（两个设备的驱动之间、驱动与进程之间）
+>
+>   参考：[深入理解Android图形系统](https://cloud.tencent.com/developer/article/2127018#:~:text=ION%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98%E3%80%82-,ION%E6%98%AF%E5%BB%BA%E7%AB%8B%E5%9C%A8,-DMA%2DBUF%E7%9A%84)
+
+可见：<font color='red'>DMA-BUF 与 Fence机制关系密切！！！都是跨设备</font>
+
+位置：
+
+>   ![img](合成之weston.assets/bcf604a92085bc7f5cda2aa6ee0e6244.png)
+
+
+
+## 参考：
+
+> ~~https://blog.csdn.net/wjky2014/article/details/141907903  Android 显示 Fence 机制  ---> 好文~~
+>
+> https://www.jianshu.com/p/a7261bc82bca     Android 图形显示系统（十三）Fence同步机制    ---> 好文
+>
+> http://tangzm.com/blog/?p=167     Android中的EGL扩展
+
+
+
+
+
+## weston中 fence机制 
+
+搜索：
+
+>   FENCE_
+>
+>   WDRM_PLANE_IN_FENCE_FD  
+>
+>   state->in_fence_fd = ev->surface->acquire_fence_fd;  
+
+weston层面：
+
+
+
+
+
+## buffer之fence
+
+### 初步认识fence：
+
+>   1、从<font color='red'>同步模型</font>的角度：解决异步的方式（与java的wait/notify、C++中条件变量的wait/signal的语义是一样的）
+>
+>   ​                                        **不同的是**：
+>
+>   >   ​														fence跨空间（指进程与进程之间、内核与用户空间之间）跨设备（两个设备的驱动之间或者驱动与进程之间，实际上就是指<font color='red'>CPU与GPU之间</font>）
+>   >
+>   >   ​                                                         java的wait/notify  只是跨线程
+>
+>   ​                                       
+>
+>   2、从buffer的角度：<font color='red'>表征dma_buffer的使用</font>权
+>
+>   3、从实现角度：**就是信号量**
+
+
+
+
+
+-who---------<font color='red'>fence 主要用于dma_buffer</font>（shm主要是buffer_release来释放）-----------> [参考](https://www.51cto.com/article/717713.html#:~:text=%E5%AE%9E%E7%8E%B0%E4%BA%86Fence%EF%BC%8C-,%E5%AE%83%E4%B8%BB%E8%A6%81%E6%98%AF%E7%BB%99DMA%2DBUF%E7%94%A8%E7%9A%84,-%EF%BC%8C%E6%89%80%E4%BB%A5%E5%AE%83%E4%B9%9F%E6%98%AF)     这也是fence跨空间跨设备的根源（因**为dma_buffer是跨空间跨设备的**）
+
+>   shm的使用：    client ---(shm)--->weston ------(dma_buffer,primary)-----> display
+>
+>   dma的使用：  client ---(dma1)--->weston ------(dma1)-----> display
+>
+>   
+
+where1 ----------fence实现在内核中 TODO 
+
+where2  -----------应用
+
+>   ![图片](合成之weston.assets/d561265866f66a9a4f3716b1b8d9e15d40788a.png)
+>
+>   
+>
+>   ![图片](合成之weston.assets/e1772417297e71c6fda324e6f6957ef6126781.png)
+
+how -------------fence的实现：
+
+![图片](合成之weston.assets/c3c180c976f55f3000561960504b6641155b9e.png)
+
+
+
+### fence的 创建------以simple-dmabuf-egl为例
+
+fence的 fd的创建：
+
+```java
+gl_renderer_create_fence_fd
+	fd = gr->dup_native_fence_fd(gr->egl_display, go->render_sync); 
+	// EGL的PFNEGLDUPNATIVEFENCEFDANDROIDPROC
+```
+
+
+
+
+
+## display的fence
+
+
+
+
+
+```java
+// kms.c
+drm_output_apply_state_atomic() {
+    if (plane_state->in_fence_fd >= 0) {
+        ret |= plane_add_prop(req, plane,
+                      WDRM_PLANE_IN_FENCE_FD,
+                      plane_state->in_fence_fd);
+    }    
+}
+```
+
+
+
+
+
+### 补充初步认识fence：
+
+从退帧问题来看，完全可以不要fence：
+
+CPU是大调，fence是微调！！！！！(cpu的commit、callback是必要的)
+
+> ​                    fence是极限情况下的微调!!!!!!!!! 不要照样跑
+>
+> ​					buffer release：CPU画的情况下是bufferRelease；GPU画的情况下，是fence
+
+
+
+# 时间 -----从时间角度看图形
+
+## 单个屏幕 timeLIne
+
+![image-20241125011642908](合成之weston.assets/image-20241125011642908.png)
+
+
+
+```java
+原则：希望wait时间越长越好（这样，上车的人就越多）
+
+1、下次repaint时刻的计算公式：
+2、对于不需要合成repaint的情况，自然，wait的时间越久越好：16ms
+3、mix_timer的计算
+
+预计的repaint时间 compositor->repaint_msec是系统级别的：
+对于多屏，自然是多个output的时间之和（7ms以内）
+
+
+PageFlip没有对齐：问题？？？？
+从frame角度来看：frame1、frame2、frame3
+```
+
+## 多屏渲染流水线------important
+
+![image-20240817155924285](合成之weston.assets/image-20240817155924285.png)
+
+《weston.eddx》
+
+<font color='cornflowerblue'>核心点：</font>
+
+>   1、每个屏幕固定周期发车
+>
+>   2、<font color='red'>每个屏幕发车时间，没有任何关系！！！</font>
+
+
+
+**生活化模型，站在drm角度看图形流程：**
+
+>   -<font color='red'>why----最终目的：</font>
+>
+>   >   <font color='red'>1、drm发车，拉回client提供的货物      </font>                           
+>   >
+>   >   2、希望screen1的车子拿到 货物后 <font color='red'>能准时返回</font>（~~其他屏幕同理~~）
+>
+>   who：
+>
+>   >   1、DRM---------货车总站
+>   >
+>   >   2、货物------像素数据
+>   >
+>   >   3、screen ---- 发车员
+>   >
+>   >   4、weston ------ 货物交易中心（client送货、货车取货的地方）
+>   >
+>   >   5、min_timer ------------- <font color='red'>交易员（只有一个）</font>
+>   >
+>   >   6、client  ----------- 提供货物的人
+>
+>   when重要节点：
+>
+>   >   output_repaint --------------  真正进行交易，client的东西 交给 货车的过程
+>   >
+>   >   output_repaint_timer_handler  ----- 发车排班的班长
+>   >
+>   >   page_flip ------ 发车时刻 + 硬件周期，强约束 （自然：~~如果之前车子没回来commit，可能这次没有发车，**但是周期性，是强制的！！**！~~）
+>   >
+>   >   ​						在代码里，发了新车 page_flip ，也意味着 上一帧weston_output_finish_frame的结束
+>   >
+>   >   ​				 		自然，会在这里计算本次车辆返回的时刻
+>
+>   基本规则：
+>
+>   ```
+>   	1、硬件周期（发车时间）是一个强约束，|------1h-------|------1h-------|------1h-------|------1h-------|
+>   			车回程时刻不是！！！！
+>   	2、只有一辆车（一个屏幕）：需要等车子回来（commit，并且硬件处理完成后），才能发下一班车。
+>   			期望：车子的来回限制在一个小时里
+>   	3、硬件周期，  对于weston是PageFlip（硬件周期约束）
+>   				 对于安卓是vsync（不同点：安卓vsync信号给了应用）
+>   ```
+>
+>   <font color='red'>weston的多屏策略</font>： 希望<font color='red'>多个车子可以同时回程</font>（多个屏幕统一提交）
+>
+>   优点：
+>
+>   >   1、出现一个窗口跨屏时，可以完整显示（其实也不一定，另一个屏幕可能还没发车）
+>
+>   <font color='red'>缺点：</font>
+>
+>   >   <font color='red'>任务过于集中</font>，交易员在16ms内，未必做的完
+>
+>   
+
+
+
+特殊的点：
+
+>   这里的Timer，按道理是并行的  -----> **weston的做法是 求了min_Timer**，最后所有outPut统一绘制
+
+物理级的原因：
+
+>   weston的软件屏（一个） 是 所有硬键屏的总和（解决的问题场景：一个窗口，占两个屏时，不会不同步）
+>
+>   weston的一帧画面，是所有output绘制了一帧
+
+结论：
+
+>   weston的一帧，是所有屏的一帧
+
+
+
+### 从trace看多屏渲染流水线
+
+
+
+
+
+### 优化之 任务过于集中  ----->   模型之任务队列
+
+
+模型之任务队列 
+
+>   --------->  解决的问题：把集中的任务，平均化
+>                                        即把CPU的使用，高峰，平均化 ------> 即 削峰
+>
+>   最坏情况，直接for循环调用
+>
+>   最好情况：刚刚满负荷，即一个任务完全执行完，另一个任务才加入队列
+
+
+
+应用：
+
+>   例子1：可以应用于weston，把 多屏串行，改成任务队列，提交到一个render线程上运行
+
+
+
+TODO:
+
+>   比较好的做法是，屏幕是线程级别的： 各个屏幕之间完全无关 ------------->  一个屏幕，一个线程（但是需要切换EGLcontext，耗时）
+>
+>   更优化的做法：屏幕是进程级别的：
+
+## weston之多屏
+
+1、发车pageFlip不是统一
+
+repaint和提交给drm，是统一的
+
+见《when---生命周期图 0层》图
+
+2、outPut-> viewlist            这个viewlist是系统级别的！！！！！不是屏幕级别的！！！！！
+
+
+
 # TODO: opengl角度： APP做了哪些，EGL做了哪些
 
 为什么EGL只能做一部分？如何证明只能做到目前的架构
@@ -2644,26 +2914,6 @@ wl_callback_add_listener() wl_callback 由wl_surface_frame() 创建，每当服�
 
 
 
-
-# weston事件分发逻辑
-
--<font color='red'>基本原则：</font>
-
-> <font color='red'>事件分发层级</font> = 窗口管理层级（大调：weston layer层级，小调：weston view_list），即weston framework层的**软件层级**
-
-
-
-技巧，可以判定   软件层级：
-
-> 将两个窗口重叠，拖动  -----------> **拖动的窗口一定在上**（事件是从上往下分发的）
->
-> 注：可能是两个layer，也可能是同一layer，不同view_list层级
-
-
-
-
-
--<font color='red'>显示层级 = </font>窗口管理层级 + 合成层级 + plane分配层级 + 硬件plane配置层级
 
 
 
@@ -2994,16 +3244,6 @@ drm驱动给到weston的plane日志，<font color='red'>但是似乎不是硬件
 
 
 
-# weston之多屏
-
-1、发车pageFlip不是统一
-
-repaint和提交给drm，是统一的
-
-见《when---生命周期图 0层》图
-
-2、outPut-> viewlist            这个viewlist是系统级别的！！！！！不是屏幕级别的！！！！！
-
 
 
 
@@ -3211,241 +3451,6 @@ struct drm_output {
 
 
 output对应的屏幕  ---------->      output->base.name
-
-
-
-# Fence ------GPU与CPU同步的一种方式
-
-从两个函数说起：
-
->   glFlush() ： 强制将**当前context中的所有命令**送入GPU执行   +   不会等待，立即返回，CPU继续执行
->
->   glFinish()： 。。。。。。。。。。。。。。。。。。。。 +  等待GPU执行完所有命令，才会返回（CPU阻塞）
-
--------------> <font color='red'>glFinish()弊端很大，CPU与GPU之间完全同步</font>。
-
-​					<font color='red'>而 glFlush()，CPU与GPU完全异步</font>    ----------> 不安全，<font color='red'>fence机制 ，就是对glFlush()的补救</font>
-
-Fence字面意思：
-
-> fence ----- 屏障。。。。memery 屏障  （扩展：handler里也有msg的屏障）
-
-
-
-问题来源：
-
-why-------CPU与 GPU的异步造成的：
-
-> 1、从代码调用角度-----------opengl接口调用：cpu 没有等GPU 执行完，就继续执行了。。。。TODO:图
->
-> > 仅仅是把GL command命令放在本地的command buffer里
->
-> 所以，<font color='red'>CPU 从client传递fd给 weston，这块buffer内容是未知的（可能GPU已经画完，也可能GPU还在画，也有可能GPU还没开始画？）</font>
->
-> 2、从关系角度:fence是buffer的使用权（约等于buffer_release）。。所以：
->
-> （1）与buffer高度重合
->
-> （2）如果只有CPU画图，那么就不需要fence ---------- buffer_release 解决了CPU对 buffer的使用冲突
->
-> （3）fence的使用同 buffer：
->
-> > ​         传递buffer的时候，传递fence
-> >
-> > ​         画buffer的时候，等fence
-> >
-> > ![img](合成之weston.assets/9950366-1f9efd7d195df02d.png)
-> >
-> >  [图](https://www.jianshu.com/p/a7261bc82bca#:~:text=%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B%EF%BC%9A-,acquireFence%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B,-%E5%BD%93App%E7%AB%AF)
->
-> 3、从**CPU阻塞**角度：**fence是一种CPU延迟的阻塞的方法**
->
-> ​      《见how》
->
-> 4、从  硬件buffer 的冲突 角度上：
->
-> ​     <font color='red'>CPU使用buffer的冲突（ = 进程与进程之间同步）</font> ：~~通过进程之间同步 buffer_release  解决~~
->
-> ​     <font color='red'>  CPU1与GPU之间，抢占 硬件buffer：</font> fence机制
->
-> 5、从级别来看：
->
-> > fence跟着buffer走，但是可见范围是整个系统 & 各个进程
-> >
-> > 但是代码角度：产生 fence，释放fence，都是CPU的代码？  TODO:  
->
-> 6、从异步/同步角度：fence是CPU与GPU的一种同步方案（类似于锁、callback）
->
-> 
-
-进一步抽象：**所有同步/异步问题的根源在于**  “两个”对<font color='red'>硬件资源</font>的抢占造成的
-
-> CPU1与CPU2之间，抢占 硬件buffer
->
-> CPU1与GPU之间，抢占 硬件buffer
->
-> 其他：
->
-> > 两个进程，抢占  硬件CPU资源
-
-
-
-
-
-how-----<font color='red'>解决方法：</font>
-
-> 方法一：CPU等待这些命令运行完-------即CPU侧glFinish()   TODO: simple-egl里没有调用，为啥？
->
-> ​              <font color='red'> 阻塞在当前frame1 使用  GPU画 buffer1  这个时间点！！！！</font>
->
-> 方法二：Fence机制。
->
-> ​           <font color='red'>    在绘制frame2的图时，才阻塞，等待buffer1  的fence  ！！！！</font>     -------->  TODO: buffer 1 还是 buffer2？
-
-
-
-
-
-fence，在各个系统中的应用：
-
-> 1、Android系统中：App中的renderer   与  SurfaceFlinger。 TODO: [图](https://blog.csdn.net/wjky2014/article/details/141907903#:~:text=%E6%8B%A5%E6%9C%89%E4%BD%BF%E7%94%A8%E6%9D%83%E3%80%82-,%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8C%96%E7%9A%84%E6%A8%A1%E5%9E%8B%E4%BE%8B%E5%A6%82%E4%BB%A5%E4%B8%8B%EF%BC%9A,-Fence%E7%9A%84%E7%AE%80%E5%8C%96)
->
-> TODO: Android的hwc 与 drm呢
->
-> ​     https://blog.csdn.net/bruce_zhang123/article/details/124848001  Android SurfaceFlinger中Fence机制--个人理解整理
->
-> 2、drm中：drm之dma-fence       https://blog.csdn.net/zhexingsunba/article/details/128510885   drm之dma-fence介绍     
->
-> ​                              TODO: [图](https://blog.csdn.net/zhexingsunba/article/details/128510885#:~:text=%E6%8A%8Abuffer%E7%9A%84%E6%8E%A7%E5%88%B6%E6%9D%83%E6%B5%81%E8%BD%AC%E7%94%BB%E7%9A%84%E7%89%B9%E5%88%AB%E5%A5%BD%EF%BC%8C%E7%9B%B4%E6%8E%A5%E5%BC%95%E7%94%A8)
->
-> 3、weston中：
->
-> 结论：[参考 Fence实现的层级关系](https://blog.csdn.net/bruce_zhang123/article/details/124848001#:~:text=driver%20%E5%B1%82%EF%BC%9A-,fence%E5%85%B6%E5%AE%9E%E6%98%AF%E7%A1%AC%E4%BB%B6%E7%9A%84%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6,-%EF%BC%8C%E6%89%80%E6%9C%89%E7%9C%9F%E6%AD%A3%E7%9A%84)
->
-> > （1）fence最终的实现就是drm 驱动的实现（或者硬件实现）
-> >
-> > （2）上层，都是封装的接口
-> >
-> > （3）扩展： EGL的扩展----------------同步对象的扩展KHR_fence_sync，**自然是用于EGL的command**
-> >
-> > （4）扩展：Android的扩展------------ANDROID_native_fence_sync
-> >
-> > ​                                   Android还进一步丰富了Fence的software stack：~~C++ Fence类位于/frameworks/native/libs/ui/Fence.cpp~~
-> >
-> > ​                                                                                                                 ~~C的libsync库位于/system/core/libsync/sync.c~~
-> >
-> > ​                                                                                                                  ~~Kernel driver部分位于/drivers/base/sync.c~~
-> >
-> > [参考 Android 图形显示系统（十三）Fence同步机制](https://www.jianshu.com/p/a7261bc82bca)
-
-
-
-
-
-
-
-
-
-[从buffer角度，看Android的整个显示流程](https://blog.csdn.net/wjky2014/article/details/141907903#:~:text=%E6%98%AF%E6%B6%88%E8%B4%B9%E8%80%85%E3%80%82-,%E6%95%B4%E4%B8%AA%E5%A4%A7%E8%87%B4%E6%B5%81%E7%A8%8B%E5%A6%82%E5%9B%BE,-%EF%BC%9A)
-
-> 非Overlay的层 --------  两个生产消费者模型，结构一模一样。[图](https://blog.csdn.net/wjky2014/article/details/141907903#:~:text=%E4%BD%9C%E4%B8%BA%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E3%80%82-,GraphicBuffer%E6%A8%A1%E5%9E%8B,-%E5%9B%A0%E4%B8%BA%E6%9C%8D%E5%8A%A1%E5%92%8C)
->
-> > ​                                  acquireFence的使用流程，[图](https://blog.csdn.net/wjky2014/article/details/141907903#:~:text=%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B%EF%BC%9A-,acquireFence%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B,-%E5%BD%93App%E7%AB%AF)
-> >
-> > ​								  releaseFence的使用流程，[图](https://blog.csdn.net/wjky2014/article/details/141907903#:~:text=%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B%EF%BC%9A-,releaseFence%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B,-%E5%89%8D%E9%9D%A2%E6%8F%90%E5%88%B0%E5%90%88%E6%88%90)
->
-> Overlay的层 -----------  一个生产者消费者模型，APP ---> HWC([SF把这些层相应的acquireFence传到HWC中](https://www.jianshu.com/p/a7261bc82bca#:~:text=%E4%B8%8D%E9%A1%BB%E8%A6%81%E7%BB%8F%E8%BF%87GPU%EF%BC%8C%E9%82%A3%E5%B0%B1%E9%A1%BB%E8%A6%81%E6%8A%8A%E8%BF%99%E4%BA%9B%E5%B1%82%E7%9B%B8%E5%BA%94%E7%9A%84acquireFence%E4%BC%A0%E5%88%B0HWC%E4%B8%AD))
-
- 
-
-> 
-
-
-
-
-
-## why---存在的必要性
-
-同步机制：
-
->   vsync------跨空间（进程与进程之间、内核与用户空间之间）
->
->   fence------跨空间 + 跨设备（两个设备的驱动之间、驱动与进程之间）
->
->   参考：[深入理解Android图形系统](https://cloud.tencent.com/developer/article/2127018#:~:text=ION%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98%E3%80%82-,ION%E6%98%AF%E5%BB%BA%E7%AB%8B%E5%9C%A8,-DMA%2DBUF%E7%9A%84)
-
-可见：<font color='red'>DMA-BUF 与 Fence机制关系密切！！！都是跨设备</font>
-
-位置：
-
->   ![img](合成之weston.assets/bcf604a92085bc7f5cda2aa6ee0e6244.png)
->
-
-
-
-## 参考：
-
-> ~~https://blog.csdn.net/wjky2014/article/details/141907903  Android 显示 Fence 机制  ---> 好文~~
->
-> https://www.jianshu.com/p/a7261bc82bca     Android 图形显示系统（十三）Fence同步机制    ---> 好文
->
-> http://tangzm.com/blog/?p=167     Android中的EGL扩展
-
-
-
-
-
-## weston中 fence机制 
-
-搜索：
-
->   FENCE_
->
->   WDRM_PLANE_IN_FENCE_FD  
->
->   state->in_fence_fd = ev->surface->acquire_fence_fd;  
->
-
-weston层面：
-
-
-
-
-
-
-
-
-
-## display的fence
-
-
-
-
-
-```java
-// kms.c
-drm_output_apply_state_atomic() {
-    if (plane_state->in_fence_fd >= 0) {
-        ret |= plane_add_prop(req, plane,
-                      WDRM_PLANE_IN_FENCE_FD,
-                      plane_state->in_fence_fd);
-    }    
-}
-```
-
-
-
-
-
-### 补充初步认识fence：
-
-从退帧问题来看，完全可以不要fence：
-
-CPU是大调，fence是微调！！！！！(cpu的commit、callback是必要的)
-
-> ​                    fence是极限情况下的微调!!!!!!!!! 不要照样跑
->
-> ​					buffer release：CPU画的情况下是bufferRelease；GPU画的情况下，是fence
 
 
 

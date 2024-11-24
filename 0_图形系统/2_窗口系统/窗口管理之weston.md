@@ -246,6 +246,34 @@ motion事件（同frame事件）：
 
 
 
+## weston事件 窗口分发逻辑
+
+-<font color='red'>基本原则：</font>
+
+> <font color='red'>事件分发层级</font> = 窗口管理层级（大调：weston layer层级，<font color='red'>小调：weston view_list</font>），即weston framework层的**软件层级**
+
+**其实就是根据 weston view_lis 分发的事件！**（ layer层级最终也是转化为view_list）
+
+
+
+技巧，可以判定   软件层级：
+
+> 将两个窗口重叠，拖动  -----------> **拖动的窗口一定在上**（事件是从上往下分发的）
+>
+> 注：可能是两个layer，也可能是同一layer，不同view_list层级
+
+
+
+
+
+-<font color='red'>显示层级 = </font>窗口管理层级 + 合成层级 + plane分配层级 + 硬件plane配置层级
+
+
+
+
+
+
+
 # wayland协议
 
 ## ~~Wayland核心协议，同安卓~~

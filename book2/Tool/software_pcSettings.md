@@ -2789,6 +2789,8 @@ Volume Booster
 
 教程：https://jingyan.baidu.com/article/f71d6037a838145bb741d14a.html
 
+
+
 # 技巧之保存离线网页
 
 步骤：
@@ -2807,7 +2809,7 @@ Volume Booster
 >   <!--        -->
 >   ```
 >
->   ![在这里插入图片描述](../DRM系列_html.assets/1a17cae12137e1b50a0b66ca46474065.png)
+>   ![1a17cae12137e1b50a0b66ca46474065](software_pcSettings.assets/1a17cae12137e1b50a0b66ca46474065-1732457738277.png)
 
 ## 防止跳转之meta http-equiv=
 
@@ -2816,7 +2818,7 @@ Volume Booster
  清空其content
 ```
 
-![image-20241124114154666](../DRM系列_html.assets/image-20241124114154666.png)
+![image-20241124114154666](software_pcSettings.assets/image-20241124114154666.png)
 
 
 
@@ -2824,13 +2826,13 @@ Volume Booster
 
 如同图片，插入md！！！！在网页里可以跳转
 
-![image-20241124173111287](../DRM系列_html.assets/image-20241124173111287.png)
+![image-20241124173111287](software_pcSettings.assets/image-20241124173111287.png)
 
 
 
 ##  注意：保存离线html前，折叠的内容都要打开
 
-![image-20240811075108545](../DRM系列_html.assets/image-20240811075108545.png)
+![image-20240811075108545](software_pcSettings.assets/image-20240811075108545.png)
 
 ## chatGPT的回答
 

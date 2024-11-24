@@ -1848,6 +1848,21 @@ Log.d(TAG, "child.mAttachInfo.mTmpInvalRect "  + child.mAttachInfo.mTmpInvalRect
 
 
 
+
+
+5、打印依赖于抽象，不要依赖于具体
+
+```java
+	weston_log("GL-renderer: %s failed to generate a color transformation.\n",
+			   __func__);
+```
+
+---------> TODO: <font color='red'>写代码的精髓：依赖于抽象</font>！！！！！
+
+
+
+
+
 ## view log维测技巧：
 
 TODO：

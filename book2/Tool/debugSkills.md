@@ -1861,7 +1861,18 @@ Log.d(TAG, "child.mAttachInfo.mTmpInvalRect "  + child.mAttachInfo.mTmpInvalRect
 
 
 
+6、技巧：log的层次
 
+-----------> <font color='red'>化简之树结构（树折叠</font>），在log中使用
+
+```
+\t
+weston_log( "\t\t\t[PLANE:%lu] idx:%lu, FORMAT: %s\n",
+      (unsigned long) plane->plane_id, (unsigned long) plane->plane_idx,
+      pinfo ? pinfo->drm_format_name : "UNKNOWN");
+```
+
+----------> TODO: <font color='red'>化简之 树折叠</font>
 
 ## view log维测技巧：
 

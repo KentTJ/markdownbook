@@ -2791,6 +2791,18 @@ Volume Booster
 
 
 
+
+
+## win部分进程CPU占用过高
+
+### Antimalware Service CPU占用过高     ---->扫描文件造成的
+
+https://www.cnblogs.com/WadeCai/p/6593568.html
+
+
+
+
+
 # 技巧之保存离线网页
 
 步骤：

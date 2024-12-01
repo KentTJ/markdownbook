@@ -1404,6 +1404,12 @@ wet_shell_init
 >   方式一：pipe创建：
 >
 >   方式二：
+>
+>   ```java
+>   eventfd(0, EFD_SEMAPHORE | EFD_CLOEXEC);
+>   ```
+>
+>   
 
 
 

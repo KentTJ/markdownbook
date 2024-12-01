@@ -2245,6 +2245,42 @@ Total 0 devices attached
 
 
 
+## Dmabuffer ------> Texture 不需要copy
+
+EGL扩展的接口：
+
+>   ```java
+>   EXT_image_dma_buf_import
+>   ```
+>
+>   https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_image_dma_buf_import.txt  
+
+
+
+使用参考：simple-dmabuf-egl.c
+
+>   https://gitlab.freedesktop.org/wayland/weston/-/blob/main/clients/simple-dmabuf-egl.c?ref_type=heads
+
+
+
+## DMA是怎么样实现共享buffer？
+
+https://blog.csdn.net/weixin_42136255/article/details/129722675#:~:text=%E4%BC%9A%E5%A4%A7%E5%A4%A7%E9%99%8D%E4%BD%8E%E3%80%82-,DMA%E6%98%AF%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E5%85%B1%E4%BA%ABbuffer%EF%BC%9F,-1.%E4%B8%BA%E4%BA%86%E8%A7%A3%E5%86%B3
+
+![img](合成之weston.assets/84f2fc5ac322aeb19921af21f1e26209.png)
+
+
+
+
+
+## 参考
+
+
+
+https://blog.csdn.net/weixin_42136255/article/details/129722675           DMABuffer剖析
+
+
+
 # Fence ------GPU与CPU同步的一种方式
 
 从两个函数说起：

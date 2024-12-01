@@ -2300,7 +2300,9 @@ https://blog.csdn.net/weixin_42136255/article/details/129722675           DMABuf
 
 
 
-# 栅栏机制(Fence) ------GPU与CPU同步的一种方式
+# 栅栏(Fence) ------GPU与CPU同步的一种方式
+
+## 0层图
 
 从两个函数说起：
 
@@ -2312,11 +2314,45 @@ https://blog.csdn.net/weixin_42136255/article/details/129722675           DMABuf
 
 ​					<font color='red'>而 glFlush()，CPU与GPU完全异步</font>    ----------> 不安全，<font color='red'>fence机制 ，就是对glFlush()的补救</font>
 
+
+
+![image-20241201221236967](合成之weston.assets/image-20241201221236967.png)
+
+《weston.eddx》
+
+结论：
+
+>   1、<font color='red'>栅栏fence的本质：</font>
+>
+>   向cmd队列添加一个栅栏，<font color='red'>与buffer没有任何关系！！！！！</font>
+>
+>   2、产生<font color='red'>时间关系</font>的点在于：<font color='red'>栅栏执行完 = cmd执行完 = gpu真正绘制完 = buffer使用完</font>
+>
+>   3、<font color='red'>空间上没有任何关系</font>：一个fence点，可以对应一批buffer。比如weston侧合成，插入fence，一个fence，对应多个buffer！！！！（实际上，weston合成也是产生了多个fence！！！！，是一对一的！！！）
+>
+>   4、空间上的关系，产生于  client 与 server之间 调用时机
+>
+>   疑问，TODO: gpu执行cmd，是并行，为啥有cmd Queue？
+>
+>   5、本质上，没有acquirefence与 releaseFence
+>
+>   ​    只有插入fence 与等待fence
+
+
+
+
+
 Fence字面意思：
 
-> fence ----- 屏障。。。。memery 屏障？？  ---------> **<font color='red'>NO,  应该是GPU的command line 屏障</font>**！！！！！！
+> fence ----- 栅栏。。。  ---------> **<font color='red'>是GPU的command line 屏障</font>**！！！！！！
 >
 >   （扩展：handler里也有msg的屏障）
+
+
+
+
+
+
 
 
 
@@ -2446,6 +2482,191 @@ fence，在各个系统中的应用：
 
  
 
+## weston中 上层的fence
+
+### 0层图------fence的pingpong
+
+![image-20241201222357377](合成之weston.assets/image-20241201222357377.png)
+
+TODO:
+
+结论：
+
+>   1、由图可见，<font color='red'>栅栏在各个进程之间，也一定是pingpong的</font>！！！！！！！！
+>
+>   2、栅栏是GPU的概念，只有插入与释放。 
+>
+>   -<font color='red'> acquire_fence与 fenced_release，是业务层的概念</font>   ，是wayland协议的概念：weston获取 client的栅栏，weston侧释放
+
+
+
+### client 1绘制完，插入栅栏fd1，并 给到weston：
+
+```java
+// simple-dmabuf-egl.c
+└─ redraw------client
+    ├─ buffer = window_next_buffer(window); // 【获取client认为空闲的buffer】：使用fence，非真正空闲
+    ├─ // 绘制之前 等GPU release_fence
+    ├─ wait_for_buffer_release_fence(buffer);
+    │   └─ d->egl.wait_sync(d->egl.display, sync, 0);  // 【唯一目的：通过server给client的 release_fence_fd，等GPU释放fence】【release_fence_fd】
+    ├─ .
+    ├─ render(window, buffer); // 绘制
+    ├─ .
+    ├─ // 绘制之后 法一： 【fence延迟阻塞方法：要求GPU acquire_fence】
+    ├─ EGLSyncKHR sync = d->egl.create_sync
+    ├─ glFlush() // 必要的，确保所有 OpenGL 操作都已提交到 GPU
+    ├─ fd = d->egl.dup_native_fence_fd(d->egl.display, sync);  // 【client从openGL拿到fd】 TODO:为啥不是buffer级别的？
+    ├─ zwp_linux_surface_synchronization_v1_set_acquire_fence(fence_fd);
+    │   └─ linux_surface_synchronization_set_acquire_fence -------------server侧
+    │       └─ fd_update(&surface->pending.acquire_fence_fd, fd); // 【client获取的fd赋值给server侧的pending，等待client的wl_surface_commit】----->TODO: 干啥了？
+    ├─ // 添加buffer_release_listener?
+    ├─ zwp_linux_surface_synchronization_v1_get_release
+    ├─ zwp_linux_buffer_release_v1_add_listener(buffer->buffer_release, &buffer_release_listener, buffer);
+    ├─
+    ├─ // 绘制之后 法二：【client阻塞做法 ------> 不需要fence！！！！！】
+    ├─ glFinish() 【client的CPU一直阻塞在这里,，不进行下面的wl_surface_attach、wl_surface_commit】
+    ├─ .
+    ├─ .
+    ├─ -------------------------------------------------------------------------------------------------
+    ├─ wl_surface_attach
+    ├─ wl_surface_damage
+    ├─ wl_callback_add_listener(frame_callback)
+    └─ wl_surface_commit
+        └─ weston_surface_commit-------------server侧
+            └─ weston_surface_commit_state
+                └─ /* zwp_surface_synchronization_v1.set_acquire_fence */ ---> acquire_fence
+                    ├─ fd_move(&surface->acquire_fence_fd,  // 【唯一目的！！！：最终 acquire_fence_fd 给了server侧的surface】
+                    │   └─ &state->acquire_fence_fd);
+                    ├─ /* zwp_surface_synchronization_v1.get_release */       ---> release_fence
+                    ├─ weston_buffer_release_move(&surface->buffer_release_ref,
+                    │   └─ &state->buffer_release_ref);
+                    └─ weston_surface_attach(surface, state->buffer);
+
+```
+
+
+
+%accordion%hideContent%accordion%
+
+
+
+```java
+fence_fd来源：
+
+redraw------client
+	buffer = window_next_buffer(window); // 【获取client认为空闲的buffer】：使用fence，非真正空闲
+	// 绘制之前 等GPU release_fence
+	wait_for_buffer_release_fence(buffer);
+		d->egl.wait_sync(d->egl.display, sync, 0);  // 【唯一目的：通过server给client的 release_fence_fd，等GPU释放fence】【release_fence_fd】
+	
+	render(window, buffer); // 绘制
+	
+	// 绘制之后 法一： 【fence延迟阻塞方法：要求GPU acquire_fence】
+	EGLSyncKHR sync = d->egl.create_sync
+	glFlush() // 必要的，确保所有 OpenGL 操作都已提交到 GPU
+	fd = d->egl.dup_native_fence_fd(d->egl.display, sync);  // 【client从openGL拿到fd】 TODO:为啥不是buffer级别的？
+	zwp_linux_surface_synchronization_v1_set_acquire_fence(fence_fd);
+		linux_surface_synchronization_set_acquire_fence -------------server侧
+			fd_update(&surface->pending.acquire_fence_fd, fd); // 【client获取的fd赋值给server侧的pending，等待client的wl_surface_commit】----->TODO: 干啥了？
+	// 添加buffer_release_listener?
+	zwp_linux_surface_synchronization_v1_get_release
+	zwp_linux_buffer_release_v1_add_listener(buffer->buffer_release, &buffer_release_listener, buffer);
+	
+	// 绘制之后 法二：【client阻塞做法 ------> 不需要fence！！！！！】
+	glFinish() 【client的CPU一直阻塞在这里,，不进行下面的wl_surface_attach、wl_surface_commit】
+	.
+	.
+	-------------------------------------------------------------------------------------------------
+	wl_surface_attach
+	wl_surface_damage
+	wl_callback_add_listener(frame_callback)
+	wl_surface_commit
+		weston_surface_commit-------------server侧
+			weston_surface_commit_state
+					/* zwp_surface_synchronization_v1.set_acquire_fence */ ---> acquire_fence 
+					fd_move(&surface->acquire_fence_fd,  // 【唯一目的！！！：最终 acquire_fence_fd 给了server侧的surface】
+						&state->acquire_fence_fd);
+					/* zwp_surface_synchronization_v1.get_release */       ---> release_fence
+					weston_buffer_release_move(&surface->buffer_release_ref,
+								   &state->buffer_release_ref);
+					weston_surface_attach(surface, state->buffer);
+```
+
+
+
+%/accordion%
+
+### 若GPU合成，weston等待 传过来的栅栏fd1
+
+```java
+// weston侧：合成时
+gl_renderer_repaint_output 
+repaint_views
+	draw_paint_node
+		ensure_surface_buffer_is_ready---------------确认view对应的buffer状态----------
+			1、if (surface->acquire_fence_fd < 0) return 0 // 如果没有要求fence，直接返回。。。何时要求的？client侧？？？？标记buffer
+			2、 attribs[1] = dup(surface->acquire_fence_fd);
+				sync = gr->create_sync(gr->egl_display, EGL_SYNC_NATIVE_FENCE_ANDROID, attribs); // 创建等待fence的EGL对象
+				wait_ret = gr->wait_sync(gr->egl_display, sync, 0);                             // 【唯一目的完成2：eglWaitSyncKHR：等待fence，CPU阻塞点！！！！】
+		repaint_region // 绘制
+	go->render_sync = create_render_sync(gr); // 【eglCreateSyncKHR weston添加栅栏fence_fd_weston】
+	eglSwapBuffers（包含了）
+	update_buffer_release_fences
+		for 循环 weston_view
+			fence_fd = gl_renderer_create_fence_fd(output); 这里从之前的栅栏对象EGLSyncKHR 【产生不同的fence_fd -----> 给各个client】
+```
+
+###  weston合成后插入自己的fence_weston, 并给到client
+
+合成后插入自己的fence_weston：见上
+
+ TODO:  fence_fd_weston，何时给到client？？？
+
+```java
+触发时机很多，TODO:找最常见的！！！！！
+①drm_output_try_paint_node_on_plane  -----> 走overlay的，下一帧立即释放
+①weston_surface_commit_state
+weston_buffer_release_destroy
+	zwp_linux_buffer_release_v1_send_fenced_release
+		--------------client进程----------------------
+		zwp_linux_buffer_release_v1_listener
+			buffer_fenced_release
+				buffer->release_fence_fd = fence;  // 【完美的循环：拿到weston的栅栏！！！，后面client的redraw，需要等这个栅栏！！！】
+```
+
+
+
+### weston提交给drm的fence  ----TODO
+
+1、承载在 plane里：apply_
+
+2、plane的fence来源：（本质都是来源buffer）
+
+ （1）走overlay，自然是view的buffer
+
+```java
+drm_output_try_paint_node_on_plane
+    state->in_fence_fd = ev->surface->acquire_fence_fd;
+      <------来源：见上，client传过来的
+```
+
+ （2）	TODO:  验证！！！！走primary的，自然是gbm_surface对应buffer的？？？？？
+        fence_fd:-1
+
+
+
+### 次要关键词搜索：
+
+>   FENCE_
+>
+>   WDRM_PLANE_IN_FENCE_FD  
+>
+>   state->in_fence_fd = ev->surface->acquire_fence_fd;  
+
+
+
+
+
 
 
 
@@ -2477,20 +2698,6 @@ fence，在各个系统中的应用：
 > http://tangzm.com/blog/?p=167     Android中的EGL扩展
 
 
-
-
-
-## weston中 fence机制 
-
-搜索：
-
->   FENCE_
->
->   WDRM_PLANE_IN_FENCE_FD  
->
->   state->in_fence_fd = ev->surface->acquire_fence_fd;  
-
-weston层面：
 
 
 
@@ -2591,7 +2798,7 @@ CPU是大调，fence是微调！！！！！(cpu的commit、callback是必要的
 
 
 
-## Linux dma-fence demo--笔记
+## TODO: Linux dma-fence demo--从内核看fence
 
 https://www.cnblogs.com/yaongtime/p/14594567.html    
 

@@ -2512,9 +2512,7 @@ TODO:
 >
 >   比如2：
 >
->   
->
->   
+>   [合成阶段等待acquireFence 触发后再去处理数据](https://juejin.cn/post/7099751832381030436)
 
 ### client 1绘制完，插入栅栏fd1，并 给到weston：
 

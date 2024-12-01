@@ -272,6 +272,14 @@ motion事件（同frame事件）：
 
 
 
+代码：
+
+
+
+
+
+
+
 
 
 # wayland协议
@@ -1129,7 +1137,7 @@ wl_callback_add_listener() wl_callback 由wl_surface_frame() 创建，每当服�
 
 # 通信之信号（wl_signal_emit）
 
-1、范围：进程内通信  ------> 已经验证
+1、范围：<font color='red'>同线程内，不会切换线程</font>  ------> 已经验证
 
 2、`wl_signal_emit` 是**同步的**：-------> 已经验证
 

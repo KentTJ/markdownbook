@@ -2243,9 +2243,26 @@ Total 0 devices attached
 
 
 
+## 具体获取dmabuffer数据
+
+### cpu获取-----内存映射
+
+必然的？？？
 
 
-## Dmabuffer ------> Texture 不需要copy
+
+~~代码：~~
+
+```java
+va = mmap(NULL, strides[0], PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+if (va == MAP_FAILED) {
+	weston_log("failed, error=%d,%s\n", errno, strerror(errno));
+	close(fd);
+	return;
+}
+```
+
+### GPU获取 Dmabuffer  fd------> Texture 不需要copy
 
 EGL扩展的接口：
 
@@ -2260,6 +2277,8 @@ EGL扩展的接口：
 使用参考：simple-dmabuf-egl.c
 
 >   https://gitlab.freedesktop.org/wayland/weston/-/blob/main/clients/simple-dmabuf-egl.c?ref_type=heads
+
+
 
 
 
@@ -2281,7 +2300,7 @@ https://blog.csdn.net/weixin_42136255/article/details/129722675           DMABuf
 
 
 
-# Fence ------GPU与CPU同步的一种方式
+# 栅栏机制(Fence) ------GPU与CPU同步的一种方式
 
 从两个函数说起：
 
@@ -2295,7 +2314,9 @@ https://blog.csdn.net/weixin_42136255/article/details/129722675           DMABuf
 
 Fence字面意思：
 
-> fence ----- 屏障。。。。memery 屏障  （扩展：handler里也有msg的屏障）
+> fence ----- 屏障。。。。memery 屏障？？  ---------> **<font color='red'>NO,  应该是GPU的command line 屏障</font>**！！！！！！
+>
+>   （扩展：handler里也有msg的屏障）
 
 
 
@@ -2584,18 +2605,37 @@ https://www.cnblogs.com/yaongtime/p/14594567.html
 
 
 
+
+
+
+
+
+
 # 时间 -----从时间角度看图形
 
 ## 单个屏幕 timeLIne
 
-![image-20241125011642908](合成之weston.assets/image-20241125011642908.png)
+![image-20241201191359239](合成之weston.assets/image-20241201191359239.png)
+
+下次repaint时刻①的计算公式：
+
+```java
+【pageFlip --> weston_output_finish_frame】
+一帧结束，自然计划发下一班车：-----------TODO:需要物理级的证明！！！！！
+ 
+下一班车计划发车时间	 =	 当前车子回来的时间	  +	  16ms发车周期			   -	 预计的行车时间7ms（估算值）
+output->next_repaint	output->frame_time   output->current_mode->refresh	   compositor->repaint_msec
+							stamp				 （屏幕级）
+ 时刻①             =     当前时刻        + （16ms                    -       预计的repaint_time(源代码中7ms)）
+```
 
 
 
 ```java
 原则：希望wait时间越长越好（这样，上车的人就越多）
 
-1、下次repaint时刻的计算公式：
+1、
+    
 2、对于不需要合成repaint的情况，自然，wait的时间越久越好：16ms
 3、mix_timer的计算
 
@@ -2606,6 +2646,16 @@ https://www.cnblogs.com/yaongtime/p/14594567.html
 多屏之  PageFlip没有对齐：问题？？？？
 从frame角度来看：frame1、frame2、frame3
 ```
+
+
+
+多屏下repaint_time时刻的计算：
+
+>   min（各个屏幕的repaint时刻①）
+
+----------> TODO: 没太懂，第一个回来的屏，必然min？？？？？？？
+
+
 
 ## 多屏渲染流水线------important
 

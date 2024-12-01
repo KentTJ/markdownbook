@@ -1129,9 +1129,9 @@ wl_callback_add_listener() wl_callback 由wl_surface_frame() 创建，每当服�
 
 # 通信之信号（wl_signal_emit）
 
-1、范围：进程内通信
+1、范围：进程内通信  ------> 已经验证
 
-2、`wl_signal_emit` 是**同步的**：
+2、`wl_signal_emit` 是**同步的**：-------> 已经验证
 
 >   当调用 `wl_signal_emit` 时，它会立即遍历 `wl_signal` 的监听器链表，并依次调用每个监听器的回调函数；
 >
@@ -1334,6 +1334,18 @@ wl_signal_add(&shsurf->destroy_signal, &my_module->shsurf_destroy_listener);
 
 
 
+## wl_signal_emit 原理 & 代码实现
+
+本质 
+
+>   就是<font color='red'>同进程 添加listener</font>
+
+-<font color='red'>从结构角度，为啥能解耦两个模块呢？</font>
+
+>   原因在于C语言的   任意数据结构可以转  void \*
+
+
+
 # TODO: 绑定快捷键 & weston启动client
 
 ```java
@@ -1347,6 +1359,63 @@ wet_shell_init
 ```
 
 
+
+# 通信之 抛主线程 ----同安卓的handler
+
+
+
+## 方式一：**timer**方式  wl_event_loop_add_timer
+
+
+
+## 方式二：epoll fd   ---------------同安卓的handler
+
+本质：
+
+>   1、<font color='red'>大循环的epoll监听添加的fd</font>
+>
+>   ```java
+>   rdp_event_loop_add_fd
+>   ```
+>
+>    2、次线程，往fd写东西
+>
+>   ```java
+>   rdp_dispatch_task_to_display_loop(ctx, clipboard_data_source_publish, &source->task_base);
+>   	eventfd_write(peerCtx->loop_task_event_source_fd, 1);
+>   ```
+>
+>   3、epoll唤醒主线程，去读fd内写的东西
+>
+>   ```java
+>   rdp_dispatch_task
+>   	eventfd_read(peerCtx->loop_task_event_source_fd, &dummy);
+>   	task->func(false, task);
+>   ```
+>
+>   
+
+
+
+
+
+关于fd的来源：
+
+>   方式一：pipe创建：
+>
+>   方式二：
+
+
+
+因为线程切换，自然：task的添加，需要线程锁（同安卓的handler）
+
+```java
+	pthread_mutex_lock();
+
+	wl_list_insert(&peerCtx->loop_task_list, &task->link);
+	
+	pthread_mutex_unlock();
+```
 
 
 

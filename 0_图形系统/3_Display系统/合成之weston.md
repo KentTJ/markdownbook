@@ -2556,6 +2556,8 @@ drm_output_apply_state_atomic() {
 
 
 
+
+
 ### 补充初步认识fence：
 
 从退帧问题来看，完全可以不要fence：
@@ -2565,6 +2567,20 @@ CPU是大调，fence是微调！！！！！(cpu的commit、callback是必要的
 > ​                    fence是极限情况下的微调!!!!!!!!! 不要照样跑
 >
 > ​					buffer release：CPU画的情况下是bufferRelease；GPU画的情况下，是fence
+
+
+
+## Linux dma-fence demo--笔记
+
+https://www.cnblogs.com/yaongtime/p/14594567.html    
+
+```java
+完整代码：https://gitee.com/yaongtime/dma-fence-demo.git
+ 
+参考：https://www.kernel.org/doc/html/latest/driver-api/dma-buf.html#dma-fences
+```
+
+
 
 
 

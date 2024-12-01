@@ -1051,6 +1051,82 @@ panel-position=none          // -----> 没有panel
 
 
 
+
+
+#  TODO: 消息驱动模型？
+
+epoll机制：
+
+> ![img](窗口管理之weston.assets/w08yhuufkp.png)
+>
+> [图来源](https://cloud.tencent.com/developer/article/1445734#:~:text=%E6%80%A7%E8%83%BD%E4%B8%8B%E9%99%8D%E6%88%96-,%E5%93%8D%E5%BA%94%E4%B8%8D%E5%8F%8A%E6%97%B6%E3%80%82,-%E4%B8%BB%E5%BE%AA%E7%8E%AF%E4%B8%8A)
+
+特点：**串行**
+
+~~具体对比：~~
+
+> |              |        binder        |       weston事件机制       |
+> | :----------: | :------------------: | :------------------------: |
+> |     原理     |                      |           epoll            |
+> | 是否并行化？ | 基于线程的并行？？？ |            串行            |
+> |     优点     |                      |      不会有同步的开销      |
+> |     缺点     |       ~~自然~~       | 有一个事件耗时，会阻塞其他 |
+>
+> [参考：](https://cloud.tencent.com/developer/article/1445734#:~:text=%E6%96%87%E4%BB%B6fd%E4%B8%8A%E3%80%82-,%E8%BF%99%E7%A7%8D%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%BA%BF%E7%A8%8B%E7%9A%84binder%E4%B8%8D%E5%90%8C,-%EF%BC%8C%E6%98%AF%E4%B8%80%E7%A7%8D%E4%B8%B2)
+
+
+
+-**跨进程调用的通用套路：**
+
+>   消息，转化为 函数调用（<font color='red'>根本原因</font>：**消息可以 跨进程**）
+
+
+
+## weston的消息循环驱动模型
+
+参考：
+		https://blog.csdn.net/qqzhaojianbiao/article/details/129796828   Wayland中跨进程调用过程  消息处理模型！！！！！！！
+		https://blog.csdn.net/goodboychina/article/details/26145175 Wayland消息队列
+		https://www.cnblogs.com/Arnold-Zhang/p/15915635.html  wl_dispaly_dispatch线程安全分析
+
+**client接口：** wl_display_dispatch 
+
+**作用：**读取消息Queue（结构：client侧，server侧放入）   TODO: Queue
+
+
+
+代码大纲：
+
+```java
+【client接口】wl_display_dispatch 
+		wl_display_dispatch_queue ------------------\code\wayland\src\wayland-client.c-------
+			wl_display_dispatch_queue_pending(display, queue)
+				dispatch_queue(display, queue)
+					遍历queue，dispatch_event, 赋值给closure
+						wl_closure_dispatch（即client设置的lisner）
+							// 【listener 处理事件】 具体listener见下:
+```
+
+server往client的Queue写： TODO:
+
+
+
+补充【listener 处理事件】：client侧
+
+```java
+wl_proxy listener
+wl_pointer_add_listener() 鼠标消息处理
+wl_keyboard_add_listener() 键盘消息处理
+wl_callback_add_listener() wl_callback 由wl_surface_frame() 创建，每当服务器显示下一帧使会给wl_callback发送一条消息。
+原文链接：https://blog.csdn.net/goodboychina/article/details/26145175
+```
+
+
+
+
+
+
+
 # 通信之信号（wl_signal_emit）
 
 1、范围：进程内通信

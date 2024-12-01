@@ -2159,11 +2159,30 @@ munmap(va, plane_state->fb->height*plane_state->fb->strides[0]);
 
 
 
+注意: 这种获取的fd，使用完毕，需要close
+
+
+
 ### drmPrimeHandleToFD  导出dmafd
 
 https://blog.csdn.net/weixin_41176628/article/details/114312054
 
+## 汇总：获取dma 的fd方法
 
+1、本身传过来就有
+
+2、通过bo获取：（这里的fd用完需要释放）
+
+```java
+buf->dmabuf_fds[i] = gbm_bo_get_fd_for_plane(buf->bo, i);
+buf->strides[i] = gbm_bo_get_stride_for_plane(buf->bo, i);
+```
+
+3、通过handle转（这里的fd用完需要释放）
+
+```java
+int ret = drmPrimeHandleToFD(fb->fd, fb->handles[0], DRM_CLOEXEC, &fb->fb_id);
+```
 
 
 
@@ -2697,99 +2716,7 @@ gbm设备
 
 
 
-# 霸屏模式
 
-## 必要条件（物理层面）
-
-1、全屏  & 不透明(opaque)
-
-2、自然，~~层级要顶层，要遮住其他所有view~~
-
-3、<font color='red'>关键物理因素：</font>drm要能识别对应buffer的fd（自然，weston能够拿到 client的buffer的fd）
-
-```java
-drm_fb_get_from_paint_node    drm_fb_get_from_view
-```
-
-
-
-补充：
-
-> 满足1和2，但是不满足3，显示上似乎是霸屏模式，但是实际还是GPU合成了！！！！！
-
-
-
-## 必要条件的代码大纲
-
-1、opaque：`需要client告诉合成器：`
-
-```java
-// 配置端----client： simple-egl.c
-if (window->opaque || window->fullscreen) {
-    region = wl_compositor_create_region(window->display->compositor);
-    wl_region_add(region, 0, 0, INT32_MAX, INT32_MAX);
-    wl_surface_set_opaque_region(window->surface, region); // 关键一行
-    wl_region_destroy(region);
-    
-    
-// 生效端------compos, 绑定plane时
-		totally_occluded = !pixman_region32_not_empty(&surface_overlap);
-		if (totally_occluded) { // 【】 关键一行：totally_occluded的view，会自动被忽略掉
-			drm_debug(b, "\t\t\t\t[view] ignoring view %p "
-			             "(occluded on our output)\n", ev); // 【】 关键日志
-			pixman_region32_fini(&surface_overlap);
-			pixman_region32_fini(&clipped_view);
-			continue;      
-		}
-```
-
--<font color='red'>总之，结论：</font>
-
-全屏opaque client，会霸屏，即：
-
-> 1、被遮挡view----------合成器自动忽略
->
-> 2、霸屏view，如果能被drm识别，会直接送给drm
-
-
-
-
-
-##  **关键性日志：**
-
-```java
-Layer 3 (pos 0xb0000000):
-	View 0 (role xdg_toplevel, PID 4239, surface ID 20, top-level window 'simple-egl' of org.freedesktop.weston.simple-egl, 0x55723634e0):
-		position: (0, 0) -> (1080, 1920)
-		[fully opaque]  // 【】完全opaque
-		outputs: 0 (DSI-1) (primary)
-		dmabuf buffer
-			[2 references may use buffer content]
-			format: 0x34324241 ABGR8888
-			modifier: LINEAR (0x0)
-			width: 1080, height: 1920
-	View 1 (role (null), PID 0, surface ID 0, black background surface for top-level window 'simple-egl' of org.freedesktop.weston.simple-egl, 0x557239b8e0):
-		position: (0, 0) -> (1080, 1920)
-		[fully opaque]
-		outputs: 0 (DSI-1) (primary)
-		solid-colour buffer
-			[R 0.000000, G 0.000000, B 0.000000, A 1.000000]
-			[2 references may use buffer content]
-			format: 0x34325258 XRGB8888
-			modifier: LINEAR (0x0)
-			width: 1, height: 1
-			
-[repaint] trying planes-only build state   ---------> // 【】 尝试plane-only一定要成功
-//[repaint] could not build planes-only state, trying mixed // 没有mixed一行！！！！！！！！
-```
-
-
-
-
-
-## TODO: weston 10上不生效
-
-原因，不详 
 
 
 
@@ -2861,75 +2788,107 @@ TODO:  pnode->view->transform.boundingbox  与   weston_surface的宽高区别
 
 TODO： 似乎是不需要重绘的
 
+## 霸屏模式
 
+## TODO:本质
 
-#  TODO: 消息驱动模型？
+本质：
 
-epoll机制：
-
-> ![img](合成之weston.assets/w08yhuufkp.png)
->
-> [图来源](https://cloud.tencent.com/developer/article/1445734#:~:text=%E6%80%A7%E8%83%BD%E4%B8%8B%E9%99%8D%E6%88%96-,%E5%93%8D%E5%BA%94%E4%B8%8D%E5%8F%8A%E6%97%B6%E3%80%82,-%E4%B8%BB%E5%BE%AA%E7%8E%AF%E4%B8%8A)
-
-特点：**串行**
-
-~~具体对比：~~
-
-> |              |        binder        |       weston事件机制       |
-> | :----------: | :------------------: | :------------------------: |
-> |     原理     |                      |           epoll            |
-> | 是否并行化？ | 基于线程的并行？？？ |            串行            |
-> |     优点     |                      |      不会有同步的开销      |
-> |     缺点     |       ~~自然~~       | 有一个事件耗时，会阻塞其他 |
->
-> [参考：](https://cloud.tencent.com/developer/article/1445734#:~:text=%E6%96%87%E4%BB%B6fd%E4%B8%8A%E3%80%82-,%E8%BF%99%E7%A7%8D%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%9F%BA%E4%BA%8E%E7%BA%BF%E7%A8%8B%E7%9A%84binder%E4%B8%8D%E5%90%8C,-%EF%BC%8C%E6%98%AF%E4%B8%80%E7%A7%8D%E4%B8%B2)
+>   直接将dma漏给了display，没有经过合成！
 
 
 
--**跨进程调用的通用套路：**
+### 必要条件（物理层面）
 
->   消息，转化为 函数调用（<font color='red'>根本原因</font>：**消息可以 跨进程**）
+1、全屏  & 不透明(opaque)
 
+2、自然，~~层级要顶层，要遮住其他所有view~~
 
-
-## weston的消息循环驱动模型
-
-参考：
-		https://blog.csdn.net/qqzhaojianbiao/article/details/129796828   Wayland中跨进程调用过程  消息处理模型！！！！！！！
-		https://blog.csdn.net/goodboychina/article/details/26145175 Wayland消息队列
-		https://www.cnblogs.com/Arnold-Zhang/p/15915635.html  wl_dispaly_dispatch线程安全分析
-
-**client接口：** wl_display_dispatch 
-
-**作用：**读取消息Queue（结构：client侧，server侧放入）   TODO: Queue
-
-
-
-代码大纲：
+3、<font color='red'>关键物理因素：</font>drm要能识别对应buffer的fd（自然，weston能够拿到 client的buffer的fd）
 
 ```java
-【client接口】wl_display_dispatch 
-		wl_display_dispatch_queue ------------------\code\wayland\src\wayland-client.c-------
-			wl_display_dispatch_queue_pending(display, queue)
-				dispatch_queue(display, queue)
-					遍历queue，dispatch_event, 赋值给closure
-						wl_closure_dispatch（即client设置的lisner）
-							// 【listener 处理事件】 具体listener见下:
+drm_fb_get_from_paint_node    drm_fb_get_from_view
 ```
 
-server往client的Queue写： TODO:
+
+
+补充：
+
+> 满足1和2，但是不满足3，显示上似乎是霸屏模式，但是实际还是GPU合成了！！！！！
 
 
 
-补充【listener 处理事件】：client侧
+### 必要条件的代码大纲
+
+1、opaque：`需要client告诉合成器：`
 
 ```java
-wl_proxy listener
-wl_pointer_add_listener() 鼠标消息处理
-wl_keyboard_add_listener() 键盘消息处理
-wl_callback_add_listener() wl_callback 由wl_surface_frame() 创建，每当服务器显示下一帧使会给wl_callback发送一条消息。
-原文链接：https://blog.csdn.net/goodboychina/article/details/26145175
+// 配置端----client： simple-egl.c
+if (window->opaque || window->fullscreen) {
+    region = wl_compositor_create_region(window->display->compositor);
+    wl_region_add(region, 0, 0, INT32_MAX, INT32_MAX);
+    wl_surface_set_opaque_region(window->surface, region); // 关键一行
+    wl_region_destroy(region);
+    
+    
+// 生效端------compos, 绑定plane时
+		totally_occluded = !pixman_region32_not_empty(&surface_overlap);
+		if (totally_occluded) { // 【】 关键一行：totally_occluded的view，会自动被忽略掉
+			drm_debug(b, "\t\t\t\t[view] ignoring view %p "
+			             "(occluded on our output)\n", ev); // 【】 关键日志
+			pixman_region32_fini(&surface_overlap);
+			pixman_region32_fini(&clipped_view);
+			continue;      
+		}
 ```
+
+-<font color='red'>总之，结论：</font>
+
+全屏opaque client，会霸屏，即：
+
+> 1、被遮挡view----------合成器自动忽略
+>
+> 2、霸屏view，如果能被drm识别，会直接送给drm
+
+
+
+
+
+###  **关键性日志：**
+
+```java
+Layer 3 (pos 0xb0000000):
+	View 0 (role xdg_toplevel, PID 4239, surface ID 20, top-level window 'simple-egl' of org.freedesktop.weston.simple-egl, 0x55723634e0):
+		position: (0, 0) -> (1080, 1920)
+		[fully opaque]  // 【】完全opaque
+		outputs: 0 (DSI-1) (primary)
+		dmabuf buffer
+			[2 references may use buffer content]
+			format: 0x34324241 ABGR8888
+			modifier: LINEAR (0x0)
+			width: 1080, height: 1920
+	View 1 (role (null), PID 0, surface ID 0, black background surface for top-level window 'simple-egl' of org.freedesktop.weston.simple-egl, 0x557239b8e0):
+		position: (0, 0) -> (1080, 1920)
+		[fully opaque]
+		outputs: 0 (DSI-1) (primary)
+		solid-colour buffer
+			[R 0.000000, G 0.000000, B 0.000000, A 1.000000]
+			[2 references may use buffer content]
+			format: 0x34325258 XRGB8888
+			modifier: LINEAR (0x0)
+			width: 1, height: 1
+			
+[repaint] trying planes-only build state   ---------> // 【】 尝试plane-only一定要成功
+//[repaint] could not build planes-only state, trying mixed // 没有mixed一行！！！！！！！！
+```
+
+
+
+
+
+### TODO: weston 10上不生效
+
+原因，不详 
 
 
 
@@ -3862,7 +3821,9 @@ TODO: 角度之启动日志
 
 ## export WAYLAND_DEBUG=1 
 
+交互日志 - --------<font color='red'>wayland标准协议打出来的</font>
 
+应用场景：debug应用！！！！！（<font color='red'>看应用走到哪里了，看应用卡了没</font>）
 
 ## dump
 

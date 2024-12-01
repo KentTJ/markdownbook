@@ -2793,9 +2793,25 @@ Layer 3 (pos 0xb0000000):
 
 
 
-# 显示性能优化
+# 显示性能优化----次要
 
 ## 优化之  只重绘damage区域
+
+damage：**各个层级的都有：**
+
+> weston_compositor_damage_all  ---------------------系统级
+>
+> weston_output_damage(output)  ---------------------output级
+>
+> ---------------------plane级（primary plane有的，是view窗口级别合并而来）
+>
+> weston_surface_damage   ---------------------view窗口级别  (client给server的！！！！)
+>
+> ----------------------控件级
+
+
+
+
 
 ### 标记 damage区域----大纲之【计算damage】：
 

@@ -2706,7 +2706,7 @@ drm_output_apply_state_atomic
 
 ### 相关问题
 
-drm如果没有等overlay上 view的 栅栏，会造成退帧现象。
+drm如果没有等overlay上 view的 栅栏，会造成<font color='red'>偶现退帧现象</font>。
 
 >   分析：client没画完，就被display拿来上屏了
 

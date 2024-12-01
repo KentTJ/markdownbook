@@ -1256,6 +1256,24 @@ wl_signal_add(&shsurf->destroy_signal, &my_module->shsurf_destroy_listener);
     3.  触发信号：`wl_signal_emit()`
 -   **典型应用场景**： Weston 和 Wayland 使用 `wl_signal_emit` 广播生命周期事件（如对象销毁、资源释放等），实现模块化、解耦的事件驱动机制。
 
+
+
+# TODO: 绑定快捷键 & weston启动client
+
+```java
+绑定快捷键
+wet_shell_init
+	screenshooter_create
+		screenshooter_binding
+			screenshooter_exe = wet_get_bindir_path("weston-screenshooter");
+				weston_client_start 启动client程序
+						client = wl_client_create(compositor->wl_display, wayland_socket.fds[0]);
+```
+
+
+
+
+
 # 实操
 
 

@@ -2626,6 +2626,34 @@ redraw------client
 
 ### 若GPU合成，weston等待 传过来的栅栏fd1触发
 
+
+
+```java
+├─ // weston侧：合成时
+├─ gl_renderer_repaint_output
+└─ repaint_views
+    ├─ draw_paint_node
+    │   ├─ ensure_surface_buffer_is_ready---------------确认view对应的buffer状态----------
+    │   │   ├─ 1、if (surface->acquire_fence_fd < 0) return 0 // 如果没有要求fence，直接返回。。。何时要求的？client侧？？？？标记buffer
+    │   │   └─ 2、 attribs[1] = dup(surface->acquire_fence_fd);
+    │   │       ├─ sync = gr->create_sync(gr->egl_display, EGL_SYNC_NATIVE_FENCE_ANDROID, attribs); // 创建等待fence的EGL对象
+    │   │       └─ wait_ret = gr->wait_sync(gr->egl_display, sync, 0);                             // 【唯一目的完成2：eglWaitSyncKHR：等待fence，CPU阻塞点！！！！】
+    │   └─ repaint_region // 绘制
+    ├─ go->render_sync = create_render_sync(gr); // 【eglCreateSyncKHR weston添加栅栏fence_fd_weston】
+    ├─ eglSwapBuffers（包含了）
+    └─ update_buffer_release_fences
+        ├─ if (view->plane != &compositor->primary_plane) continue; // TODO: 自然，走overlay的，不给fd_weston
+        └─ for 循环 weston_view
+            └─ fence_fd = gl_renderer_create_fence_fd(output); // 这里从之前的栅栏对象EGLSyncKHR 【产生不同的fence_fd -----> 给各个client】
+
+```
+
+
+
+%accordion%hideContent%accordion%
+
+
+
 ```java
 // weston侧：合成时
 gl_renderer_repaint_output 
@@ -2645,7 +2673,17 @@ repaint_views
 			fence_fd = gl_renderer_create_fence_fd(output); // 这里从之前的栅栏对象EGLSyncKHR 【产生不同的fence_fd -----> 给各个client】
 ```
 
-###  weston合成后插入自己的fence_weston, 并给到client
+
+
+
+
+%/accordion%
+
+
+
+ 
+
+### weston合成后插入自己的fence_weston, 并给到client
 
 合成后插入自己的fence_weston：见上
 
@@ -2692,15 +2730,19 @@ drm_output_apply_state_atomic
 
 
 
-### EGL----eglDupNativeFenceFDANDROID 与 eglCreateSyncKHR
+### EGL扩展----eglDupNativeFenceFDANDROID 与 eglCreateSyncKHR、eglClientWaitSyncKHR
 
 生成一个同步对象：eglCreateSyncKHR()
 
-同步对象转化为一个fd：eglDupNativeFenceFDANDROID（~~Android进行的扩展~~）
-
->   [**这个扩展相当于让CPU中有了GPU中同步对象的句柄**](https://juejin.cn/post/7099751832381030436#:~:text=%E8%BF%99%E4%B8%AA%E6%89%A9%E5%B1%95%E7%9B%B8%E5%BD%93%E4%BA%8E%E8%AE%A9CPU%E4%B8%AD%E6%9C%89%E4%BA%86GPU%E4%B8%AD%E5%90%8C%E6%AD%A5%E5%AF%B9%E8%B1%A1)
+>   为了跨进程传递，同步对象转化为一个fd：~~eglDupNativeFenceFDANDROID（Android进行的扩展~~）
 >
->   转fd的原因：~~可以binder跨进程传递~~！
+>   >   [**这个扩展相当于让CPU中有了GPU中同步对象的句柄**](https://juejin.cn/post/7099751832381030436#:~:text=%E8%BF%99%E4%B8%AA%E6%89%A9%E5%B1%95%E7%9B%B8%E5%BD%93%E4%BA%8E%E8%AE%A9CPU%E4%B8%AD%E6%9C%89%E4%BA%86GPU%E4%B8%AD%E5%90%8C%E6%AD%A5%E5%AF%B9%E8%B1%A1)
+>   >
+>   >   转fd的原因：~~可以binder跨进程传递~~！
+
+等待（另一个进程cpu）：eglClientWaitSyncKHR
+
+
 
 
 

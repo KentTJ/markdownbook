@@ -2360,11 +2360,13 @@ Fence字面意思：
 
 why-------CPU与 GPU的异步造成的：
 
-> 1、从代码调用角度-----------opengl接口调用：cpu 没有等GPU 执行完，就继续执行了。。。。TODO:图
+> 1、从代码调用角度-----------opengl接口调用：cpu 没有等GPU 执行完，就继续执行了
 >
 > > 仅仅是把GL command命令放在本地的command buffer里
 >
 > 所以，<font color='red'>CPU 从client传递fd给 weston，这块buffer内容是未知的（可能GPU已经画完，也可能GPU还在画，也有可能GPU还没开始画？）</font>
+>
+> 
 >
 > 2、从关系角度:fence是buffer的使用权（约等于buffer_release）。。所以：
 >
@@ -2500,6 +2502,20 @@ TODO:
 
 
 
+
+
+与安卓无异：
+
+>   [Android 12(S) 图像显示系统 - GraphicBuffer同步机制 - Fence](https://juejin.cn/post/7099751832381030436)
+>
+>   比如1： 当GPU完成合成时就意味着这些图层的缓存数据就不再被使用了，因此client target acquire fence作为release fence来同步这些图形缓存的释放；client target acquire fence即表示GPU合成完了，（1）HWC可以消费了，（2）也意味着相关Layer的图像缓存可以释放了。
+>
+>   比如2：
+>
+>   
+>
+>   
+
 ### client 1绘制完，插入栅栏fd1，并 给到weston：
 
 ```java
@@ -2596,7 +2612,7 @@ redraw------client
 
 %/accordion%
 
-### 若GPU合成，weston等待 传过来的栅栏fd1
+### 若GPU合成，weston等待 传过来的栅栏fd1触发
 
 ```java
 // weston侧：合成时
@@ -2612,8 +2628,9 @@ repaint_views
 	go->render_sync = create_render_sync(gr); // 【eglCreateSyncKHR weston添加栅栏fence_fd_weston】
 	eglSwapBuffers（包含了）
 	update_buffer_release_fences
+        if (view->plane != &compositor->primary_plane) continue; // TODO: 自然，走overlay的，不给fd_weston
 		for 循环 weston_view
-			fence_fd = gl_renderer_create_fence_fd(output); 这里从之前的栅栏对象EGLSyncKHR 【产生不同的fence_fd -----> 给各个client】
+			fence_fd = gl_renderer_create_fence_fd(output); // 这里从之前的栅栏对象EGLSyncKHR 【产生不同的fence_fd -----> 给各个client】
 ```
 
 ###  weston合成后插入自己的fence_weston, 并给到client
@@ -2631,8 +2648,10 @@ weston_buffer_release_destroy
 		--------------client进程----------------------
 		zwp_linux_buffer_release_v1_listener
 			buffer_fenced_release
-				buffer->release_fence_fd = fence;  // 【完美的循环：拿到weston的栅栏！！！，后面client的redraw，需要等这个栅栏！！！】
+				buffer->release_fence_fd = fence;  // 【完美的循环：拿到weston的栅栏！！！，后面client的redraw，需要等这个栅栏触发！！！】
 ```
+
+client端也要等 fence触发，weston_fence
 
 
 
@@ -2648,10 +2667,46 @@ weston_buffer_release_destroy
 drm_output_try_paint_node_on_plane
     state->in_fence_fd = ev->surface->acquire_fence_fd;
       <------来源：见上，client传过来的
+          
+最终给到drm
+//kms.c
+drm_output_apply_state_atomic
+     plane_add_prop(WDRM_PLANE_IN_FENCE_FD, plane_state->in_fence_fd);
+
 ```
 
  （2）	TODO:  验证！！！！走primary的，自然是gbm_surface对应buffer的？？？？？
         fence_fd:-1
+
+
+
+### EGL----eglDupNativeFenceFDANDROID 与 eglCreateSyncKHR
+
+生成一个同步对象：eglCreateSyncKHR()
+
+同步对象转化为一个fd：eglDupNativeFenceFDANDROID（~~Android进行的扩展~~）
+
+>   [**这个扩展相当于让CPU中有了GPU中同步对象的句柄**](https://juejin.cn/post/7099751832381030436#:~:text=%E8%BF%99%E4%B8%AA%E6%89%A9%E5%B1%95%E7%9B%B8%E5%BD%93%E4%BA%8E%E8%AE%A9CPU%E4%B8%AD%E6%9C%89%E4%BA%86GPU%E4%B8%AD%E5%90%8C%E6%AD%A5%E5%AF%B9%E8%B1%A1)
+>
+>   转fd的原因：~~可以binder跨进程传递~~！
+
+
+
+同步对象的作用：
+
+>   [这个同步对象是往GL command队列中插入的一个特殊操作，当执行到它时，会发出信号指示队列前面的命令已全部执行完毕](https://juejin.cn/post/7099751832381030436)
+
+参考：[Android 12(S) 图像显示系统 - GraphicBuffer同步机制 - Fence](https://juejin.cn/post/7099751832381030436)
+
+
+
+### 相关问题
+
+drm如果没有等overlay上 view的 栅栏，会造成退帧现象。
+
+>   分析：client没画完，就被display拿来上屏了
+
+ 
 
 
 

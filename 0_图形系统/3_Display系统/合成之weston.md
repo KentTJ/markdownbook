@@ -2564,7 +2564,15 @@ TODO:
 
 ```
 
+总结：
 
+【acquire_fence_fd】 流程：
+
+>   client侧：插入栅栏，并拿到fd
+>
+>   client侧：wl_surface_commit，传递fence_fd给server
+>
+>   server侧：paint时，然后等待GPU释放fence
 
 %accordion%hideContent%accordion%
 

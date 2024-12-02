@@ -2490,7 +2490,11 @@ fence，在各个系统中的应用：
 
 ![image-20241201222357377](合成之weston.assets/image-20241201222357377.png)
 
-TODO:
+TODO: acquire buffer流程    &  release buffer流程！！！！！！
+
+​			acquire_fence                      fenced_release
+
+​			start draw（waitFence）<------   after glDraw 插入fence
 
 结论：
 

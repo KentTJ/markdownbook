@@ -42,6 +42,12 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 
 
 
+## 信息流架构---0层
+
+![linux_graphic_arch](合成之weston.assets/linux_graphic_architecture.png)
+
+[图来源](https://zhpower.github.io/blog/jekyll/2000-04-27-linux_grpahic_architecture.html)
+
 ## when---生命周期图 0层
 
 ![image-20241125011949819](合成之weston.assets/image-20241125011949819.png)
@@ -4368,6 +4374,10 @@ https://blog.csdn.net/u012839187/article/details/116054755    agl-compositor
 [Wayland中的跨进程过程调用浅析](https://blog.csdn.net/jinzhuojun/article/details/40264449 )    -----> 好文
 
 https://fossies.org/dox/weston-13.0.3/structivi__shell.html     struct的类图
+
+https://zhpower.github.io/blog/graphic/2002-05-15-Wayland&Weston.html           系列文章！！！！------>好文！！！！<font color='red'>好图</font>！！！！
+
+​                  
 
 
 

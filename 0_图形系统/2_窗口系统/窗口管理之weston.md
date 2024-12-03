@@ -149,6 +149,16 @@ TODO: 触发存在 点击和move的 冲突问题：
 
 
 
+## 窗口管理的核心-------view_list
+
+![layer_view_surface](窗口管理之weston.assets/layer_view_surface.png)
+
+[图来源](https://zhpower.github.io/blog/graphic/2002-05-15-Wayland&Weston.html)
+
+<img src="窗口管理之weston.assets/view_list.png" alt="view_list" style="zoom:200%;" />
+
+
+
 # 输入管理
 
 ## 屏幕touch采样率

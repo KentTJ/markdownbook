@@ -288,6 +288,44 @@ motion事件（同frame事件）：
 
 
 
+# client - weston通信----IPC机制
+
+where：这个IPC机制，实现于wayland协议，是wayland协议的一部分（以wl_开头）
+
+## 原理
+
+参考：[内部weston - client 通讯机制](https://zhpower.github.io/blog/jekyll/2002-06-11-Weston.html#:~:text=2.2-,%E5%86%85%E9%83%A8weston%20%2D%20client%20%E9%80%9A%E8%AE%AF%E6%9C%BA%E5%88%B6,-request%3A%20Client%20%E2%80%93%3E%20Server)
+
+![image-20241208002759503](窗口管理之weston.assets/image-20241208002759503.png)
+
+-<font color='red'>request方向</font>: Client –> Server
+
+-<font color='red'>event方向 </font>: Server –> Client
+
+
+
+-<font color='red'>任何IPC的模型本质都是：</font>
+
+>   <font color='red'> 函数调用 转 数据流  再转 函数调用的过程：</font>
+>
+>   ~~client的函数 + 参数  ---------转化为----> <font color='red'>msg数据流</font>(函数名、参数序列化)  ------转化为-----> server的 函数 + 参数~~
+
+通信方式无所谓（~~binder、socket、vsock 、pipe.................都可以~~）
+
+
+
+## client链接失败常见原因
+
+通信：socket
+
+所以client链接失败的原因：
+
+>   1、weston挂了  
+>
+>   2、环境变量问题
+
+
+
 
 
 
@@ -689,15 +727,9 @@ panel-position=none          // -----> 没有panel
 
 
 
-# client - weston的链接
 
-通信：socket
 
-所以client链接失败的原因：
 
->   1、weston挂了  
->
->   2、环境变量问题
 
 
 

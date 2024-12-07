@@ -50,7 +50,7 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 
 ## when---生命周期图 0层
 
-![image-20241125011949819](合成之weston.assets/image-20241125011949819.png)
+![image-20241208015325812](合成之weston.assets/image-20241208015325812.png)
 
 大的生命周期：上图1和2
 

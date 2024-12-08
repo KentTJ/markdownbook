@@ -2314,6 +2314,22 @@ https://blog.csdn.net/weixin_42136255/article/details/129722675           DMABuf
 
 
 
+TODO:
+
+>   如何跟踪commit的buffer，与 release的buffer？
+>
+>   ```java
+>   weston_buffer_reference()
+>   
+>   struct drm_plane_state {
+>   	struct {
+>   		struct weston_buffer_reference buffer;
+>   		struct weston_buffer_release_reference release;
+>   	} fb_ref;
+>   ```
+
+
+
 # 栅栏(Fence) ------GPU与CPU同步的一种方式
 
 -<font color='red'>fence不重要：</font>

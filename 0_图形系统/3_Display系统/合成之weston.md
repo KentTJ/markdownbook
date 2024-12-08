@@ -50,7 +50,7 @@ Weston从内部体系结构------------~~窗口管理（shell） ：     WindowM
 
 ## when---生命周期图 0层
 
-![image-20241208015325812](合成之weston.assets/image-20241208015325812.png)
+![image-20241208235830673](合成之weston.assets/image-20241208235830673.png)
 
 大的生命周期：上图1和2
 
@@ -2306,7 +2306,23 @@ https://blog.csdn.net/weixin_42136255/article/details/129722675           DMABuf
 
 
 
+
+
+# buffer流传模型
+
+![image-20241209004437170](合成之weston.assets/image-20241209004437170.png)
+
+
+
 # 栅栏(Fence) ------GPU与CPU同步的一种方式
+
+-<font color='red'>fence不重要：</font>
+
+>   1、因为只是同步的一种方式 
+>
+>   2、所有的同步都不会有实质的影响
+>
+>   3、**所有的同步，可以用delay替代（fence亦如此）**------------------fence可以舍弃掉
 
 ## 0层图
 

@@ -1529,6 +1529,149 @@ TODO:
 
 # 物质---从buffer看图形  TODO:
 
+## buffer流转模型---0层
+
+![image-20241209224909067](合成之weston.assets/image-20241209224909067.png)
+
+
+
+TODO:
+
+>   如何跟踪commit的buffer，与 release的buffer？
+>
+>   ```java
+>   weston_buffer_reference()
+>   
+>   struct drm_plane_state {
+>   	struct {
+>   		struct weston_buffer_reference buffer;
+>   		struct weston_buffer_release_reference release;
+>   	} fb_ref;
+>   ```
+
+
+
+## weston_buffer的引用计数（server侧）
+
+### 【对象的引用计数的<font color='red'>必要性</font>】
+
+**why：**
+
+一般情况下：
+
+> 生命周期明确且简单的对象（比如栈分配的对象）  -------->  不需要
+>
+> 单个所有者对象   ----------> 不需要
+
+引用计数使用情况：
+
+> 主要用于管理那些<font color='red'>可能被多个部分引用</font>的对象！！！！！！！！
+>
+> 引用计数可以<font color='red'>自动管理内存</font>（不需要显式地管理释放逻辑、计数为0自动释放）
+
+
+
+
+
+### weston_buffer的引用计数 ------- weston_buffer_reference的实现
+
+weston_buffer_reference的实现：
+
+```java
+weston_buffer_reference(weston_buffer_reference *ref，weston_buffer *buffer, BUFFER_MAY_BE_ACCESSED);
+	0、weston_buffer_reference old_ref = ref 创建副本
+	1、ref->buffer = buffer----> 将 新的buffer 被ref引用
+		buffer->busy_count++;
+		ref->type = type;
+	2、-------副本old_ref，type是旧的，buffer也是旧的！---------------
+	ref之前是BUFFER_MAY_BE_ACCESSED： 之前 ref的buffer，引用减1  ----->//  【】减到0，自然通知clientserver释放了： wl_buffer_send_release ！！！！！！！！
+        
+        
+weston_buffer_reference(weston_buffer_reference *ref，weston_buffer *NULL, BUFFER_WILL_NOT_BE_ACCESSED);  // 传参NULL
+	新buffer是NULL
+    旧buffer 减计数 busy_count--
+```
+
+
+
+### weston_buffer的引用计数 的使用点
+
+结论：
+
+走primary的buffer：
+
+> ```java
+> surface_commit ---> gl_renderer_attach时，surface模块所做：
+>      自然的，surface与新的weston_buffer结合，新buffer  busy_count++
+>      自然的，............................... 旧buffer  busy_count-- -----> 0 这里释放旧buffer
+> ```
+
+
+
+走overlay的buffer：
+
+> ```java
+> 	（1）surface_commit ---> gl_renderer_attach 时，同primary: 新buffer加计数
+> 													旧buffer减计数，但是没到0！！！！！！原因：上一帧的 drm_output_try_paint_node_on_plane 有多余引用！？？？？TODO:
+> 
+> 	（2）向drm提交前（drm_output_try_paint_node_on_plane），plane_state模块所做：
+> 		新buffer加计数
+> 		旧buffer减计数：？？？？？？？
+> 			weston_buffer_reference(&state->fb_ref.buffer, surface->buffer_ref.buffer, BUFFER_MAY_BE_ACCESSED);
+> 
+> 	（3）走overlay时候，pageFlip时（drm_plane_state_free）,state模块：  weston_buffer_reference(&state->fb_ref.buffer, NULL, BUFFER_WILL_NOT_BE_ACCESSED);
+> 		新buffer是NULL
+> 		旧buffer 减计数 busy_count-- -----> 0 这里释放旧buffer
+> ```
+
+
+
+总结：
+
+```java
+primary是在 surface_commit ---> gl_renderer_attach 通知client释放了前一帧 buffer （client commit之前的一帧）
+    	
+
+overlay 是在 pageFlip ----> drm_plane_state_free .................前一帧buffer    （drm commit之前的一帧）
+```
+
+一句话总结：
+
+> primary与overlay的  释放buffer时机<font color='red'>有差异，来源于  drm_output_try_paint_node_on_plane</font>(只有overlay走)
+
+
+
+### weston_buffe 销毁的引用计数 -------- weston_buffer_release_reference()
+
+目的：
+
+
+
+
+
+与 weston_buffer_reference 比较：
+
+```java
+weston_buffer_reference： ----> weston侧向client释放buffer， 引用计数 
+weston_buffer_release_reference  ----> 用于weston_buffer本身 销毁的计数
+自然，1、大部分情况下，传递计数 与 销毁计数，代码都是在一起的
+	  2、何时，不在一起？自然subsurface时候，有传递计数，没有 销毁计数  见 weston_subsurface_commit_from_cache
+```
+
+
+
+
+
+### TODO:weston_surface的引用计数
+
+【weston_surface的引用计数】
+
+> weston_surface_ref 与  weston_surface_unref
+
+
+
+
+
 ## 待整理
 
 TODO: 焦点：simple-egl 如何申请buffer？
@@ -2308,25 +2451,9 @@ https://blog.csdn.net/weixin_42136255/article/details/129722675           DMABuf
 
 
 
-# buffer流传模型
-
-![image-20241209004437170](合成之weston.assets/image-20241209004437170.png)
 
 
 
-TODO:
-
->   如何跟踪commit的buffer，与 release的buffer？
->
->   ```java
->   weston_buffer_reference()
->   
->   struct drm_plane_state {
->   	struct {
->   		struct weston_buffer_reference buffer;
->   		struct weston_buffer_release_reference release;
->   	} fb_ref;
->   ```
 
 
 

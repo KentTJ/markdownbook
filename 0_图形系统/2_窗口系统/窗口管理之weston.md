@@ -256,6 +256,22 @@ motion事件（同frame事件）：
 
 
 
+结论：
+
+> where------weston中：
+>
+> down 和 up事件之后一定要跟着frame事件，否则，不会生效
+
+例子：
+
+> up事件后，如果没有frame事件，显示一直按压
+
+
+
+
+
+
+
 ## weston事件 窗口分发逻辑
 
 -<font color='red'>基本原则：</font>

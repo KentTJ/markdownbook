@@ -752,7 +752,7 @@ weston_compositor里的primary_plane;  // 【】指明了GPU的plane
 
 
 
-#### 如何避免将屏幕1的plane分配给屏幕2的view呢？
+#### ~~如何避免将屏幕1的plane分配给屏幕2的view呢？~~
 
 plane-output 绑定关系配置在哪里？
 
@@ -2624,7 +2624,7 @@ https://blog.csdn.net/weixin_42136255/article/details/129722675           DMABuf
 
 
 
-# 栅栏(Fence) ------GPU与CPU同步的一种方式
+# 不重要----栅栏(Fence) , GPU与CPU同步的一种方式
 
 -<font color='red'>fence不重要：</font>
 
@@ -2632,7 +2632,13 @@ https://blog.csdn.net/weixin_42136255/article/details/129722675           DMABuf
 >
 >   2、所有的同步都不会有实质的影响
 >
->   3、**所有的同步，可以用delay替代（fence亦如此）**------------------fence可以舍弃掉
+>   3、**<font color='red'>所有的同步，可以用delay替代（fence亦如此）</font>**------------------fence可以舍弃掉
+
+**技巧：**
+
+>   开发时，应该先用delay方式，**验证没有问题了 ---------> 才改为fence**
+>
+>   因为 delay是CPU的方式，fence机制太复杂
 
 ## 0层图
 

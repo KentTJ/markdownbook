@@ -360,44 +360,66 @@ TODO: 一场考试需要多久？
 
 
 
-#### draw_paint_node 画一个节点  大纲
+### draw_paint_node   render一个节点  大纲
 
-使用gl 接口，调用GPU画：
+where:
 
-​	 -<font color='red'>本质：就是GPU贴图</font>
+>   ```java
+>   ├─ 生命周期图 0层
+>   .....................
+>   └─ weston_output_repaint(compositor.c)
+>       ├─ ------------------为views分配planes--------------------------
+>       ├─ drm_assign_planes // 【】具体见下
+>       ├─ ------------------【计算damage】---------------------------------
+>       └─ drm_output_repaint
+>           └─ drm_output_render
+>   			................
+>               ├─ eif:drm_output_render_pixman  软件合成
+>               ├─ el：drm_output_render_gl
+>               │   ├─ gl_renderer_repaint_output
+>               │   │   ├─ repaint_views
+>               │   │   │   └─ draw_paint_node  // 【】
+>   ```
 
-```java
-└─ draw_paint_node
-    ├─ pixman_region32_intersect(&repaint, damage); // 次要：用damage更新 repaint区域
-    ├─ gl_shader_config_init_for_paint_node // 【】目的：需要参数封装到conf结构体里（用作shader）
-    │   ├─ gl_shader_config_set_input_textures  // 【】关键：把client的texture封装到conf里
-    │   │   └─ for: sconf->input_tex[i] = gb->textures[i] // 一个node，可能有多个Texture
-    │   └─ gl_shader_config_set_color_transform 颜色变换？
-    ├─ pixman_region32_subtract(&surface_blend, &surface_blend, &pnode->surface->opaque); // 扣除 完全不透明区域？
-    └─ repaint_region(gr, pnode, &repaint, &surface_blend, &sconf); // 【】
-        ├─ 【texture_region(pnode, region, surf_region)】 矩形窗口可能被其他窗口遮挡，会被分割成多个小矩形进行绘制
-        ├─ /* position: */
-        ├─ glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof *v, &v[0]);
-        ├─ /* texcoord: */
-        ├─ glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof *v, &v[2]);
-        ├─ gl_renderer_use_program(gr, sconf) // 【】
-        │   ├─ gl_renderer_get_program(gr, &sconf->req) // 获取glProgram
-        │   │   ├─ 做了缓存，不用每次都编译gl_shader_requirements_cmp(&reqs, &shader->key)
-        │   │   └─ gl_shader_create(gr, &reqs) // 没有的话，创建
-        │   │       ├─ sources[2] = fragment_shader; 具体的fragment.glsl
-        │   │       └─ glGetProgramiv(shader->program); //gl接口生成glProgram
-        │   │           ├─ shader->proj_uniform = glGetUniformLocation(shader->program, "proj");
-        │   │           ├─ shader->tex_uniforms[0] = glGetUniformLocation(shader->program, "tex"); // 【】 拿到.glsl中全局变量的索引，后面CPU给GPU赋值
-        │   │           └─ shader->tex_uniforms[1] = glGetUniformLocation(shader->program, "tex1");
-        │   ├─ glUseProgram(shader->program); // 激活glProgram（激活一个着色器程序，所有后续的绘制调用将使用这个程序中定义的顶点着色器和片段着色器）
-        │   └─ gl_shader_load_config(shader, sconf) //
-        │       ├─ glUniform1f(shader->view_alpha_uniform, sconf->view_alpha); // 【】CPU真正给GPU赋值的地方
-        │       └─ for遍历，绑定纹理： // 贴图：一个client surface，只有一个（已经确认）
-        │           ├─ glActiveTexture(GL_TEXTURE0 + i)  激活当前的纹理单元，使得后续的纹理操作会在这个纹理上进行
-        │           └─ glBindTexture(GL_TEXTURE_2D, sconf->input_tex[i])  //相当create 2d texture_obj对象，并设置了sconf->input_tex[i];
-        └─ 遍历所有矩形nfans， glDrawArrays(GL_TRIANGLE_FAN, first, vtxcnt[i]); //【】真正绘制
+how：
 
-```
+>   使用gl 接口，调用GPU画：
+>
+>   ​	 -<font color='red'>本质：就是GPU贴图</font>
+>
+>   ```java
+>   └─ draw_paint_node
+>       ├─ pixman_region32_intersect(&repaint, damage); // 次要：用damage更新 repaint区域
+>       ├─ gl_shader_config_init_for_paint_node // 【】目的：需要参数封装到conf结构体里（用作shader）
+>       │   ├─ gl_shader_config_set_input_textures  // 【】关键：把client的texture封装到conf里
+>       │   │   └─ for: sconf->input_tex[i] = gb->textures[i] // 一个node，可能有多个Texture
+>       │   └─ gl_shader_config_set_color_transform 颜色变换？
+>       ├─ pixman_region32_subtract(&surface_blend, &surface_blend, &pnode->surface->opaque); // 扣除 完全不透明区域？
+>       └─ repaint_region(gr, pnode, &repaint, &surface_blend, &sconf); // 【】
+>           ├─ 【texture_region(pnode, region, surf_region)】 矩形窗口可能被其他窗口遮挡，会被分割成多个小矩形进行绘制
+>           ├─ /* position: */
+>           ├─ glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof *v, &v[0]);
+>           ├─ /* texcoord: */
+>           ├─ glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof *v, &v[2]);
+>           ├─ gl_renderer_use_program(gr, sconf) // 【】
+>           │   ├─ gl_renderer_get_program(gr, &sconf->req) // 获取glProgram
+>           │   │   ├─ 做了缓存，不用每次都编译gl_shader_requirements_cmp(&reqs, &shader->key)
+>           │   │   └─ gl_shader_create(gr, &reqs) // 没有的话，创建
+>           │   │       ├─ sources[2] = fragment_shader; 具体的fragment.glsl
+>           │   │       └─ glGetProgramiv(shader->program); //gl接口生成glProgram
+>           │   │           ├─ shader->proj_uniform = glGetUniformLocation(shader->program, "proj");
+>           │   │           ├─ shader->tex_uniforms[0] = glGetUniformLocation(shader->program, "tex"); // 【】 拿到.glsl中全局变量的索引，后面CPU给GPU赋值
+>           │   │           └─ shader->tex_uniforms[1] = glGetUniformLocation(shader->program, "tex1");
+>           │   ├─ glUseProgram(shader->program); // 激活glProgram（激活一个着色器程序，所有后续的绘制调用将使用这个程序中定义的顶点着色器和片段着色器）
+>           │   └─ gl_shader_load_config(shader, sconf) //
+>           │       ├─ glUniform1f(shader->view_alpha_uniform, sconf->view_alpha); // 【】CPU真正给GPU赋值的地方
+>           │       └─ for遍历，绑定纹理： // 贴图：一个client surface，只有一个（已经确认）
+>           │           ├─ glActiveTexture(GL_TEXTURE0 + i)  激活当前的纹理单元，使得后续的纹理操作会在这个纹理上进行
+>           │           └─ glBindTexture(GL_TEXTURE_2D, sconf->input_tex[i])  //相当create 2d texture_obj对象，并设置了sconf->input_tex[i];
+>           └─ 遍历所有矩形nfans， glDrawArrays(GL_TRIANGLE_FAN, first, vtxcnt[i]); //【】真正绘制
+>   
+>   ```
+>
 
 
 
@@ -447,58 +469,203 @@ draw_paint_node
 
 
 
+### render 的贴图变换-------即矩阵变换
+
+
+
+#### 变换公式
+
+参考：vertex.glsl
+
+```java
+gl_Position = proj * vec4(position, 0.0, 1.0);
+最终变换结果gl_Position = 变换矩阵proj * 位置坐标postion
+```
+
+结论：
+
+> ------------> 所以，<font color='red'>变换 可以承载于变换矩阵里</font>，参考：simple-egl.c
+>
+> 							<font color='red'>也可以承载于 位置坐标position</font>，参考view的变换
+
+
+
+
+
+TODO:
+
+```java
+矩阵各个参数的含义：
+view->transform.position.matrix.type = WESTON_MATRIX_TRANSFORM_TRANSLATE;
+平移：
+view->transform.position.matrix.d[12] = view->geometry.pos_offset.x;
+view->transform.position.matrix.d[13] = view->geometry.pos_offset.y;
+旋转：
+rotation.d[0] =   cos(angle);
+rotation.d[2] =   sin(angle);
+rotation.d[8] =  -sin(angle);
+rotation.d[10] =  cos(angle);
+```
+
+
+
+#### view变换，比如放缩--------顶点矩阵position：
+
+**参考：animation.c的放缩**
+
+```java
+weston_matrix_init(&animation->transform.matrix);
+wl_list_insert(&view->geometry.transformation_list,
+		   &animation->transform.link);
+```
+
+
+
+view层面承载的量：
+
+```java
+view->geometry.transformation_list
+```
+
+
+
+更新，计算总的 变换：
+
+```java
+// compositor.c
+weston_view_update_transform()
+weston_view_update_transform_enable()
+    struct weston_matrix *matrix = &view->transform.matrix; //【】------->  最终承载，会被覆盖掉！！！！！！重新生成
+    weston_matrix_init(matrix);
+    wl_list_for_each(tform, &view->geometry.transformation_list, link)
+        weston_matrix_multiply(matrix, &tform->matrix);
+```
+
+
+
+&view->transform.matrix;最终生效的地方：
+
+> <font color='red'>glsl 中的 position，而不是 变换矩阵proj！！</font>
+>
+> gl_Position = proj * vec4(position, 0.0, 1.0);
+
+代码大纲：
+
+```java
+repaint_region
+	texture_region
+		GLfloat *v, = wl_array_add(&gr->vertices, nrects * nsurf * 8 * 4 * sizeof *v); // 【】 变换矩阵承载于 gl_renderer->vertices; 顶点矩阵！！！！！！！！
+		calculate_edges(ev, rect, surf_rect, e);
+			for遍历surface
+			surf.pos[i] = weston_coord_surface_to_global(ev, tmp[i]).c; // 【】 承载于surf.pos[i]
+				weston_matrix_transform_coord(&view->transform.matrix, // 利用到了view的矩阵，这里加的变换！
+	/* position: */
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof *v, &v[0]); // 【】 顶点矩阵，最终赋值glVertexAttribPointer ----> glsl中的：attribute vec2 position; 不是变换矩阵proj！！！！！！
+```
+
+
+
+#### 贴图变换 之 2d变3D立体的实现-------变换矩阵projection：
+
+**参考simple-egl**
+
+```java
+cpu的承载量-----变换矩阵rotation：
+		struct weston_matrix rotation;
+		weston_matrix_scale(&rotation, -1, 1, 1);
+		glUniformMatrix4fv(window->gl.rotation_uniform, 1, GL_FALSE,
+		   (GLfloat *) rotation.d);
+GPU承载量：最终结果gl_position  = rotation * pos       // 【】 rotation即 变换矩阵projection
+						          变换矩阵  * 顶点坐标
+```
+
+
+
+```java
+// gl-shaders.c 中变换矩阵 projection
+glUniformMatrix4fv(shader->proj_uniform,
+		   1, GL_FALSE, sconf->projection.d);
+```
+
+
+
+
+
+
+
 
 
 ### 次要---给view分配plane（drm_assign_planes）大纲
 
-```java
-repaint大纲字典
-└─ drm_assign_planes ----------output级
-    ├─ try: mode = DRM_OUTPUT_PROPOSE_STATE_PLANES_ONLY  //1、尝试只用 overlay
-    ├─ try: mode = DRM_OUTPUT_PROPOSE_STATE_MIXED;        // 2、只用overlay不成功，尝试 overlay + GPU
-    ├─ try: mode = DRM_OUTPUT_PROPOSE_STATE_RENDERER_ONLY;  // 上面两点都不成功, 自然，只用GPU
-    └─ drm_output_propose_state(mode)-------output级--------------
-        └─ wl_list_for_each(pnode)------遍历pnode节点-----view级----------
-            ├─ ①忽略不合成的view(continue)：
-            │   ├─ 1、不属于此output的  if (!(ev->output_mask & (1u << output->base.id)))
-            │   ├─ 2、必须需要颜色变换 TODO:没懂  if (!pnode->surf_xform_valid)
-            │   ├─ 3、完全被遮挡的 if (totally_occluded)
-            │   └─ 4、
-            ├─ ②强制走GPU render的(force_renderer = true)：
-            │   ├─ 1、view存在于多个output上，if (ev->output_mask != (1u << output->base.id))
-            │   ├─ 2、view 对应的GBM not available（drm侧）， if (!b->gbm)
-            │   ├─ 3、view没有有效的buffer，if (!weston_view_has_valid_buffer(ev))
-            │   ├─ 4、view对应buffer类型是 WESTON_BUFFER_SOLID
-            │   ├─ 5、需要做color变换的，(requires color transform)
-            │   ├─ 6、view被GPU render view遮挡的， if (pixman_region32_not_empty(&surface_overlap))  ----> TODO:本质原因是啥！！！！！！
-            │   │   └─ 换言之，gpu view 以下（遮挡），必须是GPU！
-            │   └─ 7、view在保护content-protection的强制mode下
-            └─ ③--------对于非强制GPU的尝试分配plane：drm_output_find_plane_for_view -----------
-                ├─ 1、检查buffer是否有效。无效则 FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE
-                ├─ 2、buffer类型是WESTON_BUFFER_SOLID ，分配plane失败， FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE
-                ├─ 3、buffer类型是WESTON_BUFFER_SHM，只允许是cursor_plane：
-                │   ├─ pixel_format格式是DRM_FORMAT_ARGB8888，失败，FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE
-                │   ├─ buffer的尺寸大于鼠标，失败
-                │   └─ 赋值：possible_plane_mask = (1 << output->cursor_plane->plane_idx);
-                ├─ 4、自然，尝试的mode = DRM_OUTPUT_PROPOSE_STATE_RENDERER_ONLY，失败
-                ├─ 5、wl_list_for_each(plane, &device->plane_list)遍历 硬件所有plane
-                │   └─ 跳过CURSOR类型的plane
-                │       └─ 赋值：possible_plane_mask |= 1 << plane->plane_idx;
-                ├─ 6、没有对应的drm_fb（Framebuffer），失败
-                ├─ 7、有对应的drm_fb，赋值：possible_plane_mask &= fb->plane_mask
-                ├─ ③_1--------真正的分配（对于③中可能分配的possible_plane）-----------------------
-                └─ wl_list_for_each(plane, &device->plane_list)遍历plane_list：
-                    ├─ plane可得性检查：【drm_plane_is_available】
-                    │   ├─ output如果是virtual的，不能分配plane！！
-                    │   ├─ The plane still 存在 a request
-                    │   ├─ The plane is still active on another output
-                    │   └─ 检查 plane can be used with this CRTC // 【】屏幕和plane的绑定关系！！！！
-                    ├─ 检查 view对应的buffer有效性：assert(fb)
-                    ├─ alpha已经安排过view，跳过： drm_output_check_plane_has_view_assigned()
-                    ├─ alpha 检查：如果view有alpha值，但是该plane不支持alpha，跳过
-                    └─ 最终绑定plane与view：drm_output_prepare_cursor_paint_node/drm_output_try_paint_node_on_plane
-                        └─ plane_state->ev = view  // TODO: 最终应该是，plane分配给view
-```
+
+
+where：
+
+>   ```java
+>   ├─ 生命周期图 0层
+>   ├─ weston_output_maybe_repaint(compositor.c)
+>   └─ weston_output_repaint(compositor.c)
+>       ├─ ------------------为views分配planes--------------------------
+>       ├─ drm_assign_planes // 【】具体见下
+>       ├─ ------------------【计算damage】---------------------------------
+>       └─ drm_output_repaint
+>   ```
+
+
+
+how:
+
+>   ```java
+>   repaint大纲字典
+>   └─ drm_assign_planes ----------output级
+>       ├─ try: mode = DRM_OUTPUT_PROPOSE_STATE_PLANES_ONLY  //1、尝试只用 overlay
+>       ├─ try: mode = DRM_OUTPUT_PROPOSE_STATE_MIXED;        // 2、只用overlay不成功，尝试 overlay + GPU
+>       ├─ try: mode = DRM_OUTPUT_PROPOSE_STATE_RENDERER_ONLY;  // 上面两点都不成功, 自然，只用GPU
+>       └─ drm_output_propose_state(mode)-------output级--------------
+>           └─ wl_list_for_each(pnode)------遍历pnode节点-----view级----------
+>               ├─ ①忽略不合成的view(continue)：
+>               │   ├─ 1、不属于此output的  if (!(ev->output_mask & (1u << output->base.id)))
+>               │   ├─ 2、必须需要颜色变换 TODO:没懂  if (!pnode->surf_xform_valid)
+>               │   ├─ 3、完全被遮挡的 if (totally_occluded)
+>               │   └─ 4、
+>               ├─ ②强制走GPU render的(force_renderer = true)：
+>               │   ├─ 1、view存在于多个output上，if (ev->output_mask != (1u << output->base.id))
+>               │   ├─ 2、view 对应的GBM not available（drm侧）， if (!b->gbm)
+>               │   ├─ 3、view没有有效的buffer，if (!weston_view_has_valid_buffer(ev))
+>               │   ├─ 4、view对应buffer类型是 WESTON_BUFFER_SOLID
+>               │   ├─ 5、需要做color变换的，(requires color transform)
+>               │   ├─ 6、view被GPU render view遮挡的， if (pixman_region32_not_empty(&surface_overlap))  ----> TODO:本质原因是啥！！！！！！
+>               │   │   └─ 换言之，gpu view 以下（遮挡），必须是GPU！
+>               │   └─ 7、view在保护content-protection的强制mode下
+>               └─ ③--------对于非强制GPU的尝试分配plane：drm_output_find_plane_for_view -----------
+>                   ├─ 1、检查buffer是否有效。无效则 FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE
+>                   ├─ 2、buffer类型是WESTON_BUFFER_SOLID ，分配plane失败， FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE
+>                   ├─ 3、buffer类型是WESTON_BUFFER_SHM，只允许是cursor_plane：
+>                   │   ├─ pixel_format格式是DRM_FORMAT_ARGB8888，失败，FAILURE_REASONS_FB_FORMAT_INCOMPATIBLE
+>                   │   ├─ buffer的尺寸大于鼠标，失败
+>                   │   └─ 赋值：possible_plane_mask = (1 << output->cursor_plane->plane_idx);
+>                   ├─ 4、自然，尝试的mode = DRM_OUTPUT_PROPOSE_STATE_RENDERER_ONLY，失败
+>                   ├─ 5、wl_list_for_each(plane, &device->plane_list)遍历 硬件所有plane
+>                   │   └─ 跳过CURSOR类型的plane
+>                   │       └─ 赋值：possible_plane_mask |= 1 << plane->plane_idx;
+>                   ├─ 6、没有对应的drm_fb（Framebuffer），失败
+>                   ├─ 7、有对应的drm_fb，赋值：possible_plane_mask &= fb->plane_mask
+>                   ├─ ③_1--------真正的分配（对于③中可能分配的possible_plane）-----------------------
+>                   └─ wl_list_for_each(plane, &device->plane_list)遍历plane_list：
+>                       ├─ plane可得性检查：【drm_plane_is_available】
+>                       │   ├─ output如果是virtual的，不能分配plane！！
+>                       │   ├─ The plane still 存在 a request
+>                       │   ├─ The plane is still active on another output
+>                       │   └─ 检查 plane can be used with this CRTC // 【】屏幕和plane的绑定关系！！！！
+>                       ├─ 检查 view对应的buffer有效性：assert(fb)
+>                       ├─ alpha已经安排过view，跳过： drm_output_check_plane_has_view_assigned()
+>                       ├─ alpha 检查：如果view有alpha值，但是该plane不支持alpha，跳过
+>                       └─ 最终绑定plane与view：drm_output_prepare_cursor_paint_node/drm_output_try_paint_node_on_plane
+>                           └─ plane_state->ev = view  // TODO: 最终应该是，plane分配给view
+>   ```
+>
+
+
 
 -<font color='red'>结论的物理级证明：</font>
 

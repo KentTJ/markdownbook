@@ -1493,6 +1493,14 @@ wet_shell_init
 
 
 
+
+
+# 输入法  Wayland Input Methods
+
+weston输入法：https://archive.fosdem.org/2013/schedule/event/waylandinput/attachments/slides/252/export/events/attachments/waylandinput/slides/252/FOSDEM2013_wayland_input_methods.pdf
+
+------------> TODO: download
+
 # 实操
 
 

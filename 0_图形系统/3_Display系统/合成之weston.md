@@ -3966,19 +3966,6 @@ drm驱动给到weston的plane日志，<font color='red'>但是似乎不是硬件
 >
 > ​          （2）**驱动给的plane顺序 必须 等于物理层级顺序**  （驱动寄存器配置错误时，就会颠倒）
 
-所有display信息：
-
-> ```java
-> [17:28:41.052] get screen_map info success, name = DSI-1, width = 1728, height = 1888, x = 0, y = 0, refresh = 59468
-> [17:28:41.052] get screen_map info success, name = eDP-1, width = 3840, height = 720, x = 1728, y = 0, refresh = 60000
-> [17:28:41.052] get screen_map info success, name = DP-1, width = 3840, height = 720, x = 5568, y = 0, refresh = 60000
-> [17:28:41.052] get screen_map info success, name = DP-2, width = 1920, height = 1080, x = 9408, y = 0, refresh = 60000
-> [17:28:41.052] get screen_map info success, name = DSI-2, width = 1920, height = 384, x = 11328, y = 0, refresh = 59999
-> [17:28:41.052] get screen_map info success, name = DSI-3, width = 1728, height = 1888, x = 13248, y = 0, refresh = 60032
-> ```
->
-> 
-
 
 
 

@@ -355,6 +355,50 @@ int main() {
 
 
 
+# 素材之 环境变量
+
+C语言，环境变量的获取
+
+```java
+1、获取特定的环境变量值
+getenv(char *)
+
+2、所有环境变量environ：
+char **env = environ;  // 获取环境变量数组
+// 遍历并打印所有环境变量
+while (*env) {
+	printf("%s\n", *env);
+	// fprintf(stderr, ": %s \n", *env);
+	env++;
+}
+```
+
+
+
+C语言，写入文件：
+
+```java
+char **env = environ;  // 获取环境变量数组
+FILE *file = fopen("/tmp/env_variables.txt", "w");  // 打开文件用于写入
+
+if (file == NULL) {
+    perror("无法打开文件");
+    return ;
+}
+
+// 遍历并将所有环境变量写入文件
+while (*env) {
+    fprintf(file, "%s\n", *env);
+    env++;
+}
+
+fclose(file);  // 关闭文件
+```
+
+
+
+
+
 
 
 

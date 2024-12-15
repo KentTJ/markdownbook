@@ -48,15 +48,19 @@
 
  过去一年 & 过去3年 & 过去5年最低点，all in ！！！！！！！
 
-![image-20241215111946598](Investment.assets/image-20241215111946598.png)
+>   
+>
+>   <img src="Investment.assets/image-20241215111946598.png" alt="image-20241215111946598" style="zoom:80%;" />
+>
+>   
+>
+>   <img src="Investment.assets/image-20241215112017280.png" alt="image-20241215112017280" style="zoom:80%;" />
+>
+>   
+>
+>   <img src="Investment.assets/image-20241215112207994.png" alt="image-20241215112207994" style="zoom:80%;" />
 
 
-
-![image-20241215112017280](Investment.assets/image-20241215112017280.png)
-
-
-
-![image-20241215112207994](Investment.assets/image-20241215112207994.png)
 
 4、
 

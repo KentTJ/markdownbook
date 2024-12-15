@@ -526,6 +526,10 @@ linux 与 GitHub 或者 gerrite通信 协议
 
 
 
+**规定：**
+
+>   <font color='red'>下载或者push，只允许用ssh，不允许用https</font> ！！！！
+
 ## 报错
 
 ### 关于git push   443链接 报错：

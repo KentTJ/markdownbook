@@ -974,6 +974,10 @@ atrace.out  转   perfetto显示
 
 # linux实操（验证ok）-----trace工具编译
 
+官网： https://perfetto.dev/docs/
+
+参考： https://perfetto.dev/docs/quickstart/linux-tracing#:~:text=Quickstart%3A%20Record%20traces%20on%20Linux
+
 ## trace工具编译
 
 **下载源码：**

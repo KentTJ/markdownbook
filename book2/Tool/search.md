@@ -76,11 +76,21 @@ google > 微信搜一搜 > 公众号 >  细分论坛或APP  >  百度等
 >
 > > "hello kitty"  ------>  自然
 
-限定网站来源：
+限定网站来源1：
 
 > 池晨晨 inurl:wenzhou     -----------> 限定温州相关的网站
 >
 > ![image-20240309210545188](search.assets/image-20240309210545188.png)
+
+限定网站来源2：
+
+>   ```java
+>   weston  site:github.io
+>   ```
+>
+>   在 github.io 类型网站里搜索，会更好
+
+
 
 限定文件类型：
 

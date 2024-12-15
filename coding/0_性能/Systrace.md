@@ -972,7 +972,7 @@ atrace.out  转   perfetto显示
 
 
 
-# 实操（验证ok）-----trace工具编译
+# linux实操（验证ok）-----trace工具编译
 
 ## trace工具编译
 
@@ -1000,6 +1000,46 @@ TODO:
 out/linux/tracebox -o trace_file.perfetto-trace --txt -c test/configs/scheduling.cfg
 out/linux/tracebox -o trace_file.perfetto-trace --txt -c test/configs/android_log.cfg
 ```
+
+报错：
+
+>   ```java
+>   $ out/linux/tracebox -o trace_file.perfetto-trace --txt -c test/configs/android_log.cfg
+>   [469.137]          service.cc:232 Started traced, listening on @traced-p-38612 @traced-c-38612
+>   [469.138]            probes.cc:88 Failed to reset ftrace. Either run this as root or run `sudo chown -R $USER /sys/kernel/tracing` // 【】
+>   [469.139]           probes.cc:104 Starting traced_probes service
+>   [469.139]  probes_producer.cc:332 Connected to the service
+>   [469.142]   perf_producer.cc:1238 Connected to the service
+>   [469.143]    perfetto_cmd.cc:1108 Connected to the Perfetto traced service, TTL: 3600s
+>   [469.143] ng_service_impl.cc:1125 Configured tracing session 1, #sources:3, duration:3600000 ms, #buffers:2, total buffer size:65536 KB, total sessions:1, uid:1000 session name: ""
+>   [469.143]  probes_producer.cc:126 Failed to create FtraceController
+>   [469.143]  probes_producer.cc:402 Failed to create data source 'linux.ftrace'
+>   [469.143] _log_data_source.cc:525 Failed to read /system/etc/event-log-tags (errno: 2, No such file or directory)
+>   [469.143] _log_data_source.cc:161 Failed to connect to /dev/socket/logdr (errno: 2, No such file or directory)
+>   [469.143]  probes_producer.cc:418 Data source id=2 not found
+>   ^C[472.596]    perfetto_cmd.cc:1316 SIGINT/SIGTERM received: disabling tracing.
+>   [472.597]  probes_producer.cc:445 Producer stop (id=1)
+>   [472.597]  probes_producer.cc:445 Producer stop (id=2)
+>   [472.597]  probes_producer.cc:449 Cannot stop data source id=2, not found
+>   [472.597]  probes_producer.cc:445 Producer stop (id=3)
+>   [477.610] ng_service_impl.cc:1788 Timeout while waiting for ACKs for tracing session 1
+>   [477.613]    perfetto_cmd.cc:1268 Trace written into the output file
+>   
+>   ```
+
+
+
+办法：
+
+>    Either run this as root or run `sudo chown -R $USER /sys/kernel/tracing`
+>
+>   ---------> <font color='red'>验证OK</font>
+>
+>   ```java
+>   sudo chown -R $USER /sys/kernel/tracing
+>   ```
+
+
 
 ## 源码中，如何集成trace？
 

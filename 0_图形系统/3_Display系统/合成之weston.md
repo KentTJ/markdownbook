@@ -4812,7 +4812,11 @@ weston-dmabuf-egl -d /dev/dri/RenderD128
 
 优点：可以 **放大 & 移动 image**
 
-## weston-eventdemo 事件实时显示
+
+
+
+
+## event测试-------weston-eventdemo 事件实时显示
 
 **展示了 touch事件 和 key事件**
 
@@ -4825,6 +4829,20 @@ weston-dmabuf-egl -d /dev/dri/RenderD128
 >   把client全屏，就可以像安卓一样，<font color='red'>实时显示touch位置</font>了
 >
 >   ![image-20240824235709515](合成之weston.assets/image-20240824235709515.png)
+
+
+
+## event测试-------simple-touch
+
+1、类似于安卓的touch画图
+
+2、<font color='red'>测试多指</font>
+
+
+
+## event测试-------getevent
+
+
 
 ## editor-----展示输入法框架能力
 
@@ -4847,12 +4865,6 @@ Drag and drop
 展示了画连续线的能力：
 
 ![image-20240825001134782](合成之weston.assets/image-20240825001134782.png)
-
-## simple-touch
-
-1、类似于安卓的touch画图
-
-2、<font color='red'>测试多指</font>
 
 
 

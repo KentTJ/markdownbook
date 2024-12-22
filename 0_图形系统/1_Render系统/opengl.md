@@ -269,6 +269,12 @@ cpp 侧应用纹理：
 
 
 
+TODO: color 与 texture，一般情况下，只有一个！！！！！！
+
+>   -<font color='red'>color代表着画图，texture是贴图</font>
+
+
+
 ### 已有dma 构造纹理
 
 法一(同shm)：~~mmap获取内存地址，直接读取为image  （<font color='red'>同shm， 存在copy</font>）~~

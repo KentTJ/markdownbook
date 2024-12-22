@@ -195,9 +195,21 @@ glGenBuffers(1, &VBO);
 
 
 
-## 补充 纹理
+# 纹理（即贴图）
 
-### cpp侧 构造纹理
+## 抛开代码，纹理来源
+
+1、从现有的buffer内获取的（比如应用传过来的dma、shm等等）
+
+2、从图片（jpg）
+
+## cpp侧 构造纹理
+
+### 已有dma 构造纹理
+
+### 已有shm构造纹理
+
+### jpg构造纹理
 
 加载纹理：
 
@@ -220,7 +232,7 @@ glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYT
 --------------> 当前绑定的纹理对象texture就会被附加上纹理图像data
 ```
 
-应用纹理：
+cpp 侧应用纹理：
 
 > 新增纹理坐标------即截取：
 >
@@ -241,9 +253,10 @@ glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYT
 > glEnableVertexAttribArray(2);
 > ```
 >
-> 
 
-### glsl侧 接收纹理
+
+
+## glsl侧 接收纹理
 
 顶点着色器新增：
 
@@ -298,7 +311,7 @@ TODO：
 
 [为什么`sampler2D`变量是个uniform，我们却不用glUniform给它赋值](https://learnopengl-cn.github.io/01%20Getting%20started/06%20Textures/#_8:~:text=%E4%B8%BA%E4%BB%80%E4%B9%88sampler2D%E5%8F%98%E9%87%8F%E6%98%AF%E4%B8%AAuniform%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8D%B4%E4%B8%8D%E7%94%A8glUniform%E7%BB%99%E5%AE%83%E8%B5%8B%E5%80%BC)
 
-### 混合色 TODO：
+## 混合色 TODO：
 
 
 
@@ -310,11 +323,62 @@ TODO：
 
 
 
+## 加载png 或 jpg图片
+
+> 目标： ---------->  一堆像素   --------> 一堆RGB，比如（0,122，144）
+>
+> ```java
+> int width, height, nrChannels;
+> unsigned char *data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
+> ```
+>
+> 验证：
+>
+> > //打印前50个pixel for (size_t i = 0; i< 50; i++) {    cout << (int)data[i] << endl; }
+
+RGB: 三个Channel
+
+alpha：第四通道
+
+Texture ------> 另一个翻译更贴切：贴图
+
+> 把一个已有的图，贴到模型上
+
+
+
+## 图片过大----截取一部分图片-----纹理坐标
+
+以左下角为（0,0）
+
+**采样**，即截取出三角形贴图： ----------> [用纹理坐标截取](https://learnopengl-cn.github.io/01 Getting started/06 Textures/#_1:~:text=的插值。-,纹理坐标,-看起来就像这样)   
+
+```java
+ float texCoords[] = {
+     0.0f, 0.0f, // 左下角
+     1.0f, 0.0f, // 右下角
+     0.5f, 1.0f // 上中
+ };
+```
+
+-----------> 这里本质上截取了三个点，[内部插值](https://learnopengl-cn.github.io/01 Getting started/06 Textures/#_1:~:text=解释非常宽松，-,它可以采用几种不同的插值方式,-。所以我们需要)
+
+## 图片过小，不足以覆盖模型------- 延拓
+
+GL_REPEAT      重复贴图
+
+GL_CLAMP_TO_EDGE   超出部分，拉伸
+
+GL_CLAMP_TO_BORDER   超出的坐标为用户指定的边缘颜色。
+
+## 纹理过滤------没懂
+
+https://youtu.be/mZM15IKuNWY?list=PL0luF_aDUOooIB56NOFVTS4ahMzBHS_6z&t=1341
 
 
 
 
-# Opengl
+
+# Opengl 课程
 
 
 
@@ -446,104 +510,7 @@ RendererJNI.cpp：
 
 
 
-## 纹理
 
-## 加载png 或 jpg图片
-
-> 目标： ---------->  一堆像素   --------> 一堆RGB，比如（0,122，144）
->
-> ```java
->  int width, height, nrChannels;
->  unsigned char *data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
-> ```
->
-> 验证：
->
-> > //打印前50个pixel for (size_t i = 0; i< 50; i++) {    cout << (int)data[i] << endl; }
-
-RGB: 三个Channel
-
-alpha：第四通道
-
-Texture ------> 另一个翻译更贴切：贴图
-
-> 把一个已有的图，贴到模型上
-
-## 已有图片的截取-----纹理坐标
-
-以左下角为（0,0）
-
-**采样**，即截取出三角形贴图： ----------> [用纹理坐标截取](https://learnopengl-cn.github.io/01 Getting started/06 Textures/#_1:~:text=的插值。-,纹理坐标,-看起来就像这样)   
-
-```java
- float texCoords[] = {
-     0.0f, 0.0f, // 左下角
-     1.0f, 0.0f, // 右下角
-     0.5f, 1.0f // 上中
- };
-```
-
------------> 这里本质上截取了三个点，[内部插值](https://learnopengl-cn.github.io/01 Getting started/06 Textures/#_1:~:text=解释非常宽松，-,它可以采用几种不同的插值方式,-。所以我们需要)
-
-## 已有图片过小，不足以覆盖模型
-
-GL_REPEAT      重复贴图
-
-GL_CLAMP_TO_EDGE   超出部分，拉伸
-
-GL_CLAMP_TO_BORDER   超出的坐标为用户指定的边缘颜色。
-
-## 纹理过滤------没懂
-
-https://youtu.be/mZM15IKuNWY?list=PL0luF_aDUOooIB56NOFVTS4ahMzBHS_6z&t=1341
-
-
-
-
-
-## 错误信息的获取
-
-参考：[官方代码](https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/shader_s.h#:~:text=errors)：  
-
- COMPILE错误 与 LINK 错误
-
-```java
-   // utility function for checking shader compilation/linking errors.
-    // ------------------------------------------------------------------------
-    void checkCompileErrors(unsigned int shader, std::string type)
-    {
-        int success;
-        char infoLog[1024];
-        if (type != "PROGRAM")
-        {
-            glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-            if (!success)
-            {
-                glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-                std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
-            }
-        }
-        else
-        {
-            glGetProgramiv(shader, GL_LINK_STATUS, &success);
-            if (!success)
-            {
-                glGetProgramInfoLog(shader, 1024, NULL, infoLog);
-                std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
-            }
-        }
-    }
-```
-
-
-
-## printf' in GLSL
-
-https://stackoverflow.com/questions/3420558/printf-in-glsl
-
-[调试输出， OpenGL4.3版本](https://blog.csdn.net/zjz520yy/article/details/83047042  )
-
-[官网---   调试输出](https://learnopengl-cn.github.io/06 In Practice/01 Debugging/#:~:text=有效的工具。-,调试输出,-虽然没有glGetError  )
 
 
 
@@ -1952,6 +1919,52 @@ if (Alpha > 0.1 && Alpha < 0.3) {
 >   <font color='red'>中间捞出来：</font>glReadpixels 缓冲区 回读像素  ------>  **反馈型！！！！王炸！！！**
 
 <font color='red'> 向后输出前提：</font>  上屏流程没有问题
+
+
+
+## shader编译错误信息的获取
+
+参考：[官方代码](https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/shader_s.h#:~:text=errors)：  
+
+ COMPILE错误 与 LINK 错误
+
+```java
+   // utility function for checking shader compilation/linking errors.
+    // ------------------------------------------------------------------------
+    void checkCompileErrors(unsigned int shader, std::string type)
+    {
+        int success;
+        char infoLog[1024];
+        if (type != "PROGRAM")
+        {
+            glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+            if (!success)
+            {
+                glGetShaderInfoLog(shader, 1024, NULL, infoLog);
+                std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+            }
+        }
+        else
+        {
+            glGetProgramiv(shader, GL_LINK_STATUS, &success);
+            if (!success)
+            {
+                glGetProgramInfoLog(shader, 1024, NULL, infoLog);
+                std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+            }
+        }
+    }
+```
+
+
+
+## printf' in GLSL
+
+https://stackoverflow.com/questions/3420558/printf-in-glsl
+
+[调试输出， OpenGL4.3版本](https://blog.csdn.net/zjz520yy/article/details/83047042  )
+
+[官网---   调试输出](https://learnopengl-cn.github.io/06 In Practice/01 Debugging/#:~:text=有效的工具。-,调试输出,-虽然没有glGetError  )
 
 
 

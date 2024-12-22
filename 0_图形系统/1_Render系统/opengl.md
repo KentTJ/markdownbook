@@ -215,9 +215,15 @@ glGenBuffers(1, &VBO);
 
 ## 抛开代码，纹理来源
 
-1、从现有的buffer内获取的（比如应用传过来的dma、shm等等）
+Texture ------> 另一个翻译更贴切：贴图
 
-2、从图片（jpg）
+> 把一个已有的图，贴到模型上
+
+来源：
+
+>   1、从现有的buffer内获取的（比如应用传过来的dma、shm等等）
+>
+>   2、从图片（jpg）
 
 ## cpp侧 构造纹理
 
@@ -250,6 +256,8 @@ cpp 侧应用纹理：
 >  -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
 >  -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // 左上
 > };
+> 
+> 注意：行数 = 顶点数量！！！！！！
 > ```
 >
 > 告诉OpenGL新的顶点格式（**顶点属性**）：
@@ -275,17 +283,40 @@ cpp 侧应用纹理：
 
 ### ~~jpg、png构造纹理~~（同shm）
 
-加载纹理到 内存：
+加载纹理到 内存，成为pixels：
 
-```
+```java
 // 使用 stb_image.h
 int width, height, nrChannels;
 unsigned char *data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
 ```
 
+```java
+//中间验证验证：
+
+打印前50个pixel
+for (size_t i = 0; i< 50; i++) {    cout << (int)data[i] << endl; }
+```
+
 
 
 **创建纹理，同shm**：~~glTexImage2D~~
+
+
+
+
+
+
+
+
+
+
+
+RGB: 三个Channel，比如（0,122，144）
+
+alpha：第四通道
+
+
 
 
 
@@ -356,26 +387,13 @@ TODO：
 
 
 
-## 加载png 或 jpg图片
 
-> 目标： ---------->  一堆像素   --------> 一堆RGB，比如（0,122，144）
->
-> ```java
-> int width, height, nrChannels;
-> unsigned char *data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
-> ```
->
-> 验证：
->
-> > //打印前50个pixel for (size_t i = 0; i< 50; i++) {    cout << (int)data[i] << endl; }
 
-RGB: 三个Channel
 
-alpha：第四通道
 
-Texture ------> 另一个翻译更贴切：贴图
+## 顶点坐标 & 纹理坐标
 
-> 把一个已有的图，贴到模型上
+
 
 
 
@@ -395,6 +413,12 @@ Texture ------> 另一个翻译更贴切：贴图
 
 -----------> 这里本质上截取了三个点，[内部插值](https://learnopengl-cn.github.io/01 Getting started/06 Textures/#_1:~:text=解释非常宽松，-,它可以采用几种不同的插值方式,-。所以我们需要)
 
+
+
+
+
+
+
 ## 图片过小，不足以覆盖模型------- 延拓
 
 GL_REPEAT      重复贴图
@@ -410,6 +434,10 @@ https://youtu.be/mZM15IKuNWY?list=PL0luF_aDUOooIB56NOFVTS4ahMzBHS_6z&t=1341
 
 
 ## 纹理不要多次申请
+
+
+
+
 
 
 

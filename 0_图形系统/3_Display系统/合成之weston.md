@@ -4848,6 +4848,14 @@ Drag and drop
 
 ![image-20240825001134782](合成之weston.assets/image-20240825001134782.png)
 
+## simple-touch
+
+1、类似于安卓的touch画图
+
+2、<font color='red'>测试多指</font>
+
+
+
 ## transformed
 
 

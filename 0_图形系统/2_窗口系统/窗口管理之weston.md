@@ -1580,6 +1580,182 @@ $ export LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu
 
 
 
+# 维测
+
+## 限定模块范围（SCOPE）的日志
+
+--logger-scopes=SCOPE
+
+### drm-backend日志
+
+weston --logger-scopes=drm-backend
+
+--------> ok
+
+
+
+```java
+Output 0 (Virtual-1):  // 【】 Output 0 信息
+	position: (0, 0) -> (1920, 970)
+	mode: 1920x970@60.000Hz
+	scale: 1
+	repaint status: repaint scheduled
+	next repaint: 108788.723125666
+	Head 0 (Virtual-1): connected
+
+Layer 0 (pos 0xffffffff):
+	View 0 (role (null), PID 0, surface ID 0, desktop shell fade surface for Virtual-1, 0x5a553ad5e1e0):
+		position: (0, 0) -> (1920, 970)
+		[not opaque]
+		alpha: 0.039004
+		outputs: 0 (Virtual-1) (primary)
+		solid-colour buffer                 // 【】view对应的buffer
+			[R 0.000000, G 0.000000, B 0.000000, A 1.000000]
+			[2 references may use buffer content]
+			format: 0x34325258 XRGB8888
+			modifier: LINEAR (0x0)
+			width: 1, height: 1
+```
+
+
+
+
+
+
+
+## 启动日志
+
+```java
+$ weston
+Date: 2024-07-15 HKT
+[14:46:44.556] weston 12.0.2
+               https://wayland.freedesktop.org
+               Bug reports to: https://gitlab.freedesktop.org/wayland/weston/issues/
+               Build: 12.0.2
+[14:46:44.556] Command line: weston
+[14:46:44.556] OS: Linux, 6.2.0-36-generic, #37~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Mon Oct  9 15:34:04 UTC 2, x86_64
+[14:46:44.556] Flight recorder: enabled
+[14:46:44.556] Starting with no config file.
+[14:46:44.556] Output repaint window is 7 ms maximum.
+[14:46:44.556] Loading module '/home/cjk/weston_install/lib/x86_64-linux-gnu/libweston-12/x11-backend.so'  // 【】 这里说明了使用什么后端
+[14:46:44.557] Loading module '/home/cjk/weston_install/lib/x86_64-linux-gnu/libweston-12/gl-renderer.so'
+
+[14:46:48.343] Using rendering device: /dev/dri/renderD128
+[14:46:48.343] EGL version: 1.4  
+[14:46:48.343] EGL vendor: Mesa Project
+[14:46:48.343] EGL client APIs: OpenGL OpenGL_ES 
+[14:46:48.343] EGL features:
+               EGL Wayland extension: yes
+               context priority: no
+               buffer age: yes
+               partial update: no
+               swap buffers with damage: yes
+               configless context: yes
+               surfaceless context: yes
+               dmabuf support: modifiers
+[14:46:48.345] GL version: OpenGL ES 3.0 Mesa 23.0.4-0ubuntu1~22.04.1
+[14:46:48.345] GLSL version: OpenGL ES GLSL ES 3.00  // 【】说明 OpenGL ES的版本
+[14:46:48.345] GL vendor: VMware, Inc.
+[14:46:48.345] GL renderer: SVGA3D; build: RELEASE;  LLVM;
+[14:46:48.349] GL ES 3.0 - renderer features:
+               read-back format: ARGB8888 // 【】 TODO
+               glReadPixels supports y-flip: yes
+               wl_shm 10 bpc formats: yes
+               wl_shm 16 bpc formats: no
+               wl_shm half-float formats: no
+               internal R and RG formats: yes
+               OES_EGL_image_external: yes
+[14:46:48.349] Using GL renderer
+[14:46:48.352] Registered plugin API 'weston_windowed_output_api_v2' of size 16
+[14:46:48.352] Color manager: no-op
+[14:46:48.352] Output 'screen0' attempts EOTF mode: SDR
+[14:46:48.352] Output 'screen0' using color profile: built-in default sRGB SDR profile
+[14:46:48.352] Chosen EGL config details: id:   5 rgba: 8 8 8 0 buf: 24 dep:  0 stcl: 0 int: 0-1000 type: win|pix|pbf vis_id: 0x21
+[14:46:48.352] x11 output 1024x600, window id 14680069  // 【】  output大小
+[14:46:48.352] Output 'screen0' enabled with head(s) screen0
+[14:46:48.352] Compositor capabilities:
+               arbitrary surface rotation: yes
+               screen capture uses y-flip: yes
+               cursor planes: no
+               arbitrary resolutions: no
+               view mask clipping: yes
+               explicit sync: yes
+               color operations: no
+               presentation clock: CLOCK_MONOTONIC_RAW, id 4
+               presentation clock resolution: 0.000000001 s
+[14:46:48.352] Loading module '/home/cjk/weston_install/lib/x86_64-linux-gnu/weston/desktop-shell.so'   // 【】这里说明使用了什么桌面
+[14:46:48.352] launching '/home/cjk/weston_install/libexec/weston-keyboard'
+[14:46:48.353] launching '/home/cjk/weston_install/libexec/weston-desktop-shell'
+
+```
+
+
+
+TODO: 角度之启动日志
+
+​            初始化日志
+
+
+
+
+
+## export WAYLAND_DEBUG=1 
+
+交互日志 - --------<font color='red'>wayland标准协议打出来的</font>
+
+应用场景：debug应用！！！！！（<font color='red'>看应用走到哪里了，看应用卡了没</font>）
+
+
+
+## dump
+
+dump  surfaceFlinger：
+
+> ```java
+> weston-debug scene-graph
+> ```
+>
+> 注意：**只能在arm后端**的环境下使用
+>
+> 
+
+
+
+
+
+
+
+
+
+## weston区域维测-----打印矩形
+
+
+
+pixman_region32_t   的打印：
+
+> ```java
+> // 打印 pixman_box32_t
+> static void print_box(pixman_box32_t* box) {
+> 	if (box) {
+> 		weston_log("Box: (%d, %d, %d, %d).\n",  box->x1, box->y1, box->x2, box->y2);
+> 	}
+> }
+> 
+> // 打印 pixman_region32_t
+> static void print_region(char* tag, const pixman_region32_t* region) {
+> 	if (region) {
+> 	    int num_rects;
+> 	    const pixman_box32_t* rects = pixman_region32_rectangles(region, &num_rects);
+> 		weston_log("%s, Region has %d rectangles.\n", tag, num_rects);
+> 	    for (int i = 0; i < num_rects; ++i) {
+> 	        print_box(&rects[i]);
+> 	    }
+> 	}
+> }
+> ```
+
+
+
 
 
 # 一些名词 TODO

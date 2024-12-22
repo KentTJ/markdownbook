@@ -735,6 +735,8 @@ A是B的妈妈（家庭结构），所以A抚养B。李yang是杨qichao圈子人
 
 
 
+-<font color='red'>抽象才是唯一能力</font>
+
 
 
 

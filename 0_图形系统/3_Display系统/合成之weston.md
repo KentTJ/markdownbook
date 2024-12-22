@@ -150,7 +150,7 @@ TODO: 真正drm来的PageFlip消息 ：
 
 atomic_flip_handler ----- 发车
 
-
+-<font color='red'>这里释放，走overlay的 buffer</font>，见《buffer流转模型---0层》
 
 ### 次要----output_repaint大纲字典
 
@@ -4837,6 +4837,10 @@ weston-dmabuf-egl -d /dev/dri/RenderD128
 1、类似于安卓的touch画图
 
 2、<font color='red'>测试多指</font>
+
+
+
+touch有用，也可以适配鼠标point
 
 
 

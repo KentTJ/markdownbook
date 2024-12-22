@@ -295,7 +295,7 @@ unsigned char *data = stbi_load("container.jpg", &width, &height, &nrChannels, 0
 //中间验证验证：
 
 打印前50个pixel
-for (size_t i = 0; i< 50; i++) {    cout << (int)data[i] << endl; }
+for (size_t i = 0; i< 50; i++) { cout << (int)data[i] << endl; }
 ```
 
 
@@ -407,7 +407,7 @@ TODO：
  float texCoords[] = {
      0.0f, 0.0f, // 左下角
      1.0f, 0.0f, // 右下角
-     0.5f, 1.0f // 上中
+     0.5f, 1.0f  // 上中
  };
 ```
 
@@ -530,10 +530,10 @@ RendererJNI.cpp：
  
      // cg modify
      GLfloat vVertices[] = {
-             // 位置                           // 颜色
-             0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // 右下
+             // 位置(x,y,z)           // 颜色（RGB）
+             0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   // 右下
              -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // 左下
-             0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // 顶部
+             0.0f,  0.5f, 0.0f,   0.0f, 0.0f, 1.0f    // 顶部
      };
  
      // Set the viewport

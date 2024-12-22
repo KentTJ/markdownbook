@@ -79,7 +79,7 @@ so里已经有行号信息了。这时候需要指定源码：
 
 
 
-## 补充 控制
+## 控制
 
 继续执行到下一个断点-continue
 
@@ -95,6 +95,18 @@ so里已经有行号信息了。这时候需要指定源码：
 ```
 
 
+
+## 控制之 wait-for-debugger ------------ raise(SIGSTOP) 
+
+
+
+```java
+// 参考weston：
+if (wait_for_debugger) {
+    weston_log("Weston PID is %ld - waiting for debugger, send SIGCONT to continue...\n" (long)getpid());
+    raise(SIGSTOP);  // 【】 关键一行
+}
+```
 
 
 

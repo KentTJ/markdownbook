@@ -180,7 +180,7 @@ TODO: **仓位管理**:  所以真正好的交易者，仓位管理以及进攻�
 
 站在2019年11月份，根据瘟疫可以预测：假设疫情时间一年（医疗、娱乐、互联网）
 
-![文件_000](Investment.assets/文件_000.png)
+>   <img src="Investment.assets/文件_000.png" alt="文件_000" style="zoom:50%;" />
 
 真实的医疗行业：
 
@@ -392,9 +392,9 @@ TODO: **仓位管理**:  所以真正好的交易者，仓位管理以及进攻�
 
 
 
-<img src="Investment.assets/0a40c3f67a9e21565c10e2cd3f748da0.jpeg" alt="img" style="zoom:50%;" />
+>   <img src="Investment.assets/0a40c3f67a9e21565c10e2cd3f748da0.jpeg" alt="img" style="zoom: 50%;" />
 
-<img src="Investment.assets/bca677690171f489d32f7dc9d7ccacc0.jpg" alt="img" style="zoom:50%;" />
+>   <img src="Investment.assets/bca677690171f489d32f7dc9d7ccacc0.jpg" alt="img" style="zoom:50%;" />
 
 问题在于：**2021-11和12月大量买入**
 

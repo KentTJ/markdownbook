@@ -193,6 +193,22 @@ glGenBuffers(1, &VBO);
 
 
 
+## shader 变量类型
+
+参考：[着色器详解](https://www.cnblogs.com/keguniang/p/9873052.html)
+
+1、uniform  （自然，全局统一）： 数据流： cpp（CPU） < ------------> shader
+
+>   [使用参考](https://www.cnblogs.com/keguniang/p/9873052.html#:~:text=vertexColorLocation%20%3D%20glGetUniformLocation)
+
+2、attribute变量
+
+3、varying ：  数据流： vertex  shader <----> fragment  shader
+
+4、in/out
+
+
+
 
 
 # 纹理（即贴图）
@@ -205,23 +221,13 @@ glGenBuffers(1, &VBO);
 
 ## cpp侧 构造纹理
 
-### 已有dma 构造纹理
-
 ### 已有shm构造纹理
 
-### jpg构造纹理
-
-加载纹理：
-
-```
-// 使用 stb_image.h
-int width, height, nrChannels;
-unsigned char *data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
-```
+已有的代码参考：
 
 
 
-创建纹理：
+
 
 ```java
 unsigned int texture;
@@ -239,10 +245,10 @@ cpp 侧应用纹理：
 > ```java
 > float vertices[] = {
 > //     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
->      0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
->      0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // 右下
->     -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
->     -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // 左上
+>   0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
+>   0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // 右下
+>  -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
+>  -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // 左上
 > };
 > ```
 >
@@ -252,7 +258,34 @@ cpp 侧应用纹理：
 > glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 > glEnableVertexAttribArray(2);
 > ```
->
+
+
+
+### 已有dma 构造纹理
+
+法一(同shm)：~~mmap获取内存地址，直接读取为image  （<font color='red'>同shm， 存在copy</font>）~~
+
+法一：dma import --------> <font color='red'>0 copy</font>
+
+已有的代码参考：
+
+
+
+
+
+### ~~jpg、png构造纹理~~（同shm）
+
+加载纹理到 内存：
+
+```
+// 使用 stb_image.h
+int width, height, nrChannels;
+unsigned char *data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
+```
+
+
+
+**创建纹理，同shm**：~~glTexImage2D~~
 
 
 
@@ -376,6 +409,8 @@ https://youtu.be/mZM15IKuNWY?list=PL0luF_aDUOooIB56NOFVTS4ahMzBHS_6z&t=1341
 
 
 
+## 纹理不要多次申请
+
 
 
 # Opengl 课程
@@ -413,7 +448,7 @@ https://youtu.be/DVvDd_acJoQ?list=PL0luF_aDUOooIB56NOFVTS4ahMzBHS_6z&t=1158     
 >
 > 顶点颜色值一样：也是插值，插值结果都是一样颜色
 
-- -------------------> TODO: 从这个角度来：
+-------------------> TODO: 从这个角度来：
 
 > 两个 glsl文件，只是提供了  顶点的location + 顶点的color？？？？？？？？？？？？？？？？并没有提供中间点？？？
 
@@ -766,20 +801,6 @@ y = smoothstep(0.0,1.0,x);
 [混合 - LearnOpenGL CN (learnopengl-cn.github.io)](https://learnopengl-cn.github.io/04 Advanced OpenGL/03 Blending/)
 
 [第十课：透明 (opengl-tutorial.org)](https://www.opengl-tutorial.org/cn/intermediate-tutorials/tutorial-10-transparency/)
-
-## shader 变量类型
-
-参考：[着色器详解](https://www.cnblogs.com/keguniang/p/9873052.html)
-
-1、uniform  （自然，全局统一）： 数据流： cpp（CPU） < ------------> shader
-
->   [使用参考](https://www.cnblogs.com/keguniang/p/9873052.html#:~:text=vertexColorLocation%20%3D%20glGetUniformLocation)
-
-2、attribute变量
-
-3、varying ：  数据流： vertex  shader <----> fragment  shader
-
-4、in/out
 
 
 

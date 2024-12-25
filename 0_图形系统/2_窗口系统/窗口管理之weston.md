@@ -104,6 +104,177 @@ TODO: 触发存在 点击和move的 冲突问题：
 
 
 
+## 窗口的Resize
+
+### 目标：
+
+从功能角度，必然：
+
+最终目标：client重新创建buffer
+
+```java
+// 核心一行，重新创建buffer
+
+(gdb) bt                                                       
+#0  surface_create_surface (surface=0x5d8ea2727f40, flags=16)  
+    at ../clients/window.c:1308                                
+#1  0x00005d8ea258d0d2 in window_create_main_surface           
+    (window=0x5d8ea2727d70) at ../clients/window.c:1332        
+#2  0x00005d8ea258dc08 in widget_get_cairo_surface             
+    (widget=0x5d8ea273df60) at ../clients/window.c:1644        
+#3  0x00005d8ea2593b2f in surface_redraw                       
+    (surface=0x5d8ea2727f40) at ../clients/window.c:4513       
+#4  0x00005d8ea2593c31 in idle_redraw                          
+     (task=0x5d8ea2727df0, events=0) at ../clients/window.c:455
+3                                                              
+#5  0x00005d8ea25989dc in display_run (display=0x5d8ea270fb10) 
+    at ../clients/window.c:6888                                
+#6  0x00005d8ea2588075 in main (argc=1, argv=0x7ffd9d89efa8)   
+    at ../clients/terminal.c:3195   
+```
+
+之前其他线程的调用：
+
+```java
+gdb) bt                                                                    
+#0  window_schedule_redraw_task (window=0x5d8ea2727d70)                     
+    at ../clients/window.c:4584                                             
+#1  0x00005d8ea2593dfc in window_schedule_redraw                            
+    (window=0x5d8ea2727d70) at ../clients/window.c:4604                     
+#2  0x00005d8ea259320b in window_schedule_resize                            
+    (window=0x5d8ea2727d70, width=815, height=523)                          
+    at ../clients/window.c:4218                                             
+#3  0x00005d8ea2593574 in xdg_toplevel_handle_configure  -------->  // 【】来源weston调用                 
+    (data=0x5d8ea2727d70, xdg_toplevel=0x5d8ea27280d0, width=751, height=459
+, states=0x5d8ea2843800)                                                    
+    at ../clients/window.c:4326                                             
+#4  0x0000766f73f68e2e in  ()                                               
+    at /lib/x86_64-linux-gnu/libffi.so.8                                    
+#5  0x0000766f73f65493 in  ()                                               
+    at /lib/x86_64-linux-gnu/libffi.so.8                                    
+#6  0x0000766f744e9e81 in wl_closure_invoke                                 
+    (closure=closure@entry=0x5d8ea2843730, flags=flags@entry=1, target=<opti
+mized out>,                                                                 
+    target@entry=0x5d8ea27280d0, opcode=opcode@entry=0, data=<optimized out>
+) at ../src/connection.c:1025                                               
+#7  0x0000766f744e609a in dispatch_event                                    
+    (display=display@entry=0x5d8ea270fc60, queue=0x5d8ea270fd50, queue=<opti
+mized out>) at ../src/wayland-client.c:1631                                 
+#8  0x0000766f744e7a5c in dispatch_queue                                    
+    (queue=0x5d8ea270fd50, display=0x5d8ea270fc60)                          
+    at ../src/wayland-client.c:1777                                         
+#9  wl_display_dispatch_queue_pending                                       
+    (display=0x5d8ea270fc60, queue=0x5d8ea270fd50)                          
+    at ../src/wayland-client.c:2019                                         
+#10 0x00005d8ea2598000 in handle_display_data                               
+     (task=0x5d8ea270fb78, events=1) at ../clients/window.c:6623            
+#11 0x00005d8ea2598b38 in display_run (display=0x5d8ea270fb10)              
+    at ../clients/window.c:6912    
+```
+
+
+
+
+
+
+
+
+
+### resize的消息来源：weston侧
+
+weston通知client （weston_desktop_xdg_toplevel_send_configure ---> xdg_toplevel_handle_configure）
+
+```java
+weston_desktop_xdg_toplevel_set_resizing
+Breakpoint 4, weston_desktop_xdg_toplevel_set_resizing (dsurface=0x64ee3d1f6ca0, user_data=0x6
+ee3d2720f0, resizing=true) at ../libweston/desktop/xdg-shell.c:685                            
+685             struct weston_desktop_xdg_toplevel *toplevel = user_data;                     
+(gdb) bt                                                                                      
+#0  weston_desktop_xdg_toplevel_set_resizing                                                  
+    (dsurface=0x64ee3d1f6ca0, user_data=0x64ee3d2720f0, resizing=true)                        
+    at ../libweston/desktop/xdg-shell.c:685                                                   
+#1  0x00007a36db7d101b in weston_desktop_surface_set_resizing                                 
+    (surface=0x64ee3d1f6ca0, resizing=true)                                                   
+    at ../libweston/desktop/surface.c:499                                                     
+#2  0x00007a36d0b1d505 in surface_resize                                                      
+    (shsurf=0x64ee3d2c1ed0, pointer=0x64ee3d27b260, edges=8)                                  
+    at ../desktop-shell/shell.c:1485                                                          
+#3  0x00007a36d0b1fe16 in desktop_surface_resize                                              
+    (desktop_surface=0x64ee3d1f6ca0, seat=0x64ee3d192490, serial=1178, edges=WESTON_DESKTOP_SU
+FACE_EDGE_RIGHT, shell=0x64ee3d1c2f10)                                                        
+    at ../desktop-shell/shell.c:2611                                                          
+#4  0x00007a36db7ce752 in weston_desktop_api_resize                                           
+    (desktop=0x64ee3d1d1050, surface=0x64ee3d1f6ca0, seat=0x64ee3d192490, serial=1178, edges=W
+STON_DESKTOP_SURFACE_EDGE_RIGHT)                                                              
+    at ../libweston/desktop/libweston-desktop.c:210                                           
+#5  0x00007a36db7d31bc in weston_desktop_xdg_toplevel_protocol_resize ---------->                         
+    (wl_client=0x64ee3d1c5f80, resource=0x64ee3d25ead0, seat_resource=0x64ee3c960f70, serial=1
+78, edges=XDG_TOPLEVEL_RESIZE_EDGE_RIGHT)                                                     
+    at ../libweston/desktop/xdg-shell.c:489                                                   
+#6  0x00007a36db4e2e2e in  () at /lib/x86_64-linux-gnu/libffi.so.8                            
+#7  0x00007a36db4df493 in  () at /lib/x86_64-linux-gnu/libffi.so.8                            
+#8  0x00007a36dba432d1 in wl_closure_invoke                                                   
+    (closure=closure@entry=0x64ee3d72e130, flags=flags@entry=2, target=<optimized out>,       
+    target@entry=0x64ee3d25ead0, opcode=opcode@entry=6, data=<optimized out>, data@entry=0x64e
+3d1c5f80) at ../src/connection.c:1025                                                         
+#9  0x00007a36dba3e302 in wl_client_connection_data                                           
+    (fd=<optimized out>, mask=<optimized out>, data=0x64ee3d1c5f80)                           
+    at ../src/wayland-server.c:438                                                            
+#10 0x00007a36dba4116a in wl_event_loop_dispatch                                              
+    (loop=0x64ee3c885330, timeout=timeout@entry=-1)                                           
+    at ../src/event-loop.c:1027                                                               
+#11 0x00007a36dba3eb25 in wl_display_run (display=0x64ee3c885240)                             
+    at ../src/wayland-server.c:1493                                                           
+#12 0x00007a36dba894e8 in wet_main                                                            
+    (argc=1, argv=0x7ffff8ae8af8, test_data=0x0)                                              
+    at ../compositor/main.c:4207                                                              
+#13 0x000064ee3c2ab172 in main (argc=3, argv=0x7ffff8ae8af8)                                  
+    at ../compositor/executable.c:33   
+```
+
+
+
+### xdg_toplevel_handle_configure
+
+```java
+state里有各种操作：
+static void
+xdg_toplevel_handle_configure(void *data, struct xdg_toplevel *xdg_toplevel,
+			      int32_t width, int32_t height,
+			      struct wl_array *states)
+{
+	struct window *window = data;
+	uint32_t *p;
+
+	window->maximized = 0;
+	window->fullscreen = 0;
+	window->resizing = 0;
+	window->focused = 0;
+
+	wl_array_for_each(p, states) {
+		uint32_t state = *p;
+		switch (state) {
+		case XDG_TOPLEVEL_STATE_MAXIMIZED:
+			window->maximized = 1;
+			break;
+		case XDG_TOPLEVEL_STATE_FULLSCREEN:
+			window->fullscreen = 1;
+			break;
+		case XDG_TOPLEVEL_STATE_RESIZING:
+			window->resizing = 1;
+			break;
+		case XDG_TOPLEVEL_STATE_ACTIVATED:
+			window->focused = 1;
+			break;
+		default:
+			/* Unknown state */
+			break;
+		}
+	}
+```
+
+
+
 ## 坐标系
 
 结论：
@@ -156,6 +327,20 @@ TODO: 触发存在 点击和move的 冲突问题：
 [图来源](https://zhpower.github.io/blog/graphic/2002-05-15-Wayland&Weston.html)
 
 <img src="窗口管理之weston.assets/view_list.png" alt="view_list" style="zoom:200%;" />
+
+
+
+# XDG shell协议
+
+好文：
+
+ https://zhuanlan.zhihu.com/p/671331282  XDG shell基础
+
+https://blog.csdn.net/chaojiangluo/article/details/135038579  XDG shell 深入探讨
+
+
+
+
 
 
 
@@ -1454,6 +1639,8 @@ wet_shell_init
 ```
 
 
+
+## 方式三： TODO: window_schedule_redraw_task的切换
 
 
 

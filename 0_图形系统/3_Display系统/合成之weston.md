@@ -2493,11 +2493,21 @@ glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixel_data);
 
 
 
-###  EGL方式：
-
-## 空dma的填充
+###  EGL方式：TODO:
 
 
+
+## 空dma的填充 TODO
+
+手动方式：
+
+>   参考：dma-egl.c
+
+
+
+EGL方式：
+
+>   参考 simple-egl.c
 
 
 

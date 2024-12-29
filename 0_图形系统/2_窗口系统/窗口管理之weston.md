@@ -4,8 +4,6 @@
 
 
 
-
-
 ## opaque region管理
 
 https://blog.csdn.net/u012839187/article/details/120050552   display: weston: opaque region笔记
@@ -330,7 +328,7 @@ xdg_toplevel_handle_configure(void *data, struct xdg_toplevel *xdg_toplevel,
 
 
 
-# XDG shell协议
+# XDG shell协议 xdg_
 
 好文：
 
@@ -1942,6 +1940,34 @@ pixman_region32_t   的打印：
 > ```
 
 
+
+# weston 原生自测试用例
+
+how-----测试框架：
+
+>   headless-backend --------> 不带任何 UI 界面，主要用于 weston 自测试
+
+where-----测试用例代码路径：
+
+```java
+weston/tests
+```
+
+
+
+以 test-surface执行为例：
+
+```java
+weston/tests/subsurface-test.c
+```
+
+
+
+![image-20241229022840699](窗口管理之weston.assets/image-20241229022840699.png)
+
+
+
+![image-20241229022557513](窗口管理之weston.assets/image-20241229022557513.png)
 
 
 

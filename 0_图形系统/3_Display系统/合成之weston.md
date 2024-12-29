@@ -589,12 +589,6 @@ glUniformMatrix4fv(shader->proj_uniform,
 
 
 
-
-
-
-
-
-
 ### 次要---给view分配plane（drm_assign_planes）大纲
 
 
@@ -4936,7 +4930,21 @@ wayland协议是  client 与  weston之间
 
 
 
+## RDP backend
 
+![RDP compositor](合成之weston.assets/RDP-compositor-1024x577.png)
+
+图片来源： https://www.hardening-consulting.com/en/posts/20131006an-overview-of-the-rdp-backend-in-weston.html
+
+
+
+
+
+
+
+## 参考：
+
+ [ Wayland/Weston 启动方式简介](https://blog.csdn.net/hexiaolong2009/article/details/104852721)
 
 
 

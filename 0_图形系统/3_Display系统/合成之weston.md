@@ -2516,7 +2516,7 @@ glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixel_data);
 
 
 
-## 跨进程/系统拿到dma后的使用（含图形数据）
+## 跨进程/系统拿到传递的dma后（含图形数据）---->使用
 
 ### GEM handles -----> DMA-BUF的fd
 
@@ -2554,7 +2554,7 @@ https://blog.csdn.net/weixin_41176628/article/details/114312054
 
 
 
-### 传递过来的：
+### 传递过来的fd的利用：
 
 > 安卓跨域传输过来的 
 >

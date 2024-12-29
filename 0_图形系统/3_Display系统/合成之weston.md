@@ -2497,6 +2497,16 @@ glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixel_data);
 
 
 
+
+
+### dma 与渲染节点的关系、client无法直接创建dma
+
+参考：dma-egl.c
+
+
+
+
+
 ## 空dma的填充 TODO
 
 手动方式：

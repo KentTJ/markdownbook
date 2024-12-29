@@ -1120,6 +1120,10 @@ md文件总目录：   ------->  <font color='red'>实现文件间的跳转</fon
 >
 >   **优点：**  https://github.com/  仓库存储 容量没有限制
 
+### 静态网页的加密staticrypt
+
+https://github.com/robinmoisson/staticrypt
+
 
 
 ## pdf电子书制作

@@ -2455,7 +2455,7 @@ glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixel_data);
 
 ### GBM方式：
 
-通过GBM创建gbm_bo（buffer object）：-----------参考：dmabuf-egl.c
+通过GBM创建gbm_<font color='red'>bo</font>（buffer object）：-----------参考：dmabuf-egl.c
 
 > ```java
 > gbm_bo_create
@@ -2468,13 +2468,28 @@ glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixel_data);
 
 > ```java
 > buf->dmabuf_fds[i] = gbm_bo_get_fd(buf->bo, i); // 类似接口 gbm_bo_get_fd_for_plane
+> 
+> //次要，获取strides
+> buf->strides[i] = gbm_bo_get_stride_for_plane(buf->bo, i);
 > ```
+
+注意： <font color='red'>（这里的fd用完需要释放）</font>
 
 
 
 拉直：
 
 > gbm_device 创建 gbm_bo(持有dma)
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2516,53 +2531,11 @@ glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixel_data);
 
 
 
-## 跨进程/系统拿到传递的dma后（含图形数据）---->使用
-
-### GEM handles -----> DMA-BUF的fd
-
-通过handle转（这里的fd用完需要释放）
-
-```java
-void *va = NULL;
-int fd, rr;
-
-// GEM handles -----> DMA-BUF的fd
-rr = drmPrimeHandleToFD(device->drm.fd, plane_state->fb->handles[0], DRM_CLOEXEC | DRM_RDWR, &fd);
-
-// 拿到fd，可以做内存映射，映射到用户空间
-va = mmap(NULL, plane_state->fb->height*plane_state->fb->strides[0], PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 
 
-
-rr = fwrite(va, 1, target_height*plane_state->fb->strides[0], fp);
-
-// 收尾
-munmap(va, plane_state->fb->height*plane_state->fb->strides[0]);
-```
-
-补充： GEM handles 与 DMA-BUF的fd 可以互转
-
-
-
-注意: 这种获取的fd，使用完毕，需要close
-
-
-
-drmPrimeHandleToFD  导出dmafd
-
-https://blog.csdn.net/weixin_41176628/article/details/114312054
-
-
-
-### 传递过来的fd的利用：
-
-> 安卓跨域传输过来的 
->
-> 跨进程传过来的
+### 安卓跨域传dma的fd ：
 
 自然，传递过来的是fd（不需要这边释放）
-
-
 
 ```java
 // 跨域传dma  TODO: 跨域传递其他？？？？？？
@@ -2575,53 +2548,29 @@ ret = ioctl(exporterFd, VHOST_DMABUF_IOCTL_CMD_EXPORT, dmaBufInfo);
 
 
 
-### dma 封装为 wl_buffer -------wayland协议能力
-
-why：-------- weston与client之间，只识别wl_对象
-
--<font color='red'>应用场景 & 问题：</font>   **安卓的dma，如何给到linux-weston？**
-
-dma传输的形式： 安卓dma  ---- > 跨域传输给linux client（fd） ----> 封装为 wl_buffer
 
 
 
 
+## 跨进程/系统拿到传递的dma后（含图形数据）---->使用
 
-### ~~dma fd 如何封装为wl_buffer?~~  可以
+### 拿到的是dma的fd: GPU获取 Dmabuffer  fd------> Texture 不需要copy
 
-参考：simple-dmabuf-egl.c
+EGL扩展的接口：
 
-
-
-~~关键一行：~~
-
-> 创建dma的paras： zwp_linux_<font color='red'>dmabuf_v1_create_params</font>
+>   ```java
+>   EXT_image_dma_buf_import
+>   ```
 >
-> ```java
-> struct zwp_linux_buffer_params_v1 *params = zwp_linux_dmabuf_v1_create_params(display->dmabuf);  // zwp_linux_dmabuf
-> ```
->
-> ~~正式创建wl_buffer，并返回结果~~：
->
-> ```java
-> zwp_linux_buffer_params_v1_add(params, dmabuf_fd, i, offset, stride, high_32bit, low_32bit); // 【】dmabuf_fd添加到 params
-> zwp_linux_buffer_params_v1_add_listener(params, &params_listener, &data); // 
-> zwp_linux_buffer_params_v1_create(params, width, height, format, flags); // 【】创建wl_buffer ------> 结果给到params_listener
-> ```
+>   https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_image_dma_buf_import.txt  
 
 
 
--<font color='red'>拉直封装过程：</font>
+使用参考：simple-dmabuf-egl.c
 
-```java
-dmabuf_fd  -----> dma_params -----> create后，回调拿到wl_buffer
-```
+>   https://gitlab.freedesktop.org/wayland/weston/-/blob/main/clients/simple-dmabuf-egl.c?ref_type=heads
 
 
-
-
-
-### dma转化为Texture
 
 -<font color='red'>接口：</font>
 
@@ -2672,15 +2621,17 @@ dma做的扩展（参数扩展）：
 
 
 
+
+
 其他参数扩展：
 
 > EGL_Android_image_native_buffer  -----> android扩展：ANativeWindowBuffer可以被创建为EGL Image
 
 
 
-## 具体获取dmabuffer数据
 
-### cpu获取-----内存映射
+
+### 拿到的是dma的fd: cpu获取数据-----内存映射
 
 必然的？？？
 
@@ -2697,48 +2648,95 @@ if (va == MAP_FAILED) {
 }
 ```
 
-### GPU获取 Dmabuffer  fd------> Texture 不需要copy
 
-EGL扩展的接口：
 
->   ```java
->   EXT_image_dma_buf_import
->   ```
+
+
+
+
+### 拿到的是dma的 GEM handles -----> DMA-BUF的fd
+
+通过handle转
+
+```java
+void *va = NULL;
+int fd, rr;
+
+// GEM handles -----> DMA-BUF的fd
+rr = drmPrimeHandleToFD(device->drm.fd, plane_state->fb->handles[0], DRM_CLOEXEC | DRM_RDWR, &fd);
+
+// 拿到fd，可以做内存映射，映射到用户空间
+va = mmap(NULL, plane_state->fb->height*plane_state->fb->strides[0], PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+
+
+
+rr = fwrite(va, 1, target_height*plane_state->fb->strides[0], fp);
+
+// 收尾
+munmap(va, plane_state->fb->height*plane_state->fb->strides[0]);
+```
+
+补充： GEM handles 与 DMA-BUF的fd 可以互转
+
+
+
+注意: 这种获取的fd，使用完毕， <font color='red'>需要close 释放</font>
+
+
+
+drmPrimeHandleToFD  导出dmafd
+
+https://blog.csdn.net/weixin_41176628/article/details/114312054
+
+
+
+
+
+### dma 的fd 封装为 wl_buffer作为client -------wayland协议能力
+
+why：-------- weston与client之间，只识别wl_对象
+
+-<font color='red'>应用场景 & 问题：</font>   **安卓的dma，如何给到linux-weston？**
+
+dma传输的形式： 安卓dma  ---- > 跨域传输给linux client（fd） ----> 封装为 wl_buffer
+
+
+
+
+
+#### ~~dma fd 如何封装为wl_buffer?~~  可以
+
+参考：simple-dmabuf-egl.c
+
+
+
+~~关键一行：~~
+
+> 创建dma的paras： zwp_linux_<font color='red'>dmabuf_v1_create_params</font>
 >
->   https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_image_dma_buf_import.txt  
+> ```java
+> struct zwp_linux_buffer_params_v1 *params = zwp_linux_dmabuf_v1_create_params(display->dmabuf);  // zwp_linux_dmabuf
+> ```
+>
+> ~~正式创建wl_buffer，并返回结果~~：
+>
+> ```java
+> zwp_linux_buffer_params_v1_add(params, dmabuf_fd, i, offset, stride, high_32bit, low_32bit); // 【】dmabuf_fd添加到 params
+> zwp_linux_buffer_params_v1_add_listener(params, &params_listener, &data); // 
+> zwp_linux_buffer_params_v1_create(params, width, height, format, flags); // 【】创建wl_buffer ------> 结果给到params_listener
+> ```
 
 
 
-使用参考：simple-dmabuf-egl.c
-
->   https://gitlab.freedesktop.org/wayland/weston/-/blob/main/clients/simple-dmabuf-egl.c?ref_type=heads
-
-
-
-
-
-
-
-
-
-
-
-## 汇总：获取dma 的fd方法
-
-1、本身传过来就有
-
-2、通过bo获取：（这里的fd用完需要释放）
+-<font color='red'>拉直封装过程：</font>
 
 ```java
-buf->dmabuf_fds[i] = gbm_bo_get_fd_for_plane(buf->bo, i);
-buf->strides[i] = gbm_bo_get_stride_for_plane(buf->bo, i);
+dmabuf_fd  -----> dma_params -----> create后，回调拿到wl_buffer
 ```
 
-3、通过handle转（这里的fd用完需要释放）
 
-```java
-int ret = drmPrimeHandleToFD(fb->fd, fb->handles[0], DRM_CLOEXEC, &fb->fb_id);
-```
+
+
 
 
 
@@ -2781,7 +2779,7 @@ Total 0 devices attached
 
 
 
-## DMA是怎么样实现共享buffer？
+## dma的原理---------怎么样实现共享buffer？
 
 https://blog.csdn.net/weixin_42136255/article/details/129722675#:~:text=%E4%BC%9A%E5%A4%A7%E5%A4%A7%E9%99%8D%E4%BD%8E%E3%80%82-,DMA%E6%98%AF%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E5%85%B1%E4%BA%ABbuffer%EF%BC%9F,-1.%E4%B8%BA%E4%BA%86%E8%A7%A3%E5%86%B3
 

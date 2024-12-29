@@ -635,6 +635,19 @@ https://blog.csdn.net/xixihahalelehehe/article/details/125115239
 
 
 
+技巧：
+
+>   gitbook install   安装上述所有，会覆盖了已经安装了的plugin
+>
+>   -----------> 办法：<font color='red'>在book.json删除已经安装了的</font>
+>
+>   ![image-20241229133020813](software_pcSettings.assets/image-20241229133020813.png)
+>
+
+
+
+
+
 
 
 gitbook功能插件有：

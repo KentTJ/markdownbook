@@ -2441,11 +2441,86 @@ glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixel_data);
 
 # dma 
 
+## why----为什么要有dma
+
+（1）buffer是图像数据的承载，所以，<font color='red'>一定是为了跨了进程（传递数据）</font>
+
+补充：同进程内，直接申请texture & fbo
+
+（2）相比于shm，dma是<font color='red'>覆盖式 </font>图像数据（两帧之间没有关系的！！！）
 
 
-## GEM handles -----> DMA-BUF的fd
+
+## 创建dma
+
+### GBM方式：
+
+通过GBM创建gbm_bo（buffer object）：-----------参考：dmabuf-egl.c
+
+> ```java
+> gbm_bo_create
+> 变体：gbm_bo_create_with_modifiers2
+> ```
 
 
+
+~~gbm_bo，自然持有dma buffer:~~
+
+> ```java
+> buf->dmabuf_fds[i] = gbm_bo_get_fd(buf->bo, i); // 类似接口 gbm_bo_get_fd_for_plane
+> ```
+
+
+
+拉直：
+
+> gbm_device 创建 gbm_bo(持有dma)
+
+
+
+###  EGL方式：
+
+## 空dma的填充
+
+
+
+
+
+## 传递dma
+
+### 跨进程传int fd的耗时 -------TODO
+
+跨进程传输fd时：
+
+>   1、两边的int  fd不一样，存在内存copy：产生新的内核的int fd，内核做了copy
+>
+>   2、<font color='red'>每次传输都不一样?</font>   TODO:
+
+根因：
+
+>   dma 实际上是GPU地址   -----------> fd1 （CPU1 地址）
+>
+>   ​                                           -----------> fd2 （CPU2 地址）
+>
+>   todo：
+>
+>   >   [IOMMU 扫盲](https://blog.csdn.net/liyucheng987/article/details/109303949)
+
+解决办法：
+
+>   只传递框架层的int  bufferId，避免传int fd，造成内核做内存copy（<font color='red'>当然第一次传fd，无法避免</font>）
+>
+>   具体代码：TODO
+
+
+
+
+
+## 跨进程/系统拿到dma后的使用（含图形数据）
+
+### GEM handles -----> DMA-BUF的fd
+
+通过handle转（这里的fd用完需要释放）
 
 ```java
 void *va = NULL;
@@ -2473,83 +2548,133 @@ munmap(va, plane_state->fb->height*plane_state->fb->strides[0]);
 
 
 
-### drmPrimeHandleToFD  导出dmafd
+drmPrimeHandleToFD  导出dmafd
 
 https://blog.csdn.net/weixin_41176628/article/details/114312054
 
-## 汇总：获取dma 的fd方法
 
-1、本身传过来就有
 
-2、通过bo获取：（这里的fd用完需要释放）
+### 传递过来的：
+
+> 安卓跨域传输过来的 
+>
+> 跨进程传过来的
+
+自然，传递过来的是fd（不需要这边释放）
+
+
 
 ```java
-buf->dmabuf_fds[i] = gbm_bo_get_fd_for_plane(buf->bo, i);
-buf->strides[i] = gbm_bo_get_stride_for_plane(buf->bo, i);
+// 跨域传dma  TODO: 跨域传递其他？？？？？？
+
+VHOST_DMABUF_IOCTL_CMD_EXPORT 方式----过hyper
+
+exporterFd = open(kDmabufExporterPath, O_RDONLY);    
+ret = ioctl(exporterFd, VHOST_DMABUF_IOCTL_CMD_EXPORT, dmaBufInfo);
 ```
 
-3、通过handle转（这里的fd用完需要释放）
+
+
+### dma 封装为 wl_buffer -------wayland协议能力
+
+why：-------- weston与client之间，只识别wl_对象
+
+-<font color='red'>应用场景 & 问题：</font>   **安卓的dma，如何给到linux-weston？**
+
+dma传输的形式： 安卓dma  ---- > 跨域传输给linux client（fd） ----> 封装为 wl_buffer
+
+
+
+
+
+### ~~dma fd 如何封装为wl_buffer?~~  可以
+
+参考：simple-dmabuf-egl.c
+
+
+
+~~关键一行：~~
+
+> 创建dma的paras： zwp_linux_<font color='red'>dmabuf_v1_create_params</font>
+>
+> ```java
+> struct zwp_linux_buffer_params_v1 *params = zwp_linux_dmabuf_v1_create_params(display->dmabuf);  // zwp_linux_dmabuf
+> ```
+>
+> ~~正式创建wl_buffer，并返回结果~~：
+>
+> ```java
+> zwp_linux_buffer_params_v1_add(params, dmabuf_fd, i, offset, stride, high_32bit, low_32bit); // 【】dmabuf_fd添加到 params
+> zwp_linux_buffer_params_v1_add_listener(params, &params_listener, &data); // 
+> zwp_linux_buffer_params_v1_create(params, width, height, format, flags); // 【】创建wl_buffer ------> 结果给到params_listener
+> ```
+
+
+
+-<font color='red'>拉直封装过程：</font>
 
 ```java
-int ret = drmPrimeHandleToFD(fb->fd, fb->handles[0], DRM_CLOEXEC, &fb->fb_id);
+dmabuf_fd  -----> dma_params -----> create后，回调拿到wl_buffer
 ```
 
 
 
-## 跨进程传int fd的耗时 -------TODO
 
-跨进程传输fd时：
 
->   1、两边的int  fd不一样，存在内存copy：产生新的内核的int fd，内核做了copy
+### dma转化为Texture
+
+-<font color='red'>接口：</font>
+
+> eglCreateImageKHR   -------->  支持不同的图像源和图像格式: 
+
+dma做的扩展（参数扩展）：
+
+> EGL_EXT_image_dma_buf_import     ---------> <font color='red'>内存映射 0 copy</font>
 >
->   2、<font color='red'>每次传输都不一样?</font>   TODO:
-
-根因：
-
->   dma 实际上是GPU地址   -----------> fd1 （CPU1 地址）
+> ```java
+> #ifndef EGL_EXT_image_dma_buf_import
+> #define EGL_EXT_image_dma_buf_import 1
+> #define EGL_LINUX_DMA_BUF_EXT             0x3270
+> #define EGL_LINUX_DRM_FOURCC_EXT          0x3271
+> #define EGL_DMA_BUF_PLANE0_FD_EXT         0x3272
+> #define EGL_DMA_BUF_PLANE0_OFFSET_EXT     0x3273
+> #define EGL_DMA_BUF_PLANE0_PITCH_EXT      0x3274
+> #define EGL_DMA_BUF_PLANE1_FD_EXT         0x3275
+> #define EGL_DMA_BUF_PLANE1_OFFSET_EXT     0x3276
+> #define EGL_DMA_BUF_PLANE1_PITCH_EXT      0x3277
+> #define EGL_DMA_BUF_PLANE2_FD_EXT         0x3278
+> #define EGL_DMA_BUF_PLANE2_OFFSET_EXT     0x3279
+> #define EGL_DMA_BUF_PLANE2_PITCH_EXT      0x327A
+> #define EGL_YUV_COLOR_SPACE_HINT_EXT      0x327B
+> #define EGL_SAMPLE_RANGE_HINT_EXT         0x327C
+> #define EGL_YUV_CHROMA_HORIZONTAL_SITING_HINT_EXT 0x327D
+> #define EGL_YUV_CHROMA_VERTICAL_SITING_HINT_EXT 0x327E
+> #define EGL_ITU_REC601_EXT                0x327F
+> #define EGL_ITU_REC709_EXT                0x3280
+> #define EGL_ITU_REC2020_EXT               0x3281
+> #define EGL_YUV_FULL_RANGE_EXT            0x3282
+> #define EGL_YUV_NARROW_RANGE_EXT          0x3283
+> #define EGL_YUV_CHROMA_SITING_0_EXT       0x3284
+> #define EGL_YUV_CHROMA_SITING_0_5_EXT     0x3285
+> #endif /* EGL_EXT_image_dma_buf_import */
+> ```
 >
->   ​                                           -----------> fd2 （CPU2 地址）
+> 使用：
 >
->   todo：
+> ```java
+> eglCreateImageKHR(display->egl.display,
+>                        EGL_NO_CONTEXT,
+>                        EGL_LINUX_DMA_BUF_EXT, // 【】
+>                        NULL, attribs);
+> ```
 >
->   >   [IOMMU 扫盲](https://blog.csdn.net/liyucheng987/article/details/109303949)
+> 
 
-解决办法：
 
->   只传递框架层的int  bufferId，避免传int fd，造成内核做内存copy（<font color='red'>当然第一次传fd，无法避免</font>）
->
->   具体代码：TODO
 
-## buffer的流转（fd？？？？）
+其他参数扩展：
 
-![img](合成之weston.assets/69ecd3dc3fdb16e0f631ebf657c7757c.png)
-
-[图片来源](https://kenttj.github.io/markdownbook/0_%E5%9B%BE%E5%BD%A2%E7%B3%BB%E7%BB%9F/3_Display%E7%B3%BB%E7%BB%9F/%E5%90%88%E6%88%90%E4%B9%8Bweston.assets/wayland%E6%B5%85%E6%9E%90%E4%B9%8BEGL%E3%80%81Opengles%E3%80%81GBM_linux_%E7%A7%8D%E7%93%9C%E5%A4%A7%E7%88%B7-%E5%BC%80%E6%94%BE%E5%8E%9F%E5%AD%90%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E4%BD%9C%E5%9D%8A.html)：
-
-TODO: 不耗时吗？
-
-## 实操---- dma_buffer 查看命令
-
-```java
-cat /sys/kernel/debug/dma_buf/bufinfo
-
-Dma-buf Objects:
-size            flags           mode            count           exp_name        ino             name
-00004096        00000002        00080007        00000003        system  00000706        system
-        Attached Devices:
-Total 0 devices attached
-
-00008192        00000002        00080007        00000004        virtio_gpu      00000705        <none>
-        write fence:virtio_gpu controlq seq 10149 signalled
-        Attached Devices:
-Total 0 devices attached
-
-00004096        00000002        00080007        00000003        system  00000702        system
-        Attached Devices:
-Total 0 devices attached
-
-00008192        00000002        00080007        00000004        virtio_gpu      00000701        <none>    请解释各个字段的含义
-```
+> EGL_Android_image_native_buffer  -----> android扩展：ANativeWindowBuffer可以被创建为EGL Image
 
 
 
@@ -2587,6 +2712,70 @@ EGL扩展的接口：
 使用参考：simple-dmabuf-egl.c
 
 >   https://gitlab.freedesktop.org/wayland/weston/-/blob/main/clients/simple-dmabuf-egl.c?ref_type=heads
+
+
+
+
+
+
+
+
+
+
+
+## 汇总：获取dma 的fd方法
+
+1、本身传过来就有
+
+2、通过bo获取：（这里的fd用完需要释放）
+
+```java
+buf->dmabuf_fds[i] = gbm_bo_get_fd_for_plane(buf->bo, i);
+buf->strides[i] = gbm_bo_get_stride_for_plane(buf->bo, i);
+```
+
+3、通过handle转（这里的fd用完需要释放）
+
+```java
+int ret = drmPrimeHandleToFD(fb->fd, fb->handles[0], DRM_CLOEXEC, &fb->fb_id);
+```
+
+
+
+
+
+## buffer的流转（fd？？？？）
+
+![img](合成之weston.assets/69ecd3dc3fdb16e0f631ebf657c7757c.png)
+
+[图片来源](https://kenttj.github.io/markdownbook/0_%E5%9B%BE%E5%BD%A2%E7%B3%BB%E7%BB%9F/3_Display%E7%B3%BB%E7%BB%9F/%E5%90%88%E6%88%90%E4%B9%8Bweston.assets/wayland%E6%B5%85%E6%9E%90%E4%B9%8BEGL%E3%80%81Opengles%E3%80%81GBM_linux_%E7%A7%8D%E7%93%9C%E5%A4%A7%E7%88%B7-%E5%BC%80%E6%94%BE%E5%8E%9F%E5%AD%90%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E4%BD%9C%E5%9D%8A.html)：
+
+TODO: 不耗时吗？
+
+## 实操---- dma_buffer 查看命令
+
+```java
+cat /sys/kernel/debug/dma_buf/bufinfo
+
+Dma-buf Objects:
+size            flags           mode            count           exp_name        ino             name
+00004096        00000002        00080007        00000003        system  00000706        system
+        Attached Devices:
+Total 0 devices attached
+
+00008192        00000002        00080007        00000004        virtio_gpu      00000705        <none>
+        write fence:virtio_gpu controlq seq 10149 signalled
+        Attached Devices:
+Total 0 devices attached
+
+00004096        00000002        00080007        00000003        system  00000702        system
+        Attached Devices:
+Total 0 devices attached
+
+00008192        00000002        00080007        00000004        virtio_gpu      00000701        <none>    请解释各个字段的含义
+```
+
+
 
 
 
@@ -3076,6 +3265,37 @@ https://blog.csdn.net/weixin_42136255/article/details/129722675           DMABuf
 
 
 
+
+## TODO:从weston角度，正常情况下  wl_buffer 来源：
+
+> 1、shm， client创建？
+>
+> 2、dma的fd，转化
+
+
+
+
+
+## dma buf内存对齐
+
+
+
+ ![img](合成之weston.assets/6003130f4826ab2885e3a946e566e634.gif)
+
+[图来源见](https://blog.csdn.net/lkjxcj3096/article/details/103744376#:~:text=3.gbm-,%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5,-%E8%B7%A8%E8%B7%9D%2Dstride)
+
+注意：高度方向，也有内存对齐
+
+
+
+
+Q:simple-egl宽度是250，但是在viewer上查看，只有选择256，才显示正确。 这是因为内存对齐？
+
+A: Gpu 对dma buf 有对齐要求，好像是32
+
+
+
+结论：在读写buffer时，**buffer的宽不能用width，而是stride**！！！！！！！！
 
 
 

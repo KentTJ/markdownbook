@@ -1,0 +1,2855 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>sf特效 · Kent的博客</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="合成之surfaceFlinger.html" />
+    
+    
+    <link rel="prev" href="DRM.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    0_图形系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../0_Graphic系统总论/0_Graphic系统总论.html">
+            
+                <a href="../0_Graphic系统总论/0_Graphic系统总论.html">
+            
+                    
+                    0_Graphic系统总论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../1_Render系统/">
+            
+                <a href="../1_Render系统/">
+            
+                    
+                    1_Render系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="../1_Render系统/opengl.html">
+            
+                <a href="../1_Render系统/opengl.html">
+            
+                    
+                    Opengl
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../2_窗口系统/">
+            
+                <a href="../2_窗口系统/">
+            
+                    
+                    2_窗口系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.1" data-path="../2_窗口系统/0_窗口系统总论/0_窗口系统总论.html">
+            
+                <a href="../2_窗口系统/0_窗口系统总论/0_窗口系统总论.html">
+            
+                    
+                    0_窗口系统总论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="../2_窗口系统/次要/">
+            
+                <a href="../2_窗口系统/次要/">
+            
+                    
+                    次要
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.2.1" data-path="../2_窗口系统/次要/virtualDisplay.html">
+            
+                <a href="../2_窗口系统/次要/virtualDisplay.html">
+            
+                    
+                    Virtual Display
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2.2" data-path="../2_窗口系统/次要/自由窗口.html">
+            
+                <a href="../2_窗口系统/次要/自由窗口.html">
+            
+                    
+                    自由窗口
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.3" data-path="../2_窗口系统/SurfaceControl.html">
+            
+                <a href="../2_窗口系统/SurfaceControl.html">
+            
+                    
+                    Surface Control
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.4" data-path="../2_窗口系统/virtualDisplay.html">
+            
+                <a href="../2_窗口系统/virtualDisplay.html">
+            
+                    
+                    Virtual Display
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5" data-path="../2_窗口系统/wms_animination.html">
+            
+                <a href="../2_窗口系统/wms_animination.html">
+            
+                    
+                    Wms Animination
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6" data-path="../2_窗口系统/窗口管理之weston.html">
+            
+                <a href="../2_窗口系统/窗口管理之weston.html">
+            
+                    
+                    窗口管理之weston
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.7" data-path="../2_窗口系统/窗口管理器WMS.html">
+            
+                <a href="../2_窗口系统/窗口管理器WMS.html">
+            
+                    
+                    窗口管理器WMS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    3_Display系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.4.1" data-path="Display系统.html">
+            
+                <a href="Display系统.html">
+            
+                    
+                    Display系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.2" data-path="DRM.html">
+            
+                <a href="DRM.html">
+            
+                    
+                    DRM
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.4.3" data-path="sf特效.html">
+            
+                <a href="sf特效.html">
+            
+                    
+                    sf特效
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.4" data-path="合成之surfaceFlinger.html">
+            
+                <a href="合成之surfaceFlinger.html">
+            
+                    
+                    合成之surfaceFlinger
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.5" data-path="合成之weston.html">
+            
+                <a href="合成之weston.html">
+            
+                    
+                    合成之weston
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../其他/">
+            
+                <a href="../其他/">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.5.1" data-path="../其他/QT.html">
+            
+                <a href="../其他/QT.html">
+            
+                    
+                    QT
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5.2" data-path="../其他/多屏显示分析.html">
+            
+                <a href="../其他/多屏显示分析.html">
+            
+                    
+                    多屏显示分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../../0_输入系统/">
+            
+                <a href="../../0_输入系统/">
+            
+                    
+                    0_输入系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../../0_输入系统/Input.html">
+            
+                <a href="../../0_输入系统/Input.html">
+            
+                    
+                    Input
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../../0_输入系统/全局手势.html">
+            
+                <a href="../../0_输入系统/全局手势.html">
+            
+                    
+                    全局手势
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../../0_进程管理/">
+            
+                <a href="../../0_进程管理/">
+            
+                    
+                    0_进程管理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../../0_进程管理/0_AMS.html">
+            
+                <a href="../../0_进程管理/0_AMS.html">
+            
+                    
+                    0 AMS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../../0_进程管理/App保活的方式.html">
+            
+                <a href="../../0_进程管理/App保活的方式.html">
+            
+                    
+                    App保活的方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../../0_进程管理/后台杀进程.html">
+            
+                <a href="../../0_进程管理/后台杀进程.html">
+            
+                    
+                    后台杀进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../../0_进程管理/杀进程原理.html">
+            
+                <a href="../../0_进程管理/杀进程原理.html">
+            
+                    
+                    杀进程原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../../0_进程管理/进程与子进程.html">
+            
+                <a href="../../0_进程管理/进程与子进程.html">
+            
+                    
+                    进程与子进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../../0_进程管理/进程管理系列0_总论.html">
+            
+                <a href="../../0_进程管理/进程管理系列0_总论.html">
+            
+                    
+                    进程管理系列0_总论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../../0_进程管理/进程管理系列1之进程的创建.html">
+            
+                <a href="../../0_进程管理/进程管理系列1之进程的创建.html">
+            
+                    
+                    进程管理系列1之进程的创建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../../0_进程管理/进程管理系列2之进程的优先级.html">
+            
+                <a href="../../0_进程管理/进程管理系列2之进程的优先级.html">
+            
+                    
+                    进程管理系列2之进程的优先级
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="../../0_进程管理/进程管理系列3之内存回收.html">
+            
+                <a href="../../0_进程管理/进程管理系列3之内存回收.html">
+            
+                    
+                    进程管理系列3之内存回收
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../../Andriod/">
+            
+                <a href="../../Andriod/">
+            
+                    
+                    Andriod
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../../Andriod/关键流程/">
+            
+                <a href="../../Andriod/关键流程/">
+            
+                    
+                    关键流程
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="../../Andriod/关键流程/InitSystem.html">
+            
+                <a href="../../Andriod/关键流程/InitSystem.html">
+            
+                    
+                    Init System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="../../Andriod/关键流程/startAPP.html">
+            
+                <a href="../../Andriod/关键流程/startAPP.html">
+            
+                    
+                    Start APP
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../../Andriod/其他核心服务/">
+            
+                <a href="../../Andriod/其他核心服务/">
+            
+                    
+                    其他核心服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="../../Andriod/其他核心服务/1_InputMethod.html">
+            
+                <a href="../../Andriod/其他核心服务/1_InputMethod.html">
+            
+                    
+                    1 Input Method
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="../../Andriod/其他核心服务/multi-client-ime.html">
+            
+                <a href="../../Andriod/其他核心服务/multi-client-ime.html">
+            
+                    
+                    Multi Client Ime
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="../../Andriod/其他核心服务/无障碍_.html">
+            
+                <a href="../../Andriod/其他核心服务/无障碍_.html">
+            
+                    
+                    无障碍_
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../../Andriod/0_AndriodSystem.html">
+            
+                <a href="../../Andriod/0_AndriodSystem.html">
+            
+                    
+                    0 Andriod System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../../Andriod/log框架.html">
+            
+                <a href="../../Andriod/log框架.html">
+            
+                    
+                    log框架
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../../Andriod/permissions.html">
+            
+                <a href="../../Andriod/permissions.html">
+            
+                    
+                    Permissions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../../Andriod/模型.html">
+            
+                <a href="../../Andriod/模型.html">
+            
+                    
+                    模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../../coding/">
+            
+                <a href="../../coding/">
+            
+                    
+                    Coding
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../../coding/0_computorBase/">
+            
+                <a href="../../coding/0_computorBase/">
+            
+                    
+                    0 Computor Base
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1.1" data-path="../../coding/0_computorBase/DesignPattern.html">
+            
+                <a href="../../coding/0_computorBase/DesignPattern.html">
+            
+                    
+                    Design Pattern
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.2" data-path="../../coding/0_computorBase/HowToReadCode.html">
+            
+                <a href="../../coding/0_computorBase/HowToReadCode.html">
+            
+                    
+                    How To Read Code
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.3" data-path="../../coding/0_computorBase/HowWritecode.html">
+            
+                <a href="../../coding/0_computorBase/HowWritecode.html">
+            
+                    
+                    How Writecode
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.4" data-path="../../coding/0_computorBase/linux.html">
+            
+                <a href="../../coding/0_computorBase/linux.html">
+            
+                    
+                    Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.5" data-path="../../coding/0_computorBase/linux文件系统.html">
+            
+                <a href="../../coding/0_computorBase/linux文件系统.html">
+            
+                    
+                    linux文件系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.6" data-path="../../coding/0_computorBase/OperateSystem.html">
+            
+                <a href="../../coding/0_computorBase/OperateSystem.html">
+            
+                    
+                    Operate System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.7" data-path="../../coding/0_computorBase/refactor.html">
+            
+                <a href="../../coding/0_computorBase/refactor.html">
+            
+                    
+                    Refactor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.8" data-path="../../coding/0_computorBase/用户_用户组.html">
+            
+                <a href="../../coding/0_computorBase/用户_用户组.html">
+            
+                    
+                    用户_用户组
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.9" data-path="../../coding/0_computorBase/解耦.html">
+            
+                <a href="../../coding/0_computorBase/解耦.html">
+            
+                    
+                    解耦
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../../coding/0_IPC/">
+            
+                <a href="../../coding/0_IPC/">
+            
+                    
+                    0 IPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.2.1" data-path="../../coding/0_IPC/AndriodIPC.html">
+            
+                <a href="../../coding/0_IPC/AndriodIPC.html">
+            
+                    
+                    Andriod IPC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.2" data-path="../../coding/0_IPC/IPC前提_序列化.html">
+            
+                <a href="../../coding/0_IPC/IPC前提_序列化.html">
+            
+                    
+                    IPC前提_序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.3" data-path="../../coding/0_IPC/socket.html">
+            
+                <a href="../../coding/0_IPC/socket.html">
+            
+                    
+                    Socket
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.4" data-path="../../coding/0_IPC/线程间通信.html">
+            
+                <a href="../../coding/0_IPC/线程间通信.html">
+            
+                    
+                    线程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../../coding/0_性能/">
+            
+                <a href="../../coding/0_性能/">
+            
+                    
+                    0_性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.3.1" data-path="../../coding/0_性能/profiler.html">
+            
+                <a href="../../coding/0_性能/profiler.html">
+            
+                    
+                    Profiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.2" data-path="../../coding/0_性能/Systrace.html">
+            
+                <a href="../../coding/0_性能/Systrace.html">
+            
+                    
+                    Systrace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.3" data-path="../../coding/0_性能/内存.html">
+            
+                <a href="../../coding/0_性能/内存.html">
+            
+                    
+                    内存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.4" data-path="../../coding/0_性能/性能_.html">
+            
+                <a href="../../coding/0_性能/性能_.html">
+            
+                    
+                    性能_
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../../coding/1_稳定性/">
+            
+                <a href="../../coding/1_稳定性/">
+            
+                    
+                    1_稳定性
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.4.1" data-path="../../coding/1_稳定性/ANR.html">
+            
+                <a href="../../coding/1_稳定性/ANR.html">
+            
+                    
+                    ANR
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4.2" data-path="../../coding/1_稳定性/WatchDog.html">
+            
+                <a href="../../coding/1_稳定性/WatchDog.html">
+            
+                    
+                    Watch Dog
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../../coding/AndriodCar/">
+            
+                <a href="../../coding/AndriodCar/">
+            
+                    
+                    Andriod Car
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.5.1" data-path="../../coding/AndriodCar/CarService.html">
+            
+                <a href="../../coding/AndriodCar/CarService.html">
+            
+                    
+                    Car Service
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="../../coding/AndroidTool/">
+            
+                <a href="../../coding/AndroidTool/">
+            
+                    
+                    Android Tool
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.6.1" data-path="../../coding/AndroidTool/HierarchyView.html">
+            
+                <a href="../../coding/AndroidTool/HierarchyView.html">
+            
+                    
+                    Hierarchy View
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="../../coding/App/">
+            
+                <a href="../../coding/App/">
+            
+                    
+                    App
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.7.1" data-path="../../coding/App/APK_64bit_32bit.html">
+            
+                <a href="../../coding/App/APK_64bit_32bit.html">
+            
+                    
+                    APK 64 Bit 32 Bit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.2" data-path="../../coding/App/APP开发.html">
+            
+                <a href="../../coding/App/APP开发.html">
+            
+                    
+                    APP开发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.3" data-path="../../coding/App/launcher3.html">
+            
+                <a href="../../coding/App/launcher3.html">
+            
+                    
+                    Launcher 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.4" data-path="../../coding/App/SystemUI.html">
+            
+                <a href="../../coding/App/SystemUI.html">
+            
+                    
+                    System UI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.5" data-path="../../coding/App/小程序.html">
+            
+                <a href="../../coding/App/小程序.html">
+            
+                    
+                    小程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8" data-path="../../coding/CodingLanguage/">
+            
+                <a href="../../coding/CodingLanguage/">
+            
+                    
+                    Coding Language
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.8.1" data-path="../../coding/CodingLanguage/c_cpp_java.html">
+            
+                <a href="../../coding/CodingLanguage/c_cpp_java.html">
+            
+                    
+                    C Cpp Java
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.2" data-path="../../coding/CodingLanguage/java反射.html">
+            
+                <a href="../../coding/CodingLanguage/java反射.html">
+            
+                    
+                    java反射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.3" data-path="../../coding/CodingLanguage/JNI.html">
+            
+                <a href="../../coding/CodingLanguage/JNI.html">
+            
+                    
+                    JNI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.4" data-path="../../coding/CodingLanguage/js.html">
+            
+                <a href="../../coding/CodingLanguage/js.html">
+            
+                    
+                    Js
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.5" data-path="../../coding/CodingLanguage/python.html">
+            
+                <a href="../../coding/CodingLanguage/python.html">
+            
+                    
+                    Python
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.6" data-path="../../coding/CodingLanguage/R.html">
+            
+                <a href="../../coding/CodingLanguage/R.html">
+            
+                    
+                    R
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9" data-path="../../coding/Features/">
+            
+                <a href="../../coding/Features/">
+            
+                    
+                    Features
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.9.1" data-path="../../coding/Features/其他特性.html">
+            
+                <a href="../../coding/Features/其他特性.html">
+            
+                    
+                    其他特性
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.2" data-path="../../coding/Features/多用户.html">
+            
+                <a href="../../coding/Features/多用户.html">
+            
+                    
+                    多用户
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.10" data-path="../../coding/other%20OS/README.md">
+            
+                <span>
+            
+                    
+                    Other OS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.10.1" data-path="../../coding/other%20OS/OpenHarmony.md">
+            
+                <span>
+            
+                    
+                    Open Harmony
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.10.2" data-path="../../coding/other%20OS/otherOS.md">
+            
+                <span>
+            
+                    
+                    Other OS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.11" >
+            
+                <span>
+            
+                    
+                    Wayland
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.11.1" data-path="../../coding/wayland/kwin.html">
+            
+                <a href="../../coding/wayland/kwin.html">
+            
+                    
+                    Kwin
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12" data-path="../../coding/多线程/">
+            
+                <a href="../../coding/多线程/">
+            
+                    
+                    多线程
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.12.1" data-path="../../coding/多线程/多线程的模型.html">
+            
+                <a href="../../coding/多线程/多线程的模型.html">
+            
+                    
+                    多线程的模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.2" data-path="../../coding/多线程/线程池与binder线程池.html">
+            
+                <a href="../../coding/多线程/线程池与binder线程池.html">
+            
+                    
+                    线程池与binder线程池
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.13" data-path="../../coding/文件系统结构/文件系统结构.html">
+            
+                <a href="../../coding/文件系统结构/文件系统结构.html">
+            
+                    
+                    文件系统结构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.14" data-path="../../coding/虚拟化/虚拟化.html">
+            
+                <a href="../../coding/虚拟化/虚拟化.html">
+            
+                    
+                    虚拟化
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../../Naturalaw/">
+            
+                <a href="../../Naturalaw/">
+            
+                    
+                    Naturalaw
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../../Naturalaw/ReadingAndThinking.html">
+            
+                <a href="../../Naturalaw/ReadingAndThinking.html">
+            
+                    
+                    Reading And Thinking
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../../book2.html">
+            
+                <a href="../../book2.html">
+            
+                    
+                    Book 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../../CheckList.html">
+            
+                <a href="../../CheckList.html">
+            
+                    
+                    Check List
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >sf特效</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x76EE;&#x5F55;"><b>1. </b>&#x76EE;&#x5F55;</a></li><li><span class="title-icon "></span><a href="#&#x7A97;&#x53E3;&#x7684;&#x9634;&#x5F71;&#x548C;&#x5706;&#x89D2;"><b>2. </b>&#x7A97;&#x53E3;&#x7684;&#x9634;&#x5F71;&#x548C;&#x5706;&#x89D2;</a></li><ul><li><span class="title-icon "></span><a href="#&#x5BF9;&#x5E94;&#x7684;shader"><b>2.1. </b>&#x5BF9;&#x5E94;&#x7684;shader</a></li><ul><li><span class="title-icon "></span><a href="#&#x65B9;&#x6CD5;&#x4E00;-&#x5B89;&#x5353;&#x7684;shader&#xFF1A;"><b>2.1.1. </b>&#x65B9;&#x6CD5;&#x4E00; &#x5B89;&#x5353;&#x7684;shader&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#&#x4E3B;&#x8981;&#x6D41;&#x7A0B;&#xFF1A;"><b>2.1.2. </b>&#x4E3B;&#x8981;&#x6D41;&#x7A0B;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;"><b>2.1.3. </b>&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#weston-&#x7684;shaderh-&#x975E;-shadow&#xFF1F;"><b>2.1.4. </b>weston &#x7684;shader.h &#x975E; shadow&#xFF1F;</a></li><li><span class="title-icon "></span><a href="#weston&#x7684;shadow-&#x4E0E;-fromblendtooutput&#x5173;&#x7CFB;"><b>2.1.5. </b>weston&#x7684;shadow &#x4E0E; from_blend_to_output&#x5173;&#x7CFB;</a></li></ul><li><span class="title-icon "></span><a href="#app-client&#x4FA7;&#x753B;&#x5706;&#x89D2;&#x9634;&#x5F71;&#xFF1A;"><b>2.2. </b>App client&#x4FA7;&#x753B;&#x5706;&#x89D2;&amp;&#x9634;&#x5F71;&#xFF1A;</a></li></ul><li><span class="title-icon "></span><a href="#&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;"><b>3. </b>&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;</a></li><ul><li><span class="title-icon "></span><a href="#&#x529F;&#x80FD;&#x89D2;&#x5EA6;"><b>3.1. </b>&#x529F;&#x80FD;&#x89D2;&#x5EA6;</a></li><li><span class="title-icon "></span><a href="#&#x5E94;&#x7528;&#x5C42;&#x63A5;&#x53E3;"><b>3.2. </b>&#x5E94;&#x7528;&#x5C42;&#x63A5;&#x53E3;</a></li><li><span class="title-icon "></span><a href="#&#x529F;&#x80FD;&#x5B9E;&#x73B0;----&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x4EE3;&#x7801;&#x5927;&#x7EB2;&#xFF1A;"><b>3.3. </b>&#x529F;&#x80FD;&#x5B9E;&#x73B0;----&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x4EE3;&#x7801;&#x5927;&#x7EB2;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#&#x5F85;&#x6574;&#x7406;&#xFF1A;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;"><b>3.4. </b>&#x5F85;&#x6574;&#x7406;&#xFF1A;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;</a></li><li><span class="title-icon "></span><a href="#shader"><b>3.5. </b>shader</a></li><li><span class="title-icon "></span><a href="#&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x7684;&#x6570;&#x5B66;&#x539F;&#x7406;"><b>3.6. </b>&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x7684;&#x6570;&#x5B66;&#x539F;&#x7406;</a></li><li><span class="title-icon "></span><a href="#todo--how---------&#x5408;&#x6210;&#x7684;&#x627F;&#x8F7D;&#xFF08;buffer&#xFF09;"><b>3.7. </b>TODO:  how---------&#x5408;&#x6210;&#x7684;&#x627F;&#x8F7D;&#xFF08;buffer&#xFF09;</a></li><li><span class="title-icon "></span><a href="#&#x6027;&#x80FD;"><b>3.8. </b>&#x6027;&#x80FD;</a></li></ul><li><span class="title-icon "></span><a href="#todo&#x9006;&#x5411;"><b>4. </b>TODO:&#x9006;&#x5411;</a></li><li><span class="title-icon "></span><a href="#todo-&#x52A8;&#x753B;&#x4E0E;sf"><b>5. </b>TODO: &#x52A8;&#x753B;&#x4E0E;sf</a></li></ul></div><a href="#&#x76EE;&#x5F55;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="&#x76EE;&#x5F55;"><a name="&#x76EE;&#x5F55;" class="anchor-navigation-ex-anchor" href="#&#x76EE;&#x5F55;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x76EE;&#x5F55;</h1>
+<h1 id="&#x7A97;&#x53E3;&#x7684;&#x9634;&#x5F71;&#x548C;&#x5706;&#x89D2;"><a name="&#x7A97;&#x53E3;&#x7684;&#x9634;&#x5F71;&#x548C;&#x5706;&#x89D2;" class="anchor-navigation-ex-anchor" href="#&#x7A97;&#x53E3;&#x7684;&#x9634;&#x5F71;&#x548C;&#x5706;&#x89D2;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x7A97;&#x53E3;&#x7684;&#x9634;&#x5F71;&#x548C;&#x5706;&#x89D2;</h1>
+<p>&#x9634;&#x5F71;&#xFF1A;</p>
+<pre><code class="lang-java"> SurfaceControl.setGlobalShadowSettings(<span class="hljs-meta">@Size</span>(<span class="hljs-number">4</span>) <span class="hljs-keyword">float</span>[] ambientColor,
+             <span class="hljs-meta">@Size</span>(<span class="hljs-number">4</span>) <span class="hljs-keyword">float</span>[] spotColor, <span class="hljs-keyword">float</span> lightPosY, <span class="hljs-keyword">float</span> lightPosZ, <span class="hljs-keyword">float</span> lightRadius)
+
+ <span class="hljs-comment">// &#x4FE1;&#x606F;&#x6D41;</span>
+ SurfaceControl.setShadowRadius ---&gt;nativeSetShadowRadius ---&gt;  SurfaceComposerClient::Transaction::setShadowRadius
+      struct layer_state_t {shadowRadius, cornerRadius........}  <span class="hljs-comment">//&#x3010;&#x3011; &#x76EE;&#x524D;&#x8FD8;&#x662F;&#x5E94;&#x7528;&#x8FDB;&#x7A0B;</span>
+           -----&gt; TODO: &#x6700;&#x7EC8;&#x751F;&#x6548;&#x7ED9;&#x8C01;&#x4E86;&#xFF1F;&#x5982;&#x4F55;&#x6D41;&#x5411;sf&#x7684;&#xFF1F; &lt;https:<span class="hljs-comment">//blog.csdn.net/learnframework/article/details/135076600&gt;</span>
+</code></pre>
+<p>&#x5B89;&#x5353;&#x63A7;&#x4EF6;&#x9634;&#x5F71;&#xFF1A;</p>
+<blockquote>
+<p>  Android&#x5F00;&#x53D1;&#x4E2D;&#x9634;&#x5F71;&#x6548;&#x679C;&#x7684;&#x5B9E;&#x73B0; - &#x6398;&#x91D1; (<a href="http://juejin.cn" target="_blank">juejin.cn</a>)         --------&gt;  TODO: &#x753B;&#x5728;&#x54EA;&#x4E2A;&#x5730;&#x65B9;&#xFF1F;</p>
+</blockquote>
+<p>Android&#x663E;&#x793A;&#x7CFB;&#x7EDF;&#x2014;&#x2014;Transaction&#x57FA;&#x7840;&#x529F;&#x80FD;&#xFF1A;</p>
+<blockquote>
+<p>  TODO:  Transaction&#x662F;&#x5E94;&#x7528;&#x7CFB;&#x7EDF;&#x6846;&#x67B6;&#x5C42;  &#x4E0E;  SurfaceFlinger&#x4EA4;&#x6D41;&#x7684;&#x65B9;&#x5F0F;&#x4E4B;&#x4E00;</p>
+<p>  &#x200B;                <a href="https://www.cnblogs.com/tsts/p/17537595.html" target="_blank">Android&#x663E;&#x793A;&#x7CFB;&#x7EDF;&#x2014;&#x2014;Transaction&#x57FA;&#x7840;&#x529F;&#x80FD;</a></p>
+<p>  TODO:  &#x4E86;&#x89E3;surfaceControl&#x6240;&#x6709;&#x63A5;&#x53E3;</p>
+</blockquote>
+<p>SurfaceComposerClient_cpp:    sf &#x5728;&#x7528;&#x6237;&#x4FA7;&#x7684;&#x4EE3;&#x7406;</p>
+<p>SurfaceControl&#xFF08;client&#x4E0E;sf&#x7684;&#x6865;&#x6881;&#xFF09;&#x63A5;&#x53E3;&#xFF1A;</p>
+<pre><code class="lang-java">captureLayers  &#x622A;&#x56FE; 
+
+setCornerRadius &#x8BBE;&#x7F6E;&#x5706;&#x89D2; 
+
+setGlobalShadowSettings &#x8BBE;&#x7F6E;&#x9634;&#x5F71;
+</code></pre>
+<p>&#x5176;&#x4E2D;&#xFF0C;&#x4E8B;&#x52A1;&#xFF08;&#x5143;&#xFF09;Transaction&#xFF1A; </p>
+<pre><code class="lang-java">&#xFF08;<span class="hljs-number">1</span>&#xFF09;&#x4E8B;&#x52A1;&#x5143;&#xFF0C;&#x662F;&#x539F;&#x64CD;&#x4F5C;&#xFF0C;setXXX&#x64CD;&#x4F5C;
+&#xFF08;<span class="hljs-number">2</span>&#xFF09;&#x591A;&#x4E2A;&#x539F;&#x64CD;&#x4F5C;&#xFF0C;&#x4E4B;&#x540E;&#xFF0C;&#x4E00;&#x7B14;commit&#x624D;&#x751F;&#x6548;  t.apply()
+
+setCornerRadius 
+-&gt;nativeSetCornerRadius
+  -&gt;SurfaceComposerClient::Transaction &#x83B7;&#x53D6;&#x5BF9;&#x5E94;&#x7684; layer_state_t&#x3002;&#x8BBE;&#x7F6E;&#x5C5E;&#x6027;
+    -&gt; s-&gt;cornerRadius = cornerRadius
+</code></pre>
+<p>&#x751F;&#x6548;&#x5728;apply()&#x540E;&#xFF1A;</p>
+<pre><code class="lang-java">t.apply()
+ -&gt; SurfaceComposerClient::Transaction::apply
+    -&gt;ISurfaceComposer-&gt;setTransactionState
+       ------------&#x8DE8;&#x8FDB;&#x7A0B;-------------------
+       -&gt; sf-&gt;<span class="hljs-function">setTransactionState  
+          <span class="hljs-title">queueTransaction</span><span class="hljs-params">(state)</span></span>; <span class="hljs-comment">// sf &#x7F13;&#x5B58;&#x4E8B;&#x52A1;</span>
+</code></pre>
+<p>&#x4E8B;&#x52A1;&#x6D41;&#x8F6C;&#x56FE;&#xFF1A;</p>
+<blockquote>
+<p>  <img src="sf&#x7279;&#x6548;.assets/3d85ba9d5d0142068ac80034f45e7d2a.png" alt="img"></p>
+<p>  <a href="https://blog.csdn.net/fengchaochao123/article/details/134252907#:~:text=%E4%B9%8B%E5%90%8E%E6%9D%A5%E5%8F%96%E3%80%82-,%E7%94%BB%E4%B8%AA%E5%9B%BE%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%EF%BC%9A,-%E4%BB%8E%E4%BB%A3%E7%A0%81%E7%9C%8Bhttps://blog.csdn.net/fengchaochao123/article/details/134252907" target="_blank">&#x56FE;&#x6765;&#x6E90;</a></p>
+</blockquote>
+<p>&#x4E0B;&#x4E00;&#x5E27;vsync&#x540E;&#xFF1A; SurfaceFlinger&#x5904;&#x7406;&#x4E8B;&#x52A1;&#xFF08;onMessageInvalidate&#x51FD;&#x6570;&#xFF09;&#xFF1A; </p>
+<p>1&#x3001;&#x5904;&#x7406;&#x4E8B;&#x52A1;</p>
+<p> 2&#x3001;&#x81EA;&#x7136;&#xFF0C;<del>&#x5237;&#x65B0;&#x56FE;&#x50CF;</del></p>
+<p>&#x5904;&#x7406;&#x4E8B;&#x52A1;&#x6D41;&#x7A0B;&#x56FE;&#xFF1A;</p>
+<blockquote>
+<p>  <img src="sf&#x7279;&#x6548;.assets/aaa15735018c45c58a6a55e0e4562123-1719420821433.png" alt="aaa15735018c45c58a6a55e0e4562123"></p>
+<p>  <a href="https://blog.csdn.net/fengchaochao123/article/details/135129439#:~:text=%E6%98%AF%E5%A4%84%E7%90%86%E4%BA%8B%E5%8A%A1%EF%BC%9A-,%E5%A4%A7%E8%87%B4%E6%B5%81%E7%A8%8B%E5%A6%82%E4%B8%8B%E5%9B%BE%EF%BC%9A,-flushTransactionQueues%E4%BC%9A%E5%B0%86" target="_blank">&#x56FE;&#x6765;&#x6E90;</a></p>
+</blockquote>
+<p>&#x56FE;&#x50CF;&#x5408;&#x6210;&#x5E76;&#x5237;&#x65B0;&#x56FE;&#xFF1A;</p>
+<blockquote>
+<p>  <img src="sf&#x7279;&#x6548;.assets/d5862564ce6241f2a307623b7708706a.png" alt="img"></p>
+<p>  <a href="https://blog.csdn.net/fengchaochao123/article/details/135129439#:~:text=%E9%95%BF%EF%BC%8C%E8%B4%B4%E4%BB%A3%E7%A0%81-,%E6%9C%89%E7%82%B9%E5%A4%AA%E7%B9%81%E7%90%90%EF%BC%8C%E6%9D%A5%E5%BC%A0%E5%9B%BE,-%E4%B8%AA%E4%BA%BA%E8%BF%99%E9%87%8C%E6%9C%89" target="_blank">&#x56FE;</a></p>
+</blockquote>
+<p>&#x603B;&#x4E4B;&#xFF0C; </p>
+<p>&#x8BBE;&#x7F6E;&#x5706;&#x89D2;&#xFF1A;&#x4E00;&#x884C;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code class="lang-java"> GLESRenderEngine::drawMesh
+
+ fragmentShader&#x91CC;&#x9762;&#x6839;&#x636E;&#x5706;&#x89D2;&#x7684;&#x534A;&#x5F84;&#x8BA1;&#x7B97;&#x5C06;&#x5728;&#x5706;&#x89D2;&#x4E4B;&#x5916;&#x7684;&#x90E8;&#x5206;&#x7684;alpha&#x8BBE;&#x4E3A;<span class="hljs-number">0</span>&#x4F7F;&#x4E4B;&#x5B8C;&#x5168;&#x900F;&#x660E;&#xFF1A; 
+
+&#x4F4D;&#x7F6E;&#xFF1A;String8 ProgramCache::generateFragmentShader(<span class="hljs-keyword">const</span> Key&amp; needs) {
+
+         gl_FragColor.a *= applyCornerRadius(outCropCoords); <span class="hljs-comment">// &#x3010;&#x3011;&#x5939;&#x5B50;&#x51FD;&#x6570;&#xFF0C;&#x8D85;&#x8FC7;&#x8BBE;&#x7F6E;&#x900F;&#x660E; </span>
+
+}
+</code></pre>
+<p>&#x53C2;&#x8003;&#xFF1A;<a href="https://blog.csdn.net/SSSxCCC/article/details/119253569" target="_blank">&#x5706;&#x89D2;&#x7ED8;&#x5236; - &#x5B89;&#x5353;R</a></p>
+<p>TODO:</p>
+<p><a href="https://blog.csdn.net/fengchaochao123/category_12467586.html" target="_blank">sf&#x7CFB;&#x5217;&#x6587;&#x7AE0;</a></p>
+<p><a href="https://blog.csdn.net/fengchaochao123/category_11733379.html" target="_blank">&#x663E;&#x793A;&#x9A71;&#x52A8;&#x7CFB;&#x5217;&#x6587;&#x7AE0;</a></p>
+<p>Bpxxx/Bnxxx&#xFF1A;</p>
+<pre><code class="lang-java">https:<span class="hljs-comment">//blog.csdn.net/fengchaochao123/article/details/134020217?spm=1001.2014.3001.5502#:~:text=%E6%A2%B3%E7%90%86%E4%BA%86%E4%B8%80%E4%B8%8B-,waitForService%E7%9A%84%E5%86%85%E9%83%A8%E6%9C%BA%E5%88%B6,-%EF%BC%8C%E5%92%8CBpxxx/Bnxxx</span>
+</code></pre>
+<p>&#x7CFB;&#x5217;&#x597D;&#x6587;&#xFF1A;</p>
+<blockquote>
+<p>   <a href="https://blog.csdn.net/sssxccc/category_11248337.html" target="_blank">&#x5B89;&#x5353;Framework</a></p>
+<p>  <a href="https://blog.csdn.net/SSSxCCC/article/details/119253947" target="_blank"> &#x5F55;&#x5C4F;&#x6D41;&#x7A0B; - &#x5B89;&#x5353;R</a></p>
+</blockquote>
+<p><a href="https://blog.csdn.net/SSSxCCC/article/details/119324066" target="_blank">&#x8F6C;&#x5C4F;&#x52A8;&#x753B; - &#x5B89;&#x5353;R</a></p>
+<p><a href="https://blog.csdn.net/SSSxCCC/article/details/119324081" target="_blank">&#x8FC7;&#x6E21;&#x52A8;&#x753B; - &#x5B89;&#x5353;R</a></p>
+<h2 id="&#x5BF9;&#x5E94;&#x7684;shader"><a name="&#x5BF9;&#x5E94;&#x7684;shader" class="anchor-navigation-ex-anchor" href="#&#x5BF9;&#x5E94;&#x7684;shader"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. &#x5BF9;&#x5E94;&#x7684;shader</h2>
+<p>shader&#x7ED3;&#x6784;&#xFF1A;</p>
+<blockquote>
+<p>  &#x7EA7;&#x522B;&#xFF1A;surfaceFlinger&#x7EA7;&#x522B;&#x7684;</p>
+<p>  &#xFF08;&#x81EA;&#x7136;&#xFF1A;&#x751F;&#x6210;&#x65F6;&#x673A;&#xFF1A;&#x4E00;&#x6B21;&#x6027;&#x751F;&#x6210;&#xFF09;</p>
+<p>  &#x4F7F;&#x7528;&#x65F6;&#x673A;&#xFF1A; &#x6709;&#x5706;&#x89D2; &amp;  &#x6709;&#x53D8;&#x5316; &amp;  &#x6BCF;&#x4E00;&#x5E27;</p>
+</blockquote>
+<p>shader&#x5177;&#x4F53;&#x5185;&#x5BB9;&#x8BE6;&#x89E3;&#xFF1A;</p>
+<h3 id="&#x65B9;&#x6CD5;&#x4E00;-&#x5B89;&#x5353;&#x7684;shader&#xFF1A;"><a name="&#x65B9;&#x6CD5;&#x4E00;-&#x5B89;&#x5353;&#x7684;shader&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x65B9;&#x6CD5;&#x4E00;-&#x5B89;&#x5353;&#x7684;shader&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1.1. &#x65B9;&#x6CD5;&#x4E00; &#x5B89;&#x5353;&#x7684;shader&#xFF1A;</h3>
+<p>1&#x3001;VertexShader</p>
+<pre><code class="lang-java">attribute lowp vec4 cropCoords;   <span class="hljs-comment">// &#x5165;&#x53C2;&#xFF1A; &#x88C1;&#x526A;&#x5750;&#x6807;&#xFF0C; <span class="hljs-doctag">TODO:</span> &#x6765;&#x6E90;&#x54EA;&#x91CC;&#xFF1F;&#xFF1F;&#xFF1F;</span>
+varying lowp vec2 outCropCoords; <span class="hljs-comment">// &#x51FA;&#x53C2;&#xFF1A; &#x5C06;&#x8981;&#x4F20;&#x9012;&#x7ED9; Fragment&#x7684; &#x88C1;&#x526A;&#x5750;&#x6807;</span>
+attribute vec4 position;  <span class="hljs-comment">// &#x3010;&#x3011;&#x5165;&#x53C2;&#xFF1A;&#x4EFB;&#x610F;&#x70B9;&#x5750;&#x6807;&#xFF08;&#x81EA;&#x5E26;&#xFF09;</span>
+uniform mat4 projection; <span class="hljs-comment">// &#x5165;&#x53C2;&#xFF1A; &#x9876;&#x70B9;&#x53D8;&#x5316;&#x77E9;&#x9635;&#xFF0C;&#x6765;&#x6E90;cpp</span>
+uniform mat4 texture;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+    gl_Position = projection * position;
+    outCropCoords = cropCoords.st;   <span class="hljs-comment">// &#x3010;&#x3011; &#x5706;&#x89D2;&#x76F8;&#x5173;&#x7684;&#xFF0C;&#x5373;&#x88C1;&#x526A;&#x90E8;&#x5206;&#xFF08;st&#x662F;&#x6C34;&#x5E73;&#x548C;&#x5782;&#x76F4;&#x5750;&#x6807;&#xFF09;</span>
+}
+</code></pre>
+<p>&#x4FE1;&#x606F;&#x6D41;&#xFF1A;</p>
+<blockquote>
+<p>  cpp&#x4EFB;&#x610F;&#x70B9;&#x5750;&#x6807;position                           --------&gt;             &#x53D8;&#x6362;&#x540E;&#x5750;&#x6807; gl_Position</p>
+<p>  cpp &#x9876;&#x70B9;&#x53D8;&#x6362;&#x77E9;&#x9635;                                                       &#x4F20;&#x9012;&#x7ED9; Fragment&#x7684; &#x88C1;&#x526A;&#x5750;&#x6807;</p>
+</blockquote>
+<p>2&#x3001;FragmentShader</p>
+<pre><code class="lang-java">
+precision mediump <span class="hljs-keyword">float</span>;     <span class="hljs-comment">// &#x6D6E;&#x70B9;&#x8FD0;&#x7B97;&#x7684;&#x7CBE;&#x5EA6;&#x4E3A;&#x4E2D;&#x7B49;</span>
+
+uniform <span class="hljs-keyword">float</span> cornerRadius;    <span class="hljs-comment">// &#x5165;&#x53C2;&#xFF1A;&#x5706;&#x89D2;&#x534A;&#x5F84;&#xFF0C;&#x6765;&#x6E90;cpp</span>
+uniform vec2 cropCenter;       <span class="hljs-comment">// &#x5165;&#x53C2;&#xFF1A;&#x88C1;&#x526A;&#x4E2D;&#x5FC3;&#xFF0C;&#x6765;&#x6E90;cpp</span>
+varying vec2 outCropCoords;    <span class="hljs-comment">// &#x5165;&#x53C2;&#xFF1A;&#x88C1;&#x526A;&#x5750;&#x6807;&#xFF0C;&#x6765;&#x6E90; VertexShader</span>
+<span class="hljs-comment">/**
+ * This function takes the current crop coordinates and calculates an alpha value based
+ * on the corner radius and distance from the crop center.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">float</span> <span class="hljs-title">applyCornerRadius</span><span class="hljs-params">(vec2 cropCoords)</span>
+</span>{
+    vec2 position = cropCoords - cropCenter;  <span class="hljs-comment">// &#x57FA;&#x4E8E;&#x5706;&#x5FC3;&#x7684;&#x5750;&#x6807;</span>
+    <span class="hljs-comment">// Scale down the dist vector here, as otherwise large corner</span>
+    <span class="hljs-comment">// radii can cause floating point issues when computing the norm</span>
+    vec2 dist = (abs(position) - cropCenter + vec2(cornerRadius)) / <span class="hljs-number">16.0</span>;  <span class="hljs-comment">// &#x3010;&#x3011; <span class="hljs-doctag">TODO:</span>abs(position)&#x662F;&#x4E00;&#x4E2A;&#x4E8C;&#x7EF4;&#x7684;&#xFF0C;&#x5206;&#x91CF;&#x6C42;&#x7EDD;&#x5BF9;&#x503C;</span>
+    <span class="hljs-comment">// Once we&apos;ve found the norm, then scale back up.</span>
+    <span class="hljs-keyword">float</span> plane = length(max(dist, vec2(<span class="hljs-number">0.0</span>))) * <span class="hljs-number">16.0</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1.0</span> - clamp(plane - cornerRadius, <span class="hljs-number">0.0</span>, <span class="hljs-number">1.0</span>);
+}
+
+uniform vec4 color;  <span class="hljs-comment">// &#x5165;&#x53C2;&#xFF1A; &#x4E3B;&#x8981;&#x8BBE;&#x7F6E;color&#x7684;a&#x503C;&#x3002;&#x3002;&#x3002;&#x3002;&#x3002;&#x8FD9;&#x91CC;&#x6CA1;&#x770B;&#x61C2;&#xFF01;&#xFF01;&#xFF01;</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+  gl_FragColor.rgb = color.rgb;
+  gl_FragColor.a = <span class="hljs-number">1.0</span>;
+  gl_FragColor *= color.a;  <span class="hljs-comment">// c&#x4E58;&#x4EE5;</span>
+  gl_FragColor *= vec4(applyCornerRadius(outCropCoords)); <span class="hljs-comment">// &#x4E58;&#x4EE5; 1 &#x6216; 0 -----&gt; 0&#x5373;&#x88AB;&#x88C1;&#x526A;&#xFF01;&#xFF01;&#xFF01;</span>
+}
+</code></pre>
+<p><a href="https://www.cnblogs.com/keguniang/p/9873052.html#:~:text=glGetUniformLocation(shaderProgram%2C" title="ourColor" target="_blank">&#x5173;&#x4E8E;&#x7684;&#x4F7F;&#x7528;&#xFF1A;</a>%3B)</p>
+<p><a href="https://note.nxcloud.club:12270/blog/post/agile/Shader%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%B7%9D%E7%A6%BB%E5%87%BD%E6%95%B0%EF%BC%88Distance-Function%EF%BC%89%E7%BB%98%E5%88%B6%E4%BA%8C%E7%BB%B4%E5%9B%BE%E5%BD%A2" target="_blank">Shader&#x4E2D;&#x4F7F;&#x7528;&#x8DDD;&#x79BB;&#x51FD;&#x6570;&#xFF08;Distance Function&#xFF09;&#x7ED8;&#x5236;&#x4E8C;&#x7EF4;&#x56FE;&#x5F62;</a></p>
+<h3 id="&#x4E3B;&#x8981;&#x6D41;&#x7A0B;&#xFF1A;"><a name="&#x4E3B;&#x8981;&#x6D41;&#x7A0B;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x4E3B;&#x8981;&#x6D41;&#x7A0B;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1.2. &#x4E3B;&#x8981;&#x6D41;&#x7A0B;&#xFF1A;</h3>
+<p>&#x53C2;&#x8003;&#xFF1A;    <a href="https://blog.csdn.net/SSSxCCC/article/details/119253569" target="_blank">&#x5706;&#x89D2;&#x7ED8;&#x5236; - &#x5B89;&#x5353;R</a></p>
+<pre><code class="lang-java">
+status_t GLESRenderEngine::drawLayers(<span class="hljs-keyword">const</span> DisplaySettings&amp; display,
+                                      <span class="hljs-keyword">const</span> std::vector&lt;<span class="hljs-keyword">const</span> LayerSettings*&gt;&amp; layers,
+                                      ANativeWindowBuffer* <span class="hljs-keyword">const</span> buffer,
+                                      <span class="hljs-keyword">const</span> bool useFramebufferCache, base::unique_fd&amp;&amp; bufferFence,
+                                      base::unique_fd* drawFence) {
+    ......
+    <span class="hljs-keyword">for</span> (auto <span class="hljs-keyword">const</span> layer : layers) { <span class="hljs-comment">// &#x904D;&#x5386;layers</span>
+        ......
+        <span class="hljs-comment">// We only want to do a special handling for rounded corners when having rounded corners</span>
+        <span class="hljs-comment">// is the only reason it needs to turn on blending, otherwise, we handle it like the</span>
+        <span class="hljs-comment">// usual way since it needs to turn on blending anyway.</span>
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (layer-&gt;geometry.roundedCornersRadius &gt; <span class="hljs-number">0.0</span> &amp;&amp; color.a &gt;= <span class="hljs-number">1.0f</span> &amp;&amp; isOpaque) {
+            handleRoundedCorners(display, *layer, mesh);
+        } <span class="hljs-keyword">else</span> {
+            drawMesh(mesh);
+        }
+        ......
+    }
+    ......
+}
+</code></pre>
+<h3 id="&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;"><a name="&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1.3. &#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;</h3>
+<h3 id="weston-&#x7684;shaderh-&#x975E;-shadow&#xFF1F;"><a name="weston-&#x7684;shaderh-&#x975E;-shadow&#xFF1F;" class="anchor-navigation-ex-anchor" href="#weston-&#x7684;shaderh-&#x975E;-shadow&#xFF1F;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1.4. weston &#x7684;shader.h &#x975E; shadow&#xFF1F;</h3>
+<p>&#x6838;&#x5FC3;&#x4E00;&#x884C;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code class="lang-java">gl_renderer_use_program
+</code></pre>
+<p>%accordion% vertex-shader.glsl %accordion%</p>
+<pre><code class="lang-java">/*
+ * Copyright 2012 Intel Corporation
+ * Copyright 2015,2019 Collabora, Ltd.
+ * Copyright 2016 NVIDIA Corporation
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * &quot;Software&quot;), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice (including the
+ * next paragraph) shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+ * BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+/* enum gl_shader_texcoord_input */
+#define SHADER_TEXCOORD_INPUT_ATTRIB  0
+#define SHADER_TEXCOORD_INPUT_SURFACE 1
+
+/* Always use high-precision for vertex calculations */
+precision highp float;
+
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+#define FRAG_PRECISION highp
+#else
+#define FRAG_PRECISION mediump
+#endif
+
+uniform mat4 proj;
+uniform mat4 surface_to_buffer;
+
+attribute vec2 position;
+attribute vec2 texcoord;
+
+/* Match the varying precision to the fragment shader */
+varying FRAG_PRECISION vec2 v_texcoord;
+
+void main()
+{
+    gl_Position = proj * vec4(position, 0.0, 1.0);
+
+#if DEF_TEXCOORD_INPUT == SHADER_TEXCOORD_INPUT_ATTRIB
+    v_texcoord = texcoord;
+#elif DEF_TEXCOORD_INPUT == SHADER_TEXCOORD_INPUT_SURFACE
+    v_texcoord = vec2(surface_to_buffer * vec4(position, 0.0, 1.0));
+#endif
+}
+</code></pre>
+<p>%/accordion%</p>
+<p>%accordion% fragmentShader.glsl %accordion%</p>
+<pre><code class="lang-java">/*
+ * Copyright 2012 Intel Corporation
+ * Copyright 2015,2019,2021 Collabora, Ltd.
+ * Copyright 2016 NVIDIA Corporation // -------&gt; NVIDIA&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;
+ * Copyright 2021 Advanced Micro Devices, Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * &quot;Software&quot;), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice (including the
+ * next paragraph) shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+ * BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+/* GLSL version 1.00 ES, defined in gl-shaders.c */
+
+/* For annotating shader compile-time constant arguments */
+#define compile_const const
+
+/*
+ * Enumeration of shader variants, must match enum gl_shader_texture_variant.
+ */
+#define SHADER_VARIANT_RGBX     1
+#define SHADER_VARIANT_RGBA     2
+#define SHADER_VARIANT_Y_U_V    3
+#define SHADER_VARIANT_Y_UV     4
+#define SHADER_VARIANT_Y_XUXV   5
+#define SHADER_VARIANT_XYUV     6
+#define SHADER_VARIANT_SOLID    7
+#define SHADER_VARIANT_EXTERNAL 8
+
+/* enum gl_shader_color_curve */
+#define SHADER_COLOR_CURVE_IDENTITY 0
+#define SHADER_COLOR_CURVE_LUT_3x1D 1
+#define SHADER_COLOR_CURVE_LINPOW 2
+#define SHADER_COLOR_CURVE_POWLIN 3
+
+/* enum gl_shader_color_mapping */
+#define SHADER_COLOR_MAPPING_IDENTITY 0
+#define SHADER_COLOR_MAPPING_3DLUT 1
+#define SHADER_COLOR_MAPPING_MATRIX 2
+
+#if DEF_VARIANT == SHADER_VARIANT_EXTERNAL
+#extension GL_OES_EGL_image_external : require
+#endif
+
+#if DEF_COLOR_MAPPING == SHADER_COLOR_MAPPING_3DLUT
+#extension GL_OES_texture_3D : require
+#endif
+
+
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+#define HIGHPRECISION highp
+#else
+#define HIGHPRECISION mediump
+#endif
+
+precision HIGHPRECISION float;
+
+/*
+ * These undeclared identifiers will be #defined by a runtime generated code
+ * snippet.
+ */
+compile_const int c_variant = DEF_VARIANT;
+compile_const bool c_input_is_premult = DEF_INPUT_IS_PREMULT;
+compile_const bool c_green_tint = DEF_GREEN_TINT;
+compile_const int c_color_pre_curve = DEF_COLOR_PRE_CURVE;
+compile_const int c_color_mapping = DEF_COLOR_MAPPING;
+compile_const int c_color_post_curve = DEF_COLOR_POST_CURVE;
+
+compile_const bool c_need_color_pipeline =
+    c_color_pre_curve != SHADER_COLOR_CURVE_IDENTITY ||
+    c_color_mapping != SHADER_COLOR_MAPPING_IDENTITY ||
+    c_color_post_curve != SHADER_COLOR_CURVE_IDENTITY;
+
+vec
+yuva2rgba(vec4 yuva)
+{
+    vec4 color_out;
+    float Y, su, sv;
+
+    /* ITU-R BT.601 &amp; BT.709 quantization (limited range) */
+
+    /* Y = 255/219 * (x - 16/256) */
+    Y = 1.16438356 * (yuva.x - 0.0625);
+
+    /* Remove offset 128/256, but the 255/224 multiplier comes later */
+    su = yuva.y - 0.5;
+    sv = yuva.z - 0.5;
+
+    /*
+     * ITU-R BT.601 encoding coefficients (inverse), with the
+     * 255/224 limited range multiplier already included in the
+     * factors for su (Cb) and sv (Cr).
+     */
+    color_out.r = Y                   + 1.59602678 * sv;
+    color_out.g = Y - 0.39176229 * su - 0.81296764 * sv;
+    color_out.b = Y + 2.01723214 * su;
+
+    color_out.a = yuva.w;
+
+    return color_out;
+}
+
+#if DEF_VARIANT == SHADER_VARIANT_EXTERNAL
+uniform samplerExternalOES tex;
+#else
+uniform sampler2D tex;
+#endif
+
+varying HIGHPRECISION vec2 v_texcoord;
+uniform sampler2D tex1;
+uniform sampler2D tex2;
+uniform float view_alpha;
+uniform vec4 unicolor;
+
+#define MAX_CURVE_PARAMS 10
+#define MAX_CURVESET_PARAMS (MAX_CURVE_PARAMS * 3)
+
+uniform HIGHPRECISION sampler2D color_pre_curve_lut_2d;
+uniform HIGHPRECISION vec2 color_pre_curve_lut_scale_offset;
+uniform HIGHPRECISION float color_pre_curve_params[MAX_CURVESET_PARAMS];
+uniform bool color_pre_curve_clamped_input;
+
+uniform HIGHPRECISION sampler2D color_post_curve_lut_2d;
+uniform HIGHPRECISION vec2 color_post_curve_lut_scale_offset;
+uniform HIGHPRECISION float color_post_curve_params[MAX_CURVESET_PARAMS];
+uniform bool color_post_curve_clamped_input;
+
+#if DEF_COLOR_MAPPING == SHADER_COLOR_MAPPING_3DLUT
+uniform HIGHPRECISION sampler3D color_mapping_lut_3d;
+uniform HIGHPRECISION vec2 color_mapping_lut_scale_offset;
+#endif
+uniform HIGHPRECISION mat3 color_mapping_matrix;
+
+vec4
+sample_input_texture()
+{
+    vec4 yuva = vec4(0.0, 0.0, 0.0, 1.0);
+
+    /* Producing RGBA directly */
+
+    if (c_variant == SHADER_VARIANT_SOLID)
+        return unicolor;
+
+    if (c_variant == SHADER_VARIANT_RGBA ||
+        c_variant == SHADER_VARIANT_EXTERNAL) {
+        return texture2D(tex, v_texcoord);
+    }
+
+    if (c_variant == SHADER_VARIANT_RGBX)
+        return vec4(texture2D(tex, v_texcoord).rgb, 1.0);
+
+    /* Requires conversion to RGBA */
+
+    if (c_variant == SHADER_VARIANT_Y_U_V) {
+        yuva.x = texture2D(tex, v_texcoord).x;
+        yuva.y = texture2D(tex1, v_texcoord).x;
+        yuva.z = texture2D(tex2, v_texcoord).x;
+
+    } else if (c_variant == SHADER_VARIANT_Y_UV) {
+        yuva.x = texture2D(tex, v_texcoord).x;
+        yuva.yz = texture2D(tex1, v_texcoord).rg;
+
+    } else if (c_variant == SHADER_VARIANT_Y_XUXV) {
+        yuva.x = texture2D(tex, v_texcoord).x;
+        yuva.yz = texture2D(tex1, v_texcoord).ga;
+
+    } else if (c_variant == SHADER_VARIANT_XYUV) {
+        yuva.xyz = texture2D(tex, v_texcoord).bgr;
+
+    } else {
+        /* Never reached, bad variant value. */
+        return vec4(1.0, 0.3, 1.0, 1.0);
+    }
+
+    return yuva2rgba(yuva);
+}
+
+/*
+ * Sample a 1D LUT which is a single row of a 2D texture. The 2D texture has
+ * four rows so that the centers of texels have precise y-coordinates.
+ *
+ * Texture coordinates go from 0.0 to 1.0 corresponding to texture edges.
+ * When we do LUT look-ups with linear filtering, the correct range to sample
+ * from is not from edge to edge, but center of first texel to center of last
+ * texel. This follows because with LUTs, you have the exact end points given,
+ * you never extrapolate but only interpolate.
+ * The scale and offset are precomputed to achieve this mapping.
+ */
+float
+sample_lut_1d(HIGHPRECISION sampler2D lut, vec2 scale_offset,
+          float x, compile_const int row)
+{
+    float tx = x * scale_offset.s + scale_offset.t;
+    float ty = (float(row) + 0.5) / 4.0;
+
+    return texture2D(lut, vec2(tx, ty)).x;
+}
+
+vec3
+sample_lut_3x1d(HIGHPRECISION sampler2D lut, vec2 scale_offset, vec3 color)
+{
+    return vec3(sample_lut_1d(lut, scale_offset, color.r, 0),
+            sample_lut_1d(lut, scale_offset, color.g, 1),
+            sample_lut_1d(lut, scale_offset, color.b, 2));
+}
+
+vec3
+lut_texcoord(vec3 pos, vec2 scale_offset)
+{
+    return pos * scale_offset.s + scale_offset.t;
+}
+
+float
+linpow(float x, float g, float a, float b, float c, float d)
+{
+    /* See WESTON_COLOR_CURVE_TYPE_LINPOW for details about LINPOW. */
+
+    if (x &gt;= d)
+        return pow((a * x) + b, g);
+
+    return c * x;
+}
+
+float
+sample_linpow(float params[MAX_CURVESET_PARAMS], bool must_clamp,
+          float x, compile_const int color_channel)
+{
+    float g, a, b, c, d;
+
+    /*
+     * For each color channel we have MAX_CURVE_PARAMS parameters.
+     * The parameters for the three curves are stored in RGB order.
+     */
+    g = params[0 + color_channel * MAX_CURVE_PARAMS];
+    a = params[1 + color_channel * MAX_CURVE_PARAMS];
+    b = params[2 + color_channel * MAX_CURVE_PARAMS];
+    c = params[3 + color_channel * MAX_CURVE_PARAMS];
+    d = params[4 + color_channel * MAX_CURVE_PARAMS];
+
+    if (must_clamp)
+        x = clamp(x, 0.0, 1.0);
+
+    /* We use mirroring for negative input values. */
+    if (x &lt; 0.0)
+        return -linpow(-x, g, a, b, c, d);
+
+    return linpow(x, g, a, b, c, d);
+}
+
+vec3
+sample_linpow_vec3(float params[MAX_CURVESET_PARAMS], bool must_clamp,
+           vec3 color)
+{
+    return vec3(sample_linpow(params, must_clamp, color.r, 0),
+            sample_linpow(params, must_clamp, color.g, 1),
+            sample_linpow(params, must_clamp, color.b, 2));
+}
+
+float
+powlin(float x, float g, float a, float b, float c, float d)
+{
+    /* See WESTON_COLOR_CURVE_TYPE_POWLIN for details about POWLIN. */
+
+    if (x &gt;= d)
+        return a * pow(x, g) + b;
+
+    return c * x;
+}
+
+float
+sample_powlin(float params[MAX_CURVESET_PARAMS], bool must_clamp,
+          float x, compile_const int color_channel)
+{
+    float g, a, b, c, d;
+
+    /*
+     * For each color channel we have MAX_CURVE_PARAMS parameters.
+     * The parameters for the three curves are stored in RGB order.
+     */
+    g = params[0 + color_channel * MAX_CURVE_PARAMS];
+    a = params[1 + color_channel * MAX_CURVE_PARAMS];
+    b = params[2 + color_channel * MAX_CURVE_PARAMS];
+    c = params[3 + color_channel * MAX_CURVE_PARAMS];
+    d = params[4 + color_channel * MAX_CURVE_PARAMS];
+
+    if (must_clamp)
+        x = clamp(x, 0.0, 1.0);
+
+    /* We use mirroring for negative input values. */
+    if (x &lt; 0.0)
+        return -powlin(-x, g, a, b, c, d);
+
+    return powlin(x, g, a, b, c, d);
+}
+
+vec3
+sample_powlin_vec3(float params[MAX_CURVESET_PARAMS], bool must_clamp,
+           vec3 color)
+{
+    return vec3(sample_powlin(params, must_clamp, color.r, 0),
+            sample_powlin(params, must_clamp, color.g, 1),
+            sample_powlin(params, must_clamp, color.b, 2));
+}
+
+vec3
+color_pre_curve(vec3 color)
+{
+    if (c_color_pre_curve == SHADER_COLOR_CURVE_IDENTITY) {
+        return color;
+    } else if (c_color_pre_curve == SHADER_COLOR_CURVE_LUT_3x1D) {
+        return sample_lut_3x1d(color_pre_curve_lut_2d,
+                       color_pre_curve_lut_scale_offset,
+                       color);
+    } else if (c_color_pre_curve == SHADER_COLOR_CURVE_LINPOW) {
+        return sample_linpow_vec3(color_pre_curve_params,
+                      color_pre_curve_clamped_input,
+                      color);
+    } else if (c_color_pre_curve == SHADER_COLOR_CURVE_POWLIN) {
+        return sample_powlin_vec3(color_pre_curve_params,
+                      color_pre_curve_clamped_input,
+                      color);
+    } else {
+        /* Never reached, bad c_color_pre_curve. */
+        return vec3(1.0, 0.3, 1.0);
+    }
+}
+
+vec3
+sample_color_mapping_lut_3d(vec3 color)
+{
+    vec3 pos, ret = vec3(0.0, 0.0, 0.0);
+#if DEF_COLOR_MAPPING == SHADER_COLOR_MAPPING_3DLUT
+    pos = lut_texcoord(color, color_mapping_lut_scale_offset);
+    ret = texture3D(color_mapping_lut_3d, pos).rgb;
+#endif
+    return ret;
+}
+
+vec3
+color_mapping(vec3 color)
+{
+    if (c_color_mapping == SHADER_COLOR_MAPPING_IDENTITY)
+        return color;
+    else if (c_color_mapping == SHADER_COLOR_MAPPING_3DLUT)
+        return sample_color_mapping_lut_3d(color);
+    else if (c_color_mapping == SHADER_COLOR_MAPPING_MATRIX)
+        return color_mapping_matrix * color.rgb;
+    else /* Never reached, bad c_color_mapping. */
+        return vec3(1.0, 0.3, 1.0);
+}
+
+vec3
+color_post_curve(vec3 color)
+{
+    if (c_color_post_curve == SHADER_COLOR_CURVE_IDENTITY) {
+        return color;
+    } else if (c_color_post_curve == SHADER_COLOR_CURVE_LUT_3x1D) {
+        return sample_lut_3x1d(color_post_curve_lut_2d,
+                       color_post_curve_lut_scale_offset,
+                       color);
+    } else if (c_color_post_curve == SHADER_COLOR_CURVE_LINPOW) {
+        return sample_linpow_vec3(color_post_curve_params,
+                      color_post_curve_clamped_input,
+                      color);
+    } else if (c_color_post_curve == SHADER_COLOR_CURVE_POWLIN) {
+        return sample_powlin_vec3(color_post_curve_params,
+                      color_post_curve_clamped_input,
+                      color);
+    } else {
+        /* Never reached, bad c_color_post_curve. */
+        return vec3(1.0, 0.3, 1.0);
+    }
+}
+
+vec4
+color_pipeline(vec4 color)
+{
+    /* Ensure straight alpha */
+    if (c_input_is_premult) {
+        if (color.a == 0.0)
+            color.rgb = vec3(0, 0, 0);
+        else
+            color.rgb *= 1.0 / color.a;
+    }
+
+    color.rgb = color_pre_curve(color.rgb);
+    color.rgb = color_mapping(color.rgb);
+    color.rgb = color_post_curve(color.rgb);
+
+    return color;
+}
+
+
+void
+main()
+{
+    vec4 color;
+    /* Electrical (non-linear) RGBA values, may be premult or not */
+    color = sample_input_texture();
+    if (c_need_color_pipeline)417
+        color = color_pipeline(color); /* Produces straight alpha */
+    /* Ensure pre-multiplied for blending */
+    if (!c_input_is_premult || c_need_color_pipeline)
+        color.rgb *= color.a;
+    color *= view_alpha;
+
+    if (c_green_tint)
+        color = vec4(0.0, 0.3, 0.0, 0.2) + color * 0.8;
+    gl_FragColor = color;
+}
+</code></pre>
+<p>%/accordion%</p>
+<h3 id="weston&#x7684;shadow-&#x4E0E;-fromblendtooutput&#x5173;&#x7CFB;"><a name="weston&#x7684;shadow-&#x4E0E;-fromblendtooutput&#x5173;&#x7CFB;" class="anchor-navigation-ex-anchor" href="#weston&#x7684;shadow-&#x4E0E;-fromblendtooutput&#x5173;&#x7CFB;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1.5. weston&#x7684;shadow &#x4E0E; from_blend_to_output&#x5173;&#x7CFB;</h3>
+<p>&#x4E3A;&#x5565;&#x8981;&#x6C42; from_blend_to_output&#xFF1F;--------&gt; &#x901A;&#x8FC7;&#x83B7;&#x53D6; &#x989C;&#x8272;&#x8F6C;&#x6362;&#xFF1A;</p>
+<pre><code class="lang-java">
+struct weston_color_transform {
+    struct weston_color_manager *cm;
+    <span class="hljs-keyword">int</span> ref_count;
+    uint32_t id; <span class="hljs-comment">/* For debug */</span>
+
+    <span class="hljs-comment">/* for renderer or backend to attach their own cached objects */</span>
+    struct wl_signal destroy_signal;
+
+    <span class="hljs-comment">/* Color transform is the series of steps: */</span>
+
+    <span class="hljs-comment">/** Step 1: color model change */</span>
+    <span class="hljs-comment">/* YCbCr&#x2192;RGB conversion, but that is done elsewhere */</span>
+
+    <span class="hljs-comment">/** Step 2: color curve before color mapping */</span>
+    struct weston_color_curve pre_curve;
+
+    <span class="hljs-comment">/** Step 3: color mapping */</span>
+    struct weston_color_mapping mapping;
+
+    <span class="hljs-comment">/** Step 4: color curve after color mapping */</span>
+    struct weston_color_curve post_curve;
+};
+</code></pre>
+<h2 id="app-client&#x4FA7;&#x753B;&#x5706;&#x89D2;&#x9634;&#x5F71;&#xFF1A;"><a name="app-client&#x4FA7;&#x753B;&#x5706;&#x89D2;&#x9634;&#x5F71;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#app-client&#x4FA7;&#x753B;&#x5706;&#x89D2;&#x9634;&#x5F71;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. App client&#x4FA7;&#x753B;&#x5706;&#x89D2;&amp;&#x9634;&#x5F71;&#xFF1A;</h2>
+<p>Google</p>
+<pre><code class="lang-java"><span class="hljs-keyword">package</span> com.google.android.material.shadow;
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShadowRenderer</span> </span>{
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">drawCornerShadow</span><span class="hljs-params">(Canvas canvas, Matrix matrix, RectF rectF, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">float</span> f, <span class="hljs-keyword">float</span> f2)</span> </span>{
+        <span class="hljs-keyword">boolean</span> z;
+        <span class="hljs-keyword">if</span> (f2 &lt; <span class="hljs-number">0.0f</span>) {
+            z = <span class="hljs-keyword">true</span>;
+        } <span class="hljs-keyword">else</span> {
+            z = <span class="hljs-keyword">false</span>;
+        }
+        Path path = <span class="hljs-keyword">this</span>.scratch;
+        <span class="hljs-keyword">int</span>[] iArr = cornerColors;
+        <span class="hljs-keyword">if</span> (z) {
+            iArr[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
+            iArr[<span class="hljs-number">1</span>] = <span class="hljs-keyword">this</span>.shadowEndColor;
+            iArr[<span class="hljs-number">2</span>] = <span class="hljs-keyword">this</span>.shadowMiddleColor;
+            iArr[<span class="hljs-number">3</span>] = <span class="hljs-keyword">this</span>.shadowStartColor;
+        } <span class="hljs-keyword">else</span> {
+            path.rewind();
+            path.moveTo(rectF.centerX(), rectF.centerY());
+            path.arcTo(rectF, f, f2);
+            path.close();
+            <span class="hljs-keyword">float</span> f3 = -i;
+            rectF.inset(f3, f3);
+            iArr[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
+            iArr[<span class="hljs-number">1</span>] = <span class="hljs-keyword">this</span>.shadowStartColor;
+            iArr[<span class="hljs-number">2</span>] = <span class="hljs-keyword">this</span>.shadowMiddleColor;
+            iArr[<span class="hljs-number">3</span>] = <span class="hljs-keyword">this</span>.shadowEndColor;
+        }
+        <span class="hljs-keyword">float</span> width = rectF.width() / <span class="hljs-number">2.0f</span>;
+        <span class="hljs-keyword">if</span> (width &lt;= <span class="hljs-number">0.0f</span>) {
+            <span class="hljs-keyword">return</span>;
+        }
+        <span class="hljs-keyword">float</span> f4 = <span class="hljs-number">1.0f</span> - (i / width);
+        <span class="hljs-keyword">float</span>[] fArr = cornerPositions;
+        fArr[<span class="hljs-number">1</span>] = f4;
+        fArr[<span class="hljs-number">2</span>] = ((<span class="hljs-number">1.0f</span> - f4) / <span class="hljs-number">2.0f</span>) + f4;
+        RadialGradient radialGradient = <span class="hljs-keyword">new</span> RadialGradient(rectF.centerX(), rectF.centerY(), width, iArr, fArr, Shader.TileMode.CLAMP);
+        Paint paint = <span class="hljs-keyword">this</span>.cornerShadowPaint;
+        paint.setShader(radialGradient);
+        canvas.save();
+        canvas.concat(matrix);
+        canvas.scale(<span class="hljs-number">1.0f</span>, rectF.height() / rectF.width());
+        <span class="hljs-keyword">if</span> (!z) {
+            canvas.clipPath(path, Region.Op.DIFFERENCE);
+            canvas.drawPath(path, <span class="hljs-keyword">this</span>.transparentPaint);
+        }
+        canvas.drawArc(rectF, f, f2, <span class="hljs-keyword">true</span>, paint);
+        canvas.restore();
+    }
+</code></pre>
+<h1 id="&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;"><a name="&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;" class="anchor-navigation-ex-anchor" href="#&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x9AD8;&#x65AF;&#x6A21;&#x7CCA;</h1>
+<h2 id="&#x529F;&#x80FD;&#x89D2;&#x5EA6;"><a name="&#x529F;&#x80FD;&#x89D2;&#x5EA6;" class="anchor-navigation-ex-anchor" href="#&#x529F;&#x80FD;&#x89D2;&#x5EA6;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x529F;&#x80FD;&#x89D2;&#x5EA6;</h2>
+<p>&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x7684;&#x529F;&#x80FD;&#xFF1A;</p>
+<blockquote>
+<p>&#x4F7F;&#x67D0;&#x4E2A;&#x7A97;&#x53E3;&#x7684;<strong>&#x5916;&#x90E8;&#x80CC;&#x666F;</strong>  &#x6A21;&#x7CCA;  ------&gt;  &#x4E0D;&#x662F;&#x5185;&#x90E8;&#x80CC;&#x666F;&#xFF01;&#x81EA;&#x7136;&#xFF0C;&#x5E94;&#x7528;&#x81EA;&#x5DF1;&#x4E0D;&#x80FD;&#x505A;</p>
+<p>&#x4EA7;&#x54C1;&#x89C6;&#x89D2;&#xFF1A;<font color="red">&#x6A21;&#x7CCA;&#x975E;&#x7126;&#x70B9;&#x533A;&#x57DF;&#xFF0C;&#x7A81;&#x51FA;&#x7126;&#x70B9;</font></p>
+<p>&#x7269;&#x7406;&#x89D2;&#x5EA6;&#xFF1A; <strong>&#x4FDD;&#x6301;&#x81EA;&#x6211;&#xFF0C;&#x6A21;&#x7CCA;&#x4ED6;&#x4EBA;</strong>  -------&gt; &#x7C7B;&#x4F3C;&#x4E8E;Dialog&#x7684;Dim&#x5C42;&#xFF08;<strong>&#x5B9E;&#x9645;&#x4E0A;&#x5C31;&#x662F;&#x7528;&#x4E86;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;</strong>&#xFF09;</p>
+<p>&#x200B;                    &#x81EA;&#x6211;&#xFF1A;&#x53EF;&#x4EE5;&#x900F;&#x660E;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4E0D;&#x900F;&#x660E;</p>
+</blockquote>
+<h2 id="&#x5E94;&#x7528;&#x5C42;&#x63A5;&#x53E3;"><a name="&#x5E94;&#x7528;&#x5C42;&#x63A5;&#x53E3;" class="anchor-navigation-ex-anchor" href="#&#x5E94;&#x7528;&#x5C42;&#x63A5;&#x53E3;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. &#x5E94;&#x7528;&#x5C42;&#x63A5;&#x53E3;</h2>
+<p>two types for blur&#xFF1A;</p>
+<blockquote>
+<p><a href="https://source.android.com/docs/core/display/window-blurs" target="_blank">https://source.android.com/docs/core/display/window-blurs</a>    &#x5B98;&#x7F51;&#x89E3;&#x91CA;</p>
+<p>Background blur&#xFF1A; </p>
+<p>&#x200B;        &#x5BF9;&#x5E94;&#x63A5;&#x53E3;&#xFF1A;</p>
+<blockquote>
+<p>SurfaceControl.Transaction.setBackgroundBlurRadius(dSurfaceControl.Transaction, blurRadius);</p>
+<p>Window.setBackgroundBlurRadius</p>
+</blockquote>
+<p>Blur behind&#xFF1A;</p>
+<p>&#x200B;      &#x5BF9;&#x5E94;&#x63A5;&#x53E3;&#xFF1A;WindowManager.LayoutParams.setBlurBehindRadius( int blurBehindRadius)</p>
+</blockquote>
+<p>SurfaceControl.Transaction.setBackgroundBlurRadius &#x63A5;&#x53E3;&#xFF1A;</p>
+<blockquote>
+<p>TODO: &#x56FE;&#x7247;  &#x684C;&#x9762;&#x4E0A;&#x6ED1;</p>
+<p>&#x6D41;&#x7A0B;&#xFF1A; launcher3 &#x8C03;&#x7528;&#x4E86; Transaction setBackgroundBlurRadius&#xFF0C;&#x4E0D;&#x65AD;&#x6539;&#x53D8;&#x6A21;&#x7CCA;&#x534A;&#x5F84;</p>
+</blockquote>
+<p>&#x5F00;&#x5173;&#xFF1A;</p>
+<pre><code class="lang-java">vi /system/build.prop
+</code></pre>
+<pre><code class="lang-java"><span class="hljs-function">Transaction <span class="hljs-title">setBackgroundBlurRadius</span><span class="hljs-params">(SurfaceControl sc, <span class="hljs-keyword">int</span> radius)</span>
+</span></code></pre>
+<p>&#x5168;&#x5C40;&#x5F00;&#x5173;&#xFF08;Android S &#xFF09;&#xFF1A;</p>
+<pre><code class="lang-java"><span class="hljs-comment">// &#x9700;&#x8981;&#x6253;&#x5F00;ro.surface_flinger.supports_background_blur &#x624D;&#x80FD;&#x4F7F;&#x7528;&#x6A21;&#x7CCA;&#x6548;&#x679C;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F;&#x5173;&#x95ED;&#x7684;</span>
+
+property_get(<span class="hljs-string">&quot;ro.surface_flinger.supports_background_blur&quot;</span>, value, <span class="hljs-string">&quot;0&quot;</span>);
+bool supportsBlurs = atoi(value);
+mSupportsBlur = supportsBlurs;
+</code></pre>
+<p>&#x5B89;&#x5353;&#x7684; &#x6A21;&#x7CCA;&#x7279;&#x6027;: </p>
+<blockquote>
+<p>  1&#x3001;&#x662F;&#x7A97;&#x53E3;&#x7EA7;&#x7684;&#x3002;&#x8DDF;&#x7740;&#x7A97;&#x53E3;&#x8D70;&#x7684;</p>
+<p>  2&#x3001;&#x6A21;&#x7CCA;&#x7684;&#x662F;&#x80CC;&#x540E;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x81EA;&#x5DF1;&#x7684;&#x7A97;&#x53E3;</p>
+</blockquote>
+<p><a href="https://blog.csdn.net/qq_31138209/article/details/140096936?spm=1001.2101.3001.6650.3&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-3-140096936-blog-116002774.235%5Ev43%5Epc_blog_bottom_relevance_base5&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-3-140096936-blog-116002774.235%5Ev43%5Epc_blog_bottom_relevance_base5&amp;utm_relevant_index=4" target="_blank">&#x5E94;&#x7528;&#x89D2;&#x5EA6;</a></p>
+<p>&#x4F7F;&#x7528;&#x4F8B;&#x5B50;&#xFF1A;<del>Launcher3 &#x7684;&#x6A21;&#x7CCA;&#x6548;&#x679C;</del></p>
+<blockquote>
+<p>  <img src="https://img-blog.csdnimg.cn/img_convert/b4276b5b5a6d635366c213d34ac64de3.png" alt="&#x4EC5;&#x6A21;&#x7CCA;&#x5904;&#x7406;&#x540E;&#x65B9;&#x5C4F;&#x5E55;" style="zoom: 50%;"></p>
+</blockquote>
+<p><a href="https://blog.csdn.net/qq_35584878/article/details/129990471" target="_blank">Android12 &#x5F39;&#x7A97;&#x5916;&#x90E8;&#x3001; &#x5185;&#x90E8;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x6548;&#x679C;&#x5B9E;&#x73B0;</a>         ------&gt; &#x53C2;&#x8003;&#x5B9E;&#x73B0;&#xFF01;&#xFF01;&#xFF01;</p>
+<p>&#x5FEB;&#x901F;&#x6D4B;&#x8BD5;&#x573A;&#x666F;&#xFF1A;</p>
+<blockquote>
+<p>  1&#x3001;AOSP&#x539F;&#x751F;&#x624B;&#x673A;&#xFF0C;&#x684C;&#x9762;&#x4E0A;&#xFF0C;&#x5411;&#x4E0A;&#x6ED1;&#x52A8;&#xFF0C;&#x51FA;&#x73B0;&#x4E0B;&#x62C9;&#x83DC;&#x5355;&#xFF1A;&#x8FC7;&#x7A0B;&#x4E2D;&#x4F1A;&#x51FA;&#x73B0;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;</p>
+<p>  2&#x3001;&#x4E0B;&#x62C9;&#x83DC;&#x5355;&#x4E5F;&#x662F;&#x6709;&#x72B6;&#x6001;&#x680F;               <a href="https://blog.csdn.net/learnframework/article/details/130767893" target="_blank">https://blog.csdn.net/learnframework/article/details/130767893</a></p>
+</blockquote>
+<p>&#x89C2;&#x6D4B;&#x65E5;&#x5FD7;&#xFF1A;</p>
+<blockquote>
+<p>  GLESRenderEngine::drawLayersInternal, blurLayersSize: 1</p>
+</blockquote>
+<p>&#x89C4;&#x5B9A;&#xFF1A;</p>
+<blockquote>
+<p>&#x6240;&#x6709;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x5FC5;&#x987B;&#x6709;&#x7B80;&#x5355;&#x7684;&#x6D4B;&#x8BD5;demo</p>
+<p>&#x5FC5;&#x987B;&#x5199;&#x6E05;&#x695A;&#x6D4B;&#x8BD5;&#x65B9;&#x6CD5;</p>
+</blockquote>
+<h2 id="&#x529F;&#x80FD;&#x5B9E;&#x73B0;----&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x4EE3;&#x7801;&#x5927;&#x7EB2;&#xFF1A;"><a name="&#x529F;&#x80FD;&#x5B9E;&#x73B0;----&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x4EE3;&#x7801;&#x5927;&#x7EB2;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x529F;&#x80FD;&#x5B9E;&#x73B0;----&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x4EE3;&#x7801;&#x5927;&#x7EB2;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. &#x529F;&#x80FD;&#x5B9E;&#x73B0;----&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x4EE3;&#x7801;&#x5927;&#x7EB2;&#xFF1A;</h2>
+<p>&#x53C2;&#x8003;&#xFF1A; <a href="https://blog.csdn.net/learnframework/article/details/130778897" target="_blank">aosp11/12/13 &#x58C1;&#x7EB8;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#xFF0C;&#x6BDB;&#x73BB;&#x7483;SurfaceFlinger&#x5C42;&#x9762;&#x539F;&#x7406;-&#x7B2C;&#x4E8C;&#x8282;&#x5343;&#x91CC;&#x9A6C;framework&#x5B9E;&#x6218;_&#x5343;&#x91CC;&#x9A6C;aosp-CSDN&#x535A;&#x5BA2;</a></p>
+<p>&#x603B;&#x4F53;&#x4F9D;&#x9644;&#x4E8E;&#x5408;&#x6210;&#x6D41;&#x7A0B;&#xFF1A;</p>
+<pre><code class="lang-java">&#x2514;&#x2500; GLESRenderEngine::drawLayersInternal <span class="hljs-comment">// &#x81EA;&#x4E0B;&#x800C;&#x4E0A;</span>
+    &#x251C;&#x2500; <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> auto&amp; layer : layers) &#x904D;&#x5386;&#x51FA;&#x6240;&#x6709;&#x7684;blurLayers   &#x5373;&#x6709;backgroundBlurRadius
+    &#x251C;&#x2500; .
+    &#x251C;&#x2500; ---------------------&#x4E0A;&#x5C4F;or &#x4E34;&#x65F6;mCompositionFbo-------------------------------
+    &#x251C;&#x2500; <span class="hljs-keyword">if</span> (blurLayersSize &gt; <span class="hljs-number">0</span>) &#x65F6;&#xFF1A;&#x3010;&#x3011; &#x5173;&#x952E;&#x884C;&#xFF0C;&#x4E00;&#x76F4;&#x7ED8;&#x5236;&#x5230;mCompositionFbo&#x91CC;&#xFF0C;&#x6CA1;&#x6709;&#x4E0A;&#x5C4F;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#x76F4;&#x5230;&#x6761;&#x4EF6;&#x3010;<span class="hljs-keyword">if</span>(blurLayersSize == <span class="hljs-number">0</span>)&#x53EA;&#x6709;&#x4E00;&#x5C42;&#x9700;&#x8981;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;  &#x3011;
+    &#x2502;   &#x2514;&#x2500; mBlurFilter-&gt;setAsDrawTarget(display, blurLayers.front().backgroundBlurRadius)
+    &#x2502;       &#x2514;&#x2500; mCompositionFbo.bind();
+    &#x251C;&#x2500; <span class="hljs-keyword">if</span>(blurLayersSize == <span class="hljs-number">0</span>) &#x6CA1;&#x6709;&#x9700;&#x8981;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;
+    &#x2502;   &#x251C;&#x2500; &#x81EA;&#x7136;&#xFF0C;&#x4E0A;&#x5C4F;&#xFF1A;fbo = std::make_unique&lt;BindNativeBufferAsFramebuffer
+    &#x2502;   &#x2514;&#x2500; setViewportAndProjection(display) &#x89C6;&#x53E3;&#x662F;display
+    &#x251C;&#x2500; .
+    &#x2514;&#x2500; <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> auto&amp; layer : layers) { <span class="hljs-comment">// &#x7CFB;&#x7EDF;&#x7EA7;&#x904D;&#x5386;&#xFF0C;&#x5408;&#x6210;&#xFF0C;&#x5FC5;&#x7136;&#x662F;&#x4ECE;&#x5E95;&#x5230;&#x9876;&#x7684;&#x987A;&#x5E8F;&#xFF01;</span>
+        &#x2514;&#x2500; <span class="hljs-keyword">if</span> (blurLayers.size() &gt; <span class="hljs-number">0</span> &amp;&amp; blurLayers.front() == layer) { <span class="hljs-comment">// &#x5F53;&#x524D;&#x904D;&#x5386;&#x7684;layer&#x662F; blurLayers</span>
+            &#x251C;&#x2500; blurLayers.pop_front();
+            &#x251C;&#x2500; ---------------------&#x4E0A;&#x5C4F;or &#x4E34;&#x65F6;mCompositionFbo-------------------------------
+            &#x251C;&#x2500; <span class="hljs-keyword">if</span> (blurLayersSize &gt; <span class="hljs-number">0</span>) &#x65F6;&#xFF1A;&#x3010;&#x3011; &#x5173;&#x952E;&#x884C;&#xFF0C;&#x4E00;&#x76F4;&#x7ED8;&#x5236;&#x5230;mCompositionFbo&#x91CC;&#xFF0C;&#x6CA1;&#x6709;&#x4E0A;&#x5C4F;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;
+            &#x2502;   &#x2514;&#x2500; mBlurFilter-&gt;setAsDrawTarget(display, blurLayers.front().backgroundBlurRadius)
+            &#x2502;       &#x2514;&#x2500; mCompositionFbo.bind();
+            &#x251C;&#x2500; &#x3010;<span class="hljs-keyword">if</span>(blurLayersSize == <span class="hljs-number">0</span>) &#x53EA;&#x6709;&#x4E00;&#x5C42;&#x9700;&#x8981;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA; &#x3011; <span class="hljs-comment">// &#x9010;&#x6E10;&#x51CF;&#x5C11; blurLayersSize</span>
+            &#x2502;   &#x251C;&#x2500; &#x81EA;&#x7136;&#xFF0C;&#x4E0A;&#x5C4F;&#xFF1A;fbo = std::make_unique&lt;BindNativeBufferAsFramebuffer
+            &#x2502;   &#x2514;&#x2500; setViewportAndProjection(display) &#x89C6;&#x53E3;&#x662F;display
+            &#x251C;&#x2500;
+            &#x251C;&#x2500; ------------------------blurLayer&#x4EE5;&#x4E0B;&#x7EA7;&#xFF1F;-------------------------------
+            &#x251C;&#x2500; &#x3010;BlurFilter-&gt;prepare()&#x3011;--------&#x4EA7;&#x751F;&#x771F;&#x6B63;&#x7684;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;mBlurProgram----------
+            &#x2502;   &#x251C;&#x2500; --------------&#x5728;ping&#x4E0A;&#x8D34;&#x539F;&#x59CB;&#x56FE;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;----------------------------
+            &#x2502;   &#x251C;&#x2500; mBlurProgram.useProgram();
+            &#x2502;   &#x251C;&#x2500; glActiveTexture(GL_TEXTURE0);
+            &#x2502;   &#x251C;&#x2500; glUniform1i(mBTextureLoc, <span class="hljs-number">0</span>);
+            &#x2502;   &#x251C;&#x2500; glBindTexture(GL_TEXTURE_2D, mCompositionFbo.getTextureName()); <span class="hljs-comment">// -------&gt; <span class="hljs-doctag">TODO:</span> mCompositionFbo &#x662F;&#x5E95;&#x4E0B;&#x6240;&#x6709;layer&#x5408;&#x6210;&#x7684;&#x6548;&#x679C;&#x603B;&#x548C;    </span>
+            &#x2502;   &#x251C;&#x2500; glUniform2f(mBOffsetLoc, stepX, stepY);
+            &#x2502;   &#x251C;&#x2500; glViewport(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, mPingFbo.getBufferWidth(), mPingFbo.getBufferHeight());
+            &#x2502;   &#x251C;&#x2500; mPingFbo.bind();
+            &#x2502;   &#x251C;&#x2500; BlurFilter::drawMesh(mBUvLoc, mBPosLoc) <span class="hljs-comment">// &#x53C2;&#x6570;&#x662F;UV&#x4FE1;&#x606F;&#x548C;&#x4F4D;&#x7F6E;&#x4FE1;&#x606F;</span>
+            &#x2502;   &#x2502;   &#x251C;&#x2500; glEnableVertexAttribArray(uv);
+            &#x2502;   &#x2502;   &#x251C;&#x2500; glEnableVertexAttribArray(position);
+            &#x2502;   &#x2502;   &#x251C;&#x2500; mMeshBuffer.bind();
+            &#x2502;   &#x2502;   &#x251C;&#x2500; glBindBuffer(GL_ARRAY_BUFFER, mBufferName);
+            &#x2502;   &#x2502;   &#x251C;&#x2500; glVertexAttribPointer <span class="hljs-comment">// &#x9876;&#x70B9;&#x5C5E;&#x6027;</span>
+            &#x2502;   &#x2502;   &#x251C;&#x2500; mMeshBuffer.unbind();
+            &#x2502;   &#x2502;   &#x2514;&#x2500; glDrawArrays(GL_TRIANGLES, <span class="hljs-number">0</span> <span class="hljs-comment">/* first */</span>, <span class="hljs-number">3</span> <span class="hljs-comment">/* count */</span>); <span class="hljs-comment">// &#x771F;&#x6B63;&#x7684;draw</span>
+            &#x2502;   &#x251C;&#x2500; ------------pingpong&#x6D41;&#x7A0B;-----------------------------
+            &#x2502;   &#x251C;&#x2500; GLFramebuffer* read = &amp;mPingFbo; <span class="hljs-comment">// &#x521D;&#x59CB;&#x5316;read&#x548C;draw</span>
+            &#x2502;   &#x251C;&#x2500; GLFramebuffer* draw = &amp;mPongFbo;
+            &#x2502;   &#x251C;&#x2500; glViewport(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, draw-&gt;getBufferWidth(), draw-&gt;getBufferHeight()); <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span>&#x89C6;&#x53E3;&#x4E3A;&#x5565;&#x662F;&#xFF1F;</span>
+            &#x2502;   &#x251C;&#x2500; &#x6B65;&#x8FDB;&#x8FED;&#x4EE3;<span class="hljs-keyword">for</span> (auto i = <span class="hljs-number">1</span>; i &lt; passes; i++) <span class="hljs-comment">// &#x3010;&#x3011;passes&#x5927;&#x6982;&#x7387;&#x7B49;&#x4E8E;&#x8BBE;&#x7F6E;&#x7684;radius</span>
+            &#x2502;   &#x2502;   &#x251C;&#x2500; draw-&gt;bind(); <span class="hljs-comment">// &#x7ED1;&#x5B9A;draw&#x7684;buffer,<span class="hljs-doctag">TODO:</span> &#x6CA1;&#x6709;&#x6E05;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;</span>
+            &#x2502;   &#x2502;   &#x251C;&#x2500; glBindTexture(GL_TEXTURE_2D, read-&gt;getTextureName());  <span class="hljs-comment">// texture, &#x81EA;&#x7136;&#x7ED1;&#x5B9A;read&#x7684;</span>
+            &#x2502;   &#x2502;   &#x251C;&#x2500; glUniform2f(mBOffsetLoc, stepX * i, stepY * i); <span class="hljs-comment">// &#x7ED9;GPU&#x7A0B;&#x5E8F;&#x8BBE;&#x7F6E;&#x6B65;&#x957F;</span>
+            &#x2502;   &#x2502;   &#x251C;&#x2500; BlurFilter::drawMesh(mBUvLoc, mBPosLoc); <span class="hljs-comment">// &#x3010;&#x3011;draw</span>
+            &#x2502;   &#x2502;   &#x2514;&#x2500; &#x4EA4;&#x6362;read&#x548C; draw&#x7684;buffer
+            &#x2502;   &#x2514;&#x2500; mLastDrawTarget = read <span class="hljs-comment">// &#x3010;&#x3011; &#x6700;&#x7EC8;&#x6A21;&#x7CCA;&#x7684;&#x7ED3;&#x679C;&#xFF01;&#xFF01;&#xFF01;</span>
+            &#x251C;&#x2500; <span class="hljs-keyword">if</span> (blurLayers.size() == <span class="hljs-number">0</span>) { <span class="hljs-comment">//&#x3010;&#x3011; &#x5E95;&#x4E0B;&#x6CA1;&#x6709;&#x5176;&#x4ED6;&#x9700;&#x8981;&#x6A21;&#x7CCA;&#x7684;layer&#x4E86;</span>
+            &#x2502;   &#x251C;&#x2500; &#x81EA;&#x7136;&#xFF0C;fbo = std::make_unique&lt;BindNativeBufferAsFramebuffer <span class="hljs-comment">// &#x3010;&#x3011; nativeBuffer&#x88AB;&#x7ED1;&#x5B9A;&#x7528;&#x4F5C; FrameBuffer&#xFF0C;&#x6700;&#x7EC8;&#x4E0A;&#x5C4F;&#x7684;buffer&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;</span>
+            &#x2502;   &#x2514;&#x2500; setViewportAndProjection(display) &#x89C6;&#x53E3;&#x662F;display
+            &#x251C;&#x2500; -------------------&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x4E0A;&#x5C4F;&#xFF08;&#x4E0A;&#x4E00;&#x6B65;&#x51B3;&#x5B9A;&#x4E86;&#xFF09;&#xFF1A;mMixProgram----------------------------
+            &#x2514;&#x2500; &#x3010;BlurFilter::render(blurLayersSize &gt; <span class="hljs-number">1</span>)&#x3011;&#x5173;&#x952E;&#x884C;  blurLayersSize &gt; <span class="hljs-number">1</span> &#x5F53;&#x5E95;&#x4E0B;&#x6CA1;&#x6709; &#x9700;&#x8981;&#x6A21;&#x7CCA;&#x7684;&#x4E86;&#xFF0C;&#x624D;&#x4E0A;&#x5C4F;&#xFF01;
+                &#x251C;&#x2500; mMixProgram.useProgram(); <span class="hljs-comment">// &#x81EA;&#x7136;mMixProgram</span>
+                &#x251C;&#x2500; glUniform1f(mMMixLoc, mix);
+                &#x251C;&#x2500; glActiveTexture(GL_TEXTURE0); <span class="hljs-comment">// &#x6FC0;&#x6D3B;TEXTURE0</span>
+                &#x251C;&#x2500; glBindTexture(GL_TEXTURE_2D, mLastDrawTarget-&gt;getTextureName()); <span class="hljs-comment">// &#x628A;&#x6A21;&#x7CCA;&#x7ED3;&#x679C;&#x548C;TEXTURE0 &#x7ED1;&#x5B9A;</span>
+                &#x251C;&#x2500; glUniform1i(mMTextureLoc, <span class="hljs-number">0</span>);
+                &#x251C;&#x2500; glActiveTexture(GL_TEXTURE1); <span class="hljs-comment">// &#x6FC0;&#x6D3B;TEXTURE1</span>
+                &#x251C;&#x2500; glBindTexture(GL_TEXTURE_2D, mCompositionFbo.getTextureName()); <span class="hljs-comment">//</span>
+                &#x251C;&#x2500; glUniform1i(mMCompositionTextureLoc, <span class="hljs-number">1</span>);
+                &#x251C;&#x2500; drawMesh(mMUvLoc, mMPosLoc);
+                &#x251C;&#x2500; ------------&#x6E05;&#x7406;&#x64CD;&#x4F5C;-----------------
+                &#x251C;&#x2500; glUseProgram(<span class="hljs-number">0</span>);  <span class="hljs-comment">// &#x53CD;&#x6FC0;&#x6D3B;</span>
+                &#x2514;&#x2500; glActiveTexture(GL_TEXTURE0); <span class="hljs-comment">//&#x6E05;&#x7406;&#x64CD;&#x4F5C;&#xFF0C;&#x786E;&#x4FDD;&#x4E0B;&#x6B21;&#x7ED1;&#x5B9A;&#x7EB9;&#x7406;&#x65F6;&#x4ECE; GL_TEXTURE0 &#x5F00;&#x59CB;</span>
+</code></pre>
+<p>&#x4EE5;&#x4E0A;&#x903B;&#x8F91;&#x6838;&#x5FC3;&#x53EA;&#x6709;&#x4E00;&#x6761;&#xFF1A;
+1&#x3001;&#x53EA;&#x8981;&#x4E0A;&#x9762;&#x6709;blurLayer&#xFF0C;&#x4E0B;&#x9762;&#x5C31;&#x4E0D;&#x80FD;&#x7ED8;&#x5236;&#x5230;&#x5C4F;&#x5E55;&#x4E0A;&#xFF08;&#x6C61;&#x67D3;&#x5C4F;&#x5E55;&#xFF09;
+2&#x3001;<del>&#x81EA;&#x7136;&#xFF0C; &#x76F4;&#x5230;blurLayersSize==0&#x65F6;&#xFF0C;&#x53D1;&#x751F;&#x6539;&#x53D8;&#xFF0C;&#x5F00;&#x59CB;&#x4E0A;&#x5C4F;&#xFF08;&#x5426;&#x5219;&#xFF0C;&#x4E00;&#x76F4;&#x88AB;&#x6A21;&#x7CCA;&#xFF09;</del>
+                    &#xFF08;&#x63A8;&#x8BBA;&#xFF1A;&#x2460;&#x3001;&#x591A;&#x4E2A;&#x5E94;&#x7528;&#x90FD;&#x8BBE;&#x7F6E;&#x4E86;blurLayerBehind&#xFF0C;&#x5148;&#x770B;&#x6700;&#x5E95;&#x4E0B;&#x7684;blurLayer&#xFF0C;&#x5BF9;&#x4E0B;&#x9762;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x3002;&#x5012;&#x6570;&#x7B2C;&#x4E8C;&#x4E2A;blurLayer&#xFF0C;&#x4E0B;&#x9762;&#x518D;&#x88AB;&#x6A21;&#x7CCA; -------&gt;  &#x7B26;&#x5408;&#x4EA7;&#x54C1;&#x903B;&#x8F91;
+                            &#x2461;&#x3001;&#x591A;&#x4E2A;&#x5E94;&#x7528;&#x65F6;&#xFF0C;&#x5B58;&#x5728;&#x591A;&#x6B21;&#x6A21;&#x7CCA;&#x7684;&#x60C5;&#x5F62; &#xFF09;</p>
+<p>%accordion%hideContent%accordion%</p>
+<pre><code class="lang-java">GLESRenderEngine::drawLayersInternal <span class="hljs-comment">// &#x81EA;&#x4E0B;&#x800C;&#x4E0A;</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> auto&amp; layer : layers) &#x904D;&#x5386;&#x51FA;&#x6240;&#x6709;&#x7684;blurLayers   &#x5373;&#x6709;backgroundBlurRadius
+    .
+    ---------------------&#x4E0A;&#x5C4F;or &#x4E34;&#x65F6;mCompositionFbo-------------------------------
+    <span class="hljs-keyword">if</span> (blurLayersSize &gt; <span class="hljs-number">0</span>) &#x65F6;&#xFF1A;&#x3010;&#x3011; &#x5173;&#x952E;&#x884C;&#xFF0C;&#x4E00;&#x76F4;&#x7ED8;&#x5236;&#x5230;mCompositionFbo&#x91CC;&#xFF0C;&#x6CA1;&#x6709;&#x4E0A;&#x5C4F;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#x76F4;&#x5230;&#x6761;&#x4EF6;&#x3010;<span class="hljs-keyword">if</span>(blurLayersSize == <span class="hljs-number">0</span>) &#x53EA;&#x6709;&#x4E00;&#x5C42;&#x9700;&#x8981;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;  &#x3011;
+        mBlurFilter-&gt;setAsDrawTarget(display, blurLayers.front().backgroundBlurRadius)
+            mCompositionFbo.bind();
+    <span class="hljs-keyword">if</span>(blurLayersSize == <span class="hljs-number">0</span>) &#x6CA1;&#x6709;&#x9700;&#x8981;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;
+        &#x81EA;&#x7136;&#xFF0C;&#x4E0A;&#x5C4F;&#xFF1A;fbo = std::make_unique&lt;<span class="hljs-function">BindNativeBufferAsFramebuffer
+        <span class="hljs-title">setViewportAndProjection</span><span class="hljs-params">(display)</span> &#x89C6;&#x53E3;&#x662F;display
+    .
+    <span class="hljs-title">for</span> <span class="hljs-params">(<span class="hljs-keyword">const</span> auto&amp; layer : layers)</span> </span>{ <span class="hljs-comment">// &#x7CFB;&#x7EDF;&#x7EA7;&#x904D;&#x5386;&#xFF0C;&#x5408;&#x6210;&#xFF0C;&#x5FC5;&#x7136;&#x662F;&#x4ECE;&#x5E95;&#x5230;&#x9876;&#x7684;&#x987A;&#x5E8F;&#xFF01;</span>
+        <span class="hljs-keyword">if</span> (blurLayers.size() &gt; <span class="hljs-number">0</span> &amp;&amp; blurLayers.front() == layer) { <span class="hljs-comment">// &#x5F53;&#x524D;&#x904D;&#x5386;&#x7684;layer&#x662F; blurLayers</span>
+            blurLayers.pop_front();
+            ---------------------&#x4E0A;&#x5C4F;or &#x4E34;&#x65F6;mCompositionFbo-------------------------------
+            <span class="hljs-keyword">if</span> (blurLayersSize &gt; <span class="hljs-number">0</span>) &#x65F6;&#xFF1A;&#x3010;&#x3011; &#x5173;&#x952E;&#x884C;&#xFF0C;&#x4E00;&#x76F4;&#x7ED8;&#x5236;&#x5230;mCompositionFbo&#x91CC;&#xFF0C;&#x6CA1;&#x6709;&#x4E0A;&#x5C4F;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;
+                mBlurFilter-&gt;setAsDrawTarget(display, blurLayers.front().backgroundBlurRadius)
+                    mCompositionFbo.bind();
+            &#x3010;<span class="hljs-keyword">if</span>(blurLayersSize == <span class="hljs-number">0</span>) &#x53EA;&#x6709;&#x4E00;&#x5C42;&#x9700;&#x8981;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA; &#x3011; <span class="hljs-comment">// &#x9010;&#x6E10;&#x51CF;&#x5C11; blurLayersSize</span>
+                &#x81EA;&#x7136;&#xFF0C;&#x4E0A;&#x5C4F;&#xFF1A;fbo = std::make_unique&lt;<span class="hljs-function">BindNativeBufferAsFramebuffer
+                <span class="hljs-title">setViewportAndProjection</span><span class="hljs-params">(display)</span> &#x89C6;&#x53E3;&#x662F;display
+
+            ------------------------blurLayer&#x4EE5;&#x4E0B;&#x7EA7;&#xFF1F;-------------------------------
+            &#x3010;BlurFilter-&gt;<span class="hljs-title">prepare</span><span class="hljs-params">()</span>&#x3011;--------&#x4EA7;&#x751F;&#x771F;&#x6B63;&#x7684;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;mBlurProgram----------
+                --------------&#x5728;ping&#x4E0A;&#x8D34;&#x539F;&#x59CB;&#x56FE;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;----------------------------
+                mBlurProgram.<span class="hljs-title">useProgram</span><span class="hljs-params">()</span></span>;
+                glActiveTexture(GL_TEXTURE0);
+                glUniform1i(mBTextureLoc, <span class="hljs-number">0</span>);
+                glBindTexture(GL_TEXTURE_2D, mCompositionFbo.getTextureName()); <span class="hljs-comment">// -------&gt; <span class="hljs-doctag">TODO:</span> mCompositionFbo &#x662F;&#x5E95;&#x4E0B;&#x6240;&#x6709;layer&#x5408;&#x6210;&#x7684;&#x6548;&#x679C;&#x603B;&#x548C;</span>
+                glUniform2f(mBOffsetLoc, stepX, stepY);
+                glViewport(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, mPingFbo.getBufferWidth(), mPingFbo.getBufferHeight());
+                mPingFbo.bind();
+                BlurFilter::drawMesh(mBUvLoc, mBPosLoc) <span class="hljs-comment">// &#x53C2;&#x6570;&#x662F;UV&#x4FE1;&#x606F;&#x548C;&#x4F4D;&#x7F6E;&#x4FE1;&#x606F;</span>
+                    glEnableVertexAttribArray(uv);
+                    glEnableVertexAttribArray(position);
+                    mMeshBuffer.bind();
+                    glBindBuffer(GL_ARRAY_BUFFER, mBufferName);
+                    glVertexAttribPointer <span class="hljs-comment">// &#x9876;&#x70B9;&#x5C5E;&#x6027;</span>
+                    mMeshBuffer.unbind();
+                    glDrawArrays(GL_TRIANGLES, <span class="hljs-number">0</span> <span class="hljs-comment">/* first */</span>, <span class="hljs-number">3</span> <span class="hljs-comment">/* count */</span>); <span class="hljs-comment">// &#x771F;&#x6B63;&#x7684;draw</span>
+                ------------pingpong&#x6D41;&#x7A0B;-----------------------------
+                GLFramebuffer* read = &amp;mPingFbo; <span class="hljs-comment">// &#x521D;&#x59CB;&#x5316;read&#x548C;draw</span>
+                GLFramebuffer* draw = &amp;mPongFbo;
+                glViewport(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, draw-&gt;getBufferWidth(), draw-&gt;getBufferHeight()); <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span>&#x89C6;&#x53E3;&#x4E3A;&#x5565;&#x662F;&#xFF1F;</span>
+                &#x6B65;&#x8FDB;&#x8FED;&#x4EE3;<span class="hljs-keyword">for</span> (auto i = <span class="hljs-number">1</span>; i &lt; passes; i++) <span class="hljs-comment">// &#x3010;&#x3011;passes&#x5927;&#x6982;&#x7387;&#x7B49;&#x4E8E;&#x8BBE;&#x7F6E;&#x7684;radius</span>
+                    draw-&gt;bind(); <span class="hljs-comment">// &#x7ED1;&#x5B9A;draw&#x7684;buffer,<span class="hljs-doctag">TODO:</span> &#x6CA1;&#x6709;&#x6E05;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;</span>
+                    glBindTexture(GL_TEXTURE_2D, read-&gt;getTextureName());  <span class="hljs-comment">// texture, &#x81EA;&#x7136;&#x7ED1;&#x5B9A;read&#x7684;</span>
+                    glUniform2f(mBOffsetLoc, stepX * i, stepY * i); <span class="hljs-comment">// &#x7ED9;GPU&#x7A0B;&#x5E8F;&#x8BBE;&#x7F6E;&#x6B65;&#x957F;</span>
+                    BlurFilter::drawMesh(mBUvLoc, mBPosLoc); <span class="hljs-comment">// &#x3010;&#x3011;draw</span>
+                    &#x4EA4;&#x6362;read&#x548C; draw&#x7684;buffer
+                mLastDrawTarget = read <span class="hljs-comment">// &#x3010;&#x3011; &#x6700;&#x7EC8;&#x6A21;&#x7CCA;&#x7684;&#x7ED3;&#x679C;&#xFF01;&#xFF01;&#xFF01;</span>
+            <span class="hljs-keyword">if</span> (blurLayers.size() == <span class="hljs-number">0</span>) { <span class="hljs-comment">//&#x3010;&#x3011; &#x5E95;&#x4E0B;&#x6CA1;&#x6709;&#x5176;&#x4ED6;&#x9700;&#x8981;&#x6A21;&#x7CCA;&#x7684;layer&#x4E86;</span>
+                &#x81EA;&#x7136;&#xFF0C;fbo = std::make_unique&lt;BindNativeBufferAsFramebuffer <span class="hljs-comment">// &#x3010;&#x3011; nativeBuffer&#x88AB;&#x7ED1;&#x5B9A;&#x7528;&#x4F5C; FrameBuffer&#xFF0C;&#x6700;&#x7EC8;&#x4E0A;&#x5C4F;&#x7684;buffer&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;</span>
+                setViewportAndProjection(display) &#x89C6;&#x53E3;&#x662F;display
+            -------------------&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x4E0A;&#x5C4F;&#xFF08;&#x4E0A;&#x4E00;&#x6B65;&#x51B3;&#x5B9A;&#x4E86;&#xFF09;&#xFF1A;mMixProgram----------------------------
+            &#x3010;BlurFilter::render(blurLayersSize &gt; <span class="hljs-number">1</span>)&#x3011;&#x5173;&#x952E;&#x884C;  blurLayersSize &gt; <span class="hljs-number">1</span> &#x5F53;&#x5E95;&#x4E0B;&#x6CA1;&#x6709; &#x9700;&#x8981;&#x6A21;&#x7CCA;&#x7684;&#x4E86;&#xFF0C;&#x624D;&#x4E0A;&#x5C4F;&#xFF01;
+                mMixProgram.useProgram(); <span class="hljs-comment">// &#x81EA;&#x7136;mMixProgram</span>
+                glUniform1f(mMMixLoc, mix); 
+                glActiveTexture(GL_TEXTURE0); <span class="hljs-comment">// &#x6FC0;&#x6D3B;TEXTURE0</span>
+                glBindTexture(GL_TEXTURE_2D, mLastDrawTarget-&gt;getTextureName()); <span class="hljs-comment">// &#x628A;&#x6A21;&#x7CCA;&#x7ED3;&#x679C;&#x548C; TEXTURE0 &#x7ED1;&#x5B9A;</span>
+                glUniform1i(mMTextureLoc, <span class="hljs-number">0</span>);
+                glActiveTexture(GL_TEXTURE1); <span class="hljs-comment">// &#x6FC0;&#x6D3B;TEXTURE1</span>
+                glBindTexture(GL_TEXTURE_2D, mCompositionFbo.getTextureName()); <span class="hljs-comment">// </span>
+                glUniform1i(mMCompositionTextureLoc, <span class="hljs-number">1</span>);
+                drawMesh(mMUvLoc, mMPosLoc);
+                ------------&#x6E05;&#x7406;&#x64CD;&#x4F5C;-----------------
+                glUseProgram(<span class="hljs-number">0</span>);  <span class="hljs-comment">// &#x53CD;&#x6FC0;&#x6D3B;</span>
+                glActiveTexture(GL_TEXTURE0); <span class="hljs-comment">//&#x6E05;&#x7406;&#x64CD;&#x4F5C;&#xFF0C;&#x786E;&#x4FDD;&#x4E0B;&#x6B21;&#x7ED1;&#x5B9A;&#x7EB9;&#x7406;&#x65F6;&#x4ECE; GL_TEXTURE0 &#x5F00;&#x59CB;</span>
+</code></pre>
+<p>%/accordion%</p>
+<p>&#x7591;&#x95EE;&#xFF1A;</p>
+<blockquote>
+<p>  TODO:
+  &#x4E0A;&#x9762;&#x6D41;&#x7A0B;&#x660E;&#x660E;&#x662F;  Blur behind&#xFF0C;&#x4F46;&#x662F;&#x4E3A;&#x5565;&#x7528;&#x5224;&#x65AD;&#xFF1F; backgroundBlurRadius</p>
+<p>  TODO:
+  &#x4E0A;&#x9762;&#x6D41;&#x7A0B;&#xFF0C;&#x4ECE;&#x59CB;&#x81F3;&#x7EC8;&#xFF0C;&#x6CA1;&#x6709;&#x770B;&#x5230;&#x5BF9;&#x51E0;&#x5757;buffer&#x7684;&#x6E05;&#x7406;&#x8FC7;&#x7A0B;&#xFF08;&#x4E0A;&#x5C4F;&#x7684;&#x90A3;&#x5757;buffer&#x6709;&#x6E05;&#x7406;&#xFF09;</p>
+<p>  -----------&gt;  &#x6211;&#x7406;&#x89E3;&#xFF0C;&#x5E94;&#x8BE5;&#x4E0D;&#x7528;&#x6E05;&#x7406;&#xFF0C;&#x53EA;&#x8981;&#x56FE;&#x7247;&#x4E0D;&#x662F;&#x900F;&#x660E;&#x7684;&#xFF0C;&#x4F1A;&#x88AB;&#x8986;&#x76D6;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;</p>
+</blockquote>
+<h2 id="&#x5F85;&#x6574;&#x7406;&#xFF1A;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;"><a name="&#x5F85;&#x6574;&#x7406;&#xFF1A;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;" class="anchor-navigation-ex-anchor" href="#&#x5F85;&#x6574;&#x7406;&#xFF1A;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4. &#x5F85;&#x6574;&#x7406;&#xFF1A;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;</h2>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<blockquote>
+<p> <a href="https://blog.csdn.net/zhongyanghu27/article/details/116002774" target="_blank">Android R &#x539F;&#x751F;&#x6A21;&#x7CCA;&#x6548;&#x679C;&#x539F;&#x7406;</a></p>
+<p> <a href="https://zhuanlan.zhihu.com/p/630891349" target="_blank">SurfaceFlinger&#x5C42;&#x539F;&#x7406;-aosp11/12/13 &#x58C1;&#x7EB8;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x6BDB;&#x73BB;&#x7483;-&#x5343;&#x91CC;&#x9A6C;framework&#x5B9E;&#x6218;</a></p>
+</blockquote>
+<p><a href="https://blog.csdn.net/learnframework/article/details/130767893" target="_blank">android13 FLAG_BLUR_BEHIND &#x58C1;&#x7EB8;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#xFF0C;&#x6BDB;&#x73BB;&#x7483;&#x80CC;&#x666F;&#x65B9;&#x6848;&#x8BBE;&#x8BA1;-&#x5343;&#x91CC;&#x9A6C;framework&#x5B9E;&#x6218;</a></p>
+<blockquote>
+<p>  setBlurBehindRadius&#x63A5;&#x53E3;&#xFF0C;&#x6700;&#x7EC8;&#x5B9E;&#x73B0;&#x601D;&#x8DEF;&#xFF1A;</p>
+<pre><code class="lang-java">  <span class="hljs-number">1</span>&#x3001;&#x65B0;&#x52A0;&#x4E86;&#x4E00;&#x5C42;dimLayer TODO:&#x56FE;
+  <span class="hljs-number">2</span>&#x3001;DimLayer &#x8BBE;&#x7F6E;t.setBackgroundBlurRadius(d.mDimLayer, blurRadius);<span class="hljs-comment">//&#x5BF9;&#x8FD9;&#x4E2A;&#x56FE;&#x5C42;&#x8FDB;&#x884C;BlurRadius&#x8BBE;&#x7F6E;</span>
+</code></pre>
+<p>  ---------------&gt; &#x6700;&#x7EC8;&#x5B9E;&#x73B0;&#xFF0C;&#x662F;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#xFF01;&#xFF01;</p>
+</blockquote>
+<p><a href="https://blog.csdn.net/learnframework/article/details/130778897?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522172417157816800186519684%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=172417157816800186519684&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-130778897-null-null.nonecase&amp;utm_term=%E9%AB%98%E6%96%AF%E6%A8%A1%E7%B3%8A&amp;spm=1018.2226.3001.4450" target="_blank">aosp11/12/13 &#x58C1;&#x7EB8;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#xFF0C;&#x6BDB;&#x73BB;&#x7483;SurfaceFlinger&#x5C42;&#x9762;&#x539F;&#x7406;-&#x7B2C;&#x4E8C;&#x8282;&#x5343;&#x91CC;&#x9A6C;framework&#x5B9E;&#x6218;</a>   --------&gt;  &#x5783;&#x573E;&#xFF0C;&#x8BF4;&#x7684;&#x9519;&#x7684;</p>
+<p><a href="https://juejin.cn/post/7157984562428002334" target="_blank">https://juejin.cn/post/7157984562428002334</a>     DimLayer&#x5B9E;&#x73B0;&#x548C;setRelativeLayer&#x5206;&#x6790;&#x3010;Android12&#x3011;</p>
+<p>&#x5176;&#x4ED6;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x7684;&#x5B9E;&#x73B0;&#xFF1A;</p>
+<blockquote>
+<p>  <a href="https://blog.csdn.net/sinat_34014668/article/details/129654222?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_utm_term~default-4-129654222-blog-130778897.235^v43^pc_blog_bottom_relevance_base7&amp;spm=1001.2101.3001.4242.3&amp;utm_relevant_index=7" target="_blank">Shader &#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x548C; Bloom</a>-------&gt; &#x4E0E;aosp&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x975E;&#x5E38;&#x63A5;&#x8FD1;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;</p>
+<p>  <a href="https://blog.csdn.net/m0_60259116/article/details/130889247?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-130889247-blog-129654222.235^v43^pc_blog_bottom_relevance_base7&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=3#:~:text=2.2%E3%80%81-,%E9%AB%98%E6%96%AF%E6%A8%A1%E7%B3%8A%20Shader%20%E5%AE%9E%E7%8E%B0,-%E6%88%91%E4%BB%AC%E4%BD%BF%E7%94%A8%20KFGLFilter" target="_blank">&#x9AD8;&#x65AF;&#x6A21;&#x7CCA; Shader &#x5B9E;&#x73B0;</a></p>
+</blockquote>
+<p>app&#x4FA7;&#x7528;&#x529B;&#x4EE3;&#x7801;&#xFF1A;</p>
+<blockquote>
+<p>  <a href="http://681314.com/A/4XTmDHp2I0" target="_blank">http://681314.com/A/4XTmDHp2I0</a></p>
+</blockquote>
+<p>&#x817E;&#x8BAF;&#x6280;&#x672F;&#x5DE5;&#x7A0B;&#x5B98;&#x65B9;&#x53F7;&#x7684;&#x4E13;&#x680F;&#xFF1A;</p>
+<blockquote>
+<p><a href="https://cloud.tencent.com/developer/article/1614858" target="_blank">&#x5341;&#x79CD;&#x56FE;&#x50CF;&#x6A21;&#x7CCA;&#x7B97;&#x6CD5;&#x7684;&#x603B;&#x7ED3;&#x4E0E;&#x5B9E;&#x73B0;</a>    </p>
+<p><a href="https://cloud.tencent.com/developer/article/2016951" target="_blank">GPU &#x6E32;&#x67D3;&#x7BA1;&#x7EBF;&#x548C;&#x786C;&#x4EF6;&#x67B6;&#x6784;&#x6D45;&#x8C08;</a>       </p>
+</blockquote>
+<p><a href="https://cloud.tencent.com/developer/article/2442873" target="_blank">GPU &#x6027;&#x80FD;&#x539F;&#x7406;&#x62C6;&#x89E3;</a>&#xFF1A;</p>
+<blockquote>
+<p><strong>&#x4E0D;&#x8981;&#x5728; Shader &#x4E2D;&#x4F7F;&#x7528;&#x5206;&#x652F;</strong></p>
+</blockquote>
+<p>&#x7ED3;&#x5408;&#x5B9E;&#x4F8B;&#x6DF1;&#x5165;&#x7406;&#x89E3;C++&#x5BF9;&#x8C61;&#x7684;&#x5185;&#x5B58;&#x5E03;&#x5C40;    <a href="https://cloud.tencent.com/developer/article/2442869" target="_blank">https://cloud.tencent.com/developer/article/2442869</a></p>
+<h2 id="shader"><a name="shader" class="anchor-navigation-ex-anchor" href="#shader"><i class="fa fa-link" aria-hidden="true"></i></a>3.5. shader</h2>
+<pre><code class="lang-java">mMixProgram.compile(getVertexShader(), getMixFragShader());
+
+mBlurProgram.compile(getVertexShader(), getFragmentShader());
+</code></pre>
+<p>1&#x3001;VertexShader</p>
+<pre><code class="lang-java">#version 300 es
+precision mediump float;
+
+in vec2 aPosition;
+in highp vec2 aUV;
+out highp vec2 vUV;
+
+void main() {
+    vUV = aUV;
+    gl_Position = vec4(aPosition, 0.0, 1.0);
+}
+</code></pre>
+<p>2&#x3001;FragmentShader:</p>
+<pre><code class="lang-java">#version 300 es
+precision mediump float;
+
+uniform sampler2D uTexture;
+uniform vec2 uOffset;
+
+in highp vec2 vUV;
+out vec4 fragColor;
+
+void main() {
+    fragColor  = texture(uTexture, vUV, 0.0);
+    fragColor += texture(uTexture, vUV + vec2( uOffset.x,  uOffset.y), 0.0);
+    fragColor += texture(uTexture, vUV + vec2( uOffset.x, -uOffset.y), 0.0);
+    fragColor += texture(uTexture, vUV + vec2(-uOffset.x,  uOffset.y), 0.0);
+    fragColor += texture(uTexture, vUV + vec2(-uOffset.x, -uOffset.y), 0.0);
+
+    fragColor = vec4(fragColor.rgb * 0.2, 1.0);
+}
+</code></pre>
+<p>3&#x3001;MixFragShader&#xFF1A;</p>
+<pre><code class="lang-java">#version 300 es
+precision mediump float;
+
+in highp vec2 vUV;
+out vec4 fragColor;
+
+uniform sampler2D uCompositionTexture;
+uniform sampler2D uTexture;
+uniform float uMix;
+
+void main() {
+    vec4 blurred = texture(uTexture, vUV);
+    vec4 composition = texture(uCompositionTexture, vUV);
+    fragColor = mix(composition, blurred, uMix);
+}
+</code></pre>
+<h2 id="&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x7684;&#x6570;&#x5B66;&#x539F;&#x7406;"><a name="&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x7684;&#x6570;&#x5B66;&#x539F;&#x7406;" class="anchor-navigation-ex-anchor" href="#&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x7684;&#x6570;&#x5B66;&#x539F;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>3.6. &#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x7684;&#x6570;&#x5B66;&#x539F;&#x7406;</h2>
+<p>&#x6570;&#x5B66;&#x89D2;&#x5EA6;&#xFF1A;</p>
+<blockquote>
+<p> <a href="https://blog.csdn.net/zhongyanghu27/article/details/116002774" target="_blank">Android R &#x539F;&#x751F;&#x6A21;&#x7CCA;&#x6548;&#x679C;&#x539F;&#x7406;</a></p>
+</blockquote>
+<p>Android R&#x6A21;&#x7CCA;&#x6548;&#x679C;&#x4F7F;&#x7528;&#x6548;&#x7387;&#x66F4;&#x9AD8;&#x7684; Kawase blur.<a href="https://blog.csdn.net/zhongyanghu27/article/details/116002774#:~:text=Kawase%20Blur%E4%BA%8EMasaki%20Kawase" target="_blank">&#x5177;&#x4F53;&#x89C1;</a></p>
+<h2 id="todo--how---------&#x5408;&#x6210;&#x7684;&#x627F;&#x8F7D;&#xFF08;buffer&#xFF09;"><a name="todo--how---------&#x5408;&#x6210;&#x7684;&#x627F;&#x8F7D;&#xFF08;buffer&#xFF09;" class="anchor-navigation-ex-anchor" href="#todo--how---------&#x5408;&#x6210;&#x7684;&#x627F;&#x8F7D;&#xFF08;buffer&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>3.7. TODO:  how---------&#x5408;&#x6210;&#x7684;&#x627F;&#x8F7D;&#xFF08;buffer&#xFF09;</h2>
+<p><img src="sf&#x7279;&#x6548;.assets/20210422103107747.png" alt="&#x5728;&#x8FD9;&#x91CC;&#x63D2;&#x5165;&#x56FE;&#x7247;&#x63CF;&#x8FF0;"></p>
+<p><a href="https://blog.csdn.net/zhongyanghu27/article/details/116002774#:~:text=sharder%20%E8%BF%9B%E8%A1%8C%E6%B8%B2%E6%9F%93-,%E6%80%BB%E7%BB%93,-Vampaire27" target="_blank">&#x56FE;&#x7247;&#x6765;&#x6E90;</a></p>
+<p>&#x7591;&#x95EE;&#xFF1A;</p>
+<blockquote>
+<p>Blur&#x7684;&#x7ED8;&#x5236;&#x76EE;&#x6807;&#xFF0C;&#x4E3A;&#x5565;&#x8981;&#x52A0;&#x4E00;&#x5C42;&#xFF1F;</p>
+<p>Blur&#x4E0D;&#x662F;Gpu&#x5408;&#x6210;&#xFF1F;</p>
+</blockquote>
+<h2 id="&#x6027;&#x80FD;"><a name="&#x6027;&#x80FD;" class="anchor-navigation-ex-anchor" href="#&#x6027;&#x80FD;"><i class="fa fa-link" aria-hidden="true"></i></a>3.8. &#x6027;&#x80FD;</h2>
+<p>&#x7ED3;&#x8BBA;&#xFF1A;</p>
+<blockquote>
+<p>  1&#x3001;VMware&#x865A;&#x62DF;&#x673A;&#x5185;&#xFF0C;OpenGL&#x7528;&#x7684;&#x4E5F;&#x662F;GPU
+  2&#x3001;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x76F8;&#x5F53;&#x8017;GPU loading&#xFF08;VMware&#x865A;&#x62DF;&#x673A;&#x5DF2;&#x7ECF;&#x9A8C;&#x8BC1;&#xFF09;</p>
+</blockquote>
+<p>TODO:</p>
+<p>&#x5982;&#x4F55;&#x5B9A;&#x91CF;&#x6D4B;&#xFF1F; &#xFF08;&#x6307;&#x6807;&#x6709;&#x54EA;&#x4E9B;&#xFF1F;&#xFF09;</p>
+<h1 id="todo&#x9006;&#x5411;"><a name="todo&#x9006;&#x5411;" class="anchor-navigation-ex-anchor" href="#todo&#x9006;&#x5411;"><i class="fa fa-link" aria-hidden="true"></i></a>4. TODO:&#x9006;&#x5411;</h1>
+<p>&#x5173;&#x5FC3;&#x5927;&#x7684;&#x7ED3;&#x6784;&#xFF1A;</p>
+<p>1&#x3001;&#x8FDB;&#x7A0B;&#x6811;</p>
+<p>2&#x3001;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</p>
+<p>3&#x3001;&#x5927;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;</p>
+<p>4&#x3001;&#x7A97;&#x53E3;dump</p>
+<h1 id="todo-&#x52A8;&#x753B;&#x4E0E;sf"><a name="todo-&#x52A8;&#x753B;&#x4E0E;sf" class="anchor-navigation-ex-anchor" href="#todo-&#x52A8;&#x753B;&#x4E0E;sf"><i class="fa fa-link" aria-hidden="true"></i></a>5. TODO: &#x52A8;&#x753B;&#x4E0E;sf</h1>
+<p>TODO :</p>
+<p>skia&#x7684;&#x753B;&#x5706;&#x753B;&#x7EBF;&#x7684;&#x6307;&#x4EE4;&#x96C6;  ------&gt; &#x5982;&#x4F55;&#x7ED9;&#x5230;GPU</p>
+<p>&#x4E0E; opengl&#x6709;&#x5565;&#x5173;&#x7CFB;&#xFF1F;&#x7528;&#x5230;&#x4E86;shader&#x561B;&#xFF1F;</p>
+<p>Animation&#x7684;&#x672C;&#x8D28;&#xFF1A;</p>
+<blockquote>
+<p>  &#x89C6;&#x89C9;&#x4E0A;&#x7684;&#x8FC7;&#x6E21;&#xFF08;&#x8BA9;&#x4EBA;&#x5FFD;&#x7565;&#x7A81;&#x53D8;&#xFF09;</p>
+</blockquote>
+<p>----------&gt; &#x6240;&#x4EE5;&#xFF0C;Animation&#x8981;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#xFF0C;&#x6E10;&#x53D8;&#xFF08;&#x5373;&#x9891;&#x7387;&#x540C;&#x4EBA;&#xFF09;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="DRM.html" class="navigation navigation-prev " aria-label="Previous page: DRM">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="合成之surfaceFlinger.html" class="navigation navigation-next " aria-label="Next page: 合成之surfaceFlinger">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"sf特效","level":"1.2.4.3","depth":3,"next":{"title":"合成之surfaceFlinger","level":"1.2.4.4","depth":3,"path":"0_图形系统/3_Display系统/合成之surfaceFlinger.md","ref":"0_图形系统/3_Display系统/合成之surfaceFlinger.md","articles":[]},"previous":{"title":"DRM","level":"1.2.4.2","depth":3,"path":"0_图形系统/3_Display系统/DRM.md","ref":"0_图形系统/3_Display系统/DRM.md","articles":[]},"dir":"ltr"},"config":{"//":["这是多行注释：    anchor-navigation-ex 是","anchor-navigation-ex 是","click-reveal 本地使用ok，但是github在build pages时，不识别click-reveal","accordion 也是折叠代码段","anchor-navigation-ex 是"],"plugins":["anchor-navigation-ex"],"root":"./markdownsFiles","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"title":"《prove》","author":"Kent"},"tbfed-pagefooter":{"copyright":"Copyright &copy ershouche-FE 2019","modify_label":"文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"disqus":{"shortName":"gitbookuse"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"bookname":"笔记","variables":{},"title":"Kent的博客","gitbook":"*"},"file":{"path":"0_图形系统/3_Display系统/sf特效.md","mtime":"2024-09-11T16:12:56.139Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-12-29T06:20:30.502Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

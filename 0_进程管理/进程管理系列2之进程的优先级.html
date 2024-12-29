@@ -1,0 +1,2578 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>进程管理系列2之进程的优先级 · Kent的博客</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="进程管理系列3之内存回收.html" />
+    
+    
+    <link rel="prev" href="进程管理系列1之进程的创建.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../0_图形系统/">
+            
+                <a href="../0_图形系统/">
+            
+                    
+                    0_图形系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../0_图形系统/0_Graphic系统总论/0_Graphic系统总论.html">
+            
+                <a href="../0_图形系统/0_Graphic系统总论/0_Graphic系统总论.html">
+            
+                    
+                    0_Graphic系统总论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../0_图形系统/1_Render系统/">
+            
+                <a href="../0_图形系统/1_Render系统/">
+            
+                    
+                    1_Render系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="../0_图形系统/1_Render系统/opengl.html">
+            
+                <a href="../0_图形系统/1_Render系统/opengl.html">
+            
+                    
+                    Opengl
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../0_图形系统/2_窗口系统/">
+            
+                <a href="../0_图形系统/2_窗口系统/">
+            
+                    
+                    2_窗口系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.1" data-path="../0_图形系统/2_窗口系统/0_窗口系统总论/0_窗口系统总论.html">
+            
+                <a href="../0_图形系统/2_窗口系统/0_窗口系统总论/0_窗口系统总论.html">
+            
+                    
+                    0_窗口系统总论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="../0_图形系统/2_窗口系统/次要/">
+            
+                <a href="../0_图形系统/2_窗口系统/次要/">
+            
+                    
+                    次要
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.2.1" data-path="../0_图形系统/2_窗口系统/次要/virtualDisplay.html">
+            
+                <a href="../0_图形系统/2_窗口系统/次要/virtualDisplay.html">
+            
+                    
+                    Virtual Display
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2.2" data-path="../0_图形系统/2_窗口系统/次要/自由窗口.html">
+            
+                <a href="../0_图形系统/2_窗口系统/次要/自由窗口.html">
+            
+                    
+                    自由窗口
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.3" data-path="../0_图形系统/2_窗口系统/SurfaceControl.html">
+            
+                <a href="../0_图形系统/2_窗口系统/SurfaceControl.html">
+            
+                    
+                    Surface Control
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.4" data-path="../0_图形系统/2_窗口系统/virtualDisplay.html">
+            
+                <a href="../0_图形系统/2_窗口系统/virtualDisplay.html">
+            
+                    
+                    Virtual Display
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5" data-path="../0_图形系统/2_窗口系统/wms_animination.html">
+            
+                <a href="../0_图形系统/2_窗口系统/wms_animination.html">
+            
+                    
+                    Wms Animination
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6" data-path="../0_图形系统/2_窗口系统/窗口管理之weston.html">
+            
+                <a href="../0_图形系统/2_窗口系统/窗口管理之weston.html">
+            
+                    
+                    窗口管理之weston
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.7" data-path="../0_图形系统/2_窗口系统/窗口管理器WMS.html">
+            
+                <a href="../0_图形系统/2_窗口系统/窗口管理器WMS.html">
+            
+                    
+                    窗口管理器WMS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../0_图形系统/3_Display系统/">
+            
+                <a href="../0_图形系统/3_Display系统/">
+            
+                    
+                    3_Display系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.4.1" data-path="../0_图形系统/3_Display系统/Display系统.html">
+            
+                <a href="../0_图形系统/3_Display系统/Display系统.html">
+            
+                    
+                    Display系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.2" data-path="../0_图形系统/3_Display系统/DRM.html">
+            
+                <a href="../0_图形系统/3_Display系统/DRM.html">
+            
+                    
+                    DRM
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.3" data-path="../0_图形系统/3_Display系统/sf特效.html">
+            
+                <a href="../0_图形系统/3_Display系统/sf特效.html">
+            
+                    
+                    sf特效
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.4" data-path="../0_图形系统/3_Display系统/合成之surfaceFlinger.html">
+            
+                <a href="../0_图形系统/3_Display系统/合成之surfaceFlinger.html">
+            
+                    
+                    合成之surfaceFlinger
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.5" data-path="../0_图形系统/3_Display系统/合成之weston.html">
+            
+                <a href="../0_图形系统/3_Display系统/合成之weston.html">
+            
+                    
+                    合成之weston
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../0_图形系统/其他/">
+            
+                <a href="../0_图形系统/其他/">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.5.1" data-path="../0_图形系统/其他/QT.html">
+            
+                <a href="../0_图形系统/其他/QT.html">
+            
+                    
+                    QT
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5.2" data-path="../0_图形系统/其他/多屏显示分析.html">
+            
+                <a href="../0_图形系统/其他/多屏显示分析.html">
+            
+                    
+                    多屏显示分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../0_输入系统/">
+            
+                <a href="../0_输入系统/">
+            
+                    
+                    0_输入系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../0_输入系统/Input.html">
+            
+                <a href="../0_输入系统/Input.html">
+            
+                    
+                    Input
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../0_输入系统/全局手势.html">
+            
+                <a href="../0_输入系统/全局手势.html">
+            
+                    
+                    全局手势
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    0_进程管理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="0_AMS.html">
+            
+                <a href="0_AMS.html">
+            
+                    
+                    0 AMS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="App保活的方式.html">
+            
+                <a href="App保活的方式.html">
+            
+                    
+                    App保活的方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="后台杀进程.html">
+            
+                <a href="后台杀进程.html">
+            
+                    
+                    后台杀进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="杀进程原理.html">
+            
+                <a href="杀进程原理.html">
+            
+                    
+                    杀进程原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="进程与子进程.html">
+            
+                <a href="进程与子进程.html">
+            
+                    
+                    进程与子进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="进程管理系列0_总论.html">
+            
+                <a href="进程管理系列0_总论.html">
+            
+                    
+                    进程管理系列0_总论
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="进程管理系列1之进程的创建.html">
+            
+                <a href="进程管理系列1之进程的创建.html">
+            
+                    
+                    进程管理系列1之进程的创建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.8" data-path="进程管理系列2之进程的优先级.html">
+            
+                <a href="进程管理系列2之进程的优先级.html">
+            
+                    
+                    进程管理系列2之进程的优先级
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="进程管理系列3之内存回收.html">
+            
+                <a href="进程管理系列3之内存回收.html">
+            
+                    
+                    进程管理系列3之内存回收
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Andriod/">
+            
+                <a href="../Andriod/">
+            
+                    
+                    Andriod
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../Andriod/关键流程/">
+            
+                <a href="../Andriod/关键流程/">
+            
+                    
+                    关键流程
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="../Andriod/关键流程/InitSystem.html">
+            
+                <a href="../Andriod/关键流程/InitSystem.html">
+            
+                    
+                    Init System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="../Andriod/关键流程/startAPP.html">
+            
+                <a href="../Andriod/关键流程/startAPP.html">
+            
+                    
+                    Start APP
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../Andriod/其他核心服务/">
+            
+                <a href="../Andriod/其他核心服务/">
+            
+                    
+                    其他核心服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="../Andriod/其他核心服务/1_InputMethod.html">
+            
+                <a href="../Andriod/其他核心服务/1_InputMethod.html">
+            
+                    
+                    1 Input Method
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="../Andriod/其他核心服务/multi-client-ime.html">
+            
+                <a href="../Andriod/其他核心服务/multi-client-ime.html">
+            
+                    
+                    Multi Client Ime
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="../Andriod/其他核心服务/无障碍_.html">
+            
+                <a href="../Andriod/其他核心服务/无障碍_.html">
+            
+                    
+                    无障碍_
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../Andriod/0_AndriodSystem.html">
+            
+                <a href="../Andriod/0_AndriodSystem.html">
+            
+                    
+                    0 Andriod System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../Andriod/log框架.html">
+            
+                <a href="../Andriod/log框架.html">
+            
+                    
+                    log框架
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../Andriod/permissions.html">
+            
+                <a href="../Andriod/permissions.html">
+            
+                    
+                    Permissions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../Andriod/模型.html">
+            
+                <a href="../Andriod/模型.html">
+            
+                    
+                    模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../coding/">
+            
+                <a href="../coding/">
+            
+                    
+                    Coding
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../coding/0_computorBase/">
+            
+                <a href="../coding/0_computorBase/">
+            
+                    
+                    0 Computor Base
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1.1" data-path="../coding/0_computorBase/DesignPattern.html">
+            
+                <a href="../coding/0_computorBase/DesignPattern.html">
+            
+                    
+                    Design Pattern
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.2" data-path="../coding/0_computorBase/HowToReadCode.html">
+            
+                <a href="../coding/0_computorBase/HowToReadCode.html">
+            
+                    
+                    How To Read Code
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.3" data-path="../coding/0_computorBase/HowWritecode.html">
+            
+                <a href="../coding/0_computorBase/HowWritecode.html">
+            
+                    
+                    How Writecode
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.4" data-path="../coding/0_computorBase/linux.html">
+            
+                <a href="../coding/0_computorBase/linux.html">
+            
+                    
+                    Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.5" data-path="../coding/0_computorBase/linux文件系统.html">
+            
+                <a href="../coding/0_computorBase/linux文件系统.html">
+            
+                    
+                    linux文件系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.6" data-path="../coding/0_computorBase/OperateSystem.html">
+            
+                <a href="../coding/0_computorBase/OperateSystem.html">
+            
+                    
+                    Operate System
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.7" data-path="../coding/0_computorBase/refactor.html">
+            
+                <a href="../coding/0_computorBase/refactor.html">
+            
+                    
+                    Refactor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.8" data-path="../coding/0_computorBase/用户_用户组.html">
+            
+                <a href="../coding/0_computorBase/用户_用户组.html">
+            
+                    
+                    用户_用户组
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.9" data-path="../coding/0_computorBase/解耦.html">
+            
+                <a href="../coding/0_computorBase/解耦.html">
+            
+                    
+                    解耦
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../coding/0_IPC/">
+            
+                <a href="../coding/0_IPC/">
+            
+                    
+                    0 IPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.2.1" data-path="../coding/0_IPC/AndriodIPC.html">
+            
+                <a href="../coding/0_IPC/AndriodIPC.html">
+            
+                    
+                    Andriod IPC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.2" data-path="../coding/0_IPC/IPC前提_序列化.html">
+            
+                <a href="../coding/0_IPC/IPC前提_序列化.html">
+            
+                    
+                    IPC前提_序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.3" data-path="../coding/0_IPC/socket.html">
+            
+                <a href="../coding/0_IPC/socket.html">
+            
+                    
+                    Socket
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.4" data-path="../coding/0_IPC/线程间通信.html">
+            
+                <a href="../coding/0_IPC/线程间通信.html">
+            
+                    
+                    线程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../coding/0_性能/">
+            
+                <a href="../coding/0_性能/">
+            
+                    
+                    0_性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.3.1" data-path="../coding/0_性能/profiler.html">
+            
+                <a href="../coding/0_性能/profiler.html">
+            
+                    
+                    Profiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.2" data-path="../coding/0_性能/Systrace.html">
+            
+                <a href="../coding/0_性能/Systrace.html">
+            
+                    
+                    Systrace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.3" data-path="../coding/0_性能/内存.html">
+            
+                <a href="../coding/0_性能/内存.html">
+            
+                    
+                    内存
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.4" data-path="../coding/0_性能/性能_.html">
+            
+                <a href="../coding/0_性能/性能_.html">
+            
+                    
+                    性能_
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../coding/1_稳定性/">
+            
+                <a href="../coding/1_稳定性/">
+            
+                    
+                    1_稳定性
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.4.1" data-path="../coding/1_稳定性/ANR.html">
+            
+                <a href="../coding/1_稳定性/ANR.html">
+            
+                    
+                    ANR
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4.2" data-path="../coding/1_稳定性/WatchDog.html">
+            
+                <a href="../coding/1_稳定性/WatchDog.html">
+            
+                    
+                    Watch Dog
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../coding/AndriodCar/">
+            
+                <a href="../coding/AndriodCar/">
+            
+                    
+                    Andriod Car
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.5.1" data-path="../coding/AndriodCar/CarService.html">
+            
+                <a href="../coding/AndriodCar/CarService.html">
+            
+                    
+                    Car Service
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="../coding/AndroidTool/">
+            
+                <a href="../coding/AndroidTool/">
+            
+                    
+                    Android Tool
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.6.1" data-path="../coding/AndroidTool/HierarchyView.html">
+            
+                <a href="../coding/AndroidTool/HierarchyView.html">
+            
+                    
+                    Hierarchy View
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="../coding/App/">
+            
+                <a href="../coding/App/">
+            
+                    
+                    App
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.7.1" data-path="../coding/App/APK_64bit_32bit.html">
+            
+                <a href="../coding/App/APK_64bit_32bit.html">
+            
+                    
+                    APK 64 Bit 32 Bit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.2" data-path="../coding/App/APP开发.html">
+            
+                <a href="../coding/App/APP开发.html">
+            
+                    
+                    APP开发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.3" data-path="../coding/App/launcher3.html">
+            
+                <a href="../coding/App/launcher3.html">
+            
+                    
+                    Launcher 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.4" data-path="../coding/App/SystemUI.html">
+            
+                <a href="../coding/App/SystemUI.html">
+            
+                    
+                    System UI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7.5" data-path="../coding/App/小程序.html">
+            
+                <a href="../coding/App/小程序.html">
+            
+                    
+                    小程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8" data-path="../coding/CodingLanguage/">
+            
+                <a href="../coding/CodingLanguage/">
+            
+                    
+                    Coding Language
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.8.1" data-path="../coding/CodingLanguage/c_cpp_java.html">
+            
+                <a href="../coding/CodingLanguage/c_cpp_java.html">
+            
+                    
+                    C Cpp Java
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.2" data-path="../coding/CodingLanguage/java反射.html">
+            
+                <a href="../coding/CodingLanguage/java反射.html">
+            
+                    
+                    java反射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.3" data-path="../coding/CodingLanguage/JNI.html">
+            
+                <a href="../coding/CodingLanguage/JNI.html">
+            
+                    
+                    JNI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.4" data-path="../coding/CodingLanguage/js.html">
+            
+                <a href="../coding/CodingLanguage/js.html">
+            
+                    
+                    Js
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.5" data-path="../coding/CodingLanguage/python.html">
+            
+                <a href="../coding/CodingLanguage/python.html">
+            
+                    
+                    Python
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.6" data-path="../coding/CodingLanguage/R.html">
+            
+                <a href="../coding/CodingLanguage/R.html">
+            
+                    
+                    R
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9" data-path="../coding/Features/">
+            
+                <a href="../coding/Features/">
+            
+                    
+                    Features
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.9.1" data-path="../coding/Features/其他特性.html">
+            
+                <a href="../coding/Features/其他特性.html">
+            
+                    
+                    其他特性
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.2" data-path="../coding/Features/多用户.html">
+            
+                <a href="../coding/Features/多用户.html">
+            
+                    
+                    多用户
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.10" data-path="../coding/other%20OS/README.md">
+            
+                <span>
+            
+                    
+                    Other OS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.10.1" data-path="../coding/other%20OS/OpenHarmony.md">
+            
+                <span>
+            
+                    
+                    Open Harmony
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.10.2" data-path="../coding/other%20OS/otherOS.md">
+            
+                <span>
+            
+                    
+                    Other OS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.11" >
+            
+                <span>
+            
+                    
+                    Wayland
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.11.1" data-path="../coding/wayland/kwin.html">
+            
+                <a href="../coding/wayland/kwin.html">
+            
+                    
+                    Kwin
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12" data-path="../coding/多线程/">
+            
+                <a href="../coding/多线程/">
+            
+                    
+                    多线程
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.12.1" data-path="../coding/多线程/多线程的模型.html">
+            
+                <a href="../coding/多线程/多线程的模型.html">
+            
+                    
+                    多线程的模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12.2" data-path="../coding/多线程/线程池与binder线程池.html">
+            
+                <a href="../coding/多线程/线程池与binder线程池.html">
+            
+                    
+                    线程池与binder线程池
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.13" data-path="../coding/文件系统结构/文件系统结构.html">
+            
+                <a href="../coding/文件系统结构/文件系统结构.html">
+            
+                    
+                    文件系统结构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.14" data-path="../coding/虚拟化/虚拟化.html">
+            
+                <a href="../coding/虚拟化/虚拟化.html">
+            
+                    
+                    虚拟化
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../Naturalaw/">
+            
+                <a href="../Naturalaw/">
+            
+                    
+                    Naturalaw
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../Naturalaw/ReadingAndThinking.html">
+            
+                <a href="../Naturalaw/ReadingAndThinking.html">
+            
+                    
+                    Reading And Thinking
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../book2.html">
+            
+                <a href="../book2.html">
+            
+                    
+                    Book 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../CheckList.html">
+            
+                <a href="../CheckList.html">
+            
+                    
+                    Check List
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >进程管理系列2之进程的优先级</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x76EE;&#x5F55;"><b>1. </b>&#x76EE;&#x5F55;</a></li><li><span class="title-icon "></span><a href="#linux&#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;---cpu"><b>2. </b>linux&#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;---cpu</a></li><ul><li><span class="title-icon "></span><a href="#0&#x5C42;linux&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;"><b>2.1. </b>0&#x5C42;(linux&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;)</a></li><li><span class="title-icon "></span><a href="#cpu&#x8C03;&#x5EA6;----&#x8C03;&#x5EA6;&#x7B56;&#x7565;schedfifo"><b>2.2. </b>cpu&#x8C03;&#x5EA6;----&#x8C03;&#x5EA6;&#x7B56;&#x7565;SCHED_FIFO</a></li><li><span class="title-icon "></span><a href="#cgroup&#x9650;&#x5236;-cpu-&#x5185;&#x5B58;-io&#xFF08;&#x76EE;&#x6807;cpuset&#xFF09;"><b>2.3. </b>cgroup&#x9650;&#x5236; cpu &#x5185;&#x5B58; I/O&#xFF08;&#x76EE;&#x6807;cpuset&#xFF09;</a></li><ul><li><span class="title-icon "></span><a href="#q--a&#xFF1A;&#x65E2;&#x7136;&#x6709;&#x4E86;&#x8C03;&#x5EA6;&#x7B56;&#x7565;-&#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x8FD8;&#x8981;&#x6709;cgroup&#xFF1F;"><b>2.3.1. </b>Q &amp; A&#xFF1A;&#x65E2;&#x7136;&#x6709;&#x4E86;&#x8C03;&#x5EA6;&#x7B56;&#x7565;+ &#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x8FD8;&#x8981;&#x6709;cgroup&#xFF1F;</a></li></ul><li><span class="title-icon "></span><a href="#&#x7EF4;&#x6D4B;-----&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x76EE;&#x6807;nice&#x503C;-"><b>2.4. </b>&#x7EF4;&#x6D4B;-----&#x8C03;&#x5EA6;&#x7B56;&#x7565;(&#x76EE;&#x6807;nice&#x503C; )</a></li><li><span class="title-icon "></span><a href="#todo-&#x5408;&#x5E76;&#xFF1A;"><b>2.5. </b>TODO &#x5408;&#x5E76;&#xFF1A;</a></li></ul><li><span class="title-icon "></span><a href="#android-&#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;----cpu"><b>3. </b>Android &#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;----cpu</a></li><ul><li><span class="title-icon "></span><a href="#0&#x5C42;--android-&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;"><b>3.1. </b>0&#x5C42;--(Android &#x8FDB;&#x7A0B;&#x7BA1;&#x7406;)</a></li><li><span class="title-icon "></span><a href="#cpu&#x8C03;&#x5EA6;----&#x7B56;&#x7565;&#x4F18;&#x5148;&#x7EA7;"><b>3.2. </b>cpu&#x8C03;&#x5EA6;----&#x7B56;&#x7565;+&#x4F18;&#x5148;&#x7EA7;</a></li><li><span class="title-icon "></span><a href="#&#x8865;&#x5145;&#xFF1A;&#x5B89;&#x5353;processsetthreadpriorityint-tid-int-priority&#x8BE6;&#x89E3;"><b>3.3. </b>&#x8865;&#x5145;&#xFF1A;&#x5B89;&#x5353;Process.setThreadPriority(int tid, int priority)&#x8BE6;&#x89E3;</a></li><li><span class="title-icon "></span><a href="#&#x8FDB;&#x7A0B;&#x79FB;&#x9664;&#xFF1A;"><b>3.4. </b>&#x8FDB;&#x7A0B;&#x79FB;&#x9664;&#xFF1A;</a></li><ul><li><span class="title-icon "></span><a href="#&#x7591;&#x95EE;&#xFF1A;"><b>3.4.1. </b>&#x7591;&#x95EE;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#0&#x5C42;"><b>3.4.2. </b>0&#x5C42;</a></li><li><span class="title-icon "></span><a href="#&#x5173;&#x6CE8;adj0&#x7684;&#x8FDB;&#x7A0B;"><b>3.4.3. </b>&#x5173;&#x6CE8;ADJ<0的进程< a=""></0的进程<></a></li><li><span class="title-icon "></span><a href="#lru&#x5217;&#x8868;"><b>3.4.4. </b>LRU&#x5217;&#x8868;</a></li><li><span class="title-icon "></span><a href="#updatelruprocesslocked"><b>3.4.5. </b>updateLruProcessLocked</a></li><li><span class="title-icon "></span><a href="#adj"><b>3.4.6. </b>adj</a></li><li><span class="title-icon "></span><a href="#&#x5C55;&#x5F00;updateoomadjlocked"><b>3.4.7. </b>&#x5C55;&#x5F00;updateOomAdjLocked</a></li><li><span class="title-icon "></span><a href="#&#x6740;&#x5E94;&#x7528;"><b>3.4.8. </b>&#x6740;&#x5E94;&#x7528;</a></li><li><span class="title-icon "></span><a href="#&#x7EF4;&#x6D4B;-----&#x8FDB;&#x7A0B;adj&#x503C;&#x67E5;&#x770B;"><b>3.4.9. </b>&#x7EF4;&#x6D4B;-----&#x8FDB;&#x7A0B;ADJ&#x503C;&#x67E5;&#x770B;</a></li></ul><li><span class="title-icon "></span><a href="#cpu&#x8C03;&#x5EA6;----&#x53EF;&#x8C03;&#x5EA6;&#x8303;&#x56F4;cpuset"><b>3.5. </b>cpu&#x8C03;&#x5EA6;----&#x53EF;&#x8C03;&#x5EA6;&#x8303;&#x56F4;cpuset</a></li><ul><li><span class="title-icon "></span><a href="#&#x80CC;&#x666F;&#xFF1A;"><b>3.5.1. </b>&#x80CC;&#x666F;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#cpuset&#x8BBE;&#x7F6E;"><b>3.5.2. </b>cpuset&#x8BBE;&#x7F6E;</a></li><li><span class="title-icon "></span><a href="#&#x7EF4;&#x6D4B;"><b>3.5.3. </b>&#x7EF4;&#x6D4B;</a></li></ul><li><span class="title-icon "></span><a href="#&#x53C2;&#x8003;&#xFF1A;"><b>3.6. </b>&#x53C2;&#x8003;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#todo"><b>3.7. </b>TODO:</a></li></ul><li><span class="title-icon "></span><a href="#ams&#x6740;&#x8FDB;&#x7A0B;&#x573A;&#x666F;"><b>4. </b>AMS&#x6740;&#x8FDB;&#x7A0B;&#x573A;&#x666F;</a></li><ul><li><span class="title-icon "></span><a href="#&#x540E;&#x53F0;cpu&#x7535;&#x91CF;&#x4F7F;&#x7528;checkexcessivepowerusagelocked"><b>4.1. </b>&#x540E;&#x53F0;cpu/&#x7535;&#x91CF;&#x4F7F;&#x7528;checkExcessivePowerUsageLocked</a></li><ul><li><span class="title-icon "></span><a href="#&#x89C4;&#x5219;&#xFF1A;"><b>4.1.1. </b>&#x89C4;&#x5219;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#&#x5177;&#x4F53;&#x7EC6;&#x8282;&#x8BC1;&#x660E;&#xFF1A;"><b>4.1.2. </b>&#x5177;&#x4F53;&#x7EC6;&#x8282;&amp;&#x8BC1;&#x660E;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;"><b>4.1.3. </b>&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;</a></li></ul><li><span class="title-icon "></span><a href="#adb-shell-am-force-stop"><b>4.2. </b>adb shell am force-stop</a></li></ul><li><span class="title-icon "></span><a href="#&#x76EE;&#x6807;---nice&#x503C;&#x8BBE;&#x7F6E;"><b>5. </b>&#x76EE;&#x6807;---nice&#x503C;&#x8BBE;&#x7F6E;</a></li><ul><li><span class="title-icon "></span><a href="#java&#x4EE3;&#x7801;setthreadpriority----setthreadscheduler"><b>5.1. </b>java&#x4EE3;&#x7801;setThreadPriority----setThreadScheduler</a></li><li><span class="title-icon "></span><a href="#&#x7ECF;&#x5178;&#x8C03;&#x7528;&#x8DEF;&#x5F84;-------&#x524D;&#x540E;&#x53F0;&#x5207;&#x6362;"><b>5.2. </b>&#x7ECF;&#x5178;&#x8C03;&#x7528;&#x8DEF;&#x5F84;-------&#x524D;&#x540E;&#x53F0;&#x5207;&#x6362;</a></li><ul><li><span class="title-icon "></span><a href="#&#x76EE;&#x6807;&#xFF1A;myappliaction-&#x7EBF;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;&#x964D;&#x4F4E;&#x3001;launcher&#x7684;&#x63D0;&#x9AD8;"><b>5.2.1. </b>&#x76EE;&#x6807;&#xFF1A;myappliaction &#x7EBF;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;&#x964D;&#x4F4E;&#x3001;launcher&#x7684;&#x63D0;&#x9AD8;</a></li></ul><li><span class="title-icon "></span><a href="#delinux-&#x63A5;&#x53E3;--setpriority"><b>5.3. </b>del:inux &#x63A5;&#x53E3;  setpriority</a></li><li><span class="title-icon "></span><a href="#del&#x547D;&#x4EE4;&#x8BBE;&#x7F6E;nice&#x503C;"><b>5.4. </b>del:&#x547D;&#x4EE4;&#x8BBE;&#x7F6E;nice&#x503C;</a></li><li><span class="title-icon "></span><a href="#nice&#x503C;&#x7EF4;&#x6D4B;"><b>5.5. </b>nice&#x503C;&#x7EF4;&#x6D4B;</a></li><li><span class="title-icon "></span><a href="#&#x4F8B;&#x5B50;---&#x5B89;&#x5353;&#x4FEE;&#x6539;nice&#x503C;&#x7684;&#x7EBF;&#x7A0B;&#xFF1A;"><b>5.6. </b>&#x4F8B;&#x5B50;---&#x5B89;&#x5353;&#x4FEE;&#x6539;nice&#x503C;&#x7684;&#x7EBF;&#x7A0B;&#xFF1A;</a></li><ul><li><span class="title-icon "></span><a href="#renderthread&#x7EBF;&#x7A0B;"><b>5.6.1. </b>RenderThread&#x7EBF;&#x7A0B;</a></li><li><span class="title-icon "></span><a href="#&#x5E94;&#x7528;&#x4E3B;&#x7EBF;&#x7A0B;"><b>5.6.2. </b>&#x5E94;&#x7528;&#x4E3B;&#x7EBF;&#x7A0B;</a></li><li><span class="title-icon "></span><a href="#surfaceflinger&#x7EBF;&#x7A0B;"><b>5.6.3. </b>SurfaceFlinger&#x7EBF;&#x7A0B;</a></li></ul></ul><li><span class="title-icon "></span><a href="#systemd-&#x8BBE;&#x7F6E;&#x4E4B;&#x7ED1;&#x6838;--&#x4F18;&#x5148;&#x7EA7;"><b>6. </b>systemd &#x8BBE;&#x7F6E;&#x4E4B;&#x7ED1;&#x6838; &amp; &#x4F18;&#x5148;&#x7EA7;</a></li><li><span class="title-icon "></span><a href="#&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;_1"><b>7. </b>&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;</a></li><ul><li><span class="title-icon "></span><a href="#linux&#x4E0A;&#xFF0C;&#x5404;&#x7EBF;&#x7A0B;nice&#x503C;&#x5927;&#x591A;&#x4E00;&#x6837;"><b>7.1. </b>Linux&#x4E0A;&#xFF0C;&#x5404;&#x7EBF;&#x7A0B;nice&#x503C;&#x5927;&#x591A;&#x4E00;&#x6837;</a></li></ul><li><span class="title-icon "></span><a href="#linux---cgroup-&#x5B9E;&#x64CD;-----chatgpt"><b>8. </b>Linux   cgroup &#x5B9E;&#x64CD;-----chatGpt</a></li><ul><ul><li><span class="title-icon "></span><a href="#&#x4F7F;&#x7528;-cgroup-v2-&#x7ED1;&#x5B9A;&#x8FDB;&#x7A0B;&#x5230;&#x7279;&#x5B9A;-cpu-&#x6838;&#x7684;&#x65B9;&#x6CD5;"><b>8.1.1. </b>&#x4F7F;&#x7528; cgroup v2 &#x7ED1;&#x5B9A;&#x8FDB;&#x7A0B;&#x5230;&#x7279;&#x5B9A; CPU &#x6838;&#x7684;&#x65B9;&#x6CD5;</a></li><li><span class="title-icon "></span><a href="#&#x793A;&#x4F8B;"><b>8.1.2. </b>&#x793A;&#x4F8B;</a></li><li><span class="title-icon "></span><a href="#&#x603B;&#x7ED3;"><b>8.1.3. </b>&#x603B;&#x7ED3;</a></li><li><span class="title-icon "></span><a href="#&#x5B9E;&#x73B0;-cpu-&#x6838;&#x72EC;&#x5360;&#x7684;&#x6B65;&#x9AA4;"><b>8.1.4. </b>&#x5B9E;&#x73B0; CPU &#x6838;&#x72EC;&#x5360;&#x7684;&#x6B65;&#x9AA4;</a></li><li><span class="title-icon "></span><a href="#&#x603B;&#x7ED3;_1"><b>8.1.5. </b>&#x603B;&#x7ED3;</a></li><li><span class="title-icon "></span><a href="#1-&#x521B;&#x5EFA;-systemd-&#x670D;&#x52A1;&#x6587;&#x4EF6;"><b>8.1.6. </b>1. &#x521B;&#x5EFA; systemd &#x670D;&#x52A1;&#x6587;&#x4EF6;</a></li><li><span class="title-icon "></span><a href="#2-&#x7F16;&#x5199;&#x9884;&#x542F;&#x52A8;&#x811A;&#x672C;"><b>8.1.7. </b>2. &#x7F16;&#x5199;&#x9884;&#x542F;&#x52A8;&#x811A;&#x672C;</a></li><li><span class="title-icon "></span><a href="#3-&#x542F;&#x7528;&#x548C;&#x542F;&#x52A8;&#x670D;&#x52A1;"><b>8.1.8. </b>3. &#x542F;&#x7528;&#x548C;&#x542F;&#x52A8;&#x670D;&#x52A1;</a></li><li><span class="title-icon "></span><a href="#4-&#x9A8C;&#x8BC1;-weston-&#x662F;&#x5426;&#x72EC;&#x5360;-cpu-2"><b>8.1.9. </b>4. &#x9A8C;&#x8BC1; Weston &#x662F;&#x5426;&#x72EC;&#x5360; CPU 2</a></li><li><span class="title-icon "></span><a href="#&#x603B;&#x7ED3;_2"><b>8.1.10. </b>&#x603B;&#x7ED3;</a></li></ul><li><span class="title-icon "></span><a href="#&#x65E2;&#x7136;&#x901A;&#x8FC7;-cpuaffinity-&#x53C2;&#x6570;&#x7ED1;&#x5B9A;&#x8FDB;&#x7A0B;&#x5230;&#x6307;&#x5B9A;&#x7684;-cpu&#xFF0C;&#x4E3A;&#x5565;&#x8FD8;&#x9700;&#x8981;cgroup&#x5462;"><b>8.2. </b>&#x65E2;&#x7136;&#x901A;&#x8FC7; CPUAffinity &#x53C2;&#x6570;&#x7ED1;&#x5B9A;&#x8FDB;&#x7A0B;&#x5230;&#x6307;&#x5B9A;&#x7684; CPU&#xFF0C;&#x4E3A;&#x5565;&#x8FD8;&#x9700;&#x8981;cgroup&#x5462;</a></li><ul><li><span class="title-icon "></span><a href="#&#x533A;&#x522B;&#x4E0E;&#x7B80;&#x5316;&#x89E3;&#x91CA;"><b>8.2.1. </b>&#x533A;&#x522B;&#x4E0E;&#x7B80;&#x5316;&#x89E3;&#x91CA;</a></li><li><span class="title-icon "></span><a href="#&#x5728;&#x4F60;&#x7684;&#x573A;&#x666F;&#x4E2D;"><b>8.2.2. </b>&#x5728;&#x4F60;&#x7684;&#x573A;&#x666F;&#x4E2D;</a></li><li><span class="title-icon "></span><a href="#&#x4F7F;&#x7528;-systemd-&#x548C;-cpuaffinity-&#x5B9E;&#x73B0;-weston-&#x72EC;&#x5360;-cpu-2"><b>8.2.3. </b>&#x4F7F;&#x7528; systemd &#x548C; CPUAffinity &#x5B9E;&#x73B0; Weston &#x72EC;&#x5360; CPU 2</a></li><li><span class="title-icon "></span><a href="#3-&#x9A8C;&#x8BC1;&#x6548;&#x679C;&#xFF1A;"><b>8.2.4. </b>3. &#x9A8C;&#x8BC1;&#x6548;&#x679C;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#&#x603B;&#x7ED3;_3"><b>8.2.5. </b>&#x603B;&#x7ED3;</a></li></ul></ul><li><span class="title-icon "></span><a href="#todo&#xFF1A;-&#x6574;&#x7406;"><b>9. </b>TODO&#xFF1A; &#x6574;&#x7406;</a></li></ul></div><a href="#&#x76EE;&#x5F55;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="&#x76EE;&#x5F55;"><a name="&#x76EE;&#x5F55;" class="anchor-navigation-ex-anchor" href="#&#x76EE;&#x5F55;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x76EE;&#x5F55;</h1>
+<h1 id="linux&#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;---cpu"><a name="linux&#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;---cpu" class="anchor-navigation-ex-anchor" href="#linux&#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;---cpu"><i class="fa fa-link" aria-hidden="true"></i></a>2. linux&#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;---cpu</h1>
+<h2 id="0&#x5C42;linux&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;"><a name="0&#x5C42;linux&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;" class="anchor-navigation-ex-anchor" href="#0&#x5C42;linux&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. 0&#x5C42;(linux&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;)</h2>
+<p><img src="&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7CFB;&#x5217;2&#x4E4B;&#x8FDB;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;.assets/image-20231106002601167.png" alt="image-20231106002601167"></p>
+<p>&#x300A;linux&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;.emmx&#x300B;</p>
+<h2 id="cpu&#x8C03;&#x5EA6;----&#x8C03;&#x5EA6;&#x7B56;&#x7565;schedfifo"><a name="cpu&#x8C03;&#x5EA6;----&#x8C03;&#x5EA6;&#x7B56;&#x7565;schedfifo" class="anchor-navigation-ex-anchor" href="#cpu&#x8C03;&#x5EA6;----&#x8C03;&#x5EA6;&#x7B56;&#x7565;schedfifo"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. cpu&#x8C03;&#x5EA6;----&#x8C03;&#x5EA6;&#x7B56;&#x7565;SCHED_FIFO</h2>
+<p>&#x6982;&#x5FF5;:</p>
+<blockquote>
+<p>cpu&#x8C03;&#x5EA6;---------&#x5373; &#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;</p>
+</blockquote>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/1d2f6a5bbe76" target="_blank">https://www.jianshu.com/p/1d2f6a5bbe76</a>   Android &#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7BC7;&#xFF08;&#x4E94;&#xFF09;-&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x4E0E;&#x4F18;&#x5148;&#x7EA7;</p>
+<p><a href="https://blog.csdn.net/aqrsxiao/article/details/84070223" target="_blank">https://blog.csdn.net/aqrsxiao/article/details/84070223</a>         linux&#x8FDB;&#x7A0B;&#x8C03;&#x5EA6;&#x7B56;&#x7565;</p>
+</blockquote>
+<p>linux&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#xFF08;&#x90E8;&#x5206;&#x4F9D;&#x8D56;&#x4E8E;&#x4F18;&#x5148;&#x7EA7;&#xFF09;&#xFF0C;&#x5373;&#xFF1A;</p>
+<blockquote>
+<p>&lt;---------   SCHED_FIFO&#x3001;SCHED_RR&#x3001;SCHED_NOMAL&#xFF08;SCHED_OTHER&#xFF09;</p>
+<p>&#x8BE6;&#x7EC6;&#xFF1A;</p>
+<p><strong>&#x5B9E;&#x65F6;&#x8C03;&#x5EA6;&#xFF1A;</strong>&#x9488;&#x5BF9;0-99&#x7684;RT(&#x5B9E;&#x65F6;)&#x8FDB;&#x7A0B;</p>
+<blockquote>
+<p>SCHED FIFO:    1&#x3001;&#x9AD8;&#x4F18;&#x5148;&#x7EA7;&#x7684;&#x7EC8;&#x6B62;&#x4F4E;&#x4F18;&#x5148;&#x7EA7;&#x7684;cpu&#xFF08;&#x81EA;&#x7136;&#xFF09;    2&#x3001;&#x76F8;&#x540C;&#x4F18;&#x5148;&#x7EA7;&#xFF0C; <font color="red">&#x5148;&#x5230;&#x5148;&#x670D;&#x52A1;</font>&#xFF08;Fisrt in First Out&#xFF0C;&#x81EA;&#x7136;&#xFF09;  3&#x3001;&#x76F8;&#x540C;&#x4F18;&#x5148;&#x7EA7;&#x4E0B;&#xFF0C;&#x4E00;&#x65E6;&#x5360;&#x636E;CPU&#x5C31;&#x8981;&#x5230;&#x8DD1;&#x5B8C;&#x4E3A;&#x6B62;&#xFF08;&#x81EA;&#x7136;&#xFF0C;&#x4E0D;&#x662F;&#x8F6E;&#x8F6C;&#xFF09;</p>
+<p>SCHED RR:   1&#x3001;&#x9AD8;&#x4F18;&#x5148;&#x7EA7;&#x7684;&#x4F1A;&#x7EC8;&#x6B62;&#x4F4E;&#x4F18;&#x5148;&#x7EA7;&#x7684;cpu&#xFF08;<strong>&#x81EA;&#x7136;</strong>&#xFF09;     2&#x3001;  &#x76F8;&#x540C;&#x4F18;&#x5148;&#x7EA7;&#xFF0C;<font color="red">&#x65F6;&#x95F4;&#x7247;&#x8F6E;&#x8BE2;</font>&#xFF08;&#xFF09;</p>
+</blockquote>
+<p>&#x200B;      --------------&gt; &#x603B;&#x4E4B;&#xFF0C;FIFO&#x548C;RR &#x6839;&#x636E;&#x76F8;&#x540C;&#x4F18;&#x5148;&#x7EA7;&#x4E0B;&#xFF0C;&#x8D77;&#x7684;&#x540D;&#x5B57;</p>
+<p><strong>&#x5206;&#x65F6;&#x8C03;&#x5EA6;:</strong> &#x9488;&#x5BF9;100-139&#x7684;&#x666E;&#x901A;&#x8FDB;&#x7A0B;&#xFF0C;&#x4ED6;&#x4EEC;&#x6309;nice&#x503C; -20 - 19&#x6765;&#x7B97;&#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x8D8A;nice&#x4F18;&#x5148;&#x7EA7;&#x8D8A;&#x4F4E;</p>
+<blockquote>
+<p>SCHED_NOMAL(SCHED OTHER) : &#x65F6;&#x95F4;&#x7247;&#x8F6E;&#x8BE2;&#xFF0C;&#x4F18;&#x5148;&#x7EA7;&#x8D8A;&#x9AD8;&#x62A2;&#x5360;&#x80FD;&#x529B;&#x8D8A;&#x5F3A;&#xFF0C;&#x8D8A;&#x5BB9;&#x6613;&#x83B7;&#x5F97;&#x66F4;&#x591A;&#x65F6;&#x95F4;&#x7247;   ----&gt; &#x611F;&#x89C9;&#x66F4;&#x5408;&#x7406;&#xFF0C;&#x6240;&#x4EE5;NOMAL</p>
+<pre><code class="lang-java">SCHED BATCH &#x6279;&#x5904;&#x7406;&#x8FDB;&#x7A0B;&#xFF0C;&#x5524;&#x9192;&#x4E0D;&#x9891;&#x7E41;&#x7684;&#x4F7F;&#x7528;SCHED BATCH&#xFF0C;&#x9891;&#x7E41;&#x7684;&#x9002;&#x5408;
+</code></pre>
+</blockquote>
+</blockquote>
+<p>&#x5B9E;&#x65F6;&#x4E0E;&#x5206;&#x65F6;&#x7684;&#x533A;&#x522B;&#xFF1A;</p>
+<blockquote>
+<p>&#x5206;&#x65F6;&#xFF1A;&#x96E8;&#x9732;&#x5747;&#x6CBE;&#x3002;&#x4EFB;&#x610F;&#x8FDB;&#x7A0B;&#x90FD;&#x6709;&#x673A;&#x4F1A;&#x83B7;&#x5F97;cpu&#xFF1F;</p>
+</blockquote>
+<p>&#x4F18;&#x5148;&#x7EA7;&#xFF1A;&#x627F;&#x8F7D;&#x7684;&#x91CF;&#xFF1A;TODO: &#x4F18;&#x5148;&#x7EA7;&#x53F7;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#x8FD8;&#x662F;nice&#x503C;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;&#xFF1F;</p>
+<p>TODO:   &#x5177;&#x4F53;&#x5B9E;&#x73B0; &#x6216;&#x8005; &#x5B9E;&#x73B0;&#x539F;&#x7406;</p>
+<p><strong>&#x8BBE;&#x7F6E;&#x94FE;&#x8DEF;</strong>&#xFF1A;</p>
+<blockquote>
+<p><strong>&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x8BBE;&#x7F6E;,  &#x94FE;&#x8DEF;:</strong> int sched_setscheduler(pid_t pid, int policy,conststruct sched_param *param);</p>
+<p>&#x200B;                                   ------------&gt;</p>
+<p><strong>&#x4F18;&#x5148;&#x7EA7;&#x8BBE;&#x7F6E;&#xFF0C;&#x94FE;&#x8DEF;</strong>&#xFF1A;</p>
+<p>&#x200B;                             int setpriority(int which, int who, int prio); -------&gt; nice&#x503C;&#x7684;&#x8BBE;&#x7F6E;</p>
+<p>&#x53C2;&#x8003;&#xFF1A;<a href="https://www.kancloud.cn/alex_wsc/android-deep2/413496" target="_blank">https://www.kancloud.cn/alex_wsc/android-deep2/413496</a></p>
+</blockquote>
+<p>&#x5E94;&#x7528;&#x4F8B;&#x5B50;&#xFF1A;TODO&#xFF1A;<a href="https://blog.csdn.net/aqrsxiao/article/details/84070223" target="_blank">https://blog.csdn.net/aqrsxiao/article/details/84070223</a>    </p>
+<h2 id="cgroup&#x9650;&#x5236;-cpu-&#x5185;&#x5B58;-io&#xFF08;&#x76EE;&#x6807;cpuset&#xFF09;"><a name="cgroup&#x9650;&#x5236;-cpu-&#x5185;&#x5B58;-io&#xFF08;&#x76EE;&#x6807;cpuset&#xFF09;" class="anchor-navigation-ex-anchor" href="#cgroup&#x9650;&#x5236;-cpu-&#x5185;&#x5B58;-io&#xFF08;&#x76EE;&#x6807;cpuset&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>2.3. cgroup&#x9650;&#x5236; cpu &#x5185;&#x5B58; I/O&#xFF08;&#x76EE;&#x6807;cpuset&#xFF09;</h2>
+<p>&#x4E3B;&#x8981;&#x53C2;&#x8003;&#xFF1A; <a href="https://blog.csdn.net/shift_wwx/article/details/131854291" target="_blank">https://blog.csdn.net/shift_wwx/article/details/131854291</a>    Android &#x4E2D; cgroup&#x62BD;&#x8C61;&#x5C42;&#x8BE6;&#x89E3;</p>
+<p>cgroups (&#x5168;&#x79F0;&#xFF1A;<strong><em>control groups</em></strong>)</p>
+<p>&#x4F4D;&#x7F6E;&#xFF1A;</p>
+<blockquote>
+<p>Linux &#x5185;&#x6838;</p>
+</blockquote>
+<p>&#x4F5C;&#x7528;&#xFF1A;</p>
+<blockquote>
+<p>&#x9650;&#x5236;&#x5355;&#x4E2A;&#x8FDB;&#x7A0B;&#x6216;&#x8005;&#x591A;&#x4E2A;&#x8FDB;&#x7A0B;&#x6240;&#x4F7F;&#x7528;&#x8D44;&#x6E90;&#xFF08;CPU&#x3001;memory&#xFF09;&#x7684;&#x673A;&#x5236;&#x3002;</p>
+</blockquote>
+<h3 id="q--a&#xFF1A;&#x65E2;&#x7136;&#x6709;&#x4E86;&#x8C03;&#x5EA6;&#x7B56;&#x7565;-&#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x8FD8;&#x8981;&#x6709;cgroup&#xFF1F;"><a name="q--a&#xFF1A;&#x65E2;&#x7136;&#x6709;&#x4E86;&#x8C03;&#x5EA6;&#x7B56;&#x7565;-&#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x8FD8;&#x8981;&#x6709;cgroup&#xFF1F;" class="anchor-navigation-ex-anchor" href="#q--a&#xFF1A;&#x65E2;&#x7136;&#x6709;&#x4E86;&#x8C03;&#x5EA6;&#x7B56;&#x7565;-&#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x8FD8;&#x8981;&#x6709;cgroup&#xFF1F;"><i class="fa fa-link" aria-hidden="true"></i></a>2.3.1. Q &amp; A&#xFF1A;&#x65E2;&#x7136;&#x6709;&#x4E86;&#x8C03;&#x5EA6;&#x7B56;&#x7565;+ &#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x8FD8;&#x8981;&#x6709;cgroup&#xFF1F;</h3>
+<p><a href="https://www.codenong.com/cs106895580/" target="_blank">https://www.codenong.com/cs106895580/</a>   &#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x6709;cgroup</p>
+<p>-<font color="red">&#x9632;&#x6B62; &#x201C;&#x805A;&#x6C99;&#x6210;&#x5854;&#x201D;&#xFF1A;</font></p>
+<pre><code class="lang-java">&#x53EA;&#x6709;nice&#x503C;&#x5B9E;&#x9645;&#x4E0A;&#x5E76;&#x4E0D;&#x80FD;&#x6EE1;&#x8DB3;&#x6240;&#x6709;&#x573A;&#x666F;&#xFF0C;&#x6BD4;&#x5982;&#x67D0;&#x4E2A;&#x5E94;&#x7528;&#x6709;&#x4E00;&#x4E2A;&#x524D;&#x53F0;&#x7684;UI&#x7EBF;&#x7A0B;&#xFF0C;&#x540C;&#x65F6;&#x5B83;&#x8FD8;&#x6709;<span class="hljs-number">10</span>&#x4E2A;&#x540E;&#x53F0;&#x7EBF;&#x7A0B;&#xFF0C;&#x867D;&#x7136;&#x540E;&#x53F0;&#x7EBF;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#x6BD4;&#x8F83;&#x4F4E;&#xFF0C;&#x4F46;&#x662F;&#x6570;&#x91CF;&#x8F83;&#x591A;&#xFF0C;&#x5408;&#x8D77;&#x6765;&#x8FD9;&#x4E9B;&#x540E;&#x53F0;&#x7EBF;&#x7A0B;&#x5BF9;CPU&#x7684;&#x6D88;&#x8017;&#x4E5F;&#x4F1A;&#x5F71;&#x54CD;&#x5230;&#x524D;&#x53F0;&#x7EBF;&#x7A0B;&#x7684;&#x6027;&#x80FD;&#x3002;
+</code></pre>
+<p>-----------&gt;  &#x6240;&#x4EE5;&#x5BF9;&#x4E8E;Android&#x6765;&#x8BF4;&#x53C8;&#x5F15;&#x5165;&#x4E86;&#x53E6;&#x5916;&#x4E00;&#x5957;&#x673A;&#x5236;&#x6765;&#x5904;&#x7406;&#x8FD9;&#x79CD;&#x7279;&#x6B8A;&#x7684;&#x60C5;&#x51B5;&#x2014;&#x2014;cgroup</p>
+<p><strong>&#x80CC;&#x540E;&#x7684;&#x80CC;&#x540E;&#xFF1A;&#x4E0E;&#x5185;&#x5B58;&#x9650;&#x5236;&#x4E00;&#x4E2A;&#x601D;&#x8DEF;&#xFF0C;&#x5373;&#xFF1A;</strong></p>
+<blockquote>
+<font color="red">&#x5355;&#x4E2A;&#x9650;&#x5236; + &#x603B;&#x7684;&#x9650;&#x5236;</font>
+
+
+
+
+
+</blockquote>
+<h2 id="&#x7EF4;&#x6D4B;-----&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x76EE;&#x6807;nice&#x503C;-"><a name="&#x7EF4;&#x6D4B;-----&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x76EE;&#x6807;nice&#x503C;-" class="anchor-navigation-ex-anchor" href="#&#x7EF4;&#x6D4B;-----&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x76EE;&#x6807;nice&#x503C;-"><i class="fa fa-link" aria-hidden="true"></i></a>2.4. &#x7EF4;&#x6D4B;-----&#x8C03;&#x5EA6;&#x7B56;&#x7565;(&#x76EE;&#x6807;nice&#x503C; )</h2>
+<p>--<strong><font color="red">nice&#x503C;&#x7684;&#x672C;&#x8D28;</font>&#xFF1A;</strong> </p>
+<blockquote>
+<p>&#x786C;&#x4EF6;&#x89D2;&#x5EA6;&#xFF1A;&#x5373;  nice&#x503C; &#x4EE3;&#x8868;&#x7684;&#x662F; cpu &#x65F6;&#x95F4;&#x7247;&#x7684;&#x6BD4;&#x4F8B;</p>
+</blockquote>
+<p>&#x65B9;&#x6CD5;&#x4E00;&#xFF1A;</p>
+<pre><code class="lang-cpp"> ps -p &lt; PID &gt; -o nice
+</code></pre>
+<p>&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;top&#x547D;&#x4EE4;</p>
+<blockquote>
+<p>priority + nice&#xFF1A;</p>
+<p><img src="&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7CFB;&#x5217;2&#x4E4B;&#x8FDB;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;.assets/image-20231106005435133.png" alt="image-20231106005435133"></p>
+</blockquote>
+<p>&#x65B9;&#x6CD5;&#x4E09;&#xFF1A;chrt &#x65B9;&#x5F0F;</p>
+<p>SurfaceFlinge&#x7EBF;&#x7A0B;---&gt; FIFO, &#x4F18;&#x5148;&#x7EA7;1</p>
+<blockquote>
+<p><img src="&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7CFB;&#x5217;2&#x4E4B;&#x8FDB;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;.assets/image-20231107000339211.png" alt="image-20231107000339211"></p>
+</blockquote>
+<p><a href="https://blog.csdn.net/renjianhhong/article/details/129196400" target="_blank">https://blog.csdn.net/renjianhhong/article/details/129196400</a>    Linux&#x4F18;&#x5148;&#x7EA7;&#x3001;&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#xFF08;&#x67E5;&#x770B;&#x4E0E;&#x8BBE;&#x7F6E;&#x5927;&#x5168;&#xFF09;</p>
+<p><a href="https://www.cnblogs.com/Chary/p/16394567.html" target="_blank">https://www.cnblogs.com/Chary/p/16394567.html</a>    <a href="https://www.cnblogs.com/Chary/p/16394567.html" target="_blank">Top&#x547D;&#x4EE4;&#x8BE6;&#x89E3;</a></p>
+<h2 id="todo-&#x5408;&#x5E76;&#xFF1A;"><a name="todo-&#x5408;&#x5E76;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#todo-&#x5408;&#x5E76;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>2.5. TODO &#x5408;&#x5E76;&#xFF1A;</h2>
+<p>cpu&#x8C03;&#x5EA6;---------&#x5373; &#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;&#xFF1A;</p>
+<blockquote>
+<p>&#x56E0;&#x4E3A;&#xFF1A;&#x4EFB;&#x4E00;&#x65F6;&#x523B;&#xFF0C;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5360;&#x7528;CPU&#xFF0C;&#x5904;&#x4E8E;&#x8FD0;&#x884C;&#x72B6;&#x6001;</p>
+</blockquote>
+<p>&#x591A;&#x7EBF;&#x7A0B;&#x5E76;&#x53D1;&#xFF1A;</p>
+<blockquote>
+<p>&#x8F6E;&#x6D41;&#x83B7;&#x53D6;CPU&#x4F7F;&#x7528;&#x6743;</p>
+</blockquote>
+<p>&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;&#x6A21;&#x578B;&#xFF1A;</p>
+<blockquote>
+<p>1&#x3001;&#x5206;&#x65F6;&#x8C03;&#x5EA6;&#x6A21;&#x578B;&#xFF1A;&#x8F6E;&#x6D41;&#x83B7;&#x53D6;&#x3001;&#x5747;&#x5206;CPU&#x65F6;&#x95F4;</p>
+<p>2&#x3001;&#x62A2;&#x5360;&#x5F0F;&#x8C03;&#x5EA6;&#x6A21;&#x578B;&#xFF1A;&#x4F18;&#x5148;&#x7EA7;&#x597D;&#x7684;&#x83B7;&#x53D6;&#xFF0C;JVM&#x91C7;&#x7528;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x3002; <strong>nice&#x503C;&#x3001;cgroup</strong></p>
+<p>---------&gt;TODO: &#x8C01;&#x7BA1;&#x7406;&#x7684;&#xFF1F;&#x6700;&#x7EC8;&#x751F;&#x6548;&#x5728;&#x54EA;&#x91CC;&#xFF1F;</p>
+<pre><code>nice&#x503C;&#xFF1A;
+1&#xFF09;Process&#x4E2D;&#x5B9A;&#x4E49;
+2&#xFF09;&#x503C;&#x8D8A;&#x5C0F;&#xFF0C;&#x4F18;&#x5148;&#x7EA7;&#x8D8A;&#x9AD8;
+3&#xFF09;&#x9ED8;&#x8BA4;&#x662F;THREAD_PRIORITY_DEFAULT,0
+
+cgroup&#xFF1A;
+1) &#x66F4;&#x4E25;&#x683C;&#x7684;&#x7FA4;&#x7EC4;&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x3002;
+2) &#x4FDD;&#x8BC1;&#x524D;&#x53F0;&#x7EBF;&#x7A0B;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x5230;&#x66F4;&#x591A;&#x7684;CPU
+&#x6CE8;&#x610F;&#x70B9;&#xFF1A;
+&#x7EBF;&#x7A0B;&#x8FC7;&#x591A;&#x4F1A;&#x5BFC;&#x81F4;CPU&#x9891;&#x7E41;&#x5207;&#x6362;&#xFF0C;&#x964D;&#x4F4E;&#x7EBF;&#x7A0B;&#x8FD0;&#x884C;&#x6548;&#x7387;
+&#x6B63;&#x786E;&#x8BA4;&#x8BC6;&#x4EFB;&#x52A1;&#x91CD;&#x8981;&#x6027;&#x51B3;&#x5B9A;&#x54EA;&#x79CD;&#x4F18;&#x5148;&#x7EA7;&#x3002; &#xFF08;&#x5DE5;&#x4F5C;&#x91CF;&#x8D8A;&#x5927;&#x4F18;&#x5148;&#x7EA7;&#x8D8A;&#x4F4E;&#xFF09;
+&#x4F18;&#x5148;&#x7EA7;&#x5177;&#x6709;&#x7EE7;&#x627F;&#x6027;
+</code></pre><p>&#x53C2;&#x8003;&#xFF1A; <a href="https://blog.51cto.com/u_16213654/7243574" target="_blank">https://blog.51cto.com/u_16213654/7243574</a></p>
+<p>--------&gt;TODO: &#x7EBF;&#x7A0B;&#x6C60;</p>
+</blockquote>
+<h1 id="android-&#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;----cpu"><a name="android-&#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;----cpu" class="anchor-navigation-ex-anchor" href="#android-&#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;----cpu"><i class="fa fa-link" aria-hidden="true"></i></a>3. Android &#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;----cpu</h1>
+<h2 id="0&#x5C42;--android-&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;"><a name="0&#x5C42;--android-&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;" class="anchor-navigation-ex-anchor" href="#0&#x5C42;--android-&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. 0&#x5C42;--(Android &#x8FDB;&#x7A0B;&#x7BA1;&#x7406;)</h2>
+<p><img src="&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7CFB;&#x5217;2&#x4E4B;&#x8FDB;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;.assets/image-20231106002626131.png" alt="image-20231106002626131"></p>
+<p>&#x300A;Android&#x8FDB;&#x7A0B;&#x7BA1;&#x7406; .emmx&#x300B;</p>
+<p>AMS&#xFF1A; &#x8D1F;&#x8D23;Android&#x56DB;&#x5927;&#x7EC4;&#x5EFA;&#x7684;&#x542F;&#x52A8;&#x548C;&#x7BA1;&#x7406;&#xFF0C;&#x8FDB;&#x7A0B;&#x7684;&#x521B;&#x5EFA;&#x548C;&#x8C03;&#x5EA6;&#x3002;</p>
+<p>(&#x4EFB;&#x610F;&#x4E00;&#x4E2A;&#x7CFB;&#x7EDF;) &#x8FDB;&#x7A0B;&#x7BA1;&#x7406;,  &#x89D2;&#x5EA6;:</p>
+<blockquote>
+<p>&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x3001;&#x4F18;&#x5148;&#x7EA7;&#x4EE5;&#x53CA; &#x53EF;&#x8C03;&#x5EA6;CPU&#x8303;&#x56F4;</p>
+</blockquote>
+<p>&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#xFF1A;</p>
+<blockquote>
+<p>1&#x3001;CPU&#x8C03;&#x5EA6;&#xFF1A; cpu&#x8C03;&#x5EA6;&#x7B56;&#x7565;-----------&#x8FDB;&#x7A0B;&#x8C03;&#x5EA6;&#x4F18;&#x5148;&#x7EA7;nice&#x503C;&#xFF08;linux&#x91CF;&#xFF09;&#xFF1A;&#x51B3;&#x5B9A;CPU&#x8D44;&#x6E90;&#x8C03;&#x5EA6;&#x7684;&#x4F18;&#x5148;&#x7EA7;</p>
+<p>2&#x3001;&#x5185;&#x5B58;&#x7BA1;&#x7406;&#xFF1A; &#x8FDB;&#x7A0B;&#x5B58;&#x6D3B;&#x7B56;&#x7565;---------- &#x6740;&#x6B7B;&#x5E94;&#x7528;&#xFF0C;&#x5373;<strong>&#x5185;&#x5B58;</strong>&#x91CA;&#x653E;&#x4F18;&#x5148;&#x7EA7;ADJ&#xFF08;&#x5B89;&#x5353;&#x91CF;&#xFF09;&#xFF1A;&#x7CFB;&#x7EDF;&#x6839;&#x636E;&#x4E00;&#x5B9A;&#x7B56;&#x7565;&#x5148;&#x6740;&#x4F18;&#x5148;&#x7EA7;&#x6700;&#x4F4E;&#x7684;&#x8FDB;&#x7A0B;</p>
+<p>&#x5F53;&#x5185;&#x5B58;&#x5C0F;&#x4E8E;X&#x65F6;&#xFF0C;&#x7ED3;&#x675F;&#x201C;oom_adj&#x201D;&#x5927;&#x4E8E;Y&#x7684;&#x8FDB;&#x7A0B;  -----&gt; &#x5982;&#x4F55;&#x786E;&#x5B9A;X&#x4E0E;Y&#xFF1F; &#x5982;&#x4F55;&#x786E;&#x5B9A;oom_adj&#x503C;&#xFF1F;</p>
+</blockquote>
+<h2 id="cpu&#x8C03;&#x5EA6;----&#x7B56;&#x7565;&#x4F18;&#x5148;&#x7EA7;"><a name="cpu&#x8C03;&#x5EA6;----&#x7B56;&#x7565;&#x4F18;&#x5148;&#x7EA7;" class="anchor-navigation-ex-anchor" href="#cpu&#x8C03;&#x5EA6;----&#x7B56;&#x7565;&#x4F18;&#x5148;&#x7EA7;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. cpu&#x8C03;&#x5EA6;----&#x7B56;&#x7565;+&#x4F18;&#x5148;&#x7EA7;</h2>
+<p>linux&#x4FA7;&#xFF1A; &#x89C1;&#x4E0A;</p>
+<p>&#x5B89;&#x5353;&#x4FA7;&#x8C03;&#x7528;&#x6808;&#xFF1A;&#xFF08;&#x57FA;&#x4E8E;linux&#xFF09;     </p>
+<blockquote>
+<p>&#x200B;                AMS + PMS -----&gt;  Process  ---- &gt;</p>
+<p><img src="&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7CFB;&#x5217;2&#x4E4B;&#x8FDB;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;.assets/image-20231031010931513.png" alt="image-20231031010931513"></p>
+<p><del>&#x6765;&#x6E90;&#xFF1A; <a href="https://blog.51cto.com/u_12218/7412595" target="_blank">https://blog.51cto.com/u_12218/7412595</a></del></p>
+</blockquote>
+<h2 id="&#x8865;&#x5145;&#xFF1A;&#x5B89;&#x5353;processsetthreadpriorityint-tid-int-priority&#x8BE6;&#x89E3;"><a name="&#x8865;&#x5145;&#xFF1A;&#x5B89;&#x5353;processsetthreadpriorityint-tid-int-priority&#x8BE6;&#x89E3;" class="anchor-navigation-ex-anchor" href="#&#x8865;&#x5145;&#xFF1A;&#x5B89;&#x5353;processsetthreadpriorityint-tid-int-priority&#x8BE6;&#x89E3;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. &#x8865;&#x5145;&#xFF1A;&#x5B89;&#x5353;Process.setThreadPriority(int tid, int priority)&#x8BE6;&#x89E3;</h2>
+<p>&#x4F7F;&#x7528;&#x70B9;&#xFF1A;</p>
+<blockquote>
+<p>&#x5728;AMS&#x8FDB;&#x7A0B;&#x4E2D;&#x4F7F;&#x7528;&#xFF0C;&#x8BBE;&#x7F6E;APP&#x67D0;&#x4E9B;&#x7EBF;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;</p>
+</blockquote>
+<p>&#x8C03;&#x7528;&#xFF1A;</p>
+<blockquote>
+<p>Process.setThreadPriority(int tid, int priority)</p>
+<p>-------&gt;  androidSetThreadPriority(pid_t tid, int pri)        Threads.cpp</p>
+<p>setpriority(PRIO_PROCESS, tid, pri)           # include <sys resource.h="">        &#x5B9E;&#x73B0;setpriority.c</sys></p>
+<p>syscall(SYS_setpriority, which, who, prio)</p>
+<p>SYSCALL_DEFINE2(setpriority, int, which, int, who)        /kernel/sys.c</p>
+<p>set_one_prio(p, niceval, error);</p>
+</blockquote>
+<p><a href="https://zhuanlan.zhihu.com/p/491874949?utm_id=0" target="_blank">https://zhuanlan.zhihu.com/p/491874949?utm_id=0</a>       &#x5982;&#x4F55;&#x6B63;&#x786E;&#x7684;&#x7406;&#x89E3;&#x548C;&#x83B7;&#x53D6;Linux&#x4E2D;&#x8FDB;&#x7A0B;/&#x7EBF;&#x7A0B;&#x7684;PID/TID</p>
+<p><a href="https://blog.csdn.net/zhwenx3/article/details/86662733" target="_blank">https://blog.csdn.net/zhwenx3/article/details/86662733</a>    Linux&#x73AF;&#x5883;&#x4E0B;&#x8FDB;&#x7A0B;pid&#x3001;&#x7EBF;&#x7A0B;tid&#x548C;&#x7EBF;&#x7A0B;pid</p>
+<blockquote>
+<p>pthread_self  &#x4E0E; getpid</p>
+</blockquote>
+<p>TODO:</p>
+<blockquote>
+<p>.h&#x7684;&#x7406;&#x89E3;&#xFF1A;&#x534F;&#x8BAE;&#x3002;&#x3002;&#x3002;&#x3002;&#x4F7F;&#x7528;&#x8005;&#x548C;&#x5B9A;&#x4E49;&#x8005;&#x4E4B;&#x95F4;&#x7684;&#x534F;&#x8BAE;&#xFF08;&#x81EA;&#x7136;&#xFF0C;&#x4F7F;&#x7528;&#x8005;&#x548C;&#x5B9A;&#x4E49;&#x8005;&#x90FD;&#x8981; # include <sys resource.h=""> &#xFF09;</sys></p>
+</blockquote>
+<h2 id="&#x8FDB;&#x7A0B;&#x79FB;&#x9664;&#xFF1A;"><a name="&#x8FDB;&#x7A0B;&#x79FB;&#x9664;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x8FDB;&#x7A0B;&#x79FB;&#x9664;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4. &#x8FDB;&#x7A0B;&#x79FB;&#x9664;&#xFF1A;</h2>
+<h3 id="&#x7591;&#x95EE;&#xFF1A;"><a name="&#x7591;&#x95EE;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x7591;&#x95EE;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.1. &#x7591;&#x95EE;&#xFF1A;</h3>
+<p>&#x53C2;&#x8003;&#xFF1A; <a href="https://juejin.cn/post/7220775341605568570#heading-16" target="_blank">https://juejin.cn/post/7220775341605568570#heading-16</a>     AMS&#x7684;&#x5185;&#x5B58;&#x7BA1;&#x7406;ADJ&#x7B97;&#x6CD5;&#xFF08;Android12&#xFF09;</p>
+<p>&#x7591;&#x95EE;&#xFF1A;</p>
+<blockquote>
+<p>adj&#x503C; &#x4E0E; &#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;SYSTEM_ADJ&#x4E4B;&#x95F4;&#x662F;&#x4EC0;&#x4E48;&#x5173;&#x7CFB;&#xFF1F;</p>
+<p>adj&#x503C; &#x4E0E; &#x8FDB;&#x7A0B;&#x7EC4;  &#x4E4B;&#x95F4;&#x662F;&#x4EC0;&#x4E48;&#x5173;&#x7CFB;&#xFF1F;</p>
+</blockquote>
+<p><strong>Android &#x4E2D;&#xFF0C;&#x5BF9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;   &#x662F;&#x5426;&#x4F1A;&#x88AB;&#x6740;   &#x6709;&#x4E09;&#x4E2A;&#x5B9A;&#x4E49;&#xFF1A;</strong></p>
+<blockquote>
+<p>&#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;&#xFF08;&#x8D8A;&#x5C0F;&#x8D8A;&#x91CD;&#x8981;&#xFF0C;&#x8D8A;&#x5927;&#x8D8A;&#x5BB9;&#x6613;&#x88AB;&#x6740;&#xFF09;CPU&#x8C03;&#x5EA6;&#x7EC4;  SCHED_GROUP_BACKGROUND &#xFF08;&#x8D8A;&#x5927;&#x8D8A;&#x91CD;&#x8981;&#xFF0C;adj &#x7B97;&#x6CD5;&#x53EA;&#x4F1A;&#x6740; SCHED_GROUP_BACKGROUND &#x8FDB;&#x7A0B;&#x7EC4;&#x7684;&#x8FDB;&#x7A0B;&#xFF09;&#x8FDB;&#x7A0B;&#x72B6;&#x6001;&#xFF08;&#x8868;&#x793A;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;&#x7684;&#x8FD0;&#x884C;&#x72B6;&#x6001;&#xFF09;</p>
+</blockquote>
+<p>&#x7B54;&#xFF1A;</p>
+<p>1&#x3001;&#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;---------adj&#x503C;  &#x5373; &#x4F18;&#x5148;&#x7EA7;&#x7684;&#x627F;&#x8F7D;</p>
+<p>adj&#x503C;&#x7684;&#x66F4;&#x65B0;&#x65F6;&#x673A;&#xFF1A;&#x56DB;&#x5927;&#x7EC4;&#x4EF6;&#x72B6;&#x6001;&#x6539;&#x53D8;&#x65F6;&#xFF0C;updateOomAdjLocked&#x3002;&#x6BD4;&#x5982;&#xFF1A;TODO:</p>
+<p>2&#x3001;&#x8FDB;&#x7A0B;&#x72B6;&#x6001; ---------- BACKUP_APP_ADJ  = 300 &#x662F; adj&#x503C; &#x7684;&#x4E00;&#x4E2A;&#x5927;&#x81F4;&#x7684;&#x53D6;&#x503C;&#x3002;&#x5F85;&#x7EC6;&#x5316;&#xFF0C;&#x6BD4;&#x5982; adj&#x503C; = 301    -------&gt; &#x7406;&#x89E3;&#x6709;&#x95EE;&#x9898;</p>
+<p>3&#x3001;<strong>CPU&#x8C03;&#x5EA6;&#x7EC4;</strong>   ------- SCHED_GROUP_BACKGROUND   &#x3001; SCHED_GROUP_RESTRICTED&#x3001;</p>
+<p>&#x200B;           ---------------&gt; &#x8FD9;&#x4E2A;&#x5F71;&#x54CD;&#x8FDB;&#x7A0B; &#x5F71;&#x54CD;&#x8FDB;&#x7A0B;&#x7684;CPU&#x8D44;&#x6E90;&#x8C03;&#x5EA6;?????</p>
+<p>&#x7591;&#x95EE;&#xFF1A;   &#x5177;&#x4F53;&#x5982;&#x4F55;&#x878D;&#x5408;&#x8FD9;&#x4E09;&#x4E2A;&#xFF1F;</p>
+<p><img src="&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7CFB;&#x5217;2&#x4E4B;&#x8FDB;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;.assets/adj-summary.jpg" alt="adj_summary"></p>
+<p>&#x6765;&#x6E90;&#xFF1A;<a href="https://gityuan.com/2018/05/19/android-process-adj/" target="_blank">https://gityuan.com/2018/05/19/android-process-adj/</a></p>
+<p>LMK&#x4FA7;&#xFF1A;</p>
+<p>&#xFF08;1&#xFF09; LMK&#x4FA7;&#x62FF;&#x5230;AMS&#x7ED9;&#x7684;  &#x4E00;&#x5806;adj&#x503C;&#x7684;&#x96C6;&#x5408;</p>
+<p>-<font color="red">&#x8FDB;&#x7A0B;&#x79FB;&#x9664;&#x7684;&#x9608;&#x503C;</font>&#xFF1A;<del>&#x6839;&#x636E;ADJ--&#x5269;&#x4F59;Memory&#xFF08;&#x5185;&#x5B58;&#x9608;&#x503C;&#xFF09;&#x8868;&#xFF0C;&#x5982;&#x679C;&#x6B64;&#x65F6;&#x7CFB;&#x7EDF;&#x5185;&#x5B58;&#xFF08;&#x6BD4;&#x5982;147MB&#xFF09;&#x5C0F;&#x4E8E; 221MB&#xFF0C;&#x5219; 900~906 &#x8303;&#x56F4;&#x90FD;&#x662F;&#x53EF;&#x6740;&#x7684;  --------&gt; &#x81EA;&#x7136;&#x5148;&#x4ECE;adj&#x6700;&#x5927;&#x7684;&#x8FDB;&#x7A0B;&#x5F00;&#x59CB;&#xFF0C;&#x770B;&#x6740;&#x4E86;&#x662F;&#x5426;&#x591F;</del></p>
+<p><img src="&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7CFB;&#x5217;2&#x4E4B;&#x8FDB;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;.assets/lmk_adj.jpg" alt="lmk_adj"></p>
+<blockquote>
+<p>&#x81EA;&#x7136;&#xFF0C;&#x5269;&#x4F59;&#x5185;&#x5B58;&#x975E;&#x5E38;&#x975E;&#x5E38;&#x5C0F;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x624D;&#x6740;ADJ = 0</p>
+<p>&#x6765;&#x6E90;&#xFF1A;<a href="https://gityuan.com/2018/05/19/android-process-adj/" target="_blank">https://gityuan.com/2018/05/19/android-process-adj/</a></p>
+</blockquote>
+<p>&#x5176;&#x4E2D;&#xFF0C;&#x8FDB;&#x7A0B;&#x79FB;&#x9664;&#x7684;&#x9608;&#x503C;&#x8868;</p>
+<blockquote>
+<p>dumpsys activity o</p>
+<p><img src="&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7CFB;&#x5217;2&#x4E4B;&#x8FDB;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;.assets/image-20231031011435975.png" alt="image-20231031011435975"></p>
+</blockquote>
+<h3 id="0&#x5C42;"><a name="0&#x5C42;" class="anchor-navigation-ex-anchor" href="#0&#x5C42;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.2. 0&#x5C42;</h3>
+<p><img src="&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7CFB;&#x5217;2&#x4E4B;&#x8FDB;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;.assets/2018082913472653ad001b-4850-41f6-9a7b-bc00a8a37e72.png" alt="img"></p>
+<p><a href="https://sq.sf.163.com/blog/article/193132570932527104" target="_blank">https://sq.sf.163.com/blog/article/193132570932527104</a></p>
+<p>&#x7591;&#x95EE;&#xFF1A;</p>
+<blockquote>
+<p>&#x66F4;&#x65B0;&#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x5230;&#x5E95;&#x6307;&#x7684;&#x66F4;&#x65B0;&#x7684;&#x662F;&#x5565;&#xFF1F;</p>
+</blockquote>
+<h3 id="&#x5173;&#x6CE8;adj0&#x7684;&#x8FDB;&#x7A0B;"><a name="&#x5173;&#x6CE8;adj0&#x7684;&#x8FDB;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#&#x5173;&#x6CE8;adj0&#x7684;&#x8FDB;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.3. &#x5173;&#x6CE8;ADJ&lt;0&#x7684;&#x8FDB;&#x7A0B;</h3>
+<ul>
+<li><p>NATIVE_ADJ(-1000)&#xFF1A;&#x662F;&#x7531;init&#x8FDB;&#x7A0B;fork&#x51FA;&#x6765;&#x7684;Native&#x8FDB;&#x7A0B;&#xFF0C;&#x5E76;&#x4E0D;&#x53D7;system&#x7BA1;&#x63A7;&#xFF1B; --------&gt; &#x725B;</p>
+</li>
+<li><p>SYSTEM_ADJ(-900)&#xFF1A;&#x662F;&#x6307;system_server&#x8FDB;&#x7A0B;&#xFF1B;</p>
+</li>
+</ul>
+<h3 id="lru&#x5217;&#x8868;"><a name="lru&#x5217;&#x8868;" class="anchor-navigation-ex-anchor" href="#lru&#x5217;&#x8868;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.4. LRU&#x5217;&#x8868;</h3>
+<p>LRU&#x5217;&#x8868;&#x7ED3;&#x6784;&#xFF1A;</p>
+<h3 id="updatelruprocesslocked"><a name="updatelruprocesslocked" class="anchor-navigation-ex-anchor" href="#updatelruprocesslocked"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.5. updateLruProcessLocked</h3>
+<p>&#x200B;         ------------&gt; &#x4F5C;&#x7528;&#x662F;&#x5565;</p>
+<h3 id="adj"><a name="adj" class="anchor-navigation-ex-anchor" href="#adj"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.6. adj</h3>
+<h3 id="&#x5C55;&#x5F00;updateoomadjlocked"><a name="&#x5C55;&#x5F00;updateoomadjlocked" class="anchor-navigation-ex-anchor" href="#&#x5C55;&#x5F00;updateoomadjlocked"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.7. &#x5C55;&#x5F00;updateOomAdjLocked</h3>
+<h3 id="&#x6740;&#x5E94;&#x7528;"><a name="&#x6740;&#x5E94;&#x7528;" class="anchor-navigation-ex-anchor" href="#&#x6740;&#x5E94;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.8. &#x6740;&#x5E94;&#x7528;</h3>
+<h3 id="&#x7EF4;&#x6D4B;-----&#x8FDB;&#x7A0B;adj&#x503C;&#x67E5;&#x770B;"><a name="&#x7EF4;&#x6D4B;-----&#x8FDB;&#x7A0B;adj&#x503C;&#x67E5;&#x770B;" class="anchor-navigation-ex-anchor" href="#&#x7EF4;&#x6D4B;-----&#x8FDB;&#x7A0B;adj&#x503C;&#x67E5;&#x770B;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.9. &#x7EF4;&#x6D4B;-----&#x8FDB;&#x7A0B;ADJ&#x503C;&#x67E5;&#x770B;</h3>
+<p>&#x67E5;&#x770B;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;adj &#x503C;&#xFF1A;</p>
+<blockquote>
+<p>cat proc/[pid]/oom_score_adj -------&gt; TODO: &#x4E3A;&#x5565;&#x4F1A;&#x5199;&#x8FDB;&#x6587;&#x4EF6;&#x91CC;&#xFF1F;&#x4E0D;&#x5E94;&#x8BE5;&#x662F;&#x5B9E;&#x65F6;&#x7684;&#x561B;&#xFF1F;&#x8FD9;&#x91CC;&#x662F;&#x6574;&#x6570;&#xFF0C;&#x6BD4;&#x5982;-900</p>
+<p>&#x4F8B;1&#xFF1A;surfaceFlinger&#x8FDB;&#x7A0B;&#xFF08; ps -ef | grep  surface&#xFF09;</p>
+<p><img src="&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7CFB;&#x5217;2&#x4E4B;&#x8FDB;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;.assets/image-20231031215121578.png" alt="image-20231031215121578"></p>
+<p>&#x4F8B;2&#xFF1A;&#x6296;&#x97F3;&#x5206;&#x522B;&#x5728;&#x524D;&#x53F0;&#x548C;&#x540E;&#x53F0;&#x65F6;ADJ&#x503C;(&#x53D8;&#x52A8;&#x503C;):</p>
+<blockquote>
+<p>&#x524D;&#x53F0;&#xFF1A;0</p>
+<p>&#x540E;&#x53F0;&#xFF1A;700</p>
+<p><img src="&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7CFB;&#x5217;2&#x4E4B;&#x8FDB;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;.assets/image-20231031222218746.png" alt="image-20231031222218746"></p>
+</blockquote>
+</blockquote>
+<p>&#x67E5;&#x770B;&#x9608;&#x503C;&#xFF1A;</p>
+<blockquote>
+<p>dumpsys activity o&#xFF1A;&#x8981;&#x6740;&#x7684;&#x8FDB;&#x7A0B;&#x7EA7;&#x522B; &lt;-------- &#x5269;&#x4F59;&#x7684;&#x5185;&#x5B58;</p>
+<pre><code class="lang-java">OOM levels:
+-<span class="hljs-number">900</span>: SYSTEM_ADJ (   <span class="hljs-number">73</span>,<span class="hljs-number">728</span>K)
+-<span class="hljs-number">800</span>: PERSISTENT_PROC_ADJ (   <span class="hljs-number">73</span>,<span class="hljs-number">728</span>K)
+-<span class="hljs-number">700</span>: PERSISTENT_SERVICE_ADJ (   <span class="hljs-number">73</span>,<span class="hljs-number">728</span>K)
+ <span class="hljs-number">0</span>: FOREGROUND_APP_ADJ (   <span class="hljs-number">73</span>,<span class="hljs-number">728</span>K)
+<span class="hljs-number">100</span>: VISIBLE_APP_ADJ (   <span class="hljs-number">92</span>,<span class="hljs-number">160</span>K)
+<span class="hljs-number">200</span>: PERCEPTIBLE_APP_ADJ (  <span class="hljs-number">110</span>,<span class="hljs-number">592</span>K)
+<span class="hljs-number">250</span>: PERCEPTIBLE_LOW_APP_ADJ (  <span class="hljs-number">129</span>,<span class="hljs-number">024</span>K)
+<span class="hljs-number">300</span>: BACKUP_APP_ADJ (  <span class="hljs-number">221</span>,<span class="hljs-number">184</span>K)
+<span class="hljs-number">400</span>: HEAVY_WEIGHT_APP_ADJ (  <span class="hljs-number">221</span>,<span class="hljs-number">184</span>K)
+<span class="hljs-number">500</span>: SERVICE_ADJ (  <span class="hljs-number">221</span>,<span class="hljs-number">184</span>K)
+<span class="hljs-number">600</span>: HOME_APP_ADJ (  <span class="hljs-number">221</span>,<span class="hljs-number">184</span>K)
+<span class="hljs-number">700</span>: PREVIOUS_APP_ADJ (  <span class="hljs-number">221</span>,<span class="hljs-number">184</span>K)
+<span class="hljs-number">800</span>: SERVICE_B_ADJ (  <span class="hljs-number">221</span>,<span class="hljs-number">184</span>K)
+<span class="hljs-number">900</span>: CACHED_APP_MIN_ADJ (  <span class="hljs-number">221</span>,<span class="hljs-number">184</span>K)
+<span class="hljs-number">999</span>: CACHED_APP_MAX_ADJ (  <span class="hljs-number">322</span>,<span class="hljs-number">560</span>K)
+</code></pre>
+</blockquote>
+<p>&#x5176;&#x4ED6;&#x7EF4;&#x6D4B;&#xFF1A;</p>
+<blockquote>
+<p>dumpsys meminfo</p>
+<p>dumpsys activity p</p>
+</blockquote>
+<h2 id="cpu&#x8C03;&#x5EA6;----&#x53EF;&#x8C03;&#x5EA6;&#x8303;&#x56F4;cpuset"><a name="cpu&#x8C03;&#x5EA6;----&#x53EF;&#x8C03;&#x5EA6;&#x8303;&#x56F4;cpuset" class="anchor-navigation-ex-anchor" href="#cpu&#x8C03;&#x5EA6;----&#x53EF;&#x8C03;&#x5EA6;&#x8303;&#x56F4;cpuset"><i class="fa fa-link" aria-hidden="true"></i></a>3.5. cpu&#x8C03;&#x5EA6;----&#x53EF;&#x8C03;&#x5EA6;&#x8303;&#x56F4;cpuset</h2>
+<h3 id="&#x80CC;&#x666F;&#xFF1A;"><a name="&#x80CC;&#x666F;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x80CC;&#x666F;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.5.1. &#x80CC;&#x666F;&#xFF1A;</h3>
+<p>&#x5B8C;&#x5168;&#x53C2;&#x8003;&#xFF1A;</p>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/0532e4239703" target="_blank">https://www.jianshu.com/p/0532e4239703</a>      cpuset&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x5728;AMS&#x4E2D;&#x662F;&#x5982;&#x4F55;&#x5E94;&#x7528;&#x7684;</p>
+</blockquote>
+<p>&#x80CC;&#x666F;&#xFF1A;</p>
+<blockquote>
+<p>TODO:&#x8FD9;&#x91CC;&#x56E0;&#x6B64;&#x903B;&#x8F91;&#x4E0D;&#x61C2;&#xFF1F;</p>
+</blockquote>
+<h3 id="cpuset&#x8BBE;&#x7F6E;"><a name="cpuset&#x8BBE;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#cpuset&#x8BBE;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>3.5.2. cpuset&#x8BBE;&#x7F6E;</h3>
+<p>cpuset&#x8BBE;&#x7F6E;-------AMS&#x9636;&#x6BB5;&#xFF1A;</p>
+<blockquote>
+<p>&#x8BA1;&#x7B97;curSchedGroup &#xFF1A;</p>
+<p>&#x8BBE;&#x7F6E;curSchedGroup &#xFF1A;</p>
+</blockquote>
+<p>cpuset&#x8BBE;&#x7F6E;-------&#x6700;&#x7EC8;&#x751F;&#x6548;&#xFF1A;</p>
+<blockquote>
+<p>&#x6839;&#x636E;&#x4E0D;&#x540C;&#x7684;cgroup&#x5199;cpuset&#x5BF9;&#x5E94;&#x8282;&#x70B9;&#xFF1A;</p>
+<p>&#x6700;&#x7EC8;&#x751F;&#x6548;&#x8282;&#x70B9;&#xFF1A;</p>
+<p>&#x6BD4;&#x5982;&#xFF1A;MTK6875&#xFF0C;&#x603B;&#x5171;7&#x4E2A;&#x6838;&#x5FC3;:</p>
+<blockquote>
+<p>top app &#x6EE1;&#x6838;&#x968F;&#x4FBF;&#x8DD1;</p>
+<p>background&#x53EA;&#x80FD;&#x8DD1;&#x5728;&#x5C0F;&#x6838;&#x4E0A;</p>
+</blockquote>
+</blockquote>
+<p><strong>&#x603B;&#x4E4B;&#xFF1A;</strong></p>
+<blockquote>
+<p>&#xFF08;1&#xFF09;AMS&#x8BA1;&#x7B97;cgroup</p>
+<p>&#xFF08;2&#xFF09;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x7684;cgroup&#x5199;cpuset&#x5BF9;&#x5E94;&#x8282;&#x70B9;&#xFF1A;</p>
+</blockquote>
+<p>&#x5176;&#x4ED6;&#xFF1A;</p>
+<blockquote>
+<p>cpuset&#x5F00;&#x5173;</p>
+</blockquote>
+<p>TODO&#xFF1A;</p>
+<blockquote>
+<p>&#x4E3E;&#x4F8B;&#x5B50;&#xFF0C;&#x5176;&#x5982;&#x4F55;&#x5E94;&#x7528;&#xFF0C;&#x4EE5;&#x53CA; &#x5B9E;&#x9645;&#x89E3;&#x51B3;&#x7684;&#x95EE;&#x9898;</p>
+</blockquote>
+<h3 id="&#x7EF4;&#x6D4B;"><a name="&#x7EF4;&#x6D4B;" class="anchor-navigation-ex-anchor" href="#&#x7EF4;&#x6D4B;"><i class="fa fa-link" aria-hidden="true"></i></a>3.5.3. &#x7EF4;&#x6D4B;</h3>
+<p>top-app&#x7EC4; &#xFF1A; &#x9650;&#x5B9A;&#x54EA;&#x4E9B;&#x6838;&#x5FC3;&#x4F7F;&#x7528;&#xFF1A;</p>
+<pre><code> adb shell cat /dev/CPUset/top-app/CPUs
+ 0-7
+ -------&gt; 0-7&#x90FD;&#x53EF;&#x4EE5;&#x88AB;top-app&#x4F7F;&#x7528;
+</code></pre><p>top-app&#x7EC4;  &#xFF1A;&#x6709;&#x54EA;&#x4E9B;&#x8FDB;&#x7A0B;&#x548C;&#x7EBF;&#x7A0B;&#x662F;&#x8DD1;&#x5728;&#x8FD9;&#x4E2A;&#x7EC4;&#x91CC;&#x9762;&#xFF1A;</p>
+<pre><code> adb shell cat /dev/CPUset/top-app/tasks
+</code></pre><p>cpu:  cat  /proc/cpuinfo     CPU&#x7684;&#x67B6;&#x6784;&#x3001;cpu&#x7684;&#x540D;&#x79F0;&#x3001;&#x6838;&#x5FC3;&#x6570;</p>
+<p>&#x5176;&#x4ED6;&#x65B9;&#x5F0F;&#xFF0C;&#x9650;&#x5B9A;&#x4EFB;&#x52A1;&#x8DD1;&#x5728;&#x54EA;&#x4E2A;&#x6838;&#x5FC3;&#x4E0A;&#xFF1A;&#x53C2;&#x8003;&#xFF1A;<a href="https://www.cnblogs.com/mikaelzero/p/16916730.html" target="_blank">https://www.cnblogs.com/mikaelzero/p/16916730.html</a></p>
+<blockquote>
+<p>taskset -pc 3  pid    &#x8868;&#x793A;&#x5C06;&#x8FDB;&#x7A0B;pid&#x7ED1;&#x5B9A;&#x5230;&#x7B2C;3&#x4E2A;&#x6838;&#x4E0A;</p>
+</blockquote>
+<h2 id="&#x53C2;&#x8003;&#xFF1A;"><a name="&#x53C2;&#x8003;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x53C2;&#x8003;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.6. &#x53C2;&#x8003;&#xFF1A;</h2>
+<p><a href="https://juejin.cn/post/7174713775944138809" target="_blank">https://juejin.cn/post/7174713775944138809</a>    AMS&#x662F;&#x5982;&#x4F55;&#x52A8;&#x6001;&#x7BA1;&#x7406;&#x8FDB;&#x7A0B;&#x7684;&#xFF1F;</p>
+<p><a href="https://www.cnblogs.com/andy-songwei/p/9845771.html" target="_blank">https://www.cnblogs.com/andy-songwei/p/9845771.html</a>   <a href="https://www.cnblogs.com/andy-songwei/p/9845771.html" target="_blank">&#x3010;&#x671D;&#x82B1;&#x5915;&#x62FE;&#x3011;Android&#x6027;&#x80FD;&#x7BC7;&#x4E4B;&#xFF08;&#x516D;&#xFF09;Android&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x673A;&#x5236;</a>   ----&gt; &#x4F18;&#x79C0;&#x6587;&#x7AE0;</p>
+<p><a href="https://gityuan.com/2018/05/19/android-process-adj/" target="_blank">https://gityuan.com/2018/05/19/android-process-adj/</a>      &#x89E3;&#x8BFB;Android&#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;ADJ&#x7B97;&#x6CD5;</p>
+<p><a href="https://blog.51cto.com/u_16213654/7243574" target="_blank">https://blog.51cto.com/u_16213654/7243574</a>   android cpu&#x8C03;&#x5EA6;&#x7B56;&#x7565; &#x4FEE;&#x6539; &#x5B89;&#x5353;cpu&#x8C03;&#x5EA6;&#x6A21;&#x5F0F;</p>
+<p><a href="https://blog.51cto.com/u_12218/7412595" target="_blank">https://blog.51cto.com/u_12218/7412595</a>    android &#x8C03;&#x8BD5;&#x770B;&#x5B9E;&#x65F6;cpu android cpu&#x8C03;&#x5EA6;</p>
+<blockquote>
+<p><a href="https://sq.sf.163.com/blog/article/187631163406041088" target="_blank">https://sq.sf.163.com/blog/article/187631163406041088</a>   &#x5229;&#x7528;cgroup&#x6765;&#x9650;&#x5236;&#x8FDB;&#x7A0B;&#x7684;&#x8D44;&#x6E90;&#x4F7F;&#x7528;&#x91CF;</p>
+<p>&#x9632;&#x6B62;&#x51FA;&#x73B0;&#x8D44;&#x6E90;&#x6CC4;&#x6F0F;&#x5F71;&#x54CD;&#x5176;&#x4ED6;&#x5E94;&#x7528;</p>
+</blockquote>
+<p><a href="https://xiaozhuanlan.com/topic/4135276908" target="_blank">https://xiaozhuanlan.com/topic/4135276908</a></p>
+<p><a href="https://sq.sf.163.com/blog/article/193127728117825536" target="_blank">https://sq.sf.163.com/blog/article/193127728117825536</a>   Android&#x540E;&#x53F0;&#x6740;&#x6B7B;&#x7CFB;&#x5217;&#x4E4B;&#x4E00;&#xFF1A;FragmentActivity&#x53CA;PhoneWindow&#x540E;&#x53F0;&#x6740;&#x6B7B;&#x5904;&#x7406;&#x673A;&#x5236;&#xFF08;&#x4E0A;&#x7BC7;&#xFF09;</p>
+<p><a href="https://sq.sf.163.com/blog/article/193127674185461760" target="_blank">https://sq.sf.163.com/blog/article/193127674185461760</a>   Android&#x540E;&#x53F0;&#x6740;&#x6B7B;&#x7CFB;&#x5217;&#x4E4B;&#x4E00;&#xFF1A;FragmentActivity&#x53CA;PhoneWindow&#x540E;&#x53F0;&#x6740;&#x6B7B;&#x5904;&#x7406;&#x673A;&#x5236;&#xFF08;&#x4E0B;&#x7BC7;&#xFF09;</p>
+<p><a href="https://sq.sf.163.com/blog/article/193130044973854720" target="_blank">https://sq.sf.163.com/blog/article/193130044973854720</a>   Android&#x540E;&#x53F0;&#x6740;&#x6B7B;&#x7CFB;&#x5217;&#x4E4B;&#x4E8C;&#xFF1A;ActivityManagerService&#x4E0E;App&#x73B0;&#x573A;&#x6062;&#x590D;&#x673A;&#x5236;&#xFF08;&#x4E0A;&#x7BC7;&#xFF09;</p>
+<p><a href="https://sq.sf.163.com/blog/article/193129960244719616" target="_blank">https://sq.sf.163.com/blog/article/193129960244719616</a>   Android&#x540E;&#x53F0;&#x6740;&#x6B7B;&#x7CFB;&#x5217;&#x4E4B;&#x4E8C;&#xFF1A;ActivityManagerService&#x4E0E;App&#x73B0;&#x573A;&#x6062;&#x590D;&#x673A;&#x5236;&#xFF08;&#x4E0B;&#x7BC7;&#xFF09;</p>
+<p><a href="https://sq.sf.163.com/blog/article/193132570932527104" target="_blank">https://sq.sf.163.com/blog/article/193132570932527104</a>   Android&#x540E;&#x53F0;&#x6740;&#x6B7B;&#x7CFB;&#x5217;&#x4E4B;&#x4E09;&#xFF1A;LowMemoryKiller&#x539F;&#x7406;&#xFF08;4.3-6.0&#xFF09;&#x4E0A;&#x7BC7;</p>
+<p>--------&gt;  &#x6CE8;&#x610F;&#x56FE;</p>
+<p><a href="https://sq.sf.163.com/blog/article/193132514978508800" target="_blank">https://sq.sf.163.com/blog/article/193132514978508800</a>   Android&#x540E;&#x53F0;&#x6740;&#x6B7B;&#x7CFB;&#x5217;&#x4E4B;&#x4E09;&#xFF1A;LowMemoryKiller&#x539F;&#x7406;&#xFF08;4.3-6.0&#xFF09;&#x4E0B;&#x7BC7;</p>
+<p><a href="https://www.jianshu.com/p/221f4a246b45?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation" target="_blank">https://www.jianshu.com/p/221f4a246b45?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation</a>   Android&#x8FDB;&#x7A0B;&#x7CFB;&#x5217;&#x7B2C;&#x516D;&#x7BC7;---LowmemoryKiller&#x673A;&#x5236;&#x5206;&#x6790;(&#x4E0A;)</p>
+<h2 id="todo"><a name="todo" class="anchor-navigation-ex-anchor" href="#todo"><i class="fa fa-link" aria-hidden="true"></i></a>3.7. TODO:</h2>
+<p>&#x5411;linux&#x4FA7;oom_adj&#x7684;&#x8BBE;&#x7F6E;&#xFF08;&#x7C7B;&#x4F3C;API&#xFF09;&#xFF1A;(<strong>&#x6CE8;&#x610F;&#xFF1A;oom_adj&#x662F;&#x5B89;&#x5353;&#x9B54;&#x6539;&#x7684;linux&#x624D;&#x6709;</strong>)</p>
+<blockquote>
+<p>&#x5411;   /proc/&#x8FDB;&#x7A0B;id/oom_adj&#x6587;&#x4EF6;&#x4E2D;&#x5199;&#x5165;&#x5BF9;&#x5E94;&#x7684;oom_adj&#x503C;</p>
+<p><strong>&#x672C;&#x8D28;&#xFF1A; &#x8FDB;&#x7A0B;id ------oom_adj &#x7684;&#x6620;&#x5C04;</strong></p>
+</blockquote>
+<h1 id="ams&#x6740;&#x8FDB;&#x7A0B;&#x573A;&#x666F;"><a name="ams&#x6740;&#x8FDB;&#x7A0B;&#x573A;&#x666F;" class="anchor-navigation-ex-anchor" href="#ams&#x6740;&#x8FDB;&#x7A0B;&#x573A;&#x666F;"><i class="fa fa-link" aria-hidden="true"></i></a>4. AMS&#x6740;&#x8FDB;&#x7A0B;&#x573A;&#x666F;</h1>
+<h2 id="&#x540E;&#x53F0;cpu&#x7535;&#x91CF;&#x4F7F;&#x7528;checkexcessivepowerusagelocked"><a name="&#x540E;&#x53F0;cpu&#x7535;&#x91CF;&#x4F7F;&#x7528;checkexcessivepowerusagelocked" class="anchor-navigation-ex-anchor" href="#&#x540E;&#x53F0;cpu&#x7535;&#x91CF;&#x4F7F;&#x7528;checkexcessivepowerusagelocked"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. &#x540E;&#x53F0;cpu/&#x7535;&#x91CF;&#x4F7F;&#x7528;checkExcessivePowerUsageLocked</h2>
+<h3 id="&#x89C4;&#x5219;&#xFF1A;"><a name="&#x89C4;&#x5219;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x89C4;&#x5219;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>4.1.1. &#x89C4;&#x5219;&#xFF1A;</h3>
+<p>&#x5B8C;&#x5168;&#x53C2;&#x8003;&#xFF1A; <a href="https://www.jianshu.com/p/ee027ed53724" target="_blank">https://www.jianshu.com/p/ee027ed53724</a></p>
+<p>AMS &#x6BCF; 5&#x5206;&#x949F; &#x68C0;&#x67E5;&#x4E00;&#x4E0B;&#x5F02;&#x5E38;&#x8017;&#x7535;&#x60C5;&#x51B5;&#xFF1A;</p>
+<p><img src="&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7CFB;&#x5217;2&#x4E4B;&#x8FDB;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;.assets/image-20231103003931320.png" alt="image-20231103003931320"></p>
+<p>&#x7B80;&#x8A00;&#x4E4B;&#xFF1A;</p>
+<blockquote>
+<p>1&#x3001;&#x968F;&#x7740;&#x65F6;&#x95F4;&#x5EF6;&#x957F;&#xFF0C;&#x540E;&#x53F0;&#x5E94;&#x7528;&#xFF0C;&#x5360;&#x7528;CPU&#x5FC5;&#x987B;&#x8D8A;&#x6765;&#x8D8A;&#x5C11;(30min&#x4E4B;&#x540E;&#xFF0C;&#x5360;&#x7528;&#x4E0D;&#x80FD;&#x8D85;2%)</p>
+<p>2&#x3001;&#x68C0;&#x6D4B;&#x9891;&#x7387;&#xFF1A;5min</p>
+<p>---------------&gt; <font color="red">&#x5728;&#x66F2;&#x7EBF;&#x4EE5;&#x4E0A;&#xFF0C;&#x4F1A;&#x89E6;&#x53D1;&#x6740;&#x8FDB;&#x7A0B;</font></p>
+</blockquote>
+<p>&#x8BA1;&#x7B97;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<pre><code> rate = cputimeUsed*100/uptimeSince &#x4E00;&#x4E2A;&#x68C0;&#x67E5;&#x5468;&#x671F;&#x5185;CPU&#x7684;&#x4F7F;&#x7528;&#x65F6;&#x957F; / &#x68C0;&#x67E5;&#x5468;&#x671F;&#x65F6;&#x957F;
+</code></pre><h3 id="&#x5177;&#x4F53;&#x7EC6;&#x8282;&#x8BC1;&#x660E;&#xFF1A;"><a name="&#x5177;&#x4F53;&#x7EC6;&#x8282;&#x8BC1;&#x660E;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x5177;&#x4F53;&#x7EC6;&#x8282;&#x8BC1;&#x660E;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>4.1.2. &#x5177;&#x4F53;&#x7EC6;&#x8282;&amp;&#x8BC1;&#x660E;&#xFF1A;</h3>
+<p>&#x68C0;&#x6D4B;&#x9891;&#x7387;&#xFF1A;5min&#xFF0C;<del>&#x5373;checkExcessivePowerUsageLocked&#x8C03;&#x7528;&#x9891;&#x7387;&#xFF1A;</del>   TODO:</p>
+<h3 id="&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;"><a name="&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>4.1.3. &#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;</h3>
+<p>checkExcessivePowerUsageLocked ----&gt; &#x4E0E; mLruProcesses &#x5173;&#x7CFB;&#x4E0D;&#x5927;</p>
+<h2 id="adb-shell-am-force-stop"><a name="adb-shell-am-force-stop" class="anchor-navigation-ex-anchor" href="#adb-shell-am-force-stop"><i class="fa fa-link" aria-hidden="true"></i></a>4.2. adb shell am force-stop</h2>
+<h1 id="&#x76EE;&#x6807;---nice&#x503C;&#x8BBE;&#x7F6E;"><a name="&#x76EE;&#x6807;---nice&#x503C;&#x8BBE;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#&#x76EE;&#x6807;---nice&#x503C;&#x8BBE;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>5. &#x76EE;&#x6807;---nice&#x503C;&#x8BBE;&#x7F6E;</h1>
+<h2 id="java&#x4EE3;&#x7801;setthreadpriority----setthreadscheduler"><a name="java&#x4EE3;&#x7801;setthreadpriority----setthreadscheduler" class="anchor-navigation-ex-anchor" href="#java&#x4EE3;&#x7801;setthreadpriority----setthreadscheduler"><i class="fa fa-link" aria-hidden="true"></i></a>5.1. java&#x4EE3;&#x7801;setThreadPriority----setThreadScheduler</h2>
+<p>&#x53C2;&#x6570;&#xFF1A;</p>
+<pre><code class="lang-java">Process.setThreadPriority(<span class="hljs-keyword">int</span> tid, <span class="hljs-keyword">int</span> priority)
+
+   --------&gt;  tid  &#x7EBF;&#x7A0B;id
+
+              priority&#xFF1A; -<span class="hljs-number">20</span> ~ <span class="hljs-number">19</span>
+</code></pre>
+<p>-<font color="red">setThreadPriority&#x8C03;&#x7528;&#x70B9;&#xFF1A;</font></p>
+<blockquote>
+<p><strong>AMS.setRenderThread</strong> ----------&gt; &#x81EA;&#x7136;(&#x8981;&#x63D0;&#x9AD8;render&#x7EBF;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;)     <strong>&#x65F6;&#x673A;&#xFF1A;</strong>HardwareRenderer&#x521D;&#x59CB;&#x5316;&#x65F6;   &#x8BE6;&#x89E3;&#xFF1A;&#x89C1;&#x4E0B;</p>
+<p>&#x200B;                                setThreadPriority(proc.getRenderThreadTid(), THREAD_PRIORITY_TOP_APP_BOOST);</p>
+<p><strong>AMS&#x4FA7;OomAdjuster.</strong>applyOomAdjLSP    -----------&gt;  <strong><font color="red">&#x4E3B;&#x8981;&#x8C03;&#x7528;&#x70B9;</font></strong> &#xFF1A; &#x5404;&#x79CD;&#x60C5;&#x51B5;&#x8C03;&#x7528;</p>
+<p>&#x200B;                            //  <del>setThreadPriority(app.getPid(), THREAD_PRIORITY_TOP_APP_BOOST);</del>    <strong>&#x63D0;&#x9AD8;UI&#x7EBF;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;</strong></p>
+<p>&#x200B;                           //  <del>setThreadPriority(renderThreadTid, THREAD_PRIORITY_TOP_APP_BOOST);</del>   &#x63D0;&#x9AD8;<strong>renderThread</strong>&#x4F18;&#x5148;&#x7EA7;</p>
+</blockquote>
+<p>-<font color="red">setThreadScheduler&#x8C03;&#x7528;&#x70B9;&#xFF1A;</font></p>
+<p>&#x200B;        <strong>AMS&#x4FA7;OomAdjuster.</strong>applyOomAdjLSP  ------&gt;   scheduleAsFifoPriority(renderThreadTid, true)    -------&gt;  FIFO&#x7EA7;&#x522B;</p>
+<p>&#x8C03;&#x7528;&#x6D41;&#x7A0B;&#xFF1A;</p>
+<pre><code class="lang-cpp">Process.setThreadPriority(<span class="hljs-keyword">int</span> tid, <span class="hljs-keyword">int</span> priority)
+    android_os_Process_setThreadPriority   -----------jni--------------
+        Threads::androidSetThreadPriority(pid, pri)
+             SetTaskProfiles(tid, {<span class="hljs-string">&quot;SCHED_SP_SYSTEM&quot;</span>}, <span class="hljs-literal">true</span>)  <span class="hljs-comment">//processgroup.cpp <span class="hljs-doctag">TODO:</span>  &#x8BBE;&#x7F6E;&#x4E86;profiles</span>
+                  TaskProfiles::SetTaskProfiles(<span class="hljs-keyword">int</span> tid, <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt;&amp; profiles, <span class="hljs-keyword">bool</span> use_fd_cache)
+             setpriority(PRIO_PROCESS, tid, pri)     <span class="hljs-comment">// &#x5373;&#x8BBE;&#x7F6E;nice&#x503C;</span>
+</code></pre>
+<p>&#x95EE;&#x9898;&#xFF1A;</p>
+<blockquote>
+<p>&#x65E2;&#x7136;&#x662F;&#x8BBE;&#x7F6E;&#x7ED9;&#x7EBF;&#x7A0B;&#x7684;&#xFF0C;&#x90A3;&#x4E48;&#x4E0D;&#x540C;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x600E;&#x4E48;&#x8C03;&#x5EA6;&#xFF1F;</p>
+<p>&#x8C03;&#x5EA6;&#x662F;&#x4EE5;&#x7EBF;&#x7A0B;&#xFF0C;&#x8FD8;&#x662F;&#x6309;&#x7167;&#x8FDB;&#x7A0B;&#x7EF4;&#x5EA6;&#x53BB;&#x5206;&#x914D;&#x8D44;&#x6E90;&#x7684;&#xFF1F;</p>
+</blockquote>
+<h2 id="&#x7ECF;&#x5178;&#x8C03;&#x7528;&#x8DEF;&#x5F84;-------&#x524D;&#x540E;&#x53F0;&#x5207;&#x6362;"><a name="&#x7ECF;&#x5178;&#x8C03;&#x7528;&#x8DEF;&#x5F84;-------&#x524D;&#x540E;&#x53F0;&#x5207;&#x6362;" class="anchor-navigation-ex-anchor" href="#&#x7ECF;&#x5178;&#x8C03;&#x7528;&#x8DEF;&#x5F84;-------&#x524D;&#x540E;&#x53F0;&#x5207;&#x6362;"><i class="fa fa-link" aria-hidden="true"></i></a>5.2. &#x7ECF;&#x5178;&#x8C03;&#x7528;&#x8DEF;&#x5F84;-------&#x524D;&#x540E;&#x53F0;&#x5207;&#x6362;</h2>
+<p>&#x524D;&#x53F0;myappliaction  &#x9000;&#x5230; &#x540E;&#x53F0; &#xFF08;&#x81EA;&#x7136;&#xFF0C;launcher&#x8FDB;&#x5165;&#x524D;&#x53F0;&#xFF09;</p>
+<h3 id="&#x76EE;&#x6807;&#xFF1A;myappliaction-&#x7EBF;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;&#x964D;&#x4F4E;&#x3001;launcher&#x7684;&#x63D0;&#x9AD8;"><a name="&#x76EE;&#x6807;&#xFF1A;myappliaction-&#x7EBF;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;&#x964D;&#x4F4E;&#x3001;launcher&#x7684;&#x63D0;&#x9AD8;" class="anchor-navigation-ex-anchor" href="#&#x76EE;&#x6807;&#xFF1A;myappliaction-&#x7EBF;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;&#x964D;&#x4F4E;&#x3001;launcher&#x7684;&#x63D0;&#x9AD8;"><i class="fa fa-link" aria-hidden="true"></i></a>5.2.1. &#x76EE;&#x6807;&#xFF1A;myappliaction &#x7EBF;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;&#x964D;&#x4F4E;&#x3001;launcher&#x7684;&#x63D0;&#x9AD8;</h3>
+<p>&#x65F6;&#x673A;&#xFF1A; TODO&#xFF1A;</p>
+<blockquote>
+<pre><code class="lang-java">applyOomAdjLocked:<span class="hljs-number">1817</span>, OomAdjuster (com.android.server.am)
+updateOomAdjLocked:<span class="hljs-number">447</span>, OomAdjuster (com.android.server.am)
+updateOomAdjLocked:<span class="hljs-number">16947</span>, ActivityManagerService (com.android.server.am)
+updateProcessInfo:<span class="hljs-number">1304</span>, ProcessRecord (com.android.server.am)
+accept:-<span class="hljs-number">1</span>, -$$Lambda$BEx3OWenCvYAaV5h_J2ZkZXhEcY (com.android.server.wm)
+doInvoke:<span class="hljs-number">300</span>, PooledLambdaImpl (com.android.internal.util.function.pooled)
+invoke:<span class="hljs-number">195</span>, PooledLambdaImpl (com.android.internal.util.function.pooled)
+run:<span class="hljs-number">86</span>, OmniFunction (com.android.internal.util.function.pooled)
+handleCallback:<span class="hljs-number">883</span>, Handler (android.os)
+dispatchMessage:<span class="hljs-number">100</span>, Handler (android.os)
+loop:<span class="hljs-number">214</span>, Looper (android.os)
+run:<span class="hljs-number">67</span>, HandlerThread (android.os)
+run:<span class="hljs-number">44</span>, ServiceThread (com.android.server)
+</code></pre>
+</blockquote>
+<pre><code class="lang-java"><span class="hljs-comment">//OomAdjuster</span>
+applyOomAdjLocked &#x65B9;&#x6CD5;&#xFF1A;
+
+<span class="hljs-comment">//1&#x3001;&#x63D0;&#x9AD8;launcher&#x7684;</span>
+<span class="hljs-comment">// Boost priority for top app UI and render threads</span>
+setThreadPriority(app.pid, TOP_APP_PRIORITY_BOOST);
+setThreadPriority(app.renderThreadTid,  TOP_APP_PRIORITY_BOOST);
+
+<span class="hljs-comment">//2&#x3001;&#x964D;&#x4F4E;myappliaction &#x7684;</span>
+setThreadPriority(app.pid, <span class="hljs-number">0</span>);
+setThreadPriority(app.renderThreadTid, <span class="hljs-number">0</span>);
+</code></pre>
+<p>------------&gt; TODO: </p>
+<blockquote>
+<p>&#x4E86;&#x89E3;app.renderThreadTid != 0 &#x7CFB;&#x7EDF;&#x4FA7;&#x5982;&#x4F55;&#x5224;&#x65AD; APP&#x6709;&#x6CA1;&#x6709;render&#x7EBF;&#x7A0B;&#x7684;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;</p>
+</blockquote>
+<h2 id="delinux-&#x63A5;&#x53E3;--setpriority"><a name="delinux-&#x63A5;&#x53E3;--setpriority" class="anchor-navigation-ex-anchor" href="#delinux-&#x63A5;&#x53E3;--setpriority"><i class="fa fa-link" aria-hidden="true"></i></a>5.3. del:inux &#x63A5;&#x53E3;  setpriority</h2>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/time.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/resource.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">setpriority</span><span class="hljs-params">(<span class="hljs-keyword">int</span> which, id_t who, <span class="hljs-keyword">int</span> value)</span></span>;
+</code></pre>
+<h2 id="del&#x547D;&#x4EE4;&#x8BBE;&#x7F6E;nice&#x503C;"><a name="del&#x547D;&#x4EE4;&#x8BBE;&#x7F6E;nice&#x503C;" class="anchor-navigation-ex-anchor" href="#del&#x547D;&#x4EE4;&#x8BBE;&#x7F6E;nice&#x503C;"><i class="fa fa-link" aria-hidden="true"></i></a>5.4. del:&#x547D;&#x4EE4;&#x8BBE;&#x7F6E;nice&#x503C;</h2>
+<pre><code class="lang-java">nice -n &lt;nice_value&gt; &lt;command&gt;
+</code></pre>
+<p>TODO&#xFF1A; &#x5B9E;&#x6218;&#x9A8C;&#x8BC1;</p>
+<h2 id="nice&#x503C;&#x7EF4;&#x6D4B;"><a name="nice&#x503C;&#x7EF4;&#x6D4B;" class="anchor-navigation-ex-anchor" href="#nice&#x503C;&#x7EF4;&#x6D4B;"><i class="fa fa-link" aria-hidden="true"></i></a>5.5. nice&#x503C;&#x7EF4;&#x6D4B;</h2>
+<p>&#x89C1;linux&#x7AE0;&#x8282;</p>
+<h2 id="&#x4F8B;&#x5B50;---&#x5B89;&#x5353;&#x4FEE;&#x6539;nice&#x503C;&#x7684;&#x7EBF;&#x7A0B;&#xFF1A;"><a name="&#x4F8B;&#x5B50;---&#x5B89;&#x5353;&#x4FEE;&#x6539;nice&#x503C;&#x7684;&#x7EBF;&#x7A0B;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x4F8B;&#x5B50;---&#x5B89;&#x5353;&#x4FEE;&#x6539;nice&#x503C;&#x7684;&#x7EBF;&#x7A0B;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>5.6. &#x4F8B;&#x5B50;---&#x5B89;&#x5353;&#x4FEE;&#x6539;nice&#x503C;&#x7684;&#x7EBF;&#x7A0B;&#xFF1A;</h2>
+<h3 id="renderthread&#x7EBF;&#x7A0B;"><a name="renderthread&#x7EBF;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#renderthread&#x7EBF;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>5.6.1. RenderThread&#x7EBF;&#x7A0B;</h3>
+<p>&#x8BE6;&#x89E3;setRenderThread &#xFF1A;</p>
+<blockquote>
+<p>-1&#x3001;<font color="red">&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;</font></p>
+<blockquote>
+<p>&#x6BCF;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;&#x7ED8;&#x753B;&#x7EBF;&#x7A0B;RenderThread&#x7684;&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x662F;SCHED_OTHER, &#x5E76;&#x4E14;&#x4F18;&#x5148;&#x7EA7;&#x4E3A;-10.</p>
+</blockquote>
+<p>2&#x3001;mUseFifoUiScheduling = true&#x4E0B;: &#xFF08;&#x5373;&#x8BBE;&#x7F6E;&#x7CFB;&#x7EDF;&#x5C5E;&#x6027;sys.use_fifo_ui&#x4E3A;1&#xFF08;TODO: &#x624B;&#x673A;&#x548C;&#x8F66;&#x673A;&#xFF0C;&#x6682;&#x65F6;&#x6CA1;&#x770B;&#x5230;&#x8FD9;&#x6837;&#x505A;&#xFF09;&#xFF09;</p>
+<blockquote>
+<p>&#x6BCF;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;&#x7ED8;&#x753B;&#x7EBF;&#x7A0B;RenderThread&#x7684;&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x53D8;&#x66F4;&#x4E3A;SCHED_FIFO,&#x5E76;&#x4E14;&#x5B9E;&#x65F6;&#x4F18;&#x5148;&#x7EA7;&#x4E3A;1.(&#x5176;&#x5B9E;&#xFF0C;&#x53EA;&#x662F;&#x5728;&#x786C;&#x4EF6;&#x52A0;&#x901F;&#x65F6;&#xFF0C;&#x4F1A;&#x8BBE;&#x7F6E;setRenderThread &#x3002;&#x4F46;&#x662F;&#x9ED8;&#x8BA4;&#x786C;&#x4EF6;&#x52A0;&#x901F;)</p>
+</blockquote>
+<p>--------------&gt; &#x65E0;&#x8BBA;&#x54EA;&#x79CD;&#xFF0C;RenderThread&#x90FD;&#x63D0;&#x9AD8;&#x4E86;&#x4F18;&#x5148;&#x7EA7;</p>
+</blockquote>
+<p><a href="https://blog.csdn.net/hdxx2022/article/details/127630906" target="_blank">https://blog.csdn.net/hdxx2022/article/details/127630906</a>    &#x5173;&#x4E8E;Android&#x8FDB;&#x7A0B;&#x8C03;&#x5EA6;&#x6D45;&#x8C08; (Android&#x7CFB;&#x7EDF;&#x5728;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x5730;&#x65B9;&#x8BBE;&#x7F6E;&#x4E86;SCHED_FIFO&#x8C03;&#x5EA6;&#x7B56;&#x7565;)</p>
+<p>setThreadScheduler  ------&gt;  &#x8C03;&#x5EA6;&#x7B56;&#x7565; + &#x4F18;&#x5148;&#x7EA7;</p>
+<h3 id="&#x5E94;&#x7528;&#x4E3B;&#x7EBF;&#x7A0B;"><a name="&#x5E94;&#x7528;&#x4E3B;&#x7EBF;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#&#x5E94;&#x7528;&#x4E3B;&#x7EBF;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>5.6.2. &#x5E94;&#x7528;&#x4E3B;&#x7EBF;&#x7A0B;</h3>
+<p>TODO: &#x54EA;&#x91CC;&#x8BBE;&#x7F6E;&#x7684;&#xFF1F;</p>
+<h3 id="surfaceflinger&#x7EBF;&#x7A0B;"><a name="surfaceflinger&#x7EBF;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#surfaceflinger&#x7EBF;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>5.6.3. SurfaceFlinger&#x7EBF;&#x7A0B;</h3>
+<p>SurfaceFlinger&#x8BBE;&#x7F6E;&#x4E3A;FIFO</p>
+<blockquote>
+<p><img src="&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7CFB;&#x5217;2&#x4E4B;&#x8FDB;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;.assets/image-20231107000339211-1700055904962.png" alt="image-20231107000339211"></p>
+</blockquote>
+<p>linux +<font color="red"> KDE&#x684C;&#x9762;&#x73AF;&#x5883;</font>&#xFF1A;</p>
+<blockquote>
+<p>kwin_x11   -------&gt;  &#x662F;KDE&#x7684;&#x56FE;&#x5F62;&#x5408;&#x6210;&#x5668;</p>
+<p>renderThread  -------&gt;  KDE  &#x4E5F;&#x6709;</p>
+</blockquote>
+<h1 id="systemd-&#x8BBE;&#x7F6E;&#x4E4B;&#x7ED1;&#x6838;--&#x4F18;&#x5148;&#x7EA7;"><a name="systemd-&#x8BBE;&#x7F6E;&#x4E4B;&#x7ED1;&#x6838;--&#x4F18;&#x5148;&#x7EA7;" class="anchor-navigation-ex-anchor" href="#systemd-&#x8BBE;&#x7F6E;&#x4E4B;&#x7ED1;&#x6838;--&#x4F18;&#x5148;&#x7EA7;"><i class="fa fa-link" aria-hidden="true"></i></a>6. systemd &#x8BBE;&#x7F6E;&#x4E4B;&#x7ED1;&#x6838; &amp; &#x4F18;&#x5148;&#x7EA7;</h1>
+<p>systemd &#x914D;&#x7F6E;</p>
+<pre><code class="lang-java">//  /lib/systemd/system/ .service&#x6587;&#x4EF6;
+[Service]
+ExecStart=/path/to/your/program
+Nice=-10          # &#x8BBE;&#x7F6E;&#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;&#xFF08;&#x8303;&#x56F4;&#x4ECE; -20 &#x5230; 19&#xFF0C;-20 &#x4E3A;&#x6700;&#x9AD8;&#x4F18;&#x5148;&#x7EA7;&#xFF09;
+# &#x6216;&#x8005;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; OOMScoreAdjust &#x6765;&#x8BBE;&#x7F6E;&#x5185;&#x5B58;&#x5206;&#x914D;&#x4F18;&#x5148;&#x7EA7;
+# OOMScoreAdjust=-1000   # &#x964D;&#x4F4E;&#x88AB;&#x7CFB;&#x7EDF;&#x6740;&#x6B7B;&#x7684;&#x53EF;&#x80FD;&#x6027;
+CPUAffinity=4  #&#x5927;&#x6838;
+</code></pre>
+<p>&#x7ED3;&#x679C;&#x9A8C;&#x8BC1;&#xFF1A;</p>
+<blockquote>
+<p>&#x4F18;&#x5148;&#x7EA7;&#x9A8C;&#x8BC1;&#xFF1A;</p>
+<blockquote>
+<p>TOP&#x770B;NICE&#x503C;&#xFF08;PR&#x548C;NICE&#x503C;&#xFF0C;&#x672C;&#x8D28;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF09;</p>
+</blockquote>
+<p>&#x7ED1;&#x6838;&#x9A8C;&#x8BC1;&#xFF1A;</p>
+<blockquote>
+<p>trace&#x67E5;&#x770B;</p>
+</blockquote>
+</blockquote>
+<h1 id="&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;_1"><a name="&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;_1" class="anchor-navigation-ex-anchor" href="#&#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;_1"><i class="fa fa-link" aria-hidden="true"></i></a>7. &#x4E00;&#x4E9B;&#x7ED3;&#x8BBA;&#xFF1A;</h1>
+<h2 id="linux&#x4E0A;&#xFF0C;&#x5404;&#x7EBF;&#x7A0B;nice&#x503C;&#x5927;&#x591A;&#x4E00;&#x6837;"><a name="linux&#x4E0A;&#xFF0C;&#x5404;&#x7EBF;&#x7A0B;nice&#x503C;&#x5927;&#x591A;&#x4E00;&#x6837;" class="anchor-navigation-ex-anchor" href="#linux&#x4E0A;&#xFF0C;&#x5404;&#x7EBF;&#x7A0B;nice&#x503C;&#x5927;&#x591A;&#x4E00;&#x6837;"><i class="fa fa-link" aria-hidden="true"></i></a>7.1. Linux&#x4E0A;&#xFF0C;&#x5404;&#x7EBF;&#x7A0B;nice&#x503C;&#x5927;&#x591A;&#x4E00;&#x6837;</h2>
+<p>linux &#xFF1A;</p>
+<blockquote>
+<p>&#x5E94;&#x7528;&#x706B;&#x72D0;&#x6D4F;&#x89C8;&#x5668;&#xFF1A;</p>
+<pre><code>PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND
+[m17632 chen  20   0 2550392 176168 100700 S  6.7  2.9 633:26.35 Xorg
+[m17633 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 llvmpipe-0
+[m17634 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 llvmpipe-1
+[m17635 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 llvmpipe-2
+[m17636 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 llvmpipe-3
+[m17637 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 llvmpipe-4
+[m17638 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 llvmpipe-5
+[m17639 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 llvmpipe-6
+[m17640 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 llvmpipe-7
+[m17641 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 llvmpipe-8
+[m17642 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 llvmpipe-9
+[m17643 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 llvmpipe-10
+[m17644 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 llvmpipe-11
+[m17645 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 llvmpipe-12
+[m17646 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 llvmpipe-13
+[m17647 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 Xorg
+[m17648 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.01 Xorg
+[m17649 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 Xorg
+[m17650 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 Xorg
+[m17651 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 Xorg
+[m17652 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 Xorg
+[m17653 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 Xorg
+[m17654 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 Xorg
+[m17655 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 Xorg
+[m17656 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 Xorg
+[m17657 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 Xorg
+[m17658 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 Xorg
+[m17659 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 Xorg
+[m17660 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:00.00 Xorg
+[m17663 chen  20   0 2550392 176168 100700 S  0.0  2.9   0:17.93 InputThread
+</code></pre></blockquote>
+<p>linux &#xFF1A;&#x6574;&#x4E2A;&#x7CFB;&#x7EDF;&#xFF1A;</p>
+<blockquote>
+<p><img src="&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7CFB;&#x5217;2&#x4E4B;&#x8FDB;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;.assets/image-20231107001904401.png" alt="image-20231107001904401"></p>
+</blockquote>
+<p>&#x5B89;&#x5353;&#xFF1A;&#x5E94;&#x7528;&#x8FDB;&#x7A0B;com.huawei.notepad</p>
+<blockquote>
+<p>render&#x7EBF;&#x7A0B;&#x548C;&#x4E3B;&#x7EBF;&#x7A0B;&#xFF0C;&#x6BD4;&#x8F83;&#x4F18;&#x5148;&#x7EA7;&#x9AD8;</p>
+<p><img src="&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7CFB;&#x5217;2&#x4E4B;&#x8FDB;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;.assets/image-20231107002417154.png" alt="image-20231107002417154"></p>
+</blockquote>
+<p>&#x5B89;&#x5353;&#x6574;&#x4E2A;&#x7CFB;&#x7EDF;&#xFF1A;</p>
+<blockquote>
+<p><img src="&#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7CFB;&#x5217;2&#x4E4B;&#x8FDB;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;.assets/image-20231107002231954.png" alt="image-20231107002231954"></p>
+</blockquote>
+<p><strong>&#x521D;&#x6B65;&#x7ED3;&#x8BBA;&#xFF1A;</strong></p>
+<blockquote>
+<p>&#x5B89;&#x5353;&#x4E0A;&#xFF1A;com.huawei.notepad&#x5E94;&#x7528;&#x7684;&#x5404;&#x4E2A;&#x7EBF;&#x7A0B;&#x7684;<strong>nice&#x503C;&#x4E0D;&#x4E00;&#x6837;</strong></p>
+<p>&#x200B;                &#x6BD4;&#x5982; RenderThread----------&gt;  <strong>&#x8BBE;&#x7F6E;&#x70B9;&#xFF1A;</strong>AMS.setRenderThread&#xFF0C;</p>
+<p>Linux&#x4E0A;&#xFF0C;&#x5404;&#x7EBF;&#x7A0B;&#x660E;&#x663E;&#x4E00;&#x6837;</p>
+</blockquote>
+<h1 id="linux---cgroup-&#x5B9E;&#x64CD;-----chatgpt"><a name="linux---cgroup-&#x5B9E;&#x64CD;-----chatgpt" class="anchor-navigation-ex-anchor" href="#linux---cgroup-&#x5B9E;&#x64CD;-----chatgpt"><i class="fa fa-link" aria-hidden="true"></i></a>8. Linux   cgroup &#x5B9E;&#x64CD;-----chatGpt</h1>
+<p>&#x76EE;&#x7684;&#xFF1A;&#x9694;&#x79BB;&#x8D44;&#x6E90;&#xFF08;CPU&#x3001;Mem&#xFF09;--------&gt; &#x4ECE;&#x800C;&#x4F18;&#x5316;&#x6027;&#x80FD;</p>
+<p>&#x5728; Linux &#x4E2D;&#xFF0C;&#x4F7F;&#x7528; <code>cgroup v2</code> &#x53EF;&#x4EE5;&#x9650;&#x5236;&#x6216;&#x7ED1;&#x5B9A;&#x8FDB;&#x7A0B;&#x5230;&#x7279;&#x5B9A;&#x7684; CPU &#x6838;&#xFF08;&#x5373; CPU &#x4EB2;&#x548C;&#x6027;&#xFF09;&#x3002;&#x901A;&#x8FC7; <code>cgroup v2</code> &#x7684; <code>cpuset</code> &#x63A7;&#x5236;&#x7EC4;&#xFF0C;&#x80FD;&#x591F;&#x5C06;&#x67D0;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x8FDB;&#x7A0B;&#x9650;&#x5236;&#x5728;&#x6307;&#x5B9A;&#x7684; CPU &#x6838;&#x4E0A;&#x6267;&#x884C;&#x3002;</p>
+<h3 id="&#x4F7F;&#x7528;-cgroup-v2-&#x7ED1;&#x5B9A;&#x8FDB;&#x7A0B;&#x5230;&#x7279;&#x5B9A;-cpu-&#x6838;&#x7684;&#x65B9;&#x6CD5;"><a name="&#x4F7F;&#x7528;-cgroup-v2-&#x7ED1;&#x5B9A;&#x8FDB;&#x7A0B;&#x5230;&#x7279;&#x5B9A;-cpu-&#x6838;&#x7684;&#x65B9;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;-cgroup-v2-&#x7ED1;&#x5B9A;&#x8FDB;&#x7A0B;&#x5230;&#x7279;&#x5B9A;-cpu-&#x6838;&#x7684;&#x65B9;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>8.1.1. &#x4F7F;&#x7528; cgroup v2 &#x7ED1;&#x5B9A;&#x8FDB;&#x7A0B;&#x5230;&#x7279;&#x5B9A; CPU &#x6838;&#x7684;&#x65B9;&#x6CD5;</h3>
+<h4 id="1-&#x786E;&#x4FDD;-cgroup-v2-&#x5DF2;&#x7ECF;&#x6302;&#x8F7D;"><a name="1-&#x786E;&#x4FDD;-cgroup-v2-&#x5DF2;&#x7ECF;&#x6302;&#x8F7D;" class="anchor-navigation-ex-anchor" href="#1-&#x786E;&#x4FDD;-cgroup-v2-&#x5DF2;&#x7ECF;&#x6302;&#x8F7D;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x786E;&#x4FDD; <code>cgroup v2</code> &#x5DF2;&#x7ECF;&#x6302;&#x8F7D;</h4>
+<p>&#x9996;&#x5148;&#xFF0C;&#x68C0;&#x67E5;&#x662F;&#x5426;&#x5DF2;&#x7ECF;&#x6302;&#x8F7D;&#x4E86; <code>cgroup v2</code>&#x3002;</p>
+<pre><code>bash
+
+
+Copy code
+mount | grep cgroup2
+</code></pre><p>&#x5982;&#x679C;&#x6CA1;&#x6709;&#x770B;&#x5230;&#x7C7B;&#x4F3C; <code>/sys/fs/cgroup</code> &#x7684;&#x6302;&#x8F7D;&#x4FE1;&#x606F;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x6302;&#x8F7D; <code>cgroup v2</code>&#xFF1A;</p>
+<pre><code>bash
+
+
+Copy code
+sudo mount -t cgroup2 none /sys/fs/cgroup
+</code></pre><h4 id="2-&#x521B;&#x5EFA;&#x5E76;&#x914D;&#x7F6E;-cpuset-&#x63A7;&#x5236;&#x7EC4;"><a name="2-&#x521B;&#x5EFA;&#x5E76;&#x914D;&#x7F6E;-cpuset-&#x63A7;&#x5236;&#x7EC4;" class="anchor-navigation-ex-anchor" href="#2-&#x521B;&#x5EFA;&#x5E76;&#x914D;&#x7F6E;-cpuset-&#x63A7;&#x5236;&#x7EC4;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x521B;&#x5EFA;&#x5E76;&#x914D;&#x7F6E; <code>cpuset</code> &#x63A7;&#x5236;&#x7EC4;</h4>
+<p>&#x5728; <code>cgroup v2</code> &#x4E2D;&#xFF0C;<code>cpuset</code> &#x7528;&#x4E8E;&#x63A7;&#x5236;&#x8FDB;&#x7A0B;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x7684; CPU &#x548C;&#x5185;&#x5B58;&#x8282;&#x70B9;&#x3002;&#x9996;&#x5148;&#xFF0C;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; <code>cgroup</code> &#x76EE;&#x5F55;&#x6765;&#x9650;&#x5236;&#x8FDB;&#x7A0B;&#x7684; CPU &#x4F7F;&#x7528;&#x3002;</p>
+<pre><code>bashCopy codecd /sys/fs/cgroup
+mkdir cpuset_group
+</code></pre><h4 id="3-&#x914D;&#x7F6E;-cpusetcpus-&#x548C;-cpusetmems"><a name="3-&#x914D;&#x7F6E;-cpusetcpus-&#x548C;-cpusetmems" class="anchor-navigation-ex-anchor" href="#3-&#x914D;&#x7F6E;-cpusetcpus-&#x548C;-cpusetmems"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x914D;&#x7F6E; <code>cpuset.cpus</code> &#x548C; <code>cpuset.mems</code></h4>
+<ul>
+<li><strong><code>cpuset.cpus</code></strong>&#xFF1A;&#x6307;&#x5B9A;&#x8FDB;&#x7A0B;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x7684; CPU &#x6838;&#x3002;</li>
+<li><strong><code>cpuset.mems</code></strong>&#xFF1A;&#x6307;&#x5B9A;&#x8FDB;&#x7A0B;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x7684;&#x5185;&#x5B58;&#x8282;&#x70B9;&#xFF08;&#x901A;&#x5E38;&#x53EA;&#x9700;&#x8981;&#x8BBE;&#x4E3A; <code>0</code>&#xFF0C;&#x8868;&#x793A;&#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x7684;&#x5185;&#x5B58;&#x8282;&#x70B9;&#xFF09;&#x3002;</li>
+</ul>
+<p>&#x4F8B;&#x5982;&#xFF0C;&#x5C06;&#x8FDB;&#x7A0B;&#x7ED1;&#x5B9A;&#x5230; CPU 0 &#x548C; CPU 1&#xFF1A;</p>
+<pre><code>bashCopy codeecho 0-1 &gt; cpuset_group/cpuset.cpus
+echo 0 &gt; cpuset_group/cpuset.mems
+</code></pre><h4 id="4-&#x542F;&#x52A8;&#x6216;&#x5C06;&#x8FDB;&#x7A0B;&#x52A0;&#x5165;&#x5230;-cgroup"><a name="4-&#x542F;&#x52A8;&#x6216;&#x5C06;&#x8FDB;&#x7A0B;&#x52A0;&#x5165;&#x5230;-cgroup" class="anchor-navigation-ex-anchor" href="#4-&#x542F;&#x52A8;&#x6216;&#x5C06;&#x8FDB;&#x7A0B;&#x52A0;&#x5165;&#x5230;-cgroup"><i class="fa fa-link" aria-hidden="true"></i></a>4. &#x542F;&#x52A8;&#x6216;&#x5C06;&#x8FDB;&#x7A0B;&#x52A0;&#x5165;&#x5230; <code>cgroup</code></h4>
+<p>&#x4F60;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4EE5;&#x4E0B;&#x65B9;&#x5F0F;&#xFF0C;&#x5C06;&#x7279;&#x5B9A;&#x7684;&#x8FDB;&#x7A0B;&#x653E;&#x5165;&#x8FD9;&#x4E2A;&#x63A7;&#x5236;&#x7EC4;&#xFF1A;</p>
+<ul>
+<li><p><strong>&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x8FDB;&#x7A0B;</strong>&#xFF1A; &#x4F7F;&#x7528; <code>echo $$</code> &#x6216; <code>pgrep</code> &#x83B7;&#x53D6;&#x8FDB;&#x7A0B;&#x7684; PID&#xFF0C;&#x7136;&#x540E;&#x5C06; PID &#x6DFB;&#x52A0;&#x5230; <code>cgroup.procs</code> &#x6587;&#x4EF6;&#x3002;</p>
+<p>```
+bash</p>
+</li>
+</ul>
+<pre><code>Copy code
+echo &lt;PID&gt; &gt; cpuset_group/cgroup.procs
+```
+</code></pre><ul>
+<li><p><strong>&#x5C06;&#x73B0;&#x6709;&#x8FDB;&#x7A0B;&#x52A0;&#x5165;&#x5230; <code>cgroup</code></strong>&#xFF1A; &#x5047;&#x8BBE;&#x4F60;&#x60F3;&#x8BA9; PID &#x4E3A; <code>1234</code> &#x7684;&#x8FDB;&#x7A0B;&#x7ED1;&#x5B9A;&#x5230;&#x7279;&#x5B9A; CPU &#x6838;&#xFF1A;</p>
+<p>```
+bash</p>
+</li>
+</ul>
+<pre><code>Copy code
+echo 1234 &gt; cpuset_group/cgroup.procs
+```
+</code></pre><p>&#x73B0;&#x5728;&#xFF0C;&#x8FDB;&#x7A0B; <code>1234</code> &#x5C06;&#x53EA;&#x80FD;&#x5728; CPU 0 &#x548C; CPU 1 &#x4E0A;&#x8FD0;&#x884C;&#x3002;</p>
+<h4 id="5-&#x9A8C;&#x8BC1;&#x8FDB;&#x7A0B;&#x662F;&#x5426;&#x7ED1;&#x5B9A;&#x5230;&#x6307;&#x5B9A;&#x7684;-cpu-&#x6838;"><a name="5-&#x9A8C;&#x8BC1;&#x8FDB;&#x7A0B;&#x662F;&#x5426;&#x7ED1;&#x5B9A;&#x5230;&#x6307;&#x5B9A;&#x7684;-cpu-&#x6838;" class="anchor-navigation-ex-anchor" href="#5-&#x9A8C;&#x8BC1;&#x8FDB;&#x7A0B;&#x662F;&#x5426;&#x7ED1;&#x5B9A;&#x5230;&#x6307;&#x5B9A;&#x7684;-cpu-&#x6838;"><i class="fa fa-link" aria-hidden="true"></i></a>5. &#x9A8C;&#x8BC1;&#x8FDB;&#x7A0B;&#x662F;&#x5426;&#x7ED1;&#x5B9A;&#x5230;&#x6307;&#x5B9A;&#x7684; CPU &#x6838;</h4>
+<p>&#x4F60;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4EE5;&#x4E0B;&#x65B9;&#x5F0F;&#x68C0;&#x67E5;&#x8FDB;&#x7A0B;&#x7684; CPU &#x4EB2;&#x548C;&#x6027;&#xFF1A;</p>
+<pre><code>bash
+
+
+Copy code
+taskset -cp &lt;PID&gt;
+</code></pre><p>&#x8FD9;&#x5C06;&#x663E;&#x793A;&#x8FDB;&#x7A0B;&#x7684; CPU &#x7ED1;&#x5B9A;&#x60C5;&#x51B5;&#xFF0C;&#x5E94;&#x8BE5;&#x53EA;&#x663E;&#x793A;&#x4F60;&#x5728; <code>cpuset.cpus</code> &#x4E2D;&#x6307;&#x5B9A;&#x7684; CPU &#x6838;&#x3002;</p>
+<h3 id="&#x793A;&#x4F8B;"><a name="&#x793A;&#x4F8B;" class="anchor-navigation-ex-anchor" href="#&#x793A;&#x4F8B;"><i class="fa fa-link" aria-hidden="true"></i></a>8.1.2. &#x793A;&#x4F8B;</h3>
+<p>&#x5047;&#x8BBE;&#x4F60;&#x60F3;&#x7ED1;&#x5B9A;&#x8FDB;&#x7A0B; <code>4567</code> &#x5230; CPU 2 &#x548C; CPU 3&#xFF0C;&#x6267;&#x884C;&#x6B65;&#x9AA4;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li><p>&#x521B;&#x5EFA; <code>cpuset</code> &#x63A7;&#x5236;&#x7EC4;&#xFF1A;</p>
+<pre><code>bashCopy codecd /sys/fs/cgroup
+mkdir cpuset_test
+</code></pre></li>
+<li><p>&#x914D;&#x7F6E; <code>cpuset</code>&#xFF1A;</p>
+<pre><code>bashCopy codeecho 2-3 &gt; cpuset_test/cpuset.cpus
+echo 0 &gt; cpuset_test/cpuset.mems
+</code></pre></li>
+<li><p>&#x5C06;&#x8FDB;&#x7A0B; <code>4567</code> &#x6DFB;&#x52A0;&#x5230; <code>cgroup</code> &#x4E2D;&#xFF1A;</p>
+<p>```
+bash</p>
+</li>
+</ol>
+<pre><code>Copy code
+echo 4567 &gt; cpuset_test/cgroup.procs
+```
+</code></pre><ol>
+<li><p>&#x9A8C;&#x8BC1;&#x7ED1;&#x5B9A;&#x60C5;&#x51B5;&#xFF1A;</p>
+<p>```
+bash</p>
+</li>
+</ol>
+<pre><code>Copy code
+taskset -cp 4567
+```
+</code></pre><p>&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x5C06;&#x663E;&#x793A;&#x8FDB;&#x7A0B; <code>4567</code> &#x53EA;&#x5728; CPU 2 &#x548C; CPU 3 &#x4E0A;&#x8FD0;&#x884C;&#x3002;</p>
+<h3 id="&#x603B;&#x7ED3;"><a name="&#x603B;&#x7ED3;" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x7ED3;"><i class="fa fa-link" aria-hidden="true"></i></a>8.1.3. &#x603B;&#x7ED3;</h3>
+<p>&#x901A;&#x8FC7; <code>cgroup v2</code> &#x7684; <code>cpuset</code>&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x65B9;&#x4FBF;&#x5730;&#x5C06;&#x8FDB;&#x7A0B;&#x7ED1;&#x5B9A;&#x5230;&#x7279;&#x5B9A;&#x7684; CPU &#x6838;&#x4E0A;&#xFF0C;&#x4ECE;&#x800C;&#x63A7;&#x5236;&#x8FDB;&#x7A0B;&#x7684; CPU &#x4F7F;&#x7528;&#x3002;&#x8FD9;&#x6837;&#x7684;&#x65B9;&#x6CD5;&#x975E;&#x5E38;&#x9002;&#x7528;&#x4E8E;&#x6027;&#x80FD;&#x4F18;&#x5316;&#x3001;&#x9694;&#x79BB;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;&#x4EE5;&#x53CA;&#x786E;&#x4FDD;&#x591A;&#x6838;&#x7CFB;&#x7EDF;&#x4E0A;&#x8FDB;&#x7A0B;&#x7684;&#x6267;&#x884C;&#x6548;&#x7387;&#x3002;</p>
+<p>4o</p>
+<h5 id="you-said"><a name="you-said" class="anchor-navigation-ex-anchor" href="#you-said"><i class="fa fa-link" aria-hidden="true"></i></a>You said:</h5>
+<p>&#x4E0A;&#x8FF0;&#x65B9;&#x5F0F;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x67D0;&#x4E2A;&#x6838;&#x88AB; &#x7279;&#x5B9A;&#x8FDB;&#x7A0B;&#x72EC;&#x5360;&#x5417;</p>
+<h6 id="chatgpt-said"><a name="chatgpt-said" class="anchor-navigation-ex-anchor" href="#chatgpt-said"><i class="fa fa-link" aria-hidden="true"></i></a>ChatGPT said:</h6>
+<p>ChatGPT</p>
+<p>&#x662F;&#x7684;&#xFF0C;&#x901A;&#x8FC7; <code>cgroup v2</code> &#x7684; <code>cpuset</code> &#x63A7;&#x5236;&#x7EC4;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x67D0;&#x4E2A;&#x6216;&#x67D0;&#x4E9B; CPU &#x6838;&#x5206;&#x914D;&#x7ED9;&#x7279;&#x5B9A;&#x7684;&#x8FDB;&#x7A0B;&#xFF0C;&#x5E76;&#x4E14;&#x786E;&#x4FDD;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#x65E0;&#x6CD5;&#x4F7F;&#x7528;&#x8FD9;&#x4E9B; CPU &#x6838;&#xFF0C;&#x4ECE;&#x800C;&#x5B9E;&#x73B0; CPU &#x6838;&#x7684;<strong>&#x72EC;&#x5360;</strong>&#x3002;</p>
+<p>&#x4E3A;&#x4E86;&#x5B9E;&#x73B0;&#x67D0;&#x4E2A; CPU &#x6838;&#x88AB;&#x7279;&#x5B9A;&#x8FDB;&#x7A0B;&#x72EC;&#x5360;&#xFF0C;&#x901A;&#x5E38;&#x9700;&#x8981;&#x4EE5;&#x4E0B;&#x4E24;&#x4E2A;&#x6B65;&#x9AA4;&#xFF1A;</p>
+<ol>
+<li><strong>&#x5C06;&#x6307;&#x5B9A;&#x7684; CPU &#x6838;&#x5206;&#x914D;&#x7ED9;&#x76EE;&#x6807;&#x8FDB;&#x7A0B;&#x7684; <code>cgroup</code></strong>&#xFF0C;&#x5373;&#x5C06;&#x8BE5;&#x8FDB;&#x7A0B;&#x7ED1;&#x5230;&#x7279;&#x5B9A;&#x7684; CPU &#x6838;&#x4E0A;&#x3002;</li>
+<li><strong>&#x786E;&#x4FDD;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#x4E0D;&#x80FD;&#x4F7F;&#x7528;&#x8FD9;&#x4E9B; CPU &#x6838;</strong>&#xFF0C;&#x5373;&#x5C06;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#x7684; CPU &#x4F7F;&#x7528;&#x9650;&#x5236;&#x5728;&#x5269;&#x4F59;&#x7684; CPU &#x6838;&#x4E0A;&#x3002;</li>
+</ol>
+<h3 id="&#x5B9E;&#x73B0;-cpu-&#x6838;&#x72EC;&#x5360;&#x7684;&#x6B65;&#x9AA4;"><a name="&#x5B9E;&#x73B0;-cpu-&#x6838;&#x72EC;&#x5360;&#x7684;&#x6B65;&#x9AA4;" class="anchor-navigation-ex-anchor" href="#&#x5B9E;&#x73B0;-cpu-&#x6838;&#x72EC;&#x5360;&#x7684;&#x6B65;&#x9AA4;"><i class="fa fa-link" aria-hidden="true"></i></a>8.1.4. &#x5B9E;&#x73B0; CPU &#x6838;&#x72EC;&#x5360;&#x7684;&#x6B65;&#x9AA4;</h3>
+<h4 id="1-&#x786E;&#x4FDD;-cgroup-v2-&#x5DF2;&#x6302;&#x8F7D;"><a name="1-&#x786E;&#x4FDD;-cgroup-v2-&#x5DF2;&#x6302;&#x8F7D;" class="anchor-navigation-ex-anchor" href="#1-&#x786E;&#x4FDD;-cgroup-v2-&#x5DF2;&#x6302;&#x8F7D;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x786E;&#x4FDD; <code>cgroup v2</code> &#x5DF2;&#x6302;&#x8F7D;</h4>
+<p>&#x4E0E;&#x4E4B;&#x524D;&#x76F8;&#x540C;&#xFF0C;&#x9996;&#x5148;&#x786E;&#x4FDD; <code>cgroup v2</code> &#x5DF2;&#x6302;&#x8F7D;&#x3002;</p>
+<pre><code>bash
+
+
+Copy code
+mount | grep cgroup2
+</code></pre><p>&#x5982;&#x679C;&#x6CA1;&#x6709;&#x770B;&#x5230;&#x7C7B;&#x4F3C; <code>/sys/fs/cgroup</code> &#x7684;&#x6302;&#x8F7D;&#x4FE1;&#x606F;&#xFF0C;&#x5219;&#x6302;&#x8F7D; <code>cgroup v2</code>&#xFF1A;</p>
+<pre><code>bash
+
+
+Copy code
+sudo mount -t cgroup2 none /sys/fs/cgroup
+</code></pre><h4 id="2-&#x521B;&#x5EFA;&#x4E24;&#x4E2A;-cgroup-&#x63A7;&#x5236;&#x7EC4;"><a name="2-&#x521B;&#x5EFA;&#x4E24;&#x4E2A;-cgroup-&#x63A7;&#x5236;&#x7EC4;" class="anchor-navigation-ex-anchor" href="#2-&#x521B;&#x5EFA;&#x4E24;&#x4E2A;-cgroup-&#x63A7;&#x5236;&#x7EC4;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x521B;&#x5EFA;&#x4E24;&#x4E2A; <code>cgroup</code> &#x63A7;&#x5236;&#x7EC4;</h4>
+<p>&#x521B;&#x5EFA;&#x4E24;&#x4E2A; <code>cgroup</code> &#x63A7;&#x5236;&#x7EC4;&#xFF0C;&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x5C06;&#x7279;&#x5B9A;&#x8FDB;&#x7A0B;&#x7ED1;&#x5230;&#x76EE;&#x6807; CPU &#x6838;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x5C06;&#x6240;&#x6709;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#x9650;&#x5236;&#x5728;&#x5269;&#x4F59;&#x7684; CPU &#x6838;&#x4E0A;&#x3002;</p>
+<pre><code>bashCopy codecd /sys/fs/cgroup
+mkdir exclusive_group    # &#x7528;&#x4E8E;&#x7ED1;&#x5B9A;&#x72EC;&#x5360;&#x7684;&#x8FDB;&#x7A0B;
+mkdir other_group        # &#x7528;&#x4E8E;&#x9650;&#x5236;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;
+</code></pre><h4 id="3-&#x914D;&#x7F6E;-cpusetcpus-&#x548C;-cpusetmems_1"><a name="3-&#x914D;&#x7F6E;-cpusetcpus-&#x548C;-cpusetmems_1" class="anchor-navigation-ex-anchor" href="#3-&#x914D;&#x7F6E;-cpusetcpus-&#x548C;-cpusetmems_1"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x914D;&#x7F6E; <code>cpuset.cpus</code> &#x548C; <code>cpuset.mems</code></h4>
+<ul>
+<li><strong><code>exclusive_group</code></strong>&#xFF1A;&#x5C06;&#x8981;&#x72EC;&#x5360;&#x7684;&#x8FDB;&#x7A0B;&#x7ED1;&#x5B9A;&#x5230;&#x7279;&#x5B9A;&#x7684; CPU &#x6838;&#x4E0A;&#xFF0C;&#x6BD4;&#x5982; <code>CPU 2</code>&#x3002;</li>
+<li><strong><code>other_group</code></strong>&#xFF1A;&#x5C06;&#x6240;&#x6709;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#x9650;&#x5236;&#x5728;&#x5176;&#x4ED6; CPU &#x6838;&#x4E0A;&#xFF08;&#x4F8B;&#x5982; <code>CPU 0</code> &#x548C; <code>CPU 1</code>&#xFF09;&#x3002;</li>
+</ul>
+<pre><code>bashCopy code# &#x72EC;&#x5360; CPU 2 &#x7684;&#x8FDB;&#x7A0B;
+echo 2 &gt; exclusive_group/cpuset.cpus
+echo 0 &gt; exclusive_group/cpuset.mems
+
+# &#x9650;&#x5236;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#x53EA;&#x80FD;&#x4F7F;&#x7528; CPU 0 &#x548C; CPU 1
+echo 0-1 &gt; other_group/cpuset.cpus
+echo 0 &gt; other_group/cpuset.mems
+</code></pre><h4 id="4-&#x5C06;&#x7279;&#x5B9A;&#x8FDB;&#x7A0B;&#x52A0;&#x5165;-exclusivegroup"><a name="4-&#x5C06;&#x7279;&#x5B9A;&#x8FDB;&#x7A0B;&#x52A0;&#x5165;-exclusivegroup" class="anchor-navigation-ex-anchor" href="#4-&#x5C06;&#x7279;&#x5B9A;&#x8FDB;&#x7A0B;&#x52A0;&#x5165;-exclusivegroup"><i class="fa fa-link" aria-hidden="true"></i></a>4. &#x5C06;&#x7279;&#x5B9A;&#x8FDB;&#x7A0B;&#x52A0;&#x5165; <code>exclusive_group</code></h4>
+<p>&#x5047;&#x8BBE;&#x4F60;&#x5E0C;&#x671B;&#x8FDB;&#x7A0B; <code>1234</code> &#x72EC;&#x5360; <code>CPU 2</code>&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#x5C06;&#x8BE5;&#x8FDB;&#x7A0B;&#x6DFB;&#x52A0;&#x5230; <code>exclusive_group</code> &#x4E2D;&#xFF1A;</p>
+<pre><code>bash
+
+
+Copy code
+echo 1234 &gt; exclusive_group/cgroup.procs
+</code></pre><h4 id="5-&#x5C06;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#x52A0;&#x5165;-othergroup"><a name="5-&#x5C06;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#x52A0;&#x5165;-othergroup" class="anchor-navigation-ex-anchor" href="#5-&#x5C06;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#x52A0;&#x5165;-othergroup"><i class="fa fa-link" aria-hidden="true"></i></a>5. &#x5C06;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#x52A0;&#x5165; <code>other_group</code></h4>
+<p>&#x5BF9;&#x4E8E;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x5B83;&#x4EEC;&#x9650;&#x5236;&#x5728; <code>other_group</code>&#xFF0C;&#x8FD9;&#x6837;&#x5B83;&#x4EEC;&#x5C31;&#x53EA;&#x80FD;&#x4F7F;&#x7528; <code>CPU 0</code> &#x548C; <code>CPU 1</code>&#x3002;&#x4F60;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5982;&#x4E0B;&#x547D;&#x4EE4;&#xFF0C;&#x5C06;&#x5176;&#x4ED6;&#x7CFB;&#x7EDF;&#x8FDB;&#x7A0B;&#x52A0;&#x5165;&#x8FD9;&#x4E2A; <code>cgroup</code>&#xFF1A;</p>
+<pre><code>bash
+
+
+Copy code
+echo &lt;PID&gt; &gt; other_group/cgroup.procs
+</code></pre><p>&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x811A;&#x672C;&#x81EA;&#x52A8;&#x5C06;&#x6240;&#x6709;&#x5F53;&#x524D;&#x8FD0;&#x884C;&#x7684;&#x8FDB;&#x7A0B;&#x9650;&#x5236;&#x5728; <code>other_group</code> &#x4E2D;&#xFF1A;</p>
+<pre><code>bashCopy codefor pid in $(pgrep -v -P 1); do
+    echo $pid &gt; other_group/cgroup.procs
+done
+</code></pre><p>&#x8FD9;&#x4E2A;&#x811A;&#x672C;&#x4F1A;&#x5C06;&#x6240;&#x6709;&#x975E;&#x6839;&#x8FDB;&#x7A0B;&#x52A0;&#x5165;&#x5230; <code>other_group</code>&#xFF0C;&#x5E76;&#x8BA9;&#x5B83;&#x4EEC;&#x53EA;&#x4F7F;&#x7528; <code>CPU 0</code> &#x548C; <code>CPU 1</code>&#x3002;</p>
+<h4 id="6-&#x9A8C;&#x8BC1;-cpu-&#x72EC;&#x5360;&#x60C5;&#x51B5;"><a name="6-&#x9A8C;&#x8BC1;-cpu-&#x72EC;&#x5360;&#x60C5;&#x51B5;" class="anchor-navigation-ex-anchor" href="#6-&#x9A8C;&#x8BC1;-cpu-&#x72EC;&#x5360;&#x60C5;&#x51B5;"><i class="fa fa-link" aria-hidden="true"></i></a>6. &#x9A8C;&#x8BC1; CPU &#x72EC;&#x5360;&#x60C5;&#x51B5;</h4>
+<p>&#x4F60;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#x9A8C;&#x8BC1;&#x7279;&#x5B9A;&#x8FDB;&#x7A0B;&#x662F;&#x5426;&#x53EA;&#x8FD0;&#x884C;&#x5728;&#x6307;&#x5B9A;&#x7684; CPU &#x6838;&#x4E0A;&#xFF1A;</p>
+<pre><code>bash
+
+
+Copy code
+taskset -cp &lt;PID&gt;
+</code></pre><p>&#x8BE5;&#x547D;&#x4EE4;&#x5E94;&#x663E;&#x793A;&#x8FDB;&#x7A0B; <code>1234</code> &#x53EA;&#x7ED1;&#x5B9A;&#x5728; <code>CPU 2</code> &#x4E0A;&#x3002;</p>
+<h3 id="&#x603B;&#x7ED3;_1"><a name="&#x603B;&#x7ED3;_1" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x7ED3;_1"><i class="fa fa-link" aria-hidden="true"></i></a>8.1.5. &#x603B;&#x7ED3;</h3>
+<p>&#x901A;&#x8FC7; <code>cgroup v2</code> &#x7684; <code>cpuset</code> &#x63A7;&#x5236;&#x7EC4;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x67D0;&#x4E2A; CPU &#x6838;&#x72EC;&#x5360;&#x5206;&#x914D;&#x7ED9;&#x7279;&#x5B9A;&#x8FDB;&#x7A0B;&#xFF0C;&#x5E76;&#x5C06;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#x9650;&#x5236;&#x5728;&#x5269;&#x4F59;&#x7684; CPU &#x6838;&#x4E0A;&#xFF0C;&#x5B9E;&#x73B0;&#x7279;&#x5B9A;&#x8FDB;&#x7A0B;&#x5BF9; CPU &#x6838;&#x7684;&#x72EC;&#x5360;&#x3002;</p>
+<p>4o</p>
+<h5 id="you-said_1"><a name="you-said_1" class="anchor-navigation-ex-anchor" href="#you-said_1"><i class="fa fa-link" aria-hidden="true"></i></a>You said:</h5>
+<p>&#x6211;&#x4E0D;&#x559C;&#x6B22;&#x624B;&#x52A8;&#x6DFB;&#x52A0;&#xFF0C;&#x53EF;&#x4EE5;&#x7ED3;&#x5408;systemd&#xFF0C;&#x5728;&#x7CFB;&#x7EDF;&#x542F;&#x52A8;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x542F;&#x52A8;weston&#x8FDB;&#x7A0B;&#x540E;&#xFF0C;weston&#x8FDB;&#x7A0B;&#x81EA;&#x52A8;&#x72EC;&#x5360;cpu2&#x561B;</p>
+<h6 id="chatgpt-said_1"><a name="chatgpt-said_1" class="anchor-navigation-ex-anchor" href="#chatgpt-said_1"><i class="fa fa-link" aria-hidden="true"></i></a>ChatGPT said:</h6>
+<p>ChatGPT</p>
+<p>Memory updated</p>
+<p>&#x662F;&#x7684;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>systemd</code> &#x914D;&#x7F6E;&#x6765;&#x5B9E;&#x73B0;&#x81EA;&#x52A8;&#x5728;&#x7CFB;&#x7EDF;&#x542F;&#x52A8;&#x65F6;&#xFF0C;&#x5C06; <code>Weston</code> &#x8FDB;&#x7A0B;&#x7ED1;&#x5B9A;&#x5230;&#x7279;&#x5B9A;&#x7684; CPU&#xFF08;&#x5982; <code>CPU 2</code>&#xFF09;&#xFF0C;&#x5E76;&#x786E;&#x4FDD;&#x5B83;&#x72EC;&#x5360;&#x8BE5; CPU&#x3002;&#x4E0B;&#x9762;&#x662F;&#x5B9E;&#x73B0;&#x8FD9;&#x4E00;&#x76EE;&#x7684;&#x7684;&#x6B65;&#x9AA4;&#x3002;</p>
+<h3 id="1-&#x521B;&#x5EFA;-systemd-&#x670D;&#x52A1;&#x6587;&#x4EF6;"><a name="1-&#x521B;&#x5EFA;-systemd-&#x670D;&#x52A1;&#x6587;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#1-&#x521B;&#x5EFA;-systemd-&#x670D;&#x52A1;&#x6587;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>8.1.6. 1. &#x521B;&#x5EFA; systemd &#x670D;&#x52A1;&#x6587;&#x4EF6;</h3>
+<p>&#x9996;&#x5148;&#xFF0C;&#x521B;&#x5EFA;&#x6216;&#x7F16;&#x8F91;&#x4E00;&#x4E2A; <code>systemd</code> &#x670D;&#x52A1;&#x6587;&#x4EF6;&#xFF0C;&#x4F7F;&#x5176;&#x542F;&#x52A8; <code>Weston</code> &#x5E76;&#x5C06;&#x5176;&#x7ED1;&#x5B9A;&#x5230; <code>CPU 2</code>&#x3002;</p>
+<p>&#x5047;&#x8BBE;&#x4F60;&#x5E0C;&#x671B;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x81EA;&#x5B9A;&#x4E49;&#x7684; <code>Weston</code> &#x542F;&#x52A8;&#x670D;&#x52A1;&#x6587;&#x4EF6;&#xFF0C;&#x6BD4;&#x5982; <code>/etc/systemd/system/weston-cpuset.service</code>&#xFF0C;&#x5185;&#x5BB9;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code>iniCopy code[Unit]
+Description=Start Weston and bind to CPU 2
+After=network.target
+
+[Service]
+Type=simple
+ExecStartPre=/usr/bin/cgroup2-cpuset-setup.sh
+ExecStart=/usr/bin/weston
+CPUAffinity=2
+
+[Install]
+WantedBy=multi-user.target
+</code></pre><ul>
+<li><code>ExecStartPre</code>&#xFF1A;&#x7528;&#x4E8E;&#x6267;&#x884C;&#x4E00;&#x4E2A;&#x9884;&#x542F;&#x52A8;&#x811A;&#x672C;&#xFF0C;&#x5728;&#x542F;&#x52A8; <code>Weston</code> &#x4E4B;&#x524D;&#x8BBE;&#x7F6E; CPU &#x4EB2;&#x548C;&#x6027;&#x3002;</li>
+<li><code>ExecStart</code>&#xFF1A;&#x542F;&#x52A8; <code>Weston</code> &#x7684;&#x547D;&#x4EE4;&#x3002;</li>
+<li><code>CPUAffinity=2</code>&#xFF1A;<code>systemd</code> &#x539F;&#x751F;&#x652F;&#x6301;&#x901A;&#x8FC7; <code>CPUAffinity</code> &#x53C2;&#x6570;&#x7ED1;&#x5B9A;&#x8FDB;&#x7A0B;&#x5230;&#x6307;&#x5B9A;&#x7684; CPU&#xFF08;&#x8FD9;&#x91CC;&#x662F; <code>CPU 2</code>&#xFF09;&#x3002;</li>
+</ul>
+<h3 id="2-&#x7F16;&#x5199;&#x9884;&#x542F;&#x52A8;&#x811A;&#x672C;"><a name="2-&#x7F16;&#x5199;&#x9884;&#x542F;&#x52A8;&#x811A;&#x672C;" class="anchor-navigation-ex-anchor" href="#2-&#x7F16;&#x5199;&#x9884;&#x542F;&#x52A8;&#x811A;&#x672C;"><i class="fa fa-link" aria-hidden="true"></i></a>8.1.7. 2. &#x7F16;&#x5199;&#x9884;&#x542F;&#x52A8;&#x811A;&#x672C;</h3>
+<p>&#x5728; <code>ExecStartPre</code> &#x4E2D;&#x63D0;&#x5230;&#x7684;&#x811A;&#x672C; <code>/usr/bin/cgroup2-cpuset-setup.sh</code> &#x662F;&#x4E3A;&#x4E86;&#x786E;&#x4FDD; <code>cgroup v2</code> &#x7684; CPU &#x4EB2;&#x548C;&#x6027;&#x8BBE;&#x7F6E;&#x80FD;&#x591F;&#x81EA;&#x52A8;&#x5316;&#xFF0C;&#x4E0B;&#x9762;&#x662F;&#x811A;&#x672C;&#x7684;&#x5185;&#x5BB9;&#xFF1A;</p>
+<pre><code>bashCopy code#!/bin/bash
+
+# &#x521B;&#x5EFA; cpuset &#x63A7;&#x5236;&#x7EC4;&#x76EE;&#x5F55;
+CGROUP_PATH=&quot;/sys/fs/cgroup/cpuset_weston&quot;
+if [ ! -d &quot;$CGROUP_PATH&quot; ]; then
+    mkdir &quot;$CGROUP_PATH&quot;
+fi
+
+# &#x5C06; Weston &#x8FDB;&#x7A0B;&#x7ED1;&#x5B9A;&#x5230; CPU 2&#xFF0C;&#x5E76;&#x8BBE;&#x7F6E;&#x5185;&#x5B58;&#x8282;&#x70B9;
+echo 2 &gt; &quot;$CGROUP_PATH/cpuset.cpus&quot;
+echo 0 &gt; &quot;$CGROUP_PATH/cpuset.mems&quot;
+
+# &#x542F;&#x52A8;&#x540E;&#x5C06;&#x6240;&#x6709;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#x9650;&#x5236;&#x5728; CPU 0 &#x548C; CPU 1
+CGROUP_OTHER=&quot;/sys/fs/cgroup/cpuset_others&quot;
+if [ ! -d &quot;$CGROUP_OTHER&quot; ]; then
+    mkdir &quot;$CGROUP_OTHER&quot;
+fi
+echo 0-1 &gt; &quot;$CGROUP_OTHER/cpuset.cpus&quot;
+echo 0 &gt; &quot;$CGROUP_OTHER/cpuset.mems&quot;
+</code></pre><p>&#x786E;&#x4FDD;&#x8BE5;&#x811A;&#x672C;&#x5177;&#x6709;&#x6267;&#x884C;&#x6743;&#x9650;&#xFF1A;</p>
+<pre><code>bash
+
+
+Copy code
+sudo chmod +x /usr/bin/cgroup2-cpuset-setup.sh
+</code></pre><h3 id="3-&#x542F;&#x7528;&#x548C;&#x542F;&#x52A8;&#x670D;&#x52A1;"><a name="3-&#x542F;&#x7528;&#x548C;&#x542F;&#x52A8;&#x670D;&#x52A1;" class="anchor-navigation-ex-anchor" href="#3-&#x542F;&#x7528;&#x548C;&#x542F;&#x52A8;&#x670D;&#x52A1;"><i class="fa fa-link" aria-hidden="true"></i></a>8.1.8. 3. &#x542F;&#x7528;&#x548C;&#x542F;&#x52A8;&#x670D;&#x52A1;</h3>
+<p>&#x4FDD;&#x5B58;&#x5E76;&#x9000;&#x51FA;&#x540E;&#xFF0C;&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#x91CD;&#x65B0;&#x52A0;&#x8F7D; <code>systemd</code> &#x5E76;&#x542F;&#x7528;&#x8BE5;&#x670D;&#x52A1;&#xFF1A;</p>
+<pre><code>bashCopy codesudo systemctl daemon-reload
+sudo systemctl enable weston-cpuset.service
+sudo systemctl start weston-cpuset.service
+</code></pre><h3 id="4-&#x9A8C;&#x8BC1;-weston-&#x662F;&#x5426;&#x72EC;&#x5360;-cpu-2"><a name="4-&#x9A8C;&#x8BC1;-weston-&#x662F;&#x5426;&#x72EC;&#x5360;-cpu-2" class="anchor-navigation-ex-anchor" href="#4-&#x9A8C;&#x8BC1;-weston-&#x662F;&#x5426;&#x72EC;&#x5360;-cpu-2"><i class="fa fa-link" aria-hidden="true"></i></a>8.1.9. 4. &#x9A8C;&#x8BC1; Weston &#x662F;&#x5426;&#x72EC;&#x5360; CPU 2</h3>
+<p>&#x542F;&#x52A8;&#x540E;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#x9A8C;&#x8BC1; <code>Weston</code> &#x662F;&#x5426;&#x88AB;&#x7ED1;&#x5B9A;&#x5230; <code>CPU 2</code>&#xFF1A;</p>
+<pre><code>bash
+
+
+Copy code
+ps -eo pid,cmd,psr | grep weston
+</code></pre><p><code>psr</code> &#x5217;&#x5E94;&#x663E;&#x793A; <code>Weston</code> &#x8FDB;&#x7A0B;&#x8FD0;&#x884C;&#x5728; <code>CPU 2</code> &#x4E0A;&#x3002;</p>
+<h3 id="&#x603B;&#x7ED3;_2"><a name="&#x603B;&#x7ED3;_2" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x7ED3;_2"><i class="fa fa-link" aria-hidden="true"></i></a>8.1.10. &#x603B;&#x7ED3;</h3>
+<p>&#x901A;&#x8FC7;&#x7ED3;&#x5408; <code>systemd</code> &#x548C; <code>cgroup v2</code>&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x5728;&#x7CFB;&#x7EDF;&#x542F;&#x52A8;&#x65F6;&#x81EA;&#x52A8;&#x5C06; <code>Weston</code> &#x8FDB;&#x7A0B;&#x7ED1;&#x5B9A;&#x5230;&#x6307;&#x5B9A;&#x7684; CPU&#xFF08;&#x5982; <code>CPU 2</code>&#xFF09;&#xFF0C;&#x5E76;&#x901A;&#x8FC7; <code>systemd</code> &#x7684; <code>CPUAffinity</code> &#x9009;&#x9879;&#x786E;&#x4FDD;&#x8FDB;&#x7A0B;&#x7684;&#x72EC;&#x5360;&#x6027;&#x3002;&#x8FD9;&#x79CD;&#x65B9;&#x6CD5;&#x81EA;&#x52A8;&#x5316;&#x4E86;&#x8FDB;&#x7A0B;&#x7684; CPU &#x4EB2;&#x548C;&#x6027;&#x8BBE;&#x7F6E;&#xFF0C;&#x907F;&#x514D;&#x4E86;&#x624B;&#x52A8;&#x64CD;&#x4F5C;&#x3002;</p>
+<h2 id="&#x65E2;&#x7136;&#x901A;&#x8FC7;-cpuaffinity-&#x53C2;&#x6570;&#x7ED1;&#x5B9A;&#x8FDB;&#x7A0B;&#x5230;&#x6307;&#x5B9A;&#x7684;-cpu&#xFF0C;&#x4E3A;&#x5565;&#x8FD8;&#x9700;&#x8981;cgroup&#x5462;"><a name="&#x65E2;&#x7136;&#x901A;&#x8FC7;-cpuaffinity-&#x53C2;&#x6570;&#x7ED1;&#x5B9A;&#x8FDB;&#x7A0B;&#x5230;&#x6307;&#x5B9A;&#x7684;-cpu&#xFF0C;&#x4E3A;&#x5565;&#x8FD8;&#x9700;&#x8981;cgroup&#x5462;" class="anchor-navigation-ex-anchor" href="#&#x65E2;&#x7136;&#x901A;&#x8FC7;-cpuaffinity-&#x53C2;&#x6570;&#x7ED1;&#x5B9A;&#x8FDB;&#x7A0B;&#x5230;&#x6307;&#x5B9A;&#x7684;-cpu&#xFF0C;&#x4E3A;&#x5565;&#x8FD8;&#x9700;&#x8981;cgroup&#x5462;"><i class="fa fa-link" aria-hidden="true"></i></a>8.2. &#x65E2;&#x7136;&#x901A;&#x8FC7; CPUAffinity &#x53C2;&#x6570;&#x7ED1;&#x5B9A;&#x8FDB;&#x7A0B;&#x5230;&#x6307;&#x5B9A;&#x7684; CPU&#xFF0C;&#x4E3A;&#x5565;&#x8FD8;&#x9700;&#x8981;cgroup&#x5462;</h2>
+<h6 id="chatgpt-said_2"><a name="chatgpt-said_2" class="anchor-navigation-ex-anchor" href="#chatgpt-said_2"><i class="fa fa-link" aria-hidden="true"></i></a>ChatGPT said:</h6>
+<p>ChatGPT</p>
+<p>&#x4F60;&#x7684;&#x7591;&#x95EE;&#x5F88;&#x6709;&#x9053;&#x7406;&#xFF01;<code>CPUAffinity</code> &#x548C; <code>cgroup</code> &#x7684;&#x786E;&#x90FD;&#x80FD;&#x5B9E;&#x73B0;&#x8FDB;&#x7A0B;&#x7684; CPU &#x4EB2;&#x548C;&#x6027;&#x63A7;&#x5236;&#xFF0C;&#x4F46;&#x5B83;&#x4EEC;&#x7684;&#x7528;&#x9014;&#x548C;&#x529F;&#x80FD;&#x8303;&#x56F4;&#x7A0D;&#x6709;&#x4E0D;&#x540C;&#x3002;&#x6839;&#x636E;&#x4F60;&#x7684;&#x76EE;&#x6807;&#xFF08;&#x8BA9; <code>Weston</code> &#x72EC;&#x5360; <code>CPU 2</code>&#xFF09;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x9009;&#x62E9;&#x4F7F;&#x7528; <code>CPUAffinity</code> &#x53C2;&#x6570;&#xFF0C;&#x800C;&#x65E0;&#x9700;&#x989D;&#x5916;&#x4F7F;&#x7528; <code>cgroup</code> &#x6765;&#x7ED1;&#x5B9A; CPU&#xFF0C;&#x56E0;&#x4E3A; <code>CPUAffinity</code> &#x5DF2;&#x7ECF;&#x80FD;&#x591F;&#x5F88;&#x597D;&#x5730;&#x5B8C;&#x6210;&#x8FD9;&#x4E2A;&#x4EFB;&#x52A1;&#x3002;</p>
+<h3 id="&#x533A;&#x522B;&#x4E0E;&#x7B80;&#x5316;&#x89E3;&#x91CA;"><a name="&#x533A;&#x522B;&#x4E0E;&#x7B80;&#x5316;&#x89E3;&#x91CA;" class="anchor-navigation-ex-anchor" href="#&#x533A;&#x522B;&#x4E0E;&#x7B80;&#x5316;&#x89E3;&#x91CA;"><i class="fa fa-link" aria-hidden="true"></i></a>8.2.1. &#x533A;&#x522B;&#x4E0E;&#x7B80;&#x5316;&#x89E3;&#x91CA;</h3>
+<ul>
+<li><strong><code>CPUAffinity</code></strong>&#xFF1A;&#x8FD9;&#x662F; <code>systemd</code> &#x63D0;&#x4F9B;&#x7684;&#x4E00;&#x4E2A;&#x9009;&#x9879;&#xFF0C;&#x80FD;&#x591F;&#x7B80;&#x5355;&#x5FEB;&#x6377;&#x5730;&#x5C06;&#x670D;&#x52A1;&#x7ED1;&#x5B9A;&#x5230;&#x6307;&#x5B9A;&#x7684; CPU &#x6838;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x5728;&#x670D;&#x52A1;&#x6587;&#x4EF6;&#x4E2D;&#x8BBE;&#x7F6E; <code>CPUAffinity=2</code>&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x8BA9; <code>Weston</code> &#x8FDB;&#x7A0B;&#x53EA;&#x5728; <code>CPU 2</code> &#x4E0A;&#x8FD0;&#x884C;&#xFF0C;&#x800C;&#x4E0D;&#x4F1A;&#x8FD0;&#x884C;&#x5728;&#x5176;&#x4ED6; CPU &#x6838;&#x4E0A;&#x3002;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x9002;&#x7528;&#x4E8E;&#x8F83;&#x4E3A;&#x7B80;&#x5355;&#x7684;&#x573A;&#x666F;&#xFF0C;&#x4E3B;&#x8981;&#x662F;&#x7ED1;&#x5B9A;&#x8FDB;&#x7A0B;&#x5230;&#x6307;&#x5B9A; CPU&#x3002;</li>
+<li><strong><code>cgroup</code> &#x7684;&#x4F5C;&#x7528;</strong>&#xFF1A;<code>cgroup v2</code> &#x63D0;&#x4F9B;&#x4E86;&#x66F4;&#x7CBE;&#x7EC6;&#x7684;&#x8D44;&#x6E90;&#x63A7;&#x5236;&#xFF0C;&#x6BD4;&#x5982; CPU &#x4F7F;&#x7528;&#x6743;&#x3001;&#x5185;&#x5B58;&#x9650;&#x5236;&#x7B49;&#x3002;&#x901A;&#x8FC7; <code>cgroup</code>&#xFF0C;&#x4F60;&#x4E0D;&#x4EC5;&#x53EF;&#x4EE5;&#x9650;&#x5236;&#x8FDB;&#x7A0B;&#x4F7F;&#x7528;&#x7684; CPU &#x6838;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x66F4;&#x591A;&#x590D;&#x6742;&#x7684;&#x8D44;&#x6E90;&#x7BA1;&#x7406;&#xFF0C;&#x6BD4;&#x5982;&#x63A7;&#x5236;&#x4E00;&#x7EC4;&#x8FDB;&#x7A0B;&#x7684;&#x603B; CPU &#x4F7F;&#x7528;&#x3001;&#x5185;&#x5B58;&#x548C; I/O &#x9650;&#x5236;&#x7B49;&#x3002;&#x5728;&#x4F60;&#x5E0C;&#x671B;&#x66F4;&#x7075;&#x6D3B;&#x5730;&#x7BA1;&#x7406;&#x4E00;&#x7EC4;&#x8FDB;&#x7A0B;&#xFF0C;&#x6216;&#x9700;&#x8981;&#x5B9E;&#x73B0;&#x591A;&#x79CD;&#x8D44;&#x6E90;&#x63A7;&#x5236;&#x65F6;&#xFF0C;<code>cgroup</code> &#x66F4;&#x6709;&#x7528;&#x3002;</li>
+</ul>
+<h3 id="&#x5728;&#x4F60;&#x7684;&#x573A;&#x666F;&#x4E2D;"><a name="&#x5728;&#x4F60;&#x7684;&#x573A;&#x666F;&#x4E2D;" class="anchor-navigation-ex-anchor" href="#&#x5728;&#x4F60;&#x7684;&#x573A;&#x666F;&#x4E2D;"><i class="fa fa-link" aria-hidden="true"></i></a>8.2.2. &#x5728;&#x4F60;&#x7684;&#x573A;&#x666F;&#x4E2D;</h3>
+<p>&#x5982;&#x679C;&#x4F60;&#x53EA;&#x60F3;&#x8BA9; <code>Weston</code> &#x72EC;&#x5360; <code>CPU 2</code>&#xFF0C;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x53EA;&#x4F7F;&#x7528; <code>systemd</code> &#x63D0;&#x4F9B;&#x7684; <code>CPUAffinity</code> &#x53C2;&#x6570;&#xFF0C;&#x8FD9;&#x6837;&#x914D;&#x7F6E;&#x66F4;&#x7B80;&#x5355;&#xFF0C;&#x4E14;&#x65E0;&#x9700;&#x5F15;&#x5165; <code>cgroup</code>&#x3002;</p>
+<h3 id="&#x4F7F;&#x7528;-systemd-&#x548C;-cpuaffinity-&#x5B9E;&#x73B0;-weston-&#x72EC;&#x5360;-cpu-2"><a name="&#x4F7F;&#x7528;-systemd-&#x548C;-cpuaffinity-&#x5B9E;&#x73B0;-weston-&#x72EC;&#x5360;-cpu-2" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;-systemd-&#x548C;-cpuaffinity-&#x5B9E;&#x73B0;-weston-&#x72EC;&#x5360;-cpu-2"><i class="fa fa-link" aria-hidden="true"></i></a>8.2.3. &#x4F7F;&#x7528; systemd &#x548C; CPUAffinity &#x5B9E;&#x73B0; Weston &#x72EC;&#x5360; CPU 2</h3>
+<p>&#x4F60;&#x53EF;&#x4EE5;&#x7B80;&#x5316;&#x4E4B;&#x524D;&#x7684;&#x6D41;&#x7A0B;&#xFF0C;&#x76F4;&#x63A5;&#x4F7F;&#x7528; <code>systemd</code> &#x7684; <code>CPUAffinity</code> &#x53C2;&#x6570;&#x3002;</p>
+<ol>
+<li><strong>&#x521B;&#x5EFA;&#x6216;&#x4FEE;&#x6539; <code>systemd</code> &#x670D;&#x52A1;&#x6587;&#x4EF6;</strong>&#xFF1A;</li>
+</ol>
+<pre><code class="lang-java">sudo nano /etc/systemd/system/weston-cpuset.service
+</code></pre>
+<p>&#x5185;&#x5BB9;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-java">iniCopy code[Unit]
+Description=Start Weston and bind to CPU <span class="hljs-number">2</span>
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/weston
+CPUAffinity=<span class="hljs-number">2</span>
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<ol>
+<li><strong>&#x542F;&#x7528;&#x5E76;&#x542F;&#x52A8;&#x670D;&#x52A1;</strong>&#xFF1A;</li>
+</ol>
+<pre><code>bashCopy codesudo systemctl daemon-reload
+sudo systemctl enable weston-cpuset.service
+sudo systemctl start weston-cpuset.service
+</code></pre><h3 id="3-&#x9A8C;&#x8BC1;&#x6548;&#x679C;&#xFF1A;"><a name="3-&#x9A8C;&#x8BC1;&#x6548;&#x679C;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#3-&#x9A8C;&#x8BC1;&#x6548;&#x679C;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>8.2.4. 3. &#x9A8C;&#x8BC1;&#x6548;&#x679C;&#xFF1A;</h3>
+<p>&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#x67E5;&#x770B; <code>Weston</code> &#x662F;&#x5426;&#x8FD0;&#x884C;&#x5728; <code>CPU 2</code>&#xFF1A;</p>
+<pre><code class="lang-java">ps -eo pid,cmd,psr | grep weston
+</code></pre>
+<p>&#x5982;&#x679C; <code>psr</code> &#x5217;&#x4E2D;&#x663E;&#x793A; <code>2</code>&#xFF0C;&#x8BF4;&#x660E; <code>Weston</code> &#x5DF2;&#x6210;&#x529F;&#x7ED1;&#x5B9A;&#x5230; <code>CPU 2</code>&#x3002;</p>
+<h3 id="&#x603B;&#x7ED3;_3"><a name="&#x603B;&#x7ED3;_3" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x7ED3;_3"><i class="fa fa-link" aria-hidden="true"></i></a>8.2.5. &#x603B;&#x7ED3;</h3>
+<p>&#x5728;&#x4F60;&#x7684;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x901A;&#x8FC7; <code>systemd</code> &#x7684; <code>CPUAffinity</code> &#x53C2;&#x6570;&#x5DF2;&#x7ECF;&#x53EF;&#x4EE5;&#x975E;&#x5E38;&#x7B80;&#x6D01;&#x5730;&#x5B9E;&#x73B0;&#x8FDB;&#x7A0B;&#x7ED1;&#x5B9A;&#x5230;&#x7279;&#x5B9A;&#x7684; CPU &#x6838;&#x4E0A;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x4F7F;&#x7528; <code>cgroup</code>&#x3002;</p>
+<h1 id="todo&#xFF1A;-&#x6574;&#x7406;"><a name="todo&#xFF1A;-&#x6574;&#x7406;" class="anchor-navigation-ex-anchor" href="#todo&#xFF1A;-&#x6574;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>9. TODO&#xFF1A; &#x6574;&#x7406;</h1>
+<p> &#x8FDB;&#x7A0B;&#x7BA1;&#x7406;&#x7CFB;&#x5217;3&#x8FDB;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;: <a href="https://paul.pub/android-process-priority/" target="_blank">https://paul.pub/android-process-priority/</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="进程管理系列1之进程的创建.html" class="navigation navigation-prev " aria-label="Previous page: 进程管理系列1之进程的创建">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="进程管理系列3之内存回收.html" class="navigation navigation-next " aria-label="Next page: 进程管理系列3之内存回收">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"进程管理系列2之进程的优先级","level":"1.4.8","depth":2,"next":{"title":"进程管理系列3之内存回收","level":"1.4.9","depth":2,"path":"0_进程管理/进程管理系列3之内存回收.md","ref":"0_进程管理/进程管理系列3之内存回收.md","articles":[]},"previous":{"title":"进程管理系列1之进程的创建","level":"1.4.7","depth":2,"path":"0_进程管理/进程管理系列1之进程的创建.md","ref":"0_进程管理/进程管理系列1之进程的创建.md","articles":[]},"dir":"ltr"},"config":{"//":["这是多行注释：    anchor-navigation-ex 是","anchor-navigation-ex 是","click-reveal 本地使用ok，但是github在build pages时，不识别click-reveal","accordion 也是折叠代码段","anchor-navigation-ex 是"],"plugins":["anchor-navigation-ex"],"root":"./markdownsFiles","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"title":"《prove》","author":"Kent"},"tbfed-pagefooter":{"copyright":"Copyright &copy ershouche-FE 2019","modify_label":"文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"disqus":{"shortName":"gitbookuse"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"bookname":"笔记","variables":{},"title":"Kent的博客","gitbook":"*"},"file":{"path":"0_进程管理/进程管理系列2之进程的优先级.md","mtime":"2024-11-24T13:51:19.283Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-12-29T06:20:30.502Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

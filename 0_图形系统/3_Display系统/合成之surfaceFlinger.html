@@ -21,11 +21,51 @@
                 
             
                 
-                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-toggle-chapters/toggle.css">
                 
             
                 
-                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-page-treeview/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-sidebar-style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-auto-scroll-table/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-click-reveal/click_reveal.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-accordion/accordion.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-pageview-count/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
                 
             
                 
@@ -1679,29 +1719,66 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x76EE;&#x5F55;"><b>1. </b>&#x76EE;&#x5F55;</a></li><li><span class="title-icon "></span><a href="#surfaceflinger&#x7684;&#x542F;&#x52A8;-&#x4E4B;-rc&#x6587;&#x4EF6;"><b>2. </b>surfaceflinger&#x7684;&#x542F;&#x52A8; &#x4E4B; .rc&#x6587;&#x4EF6;</a></li><li><span class="title-icon "></span><a href="#&#x8FDB;&#x5165;surfaceflinger--main-&#x4E4B;&#x540E;"><b>3. </b>=====&#x8FDB;&#x5165;surfaceflinger  main &#x4E4B;&#x540E;======</a></li><li><span class="title-icon "></span><a href="#&#x5408;&#x6210;"><b>4. </b>&#x5408;&#x6210;</a></li><ul><li><span class="title-icon "></span><a href="#why----------&#x5408;&#x6210;--&#x5B58;&#x5728;&#x7684;&#x5FC5;&#x7136;&#x6027;"><b>4.1. </b>why----------&#x5408;&#x6210;  &#x5B58;&#x5728;&#x7684;&#x5FC5;&#x7136;&#x6027;</a></li><li><span class="title-icon "></span><a href="#how--------&#x5408;&#x6210;&#x7B56;&#x7565;"><b>4.2. </b>how--------&#x5408;&#x6210;&#x7B56;&#x7565;</a></li><ul><li><span class="title-icon "></span><a href="#gpu&#x5408;&#x6210;&#xFF0C;&#x5177;&#x4F53;&#x4EE3;&#x7801;&#xFF08;&#x5B57;&#x5178;&#xFF09;"><b>4.2.1. </b>GPU&#x5408;&#x6210;&#xFF0C;&#x5177;&#x4F53;&#x4EE3;&#x7801;&#xFF08;&#x5B57;&#x5178;&#xFF09;</a></li><li><span class="title-icon "></span><a href="#weston&#x5BF9;&#x5E94;&#x7684;"><b>4.2.2. </b>weston&#x5BF9;&#x5E94;&#x7684;</a></li></ul><li><span class="title-icon "></span><a href="#&#x6E32;&#x67D3;&#x4E0E;&#x663E;&#x793A;&#x5206;&#x79BB;-----hwc"><b>4.3. </b>&#x6E32;&#x67D3;&#x4E0E;&#x663E;&#x793A;&#x5206;&#x79BB;-----HWC</a></li><ul><li><span class="title-icon "></span><a href="#weston&#x4E00;&#x6A21;&#x4E00;&#x6837;&#xFF1A;"><b>4.3.1. </b>weston&#x4E00;&#x6A21;&#x4E00;&#x6837;&#xFF1A;</a></li></ul><li><span class="title-icon "></span><a href="#&#x4ECE;vsync&#x89D2;&#x5EA6;&#x6765;&#x770B;--&#x6E32;&#x67D3;-&#x4E0E;&#x5408;&#x6210;"><b>4.4. </b>&#x4ECE;vsync&#x89D2;&#x5EA6;&#x6765;&#x770B;  &#x6E32;&#x67D3; &#x4E0E;&#x5408;&#x6210;</a></li><li><span class="title-icon "></span><a href="#&#x8DE8;&#x7A7A;&#x95F4;&#x8DE8;&#x8BBE;&#x5907;&#x7684;&#x540C;&#x6B65;&#x673A;&#x5236;-----fence"><b>4.5. </b>&#x8DE8;&#x7A7A;&#x95F4;&#x8DE8;&#x8BBE;&#x5907;&#x7684;&#x540C;&#x6B65;&#x673A;&#x5236;-----Fence</a></li><li><span class="title-icon "></span><a href="#&#x7EF4;&#x6D4B;"><b>4.6. </b>&#x7EF4;&#x6D4B;</a></li></ul><li><span class="title-icon "></span><a href="#who---&#x9009;&#x53D6;&#x4EC0;&#x4E48;&#x5F15;&#x64CE;&#x6765;render&#xFF08;renderenginetype&#xFF09;"><b>5. </b>who---&#x9009;&#x53D6;&#x4EC0;&#x4E48;&#x5F15;&#x64CE;&#x6765;render&#xFF08;RenderEngineType&#xFF09;</a></li><li><span class="title-icon "></span><a href="#sf&#x5408;&#x6210;&#x4E4B;gpu&#x5408;&#x6210;"><b>6. </b>SF&#x5408;&#x6210;&#x4E4B;GPU&#x5408;&#x6210;</a></li><li><span class="title-icon "></span><a href="#&#x8865;&#x5145;sf--&#x8D34;&#x56FE;&#x8FC7;&#x7A0B;"><b>7. </b>&#x8865;&#x5145;sf  &#x8D34;&#x56FE;&#x8FC7;&#x7A0B;</a></li><li><span class="title-icon "></span><a href="#todo&#x5B89;&#x5353;&#x622A;&#x5C4F;"><b>8. </b>todo:&#x5B89;&#x5353;&#x622A;&#x5C4F;</a></li><li><span class="title-icon "></span><a href="#&#x53C2;&#x8003;"><b>9. </b>&#x53C2;&#x8003;</a></li><li><span class="title-icon "></span><a href="#&#x7591;&#x95EE;&#xFF1A;"><b>10. </b>&#x7591;&#x95EE;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#todo-hm&#x7684;&#x56FE;&#x5F62;"><b>11. </b>TODO: HM&#x7684;&#x56FE;&#x5F62;</a></li><ul><li><span class="title-icon "></span><a href="#&#x65B9;&#x821F;&#x56FE;&#x5F62;&#x5F15;&#x64CE;"><b>11.1. </b>&#x65B9;&#x821F;&#x56FE;&#x5F62;&#x5F15;&#x64CE;</a></li><li><span class="title-icon "></span><a href="#&#x9A6C;&#x826F;gpu"><b>11.2. </b>&#x9A6C;&#x826F;GPU</a></li><li><span class="title-icon "></span><a href="#&#x9AD8;&#x5FB7;"><b>11.3. </b>&#x9AD8;&#x5FB7;</a></li><li><span class="title-icon "></span><a href="#&#x6676;&#x6838;&#x6027;&#x80FD;&#x4F18;&#x5316;"><b>11.4. </b>&#x6676;&#x6838;&#x6027;&#x80FD;&#x4F18;&#x5316;</a></li><li><span class="title-icon "></span><a href="#&#x65B9;&#x821F;&#x591A;&#x5A92;&#x4F53;&#x5F15;&#x64CE;"><b>11.5. </b>&#x65B9;&#x821F;&#x591A;&#x5A92;&#x4F53;&#x5F15;&#x64CE;</a></li></ul><li><span class="title-icon "></span><a href="#&#x5B89;&#x5353;&#x56FE;&#x5F62;&#x4E4B;--&#x6A21;&#x62DF;&#x5668;"><b>12. </b>&#x5B89;&#x5353;&#x56FE;&#x5F62;&#x4E4B;  &#x6A21;&#x62DF;&#x5668;</a></li></ul></div><a href="#&#x76EE;&#x5F55;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="&#x76EE;&#x5F55;"><a name="&#x76EE;&#x5F55;" class="anchor-navigation-ex-anchor" href="#&#x76EE;&#x5F55;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x76EE;&#x5F55;</h1>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x76EE;&#x5F55;"><b>1. </b>&#x76EE;&#x5F55;</a></li><li><span class="title-icon "></span><a href="#surfaceflinger&#x7684;&#x542F;&#x52A8;-&#x4E4B;-rc&#x6587;&#x4EF6;"><b>2. </b>surfaceflinger&#x7684;&#x542F;&#x52A8; &#x4E4B; .rc&#x6587;&#x4EF6;</a></li><li><span class="title-icon "></span><a href="#&#x8FDB;&#x5165;surfaceflinger--main-&#x4E4B;&#x540E;"><b>3. </b>=====&#x8FDB;&#x5165;surfaceflinger  main &#x4E4B;&#x540E;======</a></li><li><span class="title-icon "></span><a href="#&#x5408;&#x6210;"><b>4. </b>&#x5408;&#x6210;</a></li><ul><li><span class="title-icon "></span><a href="#why----------&#x5408;&#x6210;--&#x5B58;&#x5728;&#x7684;&#x5FC5;&#x7136;&#x6027;"><b>4.1. </b>why----------&#x5408;&#x6210;  &#x5B58;&#x5728;&#x7684;&#x5FC5;&#x7136;&#x6027;</a></li><li><span class="title-icon "></span><a href="#how--------&#x5408;&#x6210;&#x7B56;&#x7565;"><b>4.2. </b>how--------&#x5408;&#x6210;&#x7B56;&#x7565;</a></li><ul><li><span class="title-icon "></span><a href="#gpu&#x5408;&#x6210;&#xFF0C;&#x5177;&#x4F53;&#x4EE3;&#x7801;&#xFF08;&#x5B57;&#x5178;&#xFF09;"><b>4.2.1. </b>GPU&#x5408;&#x6210;&#xFF0C;&#x5177;&#x4F53;&#x4EE3;&#x7801;&#xFF08;&#x5B57;&#x5178;&#xFF09;</a></li><li><span class="title-icon "></span><a href="#weston&#x5BF9;&#x5E94;&#x7684;"><b>4.2.2. </b>weston&#x5BF9;&#x5E94;&#x7684;</a></li></ul><li><span class="title-icon "></span><a href="#&#x6E32;&#x67D3;&#x4E0E;&#x663E;&#x793A;&#x5206;&#x79BB;-----hwc"><b>4.3. </b>&#x6E32;&#x67D3;&#x4E0E;&#x663E;&#x793A;&#x5206;&#x79BB;-----HWC</a></li><ul><li><span class="title-icon "></span><a href="#weston&#x4E00;&#x6A21;&#x4E00;&#x6837;&#xFF1A;"><b>4.3.1. </b>weston&#x4E00;&#x6A21;&#x4E00;&#x6837;&#xFF1A;</a></li></ul><li><span class="title-icon "></span><a href="#&#x4ECE;vsync&#x89D2;&#x5EA6;&#x6765;&#x770B;--&#x6E32;&#x67D3;-&#x4E0E;&#x5408;&#x6210;"><b>4.4. </b>&#x4ECE;vsync&#x89D2;&#x5EA6;&#x6765;&#x770B;  &#x6E32;&#x67D3; &#x4E0E;&#x5408;&#x6210;</a></li><li><span class="title-icon "></span><a href="#&#x8DE8;&#x7A7A;&#x95F4;&#x8DE8;&#x8BBE;&#x5907;&#x7684;&#x540C;&#x6B65;&#x673A;&#x5236;-----fence"><b>4.5. </b>&#x8DE8;&#x7A7A;&#x95F4;&#x8DE8;&#x8BBE;&#x5907;&#x7684;&#x540C;&#x6B65;&#x673A;&#x5236;-----Fence</a></li><li><span class="title-icon "></span><a href="#&#x7EF4;&#x6D4B;"><b>4.6. </b>&#x7EF4;&#x6D4B;</a></li></ul><li><span class="title-icon "></span><a href="#who---&#x9009;&#x53D6;&#x4EC0;&#x4E48;&#x5F15;&#x64CE;&#x6765;render&#xFF08;renderenginetype&#xFF09;"><b>5. </b>who---&#x9009;&#x53D6;&#x4EC0;&#x4E48;&#x5F15;&#x64CE;&#x6765;render&#xFF08;RenderEngineType&#xFF09;</a></li><li><span class="title-icon "></span><a href="#sf&#x5408;&#x6210;&#x4E4B;gpu&#x5408;&#x6210;"><b>6. </b>SF&#x5408;&#x6210;&#x4E4B;GPU&#x5408;&#x6210;</a></li><li><span class="title-icon "></span><a href="#&#x8865;&#x5145;sf--&#x8D34;&#x56FE;&#x8FC7;&#x7A0B;"><b>7. </b>&#x8865;&#x5145;sf  &#x8D34;&#x56FE;&#x8FC7;&#x7A0B;</a></li><li><span class="title-icon "></span><a href="#todo&#x5B89;&#x5353;&#x622A;&#x5C4F;"><b>8. </b>todo:&#x5B89;&#x5353;&#x622A;&#x5C4F;</a></li><li><span class="title-icon "></span><a href="#&#x53C2;&#x8003;"><b>9. </b>&#x53C2;&#x8003;</a></li><li><span class="title-icon "></span><a href="#&#x7591;&#x95EE;&#xFF1A;"><b>10. </b>&#x7591;&#x95EE;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#todo-hm&#x7684;&#x56FE;&#x5F62;"><b>11. </b>TODO: HM&#x7684;&#x56FE;&#x5F62;</a></li><ul><li><span class="title-icon "></span><a href="#&#x65B9;&#x821F;&#x56FE;&#x5F62;&#x5F15;&#x64CE;"><b>11.1. </b>&#x65B9;&#x821F;&#x56FE;&#x5F62;&#x5F15;&#x64CE;</a></li><li><span class="title-icon "></span><a href="#&#x9A6C;&#x826F;gpu"><b>11.2. </b>&#x9A6C;&#x826F;GPU</a></li><li><span class="title-icon "></span><a href="#&#x9AD8;&#x5FB7;"><b>11.3. </b>&#x9AD8;&#x5FB7;</a></li><li><span class="title-icon "></span><a href="#&#x6676;&#x6838;&#x6027;&#x80FD;&#x4F18;&#x5316;"><b>11.4. </b>&#x6676;&#x6838;&#x6027;&#x80FD;&#x4F18;&#x5316;</a></li><li><span class="title-icon "></span><a href="#&#x65B9;&#x821F;&#x591A;&#x5A92;&#x4F53;&#x5F15;&#x64CE;"><b>11.5. </b>&#x65B9;&#x821F;&#x591A;&#x5A92;&#x4F53;&#x5F15;&#x64CE;</a></li></ul><li><span class="title-icon "></span><a href="#&#x5B89;&#x5353;&#x56FE;&#x5F62;&#x4E4B;--&#x6A21;&#x62DF;&#x5668;"><b>12. </b>&#x5B89;&#x5353;&#x56FE;&#x5F62;&#x4E4B;  &#x6A21;&#x62DF;&#x5668;</a></li></ul></div><a href="#&#x76EE;&#x5F55;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><div class="treeview__container"><ul>
+<li><div><a href="#surfaceflinger&#x7684;&#x542F;&#x52A8;-&#x4E4B;-rc&#x6587;&#x4EF6;">surfaceflinger&#x7684;&#x542F;&#x52A8; &#x4E4B; .rc&#x6587;&#x4EF6;</a><i></i></div></li>
+<li><div><a href="#&#x8FDB;&#x5165;surfaceflinger--main-&#x4E4B;&#x540E;">=====&#x8FDB;&#x5165;surfaceflinger  main &#x4E4B;&#x540E;======</a><i></i></div></li>
+<li><div><a href="#&#x5408;&#x6210;">&#x5408;&#x6210;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#why----------&#x5408;&#x6210;--&#x5B58;&#x5728;&#x7684;&#x5FC5;&#x7136;&#x6027;">why----------&#x5408;&#x6210;  &#x5B58;&#x5728;&#x7684;&#x5FC5;&#x7136;&#x6027;</a><i></i></div></li>
+<li><div><a href="#how--------&#x5408;&#x6210;&#x7B56;&#x7565;">how--------&#x5408;&#x6210;&#x7B56;&#x7565;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#gpu&#x5408;&#x6210;&#xFF0C;&#x5177;&#x4F53;&#x4EE3;&#x7801;&#xFF08;&#x5B57;&#x5178;&#xFF09;">GPU&#x5408;&#x6210;&#xFF0C;&#x5177;&#x4F53;&#x4EE3;&#x7801;&#xFF08;&#x5B57;&#x5178;&#xFF09;</a><i></i></div></li>
+<li><div><a href="#weston&#x5BF9;&#x5E94;&#x7684;">weston&#x5BF9;&#x5E94;&#x7684;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x6E32;&#x67D3;&#x4E0E;&#x663E;&#x793A;&#x5206;&#x79BB;-----hwc">&#x6E32;&#x67D3;&#x4E0E;&#x663E;&#x793A;&#x5206;&#x79BB;-----HWC</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#weston&#x4E00;&#x6A21;&#x4E00;&#x6837;&#xFF1A;">weston&#x4E00;&#x6A21;&#x4E00;&#x6837;&#xFF1A;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x4ECE;vsync&#x89D2;&#x5EA6;&#x6765;&#x770B;--&#x6E32;&#x67D3;-&#x4E0E;&#x5408;&#x6210;">&#x4ECE;vsync&#x89D2;&#x5EA6;&#x6765;&#x770B;  &#x6E32;&#x67D3; &#x4E0E;&#x5408;&#x6210;</a><i></i></div></li>
+<li><div><a href="#&#x8DE8;&#x7A7A;&#x95F4;&#x8DE8;&#x8BBE;&#x5907;&#x7684;&#x540C;&#x6B65;&#x673A;&#x5236;-----fence">&#x8DE8;&#x7A7A;&#x95F4;&#x8DE8;&#x8BBE;&#x5907;&#x7684;&#x540C;&#x6B65;&#x673A;&#x5236;-----Fence</a><i></i></div></li>
+<li><div><a href="#&#x7EF4;&#x6D4B;">&#x7EF4;&#x6D4B;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#who---&#x9009;&#x53D6;&#x4EC0;&#x4E48;&#x5F15;&#x64CE;&#x6765;render&#xFF08;renderenginetype&#xFF09;">who---&#x9009;&#x53D6;&#x4EC0;&#x4E48;&#x5F15;&#x64CE;&#x6765;render&#xFF08;RenderEngineType&#xFF09;</a><i></i></div></li>
+<li><div><a href="#sf&#x5408;&#x6210;&#x4E4B;gpu&#x5408;&#x6210;">SF&#x5408;&#x6210;&#x4E4B;GPU&#x5408;&#x6210;</a><i></i></div></li>
+<li><div><a href="#&#x8865;&#x5145;sf--&#x8D34;&#x56FE;&#x8FC7;&#x7A0B;">&#x8865;&#x5145;sf  &#x8D34;&#x56FE;&#x8FC7;&#x7A0B;</a><i></i></div></li>
+<li><div><a href="#todo&#x5B89;&#x5353;&#x622A;&#x5C4F;">todo:&#x5B89;&#x5353;&#x622A;&#x5C4F;</a><i></i></div></li>
+<li><div><a href="#&#x53C2;&#x8003;">&#x53C2;&#x8003;</a><i></i></div></li>
+<li><div><a href="#&#x7591;&#x95EE;&#xFF1A;">&#x7591;&#x95EE;&#xFF1A;</a><i></i></div></li>
+<li><div><a href="#todo-hm&#x7684;&#x56FE;&#x5F62;">TODO: HM&#x7684;&#x56FE;&#x5F62;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#&#x65B9;&#x821F;&#x56FE;&#x5F62;&#x5F15;&#x64CE;">&#x65B9;&#x821F;&#x56FE;&#x5F62;&#x5F15;&#x64CE;</a><i></i></div></li>
+<li><div><a href="#&#x9A6C;&#x826F;gpu">&#x9A6C;&#x826F;GPU</a><i></i></div></li>
+<li><div><a href="#&#x9AD8;&#x5FB7;">&#x9AD8;&#x5FB7;</a><i></i></div></li>
+<li><div><a href="#&#x6676;&#x6838;&#x6027;&#x80FD;&#x4F18;&#x5316;">&#x6676;&#x6838;&#x6027;&#x80FD;&#x4F18;&#x5316;</a><i></i></div></li>
+<li><div><a href="#&#x65B9;&#x821F;&#x591A;&#x5A92;&#x4F53;&#x5F15;&#x64CE;">&#x65B9;&#x821F;&#x591A;&#x5A92;&#x4F53;&#x5F15;&#x64CE;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#&#x5B89;&#x5353;&#x56FE;&#x5F62;&#x4E4B;--&#x6A21;&#x62DF;&#x5668;">&#x5B89;&#x5353;&#x56FE;&#x5F62;&#x4E4B;  &#x6A21;&#x62DF;&#x5668;</a><i></i></div></li>
+</ul>
+</div>
+
+<h1 id="&#x76EE;&#x5F55;"><a name="&#x76EE;&#x5F55;" class="anchor-navigation-ex-anchor" href="#&#x76EE;&#x5F55;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x76EE;&#x5F55;</h1>
 <h1 id="surfaceflinger&#x7684;&#x542F;&#x52A8;-&#x4E4B;-rc&#x6587;&#x4EF6;"><a name="surfaceflinger&#x7684;&#x542F;&#x52A8;-&#x4E4B;-rc&#x6587;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#surfaceflinger&#x7684;&#x542F;&#x52A8;-&#x4E4B;-rc&#x6587;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>2. surfaceflinger&#x7684;&#x542F;&#x52A8; &#x4E4B; .rc&#x6587;&#x4EF6;</h1>
 <p>&#x53C2;&#x8003;&#xFF1A;</p>
 <blockquote>
 <p> <a href="https://www.jianshu.com/p/dcc37f81c119" target="_blank">android&#x5C4F;&#x5E55;&#x6E32;&#x67D3;&#x4E4B;SurfaceFlinger&#x7684;&#x542F;&#x52A8;</a></p>
 </blockquote>
 <p>&#x7CFB;&#x7EDF;&#x6587;&#x4EF6;&#xFF1A;</p>
-<pre><code class="lang-java"> /system/bin/surfaceflinger
+<pre class="language-"><code class="lang-java"> <span class="token operator">/</span>system<span class="token operator">/</span>bin<span class="token operator">/</span>surfaceflinger
 </code></pre>
 <p>&#x5982;&#x4F55;&#x542F;&#x52A8;&#x7CFB;&#x7EDF;&#x6587;&#x4EF6;surfaceflinger&#xFF1A;</p>
 <blockquote>
 <p>1&#x3001;&#x914D;&#x7F6E;</p>
-<pre><code class="lang-java"> /system/etc/init/surfaceflinger.rc
+<pre class="language-"><code class="lang-java"> <span class="token operator">/</span>system<span class="token operator">/</span>etc<span class="token operator">/</span>init<span class="token operator">/</span>surfaceflinger<span class="token punctuation">.</span>rc
 
- service surfaceflinger /system/bin/surfaceflinger   // -----&gt; &#x5B9A;&#x4E49;surfaceflinger&#x670D;&#x52A1;
-     class core animation
-     user system                     //  ------&gt; &#x7528;&#x6237;
-     group graphics drmrpc readproc  // -----&gt; &#x7528;&#x6237;&#x7EC4;
-     onrestart restart zygote        // -----&gt; &#x91CD;&#x542F;&#x6761;&#x4EF6;
-     writepid /dev/stune/foreground/tasks   // ------&gt;  surfaceflinger&#x653E;&#x5230;&#x4EC0;&#x4E48;&#x8C03;&#x9891;&#x7EC4;
-     socket pdx/system/vr/display/client     stream 0666 system graphics u:object_r:pdx_display_client_endpoint_socket:s0
-     socket pdx/system/vr/display/manager    stream 0666 system graphics u:object_r:pdx_display_manager_endpoint_socket:s0
-     socket pdx/system/vr/display/vsync      stream 0666 system graphics u:object_r:pdx_display_vsync_endpoint_socket:s0
+ service surfaceflinger <span class="token operator">/</span>system<span class="token operator">/</span>bin<span class="token operator">/</span>surfaceflinger   <span class="token comment">// -----&gt; &#x5B9A;&#x4E49;surfaceflinger&#x670D;&#x52A1;</span>
+     <span class="token keyword">class</span> core animation
+     user system                     <span class="token comment">//  ------&gt; &#x7528;&#x6237;</span>
+     group graphics drmrpc readproc  <span class="token comment">// -----&gt; &#x7528;&#x6237;&#x7EC4;</span>
+     onrestart restart zygote        <span class="token comment">// -----&gt; &#x91CD;&#x542F;&#x6761;&#x4EF6;</span>
+     writepid <span class="token operator">/</span>dev<span class="token operator">/</span>stune<span class="token operator">/</span>foreground<span class="token operator">/</span>tasks   <span class="token comment">// ------&gt;  surfaceflinger&#x653E;&#x5230;&#x4EC0;&#x4E48;&#x8C03;&#x9891;&#x7EC4;</span>
+     socket pdx<span class="token operator">/</span>system<span class="token operator">/</span>vr<span class="token operator">/</span>display<span class="token operator">/</span>client     stream <span class="token number">0666</span> system graphics u<span class="token operator">:</span>object_r<span class="token operator">:</span>pdx_display_client_endpoint_socket<span class="token operator">:</span>s0
+     socket pdx<span class="token operator">/</span>system<span class="token operator">/</span>vr<span class="token operator">/</span>display<span class="token operator">/</span>manager    stream <span class="token number">0666</span> system graphics u<span class="token operator">:</span>object_r<span class="token operator">:</span>pdx_display_manager_endpoint_socket<span class="token operator">:</span>s0
+     socket pdx<span class="token operator">/</span>system<span class="token operator">/</span>vr<span class="token operator">/</span>display<span class="token operator">/</span>vsync      stream <span class="token number">0666</span> system graphics u<span class="token operator">:</span>object_r<span class="token operator">:</span>pdx_display_vsync_endpoint_socket<span class="token operator">:</span>s0
 </code></pre>
 <p>2&#x3001;&#x6309;&#x7167;&#x914D;&#x7F6E;&#x542F;&#x52A8;</p>
 <p>LoadBootScripts&#x89E3;&#x6790;</p>
@@ -1820,66 +1897,66 @@
 </blockquote>
 <h3 id="gpu&#x5408;&#x6210;&#xFF0C;&#x5177;&#x4F53;&#x4EE3;&#x7801;&#xFF08;&#x5B57;&#x5178;&#xFF09;"><a name="gpu&#x5408;&#x6210;&#xFF0C;&#x5177;&#x4F53;&#x4EE3;&#x7801;&#xFF08;&#x5B57;&#x5178;&#xFF09;" class="anchor-navigation-ex-anchor" href="#gpu&#x5408;&#x6210;&#xFF0C;&#x5177;&#x4F53;&#x4EE3;&#x7801;&#xFF08;&#x5B57;&#x5178;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>4.2.1. GPU&#x5408;&#x6210;&#xFF0C;&#x5177;&#x4F53;&#x4EE3;&#x7801;&#xFF08;&#x5B57;&#x5178;&#xFF09;</h3>
 <p>&#x4EE3;&#x7801;&#x5927;&#x7EB2;&#xFF1A;</p>
-<pre><code class="lang-java">&#x2514;&#x2500; GLESRenderEngine::drawLayersInternal
-    &#x251C;&#x2500; <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> auto&amp; layer : layers) {
-    &#x2502;   &#x251C;&#x2500; status = mBlurFilter-&gt;render(); <span class="hljs-comment">// &#x6A21;&#x7CCA;&#x7279;&#x6548;</span>
-    &#x2502;   &#x251C;&#x2500; setupLayerTexturing  <span class="hljs-comment">// &#x914D;&#x7F6E;&#x8D34;&#x56FE;</span>
+<pre class="language-"><code class="lang-java">&#x2514;&#x2500; <span class="token class-name">GLESRenderEngine</span><span class="token operator">::</span><span class="token function">drawLayersInternal</span>
+    &#x251C;&#x2500; <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> auto<span class="token operator">&amp;</span> layer <span class="token operator">:</span> layers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    &#x2502;   &#x251C;&#x2500; status <span class="token operator">=</span> mBlurFilter<span class="token operator">-&gt;</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x6A21;&#x7CCA;&#x7279;&#x6548;</span>
+    &#x2502;   &#x251C;&#x2500; setupLayerTexturing  <span class="token comment">// &#x914D;&#x7F6E;&#x8D34;&#x56FE;</span>
     &#x2502;   &#x251C;&#x2500; 
-    &#x2502;   &#x251C;&#x2500; <span class="hljs-keyword">if</span>: handleShadow         <span class="hljs-comment">// &#x9634;&#x5F71;&#x7279;&#x6548;</span>
-    &#x2502;   &#x2502;   &#x251C;&#x2500; setupLayerTexturing  <span class="hljs-comment">// &#x3010;1&#x3011; <span class="hljs-doctag">TODO:</span> &#x9634;&#x5F71;&#x4E5F;&#x662F;&#x8D34;&#x56FE;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#x8BC1;&#x660E;&#xFF1A;</span>
+    &#x2502;   &#x251C;&#x2500; <span class="token keyword">if</span><span class="token operator">:</span> handleShadow         <span class="token comment">// &#x9634;&#x5F71;&#x7279;&#x6548;</span>
+    &#x2502;   &#x2502;   &#x251C;&#x2500; setupLayerTexturing  <span class="token comment">// &#x3010;1&#x3011; TODO: &#x9634;&#x5F71;&#x4E5F;&#x662F;&#x8D34;&#x56FE;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#x8BC1;&#x660E;&#xFF1A;</span>
     &#x2502;   &#x2502;   &#x2514;&#x2500; drawMesh
-    &#x2502;   &#x251C;&#x2500; elseif:handleRoundedCorners <span class="hljs-comment">// &#x5706;&#x89D2;&#x7279;&#x6548;</span>
-    &#x2502;   &#x2502;   &#x251C;&#x2500; glScissor(topRect) <span class="hljs-comment">// &#x9650;&#x5236;&#x7ED8;&#x5236;&#x533A;&#x57DF;</span>
-    &#x2502;   &#x2502;   &#x251C;&#x2500; drawMesh(mesh) <span class="hljs-comment">// &#x3010;&#x3011;&#x8FD9;&#x91CC;shader&#x5305;&#x542B;&#x8D34;&#x56FE;</span>
+    &#x2502;   &#x251C;&#x2500; elseif<span class="token operator">:</span>handleRoundedCorners <span class="token comment">// &#x5706;&#x89D2;&#x7279;&#x6548;</span>
+    &#x2502;   &#x2502;   &#x251C;&#x2500; <span class="token function">glScissor</span><span class="token punctuation">(</span>topRect<span class="token punctuation">)</span> <span class="token comment">// &#x9650;&#x5236;&#x7ED8;&#x5236;&#x533A;&#x57DF;</span>
+    &#x2502;   &#x2502;   &#x251C;&#x2500; <span class="token function">drawMesh</span><span class="token punctuation">(</span>mesh<span class="token punctuation">)</span> <span class="token comment">// &#x3010;&#x3011;&#x8FD9;&#x91CC;shader&#x5305;&#x542B;&#x8D34;&#x56FE;</span>
     &#x2502;   &#x2502;   &#x251C;&#x2500; 
-    &#x2502;   &#x2502;   &#x251C;&#x2500; setScissor(bottomRect) <span class="hljs-number">1</span>
-    &#x2502;   &#x2502;   &#x251C;&#x2500; drawMesh(mesh)
+    &#x2502;   &#x2502;   &#x251C;&#x2500; <span class="token function">setScissor</span><span class="token punctuation">(</span>bottomRect<span class="token punctuation">)</span> <span class="token number">1</span>
+    &#x2502;   &#x2502;   &#x251C;&#x2500; <span class="token function">drawMesh</span><span class="token punctuation">(</span>mesh<span class="token punctuation">)</span>
     &#x2502;   &#x2502;   &#x251C;&#x2500; 
-    &#x2502;   &#x2502;   &#x251C;&#x2500; setScissor(middleRect)
-    &#x2502;   &#x2502;   &#x251C;&#x2500; mState.cornerRadius = <span class="hljs-number">0.0</span>; <span class="hljs-comment">//&#x3010;&#x3011;&#x753B;&#x4E2D;&#x95F4;&#x533A;&#x57DF;&#x65F6;&#xFF0C;&#x6084;&#x6084;&#x628A;&#x5706;&#x89D2;&#x534A;&#x5F84;&#x8BBE;&#x4E3A;0 ----&gt; &#x4E2D;&#x95F4;&#x533A;&#x57DF;&#x751F;&#x6210;&#x7684;shader&#xFF0C;&#x5254;&#x9664;&#x4E86;&#x5706;&#x89D2;&#x7684;&#x8BA1;&#x7B97;&#x3002;&#x5176;&#x4ED6;&#x90FD;&#x540C;&#x5706;&#x89D2;&#xFF1F;&#xFF1F;</span>
-    &#x2502;   &#x2502;   &#x2514;&#x2500; drawMesh(mesh)
-    &#x2502;   &#x2514;&#x2500; <span class="hljs-keyword">else</span>&#xFF1A;drawMesh <span class="hljs-comment">// &#x6CA1;&#x6709;&#x5706;&#x89D2;&#x548C;&#x9634;&#x5F71;&#x65F6;&#xFF0C;&#x76F4;&#x63A5;drawMesh(&#x8D34;&#x56FE;)</span>
-    &#x2502;       &#x2514;&#x2500; glVertexAttribPointer(mesh.getTexCoords()); <span class="hljs-comment">// &#x83B7;&#x53D6; &#x8D34;&#x56FE;&#x5750;&#x6807;</span>
-    &#x2502;           &#x251C;&#x2500; glVertexAttribPointer(mesh.getCropCoords()); <span class="hljs-comment">// &#x53D6;&#x5706;&#x89D2;&#x88C1;&#x526A;&#x5750;&#x6807;</span>
+    &#x2502;   &#x2502;   &#x251C;&#x2500; <span class="token function">setScissor</span><span class="token punctuation">(</span>middleRect<span class="token punctuation">)</span>
+    &#x2502;   &#x2502;   &#x251C;&#x2500; mState<span class="token punctuation">.</span>cornerRadius <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">;</span> <span class="token comment">//&#x3010;&#x3011;&#x753B;&#x4E2D;&#x95F4;&#x533A;&#x57DF;&#x65F6;&#xFF0C;&#x6084;&#x6084;&#x628A;&#x5706;&#x89D2;&#x534A;&#x5F84;&#x8BBE;&#x4E3A;0 ----&gt; &#x4E2D;&#x95F4;&#x533A;&#x57DF;&#x751F;&#x6210;&#x7684;shader&#xFF0C;&#x5254;&#x9664;&#x4E86;&#x5706;&#x89D2;&#x7684;&#x8BA1;&#x7B97;&#x3002;&#x5176;&#x4ED6;&#x90FD;&#x540C;&#x5706;&#x89D2;&#xFF1F;&#xFF1F;</span>
+    &#x2502;   &#x2502;   &#x2514;&#x2500; <span class="token function">drawMesh</span><span class="token punctuation">(</span>mesh<span class="token punctuation">)</span>
+    &#x2502;   &#x2514;&#x2500; <span class="token keyword">else</span>&#xFF1A;drawMesh <span class="token comment">// &#x6CA1;&#x6709;&#x5706;&#x89D2;&#x548C;&#x9634;&#x5F71;&#x65F6;&#xFF0C;&#x76F4;&#x63A5;drawMesh(&#x8D34;&#x56FE;)</span>
+    &#x2502;       &#x2514;&#x2500; <span class="token function">glVertexAttribPointer</span><span class="token punctuation">(</span>mesh<span class="token punctuation">.</span><span class="token function">getTexCoords</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x83B7;&#x53D6; &#x8D34;&#x56FE;&#x5750;&#x6807;</span>
+    &#x2502;           &#x251C;&#x2500; <span class="token function">glVertexAttribPointer</span><span class="token punctuation">(</span>mesh<span class="token punctuation">.</span><span class="token function">getCropCoords</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x53D6;&#x5706;&#x89D2;&#x88C1;&#x526A;&#x5750;&#x6807;</span>
     &#x2502;           &#x251C;&#x2500; 
     &#x2502;           &#x251C;&#x2500; useProgram
-    &#x2502;           &#x2502;   &#x251C;&#x2500; generateVertexShader  <span class="hljs-comment">// &#x3010;2&#x3011;  &#x6839;&#x636E;&#x4E0D;&#x540C;&#x7684;needs&#xFF0C;&#x914D;&#x7F6E;&#x4E0D;&#x540C;shader</span>
-    &#x2502;           &#x2502;   &#x2514;&#x2500; glUseProgram <span class="hljs-comment">// &#x3010;3&#x3011; <span class="hljs-doctag">TODO:</span></span>
-    &#x2502;           &#x2514;&#x2500; glDrawArrays &#x6216; glDrawElements <span class="hljs-comment">// &#x6700;&#x7EC8;&#x4E00;&#x884C;&#x7ED8;&#x5236;</span>
+    &#x2502;           &#x2502;   &#x251C;&#x2500; generateVertexShader  <span class="token comment">// &#x3010;2&#x3011;  &#x6839;&#x636E;&#x4E0D;&#x540C;&#x7684;needs&#xFF0C;&#x914D;&#x7F6E;&#x4E0D;&#x540C;shader</span>
+    &#x2502;           &#x2502;   &#x2514;&#x2500; glUseProgram <span class="token comment">// &#x3010;3&#x3011; TODO:</span>
+    &#x2502;           &#x2514;&#x2500; glDrawArrays &#x6216; glDrawElements <span class="token comment">// &#x6700;&#x7EC8;&#x4E00;&#x884C;&#x7ED8;&#x5236;</span>
     &#x251C;&#x2500; 
-    &#x2514;&#x2500; drawFence = GLESRenderEngine::flush <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span></span>
+    &#x2514;&#x2500; drawFence <span class="token operator">=</span> <span class="token class-name">GLESRenderEngine</span><span class="token operator">::</span><span class="token function">flush</span> <span class="token comment">// TODO:</span>
 </code></pre>
-<p>%accordion%&#x539F;&#x59CB; tree%accordion%</p>
-<pre><code class="lang-java">GLESRenderEngine::<span class="hljs-function">drawLayersInternal
-    <span class="hljs-title">for</span> <span class="hljs-params">(<span class="hljs-keyword">const</span> auto&amp; layer : layers)</span> </span>{
-        status = mBlurFilter-&gt;render(); <span class="hljs-comment">// &#x6A21;&#x7CCA;&#x7279;&#x6548;</span>
-        setupLayerTexturing  <span class="hljs-comment">// &#x914D;&#x7F6E;&#x8D34;&#x56FE;</span>
+<div class="accordion accordionClose"><div class="accordionButton"><div class="accordionTitle">&#x539F;&#x59CB; tree</div><div class="accordionSpinnerBox"><div class="accordionSpinner"></div></div></div><div class="accordionContent">
+<pre class="language-"><code class="lang-java"><span class="token class-name">GLESRenderEngine</span><span class="token operator">::</span><span class="token function">drawLayersInternal</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> auto<span class="token operator">&amp;</span> layer <span class="token operator">:</span> layers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        status <span class="token operator">=</span> mBlurFilter<span class="token operator">-&gt;</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x6A21;&#x7CCA;&#x7279;&#x6548;</span>
+        setupLayerTexturing  <span class="token comment">// &#x914D;&#x7F6E;&#x8D34;&#x56FE;</span>
 
-        <span class="hljs-keyword">if</span>: handleShadow         <span class="hljs-comment">// &#x9634;&#x5F71;&#x7279;&#x6548;</span>
-            setupLayerTexturing  <span class="hljs-comment">// &#x3010;1&#x3011; <span class="hljs-doctag">TODO:</span> &#x9634;&#x5F71;&#x4E5F;&#x662F;&#x8D34;&#x56FE;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#x8BC1;&#x660E;&#xFF1A;</span>
+        <span class="token keyword">if</span><span class="token operator">:</span> handleShadow         <span class="token comment">// &#x9634;&#x5F71;&#x7279;&#x6548;</span>
+            setupLayerTexturing  <span class="token comment">// &#x3010;1&#x3011; TODO: &#x9634;&#x5F71;&#x4E5F;&#x662F;&#x8D34;&#x56FE;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#x8BC1;&#x660E;&#xFF1A;</span>
             drawMesh
-        elseif:handleRoundedCorners <span class="hljs-comment">// &#x5706;&#x89D2;&#x7279;&#x6548;</span>
-            glScissor(topRect) <span class="hljs-comment">// &#x9650;&#x5236;&#x7ED8;&#x5236;&#x533A;&#x57DF;</span>
-            drawMesh(mesh) <span class="hljs-comment">// &#x3010;&#x3011;&#x8FD9;&#x91CC;shader&#x5305;&#x542B;&#x8D34;&#x56FE;</span>
+        elseif<span class="token operator">:</span>handleRoundedCorners <span class="token comment">// &#x5706;&#x89D2;&#x7279;&#x6548;</span>
+            <span class="token function">glScissor</span><span class="token punctuation">(</span>topRect<span class="token punctuation">)</span> <span class="token comment">// &#x9650;&#x5236;&#x7ED8;&#x5236;&#x533A;&#x57DF;</span>
+            <span class="token function">drawMesh</span><span class="token punctuation">(</span>mesh<span class="token punctuation">)</span> <span class="token comment">// &#x3010;&#x3011;&#x8FD9;&#x91CC;shader&#x5305;&#x542B;&#x8D34;&#x56FE;</span>
 
-            setScissor(bottomRect) <span class="hljs-number">1</span>
-            drawMesh(mesh)
+            <span class="token function">setScissor</span><span class="token punctuation">(</span>bottomRect<span class="token punctuation">)</span> <span class="token number">1</span>
+            <span class="token function">drawMesh</span><span class="token punctuation">(</span>mesh<span class="token punctuation">)</span>
 
-            setScissor(middleRect)
-            mState.cornerRadius = <span class="hljs-number">0.0</span>; <span class="hljs-comment">//&#x3010;&#x3011;&#x753B;&#x4E2D;&#x95F4;&#x533A;&#x57DF;&#x65F6;&#xFF0C;&#x6084;&#x6084;&#x628A;&#x5706;&#x89D2;&#x534A;&#x5F84;&#x8BBE;&#x4E3A;0 ----&gt; &#x4E2D;&#x95F4;&#x533A;&#x57DF;&#x751F;&#x6210;&#x7684;shader&#xFF0C;&#x5254;&#x9664;&#x4E86;&#x5706;&#x89D2;&#x7684;&#x8BA1;&#x7B97;&#x3002;&#x5176;&#x4ED6;&#x90FD;&#x540C;&#x5706;&#x89D2;&#xFF1F;&#xFF1F;</span>
-            drawMesh(mesh)
-        <span class="hljs-keyword">else</span>&#xFF1A;drawMesh <span class="hljs-comment">// &#x6CA1;&#x6709;&#x5706;&#x89D2;&#x548C;&#x9634;&#x5F71;&#x65F6;&#xFF0C;&#x76F4;&#x63A5;drawMesh(&#x8D34;&#x56FE;)</span>
-                glVertexAttribPointer(mesh.getTexCoords()); <span class="hljs-comment">// &#x83B7;&#x53D6; &#x8D34;&#x56FE;&#x5750;&#x6807; </span>
-                glVertexAttribPointer(mesh.getCropCoords()); <span class="hljs-comment">// &#x53D6;&#x5706;&#x89D2;&#x88C1;&#x526A;&#x5750;&#x6807;</span>
+            <span class="token function">setScissor</span><span class="token punctuation">(</span>middleRect<span class="token punctuation">)</span>
+            mState<span class="token punctuation">.</span>cornerRadius <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">;</span> <span class="token comment">//&#x3010;&#x3011;&#x753B;&#x4E2D;&#x95F4;&#x533A;&#x57DF;&#x65F6;&#xFF0C;&#x6084;&#x6084;&#x628A;&#x5706;&#x89D2;&#x534A;&#x5F84;&#x8BBE;&#x4E3A;0 ----&gt; &#x4E2D;&#x95F4;&#x533A;&#x57DF;&#x751F;&#x6210;&#x7684;shader&#xFF0C;&#x5254;&#x9664;&#x4E86;&#x5706;&#x89D2;&#x7684;&#x8BA1;&#x7B97;&#x3002;&#x5176;&#x4ED6;&#x90FD;&#x540C;&#x5706;&#x89D2;&#xFF1F;&#xFF1F;</span>
+            <span class="token function">drawMesh</span><span class="token punctuation">(</span>mesh<span class="token punctuation">)</span>
+        <span class="token keyword">else</span>&#xFF1A;drawMesh <span class="token comment">// &#x6CA1;&#x6709;&#x5706;&#x89D2;&#x548C;&#x9634;&#x5F71;&#x65F6;&#xFF0C;&#x76F4;&#x63A5;drawMesh(&#x8D34;&#x56FE;)</span>
+                <span class="token function">glVertexAttribPointer</span><span class="token punctuation">(</span>mesh<span class="token punctuation">.</span><span class="token function">getTexCoords</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x83B7;&#x53D6; &#x8D34;&#x56FE;&#x5750;&#x6807; </span>
+                <span class="token function">glVertexAttribPointer</span><span class="token punctuation">(</span>mesh<span class="token punctuation">.</span><span class="token function">getCropCoords</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x53D6;&#x5706;&#x89D2;&#x88C1;&#x526A;&#x5750;&#x6807;</span>
 
                 useProgram 
-                    generateVertexShader  <span class="hljs-comment">// &#x3010;2&#x3011;  &#x6839;&#x636E;&#x4E0D;&#x540C;&#x7684;needs&#xFF0C;&#x914D;&#x7F6E;&#x4E0D;&#x540C;shader</span>
-                    glUseProgram <span class="hljs-comment">// &#x3010;3&#x3011; <span class="hljs-doctag">TODO:</span></span>
-                glDrawArrays &#x6216; glDrawElements <span class="hljs-comment">// &#x6700;&#x7EC8;&#x4E00;&#x884C;&#x7ED8;&#x5236;</span>
+                    generateVertexShader  <span class="token comment">// &#x3010;2&#x3011;  &#x6839;&#x636E;&#x4E0D;&#x540C;&#x7684;needs&#xFF0C;&#x914D;&#x7F6E;&#x4E0D;&#x540C;shader</span>
+                    glUseProgram <span class="token comment">// &#x3010;3&#x3011; TODO:</span>
+                glDrawArrays &#x6216; glDrawElements <span class="token comment">// &#x6700;&#x7EC8;&#x4E00;&#x884C;&#x7ED8;&#x5236;</span>
 
-    drawFence = GLESRenderEngine::flush <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span></span>
+    drawFence <span class="token operator">=</span> <span class="token class-name">GLESRenderEngine</span><span class="token operator">::</span><span class="token function">flush</span> <span class="token comment">// TODO:</span>
 </code></pre>
-<p>%/accordion%</p>
+</div></div>
 <h3 id="weston&#x5BF9;&#x5E94;&#x7684;"><a name="weston&#x5BF9;&#x5E94;&#x7684;" class="anchor-navigation-ex-anchor" href="#weston&#x5BF9;&#x5E94;&#x7684;"><i class="fa fa-link" aria-hidden="true"></i></a>4.2.2. weston&#x5BF9;&#x5E94;&#x7684;</h3>
 <p>&#x5230;&#x5E95;&#x8D70;overlay&#x8FD8;&#x662F;GPU&#xFF1A;</p>
 <p>weston &#x4EE3;&#x7801;&#xFF1A; <a href="https://blog.csdn.net/u012839187/article/details/106469038?spm=1001.2014.3001.5501#:~:text=_drm_input---,Assign_planes,-assign_planes" target="_blank">Assign_planes</a></p>
@@ -1915,40 +1992,40 @@
 <p>&#x53C2;&#x8003;&#xFF1A;<del><a href="https://cloud.tencent.com/developer/article/2002551" target="_blank">RenderEngineType&#x7B80;&#x4ECB;</a></del></p>
 <p>&#x65F6;&#x673A;&#xFF1A;&#x81EA;&#x7136;&#xFF0C; <del>sf &#x521D;&#x59CB;&#x5316;</del></p>
 <blockquote>
-<p>%accordion%sf &#x521D;&#x59CB;&#x5316; &#x4EE3;&#x7801;%accordion%</p>
-<pre><code class="lang-java">SurfaceFlinger::init() 
-    <span class="hljs-keyword">if</span> (auto type = chooseRenderEngineTypeViaSysProp()) {
-  builder.setRenderEngineType(type.value());
-}
-mRenderEngine = renderengine::RenderEngine::create(builder.build());
-mCompositionEngine-&gt;setRenderEngine(mRenderEngine.get());
+<div class="accordion accordionClose"><div class="accordionButton"><div class="accordionTitle">sf &#x521D;&#x59CB;&#x5316; &#x4EE3;&#x7801;</div><div class="accordionSpinnerBox"><div class="accordionSpinner"></div></div></div><div class="accordionContent">
+<pre class="language-"><code class="lang-java"><span class="token class-name">SurfaceFlinger</span><span class="token operator">::</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>auto type <span class="token operator">=</span> <span class="token function">chooseRenderEngineTypeViaSysProp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  builder<span class="token punctuation">.</span><span class="token function">setRenderEngineType</span><span class="token punctuation">(</span>type<span class="token punctuation">.</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+mRenderEngine <span class="token operator">=</span> renderengine<span class="token operator">::</span><span class="token class-name">RenderEngine</span><span class="token operator">::</span><span class="token function">create</span><span class="token punctuation">(</span>builder<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+mCompositionEngine<span class="token operator">-&gt;</span><span class="token function">setRenderEngine</span><span class="token punctuation">(</span>mRenderEngine<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>%/accordion%</p>
+</div></div>
 </blockquote>
 <p>RenderEngineType &#x914D;&#x7F6E;&#x5904;&#xFF1A;</p>
 <blockquote>
 <p>1&#x3001;&#x6301;&#x4E45;&#x5316;&#x914D;&#x7F6E;&#xFF1A; <del>&#x81EA;&#x7136;&#xFF0C;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</del> </p>
-<pre><code class="lang-java"><span class="hljs-comment">//&#x6587;&#x4EF6;/system/build.prop&#x65B0;&#x589E;&#xFF1A;</span>
+<pre class="language-"><code class="lang-java"><span class="token comment">//&#x6587;&#x4EF6;/system/build.prop&#x65B0;&#x589E;&#xFF1A;</span>
 
-debug.renderengine.backend=threaded
+debug<span class="token punctuation">.</span>renderengine<span class="token punctuation">.</span>backend<span class="token operator">=</span>threaded
 </code></pre>
 <p>2&#x3001;&#x52A8;&#x6001;&#x914D;&#x7F6E;&#xFF08;&#x9700;&#x8981;&#x91CD;&#x542F;&#x8FDB;&#x7A0B;&#xFF09;&#xFF1A;</p>
-<pre><code class="lang-java">adb root &amp;&amp; adb remount
-adb shell setprop  debug.renderengine.backend  threaded
-adb shell getprop | grep renderengine
+<pre class="language-"><code class="lang-java">adb root <span class="token operator">&amp;&amp;</span> adb remount
+adb shell setprop  debug<span class="token punctuation">.</span>renderengine<span class="token punctuation">.</span>backend  threaded
+adb shell getprop <span class="token operator">|</span> grep renderengine
 </code></pre>
 <p><a href="https://gitcode.csdn.net/65ec51a41a836825ed798396.html?dp_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NDUyNjk2LCJleHAiOjE3MTgxMTIxNTAsImlhdCI6MTcxNzUwNzM1MCwidXNlcm5hbWUiOiJ3ZWl4aW5fMzgxOTkzODEifQ.Ez_sTs8Ke3zT7X6a7aHgIG0OpQxQHIv9tX_xybwUqH8" target="_blank">Android&#x5B9E;&#x7528;&#x6280;&#x5DE7;&#x4E4B;adb&#x547D;&#x4EE4;&#xFF1A;getprop,setprop&#x547D;&#x4EE4;&#x4F7F;&#x7528;</a></p>
 </blockquote>
 <p>&#x5177;&#x4F53;&#x7C7B;&#x578B;&#xFF1A;</p>
 <blockquote>
-<pre><code class="lang-java"><span class="hljs-keyword">enum</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RenderEngineType</span> </span>{
-GLES = <span class="hljs-number">1</span>, <span class="hljs-comment">//opengl</span>
-THREADED = <span class="hljs-number">2</span>, <span class="hljs-comment">//opengl&#x5F02;&#x6B65;&#x7EBF;&#x7A0B;</span>
-SKIA_GL = <span class="hljs-number">3</span>, <span class="hljs-comment">//skia</span>
-SKIA_GL_THREADED = <span class="hljs-number">4</span>, <span class="hljs-comment">//skia&#x5F02;&#x6B65;&#x7EBF;&#x7A0B;</span>
-SKIA_VK = <span class="hljs-number">5</span>,  <span class="hljs-comment">// vulkan</span>
-SKIA_VK_THREADED = <span class="hljs-number">6</span>,
-};
+<pre class="language-"><code class="lang-java"><span class="token keyword">enum</span> <span class="token keyword">class</span> <span class="token class-name">RenderEngineType</span> <span class="token punctuation">{</span>
+<span class="token constant">GLES</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">//opengl</span>
+<span class="token constant">THREADED</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token comment">//opengl&#x5F02;&#x6B65;&#x7EBF;&#x7A0B;</span>
+<span class="token constant">SKIA_GL</span> <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token comment">//skia</span>
+<span class="token constant">SKIA_GL_THREADED</span> <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token comment">//skia&#x5F02;&#x6B65;&#x7EBF;&#x7A0B;</span>
+<span class="token constant">SKIA_VK</span> <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">,</span>  <span class="token comment">// vulkan</span>
+<span class="token constant">SKIA_VK_THREADED</span> <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <p>&#x5373;&#xFF1A;</p>
 <table>
@@ -1979,11 +2056,11 @@ SKIA_VK_THREADED = <span class="hljs-number">6</span>,
 </table>
 </blockquote>
 <p>&#x627F;&#x8F7D;&#x7684;&#x7C7B;&#xFF0C;&#x7EE7;&#x627F;&#x5173;&#x7CFB;&#xFF1A;</p>
-<pre><code class="lang-java">RenderEngine    ------&gt;  &#x627F;&#x8F7D;&#x5408;&#x6210;&#x80FD;&#x529B;
-    &#x251C;&#x2500;SkiaRenderEngine        
-    &#x2502;    &#x2514;&#x2500;SkiaVkRenderEngine        
-    &#x251C;&#x2500;RenderEngineThreaded        
-    &#x2514;&#x2500;GLESRenderEngine
+<pre class="language-"><code class="lang-java"><span class="token class-name">RenderEngine</span>    <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">&gt;</span>  &#x627F;&#x8F7D;&#x5408;&#x6210;&#x80FD;&#x529B;
+    &#x251C;&#x2500;<span class="token class-name">SkiaRenderEngine</span>        
+    &#x2502;    &#x2514;&#x2500;<span class="token class-name">SkiaVkRenderEngine</span>        
+    &#x251C;&#x2500;<span class="token class-name">RenderEngineThreaded</span>        
+    &#x2514;&#x2500;<span class="token class-name">GLESRenderEngine</span>
 </code></pre>
 <p>App&#x4FA7;&#xFF1A;</p>
 <blockquote>
@@ -2013,18 +2090,18 @@ SKIA_VK_THREADED = <span class="hljs-number">6</span>,
 <p>TODO: &#x4FE1;&#x606F;&#x6D41;1&#xFF1A; GraphicBuffer  ----&gt;  Framebuffer</p>
 <blockquote>
 <p>  &#x5173;&#x952E;&#x4E00;&#x884C;&#xFF1A;&#x51C6;&#x5907;&#x5408;&#x6210;&#x539F;&#x6750;&#x6599;&#xFF08;&#x8F93;&#x5165;&#x7684;Buffer&#x7ED9;&#x5230;  RenderEngine&#xFF09;</p>
-<pre><code class="lang-java">
-  std::optional&lt;compositionengine::LayerFE::LayerSettings&gt; BufferLayer::prepareClientComposition(
-          compositionengine::LayerFE::ClientCompositionTargetSettings&amp; targetSettings) {
-      ......
-      <span class="hljs-comment">// &#x5E94;&#x7528;queue&#x8FC7;&#x6765;&#x7684;Buffer</span>
-      layer.source.buffer.buffer = mBufferInfo.mBuffer;
-      layer.source.buffer.isOpaque = isOpaque(s);
+<pre class="language-"><code class="lang-java">
+  std<span class="token operator">::</span><span class="token function">optional</span><span class="token operator">&lt;</span>compositionengine<span class="token operator">::</span><span class="token class-name">LayerFE</span><span class="token operator">::</span><span class="token class-name">LayerSettings</span><span class="token operator">&gt;</span> <span class="token class-name">BufferLayer</span><span class="token operator">::</span><span class="token function">prepareClientComposition</span><span class="token punctuation">(</span>
+          compositionengine<span class="token operator">::</span><span class="token class-name">LayerFE</span><span class="token operator">::</span><span class="token class-name">ClientCompositionTargetSettings</span><span class="token operator">&amp;</span> targetSettings<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+      <span class="token comment">// &#x5E94;&#x7528;queue&#x8FC7;&#x6765;&#x7684;Buffer</span>
+      layer<span class="token punctuation">.</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>buffer <span class="token operator">=</span> mBufferInfo<span class="token punctuation">.</span>mBuffer<span class="token punctuation">;</span>
+      layer<span class="token punctuation">.</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>isOpaque <span class="token operator">=</span> <span class="token function">isOpaque</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-      <span class="hljs-comment">// &#x521B;&#x5EFA;BufferQueueLayer&#x65F6;&#x521B;&#x5EFA;&#x7684;texture ID</span>
-      layer.source.buffer.textureName = mTextureName;
-      ...
-  }
+      <span class="token comment">// &#x521B;&#x5EFA;BufferQueueLayer&#x65F6;&#x521B;&#x5EFA;&#x7684;texture ID</span>
+      layer<span class="token punctuation">.</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>textureName <span class="token operator">=</span> mTextureName<span class="token punctuation">;</span>
+      <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+  <span class="token punctuation">}</span>
 </code></pre>
 </blockquote>
 <p><strong>&#x751F;&#x6D3B;&#x5316;&#x6A21;&#x578B;&#xFF1A;---- &#x753B;&#x5BB6;&#x7ED8;&#x753B;</strong></p>
@@ -2043,221 +2120,221 @@ SKIA_VK_THREADED = <span class="hljs-number">6</span>,
 <blockquote>
 <p>  &#x8F93;&#x5165;buffer  ----&gt; &#x751F;&#x6210;&#x7EB9;&#x7406;&#xFF08;&#x8D34;&#x56FE;&#xFF09;  ---&gt;  shader&#x8D34;&#x56FE;&#xFF08;&#x7EB9;&#x7406;&#xFF09;&#x5230;&#x6700;&#x7EC8;&#x7684;FrameBuffer&#x4E0A;&#xFF08;glDrawArrays&#xFF09;</p>
 </blockquote>
-<p>%accordion%  &#x8BE6;&#x7EC6;&#x4EE3;&#x7801;&#xFF1A;<strong>GLESRenderEngine::drawLayers</strong>   %accordion%</p>
-<pre><code class="lang-java">&#x6587;&#x4EF6;&#xFF1A;frameworks/<span class="hljs-keyword">native</span>/libs/renderengine/gl/GLESRenderEngine.cpp
+<div class="accordion accordionClose"><div class="accordionButton"><div class="accordionTitle">  &#x8BE6;&#x7EC6;&#x4EE3;&#x7801;&#xFF1A;<strong>GLESRenderEngine::drawLayers</strong>   </div><div class="accordionSpinnerBox"><div class="accordionSpinner"></div></div></div><div class="accordionContent">
+<pre class="language-"><code class="lang-java">&#x6587;&#x4EF6;&#xFF1A;frameworks<span class="token operator">/</span><span class="token keyword">native</span><span class="token operator">/</span>libs<span class="token operator">/</span>renderengine<span class="token operator">/</span>gl<span class="token operator">/</span><span class="token class-name">GLESRenderEngine</span><span class="token punctuation">.</span>cpp
 
-status_t GLESRenderEngine::drawLayers(<span class="hljs-keyword">const</span> DisplaySettings&amp; display,
-                                    <span class="hljs-keyword">const</span> std::vector&lt;<span class="hljs-keyword">const</span> LayerSettings*&gt;&amp; layers,
-                                    ANativeWindowBuffer* <span class="hljs-keyword">const</span> buffer,
-                                    <span class="hljs-keyword">const</span> bool useFramebufferCache, base::unique_fd&amp;&amp; bufferFence,
-                                    base::unique_fd* drawFence) {
-       ...
-       <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x9876;&#x70B9;&#x548C;&#x7EB9;&#x7406;&#x5750;&#x6807;&#x7684;size</span>
-       Mesh mesh = Mesh::Builder()
-                      .setPrimitive(Mesh::TRIANGLE_FAN)
-                      .setVertices(<span class="hljs-number">4</span> <span class="hljs-comment">/* count */</span>, <span class="hljs-number">2</span> <span class="hljs-comment">/* size */</span>)
-                      .setTexCoords(<span class="hljs-number">2</span> <span class="hljs-comment">/* size */</span>)
-                      .setCropCoords(<span class="hljs-number">2</span> <span class="hljs-comment">/* size */</span>)
-                      .build();
-       <span class="hljs-keyword">for</span> (auto <span class="hljs-keyword">const</span> layer : layers) {
-        <span class="hljs-comment">//&#x904D;&#x5386;outputlayer</span>
-           ...
-        <span class="hljs-comment">//&#x83B7;&#x53D6;layer&#x7684;&#x5927;&#x5C0F;</span>
-      <span class="hljs-keyword">const</span> FloatRect bounds = layer-&gt;geometry.boundaries;
-      Mesh::<span class="hljs-function">VertexArray&lt;vec2&gt; <span class="hljs-title">position</span><span class="hljs-params">(mesh.getPositionArray&lt;vec2&gt;()</span>)</span>;
-      <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x9876;&#x70B9;&#x7684;&#x5750;&#x6807;&#xFF0C;&#x9006;&#x65F6;&#x9488;&#x65B9;&#x5411;</span>
-      position[<span class="hljs-number">0</span>] = vec2(bounds.left, bounds.top);
-      position[<span class="hljs-number">1</span>] = vec2(bounds.left, bounds.bottom);
-      position[<span class="hljs-number">2</span>] = vec2(bounds.right, bounds.bottom);
-      position[<span class="hljs-number">3</span>] = vec2(bounds.right, bounds.top);
-       <span class="hljs-comment">//&#x8BBE;&#x7F6E;crop&#x7684;&#x5750;&#x6807;</span>
-      setupLayerCropping(*layer, mesh);
-      <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x989C;&#x8272;&#x77E9;&#x9635;</span>
-      setColorTransform(display.colorTransform * layer-&gt;colorTransform);
-      ...
-      <span class="hljs-comment">// Buffer&#x76F8;&#x5173;&#x8BBE;&#x7F6E;</span>
-      <span class="hljs-keyword">if</span> (layer-&gt;source.buffer.buffer != nullptr) {
-          disableTexture = <span class="hljs-keyword">false</span>;
-          isOpaque = layer-&gt;source.buffer.isOpaque;
-           <span class="hljs-comment">// layer&#x7684;buffer&#xFF0C;&#x7406;&#x89E3;&#x4E3A;&#x8F93;&#x5165;&#x7684;buffer</span>
-          sp&lt;GraphicBuffer&gt; gBuf = layer-&gt;source.buffer.buffer;
-          <span class="hljs-comment">// textureName&#x662F;&#x521B;&#x5EFA;BufferQueuelayer&#x65F6;&#x751F;&#x6210;&#x7684;&#xFF0C;&#x7528;&#x6765;&#x6807;&#x8BC6;&#x8FD9;&#x4E2A;layer&#xFF0C;</span>
-          <span class="hljs-comment">// fence&#x662F;acquire fence</span>
-          bindExternalTextureBuffer(layer-&gt;source.buffer.textureName, gBuf,  <span class="hljs-comment">// &#x3010;&#x3011;</span>
-                                    layer-&gt;source.buffer.fence);
+status_t <span class="token class-name">GLESRenderEngine</span><span class="token operator">::</span><span class="token function">drawLayers</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token class-name">DisplaySettings</span><span class="token operator">&amp;</span> display<span class="token punctuation">,</span>
+                                    <span class="token keyword">const</span> std<span class="token operator">::</span><span class="token function">vector</span><span class="token operator">&lt;</span><span class="token keyword">const</span> <span class="token class-name">LayerSettings</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">&amp;</span> layers<span class="token punctuation">,</span>
+                                    <span class="token class-name">ANativeWindowBuffer</span><span class="token operator">*</span> <span class="token keyword">const</span> buffer<span class="token punctuation">,</span>
+                                    <span class="token keyword">const</span> bool useFramebufferCache<span class="token punctuation">,</span> base<span class="token operator">::</span><span class="token function">unique_fd</span><span class="token operator">&amp;&amp;</span> bufferFence<span class="token punctuation">,</span>
+                                    base<span class="token operator">::</span><span class="token function">unique_fd</span><span class="token operator">*</span> drawFence<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+       <span class="token comment">// &#x8BBE;&#x7F6E;&#x9876;&#x70B9;&#x548C;&#x7EB9;&#x7406;&#x5750;&#x6807;&#x7684;size</span>
+       <span class="token class-name">Mesh</span> mesh <span class="token operator">=</span> <span class="token class-name">Mesh</span><span class="token operator">::</span><span class="token class-name">Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                      <span class="token punctuation">.</span><span class="token function">setPrimitive</span><span class="token punctuation">(</span><span class="token class-name">Mesh</span><span class="token operator">::</span><span class="token constant">TRIANGLE_FAN</span><span class="token punctuation">)</span>
+                      <span class="token punctuation">.</span><span class="token function">setVertices</span><span class="token punctuation">(</span><span class="token number">4</span> <span class="token comment">/* count */</span><span class="token punctuation">,</span> <span class="token number">2</span> <span class="token comment">/* size */</span><span class="token punctuation">)</span>
+                      <span class="token punctuation">.</span><span class="token function">setTexCoords</span><span class="token punctuation">(</span><span class="token number">2</span> <span class="token comment">/* size */</span><span class="token punctuation">)</span>
+                      <span class="token punctuation">.</span><span class="token function">setCropCoords</span><span class="token punctuation">(</span><span class="token number">2</span> <span class="token comment">/* size */</span><span class="token punctuation">)</span>
+                      <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">for</span> <span class="token punctuation">(</span>auto <span class="token keyword">const</span> layer <span class="token operator">:</span> layers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">//&#x904D;&#x5386;outputlayer</span>
+           <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token comment">//&#x83B7;&#x53D6;layer&#x7684;&#x5927;&#x5C0F;</span>
+      <span class="token keyword">const</span> <span class="token class-name">FloatRect</span> bounds <span class="token operator">=</span> layer<span class="token operator">-&gt;</span>geometry<span class="token punctuation">.</span>boundaries<span class="token punctuation">;</span>
+      <span class="token class-name">Mesh</span><span class="token operator">::</span><span class="token class-name">VertexArray</span><span class="token generics"><span class="token punctuation">&lt;</span>vec2<span class="token punctuation">&gt;</span></span> <span class="token function">position</span><span class="token punctuation">(</span>mesh<span class="token punctuation">.</span>getPositionArray<span class="token generics"><span class="token punctuation">&lt;</span>vec2<span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// &#x8BBE;&#x7F6E;&#x9876;&#x70B9;&#x7684;&#x5750;&#x6807;&#xFF0C;&#x9006;&#x65F6;&#x9488;&#x65B9;&#x5411;</span>
+      position<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">vec2</span><span class="token punctuation">(</span>bounds<span class="token punctuation">.</span>left<span class="token punctuation">,</span> bounds<span class="token punctuation">.</span>top<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      position<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">vec2</span><span class="token punctuation">(</span>bounds<span class="token punctuation">.</span>left<span class="token punctuation">,</span> bounds<span class="token punctuation">.</span>bottom<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      position<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">vec2</span><span class="token punctuation">(</span>bounds<span class="token punctuation">.</span>right<span class="token punctuation">,</span> bounds<span class="token punctuation">.</span>bottom<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      position<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">vec2</span><span class="token punctuation">(</span>bounds<span class="token punctuation">.</span>right<span class="token punctuation">,</span> bounds<span class="token punctuation">.</span>top<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token comment">//&#x8BBE;&#x7F6E;crop&#x7684;&#x5750;&#x6807;</span>
+      <span class="token function">setupLayerCropping</span><span class="token punctuation">(</span><span class="token operator">*</span>layer<span class="token punctuation">,</span> mesh<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// &#x8BBE;&#x7F6E;&#x989C;&#x8272;&#x77E9;&#x9635;</span>
+      <span class="token function">setColorTransform</span><span class="token punctuation">(</span>display<span class="token punctuation">.</span>colorTransform <span class="token operator">*</span> layer<span class="token operator">-&gt;</span>colorTransform<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+      <span class="token comment">// Buffer&#x76F8;&#x5173;&#x8BBE;&#x7F6E;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>layer<span class="token operator">-&gt;</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>buffer <span class="token operator">!=</span> nullptr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          disableTexture <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+          isOpaque <span class="token operator">=</span> layer<span class="token operator">-&gt;</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>isOpaque<span class="token punctuation">;</span>
+           <span class="token comment">// layer&#x7684;buffer&#xFF0C;&#x7406;&#x89E3;&#x4E3A;&#x8F93;&#x5165;&#x7684;buffer</span>
+          sp<span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">GraphicBuffer</span><span class="token punctuation">&gt;</span></span> gBuf <span class="token operator">=</span> layer<span class="token operator">-&gt;</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>buffer<span class="token punctuation">;</span>
+          <span class="token comment">// textureName&#x662F;&#x521B;&#x5EFA;BufferQueuelayer&#x65F6;&#x751F;&#x6210;&#x7684;&#xFF0C;&#x7528;&#x6765;&#x6807;&#x8BC6;&#x8FD9;&#x4E2A;layer&#xFF0C;</span>
+          <span class="token comment">// fence&#x662F;acquire fence</span>
+          <span class="token function">bindExternalTextureBuffer</span><span class="token punctuation">(</span>layer<span class="token operator">-&gt;</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>textureName<span class="token punctuation">,</span> gBuf<span class="token punctuation">,</span>  <span class="token comment">// &#x3010;&#x3011;</span>
+                                    layer<span class="token operator">-&gt;</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>fence<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-          ...
-          <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x7EB9;&#x7406;&#x5750;&#x6807;&#xFF0C;&#x4E5F;&#x662F;&#x9006;&#x65F6;&#x9488;</span>
-          renderengine::Mesh::<span class="hljs-function">VertexArray&lt;vec2&gt; <span class="hljs-title">texCoords</span><span class="hljs-params">(mesh.getTexCoordArray&lt;vec2&gt;()</span>)</span>;
-          texCoords[<span class="hljs-number">0</span>] = vec2(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>);
-          texCoords[<span class="hljs-number">1</span>] = vec2(<span class="hljs-number">0.0</span>, <span class="hljs-number">1.0</span>);
-          texCoords[<span class="hljs-number">2</span>] = vec2(<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>);
-          texCoords[<span class="hljs-number">3</span>] = vec2(<span class="hljs-number">1.0</span>, <span class="hljs-number">0.0</span>);
-         <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x7EB9;&#x7406;&#x7684;&#x53C2;&#x6570;&#xFF0C;glTexParameteri</span>
-          setupLayerTexturing(texture);
-      }
+          <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+          <span class="token comment">// &#x8BBE;&#x7F6E;&#x7EB9;&#x7406;&#x5750;&#x6807;&#xFF0C;&#x4E5F;&#x662F;&#x9006;&#x65F6;&#x9488;</span>
+          renderengine<span class="token operator">::</span><span class="token class-name">Mesh</span><span class="token operator">::</span><span class="token class-name">VertexArray</span><span class="token generics"><span class="token punctuation">&lt;</span>vec2<span class="token punctuation">&gt;</span></span> <span class="token function">texCoords</span><span class="token punctuation">(</span>mesh<span class="token punctuation">.</span>getTexCoordArray<span class="token generics"><span class="token punctuation">&lt;</span>vec2<span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          texCoords<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">vec2</span><span class="token punctuation">(</span><span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          texCoords<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">vec2</span><span class="token punctuation">(</span><span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          texCoords<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">vec2</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          texCoords<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">vec2</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token comment">// &#x8BBE;&#x7F6E;&#x7EB9;&#x7406;&#x7684;&#x53C2;&#x6570;&#xFF0C;glTexParameteri</span>
+          <span class="token function">setupLayerTexturing</span><span class="token punctuation">(</span>texture<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
 
-      <span class="hljs-comment">// &#x3010;&#x3011;&#x5904;&#x7406;&#x5706;&#x89D2;</span>
-      <span class="hljs-keyword">if</span> (radius &gt; <span class="hljs-number">0.0</span> &amp;&amp; color.a &gt;= <span class="hljs-number">1.0f</span> &amp;&amp; isOpaque) {
-          handleRoundedCorners(display, layer, mesh);
-      } <span class="hljs-keyword">else</span> {
-          drawMesh(mesh);
-      }
-
-
-status_t GLESRenderEngine::bindExternalTextureBuffer(uint32_t texName,
-                                                   <span class="hljs-keyword">const</span> sp&lt;GraphicBuffer&gt;&amp; buffer,
-                                                   <span class="hljs-keyword">const</span> sp&lt;Fence&gt;&amp; bufferFence) {
-  ..............
-
-  bool found = <span class="hljs-keyword">false</span>;
-  {
-      <span class="hljs-comment">// &#x5728;ImageCache&#x91CC;&#x9762;&#x627E;&#x6709;&#x6CA1;&#x6709;&#x76F8;&#x540C;&#x7684;buffer</span>
-      std::lock_guard&lt;std::mutex&gt; lock(mRenderingMutex);
-      auto cachedImage = mImageCache.find(buffer-&gt;getId());
-      found = (cachedImage != mImageCache.end());
-  }
-
-  <span class="hljs-comment">// If we couldn&apos;t find the image in the cache at this time, then either</span>
-  <span class="hljs-comment">// SurfaceFlinger messed up registering the buffer ahead of time or we got</span>
-  <span class="hljs-comment">// backed up creating other EGLImages.</span>
-  <span class="hljs-keyword">if</span> (!found) {
-      <span class="hljs-comment">//&#x3010;&#x3011;&#x5982;&#x679C;ImageCache&#x91CC;&#x9762;&#x6CA1;&#x6709;&#x5219;&#x9700;&#x8981;&#x91CD;&#x65B0;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;EGLImage&#xFF0C;&#x521B;&#x5EFA;&#x8F93;&#x5165;&#x7684;EGLImage&#x662F;&#x5728;ImageManager&#x7EBF;&#x7A0B;&#x91CC;&#x9762;&#xFF0C;&#x5229;&#x7528;notify&#x5524;&#x9192;&#x673A;&#x5236;</span>
-      status_t cacheResult = mImageManager-&gt;cache(buffer);
-      <span class="hljs-keyword">if</span> (cacheResult != NO_ERROR) {
-          <span class="hljs-keyword">return</span> cacheResult;
-      }
-  }
-
-  ...
-      <span class="hljs-comment">//&#x3010;&#x3011;&#x628A;EGLImage&#x8F6C;&#x6362;&#x6210;&#x7EB9;&#x7406;&#xFF0C;&#x7C7B;&#x578B;&#x4E3A;GL_TEXTURE_EXTERNAL_OES</span>
-      bindExternalTextureImage(texName, *cachedImage-&gt;second);
-      mTextureView.insert_or_assign(texName, buffer-&gt;getId());
-  }
-}
-
-<span class="hljs-keyword">void</span> GLESRenderEngine::bindExternalTextureImage(uint32_t texName, <span class="hljs-keyword">const</span> Image&amp; image) {
-  ATRACE_CALL();
-  <span class="hljs-keyword">const</span> GLImage&amp; glImage = static_cast&lt;<span class="hljs-keyword">const</span> GLImage&amp;&gt;(image);
-  <span class="hljs-keyword">const</span> GLenum target = GL_TEXTURE_EXTERNAL_OES;
-   <span class="hljs-comment">//&#x7ED1;&#x5B9A;&#x7EB9;&#x7406;&#xFF0C;&#x7EB9;&#x7406;ID&#x4E3A;texName</span>
-  glBindTexture(target, texName);
-  <span class="hljs-keyword">if</span> (glImage.getEGLImage() != EGL_NO_IMAGE_KHR) {
-      <span class="hljs-comment">// &#x628A;EGLImage&#x8F6C;&#x6362;&#x6210;&#x7EB9;&#x7406;&#xFF0C;&#x7EB9;&#x7406;ID&#x4E3A;texName</span>
-      glEGLImageTargetTexture2DOES(target, static_cast&lt;GLeglImageOES&gt;(glImage.getEGLImage()));
-  }
-}&#x6587;&#x4EF6;&#xFF1A;frameworks/<span class="hljs-keyword">native</span>/libs/renderengine/gl/GLESRenderEngine.cpp
-
-status_t GLESRenderEngine::drawLayers(<span class="hljs-keyword">const</span> DisplaySettings&amp; display,
-                                    <span class="hljs-keyword">const</span> std::vector&lt;<span class="hljs-keyword">const</span> LayerSettings*&gt;&amp; layers,
-                                    ANativeWindowBuffer* <span class="hljs-keyword">const</span> buffer,
-                                    <span class="hljs-keyword">const</span> bool useFramebufferCache, base::unique_fd&amp;&amp; bufferFence,
-                                    base::unique_fd* drawFence) {
-       ...
-       <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x9876;&#x70B9;&#x548C;&#x7EB9;&#x7406;&#x5750;&#x6807;&#x7684;size</span>
-       Mesh mesh = Mesh::Builder()
-                      .setPrimitive(Mesh::TRIANGLE_FAN)
-                      .setVertices(<span class="hljs-number">4</span> <span class="hljs-comment">/* count */</span>, <span class="hljs-number">2</span> <span class="hljs-comment">/* size */</span>)
-                      .setTexCoords(<span class="hljs-number">2</span> <span class="hljs-comment">/* size */</span>)
-                      .setCropCoords(<span class="hljs-number">2</span> <span class="hljs-comment">/* size */</span>)
-                      .build();
-       <span class="hljs-keyword">for</span> (auto <span class="hljs-keyword">const</span> layer : layers) {
-        <span class="hljs-comment">//&#x904D;&#x5386;outputlayer</span>
-           ...
-        <span class="hljs-comment">//&#x83B7;&#x53D6;layer&#x7684;&#x5927;&#x5C0F;</span>
-      <span class="hljs-keyword">const</span> FloatRect bounds = layer-&gt;geometry.boundaries;
-      Mesh::<span class="hljs-function">VertexArray&lt;vec2&gt; <span class="hljs-title">position</span><span class="hljs-params">(mesh.getPositionArray&lt;vec2&gt;()</span>)</span>;
-      <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x9876;&#x70B9;&#x7684;&#x5750;&#x6807;&#xFF0C;&#x9006;&#x65F6;&#x9488;&#x65B9;&#x5411;</span>
-      position[<span class="hljs-number">0</span>] = vec2(bounds.left, bounds.top);
-      position[<span class="hljs-number">1</span>] = vec2(bounds.left, bounds.bottom);
-      position[<span class="hljs-number">2</span>] = vec2(bounds.right, bounds.bottom);
-      position[<span class="hljs-number">3</span>] = vec2(bounds.right, bounds.top);
-       <span class="hljs-comment">//&#x8BBE;&#x7F6E;crop&#x7684;&#x5750;&#x6807;</span>
-      setupLayerCropping(*layer, mesh);
-      <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x989C;&#x8272;&#x77E9;&#x9635;</span>
-      setColorTransform(display.colorTransform * layer-&gt;colorTransform);
-      ...
-      <span class="hljs-comment">// Buffer&#x76F8;&#x5173;&#x8BBE;&#x7F6E;</span>
-      <span class="hljs-keyword">if</span> (layer-&gt;source.buffer.buffer != nullptr) {
-          disableTexture = <span class="hljs-keyword">false</span>;
-          isOpaque = layer-&gt;source.buffer.isOpaque;
-           <span class="hljs-comment">// layer&#x7684;buffer&#xFF0C;&#x7406;&#x89E3;&#x4E3A;&#x8F93;&#x5165;&#x7684;buffer</span>
-          sp&lt;GraphicBuffer&gt; gBuf = layer-&gt;source.buffer.buffer;
-          <span class="hljs-comment">// textureName&#x662F;&#x521B;&#x5EFA;BufferQueuelayer&#x65F6;&#x751F;&#x6210;&#x7684;&#xFF0C;&#x7528;&#x6765;&#x6807;&#x8BC6;&#x8FD9;&#x4E2A;layer&#xFF0C;</span>
-          <span class="hljs-comment">// fence&#x662F;acquire fence</span>
-          bindExternalTextureBuffer(layer-&gt;source.buffer.textureName, gBuf,  <span class="hljs-comment">// &#x3010;&#x3011;</span>
-                                    layer-&gt;source.buffer.fence);
-
-          ...
-          <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x7EB9;&#x7406;&#x5750;&#x6807;&#xFF0C;&#x4E5F;&#x662F;&#x9006;&#x65F6;&#x9488;</span>
-          renderengine::Mesh::<span class="hljs-function">VertexArray&lt;vec2&gt; <span class="hljs-title">texCoords</span><span class="hljs-params">(mesh.getTexCoordArray&lt;vec2&gt;()</span>)</span>;
-          texCoords[<span class="hljs-number">0</span>] = vec2(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0</span>);
-          texCoords[<span class="hljs-number">1</span>] = vec2(<span class="hljs-number">0.0</span>, <span class="hljs-number">1.0</span>);
-          texCoords[<span class="hljs-number">2</span>] = vec2(<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>);
-          texCoords[<span class="hljs-number">3</span>] = vec2(<span class="hljs-number">1.0</span>, <span class="hljs-number">0.0</span>);
-         <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x7EB9;&#x7406;&#x7684;&#x53C2;&#x6570;&#xFF0C;glTexParameteri</span>
-          setupLayerTexturing(texture);
-      }
-
-      <span class="hljs-comment">// &#x3010;&#x3011;&#x5904;&#x7406;&#x5706;&#x89D2;</span>
-      <span class="hljs-keyword">if</span> (radius &gt; <span class="hljs-number">0.0</span> &amp;&amp; color.a &gt;= <span class="hljs-number">1.0f</span> &amp;&amp; isOpaque) {
-          handleRoundedCorners(display, layer, mesh);
-      } <span class="hljs-keyword">else</span> {
-          drawMesh(mesh);
-      }
+      <span class="token comment">// &#x3010;&#x3011;&#x5904;&#x7406;&#x5706;&#x89D2;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>radius <span class="token operator">&gt;</span> <span class="token number">0.0</span> <span class="token operator">&amp;&amp;</span> color<span class="token punctuation">.</span>a <span class="token operator">&gt;=</span> <span class="token number">1.0f</span> <span class="token operator">&amp;&amp;</span> isOpaque<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token function">handleRoundedCorners</span><span class="token punctuation">(</span>display<span class="token punctuation">,</span> layer<span class="token punctuation">,</span> mesh<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          <span class="token function">drawMesh</span><span class="token punctuation">(</span>mesh<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
 
 
-status_t GLESRenderEngine::bindExternalTextureBuffer(uint32_t texName,
-                                                   <span class="hljs-keyword">const</span> sp&lt;GraphicBuffer&gt;&amp; buffer,
-                                                   <span class="hljs-keyword">const</span> sp&lt;Fence&gt;&amp; bufferFence) {
-  ..............
+status_t <span class="token class-name">GLESRenderEngine</span><span class="token operator">::</span><span class="token function">bindExternalTextureBuffer</span><span class="token punctuation">(</span>uint32_t texName<span class="token punctuation">,</span>
+                                                   <span class="token keyword">const</span> sp<span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">GraphicBuffer</span><span class="token punctuation">&gt;</span></span><span class="token operator">&amp;</span> buffer<span class="token punctuation">,</span>
+                                                   <span class="token keyword">const</span> sp<span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Fence</span><span class="token punctuation">&gt;</span></span><span class="token operator">&amp;</span> bufferFence<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 
-  bool found = <span class="hljs-keyword">false</span>;
-  {
-      <span class="hljs-comment">// &#x5728;ImageCache&#x91CC;&#x9762;&#x627E;&#x6709;&#x6CA1;&#x6709;&#x76F8;&#x540C;&#x7684;buffer</span>
-      std::lock_guard&lt;std::mutex&gt; lock(mRenderingMutex);
-      auto cachedImage = mImageCache.find(buffer-&gt;getId());
-      found = (cachedImage != mImageCache.end());
-  }
+  bool found <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{</span>
+      <span class="token comment">// &#x5728;ImageCache&#x91CC;&#x9762;&#x627E;&#x6709;&#x6CA1;&#x6709;&#x76F8;&#x540C;&#x7684;buffer</span>
+      std<span class="token operator">::</span><span class="token function">lock_guard</span><span class="token operator">&lt;</span>std<span class="token operator">::</span><span class="token function">mutex</span><span class="token operator">&gt;</span> <span class="token function">lock</span><span class="token punctuation">(</span>mRenderingMutex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      auto cachedImage <span class="token operator">=</span> mImageCache<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>buffer<span class="token operator">-&gt;</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      found <span class="token operator">=</span> <span class="token punctuation">(</span>cachedImage <span class="token operator">!=</span> mImageCache<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-  <span class="hljs-comment">// If we couldn&apos;t find the image in the cache at this time, then either</span>
-  <span class="hljs-comment">// SurfaceFlinger messed up registering the buffer ahead of time or we got</span>
-  <span class="hljs-comment">// backed up creating other EGLImages.</span>
-  <span class="hljs-keyword">if</span> (!found) {
-      <span class="hljs-comment">//&#x3010;&#x3011;&#x5982;&#x679C;ImageCache&#x91CC;&#x9762;&#x6CA1;&#x6709;&#x5219;&#x9700;&#x8981;&#x91CD;&#x65B0;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;EGLImage&#xFF0C;&#x521B;&#x5EFA;&#x8F93;&#x5165;&#x7684;EGLImage&#x662F;&#x5728;ImageManager&#x7EBF;&#x7A0B;&#x91CC;&#x9762;&#xFF0C;&#x5229;&#x7528;notify&#x5524;&#x9192;&#x673A;&#x5236;</span>
-      status_t cacheResult = mImageManager-&gt;cache(buffer);
-      <span class="hljs-keyword">if</span> (cacheResult != NO_ERROR) {
-          <span class="hljs-keyword">return</span> cacheResult;
-      }
-  }
+  <span class="token comment">// If we couldn&apos;t find the image in the cache at this time, then either</span>
+  <span class="token comment">// SurfaceFlinger messed up registering the buffer ahead of time or we got</span>
+  <span class="token comment">// backed up creating other EGLImages.</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>found<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">//&#x3010;&#x3011;&#x5982;&#x679C;ImageCache&#x91CC;&#x9762;&#x6CA1;&#x6709;&#x5219;&#x9700;&#x8981;&#x91CD;&#x65B0;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;EGLImage&#xFF0C;&#x521B;&#x5EFA;&#x8F93;&#x5165;&#x7684;EGLImage&#x662F;&#x5728;ImageManager&#x7EBF;&#x7A0B;&#x91CC;&#x9762;&#xFF0C;&#x5229;&#x7528;notify&#x5524;&#x9192;&#x673A;&#x5236;</span>
+      status_t cacheResult <span class="token operator">=</span> mImageManager<span class="token operator">-&gt;</span><span class="token function">cache</span><span class="token punctuation">(</span>buffer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>cacheResult <span class="token operator">!=</span> <span class="token constant">NO_ERROR</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> cacheResult<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
 
-  ...
-      <span class="hljs-comment">//&#x3010;&#x3011;&#x628A;EGLImage&#x8F6C;&#x6362;&#x6210;&#x7EB9;&#x7406;&#xFF0C;&#x7C7B;&#x578B;&#x4E3A;GL_TEXTURE_EXTERNAL_OES</span>
-      bindExternalTextureImage(texName, *cachedImage-&gt;second);
-      mTextureView.insert_or_assign(texName, buffer-&gt;getId());
-  }
-}
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+      <span class="token comment">//&#x3010;&#x3011;&#x628A;EGLImage&#x8F6C;&#x6362;&#x6210;&#x7EB9;&#x7406;&#xFF0C;&#x7C7B;&#x578B;&#x4E3A;GL_TEXTURE_EXTERNAL_OES</span>
+      <span class="token function">bindExternalTextureImage</span><span class="token punctuation">(</span>texName<span class="token punctuation">,</span> <span class="token operator">*</span>cachedImage<span class="token operator">-&gt;</span>second<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      mTextureView<span class="token punctuation">.</span><span class="token function">insert_or_assign</span><span class="token punctuation">(</span>texName<span class="token punctuation">,</span> buffer<span class="token operator">-&gt;</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-keyword">void</span> GLESRenderEngine::bindExternalTextureImage(uint32_t texName, <span class="hljs-keyword">const</span> Image&amp; image) {
-  ATRACE_CALL();
-  <span class="hljs-keyword">const</span> GLImage&amp; glImage = static_cast&lt;<span class="hljs-keyword">const</span> GLImage&amp;&gt;(image);
-  <span class="hljs-keyword">const</span> GLenum target = GL_TEXTURE_EXTERNAL_OES;
-   <span class="hljs-comment">//&#x7ED1;&#x5B9A;&#x7EB9;&#x7406;&#xFF0C;&#x7EB9;&#x7406;ID&#x4E3A;texName</span>
-  glBindTexture(target, texName);
-  <span class="hljs-keyword">if</span> (glImage.getEGLImage() != EGL_NO_IMAGE_KHR) {
-      <span class="hljs-comment">// &#x628A;EGLImage&#x8F6C;&#x6362;&#x6210;&#x7EB9;&#x7406;&#xFF0C;&#x7EB9;&#x7406;ID&#x4E3A;texName</span>
-      glEGLImageTargetTexture2DOES(target, static_cast&lt;GLeglImageOES&gt;(glImage.getEGLImage()));
-  }
-}
+<span class="token keyword">void</span> <span class="token class-name">GLESRenderEngine</span><span class="token operator">::</span><span class="token function">bindExternalTextureImage</span><span class="token punctuation">(</span>uint32_t texName<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token class-name">Image</span><span class="token operator">&amp;</span> image<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">ATRACE_CALL</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token class-name">GLImage</span><span class="token operator">&amp;</span> glImage <span class="token operator">=</span> static_cast<span class="token generics"><span class="token punctuation">&lt;</span><span class="token keyword">const</span> <span class="token class-name">GLImage</span><span class="token operator">&amp;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>image<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token class-name">GLenum</span> target <span class="token operator">=</span> <span class="token constant">GL_TEXTURE_EXTERNAL_OES</span><span class="token punctuation">;</span>
+   <span class="token comment">//&#x7ED1;&#x5B9A;&#x7EB9;&#x7406;&#xFF0C;&#x7EB9;&#x7406;ID&#x4E3A;texName</span>
+  <span class="token function">glBindTexture</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> texName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>glImage<span class="token punctuation">.</span><span class="token function">getEGLImage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token constant">EGL_NO_IMAGE_KHR</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// &#x628A;EGLImage&#x8F6C;&#x6362;&#x6210;&#x7EB9;&#x7406;&#xFF0C;&#x7EB9;&#x7406;ID&#x4E3A;texName</span>
+      <span class="token function">glEGLImageTargetTexture2DOES</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> static_cast<span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">GLeglImageOES</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>glImage<span class="token punctuation">.</span><span class="token function">getEGLImage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>&#x6587;&#x4EF6;&#xFF1A;frameworks<span class="token operator">/</span><span class="token keyword">native</span><span class="token operator">/</span>libs<span class="token operator">/</span>renderengine<span class="token operator">/</span>gl<span class="token operator">/</span><span class="token class-name">GLESRenderEngine</span><span class="token punctuation">.</span>cpp
+
+status_t <span class="token class-name">GLESRenderEngine</span><span class="token operator">::</span><span class="token function">drawLayers</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token class-name">DisplaySettings</span><span class="token operator">&amp;</span> display<span class="token punctuation">,</span>
+                                    <span class="token keyword">const</span> std<span class="token operator">::</span><span class="token function">vector</span><span class="token operator">&lt;</span><span class="token keyword">const</span> <span class="token class-name">LayerSettings</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">&amp;</span> layers<span class="token punctuation">,</span>
+                                    <span class="token class-name">ANativeWindowBuffer</span><span class="token operator">*</span> <span class="token keyword">const</span> buffer<span class="token punctuation">,</span>
+                                    <span class="token keyword">const</span> bool useFramebufferCache<span class="token punctuation">,</span> base<span class="token operator">::</span><span class="token function">unique_fd</span><span class="token operator">&amp;&amp;</span> bufferFence<span class="token punctuation">,</span>
+                                    base<span class="token operator">::</span><span class="token function">unique_fd</span><span class="token operator">*</span> drawFence<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+       <span class="token comment">// &#x8BBE;&#x7F6E;&#x9876;&#x70B9;&#x548C;&#x7EB9;&#x7406;&#x5750;&#x6807;&#x7684;size</span>
+       <span class="token class-name">Mesh</span> mesh <span class="token operator">=</span> <span class="token class-name">Mesh</span><span class="token operator">::</span><span class="token class-name">Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                      <span class="token punctuation">.</span><span class="token function">setPrimitive</span><span class="token punctuation">(</span><span class="token class-name">Mesh</span><span class="token operator">::</span><span class="token constant">TRIANGLE_FAN</span><span class="token punctuation">)</span>
+                      <span class="token punctuation">.</span><span class="token function">setVertices</span><span class="token punctuation">(</span><span class="token number">4</span> <span class="token comment">/* count */</span><span class="token punctuation">,</span> <span class="token number">2</span> <span class="token comment">/* size */</span><span class="token punctuation">)</span>
+                      <span class="token punctuation">.</span><span class="token function">setTexCoords</span><span class="token punctuation">(</span><span class="token number">2</span> <span class="token comment">/* size */</span><span class="token punctuation">)</span>
+                      <span class="token punctuation">.</span><span class="token function">setCropCoords</span><span class="token punctuation">(</span><span class="token number">2</span> <span class="token comment">/* size */</span><span class="token punctuation">)</span>
+                      <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">for</span> <span class="token punctuation">(</span>auto <span class="token keyword">const</span> layer <span class="token operator">:</span> layers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">//&#x904D;&#x5386;outputlayer</span>
+           <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token comment">//&#x83B7;&#x53D6;layer&#x7684;&#x5927;&#x5C0F;</span>
+      <span class="token keyword">const</span> <span class="token class-name">FloatRect</span> bounds <span class="token operator">=</span> layer<span class="token operator">-&gt;</span>geometry<span class="token punctuation">.</span>boundaries<span class="token punctuation">;</span>
+      <span class="token class-name">Mesh</span><span class="token operator">::</span><span class="token class-name">VertexArray</span><span class="token generics"><span class="token punctuation">&lt;</span>vec2<span class="token punctuation">&gt;</span></span> <span class="token function">position</span><span class="token punctuation">(</span>mesh<span class="token punctuation">.</span>getPositionArray<span class="token generics"><span class="token punctuation">&lt;</span>vec2<span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// &#x8BBE;&#x7F6E;&#x9876;&#x70B9;&#x7684;&#x5750;&#x6807;&#xFF0C;&#x9006;&#x65F6;&#x9488;&#x65B9;&#x5411;</span>
+      position<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">vec2</span><span class="token punctuation">(</span>bounds<span class="token punctuation">.</span>left<span class="token punctuation">,</span> bounds<span class="token punctuation">.</span>top<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      position<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">vec2</span><span class="token punctuation">(</span>bounds<span class="token punctuation">.</span>left<span class="token punctuation">,</span> bounds<span class="token punctuation">.</span>bottom<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      position<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">vec2</span><span class="token punctuation">(</span>bounds<span class="token punctuation">.</span>right<span class="token punctuation">,</span> bounds<span class="token punctuation">.</span>bottom<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      position<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">vec2</span><span class="token punctuation">(</span>bounds<span class="token punctuation">.</span>right<span class="token punctuation">,</span> bounds<span class="token punctuation">.</span>top<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token comment">//&#x8BBE;&#x7F6E;crop&#x7684;&#x5750;&#x6807;</span>
+      <span class="token function">setupLayerCropping</span><span class="token punctuation">(</span><span class="token operator">*</span>layer<span class="token punctuation">,</span> mesh<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// &#x8BBE;&#x7F6E;&#x989C;&#x8272;&#x77E9;&#x9635;</span>
+      <span class="token function">setColorTransform</span><span class="token punctuation">(</span>display<span class="token punctuation">.</span>colorTransform <span class="token operator">*</span> layer<span class="token operator">-&gt;</span>colorTransform<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+      <span class="token comment">// Buffer&#x76F8;&#x5173;&#x8BBE;&#x7F6E;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>layer<span class="token operator">-&gt;</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>buffer <span class="token operator">!=</span> nullptr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          disableTexture <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+          isOpaque <span class="token operator">=</span> layer<span class="token operator">-&gt;</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>isOpaque<span class="token punctuation">;</span>
+           <span class="token comment">// layer&#x7684;buffer&#xFF0C;&#x7406;&#x89E3;&#x4E3A;&#x8F93;&#x5165;&#x7684;buffer</span>
+          sp<span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">GraphicBuffer</span><span class="token punctuation">&gt;</span></span> gBuf <span class="token operator">=</span> layer<span class="token operator">-&gt;</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>buffer<span class="token punctuation">;</span>
+          <span class="token comment">// textureName&#x662F;&#x521B;&#x5EFA;BufferQueuelayer&#x65F6;&#x751F;&#x6210;&#x7684;&#xFF0C;&#x7528;&#x6765;&#x6807;&#x8BC6;&#x8FD9;&#x4E2A;layer&#xFF0C;</span>
+          <span class="token comment">// fence&#x662F;acquire fence</span>
+          <span class="token function">bindExternalTextureBuffer</span><span class="token punctuation">(</span>layer<span class="token operator">-&gt;</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>textureName<span class="token punctuation">,</span> gBuf<span class="token punctuation">,</span>  <span class="token comment">// &#x3010;&#x3011;</span>
+                                    layer<span class="token operator">-&gt;</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>fence<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+          <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+          <span class="token comment">// &#x8BBE;&#x7F6E;&#x7EB9;&#x7406;&#x5750;&#x6807;&#xFF0C;&#x4E5F;&#x662F;&#x9006;&#x65F6;&#x9488;</span>
+          renderengine<span class="token operator">::</span><span class="token class-name">Mesh</span><span class="token operator">::</span><span class="token class-name">VertexArray</span><span class="token generics"><span class="token punctuation">&lt;</span>vec2<span class="token punctuation">&gt;</span></span> <span class="token function">texCoords</span><span class="token punctuation">(</span>mesh<span class="token punctuation">.</span>getTexCoordArray<span class="token generics"><span class="token punctuation">&lt;</span>vec2<span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          texCoords<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">vec2</span><span class="token punctuation">(</span><span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          texCoords<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">vec2</span><span class="token punctuation">(</span><span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          texCoords<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">vec2</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          texCoords<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">vec2</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token comment">// &#x8BBE;&#x7F6E;&#x7EB9;&#x7406;&#x7684;&#x53C2;&#x6570;&#xFF0C;glTexParameteri</span>
+          <span class="token function">setupLayerTexturing</span><span class="token punctuation">(</span>texture<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token comment">// &#x3010;&#x3011;&#x5904;&#x7406;&#x5706;&#x89D2;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>radius <span class="token operator">&gt;</span> <span class="token number">0.0</span> <span class="token operator">&amp;&amp;</span> color<span class="token punctuation">.</span>a <span class="token operator">&gt;=</span> <span class="token number">1.0f</span> <span class="token operator">&amp;&amp;</span> isOpaque<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token function">handleRoundedCorners</span><span class="token punctuation">(</span>display<span class="token punctuation">,</span> layer<span class="token punctuation">,</span> mesh<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          <span class="token function">drawMesh</span><span class="token punctuation">(</span>mesh<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+
+status_t <span class="token class-name">GLESRenderEngine</span><span class="token operator">::</span><span class="token function">bindExternalTextureBuffer</span><span class="token punctuation">(</span>uint32_t texName<span class="token punctuation">,</span>
+                                                   <span class="token keyword">const</span> sp<span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">GraphicBuffer</span><span class="token punctuation">&gt;</span></span><span class="token operator">&amp;</span> buffer<span class="token punctuation">,</span>
+                                                   <span class="token keyword">const</span> sp<span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Fence</span><span class="token punctuation">&gt;</span></span><span class="token operator">&amp;</span> bufferFence<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+  bool found <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{</span>
+      <span class="token comment">// &#x5728;ImageCache&#x91CC;&#x9762;&#x627E;&#x6709;&#x6CA1;&#x6709;&#x76F8;&#x540C;&#x7684;buffer</span>
+      std<span class="token operator">::</span><span class="token function">lock_guard</span><span class="token operator">&lt;</span>std<span class="token operator">::</span><span class="token function">mutex</span><span class="token operator">&gt;</span> <span class="token function">lock</span><span class="token punctuation">(</span>mRenderingMutex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      auto cachedImage <span class="token operator">=</span> mImageCache<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>buffer<span class="token operator">-&gt;</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      found <span class="token operator">=</span> <span class="token punctuation">(</span>cachedImage <span class="token operator">!=</span> mImageCache<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// If we couldn&apos;t find the image in the cache at this time, then either</span>
+  <span class="token comment">// SurfaceFlinger messed up registering the buffer ahead of time or we got</span>
+  <span class="token comment">// backed up creating other EGLImages.</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>found<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">//&#x3010;&#x3011;&#x5982;&#x679C;ImageCache&#x91CC;&#x9762;&#x6CA1;&#x6709;&#x5219;&#x9700;&#x8981;&#x91CD;&#x65B0;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;EGLImage&#xFF0C;&#x521B;&#x5EFA;&#x8F93;&#x5165;&#x7684;EGLImage&#x662F;&#x5728;ImageManager&#x7EBF;&#x7A0B;&#x91CC;&#x9762;&#xFF0C;&#x5229;&#x7528;notify&#x5524;&#x9192;&#x673A;&#x5236;</span>
+      status_t cacheResult <span class="token operator">=</span> mImageManager<span class="token operator">-&gt;</span><span class="token function">cache</span><span class="token punctuation">(</span>buffer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>cacheResult <span class="token operator">!=</span> <span class="token constant">NO_ERROR</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> cacheResult<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+      <span class="token comment">//&#x3010;&#x3011;&#x628A;EGLImage&#x8F6C;&#x6362;&#x6210;&#x7EB9;&#x7406;&#xFF0C;&#x7C7B;&#x578B;&#x4E3A;GL_TEXTURE_EXTERNAL_OES</span>
+      <span class="token function">bindExternalTextureImage</span><span class="token punctuation">(</span>texName<span class="token punctuation">,</span> <span class="token operator">*</span>cachedImage<span class="token operator">-&gt;</span>second<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      mTextureView<span class="token punctuation">.</span><span class="token function">insert_or_assign</span><span class="token punctuation">(</span>texName<span class="token punctuation">,</span> buffer<span class="token operator">-&gt;</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token class-name">GLESRenderEngine</span><span class="token operator">::</span><span class="token function">bindExternalTextureImage</span><span class="token punctuation">(</span>uint32_t texName<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token class-name">Image</span><span class="token operator">&amp;</span> image<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">ATRACE_CALL</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token class-name">GLImage</span><span class="token operator">&amp;</span> glImage <span class="token operator">=</span> static_cast<span class="token generics"><span class="token punctuation">&lt;</span><span class="token keyword">const</span> <span class="token class-name">GLImage</span><span class="token operator">&amp;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>image<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token class-name">GLenum</span> target <span class="token operator">=</span> <span class="token constant">GL_TEXTURE_EXTERNAL_OES</span><span class="token punctuation">;</span>
+   <span class="token comment">//&#x7ED1;&#x5B9A;&#x7EB9;&#x7406;&#xFF0C;&#x7EB9;&#x7406;ID&#x4E3A;texName</span>
+  <span class="token function">glBindTexture</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> texName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>glImage<span class="token punctuation">.</span><span class="token function">getEGLImage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token constant">EGL_NO_IMAGE_KHR</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// &#x628A;EGLImage&#x8F6C;&#x6362;&#x6210;&#x7EB9;&#x7406;&#xFF0C;&#x7EB9;&#x7406;ID&#x4E3A;texName</span>
+      <span class="token function">glEGLImageTargetTexture2DOES</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> static_cast<span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">GLeglImageOES</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>glImage<span class="token punctuation">.</span><span class="token function">getEGLImage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
-<p>%/accordion%</p>
+</div></div>
 <p>&#x751F;&#x6D3B;&#x5316;&#x6A21;&#x578B;---------&#x89C1;weixin</p>
 <p>TODO:</p>
 <p>drawMesh  &#x753B;&#x7F51;&#x683C;&#xFF0C;&#x6765;&#x7406;&#x89E3;opengl&#xFF1A;</p>
 <blockquote>
 <p>  1&#x3001;drawMesh  &#x7ED3;&#x6784;&#xFF1A;</p>
-<pre><code class="lang-java">  drawMesh2
-   -&gt; &#x5C01;&#x88C5;&#x4E00;&#x5806;gl&#x64CD;&#x4F5C;&#xFF0C;useProgram
+<pre class="language-"><code class="lang-java">  drawMesh2
+   <span class="token operator">-&gt;</span> &#x5C01;&#x88C5;&#x4E00;&#x5806;gl&#x64CD;&#x4F5C;&#xFF0C;useProgram
 </code></pre>
 <p>2&#x3001;drawMesh&#x53EF;&#x4EE5;&#x591A;&#x6B21;&#x8FDE;&#x7EED;&#x8C03;&#x7528;&#xFF0C;&#x5373;&#xFF1A;</p>
 <blockquote>
@@ -2267,14 +2344,14 @@ status_t GLESRenderEngine::bindExternalTextureBuffer(uint32_t texName,
 </blockquote>
 <h1 id="&#x8865;&#x5145;sf--&#x8D34;&#x56FE;&#x8FC7;&#x7A0B;"><a name="&#x8865;&#x5145;sf--&#x8D34;&#x56FE;&#x8FC7;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#&#x8865;&#x5145;sf--&#x8D34;&#x56FE;&#x8FC7;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>7. &#x8865;&#x5145;sf  &#x8D34;&#x56FE;&#x8FC7;&#x7A0B;</h1>
 <p><strong>&#x5FC5;&#x7136;&#x6709;</strong>&#xFF0C;<strong>&#x8D34;&#x56FE;&#x8FC7;&#x7A0B;</strong>&#xFF08;<del>&#x628A;client&#x7684;&#x56FE;&#xFF0C;&#x8D34;&#x5230;frameBuffer&#x4E0A;</del>&#xFF09;&#xFF1A;</p>
-<pre><code class="lang-java">status_t GLESRenderEngine::drawLayers(
-     <span class="hljs-keyword">if</span> (layer-&gt;source.buffer.buffer != nullptr) {
-            .................
-            sp&lt;GraphicBuffer&gt; gBuf = layer-&gt;source.buffer.buffer-&gt;getBuffer(); <span class="hljs-comment">// &#x83B7;&#x53D6;client&#x7684;buffer</span>
-            .................
-            bindExternalTextureBuffer(layer-&gt;source.buffer.textureName, gBuf,
-                                      layer-&gt;source.buffer.fence);
-             <span class="hljs-function">Texture <span class="hljs-title">texture</span><span class="hljs-params">(Texture::TEXTURE_EXTERNAL, layer-&gt;source.buffer.textureName)</span></span>; <span class="hljs-comment">// &#x3010;&#x3011; &#x8D34;&#x56FE;</span>
+<pre class="language-"><code class="lang-java">status_t <span class="token class-name">GLESRenderEngine</span><span class="token operator">::</span><span class="token function">drawLayers</span><span class="token punctuation">(</span>
+     <span class="token keyword">if</span> <span class="token punctuation">(</span>layer<span class="token operator">-&gt;</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>buffer <span class="token operator">!=</span> nullptr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+            sp<span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">GraphicBuffer</span><span class="token punctuation">&gt;</span></span> gBuf <span class="token operator">=</span> layer<span class="token operator">-&gt;</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>buffer<span class="token operator">-&gt;</span><span class="token function">getBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x83B7;&#x53D6;client&#x7684;buffer</span>
+            <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+            <span class="token function">bindExternalTextureBuffer</span><span class="token punctuation">(</span>layer<span class="token operator">-&gt;</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>textureName<span class="token punctuation">,</span> gBuf<span class="token punctuation">,</span>
+                                      layer<span class="token operator">-&gt;</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>fence<span class="token punctuation">)</span><span class="token punctuation">;</span>
+             <span class="token class-name">Texture</span> <span class="token function">texture</span><span class="token punctuation">(</span><span class="token class-name">Texture</span><span class="token operator">::</span><span class="token constant">TEXTURE_EXTERNAL</span><span class="token punctuation">,</span> layer<span class="token operator">-&gt;</span>source<span class="token punctuation">.</span>buffer<span class="token punctuation">.</span>textureName<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x3010;&#x3011; &#x8D34;&#x56FE;</span>
 </code></pre>
 <p>weston&#x7684;&#x8D34;&#x56FE;&#xFF1A;</p>
 <blockquote>
@@ -2285,13 +2362,13 @@ status_t GLESRenderEngine::bindExternalTextureBuffer(uint32_t texName,
 <p>TODO:&#x622A;&#x5C4F;&#x63A5;&#x53E3;&#x4E5F;&#x662F;&#x7B49;&#x5F85;&#x8FD4;&#x56DE;</p>
 <p>&#x622A;&#x5C4F; SurfaceControl.ScreenshotHardwareBuffer</p>
 <p>&#x8981;&#x70B9;&#xFF1A;</p>
-<pre><code class="lang-java"> &#x622A;&#x5C4F;&#x5DE5;&#x5177;&#x7C7B;ScreenCapture
+<pre class="language-"><code class="lang-java"> &#x622A;&#x5C4F;&#x5DE5;&#x5177;&#x7C7B;<span class="token class-name">ScreenCapture</span>
      captureDisplay  display&#x7EF4;&#x5EA6;  &#xFF08;captureLayers   layer&#x7EF4;&#x5EA6;&#xFF09;
          nativeCaptureDisplay
-             ComposerService::getComposerService()-&gt;captureDisplay   <span class="hljs-comment">// &#x3010;&#x3011; ComposerService&#xFF08;ISurfaceComposer&#xFF09;&#x662F;sf&#x7684;client&#x7AEF;</span>
+             <span class="token class-name">ComposerService</span><span class="token operator">::</span><span class="token function">getComposerService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span>captureDisplay   <span class="token comment">// &#x3010;&#x3011; ComposerService&#xFF08;ISurfaceComposer&#xFF09;&#x662F;sf&#x7684;client&#x7AEF;</span>
 
 
- IServiceManager
+ <span class="token class-name">IServiceManager</span>
 </code></pre>
 <p>ComposerService ---&gt; sf  &#x6846;&#x67B6;&#x7684;&#x642D;&#x5EFA;&#xFF1A;</p>
 <p><a href="https://blog.csdn.net/SSSxCCC/article/details/119253965" target="_blank">&#x622A;&#x5C4F;&#x6D41;&#x7A0B; - &#x5B89;&#x5353;R</a></p>
@@ -2383,6 +2460,7 @@ status_t GLESRenderEngine::bindExternalTextureBuffer(uint32_t texName,
 <p><a href="https://www.ctyun.cn/developer/article/379837121056837" target="_blank">&#x5B89;&#x5353;&#x6A21;&#x62DF;&#x5668;&#x56FE;&#x50CF;&#x5408;&#x6210;&#x4ECB;&#x7ECD;</a>  -----&gt; VirtIO-GPU !!!!!</p>
 <p>virtio-gpu   <a href="https://blog.csdn.net/stray2b/article/details/123487106" target="_blank">https://blog.csdn.net/stray2b/article/details/123487106</a></p>
 
+<script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
                                 
                                 </section>
                             
@@ -2425,7 +2503,7 @@ status_t GLESRenderEngine::bindExternalTextureBuffer(uint32_t texName,
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"合成之surfaceFlinger","level":"1.2.4.4","depth":3,"next":{"title":"合成之weston","level":"1.2.4.5","depth":3,"path":"0_图形系统/3_Display系统/合成之weston.md","ref":"0_图形系统/3_Display系统/合成之weston.md","articles":[]},"previous":{"title":"sf特效","level":"1.2.4.3","depth":3,"path":"0_图形系统/3_Display系统/sf特效.md","ref":"0_图形系统/3_Display系统/sf特效.md","articles":[]},"dir":"ltr"},"config":{"//":["这是多行注释：    anchor-navigation-ex 是","anchor-navigation-ex 是","click-reveal 本地使用ok，但是github在build pages时，不识别click-reveal","accordion 也是折叠代码段","anchor-navigation-ex 是"],"plugins":["anchor-navigation-ex"],"root":"./markdownsFiles","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"title":"《prove》","author":"Kent"},"tbfed-pagefooter":{"copyright":"Copyright &copy ershouche-FE 2019","modify_label":"文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"disqus":{"shortName":"gitbookuse"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"bookname":"笔记","variables":{},"title":"Kent的博客","gitbook":"*"},"file":{"path":"0_图形系统/3_Display系统/合成之surfaceFlinger.md","mtime":"2024-11-24T02:31:19.492Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-12-29T06:20:30.502Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"合成之surfaceFlinger","level":"1.2.4.4","depth":3,"next":{"title":"合成之weston","level":"1.2.4.5","depth":3,"path":"0_图形系统/3_Display系统/合成之weston.md","ref":"0_图形系统/3_Display系统/合成之weston.md","articles":[]},"previous":{"title":"sf特效","level":"1.2.4.3","depth":3,"path":"0_图形系统/3_Display系统/sf特效.md","ref":"0_图形系统/3_Display系统/sf特效.md","articles":[]},"dir":"ltr"},"config":{"//":["这是多行注释：    anchor-navigation-ex 是","anchor-navigation-ex 是","click-reveal 本地使用ok，但是github在build pages时，不识别click-reveal","accordion 也是折叠代码段","anchor-navigation-ex 是"],"plugins":["anchor-navigation-ex","toggle-chapters","expandable-chapters-small","splitter","code","page-treeview","popup","-search","-lunr","sidebar-style","auto-scroll-table","click-reveal","accordion","pageview-count","search-pro","prism","prism-themes","-highlight"],"root":"./markdownsFiles","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"Kent","title":"《prove》"},"tbfed-pagefooter":{"copyright":"Copyright &copy ershouche-FE 2019","modify_label":"文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"page-treeview":{"collapsed":false,"copyright":"Copyright © aleen42","minHeaderCount":"1","minHeaderDeep":"1"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"disqus":{"shortName":"gitbookuse"},"splitter":{},"search-pro":{},"accordion":{},"auto-scroll-table":{},"popup":{},"lunr":{"maxIndexSize":400000},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"click-reveal":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"pageview-count":{},"prism-themes":{},"expandable-chapters-small":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"toggle-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"bookname":"笔记","variables":{},"title":"Kent的博客","gitbook":"*"},"file":{"path":"0_图形系统/3_Display系统/合成之surfaceFlinger.md","mtime":"2024-11-24T02:31:19.492Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-12-29T06:31:38.697Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
@@ -2435,19 +2513,47 @@ status_t GLESRenderEngine::bindExternalTextureBuffer(uint32_t texName,
     <script src="../../gitbook/theme.js"></script>
     
         
-        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        <script src="../../gitbook/gitbook-plugin-toggle-chapters/toggle.js"></script>
         
     
         
-        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
         
     
         
-        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
         
     
         
-        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        <script src="../../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sidebar-style/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-auto-scroll-table/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-click-reveal/click_reveal.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-accordion/accordionSelector.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-pageview-count/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
         
     
         

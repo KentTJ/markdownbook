@@ -779,15 +779,21 @@ https://www.yinwang.org/blog-cn/2020/02/05/how-to-read-code    -----wangyin
 
 ## 第二步，画地图（各种视图）
 
+为什么要画图？（1）作为地图、作为大纲
 
+​                           （2）固定人脑的思绪，不至于混乱
 
-```
+常见视图：
+
+```java
 功能0层图、功能1层图
 结构0层图、
 逻辑视图（类似于工图里的三视图）
 进程视图
 核心流程0层（主要体现信息流） + 关键一行代码（调用栈），见xuji
 信息流视图
+
+代码结构（代码静态视图）
 ```
 
 
@@ -844,11 +850,23 @@ https://www.yinwang.org/blog-cn/2020/02/05/how-to-read-code    -----wangyin
 
 
 理解力来源：观察 + 悟
-
-
-
-
 ```
+
+
+
+规定：任何一个项目，必须给出代码结构（比如weston）
+
+>   ```java
+>   01_Linux_log/
+>           ├ 01_exp/                                        -- dump日志；
+>           ├ 02_debuglogger/                                -- MTK日志工具
+>           |      └─ mobilelog/                             -- mobilelog日志
+>           |               ├─ APLog_*****\boot__normal      -- 开机启动日志
+>           |               └─ APLog_*****\                  -- 内核空间
+>   ```
+>
+
+
 
 
 

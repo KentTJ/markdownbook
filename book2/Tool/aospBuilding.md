@@ -1194,7 +1194,7 @@ mm compiles all modules in a directory, you are missing a dependency of one of t
 
 ## AOSP14 java断点调试  坑：
 
-AS进行Choose Process调试, 看不到线程
+问题：AS进行Choose Process调试, 看不到线程
 
 需设置：
 

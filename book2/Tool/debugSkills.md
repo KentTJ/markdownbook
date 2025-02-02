@@ -1243,6 +1243,32 @@ iml  ----->    excludeFolder排除整个 frameworks  （即相当于整个工程
 
 
 
+
+
+### 问题： settings.gradle 中添加应用的根目录， <font color='red'>sync会失败：</font>
+
+> ```java
+> include ':Custom3'
+> project(":Custom3").projectDir = new File("/home/aosp14_0_0_28/packages/apps/Launcher3")
+> ```
+>
+> 因为Launcher3 根目录下有 .gradle文件
+>
+> ----------------> **sync会失败**
+
+法一：
+
+> 添加Launcher3下一级目录
+>
+> ```java
+> include ':Custom3'
+> project(":Custom3").projectDir = new File("/home/aosp14_0_0_28/packages/apps/Launcher3/src")
+> ```
+
+法二：
+
+> 重新打开一个AS，打开应用根目录
+
 ## framework java 断点调试 环境（jdb）
 
 主要参考链接：

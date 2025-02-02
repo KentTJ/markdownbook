@@ -353,6 +353,42 @@ int main() {
 
 >   -<font color='red'>尽量初始化时，显式地给明确的数值</font>
 
+## 匿名结构体与 内部结构体
+
+
+
+```java
+struct weston_compositor {
+	struct { // 匿名结构体
+		struct render_config { // 内部结构体
+			char *name;
+		} render_confs[5];
+
+		int client_config_size;
+	} connect;
+}
+
+```
+
+自然：
+
+> -<font color='red'>内部结构体与外部结构体没有任何区别， 可以直接引用！！！！</font>
+>
+> 匿名结构体 ，没名字，自然无法直接引用
+
+自然，内部结构体可以用来化简：
+
+```java
+// 原始
+shell->compositor->connect.render_confs[0].name
+
+// 化简：
+struct render_config *configs = shell->compositor->connect.render_confs;
+configs[0].name
+```
+
+
+
 
 
 # 素材之 环境变量

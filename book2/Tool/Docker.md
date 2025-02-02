@@ -2253,11 +2253,11 @@ https://blog.csdn.net/jimmyleeee/article/details/114627727
 
 https://blog.csdn.net/lb245557472/article/details/103565752
 
-# wmWare
+# vmware
 
-## wmWare优缺点：
+## vmware优缺点：
 
-wmWare优点十分明显：
+vmware优点十分明显：
 
 1、比docker： 
 
@@ -2273,7 +2273,7 @@ wmWare优点十分明显：
 
 2、virtualBox性能太差
 
-## wmWare联网
+## vmware联网
 
 联网: 
 
@@ -2301,7 +2301,7 @@ wmWare优点十分明显：
 
 
 
-## wmWare下ubuntu 访问外网（宿主win 代理网络）
+## vmware下ubuntu 访问外网（宿主win 代理网络）
 
 ### 结构：
 
@@ -2427,15 +2427,15 @@ Acquire::https::Proxy "http://username:password@proxy-IP-address:proxyport";
 
 [VMware虚拟机使用主机代理](https://blog.csdn.net/yuxi_xi/article/details/135783037?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-135783037-blog-138069939.235^v43^control&spm=1001.2101.3001.4242.1&utm_relevant_index=3)
 
-## wmWaressh
+## vmwaressh
 
-前提：wmWare联网
+前提：vmware联网
 
 >   其他同正常ssh登录
 
-## wmWare 挂载 物理硬盘（物理分区）-----扩容
+## vmware 挂载 物理硬盘（物理分区）-----扩容
 
----------------------->  wmWare 非常大的优点：动态化扩容
+---------------------->  vmware 非常大的优点：动态化扩容
 
 ```powershell
 lsblk
@@ -2566,6 +2566,12 @@ https://blog.csdn.net/lsgzn/article/details/130199569   实现局域网内ssh远
 > 参考：https://juejin.cn/post/7249297734867943479        Ubuntu 20.04 /mnt/hgfs/下不显示共享文件夹的处理办法
 
 
+
+## VMware多屏设置
+
+只要宿主机有两个屏（可以是wifi屏幕），就可以显示在两个屏上
+
+![image-20250202004630577](Docker.assets/image-20250202004630577.png)
 
 
 

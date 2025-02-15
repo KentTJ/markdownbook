@@ -148,6 +148,66 @@ when -------------  <font color='red'>吃鱼只吃中段</font>（<font color='r
 
 
 
+
+
+## 消息
+
+### 影响之  空间（where）
+
+(5w2h)
+
+**行业级消息** -----------比如Deekseek
+
+>   when: 消息时间：
+>
+>   what: [“天神之眼”来了!*比亚迪*开启“全民*智驾*时代”?](http://www.baidu.com/link?url=ma7B_gtjfc4y66Jd8MOZVwfYCdLkhdz6XV5Ifhtn5kS49qh-FbvDTA1V4IIdm25Kpw7A-1Z3SuFw3rPE0iEBda)
+>
+>   真实when： 2月10日晚, 比亚迪智能化战略*发布会*在深圳举行
+>
+>   
+
+
+
+**公司级消息**---------比如 比亚迪智驾驶比亚迪智能化战略发布会
+
+>   when: 消息时间：
+>
+>   what: [“天神之眼”来了!*比亚迪*开启“全民*智驾*时代”?](http://www.baidu.com/link?url=ma7B_gtjfc4y66Jd8MOZVwfYCdLkhdz6XV5Ifhtn5kS49qh-FbvDTA1V4IIdm25Kpw7A-1Z3SuFw3rPE0iEBda)
+>
+>   真实when： 2月10日晚, 比亚迪智能化战略*发布会*在深圳举行
+>
+>   
+
+### 影响之时间
+
+(5w2h)
+
+影响的时间范围是？？？？？隔几天？？？
+
+
+
+
+
+### 规定
+
+留意消息 -----------> <font color='red'>要有意识：消息与我</font>
+
+1、平时多留意消息 -------> 做对股市影响的判断！！！！！
+
+
+
+## 如何战胜情绪？
+
+-<font color='red'>心态第一，技术第二</font>
+
+踏空感：**可以卖飞，保住本金是第一重要的事情**！！！！！！！！！！
+
+
+
+
+
+
+
 ## 待思考 & 总结
 
 
@@ -177,6 +237,10 @@ TODO: **仓位管理**:  所以真正好的交易者，仓位管理以及进攻�
 轻松干
 
  
+
+## 只做跟随 （不做预判，更加不听别人的预判）
+
+
 
 
 

@@ -1,5 +1,9 @@
 # 投资
 
+## 0层大纲
+
+
+
 ## 投资原则：
 
 -<font color='red'>1、只相信数学：</font>
@@ -128,7 +132,9 @@ when -------------  <font color='red'>吃鱼只吃中段</font>（<font color='r
 
 比如   2000年，国外网上购物，马云看到了，创办阿里
 
+17、指数 -----> 适合左侧交易（因为一定会反弹）
 
+​       个股/行业  ----> 适合右侧交易（避免无底洞）
 
 ###  避免风险：
 
@@ -150,7 +156,7 @@ when -------------  <font color='red'>吃鱼只吃中段</font>（<font color='r
 
 
 
-## 消息
+## 消息影响
 
 ### 影响之  空间（where）
 
@@ -196,6 +202,14 @@ when -------------  <font color='red'>吃鱼只吃中段</font>（<font color='r
 
 
 
+## 仓位控制
+
+
+
+
+
+
+
 ## 如何战胜情绪？
 
 -<font color='red'>心态第一，技术第二</font>
@@ -204,7 +218,19 @@ when -------------  <font color='red'>吃鱼只吃中段</font>（<font color='r
 
 
 
+## MACD ----> 预测，观察趋势（基于概率的）
 
+适用范围（where）：
+
+>   感觉指数、行业更适合
+>
+>   个股呢
+
+理论基础（why）：数学上证明：https://www.zhihu.com/question/451249179/answer/1972679851?utm_psn=1874616543813431297            
+
+when：有一定滞后性
+
+-<font color='red'>时间尺度（how much）：日k，两三个月的尺度 </font>
 
 
 

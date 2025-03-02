@@ -2,6 +2,26 @@
 
 ## 0层大纲
 
+![image-20250302193205395](Investment.assets/image-20250302193205395.png)
+
+
+
+赚波段的钱：
+
+>   https://www.zhihu.com/question/641320022/answer/43617341878?utm_campaign=shareopn&utm_medium=social&utm_psn=1879345098350904164&utm_source=wechat_session
+>
+>   <img src="Investment.assets/image-20250302193608475.png" alt="image-20250302193608475" style="zoom: 67%;" />
+>
+>   <img src="Investment.assets/image-20250302193716678.png" alt="image-20250302193716678" style="zoom:67%;" />
+>
+>   就两个秘诀：
+>
+>   1、<font color='red'>选股选[绩优股](https://zhida.zhihu.com/search?content_id=701838149&content_type=Answer&match_order=1&q=绩优股&zhida_source=entity)，逢低吸入。</font>       --------------> 避免单边下跌
+>
+>   2、[高抛低补](https://zhida.zhihu.com/search?content_id=701838149&content_type=Answer&match_order=1&q=高抛低补&zhida_source=entity)，耐心持有。     -------------->   保证复利的次数n
+
+
+
 
 
 ## 投资原则：

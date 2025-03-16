@@ -1690,7 +1690,7 @@ TODO:
 
 # 物质---从buffer看图形  TODO:
 
-## buffer流转模型---0层
+## buffer轮转模型---0层
 
 ![image-20241209224909067](合成之weston.assets/image-20241209224909067.png)
 
@@ -1730,9 +1730,15 @@ TODO
 
 2_1:一个时刻的多个buffer（占用）：
 
--<font color='red'>即2_0（一个Buffer的TimeLine）的倒数：</font>一个时刻，有4个buffer被占用 ----------------> <font color='red'>所以 bufferQueue，至少配置4个</font>
+>   -<font color='red'>即2_0（一个Buffer的TimeLine）的倒数：</font>一个时刻，有4个buffer被占用 ----------------> <font color='red'>所以 bufferQueue，至少配置4个</font>
+>
+>   结论：<font color='red'>所需buffer个数 = 一个时刻上，渲染管线各个环节所占buffer个数</font>
 
+3、多块buffer：
 
+>   从时间上看是轮转的
+>
+>   从绘制任务上看，是并行的
 
 
 
@@ -1746,11 +1752,64 @@ TODO
 
 
 
+### 帧率之   卡16ms=卡顿、卡死
+
+-<font color='red'>恒等式：帧率  = buffer轮转速度 = 卡的那个模块（最慢的卡者）</font>
+
+详细解释：
+
+1、缩短一个buffer的TimeLine，不会提高帧率。例子：
+
+>   ![image-20250317003821196](合成之weston.assets/image-20250317003821196.png)
+>
+>   weston.ini配置 **repaint-time=16，立刻提交**  ---------------> weston不会占用buffer，<font color='red'>TimeLine减少（所需buffer个数减少一）</font>，但是最大帧率仍然是16ms
+
+2、卡16ms与卡顿本质是一个东西（只是卡顿fps<16ms）
+
+3、<font color='red'>谁去卡帧率？（即谁决定了帧率16ms、即谁造成了卡顿）</font>
+
+client、weston、display都有可能------------> <font color='red'>谁慢谁卡</font>
+
+例子：
+
+>   应用是静止的 -------> 整个pipeLine帧率就是0
+>
+>   weston  ---------> 一般weston不会作为卡者。但是也可以，比如 配置repaint-time=0，就会wait 16ms(忽略GPU绘制时间)。即整体帧率不会超过16ms
+>
+>   display -----------> pageFlip，硬件精准的卡者
+
+结论：
+
+>   正常情况下，<font color='red'>卡的传递是自下而上的</font>：屏幕卡16ms ----> display ----> weston ------>client
+>
+>   注意：安卓不太一样，统一的vsync
 
 
 
+```
+[卡顿与卡死]
+1、卡顿与卡死是两个不同的问题
+卡顿是性能问题（本质不是问题！！！！只是fps低）
+卡死是代码的功能问题（虽然卡可能会导致卡死，但是要在代码上避免卡死）
+2、卡顿是平均
+   卡死是峰值！！！！！！！！
+3、卡顿是<30fps
+   60fps不卡。但是可能卡死（因为60fps是一个均值，可能有一帧有问题，导致卡死）
+   
+   
+   
+[卡顿&卡死问题的定位]
+1、安卓buffer进与出的时间差 25ms
+2、关键是卡点的排除。如何排除？其他地方打满
+（1）应用使用60帧的视频
+（2）应用使用simple-egl
+```
 
 
+
+补充：
+
+>   [卡死原因&解决方法]            -------------> 见《ini》
 
 ## weston_buffer的引用计数（server侧）
 

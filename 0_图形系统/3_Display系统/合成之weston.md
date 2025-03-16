@@ -1710,6 +1710,46 @@ TODO:
 >   	} fb_ref;
 >   ```
 
+TODO:
+
+>   为啥GPU合成，release buffer的时刻是commit的时候？
+
+TODO
+
+>   Trace图加以验证，不要猜!!!!!!!!!
+
+
+
+## 帧率FPS、buffer的TimeLine、占buffer数量 之间关系
+
+1、帧率（fps）：<font color='red'>本质是buffer的轮转速度</font>   （**与buffer占用、buffer的个数、buffer的timeLine没有任何关系！！！！**）
+
+2、2_0  一个buffer的多个时刻：即一个Buffer的TimeLine：
+
+>   可以很长，比如：安卓App(16ms)  ----> SF(16ms) ----> Y的服务(2ms) -----> weston(16ms) -----> display (16ms)
+
+2_1:一个时刻的多个buffer（占用）：
+
+-<font color='red'>即2_0（一个Buffer的TimeLine）的倒数：</font>一个时刻，有4个buffer被占用 ----------------> <font color='red'>所以 bufferQueue，至少配置4个</font>
+
+
+
+
+
+ 推论：
+
+1、所需buffer个数（**从0层模型图**，可以看出）：
+
+>   （1）GPU合成，至少两个buffer（同一时刻，App占一个、weston占一个）
+>
+>   ​          硬件合成，至少三个buffer（App占一个、weston占一个、display占一个）
+
+
+
+
+
+
+
 
 
 ## weston_buffer的引用计数（server侧）
@@ -1755,7 +1795,7 @@ weston_buffer_reference(weston_buffer_reference *ref，weston_buffer *NULL, BUFF
 
 
 
-### weston_buffer的引用计数 的使用点
+### weston_buffer的引用计数 & buffer释放时机
 
 结论：
 
@@ -1796,7 +1836,7 @@ primary是在 surface_commit ---> gl_renderer_attach 通知client释放了前一
 overlay 是在 pageFlip ----> drm_plane_state_free .................前一帧buffer    （drm commit之前的一帧）
 ```
 
-一句话总结：
+**一句话总结：**
 
 > primary与overlay的  释放buffer时机<font color='red'>有差异，来源于  drm_output_try_paint_node_on_plane</font>(只有overlay走)
 
@@ -3966,9 +4006,9 @@ https://www.cnblogs.com/yaongtime/p/14594567.html
 
 
 
-# 时间 -----从时间角度看图形
+# 时间 -----从timeLine角度看图形
 
-## 单个屏幕 timeLIne
+## 单个屏幕 timeLine
 
 ![image-20241201191359239](合成之weston.assets/image-20241201191359239.png)
 

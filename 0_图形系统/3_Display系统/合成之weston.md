@@ -1786,6 +1786,12 @@ client、weston、display都有可能------------> <font color='red'>谁慢谁�
 
 4、减少 or 增加buffer，不会提高帧率。但可能造成卡死问题（buffer周转不过来的时候）
 
+5、<font color='red'>pipeLine上各个节点的帧率 = 卡者的帧率</font>。那么如何知道谁是卡者？
+
+>   （1）快速定位：交叉验证-------------------其他节点打满，逐个节点看
+>
+>   （2）trace上如何看？TODO: 
+
 
 
 

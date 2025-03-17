@@ -1821,6 +1821,18 @@ client、weston、display都有可能------------> <font color='red'>谁慢谁�
 
 >   [卡死原因&解决方法]            -------------> 见《ini》
 
+### 从图形中看卡点
+
+帧率  = buffer轮转速度
+
+-----------------> 那么，必然<font color='red'>任意节点的帧率一样（如河水一样，任意一个截面，流量一致）</font>
+
+如何识别卡点呢？<font color='red'>密集段的首部</font>
+
+>   例子：图
+
+
+
 ## weston_buffer的引用计数（server侧）
 
 ### 【对象的引用计数的<font color='red'>必要性</font>】

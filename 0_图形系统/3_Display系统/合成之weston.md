@@ -5459,3 +5459,13 @@ https://zhuanlan.zhihu.com/p/434869796
 
 
 
+# 0层逻辑--------产品图层
+
+见com
+
+产品图层（快捷栏、statusbar、navigation/docker、蓝牙电话、Applicaiton、launcher桌面/壁纸桌面），即功能
+
+   ------>  L与A去分摊这些图层
+
+​          ------> L可以夹心A（目前已经做到了）
+

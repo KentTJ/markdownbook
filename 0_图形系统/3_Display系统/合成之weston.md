@@ -1720,6 +1720,14 @@ TODO
 
 
 
+
+
+推论：
+
+>   **framebuffer至少两块**（已经加log验证过）
+>
+>   
+
 ## 帧率FPS、buffer的TimeLine、占buffer数量 之间关系
 
 1、帧率（fps）：<font color='red'>本质是buffer的轮转速度</font>   （**与buffer占用、buffer的个数、buffer的timeLine没有任何关系！！！！**）

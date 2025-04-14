@@ -1262,6 +1262,54 @@ panel-position=none          // -----> 没有panel
 
 
 
+# animation Todo
+
+```java
+
+推论：
+1、有个 镜像view，用来做动画
+   what：animation_view, 本质是weston_view
+   when：desktop_surface_committed 时创建的，原因在于：能创建时创建
+   how：镜像view，也指向同一个weston_surface(多个buffer)
+        证明：
+			desktop_surface_committed
+				shsurf->wview_anim_fade = shell_fade_create_fade_out_view(shsurf, surface);
+		证明二：scene-graph里可以看出来：
+
+				View 0 (role xdg_toplevel, PID 0, surface ID 0, [no description available], 0x6396150a5e40):
+						position: (871, 659) -> (1121, 909)
+						[not opaque]
+						alpha: 0.807048  // 【】 有alpha值
+						outputs: 0 (Virtual-1) (primary)
+						dmabuf buffer
+								[1 references may use buffer content]
+								format: 0x34325241 ARGB8888
+								modifier: NONE_INVALID (0xffffffffffffff)
+								width: 250, height: 250
+
+		二级推论：关于buffer的释放：（1）正常情况下：没有增加buffer的引用，会被释放掉
+		                            （2）退出情况下：不应该会释放的！TODO
+2、desktop_surface_removed 时启动动画
+     weston_fade_run
+
+
+3、动画真正结束后（weston_view_animation_frame end），还commit了一帧：不含 镜像view
+   代码证明：
+           	if (weston_spring_done(&animation->spring)) {
+				weston_log("weston_view_animation_frame end");
+				weston_view_schedule_repaint(animation->view);
+				weston_view_animation_destroy(animation);
+				return;
+			}
+
+
+次要推论：
+   gpu合成层，不止一块framebuffer，所以动画commit下去的buffer，不能少于framebuffer个数（否则一定会造成闪烁，透明和有图之间交替）
+
+其他次要场景：
+    1、kill 应用与 CTRL c 一样，都有动画 
+```
+
 
 
 #  TODO: 消息驱动模型？

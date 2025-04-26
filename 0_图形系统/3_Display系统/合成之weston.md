@@ -1725,8 +1725,28 @@ TODO
 推论：
 
 >   **framebuffer至少两块**（已经加log验证过）
+
+
+
+**GPU合成中，buffer轮转的精髓在于**-------------“<font color='red'>下一块buffer，将上一块buffer顶出去</font>”
+
+>   注意：不是buffer画完frame_callback的时候
 >
->   
+>   证明：**下一块buffer   surface_attach（实际上是surface_commit）触发 上一块buffer_release**
+>
+>   ![image-20250426220434818](合成之weston.assets/image-20250426220434818.png)
+>
+>   推论：**client没有attach下一块buffer，则上一块buffer永远不会被释放**！！！！！
+>
+>   <font color='red'>物理级根因：</font>因为**总要有一块buffer被weston占着**，否则，weston合成时（被其他view
+>
+>   触发时），**拿不到buffer数据，就画空了**
+
+
+
+**走overlay，buffer轮转精髓：**
+
+>   **PageFlip触发buffer_release** （可能是commit下去的之前的一块，也可能是commit下去那一块 --------------- 同步释放，异步释放）
 
 ## 帧率FPS、buffer的TimeLine、占buffer数量 之间关系
 

@@ -620,7 +620,7 @@ https://www.xiaoyi.vc/captive-portal.html
 
 ## AOSP模拟器的编译
 
-### 在aosp编译目录下启动
+### 法一：在aosp编译目录下启动
 
 编译产品aosp_sailfish
 
@@ -658,7 +658,7 @@ emulator -qemu -machine virt
 
 
 
-### 替换AS自带模拟器的img
+### 法一：替换AS自带模拟器（win/linux）的img
 
 参考文章：  https://blog.csdn.net/feng397041178/article/details/123731513    主要文章
 
@@ -685,7 +685,7 @@ win下或linux下都可以，以win为例：
 ```java
 source build/envsetup.sh
 lunch sdk_x86_64
-    
+make -j20 
 // -------》  结果：out/target/product/emulator_x86_64/
 ```
 

@@ -185,6 +185,35 @@ ANR对话框：
 
 
 
+
+
+# 关闭ANR
+
+
+https://duanqz.github.io/2015-10-12-ANR-Analysis  ANR机制以及问题分析 ------> 好文！！！！！！！
+
+禁用ANR的方法：
+
+>   1、设置里设置  
+>
+>   2、修改源码，把时间拉长
+>
+>   ```java
+>   AMS.inputDispatchingTimedOut                                                      
+>   ------>WindowProcessController.java                                               
+>       public long getInputDispatchingTimeoutMillis() {                              
+>           synchronized (mAtm.mGlobalLock) {                                         
+>   //            return isInstrumenting() || isUsingWrapper()                        
+>   //                    ? INSTRUMENTATION_KEY_DISPATCHING_TIMEOUT_MILLIS :          
+>   //                    DEFAULT_DISPATCHING_TIMEOUT_MILLIS;                         
+>               Slog.d(TAG_CONFIGURATION, "chen, getInputDispatchingTimeoutMillis: ");
+>               return 600*1000;                                                      
+>           }                                                                         
+>       }
+>   ```
+
+
+
 ## 补充 ANR
 
 [深入理解 Android ANR 触发原理以及信息收集过程 - huansky - 博客园 (cnblogs.com)](https://www.cnblogs.com/huansky/p/14954020.html)      https://www.cnblogs.com/huansky/p/14954020.html
@@ -201,7 +230,7 @@ https://blog.csdn.net/to_perfect/article/details/128509630
 
 https://blog.csdn.net/rzleilei/article/details/127118071   ----------->  超级好文，尤其图画的好
 
-
+https://duanqz.github.io/2015-10-12-ANR-Analysis  ANR机制以及问题分析 ------> 好文！！！！！！！
 
 [失落夏天](https://blog.csdn.net/AA5279AA) 的ANR系列文章：
 

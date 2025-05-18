@@ -573,13 +573,35 @@ https://qa.1r1g.com/sf/ask/3854914871/
 
 
 
-TODO: 
+202306：
 
-命令行如何关闭ANR?  （有些阉割系统，设置里根本没有这个选项）
+>   命令行如何关闭ANR?  （有些阉割系统，设置里根本没有这个选项）
+>
+>   因为可以看到ANR代码机制，所以，理论上，一定可以调试时破坏这个机制
 
-因为可以看到ANR代码机制，所以，理论上，一定可以调试时破坏这个机制
+202519，它来啦：
 
+禁用ANR的方法：
 
+>   1、设置里设置  
+>
+>   2、<font color='red'>修改源码，把时间拉长</font>
+>
+>   ```java
+>   AMS.inputDispatchingTimedOut                                                      
+>   ------>WindowProcessController.java                                               
+>       public long getInputDispatchingTimeoutMillis() {                              
+>           synchronized (mAtm.mGlobalLock) {                                         
+>   //            return isInstrumenting() || isUsingWrapper()                        
+>   //                    ? INSTRUMENTATION_KEY_DISPATCHING_TIMEOUT_MILLIS :          
+>   //                    DEFAULT_DISPATCHING_TIMEOUT_MILLIS;                         
+>               Slog.d(TAG_CONFIGURATION, "chen, getInputDispatchingTimeoutMillis: ");
+>               return 600*1000;                                                      
+>           }                                                                         
+>       }
+>   ```
+
+参考：https://duanqz.github.io/2015-10-12-ANR-Analysis  ANR机制以及问题分析 ------> 好文！！！！！！！
 
 
 

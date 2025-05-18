@@ -725,6 +725,8 @@ adb remount失败：
 
 修改启动（增加了-writable-system），获取写权限：
 
+win：
+
 ```java
 ::startEmulator.bat
 set emulator_exe=D:\Users\Administrator\AppData\Local\Android\Sdk\emulator\emulator.exe
@@ -735,6 +737,15 @@ set emulator_exe=D:\Users\Administrator\AppData\Local\Android\Sdk\emulator\emula
 ::-sysdir似乎没用
 -sysdir D:\Green_Sorft\Android\Sdk\system-images\android-30\default\x86_64-aosp
 ```
+
+linux：
+
+```java
+// startEmulator.sh
+./emulator -avd Pixel_8_API_34 -writable-system -memory 8000
+```
+
+
 
 ### emulator的一些特殊点
 

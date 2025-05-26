@@ -50,7 +50,7 @@ IMS线程结构：
              InputDispatcherThread->run
 ```
 
-- ------------->结论： IMS下是两个线程：读取和分发
+------------->结论： IMS下是两个线程：读取和分发
 
 启动的类顺序：
 
@@ -100,9 +100,27 @@ InputDispatch线程结构：
 >
 > %/accordion%
 
+## raw motion event -----> MOTION_DOWN
 
+InputReader 处理 raw motion event ，会生成 MOTION_DOWN, MOTION_MOVE, MOTION_UP 这样的高级事件
 
 ## TouchEvent事件分发的点
+
+参考：https://juejin.cn/post/7202537103934177338#heading-2  InputDispatcher 分发触摸事件
+
+事件分发的**总入口：**
+
+```java
+std::vector<InputTarget> InputDispatcher::findTouchedWindowTargetsLocked(
+        nsecs_t currentTime, const MotionEntry& entry, bool* outConflictingPointerActions,
+        InputEventInjectionResult& outInjectionResult) {
+        
+链接：https://juejin.cn/post/7202537103934177338
+```
+
+
+
+### ACTION DOWN的分发
 
 inputDispatcher 分发到哪个窗口：
 
@@ -116,7 +134,185 @@ inputDispatcher 分发到哪个窗口：
  windowInfo->ownerPid, windowInfo->name.c_str());
 ```
 
+调用栈：TODO:
+
+
+
+
+
 inputDispatcher 怎么知道窗口信息的？
+
+
+
+一句话总结：
+
+>   down事件的分发，其实是根据 x,y 坐标寻找触摸的窗口
+
+
+
+###  ~~ACTION MOVE的分发~~
+
+```
+std::vector<InputTarget> InputDispatcher::findTouchedWindowTargetsLocked(
+        nsecs_t currentTime, const MotionEntry& entry, bool* outConflictingPointerActions,
+        InputEventInjectionResult& outInjectionResult) {
+    // ...
+
+    const TouchState* oldState = nullptr;
+    TouchState tempTouchState;
+    if (const auto it = mTouchStatesByDisplay.find(displayId); it != mTouchStatesByDisplay.end()) {
+        oldState = &(it->second);
+        // tempTouchState 保存了 action down 的触摸的窗口
+        tempTouchState = *oldState;
+    }
+
+    // ...
+
+    // true
+    const bool wasDown = oldState != nullptr && oldState->isDown();
+    // false
+    const bool isDown = (maskedAction == AMOTION_EVENT_ACTION_DOWN) ||
+            (maskedAction == AMOTION_EVENT_ACTION_POINTER_DOWN && !wasDown);
+
+    // ...
+
+    if (newGesture || (isSplit && maskedAction == AMOTION_EVENT_ACTION_POINTER_DOWN)) {
+        
+    } else {
+        // ...
+
+        // 处理滑出窗口的情况
+        if (maskedAction == AMOTION_EVENT_ACTION_MOVE && entry.pointerCount == 1 &&
+            tempTouchState.isSlippery()) {
+            // ...
+        }
+
+        // 本文不讨论多手指的 split touch
+        if (!isSplit && maskedAction == AMOTION_EVENT_ACTION_POINTER_DOWN) {
+           
+        }
+    }
+
+    // ...
+
+
+    for (const TouchedWindow& touchedWindow : tempTouchState.windows) {
+        if (touchedWindow.pointerIds.none() && !touchedWindow.hasHoveringPointers(entry.deviceId)) {
+            continue;
+        }
+        
+        // 把 tempTouchState.windows 中保存的 touched window 保存到 targets
+        addWindowTargetLocked(touchedWindow.windowHandle, touchedWindow.targetFlags,
+                              touchedWindow.pointerIds, touchedWindow.firstDownTimeInTarget,
+                              targets);
+    }
+
+    // ...
+
+    // 返回找到的触摸窗口
+    return targets;
+}
+链接：https://juejin.cn/post/7202537103934177338
+
+```
+
+一句话总结：
+
+>   ACTION MOVE 的触摸窗口，仍然是 ACTION DOWN 的触摸窗口
+
+### ACTION UP的分发
+
+```java
+std::vector<InputTarget> InputDispatcher::findTouchedWindowTargetsLocked(
+        nsecs_t currentTime, const MotionEntry& entry, bool* outConflictingPointerActions,
+        InputEventInjectionResult& outInjectionResult) {
+    // ...
+
+    const TouchState* oldState = nullptr;
+    TouchState tempTouchState;
+    if (const auto it = mTouchStatesByDisplay.find(displayId); it != mTouchStatesByDisplay.end()) {
+        oldState = &(it->second);
+        // tempTouchState 保存的仍然是 ACTION DOWN 的 touched window
+        tempTouchState = *oldState;
+    }
+
+    // ...
+
+    // true
+    const bool wasDown = oldState != nullptr && oldState->isDown();
+    // false
+    const bool isDown = (maskedAction == AMOTION_EVENT_ACTION_DOWN) ||
+            (maskedAction == AMOTION_EVENT_ACTION_POINTER_DOWN && !wasDown);
+   
+    // ...
+
+
+    if (newGesture || (isSplit && maskedAction == AMOTION_EVENT_ACTION_POINTER_DOWN)) {
+        
+    } else {
+        // ...
+        
+        // 处理滑出窗口的情况
+        if (maskedAction == AMOTION_EVENT_ACTION_MOVE && entry.pointerCount == 1 &&
+            tempTouchState.isSlippery()) {
+            // ...
+        }
+
+        // 本文不讨论多手指 split touch
+        if (!isSplit && maskedAction == AMOTION_EVENT_ACTION_POINTER_DOWN) {
+            
+        }
+    }
+
+    // ...
+
+    // Output targets from the touch state.
+    for (const TouchedWindow& touchedWindow : tempTouchState.windows) {
+        if (touchedWindow.pointerIds.none() && !touchedWindow.hasHoveringPointers(entry.deviceId)) {
+            continue;
+        }
+
+        // 把 tempTouchState.windows 保存的 touched window 保存到 targets
+        addWindowTargetLocked(touchedWindow.windowHandle, touchedWindow.targetFlags,
+                              touchedWindow.pointerIds, touchedWindow.firstDownTimeInTarget,
+                              targets);
+    }
+
+
+    // ...
+
+    if (isHoverAction) {
+        
+    } else if (maskedAction == AMOTION_EVENT_ACTION_UP) {
+        // Pointer went up.
+        // 移除手指id对应的 touched window
+        tempTouchState.removeTouchedPointer(entry.pointerProperties[0].id);
+    } else if (maskedAction == AMOTION_EVENT_ACTION_CANCEL) {
+        
+    } else if (maskedAction == AMOTION_EVENT_ACTION_DOWN) {
+       
+    } else if (maskedAction == AMOTION_EVENT_ACTION_POINTER_UP) {
+       
+    }
+
+    // ...
+
+    // tempTouchState 此时已经没有 touched window，因此移除 tempTouchState 数据
+    if (tempTouchState.windows.empty()) {
+        mTouchStatesByDisplay.erase(displayId);
+    }
+
+    // 返回寻找到的触摸窗口
+    return targets;
+}
+
+链接：https://juejin.cn/post/7202537103934177338
+
+```
+
+一句话总结：
+
+>   ACTION up 的触摸窗口，仍然是 ACTION DOWN 的触摸窗口
 
 ## KeyEvent事件
 
@@ -642,3 +838,12 @@ TODO ------->办法:事件拦截机制
 
 
 ![image-20221211004104541](Input.assets/image-20221211004104541.png)
+
+# TODO
+
+涉及窗口的知识，
+
+1.  monitor channel 原理，例如，返回手势
+2.  watch outside window
+3.  spy window
+4.  ANR

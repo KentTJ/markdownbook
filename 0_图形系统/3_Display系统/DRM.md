@@ -31,6 +31,49 @@
 
 
 
+## 基本概念：
+
+1、现代的一般 DRM_PLANE_TYPE_PRIMARY 和 DRM_PLANE_TYPE_OVERLAY，对于硬件来说，没有区别了（以前有区别）
+
+如何证明：<font color='red'>modetest看能力是一样的: TODO</font>
+
+```java
+//
+```
+
+
+
+2、primary = GPU合成，<font color='red'>哪一层是GPU合成层，决定于 哪个硬件plane配置了primary</font>（虽然现代的plane，都一样）
+
+**证据：modetest**
+
+```
+Planes:
+id      crtc    fb      CRTC x,y        x,y     gamma size      possible crtcs
+34      42      107     0,0             0,0     0               0x00000001
+  formats: XR24 AR24 RG16 XR15
+  props:
+        8 type:
+                flags: immutable enum
+                enums: Overlay=0 Primary=1 Cursor=2
+                value: 1
+        30 IN_FORMATS:
+                flags: immutable blob
+                blobs:
+
+                value:
+                        01000000000000000400000018000000
+                        01000000280000005852323441523234
+                        52473136585231350f00000000000000
+                        00000000000000000000000000000000
+                in_formats blob decoded:
+                         XR24:  LINEAR
+                         AR24:  LINEAR
+                         RG16:  LINEAR
+                         XR15:  LINEAR
+36      42      111     0,0             0,0     0               0x00000001
+```
+
 
 
 
@@ -301,6 +344,10 @@ atomic 的好处：
  [DRM全解析 —— plane详解（1）_framebuffer与plane的区别-CSDN博客.html](DRM.assets\DRM全解析 —— plane详解（1）_framebuffer与plane的区别-CSDN博客.html) 
 
  [DRM全解析 —— CRTC详解（1）-CSDN博客.html](DRM.assets\DRM全解析 —— CRTC详解（1）-CSDN博客.html) 
+
+
+
+ [图显系统DRMPLANE完全解析.html](DRM.assets\图显系统DRMPLANE完全解析.html) 
 
 # 显示服务器实现 ---!!!!!!!!!
 

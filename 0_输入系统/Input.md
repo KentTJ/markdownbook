@@ -790,6 +790,16 @@ https://blog.csdn.net/learnframework/article/details/123571546?spm=1001.2014.300
 
 
 
+# cancel事件
+
+1、识别为手势了：monitor触发
+
+2、view层级的: https://blog.csdn.net/learnframework/article/details/124086882
+
+https://blog.csdn.net/learnframework/article/details/132797212?spm=1001.2014.3001.5502
+
+
+
 # 补充   中断
 
 
@@ -854,6 +864,8 @@ TODO ------->办法:事件拦截机制
 
 
 ![image-20221211004104541](Input.assets/image-20221211004104541.png)
+
+
 
 # TODO
 

@@ -2,7 +2,9 @@
 
 # 目录
 
+# Input知识点大纲
 
+![img](Input.assets/1b6fcc7e16a431137daecc8e440a3362.png)
 
 # input系统
 
@@ -764,6 +766,14 @@ break;
 
 
 
+
+
+
+
+
+
+
+
 ## 从设计模式角度理解：
 
  事件分发，是责任链模式的应用
@@ -771,6 +781,12 @@ break;
 见 《DesignPattern》
 
 
+
+
+
+# 事件注入
+
+https://blog.csdn.net/learnframework/article/details/123571546?spm=1001.2014.3001.5502   InputManager模拟触摸事件inject详解
 
 
 

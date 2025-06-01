@@ -639,7 +639,17 @@ switchToInputMethod
 > 
 > ```
 
+## 输入法窗口一直都是全屏的
 
+[InputMethodManager输入法窗口为啥dumpsys是全屏？](https://blog.csdn.net/learnframework/article/details/132899347?spm=1001.2014.3001.5502)
+
+基本概念：
+
+>   1、输入法窗口一直都是全屏的
+>
+>   2、悬浮输入法窗口也是全屏的   --------> <font color='red'>所谓悬浮，即控件级别的移动</font>
+
+TODO:  框架层，可以做：约束 输入法窗口的大小
 
 # Settings信息详解
 

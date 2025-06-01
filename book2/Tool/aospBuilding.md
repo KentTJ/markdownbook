@@ -620,130 +620,22 @@ https://www.xiaoyi.vc/captive-portal.html
 
 ## AOSP模拟器的编译
 
-### 法一：在aosp编译目录下启动
+### 法一：在aosp编译目录下启动---> 验证OK
 
-编译产品aosp_sailfish
+注意：
 
-```shell
-//先初始化环境
-source build/envsetup.sh
-lunch  aosp_sailfish-userdebug
+>   -<font color='red'>必须编译sdk_x86_ , 因为模拟器跑在x86上</font>！！！！（不能是arm手机的，比如  aosp_sailfish、aosp_sailfish-userdebug！！！！）
 
-
-USER@MACHINE:~/Android$ export PATH=$PATH:~/Android/out/host/linux-x86/bin
-export PATH=$PATH:~/workingSpace/local/aosp_android1000_r17/aosp_android1000_r17/out/host/linux-x86/bin
-
-USER@MACHINE:~/Android$ export ANDROID_PRODUCT_OUT=~/Android/out/target/product/generic
-export ANDROID_PRODUCT_OUT=~/workingSpace/local/aosp_android1000_r17/aosp_android1000_r17/out/target/product/generic
-
-USER@MACHINE:~/Android$ emulator
-```
-
-
-
-```shell
+```java
 //aosp_android12_00_r28:
 source build/envsetup.sh
-lunch  aosp_bramble-userdebug
-export PATH=$PATH:~/workingSpace/aosp_android12_00_r28/out/host/linux-x86/bin
-ANDROID_PRODUCT_OUT=~/workingSpace/aosp_android12_00_r28/out/target/product/bramble/
-emulator -qemu -machine virt
-```
-
------------->  一直失败，没有成功过：
-
-![image-20230710220653188](aospBuilding.assets/image-20230710220653188.png)
-
-
-
-
-
-### 法一：替换AS自带模拟器（win/linux）的img
-
-参考文章：  https://blog.csdn.net/feng397041178/article/details/123731513    主要文章
-
-​                     https://blog.csdn.net/mvp_Dawn/article/details/126848798
-
-​                      https://blog.csdn.net/liaosongmao1/article/details/124843073
-
-
-
-win下或linux下都可以，以win为例：
-
-（1）编译emulator_x86_64：（不是编译bramble等产品！）
-
-![image-20230710222202998](aospBuilding.assets/image-20230710222202998.png)
-
-编译命令：**编译参考：**
-
-> 遇到的问题：lunch中，没有sdk_x86_64 编译选项
->
-> 解决：https://blog.csdn.net/Q1302182594/article/details/125514065     
-
- https://blog.csdn.net/yongwn/article/details/121009506  
-
-```java
-source build/envsetup.sh
 lunch sdk_x86_64
-make -j20 
-// -------》  结果：out/target/product/emulator_x86_64/
+    
+ // 在图形桌面环境下执行
+./emulator  -writable-system -memory 8000  // ------> 保证可以adb remount
 ```
 
 
-
-
-
-![image-20230710214544126](aospBuilding.assets/image-20230710214544126.png)
-
-**注意点：**
-
-> 1、out/target/product/emulator_x86_64/   
->
-> ![image-20230813021530529](aospBuilding.assets/image-20230813021530529.png)
->
-> ----> 注意将*ramdisk-qemu.img,system-qemu.img,vendor-qemu.img*这三个文件<font color='red'>重命名为</font>*ramdisk.img,system.img,vendor.img*。
->
-> 2、替换：把win下  android-31\google_apis\x86_64下里的文件替换掉
->
-> C:\Users\用户名\AppData\Local\Android\Sdk\system-images\android-30\google_apis_playstore\x86_64
-
-![image-20230723202713953](aospBuilding.assets/image-20230723202713953.png)
-
-注意：两个目录下文件很像，是后者  Sdk\system-images\android-30\google_apis下的
-
-![image-20230723201028307](aospBuilding.assets/image-20230723201028307.png)
-
-
-
-### 实现能够导入jar
-
-adb remount失败：
-
-![image-20230716010759771](aospBuilding.assets/image-20230716010759771.png)
-
-参考：https://blog.csdn.net/mvp_Dawn/article/details/126848798
-
-修改启动（增加了-writable-system），获取写权限：
-
-win：
-
-```java
-::startEmulator.bat
-set emulator_exe=D:\Users\Administrator\AppData\Local\Android\Sdk\emulator\emulator.exe
-%emulator_exe% -avd Pixel_5_API_31 -writable-system -memory 4096 
-
-
-
-::-sysdir似乎没用
--sysdir D:\Green_Sorft\Android\Sdk\system-images\android-30\default\x86_64-aosp
-```
-
-linux：
-
-```java
-// startEmulator.sh
-./emulator -avd Pixel_8_API_34 -writable-system -memory 8000
-```
 
 
 
@@ -976,36 +868,100 @@ Android Emulator usage: emulator [options] [-qemu args]
 
 %/accordion%
 
-## native实现clion跳转
-
-见《HowToReadCode.md》
-
-编译：CMakeLists.txt
-
-https://blog.csdn.net/iamdy/article/details/106658583
-https://cloud.tencent.com/developer/article/1645922
-
-源码中的`build/soong/docs/clion.md`
 
 
+### 法二：替换AS自带模拟器（win/linux）的img
 
-cpp断点调试
+参考文章：  https://blog.csdn.net/feng397041178/article/details/123731513    主要文章
 
-https://blog.csdn.net/iamdy/article/details/111272854?spm=1001.2014.3001.5501
+​                     https://blog.csdn.net/mvp_Dawn/article/details/126848798
+
+​                      https://blog.csdn.net/liaosongmao1/article/details/124843073
 
 
 
+win下或linux下都可以，以win为例：
+
+（1）编译emulator_x86_64：（不是编译bramble等产品！）
+
+![image-20230710222202998](aospBuilding.assets/image-20230710222202998.png)
+
+编译命令：**编译参考：**
+
+> 遇到的问题：lunch中，没有sdk_x86_64 编译选项
+>
+> 解决：https://blog.csdn.net/Q1302182594/article/details/125514065     
+
+ https://blog.csdn.net/yongwn/article/details/121009506  
+
+```java
+source build/envsetup.sh
+lunch sdk_x86_64
+make -j20 
+// -------》  结果：out/target/product/emulator_x86_64/
+```
 
 
-# 编译AAOS 到pixel5
-
-https://juejin.cn/post/7316695933739089920         
 
 
 
+![image-20230710214544126](aospBuilding.assets/image-20230710214544126.png)
+
+**注意点：**
+
+> 1、out/target/product/emulator_x86_64/   
+>
+> ![image-20230813021530529](aospBuilding.assets/image-20230813021530529.png)
+>
+> ----> 注意将*ramdisk-qemu.img,system-qemu.img,vendor-qemu.img*这三个文件<font color='red'>重命名为</font>*ramdisk.img,system.img,vendor.img*。
+>
+> 2、替换：把win下  android-31\google_apis\x86_64下里的文件替换掉
+>
+> C:\Users\用户名\AppData\Local\Android\Sdk\system-images\android-30\google_apis_playstore\x86_64
+
+![image-20230723202713953](aospBuilding.assets/image-20230723202713953.png)
+
+注意：两个目录下文件很像，是后者  Sdk\system-images\android-30\google_apis下的
+
+![image-20230723201028307](aospBuilding.assets/image-20230723201028307.png)
 
 
-# Android Automotive 14 编译模拟器
+
+### 实现能够导入jar
+
+adb remount失败：
+
+![image-20230716010759771](aospBuilding.assets/image-20230716010759771.png)
+
+参考：https://blog.csdn.net/mvp_Dawn/article/details/126848798
+
+修改启动（增加了-writable-system），获取写权限：
+
+win：
+
+```java
+::startEmulator.bat
+set emulator_exe=D:\Users\Administrator\AppData\Local\Android\Sdk\emulator\emulator.exe
+%emulator_exe% -avd Pixel_5_API_31 -writable-system -memory 4096 
+
+
+
+::-sysdir似乎没用
+-sysdir D:\Green_Sorft\Android\Sdk\system-images\android-30\default\x86_64-aosp
+```
+
+linux：
+
+```java
+// startEmulator.sh
+./emulator -avd Pixel_8_API_34 -writable-system -memory 8000
+```
+
+
+
+
+
+## 编译Automotive 14 模拟器
 
 ```java
 cd aosp
@@ -1039,6 +995,37 @@ TODO:   解决一个屏幕问题，技巧：浏览器，连ip+端口 clound Andr
 
 
    
+
+## native实现clion跳转
+
+见《HowToReadCode.md》
+
+编译：CMakeLists.txt
+
+https://blog.csdn.net/iamdy/article/details/106658583
+https://cloud.tencent.com/developer/article/1645922
+
+源码中的`build/soong/docs/clion.md`
+
+
+
+cpp断点调试
+
+https://blog.csdn.net/iamdy/article/details/111272854?spm=1001.2014.3001.5501
+
+
+
+
+
+# 编译AAOS 到pixel5
+
+https://juejin.cn/post/7316695933739089920         
+
+
+
+
+
+
 
 # Cuttlefish ---- 未成功
 

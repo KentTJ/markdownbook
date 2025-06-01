@@ -347,6 +347,8 @@ atomic 的好处：
 
  [图显系统DRMPLANE完全解析](DRM.assets\5bf3f60dda9383daf3df5cd09186158a.html)   ---> 好文！！！
 
+[基于DRM的kernel图显系统系列文章](https://blog.csdn.net/weixin_43644245/category_11305753.html)
+
 # 显示服务器实现 ---!!!!!!!!!
 
 https://zhuanlan.zhihu.com/p/268527301   显示服务器实现（一）

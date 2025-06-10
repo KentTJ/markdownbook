@@ -1620,6 +1620,218 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 
 
 
+## 高斯模糊
+
+效果：
+
+>   ![image-20250611004240016](opengl.assets/image-20250611004240016.png)
+
+实现：
+
+>   https://www.shadertoy.com/view/ltScRG
+
+
+
+```java
+// 16x acceleration of https://www.shadertoy.com/view/4tSyzy
+// by applying gaussian at intermediate MIPmap level.
+
+const int samples = 35,
+          LOD = 2,         // gaussian done on MIPmap at scale LOD
+          sLOD = 1 << LOD; // tile size = 2^LOD
+const float sigma = float(samples) * .25;
+
+float gaussian(vec2 i) {
+    return exp( -.5* dot(i/=sigma,i) ) / ( 6.28 * sigma*sigma );
+}
+
+vec4 blur(sampler2D sp, vec2 U, vec2 scale) {
+    vec4 O = vec4(0);  
+    int s = samples/sLOD;
+    
+    for ( int i = 0; i < s*s; i++ ) {
+        vec2 d = vec2(i%s, i/s)*float(sLOD) - float(samples)/2.;
+        O += gaussian(d) * textureLod( sp, U + scale * d , float(LOD) );
+    }
+    
+    return O / O.a;
+}
+
+void mainImage(out vec4 O, vec2 U) {
+    O = blur( iChannel0, U/iResolution.xy, 1./iChannelResolution[0].xy );
+}
+```
+
+
+
+## 渐变高斯模糊
+
+效果：
+
+>   ![image-20250611003306151](opengl.assets/image-20250611003306151.png)
+
+实现：
+
+>   https://www.shadertoy.com/view/M33SWj
+
+
+
+code：
+
+```java
+const int   c_samplesX    = 25;  // must be odd
+const int   c_samplesY    = 25;  // must be odd
+const float c_textureSize = 512.0;
+
+const int   c_halfSamplesX = c_samplesX / 2;
+const int   c_halfSamplesY = c_samplesY / 2;
+const float c_pixelSize = (1.0 / c_textureSize);
+
+float Gaussian (float sigma, float x)
+{
+    return exp(-(x*x) / (2.0 * sigma*sigma));
+}
+
+vec3 BlurredPixel (in vec2 uv)
+{
+    float c_sigmaX = uv.x*10.;
+	float c_sigmaY = c_sigmaX;
+    
+    float total = 0.0;
+    vec3 ret = vec3(0);
+        
+    for (int iy = 0; iy < c_samplesY; ++iy)
+    {
+        float fy = Gaussian (c_sigmaY, float(iy) - float(c_halfSamplesY));
+        float offsety = float(iy-c_halfSamplesY) * c_pixelSize;
+        for (int ix = 0; ix < c_samplesX; ++ix)
+        {
+            float fx = Gaussian (c_sigmaX, float(ix) - float(c_halfSamplesX));
+            float offsetx = float(ix-c_halfSamplesX) * c_pixelSize;
+            total += fx * fy;            
+            ret += texture(iChannel0, uv + vec2(offsetx, offsety)).rgb * fx*fy;
+        }
+    }
+    return ret / total;
+}
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+	vec2 uv = fragCoord.xy / iResolution.xy * vec2(1,-1);
+	fragColor = vec4(BlurredPixel(uv), 1.0);
+}
+```
+
+
+
+## 高斯模糊 + 渐变高斯模糊
+
+效果：
+
+>   ![image-20250611010136056](opengl.assets/image-20250611010136056.png)
+
+
+
+
+
+```java
+const int   c_samplesX    = 25;  // must be odd
+const int   c_samplesY    = 25;  // must be odd
+const float c_textureSize = 512.0;
+
+const int   c_halfSamplesX = c_samplesX / 2;
+const int   c_halfSamplesY = c_samplesY / 2;
+const float c_pixelSize = (1.0 / c_textureSize);
+
+// add by chen
+#define SPLITSCREEN_X   0.10     // For user to compare; horizontal splitscreen percentage (0=verticals off, 0.5=left half, 1=full sim).
+#define SPLITSCREEN_BORDER_PX 2  // Splitscreen border thickness in pixels
+
+float Gaussian (float sigma, float x)
+{
+    return exp(-(x*x) / (2.0 * sigma*sigma));
+}
+
+vec3 BlurredPixel (in vec2 uv)
+{
+    //float c_sigmaX = uv.x*10.;
+    // add by chen: 1、在0-SPLITSCREEN_X 之间重新归一化 c_sigmaX 2、大于 c_sigmaX，c_sigmaX取10
+    float c_sigmaX;
+    if (uv.x < (SPLITSCREEN_X + 2.0/c_textureSize)) {
+        c_sigmaX = (uv.x/SPLITSCREEN_X)*10.;
+    } else {
+        c_sigmaX = 10.;
+    }
+    // add by chen end
+    
+	float c_sigmaY = c_sigmaX;
+    
+    float total = 0.0;
+    vec3 ret = vec3(0);
+        
+    for (int iy = 0; iy < c_samplesY; ++iy)
+    {
+        float fy = Gaussian (c_sigmaY, float(iy) - float(c_halfSamplesY));
+        float offsety = float(iy-c_halfSamplesY) * c_pixelSize;
+        for (int ix = 0; ix < c_samplesX; ++ix)
+        {
+            float fx = Gaussian (c_sigmaX, float(ix) - float(c_halfSamplesX));
+            float offsetx = float(ix-c_halfSamplesX) * c_pixelSize;
+            total += fx * fy;            
+            ret += texture(iChannel0, uv + vec2(offsetx, offsety)).rgb * fx*fy;
+        }
+    }
+    return ret / total;
+}
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+	vec2 uv = fragCoord.xy / iResolution.xy * vec2(1,-1);
+    
+    // add by chen
+     bool inBorderY = (uv.x < (SPLITSCREEN_X + 2.0/c_textureSize)) && uv.x > SPLITSCREEN_X;
+     if (inBorderY) {
+        return;
+    }
+    
+	fragColor = vec4(BlurredPixel(uv), 1.0);
+}
+```
+
+
+
+
+
+## 分割线
+
+
+
+效果：
+
+>   ![image-20250611004736672](opengl.assets/image-20250611004736672.png)
+
+实现：
+
+>   https://www.shadertoy.com/view/M33SWj
+
+
+
+```
+#define SPLITSCREEN_X   0.50     // For user to compare; horizontal splitscreen percentage (0=verticals off, 0.5=left half, 1=full sim).
+#define SPLITSCREEN_BORDER_PX 2  // Splitscreen border thickness in pixels
+
+bool inBorderY = borderYpx < float(SPLITSCREEN_BORDER_PX) && uv.x > SPLITSCREEN_X;
+if (inBorderY) {
+	return;
+}
+```
+
+
+
+
+
+
+
 ## 酷炫的shader
 
 [大海](https://www.shadertoy.com/view/Ms2SD1)
@@ -1660,6 +1872,10 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
     fragColor = mix(layer1, layer2, layer2.a);
 }
 ```
+
+
+
+
 
 
 

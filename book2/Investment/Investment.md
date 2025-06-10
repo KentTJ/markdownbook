@@ -10,6 +10,14 @@
 
 0层：**参与一流企业 & 经济的成长！！！！**
 
+弹球（玻璃球）理论
+
+
+
+
+
+-<font color='red'>买入的checklist：TODO</font>
+
 ## 0层大纲
 
 ![image-20250302213712550](Investment.assets/image-20250302213712550.png)

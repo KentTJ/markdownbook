@@ -581,7 +581,17 @@ fatal: unable to access 'https://github.com/KentTJ/-book.git/': error setting ce
 
 参考： [【完美解决】使用git时候出现error setting certificate verify locations: CAfile:问题_error setting certificate file-CSDN博客](https://blog.csdn.net/weixin_43639180/article/details/126502168)
 
+### Git提示：ssh: Could not resolve hostname github.com: No address associated with hostname
 
+解决：
+
+>   https://blog.csdn.net/zhouzhiwengang/article/details/124960506
+
+根本问题：域名解析无法找到GitHub.
+
+查找域名对应的ip：
+
+>   https://www.whatsmydns.net/dns-lookup?query=github.com&server=google
 
 ### 问题：chmod之后，git status显示修改了大量文件（并不是自己修改的文件）
 

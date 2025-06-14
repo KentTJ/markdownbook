@@ -1445,7 +1445,7 @@ drawMesh(mMUvLoc, mMPosLoc); // glDrawArrays
 
 # shader编程实战
 
-## <font color='red'>本质理解</font>
+## -<font color='red'>本质理解</font>
 
 shader
 也就是说我们只采样所有像素的中心点，
@@ -2247,7 +2247,7 @@ if (Alpha > 0.1 && Alpha < 0.3) {
 >
 >   <font color='red'>中间捞出来：</font>glReadpixels 缓冲区 回读像素  ------>  **反馈型！！！！王炸！！！**
 
-<font color='red'> 向后输出前提：</font>  上屏流程没有问题
+-<font color='red'> 向后输出前提：</font>  上屏流程没有问题
 
 
 

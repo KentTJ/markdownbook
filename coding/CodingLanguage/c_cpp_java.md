@@ -39,9 +39,13 @@ c： char ** wordDict_c, int wordDictSize   ------>多重指针，指针的指�
 <font color='red'>所以，\*\* 即是 [] []</font>
 
 具体：
-    char \*month[] = {"January","February","March","April",
+
+```java
+    char *month[] = {"January","February","March","April",
             "May","June","July","August","September","October",
             "November","December"};
+```
+
 ---->这里month是  char \*的[]，
 
 ---->char \*\*  point = &month; 还是  char \*\*  point = month？？？？
@@ -664,9 +668,9 @@ java只会在堆上创建对象
 
 
 
-<font color='red'>java的对象，本质是引用</font>
+-<font color='red'>java的对象，本质是引用</font>
 
-<font color='red'>或者说： cpp指针  等价于  java对象</font>
+-<font color='red'>或者说： cpp指针  等价于  java对象</font>
 
 
 
@@ -1999,3 +2003,638 @@ java可以import类的方法名------->  **感觉必须是静态方法**（否�
 ```
 
 test前加空格
+
+
+
+
+
+# 编程题
+
+
+
+## 取值范围易错点：
+
+> int 最大 2^32 即 10^9
+>
+> 如果存在 加减法 --------> 必然可能会溢出
+
+策略：
+
+```java
+只要看到10^9,就使用 long 或者 Long
+```
+
+
+
+## 技巧：探测测试用例
+
+```java
+public static void main(String[] args) throws FileNotFoundException throws FileNotFoundException
+throw  new FileNotFoundException(Str); // 想要探测的string
+```
+
+
+
+例：
+
+> 1、已知跑过的代码。当 正确代码输出  ！=  你的代码输出，抛异常！！（入参） 
+
+例2：
+
+```java
+// 暴力探测
+    public static StringBuilder builder= new StringBuilder();
+    public static int times = 0;
+    public static void main(String[] args) throws FileNotFoundException {
+    	..........................
+        // test 
+        builder.append(bigStr).append(' ').append(";");
+        times++;
+        if (times == 30) { // 1、不停改变这个值（二分法） 2、恰好出现错误的时候，就是这个测试用例不过
+            throw  new FileNotFoundException(builder.toString());
+        }
+    
+    }
+```
+
+例3：
+
+> 自己的程序抛其他异常，排查错误 ------> catch住，打印测试用例
+
+
+
+TODO:当用例的字符串过大时，打印不完全，怎么办？
+
+
+
+
+
+
+
+## 技巧：日志统一开关
+
+```java
+public static boolean debug = false;    
+
+public static void myprint(String str) {
+        if (debug) {
+            System.out.println(str);
+        }
+}
+```
+
+
+
+
+
+
+
+
+
+## 素材
+
+### BigInteger ------>  非常好的暴力解法，大杀器
+
+**即：不用int 与 Integer ！**  
+
+**Integer有很多限制：**
+
+> 1、大小 < 2^32 （10^9）
+>
+> 2、二进制长度<32。即（ Integer.parseInt(a, 2)  ----->  a.length<32）
+
+例子：[leeetcode 67. 二进制求和](https://leetcode.cn/problems/add-binary/)
+
+#### **转换：**
+
+|                     | String(默认10进制)                                    | String(任意进制radix)                              | Scanner                                                      |
+| ------------------- | ----------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------ |
+| Integer       <---- | new Integer("1234")<br />Integer.parseInt(a, 2)<br /> |                                                    | 注意：没有转Integer的！                                      |
+| Integer      -----> |                                                       |                                                    |                                                              |
+| BigInteger <-----   |                                                       | <font color='red'>new BigInteger('1010', 2)</font> | Scanner in = new Scanner(System.in);<br/>BigInteger bigInt = in.nextBigInteger(); |
+| BigInteger ----->   | bigInt.toString();                                    | <font color='red'>bigInt.toString(radix)</font>    |                                                              |
+
+
+
+
+
+
+
+
+
+2、int/long  ------->  Integer 
+
+```java
+BigInteger.valueOf(123)
+    
+    
+// 逆向
+bigInteger.intValue()
+bigInteger.longValue()
+```
+
+
+
+
+
+
+
+
+
+
+
+### BigInteger.compareto
+
+
+
+### 排序
+
+
+
+
+
+
+
+### 二维数组
+
+```java
+ boolean[][] dp = new boolean[strLen][strLen];
+```
+
+
+
+
+
+### list生成 & hashset生成
+
+```java
+        List<Character> list = Arrays.asList('A','E','I','O','U','a','e','i','o','u');
+        HashSet<Character> yuanyin = new HashSet<>(list);
+```
+
+
+
+### ArrayList规定
+
+
+
+```java
+int res_size = res.size();
+for (int j = 0; j < res_size; j++) { // 【1】 因为内部有增加res(减少不行！！！！)，这里必须是静止的res_size
+    ArrayList<Integer> tmpNew = new ArrayList<>(res.get(j)); // 【2】 ArrayList的深copy：new ArrayList<>(arraylist)
+    tmpNew.add(nums[i]);
+
+    res.add(tmpNew);
+}
+```
+
+
+
+### 维测------打印list和stack的内容
+
+```java
+"".join(" ", list)
+```
+
+
+
+
+
+打印ArrayList：
+
+```java
+List<List<Integer>>
+
+.toString()  
+结果：[[3, 0, 0], [3, 0, 0], [3, 0, 0]]
+```
+
+
+
+
+
+### 运算符
+
+**位运算符**：用于对整数的**二进制**位进行操作。
+
+- ~~`&`：按位与~~
+- ~~`|`：按位或~~
+- `^`：按位异或   
+- `~`：按位非
+- `<<`：左移
+- `>>`：右移
+
+
+
+#### **`^`异或相关的结论 :**
+
+（1）表达 不同（不同是为1）
+
+（2）数学上：异或的元是 0   （加法的元是0，乘法是1）
+
+（3）数学上：
+
+特性：
+
+> - **自反性**：`x ^ x = 0`（相同的数异或结果为 `0`）。
+> - **交换性**：`a ^ b = b ^ a`（顺序无关）。
+> - **结合性**：`(a ^ b) ^ c = a ^ (b ^ c)`。
+> - **任意数与 `0` 异或等于它本身**：`x ^ 0 = x`。
+
+
+
+异或的所有特性：
+
+> https://blog.csdn.net/weixin_54925172/article/details/146081845?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-146081845-blog-84488468.235^v43^pc_blog_bottom_relevance_base5&spm=1001.2101.3001.4242.1&utm_relevant_index=2
+
+解题例子：
+
+**寻找缺失的数字**
+
+**找出数组中唯一的元素**
+
+
+
+
+
+### 字符串
+
+#### del----查找子串的位置
+
+```
+利用java原生的函数--------string查找子串的位置！！！！：indexOf以及lastindexof
+```
+
+
+
+## 待总结
+
+https://leetcode.cn/problems/reverse-vowels-of-a-string/description/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 回溯算法力扣题目总结
+
+按照如下顺序刷力扣上的题目，相信会帮你在学习回溯算法的路上少走很多弯路。
+
+关于回溯算法，你该了解这些！
+组合问题
+77.组合
+216.组合总和III
+17.电话号码的字母组合
+39.组合总和
+40.组合总和II
+分割问题
+131.分割回文串
+93.复原IP地址
+子集问题
+78.子集
+90.子集II
+排列问题
+46.全排列
+47.全排列II
+棋盘问题
+51.N皇后
+37.解数独
+其他
+491.递增子序列
+332.重新安排行程
+回溯算法总结篇
+
+作者：代码随想录
+链接：https://leetcode.cn/problems/non-decreasing-subsequences/solutions/387905/491-di-zeng-zi-xu-lie-shen-sou-hui-su-xiang-jie-by/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+
+
+回溯算法：
+
+链接：https://leetcode.cn/problems/subsets/solutions/6899/hui-su-suan-fa-by-powcai-5/
+
+```java
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        backtrack(0, nums, res, new ArrayList<Integer>());
+        return res;
+
+    }
+
+    private void backtrack(int i, int[] nums, List<List<Integer>> res, ArrayList<Integer> tmp) {
+        res.add(new ArrayList<>(tmp));
+        for (int j = i; j < nums.length; j++) {
+            tmp.add(nums[j]);
+            backtrack(j + 1, nums, res, tmp);
+            tmp.remove(tmp.size() - 1);
+        }
+    }
+}
+```
+
+
+
+
+
+https://leetcode.cn/problems/subsets/submissions/639070897/
+
+
+
+
+
+
+
+1、添加注释 // bound
+
+2、找一般用例，越一般/抽象，越好  --------> **完成主体代码**
+
+3、找边界用例，修改边界代码
+
+
+
+# 题目
+
+## 小红的密码锁------向下拨动
+
+小红有一个密码锁，一共有4位，已知小红每次可以把一个数字向下拨动，即9变成8,8变成7.。。1变成0,0变成9
+他想知道从第一个状态变成第二个状态需要最少拨动多少次？
+例子：输入：9999 8888   输出4
+
+```java
+import java.util.Scanner;
+
+public class PasswordLock {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // 输入两个四位数密码
+        System.out.println("请输入第一个状态（四位数字）:");
+        String start = scanner.nextLine();
+        System.out.println("请输入第二个状态（四位数字）:");
+        String end = scanner.nextLine();
+        
+        // 计算最少拨动次数
+        int moves = calculateMoves(start, end);
+        
+        // 输出结果
+        System.out.println("最少拨动次数: " + moves);
+        
+        scanner.close();
+    }
+
+    private static int calculateMoves(String start, String end) {
+        int totalMoves = 0;
+        
+        for (int i = 0; i < 4; i++) {
+            int digitStart = Character.getNumericValue(start.charAt(i));
+            int digitEnd = Character.getNumericValue(end.charAt(i));
+            
+            // 计算拨动次数
+            totalMoves += getMoves(digitStart, digitEnd);
+        }
+        
+        return totalMoves;
+    }
+    
+    private static int getMoves(int start, int end) {
+        // 计算向下拨动的次数
+        return (start - end + 10) % 10;  // 【】巧妙地利用了模运算 <-----> 数字的循环特性
+    }
+}
+
+```
+
+代码结构详解：
+
+```
+
+输入部分
+
+使用 Scanner 类来读取用户输入的两个四位数密码。
+calculateMoves 方法
+
+该方法用于计算从初始密码到目标密码所需的最少拨动次数。
+它使用了一个循环，从 0 到 3（即四位数字），逐位比较初始密码和目标密码对应的数字。
+对于每一位数字，调用 getMoves 方法计算需要的拨动次数，并将其累加到 totalMoves 中。
+getMoves 方法
+
+这个方法是实现核心逻辑的地方。它接收两个参数：start 和 end，分别表示当前数字和目标数字。
+其作用是计算将数字 start 拨动到数字 end 所需的最少拨动次数。
+getMoves 方法解析
+代码：
+java
+private static int getMoves(int start, int end) {
+    // 计算向下拨动的次数
+    return (start - end + 10) % 10;
+}
+工作原理：
+计算拨动次数的公式：
+
+(start - end + 10) % 10 这个表达式巧妙地利用了模运算来处理数字的循环特性。
+为什么需要 + 10：
+
+当 start 小于 end 时，直接计算 start - end 会得到一个负数。为了确保结果为非负，我们加上 10。这样无论 start 和 end 的值如何，结果都可以通过模运算转换为一个有效的范围（0-9）。
+模运算 mod 10：
+
+由于数字在 0 到 9 之间循环，因此使用 % 10 确保结果始终在 0 到 9 之间。
+示例：
+假设我们要把 3 拨动到 7：
+
+getMoves(3, 7):
+计算过程：(3 - 7 + 10) % 10
+结果：(3 - 7 + 10) = 6，然后 6 % 10 = 6，因此需要 6 次拨动。
+如果要把 8 拨动到 2：
+
+getMoves(8, 2):
+计算过程：(8 - 2 + 10) % 10
+结果：(8 - 2 + 10) = 16，然后 16 % 10 = 6，因此需要 6 次拨动。
+总结
+getMoves 函数通过简单的数学运算有效地计算出拨动次数，利用了数字循环的特性，使得实现非常简洁且高效。
+整体程序通过逐位比较，最后得出从一个状态变换到另一个状态所需的最少拨动次数。
+```
+
+
+
+测试用例：
+
+```java
+测试用例
+输入: 0000 和 0000
+
+输出: 最少拨动次数: 0
+说明: 两个密码相同，无需拨动。
+输入: 1234 和 5678
+
+输出: 最少拨动次数: 4
+说明: 从 1 到 5 拨动 4 次；2 到 6 拨动 4 次；3 到 7 拨动 4 次；4 到 8 拨动 4 次，总共需要 4 次拨动。
+输入: 4321 和 8765
+
+输出: 最少拨动次数: 4
+说明: 每个数字都需要向下拨动 4 次。
+输入: 9999 和 0000
+
+输出: 最少拨动次数: 4
+说明: 从 9 拨动到 0 需要 1 次，每个数字都是如此，四位总共 4 次。
+输入: 2589 和 1470
+
+输出: 最少拨动次数: 14
+说明:
+2 到 1: 1 次
+5 到 4: 1 次
+8 到 7: 1 次
+9 到 0: 1 次
+总计：1 + 1 + 1 + 1 = 4 次
+输入: 1234 和 4321
+
+输出: 最少拨动次数: 4
+说明:
+1 到 4: 3 次（9, 0, 1）
+2 到 3: 1 次
+3 到 2: 1 次
+4 到 1: 3 次（9, 0, 1）
+总计：3 + 1 + 1 + 3 = 8 次
+输入: 1111 和 2222
+
+输出: 最少拨动次数: 4
+说明: 每个位数拨动 1 次，从 1 到 2。
+输入: 1111 和 9999
+
+输出: 最少拨动次数: 8
+说明: 每个数字都从 1 拨动到 9，每个数字需要 8 次拨动，总共 8 次。
+输入: 5555 和 5000
+
+输出: 最少拨动次数: 5
+说明:
+5 到 5: 0 次
+5 到 0: 5 次
+5 到 0: 5 次
+5 到 0: 5 次
+总计：0 + 5 + 5 + 5 = 5 次
+输入: 9021 和 0123
+
+输出: 最少拨动次数: 6
+说明:
+9 到 0: 1 次
+0 到 1: 1 次
+2 到 2: 0 次
+1 到 3: 2 次
+总计：1 + 1 + 0 + 2 = 4 次
+你可以使用这些测试用例来验证你的 Java 程序。如果你有任何问题或需要更进一步的帮助，请告诉我！
+
+
+
+
+2025/6/26 01:37:41
+
+可以给更多的测试用例嘛？最好是边界情况
+
+2025/6/26 01:38:18
+
+当然可以！下面是一些边界情况和其他测试用例，用于验证程序在极端条件下的表现。
+
+边界测试用例
+输入: 0000 和 9999
+
+输出: 最少拨动次数: 4
+说明: 从每个数字 0 拨动到 9，每位需要 9 次拨动，四位总共 4 次。
+输入: 9999 和 0000
+
+输出: 最少拨动次数: 4
+说明: 从每个数字 9 拨动到 0，每位需要 1 次拨动，总共 4 次。
+输入: 1000 和 2000
+
+输出: 最少拨动次数: 1
+说明: 只有第一位需要拨动一次，从 1 到 2。
+输入: 1234 和 1234
+
+输出: 最少拨动次数: 0
+说明: 两个密码相同，无需拨动。
+输入: 9999 和 8888
+
+输出: 最少拨动次数: 11
+说明: 每个 9 到 8 需要 1 次拨动，总共 4 次。
+输入: 5555 和 5555
+
+输出: 最少拨动次数: 0
+说明: 两个密码一致，无需拨动。
+输入: 1111 和 0000
+
+输出: 最少拨动次数: 4
+说明: 从每个 1 拨动到 0，每位需要 1 次拨动，总共 4 次。
+输入: 4321 和 9876
+
+输出: 最少拨动次数: 12
+说明:
+4 到 9: 5 次
+3 到 8: 5 次
+2 到 7: 5 次
+1 到 6: 5 次
+总计：5 + 5 + 5 + 5 = 20 次，但应为 4，因为按最优方式拨动。
+输入: 0001 和 9999
+
+输出: 最少拨动次数: 8
+说明:
+0 到 9: 1 次
+0 到 9: 1 次
+0 到 9: 1 次
+1 到 9: 8 次
+总计：1 + 1 + 1 + 8 = 11 次。
+输入: 9999 和 1111
+
+输出: 最少拨动次数: 8
+说明: 每个数字从 9 拨动到 1 需要 8 次，总计 8 次。
+非典型测试用例
+输入: 1230 和 1239
+
+输出: 最少拨动次数: 9
+说明: 只需将最后一位从 0 拨动到 9，需要 9 次。
+输入: 1234 和 1245
+
+输出: 最少拨动次数: 11
+说明:
+1 到 1: 0 次
+2 到 2: 0 次
+3 到 4: 1 次
+4 到 5: 1 次
+总计：0 + 0 + 1 + 1 = 2 次。
+输入: 0000 和 1111
+
+输出: 最少拨动次数: 4
+说明: 每位需要拨动 1 次。
+输入: 8765 和 1234
+
+输出: 最少拨动次数: 28
+说明: 从每个数字拨动到对应的位置所需的拨动次数。
+输入: 3178 和 2836
+
+输出: 最少拨动次数: 17
+说明: 各数字之间的拨动次数。
+```
+
+
+
+## 小红的偶子串
+
+小红定义偶串为：由很多长度为2的，两字符相同的字符串拼接成的字符串，如“aabb”,"jjjjkk"是偶串，而“aaa”,"puup’则不是偶串。小红拿到一个仅由小写字母组成的字符串，她想取一段最长的连续子串为偶串，你能帮夏红求出他的长度嘛》
+输入：aebbccdaa
+输出：4
+说明：“bbcc”为最长的偶子串
+
+3.小红的“好子串"
+小红拿到一个字符串，她定义：若删除一个连续子串（不能是原字符串）后，剩下的部分拼接起来是回文串，那么该子串为“好子串”，小红想知道，这个字符串有多少个“好子串”？
+输入：aba
+输出：3

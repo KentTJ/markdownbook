@@ -2012,7 +2012,7 @@ test前加空格
 
 ## 大杀器-------------让AI给你讲解代码&解答
 
-以及题目含义
+以及题目含义、边界用例
 
 ## 取值范围易错点：
 
@@ -2151,9 +2151,7 @@ bigInteger.longValue()
 
 ### 排序
 
-
-
-
+Arrays.sort
 
 
 
@@ -2256,6 +2254,18 @@ List<List<Integer>>
 **找出数组中唯一的元素**
 
 
+
+#### 次方
+
+```java
+// 方法一：
+double result = Math.pow(10, 5);
+System.out.println(result); // 输出：100000.0
+
+// 方法二：
+double result = 1e5; // 表示 10 的 5 次方
+System.out.println(result); // 输出：100000.0
+```
 
 
 
@@ -2420,7 +2430,7 @@ public class PasswordLock {
 
 ```
 
--<font color='red'>推论：</font>
+### -<font color='red'>数字单项循环模型：</font>
 
 >   数字的单向循环向上：
 >
@@ -2651,3 +2661,133 @@ getMoves 函数通过简单的数学运算有效地计算出拨动次数，利�
 小红拿到一个字符串，她定义：若删除一个连续子串（不能是原字符串）后，剩下的部分拼接起来是回文串，那么该子串为“好子串”，小红想知道，这个字符串有多少个“好子串”？
 输入：aba
 输出：3
+
+
+
+## 减1加1.
+
+题目来源：https://blog.csdn.net/Q210617/article/details/136354286
+
+Description
+给你一个数列，共N个数字 你可以对每个数字，做如下三种操作之一
+
+1：将这个数字加1
+
+2：将这个数字减去1
+
+3：什么事也不做
+
+最终希望在这个数列中，某个数字出现的次数越多越好，输出出现次数即可。
+
+Format
+Input
+第一行给出N
+
+第二行给出N个数字
+
+N<=1e5,数字的权值在[0,1e5]之间.
+
+Output
+如题
+
+Samples
+输入数据 1
+7
+3 1 4 1 5 9 2
+AI写代码
+Copy
+
+输出数据 1
+4
+AI写代码
+Copy
+
+Hint
+将这个数列变成2 2 4 2 5 9 2
+
+Limitation
+1s, 102400KiB for each test case.
+————————————————
+
+原文链接：https://blog.csdn.net/Q210617/article/details/136354286
+
+
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class MaxFrequency {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // 读取N
+        int N = scanner.nextInt();
+        
+        // 哈希表用于记录每个数字及其变换后的频率
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        
+        // 读取数字并更新频率
+        for (int i = 0; i < N; i++) {
+            int num = scanner.nextInt();
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+            frequencyMap.put(num + 1, frequencyMap.getOrDefault(num + 1, 0) + 1);
+            frequencyMap.put(num - 1, frequencyMap.getOrDefault(num - 1, 0) + 1);
+        }
+
+        // 找到最大的频率
+        int maxFrequency = 0;
+        for (int count : frequencyMap.values()) {
+            if (count > maxFrequency) {
+                maxFrequency = count;
+            }
+        }
+
+        // 输出最大频率
+        System.out.println(maxFrequency);
+        
+        scanner.close();
+    }
+}
+```
+
+```java
+代码说明：
+我们首先通过 Scanner 来读取输入数据。
+使用 HashMap 存储每个数字及其加一或减一后的频率。
+在遍历每个数字时，通过 getOrDefault 方法来简化频率的更新操作。
+最后，我们通过遍历 frequencyMap 的值来找出最大频率，并输出。
+```
+
+
+
+
+
+## 题目的统一解法
+
+1、任何一个题目都是一个<font color='red'>图（树）结构</font>：
+
+```java
+                1
+              /   \
+             1     2
+            / \   / \
+           1   2 1   2
+```
+
+2、<font color='red'>关键是对图（树）的剪枝：</font>
+
+（1）<font color='red'>各个节点无关（相互独立）性剪枝</font>：树 -----------> for 循环
+
+例子：小红的密码锁。8888 四个节点之间无关性
+
+**如何判定各个节点是无关性呢？**
+
+>   ① **基于对结果的影响**
+>
+>   ② 拆分各个节点，TODO!!!!!!!!!!!
+
+
+
+（2）贪心剪枝：

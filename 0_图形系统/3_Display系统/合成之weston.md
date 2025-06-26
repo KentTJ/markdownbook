@@ -1868,9 +1868,11 @@ client、weston、display都有可能------------> <font color='red'>谁慢谁�
 repaint-window=N        //------> 默认是7ms
 ```
 
-预计的repaint时间----------> 1、用来计算wait时间
+预计的repaint时间:
 
-​                                             2、与真正repaint时间，没有任何关系！！！
+>    1、作用---------用来计算wait时间
+>
+>     2、与真正repaint时间，没有任何关系！！！
 
 参考：https://blog.csdn.net/u012839187/article/details/97397536
 

@@ -2804,7 +2804,7 @@ https://blog.csdn.net/zzzck/article/details/105747931
 
 
 
-## **三角形判断**-------本质：数学推断题
+## ~~**三角形判断**-------本质：数学推断题~~
 
 牛客：https://www.nowcoder.com/practice/689ec1e742394e09b1059556fc167b65
 
@@ -2881,6 +2881,112 @@ int main()
 }
 
 ```
+
+
+
+## 找出缺失的字母（从 A 到 Z）计算 ASCII 值之和
+
+```java
+测试用例
+基本测试用例：
+
+输入："ABZD"
+输出：254
+说明：缺失的字母为 C, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y。
+全字母输入：
+
+输入："ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+输出：0
+说明：没有缺失字母，所以 ASCII 值之和为 0。
+全部缺失字母：
+
+输入：""（空字符串）
+输出：3360
+说明：所有字母 A-Z 都缺失，加起来的 ASCII 值为 3360（即 65 + 66 + ... + 90）。
+部分字母输入：
+
+输入："ACEGIK"
+输出：1097
+说明：缺失的字母为 B, D, F, H, J, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z。
+只有一个字母输入：
+
+输入："M"
+输出：2131
+说明：缺失的字母为 A, B, C, D, E, F, G, H, I, J, K, L, N, O, P, Q, R, S, T, U, V, W, X, Y, Z。
+只包含相同字母的输入：
+
+输入："ZZZZZ"
+输出：2109
+说明：缺失的字母为 A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y。
+包含小写字母的输入：
+
+输入："abcdEFGH"
+输出：1151
+说明：缺失的字母为 I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z（程序会将小写字母转换为大写）。
+包含非字母字符的输入：
+
+输入："A1B@C#D$"
+输出：254
+说明：仅考虑字母，缺失的为 E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y。
+长字符串输入：
+
+输入："ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMN"
+输出：214
+说明：缺失的字母为 O, P, Q, R, S, T, U, V, W, X, Y, Z。
+```
+
+
+
+```java
+import java.util.HashSet;
+
+public class MissingLettersASCII {
+    public static void main(String[] args) {
+        String input = "ABZD"; // 示例输入字符串
+        int asciiSum = calculateMissingASCIISum(input);
+        
+        System.out.println("Missing letters' ASCII sum: " + asciiSum);
+    }
+
+    private static int calculateMissingASCIISum(String input) {
+        // 使用 HashSet 来存储已出现的字符
+        HashSet<Character> appearedLetters = new HashSet<>();
+        
+        // 将字符串中的每个字符添加到 HashSet 中
+        for (char c : input.toUpperCase().toCharArray()) {
+            if (c >= 'A' && c <= 'Z') { // 【1】 在不在之间的判断
+                appearedLetters.add(c);
+            }
+        }
+
+        int asciiSum = 0;
+
+        // 【2】遍历所有字母 A-Z
+        for (char letter = 'A'; letter <= 'Z'; letter++) { 
+            if (!appearedLetters.contains(letter)) {
+                asciiSum += (int) letter; // 【3】ASCII 值转化
+            }
+        }
+
+        return asciiSum;
+    }
+}
+
+```
+
+-<font color='red'>素材：</font>【1】【2】【3】
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

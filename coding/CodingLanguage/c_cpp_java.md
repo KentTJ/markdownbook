@@ -3128,6 +3128,12 @@ public class LowestCommonAncestorFullBinaryTree {
 
 
 
+## 贪吃蛇
+
+https://zhuanlan.zhihu.com/p/645242002
+
+
+
 ## 题目的统一解法
 
 1、任何一个题目都是一个<font color='red'>图（树）结构</font>：

@@ -2760,7 +2760,9 @@ public class MaxFrequency {
 最后，我们通过遍历 frequencyMap 的值来找出最大频率，并输出。
 ```
 
+# 病毒扩散（牛客练习赛62 ）
 
+https://blog.csdn.net/zzzck/article/details/105747931
 
 
 

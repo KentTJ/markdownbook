@@ -2151,7 +2151,45 @@ bigInteger.longValue()
 
 ### 排序
 
-Arrays.sort
+数组排序：
+
+>   Arrays.sort(int [])
+
+ArrayList ：
+
+>   `Collections.sort()`
+>
+>   例子：
+>
+>   ```java
+>           ArrayList<Integer> numbers = new ArrayList<>();
+>           numbers.add(5);
+>           numbers.add(2);
+>           numbers.add(8);
+>           numbers.add(1);
+>           
+>           // 排序
+>           Collections.sort(numbers);
+>   ```
+>
+>   自定义比较器：
+>
+>   ```java
+>           ArrayList<String> names = new ArrayList<>();
+>           names.add("John");
+>           names.add("Alice");
+>           names.add("Bob");
+>           
+>           // 自定义排序：按字符串长度排序
+>           Collections.sort(names, new Comparator<String>() {
+>               @Override
+>               public int compare(String o1, String o2) {
+>                   return Integer.compare(o1.length(), o2.length());
+>               }
+>           });
+>   ```
+>
+>   
 
 
 
@@ -2760,9 +2798,91 @@ public class MaxFrequency {
 最后，我们通过遍历 frequencyMap 的值来找出最大频率，并输出。
 ```
 
-# 病毒扩散（牛客练习赛62 ）
+## 病毒扩散（牛客练习赛62 ）
 
 https://blog.csdn.net/zzzck/article/details/105747931
+
+
+
+## **三角形判断**-------本质：数学推断题
+
+牛客：https://www.nowcoder.com/practice/689ec1e742394e09b1059556fc167b65
+
+**描述**
+
+KiKi想知道已经给出的三条边a，b，c能否构成三角形，如果能构成三角形，判断三角形的类型（等边三角形、等腰三角形或普通三角形）。
+
+**输入描述：**
+
+题目有多组输入数据，每一行输入三个a，b，c(0<a,b,c<1000)，作为三角形的三个边，用空格分隔。
+
+**输出描述：**
+
+针对每组输入数据，输出占一行，如果能构成三角形，等边三角形则输出“Equilateral triangle!”，等腰三角形则输出“Isosceles triangle!”，其余的三角形则输出“Ordinary triangle!”，反之输出“Not a triangle!”。
+
+**示例1**
+
+输入：
+
+```
+2 3 2
+3 3 3
+```
+
+复制
+
+输出：
+
+```
+Isosceles triangle!
+Equilateral triangle!
+```
+
+
+
+
+
+```java
+#include<stdio.h>
+
+void sq(int max, int min1, int min2)//sq函数用于判断三角形类型返回值void,三个参数为int
+{
+	if ((min1 + min2)-max>0)//构成三角形需满足条件（两个最小边之和大于最大边）
+	{
+		if (min1 == min2  && max == min2)//三条边都相等为等边三角形
+            printf("Equilateral triangle!\n");		
+		else if (min1 == min2 || max==min1 || max==min2)//任意两条边相等为等腰三角形
+			printf("Isosceles triangle!\n");
+		else
+			printf("Ordinary triangle!\n");//都不满足则为普通三角形
+	}
+	else
+		printf("Not a triangle!\n");//无法构成三角形
+
+}
+
+int main()
+{
+	int a, b, c;
+	int s = 0;
+
+	while (scanf("%d %d %d", &a, &b, &c) != EOF)//多组输入
+	{
+		if (a>b && a>c)//判断哪一条边最长
+			sq(a, b, c);
+		else if (b>c)
+			sq(b, a, c);
+		else if (c>b)
+			sq(c, a, b);
+		else
+			sq(a, b, c);//这个情况则三条边都相等
+	}
+	return 0;
+}
+
+```
+
+
 
 
 

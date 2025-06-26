@@ -2305,6 +2305,16 @@ double result = 1e5; // 表示 10 的 5 次方
 System.out.println(result); // 输出：100000.0
 ```
 
+### 最大公约数
+
+```java
+// 计算两个整数的最大公约数（Java 8+）
+int gcd = Math.gcd(24, 18);  // 结果：6
+
+// 注意：参数为负数时，结果符号与第一个参数一致
+int negativeGcd = Math.gcd(-24, 18);  // 结果：-6
+```
+
 
 
 ### 字符串
@@ -2986,9 +2996,135 @@ public class MissingLettersASCII {
 
 
 
+## 二叉树求公共祖先
 
 
 
+```
+class TreeNode {
+    int val;
+    TreeNode left, right;
+
+    TreeNode(int x) {
+        val = x;
+        left = right = null;
+    }
+}
+
+public class LowestCommonAncestor {
+
+    // 查找两个节点的公共祖先
+    public TreeNode findLCA(TreeNode root, int n1, int n2) {
+        // 如果根节点为空或等于 n1 或 n2，返回根节点
+        if (root == null || root.val == n1 || root.val == n2) {
+            return root;
+        }
+
+        // 在左子树中查找
+        TreeNode leftLCA = findLCA(root.left, n1, n2);
+        
+        // 在右子树中查找
+        TreeNode rightLCA = findLCA(root.right, n1, n2);
+
+        // 如果左子树和右子树都不为空，说明当前节点是公共祖先
+        if (leftLCA != null && rightLCA != null) {
+            return root;
+        }
+
+        // 否则，返回非空的左子树或右子树
+        return (leftLCA != null) ? leftLCA : rightLCA;
+    }
+
+    public static void main(String[] args) {
+        // 创建一个满二叉树
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(7);
+
+        LowestCommonAncestor lcaFinder = new LowestCommonAncestor();
+        TreeNode lca = lcaFinder.findLCA(root, 4, 5); // 查找节点 4 和 5 的公共祖先
+
+        if (lca != null) {
+            System.out.println("LCA of 4 and 5: " + lca.val);
+        } else {
+            System.out.println("No common ancestor found.");
+        }
+    }
+}
+
+```
+
+
+
+```java
+代码说明
+TreeNode 类：定义树的节点，每个节点包含值和左右子节点。
+findLCA 方法：递归查找公共祖先。如果找到 n1 或 n2 则返回当前节点；如果从左右子树找到分别的结果，则当前节点为公共祖先。
+main 方法：创建一个简单的满二叉树，并调用 findLCA 方法查找节点 4 和 5 的公共祖先。
+测试用例
+你可以根据需要创建不同的树结构和节点值，以验证代码的正确性。例如：
+
+查找节点 4 和 5 的公共祖先，输出应为 2。
+查找节点 6 和 7 的公共祖先，输出应为 3。
+```
+
+
+
+
+
+## 完满二叉树求公共祖先
+
+### 完满二叉树的特点
+
+1.  每一个节点都有 0 或 2 个子节点。
+2.  节点的索引可以用数组表示：
+    -   **对于给定节点 `i`（从 1 开始），其左子节点为 `2*i`，右子节点为 `2*i + 1`，父节点为 `i/2`。**
+
+--------------------------> 双指针；<font color='red'>除以2，找父节点</font>
+
+```
+public class LowestCommonAncestorFullBinaryTree {
+    
+    // 查找两个节点的公共祖先
+    public int findLCA(int n1, int n2) {
+        // 当两个节点不相等时，继续向上查找
+        while (n1 != n2) {
+            // 如果 n1 大于 n2，说明 n1 需要向上移动
+            if (n1 > n2) {
+                n1 /= 2; // 向上移动到父节点
+            } else {
+                n2 /= 2; // 向上移动到父节点
+            }
+        }
+        return n1; // 此时 n1 就是公共祖先
+    }
+
+    public static void main(String[] args) {
+        LowestCommonAncestorFullBinaryTree lcaFinder = new LowestCommonAncestorFullBinaryTree();
+
+        int n1 = 4;
+        int n2 = 5;
+
+        int lca = lcaFinder.findLCA(n1, n2);
+        System.out.println("LCA of " + n1 + " and " + n2 + ": " + lca);
+
+        n1 = 6;
+        n2 = 7;
+        lca = lcaFinder.findLCA(n1, n2);
+        System.out.println("LCA of " + n1 + " and " + n2 + ": " + lca);
+
+        n1 = 4;
+        n2 = 6;
+        lca = lcaFinder.findLCA(n1, n2);
+        System.out.println("LCA of " + n1 + " and " + n2 + ": " + lca);
+    }
+}
+
+```
 
 
 

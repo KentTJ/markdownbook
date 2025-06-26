@@ -1861,6 +1861,43 @@ client、weston、display都有可能------------> <font color='red'>谁慢谁�
 
 
 
+### repaint-window配置的影响
+
+```java
+[core]
+repaint-window=N        //------> 默认是7ms
+```
+
+预计的repaint时间----------> 1、用来计算wait时间
+
+​                                             2、与真正repaint时间，没有任何关系！！！
+
+参考：https://blog.csdn.net/u012839187/article/details/97397536
+
+
+
+这是一个神奇的配置项：
+
+>   预计 repaint时间 设置为16ms，会立即向drm提交！ 
+>
+>   -------------> 好处：减少了渲染整个链路的时长（证明：TODO）。最终影响：不稳定、需要更多的buffer
+>
+>   ​                   坏处：一次发车，等到的乘客变少了  -------> 那么最终影响是什么？？？？
+>
+>   ​                   
+
+
+
+例：
+
+>   通过配置  repaint-window=16，解决 退帧问题。见《problems》    TODO
+
+
+
+
+
+
+
 ## weston_buffer的引用计数（server侧）
 
 ### 【对象的引用计数的<font color='red'>必要性</font>】

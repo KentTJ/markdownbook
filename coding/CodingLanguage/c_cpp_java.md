@@ -3134,9 +3134,9 @@ https://zhuanlan.zhihu.com/p/645242002
 
 
 
-## 题目的统一解法
+# 所有题目的统一解法
 
-1、任何一个题目都是一个<font color='red'>图（树）结构</font>：
+## 任何一个题目都是一个<font color='red'>图（树）结构</font>：
 
 ```java
                 1
@@ -3146,7 +3146,15 @@ https://zhuanlan.zhihu.com/p/645242002
            1   2 1   2
 ```
 
-2、<font color='red'>关键是对图（树）的剪枝：</font>
+推论：
+
+（1）<font color='red'>任何题目都有一个保底的解法</font>---------即 树结构（或全排列）  
+
+>   （**不允许说，这个题没有任何思路**！！！！！！）
+
+
+
+## <font color='red'>关键是对图（树）的剪枝：</font>
 
 （1）<font color='red'>各个节点无关（相互独立）性剪枝</font>：树 -----------> for 循环
 

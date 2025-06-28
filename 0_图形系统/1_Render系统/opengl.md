@@ -2066,7 +2066,17 @@ void main()
 
 ## 局部高斯模糊，texture边缘的黑边框
 
-![image-20250629001607509](opengl.assets/image-20250629001607509.png)
+无论是高斯模糊，还是局部高斯模糊，**必然存在 边缘问题：**
+
+>   代码上：v_texcoord + vec2( uOffset.x, -uOffset.y)  ----------> 必然存在越界的情况
+
+对于高斯，超出了texture，超出texture，有固定的采样设置  swap方式保证超出后，仍然能采样
+
+对于局部高斯：
+
+>   ![image-20250629001607509](opengl.assets/image-20250629001607509.png)
+>
+>   比如用 glScissor，就无法超出区域采样
 
 原因在于：
 
@@ -2076,7 +2086,7 @@ glScissor限制了texture的采样
 
 办法：
 
->   在shader中设置，采样超过范围时，采样值 = 边界值
+>   <font color='red'>在shader中设置，采样超过范围时，采样值 = 边界值</font>
 >
 >   ```java
 >   vec2 clampCoord(vec2 coordinate) {

@@ -2212,18 +2212,6 @@ bool GLUtils_saveRender(int w, int h) {
 
     //return result;
 
-
-	
-	// Save to image
-	// if (times > 1) {
-	// 	stbi_write_png("output.png", w, h, sizeof(int32_t), outputValues_debug, 0);
-	// 	weston_log("kent, stbi_write_png\n");
-
-	// 	times = times - 1;
-	// }
-
-
-
     return true;
 }
 
@@ -2262,6 +2250,56 @@ w_debug = go->area.width;
 h_debug =  go->area.height;
 // 任意一个想要获取 GPU缓冲区图像的位置 加入：
 GLUtils_saveRender(w_debug, h_debug);
+```
+
+
+
+
+
+
+
+TODO:保存为rgba格式
+
+```java
+static int times = 0;
+/**
+ * 将 RGBA 图像数据写入文件。
+ *
+ * @param width  图像宽度
+ * @param height 图像高度
+ * @param data   原始 RGBA 数据（每个像素4字节）
+ * @return       成功返回 true，失败返回 false
+ */
+bool savePicture(int width, int height, const int32_t* data) {
+	times++;
+	weston_log("savePicture. width:%d height:%d\n", width, height);
+    if (!data || width <= 0 || height <= 0) {
+        fprintf(stderr, "Invalid input parameters.\n");
+        return false;
+    }
+
+	char path_name[256];
+	snprintf(path_name,256, "/home/kent/workingspace_disk2/westonProject/plane_dump/%03d_w_%d_h_%d.argb",
+			times, width, height);
+
+    FILE* file = fopen(path_name, "wb");
+    if (!file) {
+        weston_log("Failed to open file for writing");
+        return false;
+    }
+
+    size_t totalBytes = width * height * sizeof(int32_t);
+    size_t written = fwrite(data, sizeof(char), totalBytes, file);
+
+    if (written != totalBytes) {
+        fprintf(stderr, "Failed to write all image data to file.\n");
+        fclose(file);
+        return false;
+    }
+
+    fclose(file);
+    return true;
+}	
 ```
 
 

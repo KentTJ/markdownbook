@@ -2064,7 +2064,34 @@ void main()
 }
 ```
 
+## 局部高斯模糊，texture边缘的黑边框
 
+![image-20250629001607509](opengl.assets/image-20250629001607509.png)
+
+原因在于：
+
+```java
+glScissor限制了texture的采样
+```
+
+办法：
+
+>   在shader中设置，采样超过范围时，采样值 = 边界值
+>
+>   ```java
+>   vec2 clampCoord(vec2 coordinate) {
+>       return vec2(clamp(coordinate.x, 0.0, 0.41666), clamp(coordinate.y, 0.0, 1.0));
+>   } 
+>   //【】 0.41666 = 800/1920 是我们采样的边界
+>   
+>   
+>   fragColor += texture2D(tex, clampCoord(v_texcoord + vec2( uOffset.x,  uOffset.y)));
+>   		fragColor += texture2D(tex, clampCoord(v_texcoord + vec2( uOffset.x, -uOffset.y)));
+>   		fragColor += texture2D(tex, clampCoord(v_texcoord + vec2(-uOffset.x,  uOffset.y)));
+>   		fragColor += texture2D(tex, clampCoord(v_texcoord + vec2(-uOffset.x, -uOffset.y)));
+>   ```
+>
+>   
 
 
 

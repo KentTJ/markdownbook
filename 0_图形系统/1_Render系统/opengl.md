@@ -231,10 +231,6 @@ Texture ------> 另一个翻译更贴切：贴图
 
 已有的代码参考：
 
-
-
-
-
 ```java
 unsigned int texture;
 glGenTextures(1, &texture);
@@ -2343,7 +2339,7 @@ glGetBufferParameteriv
 
 ## 向后输出-----颜色输出：
 
-例1，判断颜色：
+### 例1，判断颜色：
 
 ```java
 if ((color.r > 0.0) || (color.g > 0.0) || (color.b > 0.0)) { // 黑屏时，判断color的值是不是0
@@ -2355,7 +2351,7 @@ if ((color.r > 0.0) || (color.g > 0.0) || (color.b > 0.0)) { // 黑屏时，判�
 
 
 
-例2：观察alpha值：
+### 例2：判断alpha值：
 
 ```java
 if (Alpha > 0.1 && Alpha < 0.3) {
@@ -2365,9 +2361,19 @@ if (Alpha > 0.1 && Alpha < 0.3) {
 
 
 
+### 例3：判断一个位置变量的值：
 
+```java
+// 判断 uTexture_x_max
+if (v_texcoord.x > (uTexture_x_max - 0.005) && v_texcoord.x < (uTexture_x_max + 0.005) && v_texcoord.y < 0.07) {
+		gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+		return;
+	}
+```
 
+对应图像：
 
+>   ![image-20250629220008117](opengl.assets/image-20250629220008117.png)
 
 ## 像素级操作：TODO
 

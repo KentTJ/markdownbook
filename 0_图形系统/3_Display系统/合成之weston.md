@@ -4599,7 +4599,7 @@ compositor/executable.c/main()-->
 
 参考：   [03-weston启动过程](https://blog.csdn.net/yangchao315/article/details/123455439)
 
-
+## shell启动
 
 weston进程拉起 **shell 进程**的细化：
 
@@ -4616,6 +4616,21 @@ weston-keyboard（软键盘面板）：安卓 输入法
 weston-screenshooter： 安卓截屏
 
 weston-screensaver：安卓屏保
+
+
+
+```java
+// shell启动代码大纲
+wet_shell_init
+	shell_configuration
+		wet_get_libexec_path(WESTON_SHELL_CLIENT);  // 决定了哪个shell，比如weston-desktop-shell
+	
+	wl_event_loop_add_idle(loop, launch_desktop_shell_process, shell); // 挂启动shell的钩子
+								  --> weston_client_start
+										--> weston_client_launch
+```
+
+
 
 
 

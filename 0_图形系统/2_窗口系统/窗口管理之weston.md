@@ -487,6 +487,14 @@ motion事件（同frame事件）：
 
 
 
+##  0层大纲 (TODO)
+
+
+
+
+
+
+
 # client - weston通信----IPC机制
 
 where：这个IPC机制，实现于wayland协议，是wayland协议的一部分（以wl_开头）

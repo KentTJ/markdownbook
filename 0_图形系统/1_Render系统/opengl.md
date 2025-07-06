@@ -985,7 +985,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 
 左下是原点？？？
 
-### 画布坐标系（站在画布上看）
+### 画布坐标系（站在画布上看）------gl_FragCoord
 
 参考:    [Shadertoy的坐标转换](https://zhuanlan.zhihu.com/p/35973705)
 
@@ -1069,6 +1069,10 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 > **Rect的计算**是屏幕坐标系：
 >
 > **即 以 左上角为原点**
+
+### TODO 纹理坐标 -----v_texcoord 
+
+https://blog.csdn.net/u014267091/article/details/140496467  [纹理坐标](https://blog.csdn.net/u014267091/article/details/140496467#1__3)
 
 ### void glViewport(GLint x, GLint y, GLsizei width, GLsizei height);
 
@@ -1965,6 +1969,52 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
 
 
 
+## opengl绘制 text 
+
+
+
+```java
+    // draw text
+    {
+        const float text_scale = 0.15;
+        vec2 q = (p-vec2(-0.5,-0.9))/text_scale;
+        float text = 1e20;
+              if( type==0 )  text = print(text,q,int[12](67,105,114, 99,108,101,  0,  0,  0,  0,  0,  0));
+        else  if( type==1 )  text = print(text,q,int[12](80, 97,114, 97, 98,111,108, 97,  0,  0,  0,  0));
+        else  if( type==2 )  text = print(text,q,int[12](67,111,115,105,110,101,  0,  0,  0,  0,  0,  0));
+        else  if( type==3 )  text = print(text,q,int[12](67,117, 98,105, 99,  0,  0,  0,  0,  0,  0,  0));
+        else/*if( type==4 )*/text = print(text,q,int[12](83,117,112,101,114,101,108,108,105,112,115,101));
+        col = mix(col,vec3(0.0),1.0-smoothstep( 0.06,0.08,text-0.5));
+        col = mix(col,vec3(1.0),1.0-smoothstep(-0.01,0.01,text-0.5));
+    }
+
+代码来源： https://www.shadertoy.com/view/4cG3R1
+```
+
+
+
+**已知一个文字，如何知道对应的opengl的代码:**
+
+```java
+if( type==0 )  text = print(text,q,int[12](99,104,101,110,  0,  0,  0,  0,  0,  0,  0,  0)); //----> chen
+```
+
+>   解释：
+>
+>   ```java
+>   将 "chen" 转换为 ASCII 码数组
+>   字符串 "chen" 的 ASCII 码分别是：
+>   
+>   字符	ASCII
+>   'c'	99
+>   'h'	104
+>   'e'	101
+>   'n'	110
+>   所以对应的整数数组是：int[4](99, 104, 101, 110)  + 数组长度变为 4， 不再需要填充 0
+>   ```
+>
+>   
+
 ## 酷炫的shader
 
 [大海](https://www.shadertoy.com/view/Ms2SD1)
@@ -2014,38 +2064,6 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
 
 
 
-## shade调试技巧
-
-1、shader中数值判断：
-
-```java
-if ( 待判断数值 >  250.0) {
-	// 改变颜色
-	 color = ................
-}
-```
-
-逼出来待判断数值：  ~~调整 250.0这个数值~~
-
-2、用固定值 替代 非固定值：
-
-对比两者
-
-```java
-//vec2 iResolution = vec2(1024.0, 600.0);                        
-vec2 iResolution = univiewPortSize;                                   
-```
-
-3、多个窗口，选择一个观看即可
-
-
-
-
-
-解构的万能方法：
-
-> 多个变量中，取一个为固定值
-
 
 
 
@@ -2061,6 +2079,8 @@ void main()
 ```
 
 ## 局部高斯模糊，texture边缘的黑边框
+
+### 黑边一
 
 无论是高斯模糊，还是局部高斯模糊，**必然存在 边缘问题：**
 
@@ -2099,7 +2119,11 @@ glScissor限制了texture的采样
 >
 >   
 
+## 黑边、黑块二
 
+如果有透明图的叠加，但是没有设置 glEnable(GL_BLEND);
+
+---------------> 忽略了alpha通道，会造成黑块和黑边
 
 # OpenGL调试
 
@@ -2444,6 +2468,44 @@ if (v_texcoord.x > (uTexture_x_max - 0.005) && v_texcoord.x < (uTexture_x_max + 
         }
     }
 ```
+
+
+
+
+
+## shade调试技巧
+
+1、shader中数值判断：
+
+```java
+if ( 待判断数值 >  250.0) {
+	// 改变颜色
+	 color = ................
+}
+```
+
+逼出来待判断数值：  ~~调整 250.0这个数值~~
+
+2、用固定值 替代 非固定值：
+
+对比两者
+
+```java
+//vec2 iResolution = vec2(1024.0, 600.0);                        
+vec2 iResolution = univiewPortSize;                                   
+```
+
+3、多个窗口，选择一个观看即可
+
+
+
+
+
+解构的万能方法：
+
+> 多个变量中，取一个为固定值
+
+
 
 
 

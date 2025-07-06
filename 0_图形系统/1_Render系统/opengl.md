@@ -2012,8 +2012,21 @@ if( type==0 )  text = print(text,q,int[12](99,104,101,110,  0,  0,  0,  0,  0,  
 >   'n'	110
 >   所以对应的整数数组是：int[4](99, 104, 101, 110)  + 数组长度变为 4， 不再需要填充 0
 >   ```
->
->   
+
+## 各种弧度的角
+
+**四种不同的角形状函数：**
+
+-   `sdCornerCircle`：使用圆弧生成角。
+-   `sdCornerParabola`：使用抛物线生成角。
+-   `sdCornerCosine`：使用余弦函数生成角。
+-   `sdCornerCubic`：使用三次多项式生成角。
+
+具体实现： https://www.shadertoy.com/view/4cG3R1
+
+
+
+
 
 ## 酷炫的shader
 

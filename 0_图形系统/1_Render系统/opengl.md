@@ -1620,6 +1620,75 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 
 
 
+
+
+
+
+## TODO: 圆角矩形 二
+
+```java
+//------------------------------------------------
+float sdCornerCircle( in vec2 p )
+{
+    return length(p-vec2(0.0,-1.0)) - sqrt(2.0);
+}
+
+float sdRoundBox( in vec2 p, in vec2 b, in vec4 r)
+{
+    // select corner radius
+    r.xy = (p.x>0.0)?r.xy : r.zw;
+    r.x  = (p.y>0.0)?r.x  : r.y;
+    // box coordinates
+    vec2 q = abs(p)-b+r.x;
+    // distance to sides
+    if( min(q.x,q.y)<0.0 ) return max(q.x,q.y)-r.x;
+    // rotate 45 degrees, offset by r and scale by r*sqrt(0.5) to canonical corner coordinates
+    vec2 uv = vec2( abs(q.x-q.y), q.x+q.y-r.x )/r.x;
+    // compute distance to corner shape
+    float d = sdCornerCircle( uv );
+    // undo scale
+    return d * r.x*sqrt(0.5);
+}
+
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+  // Normalized pixel coordinates (from 0 to 1)
+    vec2 uv = fragCoord/iResolution.xy;
+    vec2 p = (2.0*fragCoord-iResolution.xy)/iResolution.y;
+    
+    vec2 si = vec2(1.2,0.6);
+    vec4 ra = vec4(0.42,0.42,0.42,0.42); // 四个圆角半径，可以不一样
+    float d = sdRoundBox( p, si, ra);
+
+    vec3 col = vec3(0,2,4);
+	col = mix(col, vec3(1.0), 1.0-smoothstep(0.0,0.01,abs(d)));
+
+    
+    // Output to screen
+    fragColor = vec4(col,1.0);
+}
+```
+
+
+
+## 各种弧度的角
+
+**四种不同的角形状函数：**
+
+-   `sdCornerCircle`：使用圆弧生成角。
+-   `sdCornerParabola`：使用抛物线生成角。
+-   `sdCornerCosine`：使用余弦函数生成角。
+-   `sdCornerCubic`：使用三次多项式生成角。
+
+具体实现： https://www.shadertoy.com/view/4cG3R1
+
+
+
+解释的文章：https://iquilezles.org/articles/roundedboxes/    -----> roundedboxes/
+
+
+
 ## 高斯模糊
 
 效果：
@@ -2013,21 +2082,6 @@ if( type==0 )  text = print(text,q,int[12](99,104,101,110,  0,  0,  0,  0,  0,  
 >   所以对应的整数数组是：int[4](99, 104, 101, 110)  + 数组长度变为 4， 不再需要填充 0
 >   ```
 
-## 各种弧度的角
-
-**四种不同的角形状函数：**
-
--   `sdCornerCircle`：使用圆弧生成角。
--   `sdCornerParabola`：使用抛物线生成角。
--   `sdCornerCosine`：使用余弦函数生成角。
--   `sdCornerCubic`：使用三次多项式生成角。
-
-具体实现： https://www.shadertoy.com/view/4cG3R1
-
-
-
-解释的文章：https://iquilezles.org/articles/roundedboxes/    -----> roundedboxes/
-
 
 
 ## 各种操作数学解释 & 大全
@@ -2145,6 +2199,10 @@ glScissor限制了texture的采样
 如果有透明图的叠加，但是没有设置 glEnable(GL_BLEND);
 
 ---------------> 忽略了alpha通道，会造成黑块和黑边
+
+
+
+
 
 # OpenGL调试
 

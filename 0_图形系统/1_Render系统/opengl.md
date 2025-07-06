@@ -2026,6 +2026,14 @@ if( type==0 )  text = print(text,q,int[12](99,104,101,110,  0,  0,  0,  0,  0,  
 
 
 
+解释的文章：https://iquilezles.org/articles/roundedboxes/    -----> roundedboxes/
+
+
+
+## 各种操作数学解释 & 大全
+
+https://iquilezles.org/articles/
+
 
 
 ## 酷炫的shader

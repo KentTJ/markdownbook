@@ -273,6 +273,19 @@ xdg_toplevel_handle_configure(void *data, struct xdg_toplevel *xdg_toplevel,
 
 
 
+### 最小化
+
+TODO: 与hide什么关系？
+
+```java
+接口：xdg_toplevel_set_minimized
+参考：terminal.c
+```
+
+
+
+
+
 ## 坐标系
 
 结论：
@@ -2036,6 +2049,32 @@ weston/tests/subsurface-test.c
 
 
 ![image-20241229022557513](窗口管理之weston.assets/image-20241229022557513.png)
+
+
+
+# weston快捷键
+
+
+
+https://wiki.archlinuxcn.org/wiki/Weston#:~:text=Super,%E6%9F%A5%E7%9C%8B%20weston.ini
+
+
+
+|                 组合键                  |             动作             |        |
+| :-------------------------------------: | :--------------------------: | ------ |
+|          `Ctrl+Alt+Backspace`           |      退出 Weston 合成器      |        |
+| `Super+Scroll` (或 `PageUp`/`PageDown`) |        放大/缩小 窗口        |        |
+|               `Super+Tab`               |           切换窗口           | 验证OK |
+|               `Super+LMB`               |           启动窗口           |        |
+|               `Super+MMB`               |           旋转窗口           |        |
+|               `Super+RMB`               |         改变窗口大小         |        |
+|           `Super+Alt+Scroll`            |        改变窗口透明度        | 验证OK |
+|                `Super+k`                |     强制关闭当前活动窗口     | 验证OK |
+|             `Super+Up/Down`             | 切换到 上一个/下一个 工作区  |        |
+|          `Super+Shift+Up/Down`          | 移动当前活动窗口到其他工作区 |        |
+|              `Super+F*n*`               |  切换到工作区*n* (例如：F2)  |        |
+|                `Super+s`                |             截屏             | 验证OK |
+|                `Super+r`                |           录制屏幕           | 验证OK |
 
 
 

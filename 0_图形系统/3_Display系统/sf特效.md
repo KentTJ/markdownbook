@@ -1015,11 +1015,38 @@ mSupportsBlur = supportsBlurs;
 
 
 
+### Background blur & Blur behind 的demo
+
+![在这里插入图片描述](sf特效.assets/70f35933a1e3287318011a0c277d975b.png)
+
+[图来源](https://blog.csdn.net/abc6368765/article/details/127657069#:~:text=1%E3%80%81-,%E4%BD%BF%E7%94%A8Dialog%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%96%AF%E6%A8%A1%E7%B3%8A%E6%95%88%E6%9E%9C,-2%E3%80%81%E4%BD%BF%E7%94%A8Activity)
+
+
+
+https://blog.csdn.net/abc6368765/article/details/127657069  
+
+
+
+### 高斯模糊 + 圆角结合：
+
+```java
+为了为窗口创建圆角，我们在 res/drawable/window_background.xml 中将窗口背景定义为具有半径为 20 dp 的圆角的 ShapeDrawable，如下所示：
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
+    <corners android:radius="20dp"/>
+    <solid android:color="#AAAAAA"/>
+</shape>
+```
 
 
 
 
-## 功能实现----高斯模糊代码大纲：
+
+
+
+
+
+## 安卓高斯模糊代码大纲------egl实现
 
 参考： [aosp11/12/13 壁纸高斯模糊，毛玻璃SurfaceFlinger层面原理-第二节千里马framework实战_千里马aosp-CSDN博客](https://blog.csdn.net/learnframework/article/details/130778897)
 
@@ -1194,6 +1221,46 @@ GLESRenderEngine::drawLayersInternal // 自下而上
 >   上面流程，从始至终，没有看到对几块buffer的清理过程（上屏的那块buffer有清理）
 >
 >   ----------->  我理解，应该不用清理，只要图片不是透明的，会被覆盖！！！！！
+
+
+
+
+
+## 安卓 高斯模糊 --------skia实现
+
+安卓渲染，默认走的是SkiaRenderEngine.cpp
+
+```java
+void SkiaRenderEngine::drawLayersInternal(
+
+	mBlurFilter->drawBlurRegion(canvas, bounds, layer.backgroundBlurRadius, 1.0f,
+                                                blurRect, blurredImage, blurInput); // 【】 指定模糊区域
+```
+
+
+
+**注：egl引擎的 高斯模糊实现，没有模糊区域可以设置**
+
+
+
+
+
+// skia的shader程序
+
+```java
+static sk_sp<SkRuntimeEffect> createMixEffect() {
+    SkString mixString(R"(
+        uniform shader blurredInput;
+        uniform shader originalInput;
+        uniform float mixFactor;
+
+        half4 main(float2 xy) {
+            return half4(mix(originalInput.eval(xy), blurredInput.eval(xy), mixFactor)).rgb1;
+        }
+    )");
+```
+
+
 
 
 

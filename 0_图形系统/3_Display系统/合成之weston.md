@@ -1896,6 +1896,54 @@ repaint-window=N        //------> 默认是7ms
 
 
 
+### 刷新率，怎么理解
+
+60帧的根本来源：16-7（repaint-time）中的16
+
+
+
+卡点：要求只关心自己，比如屏幕的pageFlip （比如weston的刷新率 60000 --------> 
+
+​          这个值， 不是卡点，是一个模糊值=pageFlip 的帧率！！！！！！用来计算waittime的）
+
+
+
+
+
+-<font color='red'>weston的卡点是：  repaint-window=16</font> ----> 那么weston的帧率< 16，因为weston等待了16帧
+
+> 不是 weston的刷新率 60000！！！！
+
+
+
+一个关系：repaint-time + pageFlip的time 
+
+
+
+卡点：
+
+> weston高刷，没有意义，比如：
+>
+> ```java
+> output->mode.refresh = 120000;
+> 
+> 
+> [core]
+> repaint-window=16
+> ```
+>
+> 会被pageFlip卡死。等价于：
+>
+> ```java
+> output->mode.refresh = 60000;
+> 
+> 
+> [core]
+> repaint-window=8
+> ```
+
+注意：不要设置 output->mode.refresh = 70000;帧率，会报错
+
 
 
 

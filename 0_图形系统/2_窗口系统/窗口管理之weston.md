@@ -1995,6 +1995,18 @@ pixman_region32_t   的打印：
 > }
 > ```
 
+# weston.ini
+
+## output-order
+
+```java
+[core]
+output-order=dsi-1,dsi-2   // what：即把各个output放到 全局坐标哪个位置上
+                                  // what1：可以设置client的位置  or  相对的，修改output的位置
+```
+
+
+
 
 
 # weston 原生自测试用例

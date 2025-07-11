@@ -997,41 +997,44 @@ int main () {
 ### 动态容器的遍历---以vector为例
 
 vector遍历：
- 方法一： 索引i遍历，for (int i = 0; i< int(res.size());i++)
+ 方法一： 索引i遍历
+
+```java
+for (int i = 0; i< int(res.size());i++)
+```
 
 方法二：iterator遍历：
 
-​      for (vector<int>::iterator it = res.at(i).begin(); it < res.at(i).end(); it++) {  
+```java
+for (vector<int>::iterator it = res.at(i).begin(); it < res.at(i).end(); it++) {  
 
-​      或 while (it != res.at(i).end()) {it++;}
+或 while (it != res.at(i).end()) {it++;}
+
+```
 
 
 
  ----><font color='red'>结论</font>：**涉及到动态数组的删除与增加**，谨慎用for！！！！！（it强行++了！），多用while！！
             //---->原因：for为什么不对？因为erase之后，it自动指向下一个，不应该再强制it++，需要判断
 
- vector<int>::iterator it = res.at(i).begin();
-
+```java
+vector<int>::iterator it = res.at(i).begin();
  while (it != res.at(i).end()) {
-
-​        if (int(*it)  -22) {
-
-​          res.at(i).erase(it);
-
-​        } else {
-
-​          it++;   <font color='red'>**// 有条件的下一个！！！！**！</font>
-
-​       }
-
+        if (int(*it)  -22) {
+          res.at(i).erase(it);
+        } else {
+          it++;   // 【】 有条件的下一个！！！！！
+       }
   }
+
+```
 
 
 
 ### map
 
 初始化 
-遍历 iterator： 《-----------<font color='red'>iter++;</font>
+遍历 iterator： <-----------<font color='red'>iter++;</font>
                
 
 ```
@@ -1100,7 +1103,7 @@ cout<<a<<" "<<b<<" "<<c<<" "<<endl;
 
 
 
-<font color='red'>本质</font>：cout实际上是一个<font color='red'>iostream类的对象，流对象</font>。。。--->每一次<< --->调动ostream& operator<< --->这个函数重载了 ---><font color='green'>所以《《 之间可以填任意数据类型的数据</font>
+-<font color='red'>本质</font>：cout实际上是一个<font color='red'>iostream类的对象，流对象</font>。。。--->每一次<< --->调动ostream& operator<< --->这个函数重载了 ---><font color='green'>所以《《 之间可以填任意数据类型的数据</font>
 
 ------>推论：
 

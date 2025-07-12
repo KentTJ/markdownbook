@@ -1476,6 +1476,8 @@ shader
 
 https://www.shadertoy.com/      
 
+https://iquilezles.org/live/  视频教程
+
 ## 距离函数
 
 https://zhuanlan.zhihu.com/p/365440831      Shader中使用距离函数（Distance Function）绘制二维图形
@@ -1484,11 +1486,19 @@ https://zhuanlan.zhihu.com/p/365440831      Shader中使用距离函数（Distan
 
 
 
-![image-20250712103514034](opengl.assets/image-20250712103514034.png)
+SDF of box推导： 
 
-来源： https://youtu.be/62-pRVZuS5c?list=PL0EpikNmjs2CYUMePMGh3IjjP4tQlYqji&t=331    视频教程：BOX的SDF
+>   ![image-20250712103514034](opengl.assets/image-20250712103514034.png)
+>
+>   来源： https://youtu.be/62-pRVZuS5c?list=PL0EpikNmjs2CYUMePMGh3IjjP4tQlYqji&t=331    视频教程：BOX的SDF
 
+圆角：
 
+>   ![image-20250712105926069](opengl.assets/image-20250712105926069.png)
+>
+>   以上是距离函数的值，可见：<font color='red'>圆角只是距离函数的特例: </font>
+>
+>   -   <font color='red'>公式：圆角的SDF = 图形的SDF - R</font>
 
 ## 基本素材---距离函数(圆、矩形、三角形........)
 

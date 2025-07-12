@@ -4415,19 +4415,47 @@ gbm设备
 
 # 显示性能优化----次要
 
-## 优化之  只重绘damage区域
+## 优化之  damage机制（只重绘damage区域）
 
-damage：**各个层级的都有：**
+配置：
 
-> weston_compositor_damage_all  ---------------------系统级
+>   damage：**各个层级的都有配置：**
 >
-> weston_output_damage(output)  ---------------------output级
+>   > weston_compositor_damage_all  ---------------------系统级
+>   >
+>   > weston_output_damage(output)  ---------------------output级
+>   >
+>   > ---------------------plane级（primary plane有的，是view窗口级别合并而来）
+>   >
+>   > weston_surface_damage   ---------------------view窗口级别  (client给server的！！！！)
+>   >
+>   > ----------------------控件级
 >
-> ---------------------plane级（primary plane有的，是view窗口级别合并而来）
+
+
+
+生效：
+
+>   damage是硬件机制，需要GPU支持（在gpu上，准确来说，是<font color='red'>damage的GPU的缓冲区</font>，而不是软件buffer）
 >
-> weston_surface_damage   ---------------------view窗口级别  (client给server的！！！！)
+>   > 本质：**缓存数据的地方**
+>   >
+>   > damage就是给缓存的地方，做标记
 >
-> ----------------------控件级
+>   注意：
+>
+>   > **damage标注的不是 软件的buffer！！！**
+>
+>   证明：
+>
+>   > 缓存数据的地方 一定不是软件的buffer，原因：<font color='red'>缓存数据的地方只能有一块，但软件buffer有多块！！！！</font>
+>   >
+>   > 一对多模型：缓存一定在“一”上！！！
+>
+>   
+>
+>   glclear同样是对 GPU的缓冲区操作（TODO: fbo?????），而不是软件buffer
+>
 
 
 

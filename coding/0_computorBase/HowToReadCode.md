@@ -585,6 +585,12 @@ A- uiTask- IOTask- GPU Task
 
 -------->可见，整个代码体系，从来都没有代码，只是背后的对象本质
 
+
+
+
+
+
+
 ## **为什么我不能从代码中抽象出xu的图？**
 
 **---->如何从代码中提炼主要类图和主要时序图？-->即如何寻找主干？**
@@ -660,6 +666,8 @@ func1( )
 ![img](HowToReadCode.assets/clipboard.png)
 
 ![img_20200924_012140](HowToReadCode.assets/img_20200924_012140.jpg)
+
+
 
 
 
@@ -1733,6 +1741,60 @@ EX1: 比如  startSystemServer、forkSystemServer 都是透传，只能注明 //
 比如：视频11 activity启动流程  ---》 重新看
 
 
+
+### 化简之 功能 最终生效的地方
+
+看代码要不停问自己：**这是配置，还是最终生效的地方**
+
+**代码的理解框架：**
+
+>   **代码 = 配置  + 配置的传递路径  + <font color='red'>生效的地方（核心）</font>**
+
+
+
+
+
+#### 例子----weston的damage机制：
+
+
+
+>   **配置（有很多地方）：**
+>
+>   >   damage：**各个层级的都有配置：**
+>   >
+>   >   > weston_compositor_damage_all  ---------------------系统级
+>   >   >
+>   >   > weston_output_damage(output)  ---------------------output级
+>   >   >
+>   >   > ---------------------plane级（primary plane有的，是view窗口级别合并而来）
+>   >   >
+>   >   > weston_surface_damage   ---------------------view窗口级别  (client给server的！！！！)
+>   >   >
+>   >   > ----------------------控件级
+>
+>   
+>
+>   **生效：**
+>
+>   >   damage是硬件机制，需要GPU支持（在gpu上，准确来说，是<font color='red'>damage的GPU的缓冲区</font>，而不是软件buffer）
+>   >
+>   >   > 本质：**缓存数据的地方**
+>   >   >
+>   >   > damage就是给缓存的地方，做标记
+>   >
+>   >   注意：
+>   >
+>   >   > **damage标注的不是 软件的buffer！！！**
+>   >
+>   >   证明：
+>   >
+>   >   > 缓存数据的地方 一定不是软件的buffer，原因：<font color='red'>缓存数据的地方只能有一块，但软件buffer有多块！！！！</font>
+>   >   >
+>   >   > 一对多模型：缓存一定在“一”上！！！
+>   >
+>   >   
+>   >
+>   >   glclear同样是对 GPU的缓冲区操作（TODO: fbo?????），而不是软件buffer
 
 
 

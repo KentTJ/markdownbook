@@ -1742,7 +1742,7 @@ EX1: 比如  startSystemServer、forkSystemServer 都是透传，只能注明 //
 
 
 
-### 化简之 功能 最终生效的地方
+### 化简之 功能<font color='red'> 最终生效的地方</font>
 
 看代码要不停问自己：**这是配置，还是最终生效的地方**
 

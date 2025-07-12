@@ -1484,6 +1484,12 @@ https://zhuanlan.zhihu.com/p/365440831      Shader中使用距离函数（Distan
 
 
 
+![image-20250712103514034](opengl.assets/image-20250712103514034.png)
+
+来源： https://youtu.be/62-pRVZuS5c?list=PL0EpikNmjs2CYUMePMGh3IjjP4tQlYqji&t=331    视频教程：BOX的SDF
+
+
+
 ## 基本素材---距离函数(圆、矩形、三角形........)
 
 

@@ -225,6 +225,10 @@ Texture ------> 另一个翻译更贴切：贴图
 >
 >   2、从图片（jpg）
 
+**本质：**
+
+>   <font color='red'>拾取图片颜色，</font>将颜色值赋值给 `fragColor` 输出
+
 ## cpp侧 构造纹理
 
 ### 已有shm构造纹理
@@ -438,6 +442,16 @@ https://youtu.be/mZM15IKuNWY?list=PL0luF_aDUOooIB56NOFVTS4ahMzBHS_6z&t=1341
 ## 纹理不要多次申请
 
 
+
+## 纹理的获取 --------TODO
+
+png
+
+shm
+
+
+
+dma
 
 
 
@@ -1808,6 +1822,16 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	fragColor = vec4(BlurredPixel(uv), 1.0);
 }
 ```
+
+
+
+参考：
+
+>   https://juejin.cn/post/7329724409429114889      实现线性渐变的高斯模糊效果
+>
+>   https://zhuanlan.zhihu.com/p/643756970  好文
+
+
 
 
 

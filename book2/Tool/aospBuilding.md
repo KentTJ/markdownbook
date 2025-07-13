@@ -1194,14 +1194,15 @@ mm compiles all modules in a directory, you are missing a dependency of one of t
 
 问题：AS进行Choose Process调试, 看不到线程
 
-需设置：
+1、需设置：
 
-> adb shell setprop persist.debug.dalvik.vm.jdwp.enabled 1 
+>   > adb shell setprop persist.debug.dalvik.vm.jdwp.enabled 1 
+>   >
+>   > adb reboot
 >
-> adb reboot
+>   具体原因： https://blog.csdn.net/liaosongmao1/article/details/137642046         安卓/aosp14上userdebug版本无法进行as调试debug问题
+>
 
-具体原因： https://blog.csdn.net/liaosongmao1/article/details/137642046         安卓/aosp14上userdebug版本无法进行as调试debug问题
-
-
+2、userdebug版本
 
 

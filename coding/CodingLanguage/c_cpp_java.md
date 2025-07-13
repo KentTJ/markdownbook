@@ -2025,6 +2025,14 @@ java可以import类的方法名------->  **感觉必须是静态方法**（否�
 
 
 
+## android 打印调用栈
+
+```java
+Log.e("longjing",Log.getStackTraceString(new NullPointerException()));
+```
+
+
+
 # 正则
 
 匹配test开头的一行：

@@ -4434,7 +4434,7 @@ gbm设备
 
 
 
-生效：
+生效：------> TODO 确认！！！
 
 >   damage是硬件机制，需要GPU支持（在gpu上，准确来说，是<font color='red'>damage的GPU的缓冲区</font>，而不是软件buffer）
 >

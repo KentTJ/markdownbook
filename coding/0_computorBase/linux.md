@@ -268,3 +268,26 @@ mmap()：   磁盘文件（驱动文件？）    映射到     物理内存
 https://www.bilibili.com/video/BV1tQ4y1d7mo?t=1252.7&p=2
 
 https://blog.csdn.net/u014571143/article/details/129660010
+
+# systemd
+
+## DefaultDependencies=no
+
+```java
+[Unit]
+Description=weston
+DefaultDependencies=no    ------> // weston可以在/data分区挂载之前启动
+```
+
+## After 与  Requires
+
+```ini
+[Unit]
+After=bar.service
+Requires=bar.service
+```
+
+## systemd 启动时的日志 
+
+
+

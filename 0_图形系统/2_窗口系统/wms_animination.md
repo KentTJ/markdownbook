@@ -26,12 +26,35 @@ https://juejin.cn/post/7021082548985921567
 
 | 目标WindowContainer | 名称     | 举例                                                         |
 | ------------------- | -------- | ------------------------------------------------------------ |
-| WindowState         | 窗口动画 | Toast的弹出动画、PopupWindow的弹出动画   ------------>  要做 |
-| AppWindowToken      | 过渡动画 | App从桌面启动的动画    ------------>  要做                   |
+| WindowState         | 窗口动画 | Toast的弹出动画、PopupWindow、dialog的弹出动画   ------------>  要做 |
+| AppWindowToken      | 过渡动画 | Activity切换动画、app启动动画    ------------>  要做         |
 | Task                | Task动画 | Recents的动画，PIP动画                                       |
 | DisplayContent      | 全屏动画 | 转屏动画  ------------>  要做                                |
 
 参考： https://juejin.cn/post/7021082548985921567
+
+
+
+源码：
+
+```java
+# SurfaceAnimator
+    static String animationTypeToString(@AnimationType int type) {
+        switch (type) {
+            case ANIMATION_TYPE_NONE: return "none";
+            case ANIMATION_TYPE_APP_TRANSITION: return "app_transition"; // 应用间切换动画
+            case ANIMATION_TYPE_SCREEN_ROTATION: return "screen_rotation"; // 屏幕旋转动画
+            case ANIMATION_TYPE_DIMMER: return "dimmer"; // 调光动画
+            case ANIMATION_TYPE_RECENTS: return "recents_animation"; // 最近任务动画（没发现具体场景，不是从最近任务列表点击A）
+            case ANIMATION_TYPE_WINDOW_ANIMATION: return "window_animation"; // 窗口动画，比如窗口移除
+            case ANIMATION_TYPE_INSETS_CONTROL: return "insets_animation"; // 插入动画，但是官方注释说这其实不是一个动画
+            case ANIMATION_TYPE_TOKEN_TRANSFORM: return "token_transform"; // 动画类型转换
+            case ANIMATION_TYPE_STARTING_REVEAL: return "starting_reveal"; // 窗口要显示前的动画
+            default: return "unknown type:" + type;
+        }
+    }
+
+```
 
 
 
@@ -163,7 +186,7 @@ https://blog.csdn.net/luoshengyang/article/details/8596449      Android窗口管
 
 
 
-# 转场动画（过渡动画）
+# 过渡动画/转场动画
 
 ```
 https://www.51cto.com/article/685363.html    Android转场动画深度解析
@@ -176,6 +199,12 @@ https://www.51cto.com/article/685363.html#:~:text=%E4%B8%A4%E4%B8%AAactivity%E5%
 
 
 --------->  TODO 英文
+
+
+
+https://juejin.cn/post/7069636195088613412   Android 过渡动画启动过程总结 -- 基于S版本
+
+
 
 
 

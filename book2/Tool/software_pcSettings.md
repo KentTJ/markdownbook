@@ -20,6 +20,7 @@
 | 录屏                   | EV录屏                                                       |      |      |
 | 安卓手机linux命令不全  | busybox的二进制                                              |      |      |
 | 像素测量，pixel测量    | 法一：1、图片的像素测量：Dorado_1.1.exe<br />法二：2、图片的像素测量：windows右键，查看图片属性<br />法三：测量window或者Linux 屏幕上的像素 --------> <font color='red'>snipaste截屏时，自带px的标尺！！！</font> |      |      |
+| 看rgba（raw data）工具 | 1、TODO: mtk 的<br />2、7yuv(YUV数据查看工具)破解版.exe      http://datahammer.de/downloads.html |      |      |
 
 
 
@@ -437,7 +438,7 @@ config2 default/  && ip6tables -F && ip6tables -X && ip6tables -P INPUT ACCEPT &
 
 ##### 方式二：在防火墙开一两个端口（将远程桌面的端口3389开）
 
- 优点---------》  **安全性非常好**
+ 优点--------->   **安全性非常好**
 
 
 
@@ -2227,6 +2228,42 @@ KDE安装
 > 方法二： 
 >
 > > Energy Saving  -------》 验证OK
+
+
+
+##  看rawdata的工具
+
+
+
+### 7yuv 
+
+收费官网：http://datahammer.de/downloads.html
+
+破解版： https://www.32r.com/soft/42553.html
+
+优势：
+
+
+
+>   1、**各种标尺 & 可以测量**
+>
+>   ![image-20250726024912684](software_pcSettings.assets/image-20250726024912684.png)
+>
+>   2、文件扩展名中自动检测文件格式
+
+
+
+
+
+#### 使用教程：
+
+ https://www.anxz.com/down/43119.html
+
+
+
+
+
+### mtk工具 todo
 
 
 

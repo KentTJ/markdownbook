@@ -801,7 +801,7 @@ plane的来源：
 
 > 不是跟着屏幕走的。而是硬件资源的限制（具体：CRTC、encode？？？？？？）
 
-<img src="https://i-blog.csdnimg.cn/blog_migrate/60ac77f9c6a429fe9fc02a3ec1ff9c61.png" alt="img" style="zoom: 50%;" />
+<img src="合成之weston.assets/60ac77f9c6a429fe9fc02a3ec1ff9c61.png" alt="img" style="zoom: 50%;" />
 
 图来源
 

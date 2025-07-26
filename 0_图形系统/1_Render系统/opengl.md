@@ -2340,24 +2340,98 @@ myglCheckError();
 
 
 
-C代码：
+## 截图 -----> log化
+
+log与截图绑定死  -----> 则 代码位置与 截图绑死：
+
+> 截图上加 log （1）截图文件名 加log  （2）TODO: 截图内部图像加 log！
+
+优点：理论上，<font color='red'>可以像log一样，一行代码 + 跟一个截图</font>
 
 ```java
+
+static int times = 0; // how much: 控制输出的图片个数
+char * path = "/tmp/plane_dump"; // when: 控制何时输出图片, 手动创建目录时 ----> 主控
+/**
+ * 将 RGBA 图像数据写入文件。
+ *
+ * @param width  图像宽度
+ * @param height 图像高度
+ * @param frame  指示图像所在的帧数 & 多个图像是否在一帧内（即一组）
+ * @param data   原始 RGBA 数据（每个像素4字节）
+ * @return       成功返回 true，失败返回 false
+ */
+bool savePicture(int width, int height, int frame, char* code_tag, const int32_t* data) {
+    weston_log("savePicture. width:%d height:%d\n", width, height);
+    if (!data || width <= 0 || height <= 0) {
+        fprintf(stderr, "Invalid input parameters.\n");
+        return false;
+    }
+
+
+    // Check if the directory exists
+    struct stat st;
+    if (stat(path, &st) == -1) {
+	times = 0;
+        if (errno == ENOENT) {
+            // Directory does not exist
+            fprintf(stderr, "Error: Directory '%s' does not exist.\n", path);
+            return false;
+        } else {
+            // Other error (e.g., permission issues)
+            fprintf(stderr, "Error checking directory '%s': %s\n", path, strerror(errno));
+            return false;
+        }
+    }
+
+    times++;
+    if (times > 800) {
+	weston_log("kent, times > 800\n");
+        return true;
+    }
+
+    char path_name[256];
+    snprintf(path_name, 256, "%s/%03d_%03d_w_%d_h_%d_%s.argb",
+            path, frame, times, width, height, code_tag);
+
+    weston_log("save frame to %s\n", path_name);
+
+    FILE* file = fopen(path_name, "wb");
+    if (!file) {
+        weston_log("Failed to open file for writing");
+        return false;
+    }
+
+    // size_t totalBytes = width * height * sizeof(int32_t);
+    size_t written = fwrite(data,  sizeof(int32_t),  width * height, file);
+
+    // if (written != totalBytes) {
+    //     fprintf(stderr, "Failed to write all image data to file.\n");
+    //     fclose(file);
+    //     return false;
+    // }
+
+    fclose(file);
+    return true;
+}
+
 // 1、辅助函数
 int32_t * outputValues_debug;
-int32_t  w_debug = 1728;  // 待捞出的图片大小
-int32_t  h_debug = 1888;
-bool debug_pixel = true; // 注意，不是 static。。。。gdb debug时，作用域仅限于当前文件
-int32_t times = 2;
-bool GLUtils_saveRender(int w, int h) {
+// @param frame  指示图像所在的帧数 & 多个图像是否在一帧内（即一组） ----------> 一帧可以dump多个图像了！！！！
+// @param code_tag  指示代码的位置。可以是""，也可以是函数名
+bool GLUtils_saveRender(int w, int h, int frame, char* code_tag) {
     if (w == 0 || h == 0) {
         return false;
     }
-	weston_log("kent, GLUtils_saveRender, %d: %d\n", w, h);
+    weston_log("kent, GLUtils_saveRender, %d: %d, frame:%d, %s\n", w, h, frame, code_tag);
     // 使用malloc动态分配内存来替代std::vector
-    if (outputValues_debug == NULL) {
-        outputValues_debug = (int32_t *)malloc(w * h * sizeof(int32_t)); // TODO: 这里不停的malloc了    
+    if (!outputValues_debug) {
+        outputValues_debug = (int32_t *)zalloc(w * h * sizeof(int32_t)); // TODO: 这里不停的malloc了
     }
+	if (!outputValues_debug) {
+		weston_log("Failed to allocate memory for outputValues_debug\n");
+    	return false;
+	}
     memset(outputValues_debug, 0, w * h * sizeof(int32_t));
     if (outputValues_debug == NULL) {
         fprintf(stderr, "Failed to allocate memory for outputValues_debug\n");
@@ -2369,44 +2443,39 @@ bool GLUtils_saveRender(int w, int h) {
     glPixelStorei(GL_PACK_REVERSE_ROW_ORDER_ANGLE, GL_TRUE);
     //glReadPixels(0, 0, w, h, GL_RGBA, GL_UNSIGNED_BYTE, outputValues_debug);
     glReadPixels(0, 0, w, h, 32993, GL_UNSIGNED_BYTE, outputValues_debug); // GL_UNSIGNED_BYTE = 5121
-	//  32993  是  GL_BGRA_EXT
+    //  32993  是  GL_BGRA_EXT
 
 
 
     // 调用保存图像的函数
-    //bool result = savePicture(w, h, outputValues_debug);
-
-    // 释放动态分配的内存
-    //free(outputValues_debug);
-
-    //return result;
-
-    return true;
-}
+    bool result = savePicture(w, h, frame,code_tag,outputValues_debug);
 
 
-
-// 2、同时修改 gl_renderer_do_capture函数----------> 借助截屏流程，保存为png图片
-	
-
-	    //--------------------add start-------------------
-	// if (rect->width == 1728) { // 选择屏幕
-	// 	w_debug = rect->width; h_debug = rect->height;
+	// // // Just for test
+	// for (int y = 0; y < h; y++) {
+	// 	for (int x = 0; x < w; x++) {
+	// 		if (x % 15 != 0) {  // Pick one out of 5 pixels
+	// 			continue;
+	// 		}
+	// 		int index = (y * w + x) * 4; // 4 components per pixel
+	// 		weston_log("Pixel (%d, %d): B=%d, G=%d, R=%d, A=%d\n",
+	// 														x, y,
+	// 														((unsigned char * )outputValues_debug)[index],
+	// 														((unsigned char * )outputValues_debug)[index + 1],
+	// 														((unsigned char * )outputValues_debug)[index + 2],
+	// 														((unsigned char * )outputValues_debug)[index + 3]);
+	// 	}
 	// }
-	weston_log("kent, gl_renderer_do_capture, rect->width: %d, rect->height: %d: \n", rect->width, rect->height); 
-    if (debug_pixel && outputValues_debug != NULL && rect->width == w_debug) {
-        //read_target = outputValues;
-        //memcpy(read_target, outputValues_debug, sizeof(rect->width * rect->height * sizeof(int32_t)));
-        memcpy(read_target, outputValues_debug, rect->width * rect->height * sizeof(int32_t));
-    //--------------------add end-------------------
-    } else {
-            glReadPixels(rect->x, rect->y, rect->width, rect->height,
-                fmt->gl_format, fmt->gl_type, read_target);
-    }
 
-	// glReadPixels(rect->x, rect->y, rect->width, rect->height,
-	// 	     fmt->gl_format, fmt->gl_type, read_target);
+
+    // 不释放分配的内存
+    // free(outputValues_debug);
+
+    return result;
+}
 ```
+
+
 
 ------------------>使用方法：
 
@@ -2415,61 +2484,11 @@ bool GLUtils_saveRender(int w, int h) {
 glBindFramebuffer(GL_FRAMEBUFFER, go->damage_filter_debug.composition_fbo.fbo);
 glViewport(0, 0, go->area.width, go->area.height);
 
-w_debug = go->area.width;
-h_debug =  go->area.height;
 // 任意一个想要获取 GPU缓冲区图像的位置 加入：
-GLUtils_saveRender(w_debug, h_debug);
+GLUtils_saveRender(w, h, 1, "repiant_views_100");
 ```
 
 
-
-
-
-
-
-TODO:保存为rgba格式
-
-```java
-static int times = 0;
-/**
- * 将 RGBA 图像数据写入文件。
- *
- * @param width  图像宽度
- * @param height 图像高度
- * @param data   原始 RGBA 数据（每个像素4字节）
- * @return       成功返回 true，失败返回 false
- */
-bool savePicture(int width, int height, const int32_t* data) {
-	times++;
-	weston_log("savePicture. width:%d height:%d\n", width, height);
-    if (!data || width <= 0 || height <= 0) {
-        fprintf(stderr, "Invalid input parameters.\n");
-        return false;
-    }
-
-	char path_name[256];
-	snprintf(path_name,256, "/home/kent/workingspace_disk2/westonProject/plane_dump/%03d_w_%d_h_%d.argb",
-			times, width, height);
-
-    FILE* file = fopen(path_name, "wb");
-    if (!file) {
-        weston_log("Failed to open file for writing");
-        return false;
-    }
-
-    size_t totalBytes = width * height * sizeof(int32_t);
-    size_t written = fwrite(data, sizeof(char), totalBytes, file);
-
-    if (written != totalBytes) {
-        fprintf(stderr, "Failed to write all image data to file.\n");
-        fclose(file);
-        return false;
-    }
-
-    fclose(file);
-    return true;
-}	
-```
 
 
 
@@ -2732,7 +2751,7 @@ mali0                 793428   //使用量   //进程号
 
 
 
-## opengl直接 copy Framebuffer 到另一个buffer上
+## glBlitFramebuffer ------- opengl直接 copy Framebuffer 到另一个buffer上
 
 即 copy一个图片到另一个buffer上
 

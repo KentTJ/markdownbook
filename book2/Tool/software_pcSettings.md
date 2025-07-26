@@ -20,7 +20,7 @@
 | 录屏                   | EV录屏                                                       |      |      |
 | 安卓手机linux命令不全  | busybox的二进制                                              |      |      |
 | 像素测量，pixel测量    | 法一：1、图片的像素测量：Dorado_1.1.exe<br />法二：2、图片的像素测量：windows右键，查看图片属性<br />法三：测量window或者Linux 屏幕上的像素 --------> <font color='red'>snipaste截屏时，自带px的标尺！！！</font> |      |      |
-| 看rgba（raw data）工具 | 1、TODO: mtk 的<br />2、7yuv(YUV数据查看工具)破解版.exe      http://datahammer.de/downloads.html |      |      |
+| 看rgba（raw data）工具 | 1、TODO: mtk 的DumpViewCR<br /> 2、7yuv(YUV数据查看工具)破解版.exe      http://datahammer.de/downloads.html |      |      |
 
 
 
@@ -2269,7 +2269,25 @@ https://github.com/windowsair/7yuv
 
 7yuv-2.6.1_7yuv_portable_green.zip
 
-### mtk工具 todo
+### ~~mtk工具~~
+
+DumpViewCR （mtk） -------------> 这个工具有bug，图片数据必须copy到本地磁盘，才能打开（否则看到黑图）
+
+
+
+
+
+### 关于黑图是透明 or 真正黑图：
+
+法一：
+
+> DumpViewCR -----> 右键保存为png，png可以看出来
+
+法二：
+
+> 打印 grba 各个值
+
+
 
 
 

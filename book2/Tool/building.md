@@ -1,6 +1,10 @@
-# Andriod.mk
+# 目录
 
-## 加日志
+# .mk & .bp编译
+
+## Andriod.mk
+
+### 加日志
 
 https://blog.csdn.net/weixin_44008788/article/details/127575769
 
@@ -8,7 +12,7 @@ https://blog.csdn.net/AS520213211314/article/details/78190224    makefile 打印
 
 
 
-# Andriod.bp
+## Andriod.bp
 
 Android.bp的出现就是为了替换Android.mk文件；bp跟mk文件不同，**它是纯粹的配置**，没有分支、循环等流程控制，不能做算数逻辑运算，**如果需要控制逻辑，那么只能通过Go语言编写**
 
@@ -16,11 +20,11 @@ Android.bp的出现就是为了替换Android.mk文件；bp跟mk文件不同，**
 
 
 
-# 转换
+## 转换
 
 https://blog.csdn.net/qq_18906227/article/details/120737147
 
-# 编译预置库的 Android.mk 文件
+## 编译预置库的 Android.mk 文件
 
 ```java
 include $(CLEAR_VARS)
@@ -40,7 +44,7 @@ include $(BUILD_PREBUILT)
 
 
 
-# 所有属性
+## 所有属性
 
 ![image-20230905232339699](building.assets/image-20230905232339699.png)
 
@@ -48,7 +52,7 @@ https://ci.android.com/builds/submitted/10761852/linux/latest/view/soong_build.h
 
 
 
-# 编译 性能瓶颈的分析
+## 编译 性能瓶颈的分析
 
 变量：  cpu 、 mem、磁盘、编译参数-j24
 
@@ -67,7 +71,22 @@ make  -j24:
 
 
 
-# 参考：
+## 参考：
 
 https://www.jianshu.com/p/91c8b60568e5
+
+#  cmakeList工程编译
+
+cmake项目编译命令：
+
+```java
+1、创建构建目录
+    mkdir -p build &&  cd build
+2、配置项目
+    cmake ..
+3、编译项目
+    make
+```
+
+
 

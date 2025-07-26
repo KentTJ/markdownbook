@@ -392,7 +392,7 @@ framework.jar原始没有打包加密的jar路径：
 
 
 
-## So的编译
+## ~~del:So的编译~~
 
 在android开发中，有时候需要编写一些C/C++代码，这时候就要用到JNI技术，我们需要将C/C++程序首先编译成so库，在java中通过native方法调用so库中的函数。
 实现以上目的有三种方式：
@@ -510,11 +510,60 @@ mm命令使用的前提:
 > 启用 mm 等工具：
 >
 > 在同一个终端里面需要先在项目根目录下执行 source build/envsetup.sh 命令
->
+
+
 
 ### 为子系统重新单独编译动态库的方法
 
 https://blog.csdn.net/Qidi_Huang/article/details/53690139
+
+
+
+
+
+## aosp 单编模块（万能）
+
+以下都不靠谱：
+
+> ~~make inputflinger~~
+>
+> ```
+> out/target/product/emulator_x86_64/system/lib/libinputflinger.so
+> out/target/product/emulator_x86_64/system/lib64/libinputflinger.so	
+> ```
+>
+> ~~make framework-res~~
+>
+> ~~make Launcher3~~
+>
+> ~~make SystemUI~~
+
+
+
+(<font color='red'>万能</font>)单编一个模块的命令，**如何知道 确切的命令呢？**
+
+> 看最近的 .bp(Android)  or   cmake，or .bb （ yocto）, 看编译的src去哪里了：
+>
+> ```java
+> cc_library_shared {
+>  name: "libinputflinger", // 【】 -------> make libinputflinger ，即编译 libinputflinger.so 
+>  defaults: [
+>      "inputflinger_defaults",
+>      "libinputflinger_defaults",
+>  ],
+> ```
+>
+> 
+
+
+
+
+
+参考：
+
+https://blog.csdn.net/yimelancholy/article/details/130462470
+
+
 
 
 
@@ -1014,6 +1063,10 @@ cpp断点调试
 https://blog.csdn.net/iamdy/article/details/111272854?spm=1001.2014.3001.5501
 
 
+
+## make clean
+
+删除所有缓存 & out下编译产物
 
 
 

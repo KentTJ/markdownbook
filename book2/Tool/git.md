@@ -682,6 +682,12 @@ cp .repo/manifests/default.xml default.xml.bak
 
 注意：没有 -c
 
+## repo命令理解
+
+`repo init`   ------- > 更新 manifest.xml
+
+repo sync -c  -------> 根据 manifest.xml，跟新每个git仓最新代码（但不会更新manifest.xml）
+
 
 
 # github

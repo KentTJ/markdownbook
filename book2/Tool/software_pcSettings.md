@@ -2259,9 +2259,15 @@ KDE安装
 
  https://www.anxz.com/down/43119.html
 
+保存为图片格式：
 
+>   ![image-20250726034941454](software_pcSettings.assets/image-20250726034941454.png)
 
+#### 绿色版
 
+https://github.com/windowsair/7yuv
+
+7yuv-2.6.1_7yuv_portable_green.zip
 
 ### mtk工具 todo
 

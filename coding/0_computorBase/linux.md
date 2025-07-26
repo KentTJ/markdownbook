@@ -296,11 +296,15 @@ vi /usr/lib/systemd/system/simple-egl.service
 
 ------------------> wayland的日志在**journal日志里**
 
+
+
 ## systemd 启动时的日志 
 
 比如，**查看systemd启动失败的日志**
 
-
+```java
+journalctl -o verbose > verbose.txt
+```
 
 
 

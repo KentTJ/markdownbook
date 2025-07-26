@@ -287,7 +287,20 @@ After=bar.service
 Requires=bar.service
 ```
 
+## systemd喂配置 给 程序
+
+```java
+vi /usr/lib/systemd/system/simple-egl.service
+添加 Environment=WAYLAND_DEBUG=1
+```
+
+------------------> wayland的日志在**journal日志里**
+
 ## systemd 启动时的日志 
+
+比如，**查看systemd启动失败的日志**
+
+
 
 
 

@@ -2038,7 +2038,11 @@ jadx-1.4.7
 
 ## scrcpy.exe
 
-命令行方式打开：
+## 开源地址
+
+https://github.com/Genymobile/scrcpy/releases/tag/v3.3.1
+
+## 命令行方式打开：
 
 ```java
 scrcpy.exe --display=4 --always-on-top --stay-awake
@@ -2050,13 +2054,23 @@ scrcpy.exe --display=4 --always-on-top --stay-awake
 --stay-awake
 ```
 
-模拟双指缩放：
+`息屏：`
+
+```java
+--turn-screen-off
+```
+
+`模拟双指缩放：`
 
 ```java
 Ctrl+按住并移动鼠标
 ```
 
+`录屏：`
 
+```java
+.\scrcpy -r filename.mp4
+```
 
 
 
@@ -2069,13 +2083,53 @@ MOD是ALT键。详见： https://www.ngui.cc/zz/2053439.html?action=onClick
 
 
 
+
+
+手机当摄像头：  https://zhuanlan.zhihu.com/p/80264357#:~:text=Android%2012%20%E5%8F%8A%E4%BB%A5%E4%B8%8A%E7%9A%84%E7%94%A8%E6%88%B7%E5%8F%AF%E4%BB%A5%E5%80%9F%E5%8A%A9
+
+音频投屏：https://zhuanlan.zhihu.com/p/80264357#:~:text=%E4%BB%A5%E4%B8%8A%E7%89%88%E6%9C%AC%E6%94%AF%E6%8C%81-,%E9%9F%B3%E9%A2%91%E6%8A%95%E5%B1%8F,-%E3%80%82%E5%A6%82%E6%9E%9C%E6%9C%AA%E8%BE%93%E5%87%BA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 详细命令行参数见：
 
 1、scrcpy.exe  --help
 
 2、https://www.ngui.cc/zz/2053439.html?action=onClick
 
-3、本是github开源项目。
+
+
+
+
+参考： https://zhuanlan.zhihu.com/p/80264357
+
+
+
+
+
+
 
 
 

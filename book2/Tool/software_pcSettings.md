@@ -2125,7 +2125,7 @@ MOD是ALT键。详见： https://www.ngui.cc/zz/2053439.html?action=onClick
 
 参考： https://zhuanlan.zhihu.com/p/80264357
 
-
+[所有命令的documentation](https://github.com/Genymobile/scrcpy#:~:text=%23%20short%20version-,User%20documentation,-The%20application%20provides)
 
 
 

@@ -758,7 +758,7 @@ weston的贴图：
 
 
 
-# todo:安卓截屏
+# 安卓截屏 ----------> TODO
 
 TODO:截屏接口也是等待返回
 
@@ -783,6 +783,198 @@ ComposerService ---> sf  框架的搭建：
 [录屏流程 - 安卓R](https://blog.csdn.net/SSSxCCC/article/details/119253947)
 
 [截图框架代码原理 android  11](https://blog.csdn.net/zxtanshui/article/details/130429687?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-130429687-blog-119253965.235^v43^pc_blog_bottom_relevance_base7&spm=1001.2101.3001.4242.1&utm_relevant_index=3)
+
+
+
+## 日志：
+
+```
+# input keyevent 120
+```
+
+
+
+KEYCODE_SYSRQ 120 实现机制：
+
+>   [Android12一行代码实现系统截图效果](https://blog.csdn.net/HuanWen_Cheng/article/details/141254481)
+
+
+
+
+
+%accordion%日志注释：%accordion%
+
+```java
+
+08-09 19:40:30.910  1146  1146 D TaplEvents: Main / Key event: KeyEvent { action=ACTION_DOWN, keyCode=KEYCODE_SYSRQ, scanCode=0, metaState=0, flags=0x0, repeatCount=0, eventTime=5559129000000, downTime=5559129000000, deviceId=-1, source=0x0, displayId=-1 }
+08-09 19:40:30.911  1146  1146 D TaplEvents: Main / Key event: KeyEvent { action=ACTION_UP, keyCode=KEYCODE_SYSRQ, scanCode=0, metaState=0, flags=0x0, repeatCount=0, eventTime=5559129000000, downTime=5559129000000, deviceId=-1, source=0x0, displayId=-1 }
+// 【】KEYCODE_SYSRQ 事件，displayId=-1
+
+08-09 19:40:30.912   543   570 D ActivityManager: sync unfroze 2197 com.android.systemui:screenshot for 6
+08-09 19:40:30.938  2197  2197 D Screenshot: Processing screenshot data
+08-09 19:40:30.938   423  1774 D NuPlayerDriver: NuPlayerDriver(0xf6940970) created, clientPid(2197)
+08-09 19:40:30.939   135   135 I hwservicemanager: getTransport: Cannot find entry android.hardware.media.omx@1.0::IOmx/default in either framework or device VINTF manifest.
+08-09 19:40:30.939   423  1774 D MediaPlayerService: OMX service is not available
+08-09 19:40:31.006   423  2959 D GenericSource: FileSource remote
+
+
+
+08-09 19:40:31.043   786   786 D ScreenshotProxyService: onBind: Intent { cmp=com.android.systemui/.screenshot.ScreenshotProxyService }
+08-09 19:40:31.045   786   786 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+08-09 19:40:31.045   786  2146 D ScreenshotProxyService: isNotificationShadeExpanded(): false
+// 【】ScreenshotProxyService
+
+
+08-09 19:40:31.048  2197  2197 D RequestProcessor: findPrimaryContent: DisplayContentInfo(component=ComponentInfo{com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher}, bounds=Rect(0, 0 - 1440, 2960), user=UserHandle{0}, taskId=42)
+08-09 19:40:31.049  2197  2197 D ScreenshotPolicyImpl: isManagedProfile: false
+
+08-09 19:40:31.049  2197  2197 D Screenshot: Screenshot request: ScreenshotData(type=1, source=2, userHandle=UserHandle{0}, topComponent=ComponentInfo{com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher}, screenBounds=null, taskId=42, insets=Insets{left=0, top=0, right=0, bottom=0}, bitmap=null, contextUrl=null)
+08-09 19:40:31.051   543  2170 D WindowManager: captureDisplay
+08-09 19:40:31.079  1345  1366 W MediaProvider: isAppCloneUserPair for user 0: false
+08-09 19:40:31.084  2197  2227 D Screenshot: Inserted new URI: content://0@media/external/images/media/1000000027
+// 【】 这里指定了png路径？
+
+08-09 19:40:31.094  1345  1366 I MediaProvider: Open with lower FS for /storage/emulated/0/Pictures/Screenshots/.pending-1755373231-Screenshot_20250809-194031.png. Uid: 10110
+// open一个文件
+
+08-09 19:40:31.113  2197  2229 W OpenGLRenderer: Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+08-09 19:40:31.114  2197  2229 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+08-09 19:40:31.181   786   795 I ndroid.systemui: Background young concurrent copying GC freed 159503(8343KB) AllocSpace objects, 120(2400KB) LOS objects, 37% free, 17MB/27MB, paused 107.717ms,37us,65.012ms total 250.629ms
+08-09 19:40:31.219  2197  2197 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+08-09 19:40:31.219  2197  2197 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+08-09 19:40:31.238   543  1830 D CoreBackPreview: Window{6893360 u0 ScreenshotAnimation}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@26e0e78, mPriority=0, mIsAnimationCallback=false}
+08-09 19:40:31.244   423  2958 I GenericSource: start
+08-09 19:40:31.252  2197  2229 E OpenGLRenderer: Unable to match the desired swap behavior.
+08-09 19:40:31.252   786   786 D MediaRouter: onRestoreRoute() : route=RouteInfo{ name=手机, description=null, status=null, category=RouteCategory{ name=系统 types=ROUTE_TYPE_LIVE_AUDIO ROUTE_TYPE_LIVE_VIDEO  groupable=false }, supportedTypes=ROUTE_TYPE_LIVE_AUDIO ROUTE_TYPE_LIVE_VIDEO , presentationDisplay=null }
+08-09 19:40:31.252   786   786 V MediaRouter: Selecting route: RouteInfo{ name=手机, description=null, status=null, category=RouteCategory{ name=系统 types=ROUTE_TYPE_LIVE_AUDIO ROUTE_TYPE_LIVE_VIDEO  groupable=false }, supportedTypes=ROUTE_TYPE_LIVE_AUDIO ROUTE_TYPE_LIVE_VIDEO , presentationDisplay=null }
+08-09 19:40:31.272   423  2964 D CCodec  : allocate(c2.android.vorbis.decoder)
+08-09 19:40:31.277   423  2964 I CCodec  : setting up 'default' as default (vendor) store
+08-09 19:40:31.279  1146  1424 D EGL_emulation: app_time_stats: avg=48943.16ms min=48943.16ms max=48943.16ms count=1
+08-09 19:40:31.280   423  2964 I CCodec  : Created component [c2.android.vorbis.decoder]
+08-09 19:40:31.280   423  2964 D CCodecConfig: read media type: audio/vorbis
+08-09 19:40:31.281   423  2964 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.max-count.values
+08-09 19:40:31.281   423  2964 D ReflectedParamUpdater: extent() != 1 for single value type: output.subscribed-indices.values
+08-09 19:40:31.281   423  2964 D ReflectedParamUpdater: extent() != 1 for single value type: input.buffers.allocator-ids.values
+08-09 19:40:31.281   423  2964 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.allocator-ids.values
+08-09 19:40:31.281   423  2964 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.allocator-ids.values
+08-09 19:40:31.281   423  2964 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.pool-ids.values
+08-09 19:40:31.282   423  2964 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.pool-ids.values
+08-09 19:40:31.282   423  2964 I CCodecConfig: query failed after returning 7 values (BAD_INDEX)
+08-09 19:40:31.282   423  2964 D CCodecConfig: c2 config diff is Dict {
+08-09 19:40:31.282   423  2964 D CCodecConfig:   c2::u32 coded.bitrate.value = 64000
+08-09 19:40:31.282   423  2964 D CCodecConfig:   c2::u32 input.buffers.max-size.value = 32768
+08-09 19:40:31.282   423  2964 D CCodecConfig:   c2::u32 input.delay.value = 0
+08-09 19:40:31.282   423  2964 D CCodecConfig:   string input.media-type.value = "audio/vorbis"
+08-09 19:40:31.282   423  2964 D CCodecConfig:   string output.media-type.value = "audio/raw"
+08-09 19:40:31.282   423  2964 D CCodecConfig:   c2::u32 raw.channel-count.value = 1
+08-09 19:40:31.282   423  2964 D CCodecConfig:   c2::u32 raw.sample-rate.value = 48000
+08-09 19:40:31.282   423  2964 D CCodecConfig: }
+08-09 19:40:31.286   423  2964 D MediaCodec: flushMediametrics
+08-09 19:40:31.286   423  2964 D CCodec  : [c2.android.vorbis.decoder] buffers are bound to CCodec for this session
+08-09 19:40:31.286   423  2964 D CCodecConfig: no c2 equivalents for durationUs
+08-09 19:40:31.287   423  2964 D CCodecConfig: no c2 equivalents for csd-1
+08-09 19:40:31.287   423  2964 D CCodecConfig: no c2 equivalents for flags
+08-09 19:40:31.287  2197  2197 D Screenshot: ScrollCapture: No scrollable targets found in window [com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher]
+//【】 scroll 有些是滚动截屏？
+
+08-09 19:40:31.288   423  2964 D CCodecConfig: c2 config diff is   c2::u32 coded.bitrate.value = 48000
+08-09 19:40:31.288   423  2964 W Codec2Client: query -- param skipped: index = 1107298332.
+08-09 19:40:31.288   423  2964 D CCodec  : encoding statistics level = 0
+08-09 19:40:31.288   423  2964 D CCodec  : setup formats input: AMessage(what = 0x00000000) = {
+08-09 19:40:31.288   423  2964 D CCodec  :   int32_t bitrate = 48000
+08-09 19:40:31.288   423  2964 D CCodec  :   int32_t channel-count = 1
+08-09 19:40:31.288   423  2964 D CCodec  :   int32_t max-input-size = 32768
+08-09 19:40:31.288   423  2964 D CCodec  :   string mime = "audio/vorbis"
+08-09 19:40:31.288   423  2964 D CCodec  :   int32_t sample-rate = 48000
+08-09 19:40:31.288   423  2964 D CCodec  : }
+08-09 19:40:31.288   423  2964 D CCodec  : setup formats output: AMessage(what = 0x00000000) = {
+08-09 19:40:31.288   423  2964 D CCodec  :   int32_t channel-count = 1
+08-09 19:40:31.288   423  2964 D CCodec  :   string mime = "audio/raw"
+08-09 19:40:31.288   423  2964 D CCodec  :   int32_t sample-rate = 48000
+08-09 19:40:31.288   423  2964 D CCodec  :   int32_t channel-mask = 1
+08-09 19:40:31.288   423  2964 D CCodec  :   int32_t android._config-pcm-encoding = 2
+08-09 19:40:31.288   423  2964 D CCodec  : }
+08-09 19:40:31.288   423  2964 I CCodecConfig: query failed after returning 7 values (BAD_INDEX)
+08-09 19:40:31.292   423  2964 I MediaCodec: MediaCodec will operate in async mode
+08-09 19:40:31.292   423  2963 D MediaCodec: keep callback message for reclaim
+08-09 19:40:31.302   423  2964 W Codec2Client: query -- param skipped: index = 1342179345.
+08-09 19:40:31.302   423  2964 W Codec2Client: query -- param skipped: index = 2415921170.
+08-09 19:40:31.303   443  1579 D BufferPoolAccessor2.0: bufferpool2 0x7c6436fa9508 : 0(0 size) total buffers - 0(0 size) used buffers - 31/35 (recycle/alloc) - 4/34 (fetch/transfer)
+08-09 19:40:31.303   443  1579 D BufferPoolAccessor2.0: Destruction - bufferpool2 0x7c6436fa9508 cached: 0/0M, 0/0% in use; allocs: 35, 89% recycled; transfers: 34, 88% unfetched
+08-09 19:40:31.303   423  2964 D CCodecBufferChannel: [c2.android.vorbis.decoder#854] Created input block pool with allocatorID 16 => poolID 25 - OK (0)
+08-09 19:40:31.304   423  2547 D BufferPoolAccessor2.0: bufferpool2 0xf1f07508 : 0(0 size) total buffers - 0(0 size) used buffers - 32/39 (recycle/alloc) - 7/74 (fetch/transfer)
+08-09 19:40:31.304   423  2547 D BufferPoolAccessor2.0: Destruction - bufferpool2 0xf1f07508 cached: 0/0M, 0/0% in use; allocs: 39, 82% recycled; transfers: 74, 91% unfetched
+08-09 19:40:31.304   423  2964 I CCodecBufferChannel: [c2.android.vorbis.decoder#854] Created output block pool with allocatorID 16 => poolID 34 - OK
+08-09 19:40:31.304   423  2964 D CCodecBufferChannel: [c2.android.vorbis.decoder#854] Configured output block pool ids 34 => OK
+08-09 19:40:31.306   443  2965 D SimpleC2Component: Using output block pool with poolID 34 => got 34 - 0
+08-09 19:40:31.319   328   373 D AudioFlinger: Client defaulted notificationFrames to 12144 for frameCount 24288
+08-09 19:40:31.319   328   373 D AF::TrackHandle: OpPlayAudio: track:64 usage:13 not muted
+08-09 19:40:31.332   328   373 D audioserver: FGS Logger Transaction failed
+08-09 19:40:31.332   328   373 D audioserver: -129
+08-09 19:40:31.336   423  2961 D AudioTrack: getTimestamp_l(24): device stall time corrected using current time 5559556645508
+08-09 19:40:31.352   423  2961 D AudioTrack: stop(24): called with 20073 frames delivered
+08-09 19:40:31.430   328   477 D AudioFlinger: mixer(0x718459ea9930) throttle end: throttle time(34)
+08-09 19:40:31.797   328   477 D audioserver: FGS Logger Transaction failed
+08-09 19:40:31.798   328   477 D audioserver: -129
+08-09 19:40:32.121  2197  2197 W FrameTracker: Missed App frame:UNKNOWN: 88, 60570, 73112314, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.121  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 88, 60570, 73112314, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.121  2197  2197 W FrameTracker: Missed App frame:JANK_APP_DEADLINE_MISSED, 60608, 36979061, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.122  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 60622, 0, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.122  2197  2197 W FrameTracker: Missing HWUI jank callback for vsyncId: 60622, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.122  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 60630, 30827296, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.122  2197  2197 W FrameTracker: Missing HWUI jank callback for vsyncId: 60638, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.122  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 60646, 0, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.122  2197  2197 W FrameTracker: Missing HWUI jank callback for vsyncId: 60646, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.123  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 60653, 37973715, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.123  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 66, 60661, 37760231, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.123  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 60676, 0, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.123  2197  2197 W FrameTracker: Missing HWUI jank callback for vsyncId: 60676, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.123  2197  2197 W FrameTracker: Missed App frame:UNKNOWN: 72, 60698, 53511680, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.124  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 60736, 31021860, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.124  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 60751, 27979400, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.124  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 60766, 27424430, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.124  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 60781, 26643770, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.124  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 60796, 24889201, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.124  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 60811, 23268199, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.124  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 66, 60826, 0, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.124  2197  2197 W FrameTracker: Missing HWUI jank callback for vsyncId: 60826, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.124  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 60841, 36925363, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.124  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 66, 60856, 0, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.125  2197  2197 W FrameTracker: Missing HWUI jank callback for vsyncId: 60856, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.125  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 60864, 35733151, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.125  2197  2197 W FrameTracker: Missed SF frame:PREDICTION_ERROR, 60910, 14683008, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.125  2197  2197 W FrameTracker: Missed SF frame:PREDICTION_ERROR, 60925, 15561592, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.125  2197  2197 W FrameTracker: Missed SF frame:PREDICTION_ERROR, 60940, 14279688, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.125  2197  2197 W FrameTracker: Missed SF frame:PREDICTION_ERROR, 60955, 9618163, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.126  2197  2197 W FrameTracker: Missed SF frame:PREDICTION_ERROR, 60985, 8959066, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.126  2197  2197 W FrameTracker: Missed SF frame:JANK_SURFACEFLINGER_DEADLINE_MISSED, 61000, 10747788, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.126  2197  2197 W FrameTracker: Missed App frame:JANK_APP_DEADLINE_MISSED, 61008, 0, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.126  2197  2197 W FrameTracker: Missing HWUI jank callback for vsyncId: 61008, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.126  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 66, 61015, 0, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.126  2197  2197 W FrameTracker: Missing HWUI jank callback for vsyncId: 61015, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.126  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 61022, 52451118, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.127  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 61030, 0, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.127  2197  2197 W FrameTracker: Missing HWUI jank callback for vsyncId: 61030, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.127  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 61038, 0, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.127  2197  2197 W FrameTracker: Missing HWUI jank callback for vsyncId: 61038, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.127  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 61047, 42221350, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.127  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 61054, 40801156, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.127  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 61062, 38108809, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.127  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 66, 61070, 37647632, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.127  2197  2197 W FrameTracker: Missed SF frame:UNKNOWN: 80, 61078, 52142967, CUJ=J<TAKE_SCREENSHOT::DropIn>
+08-09 19:40:32.128  2197  2215 V PerfettoTrigger: Not triggering com.android.telemetry.interaction-jank-monitor-54 - not enough time since last trigger
+08-09 19:40:32.333  2197  2229 D EGL_emulation: app_time_stats: avg=13.09ms min=3.21ms max=43.68ms count=54
+
+08-09 19:40:32.347  1345  1366 I MediaProvider: Open with lower FS for /storage/emulated/0/Pictures/Screenshots/.pending-1755373231-Screenshot_20250809-194031.png. Uid: 10110
+08-09 19:40:32.403  1345  1366 D MediaProvider: Moving /storage/emulated/0/Pictures/Screenshots/.pending-1755373231-Screenshot_20250809-194031.png to /storage/emulated/0/Pictures/Screenshots/Screenshot_20250809-194031.png
+// com.android.providers.media.module进程，保存并移动png
+
+08-09 19:40:32.419  1345  1366 D ExifInterface: No image meets the size requirements of a thumbnail image.
+08-09 19:40:32.438  2197  2227 D Screenshot: Saved screenshot: Result{uri=content://0@media/external/images/media/1000000027, requestId=8c25baca-2c64-4340-bcf2-8264aeac1be9, fileName='Screenshot_20250809-194031.png', timestamp=1754768431076, format=PNG, published=true}
+// 【】最后常驻应用（com.android.systemui:screenshot进程）
+```
+
+%/accordion%
 
 
 

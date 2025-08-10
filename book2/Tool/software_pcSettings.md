@@ -2038,11 +2038,11 @@ jadx-1.4.7
 
 ## scrcpy.exe
 
-## 开源地址
+### 开源地址
 
 https://github.com/Genymobile/scrcpy/releases/tag/v3.3.1
 
-## 命令行方式打开：
+### 命令行方式打开：
 
 ```java
 scrcpy.exe --display=4 --always-on-top --stay-awake
@@ -2137,7 +2137,9 @@ MOD是ALT键。详见： https://www.ngui.cc/zz/2053439.html?action=onClick
 
 
 
+### scrcpy 密码界面黑屏
 
+使用scrcpy使用无线连接，使用电脑控制手机解锁的时候，手机屏幕是黑的，无法输入密码解锁手机。这个时候直接使用键盘输入锁屏的密码即可
 
 
 

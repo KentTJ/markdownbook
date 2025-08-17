@@ -2296,7 +2296,7 @@ IDEFilepaths = [
 
 # 映射map，需要维护
 IDERoot = r'Y:\workingspace\mt8675\code\alps'
-remoteRoot = r'X:\code\chengang\alps'
+remoteRoot = r'X:\code\cjk\alps'
 
 def cp_winFiles_to_linux():
     for i in range(0, len(IDEFilepaths)):
@@ -2314,6 +2314,111 @@ def cp_winFiles_to_linux():
 
 if __name__ == '__main__':
     cp_winFiles_to_linux()
+
+```
+
+%/accordion%
+
+
+
+
+
+## 提取增量文件------------getDiffFiles.py
+
+git diff 类似操作---------------提取增量：
+
+%accordion%  copy2Remote.py %accordion%
+
+```java
+# coding=utf-8
+import os
+import shutil
+
+
+# path_b 是base 
+path_b = '/home/cjk/out/feishu_2'
+# path_a 是新增文件路径
+path_a = '/home/cjk/out/feishu'
+path_c 是输出
+path_c = '/home/cjk/out/feishu_output'
+
+def get_file_info(path):
+    """
+    递归遍历目录，返回一个字典，键为相对路径，值为文件大小。
+    """
+    file_info = {}
+    if not os.path.exists(path):
+        print(f"Error: Path '{path}' does not exist.")
+        return file_info
+
+    for root, _, files in os.walk(path):
+        for file in files:
+            full_path = os.path.join(root, file)
+            # 获取相对于根路径的相对路径
+            relative_path = os.path.relpath(full_path, path)
+            file_info[relative_path] = os.path.getsize(full_path)
+    return file_info
+
+def incremental_diff(path_a, path_b, path_c):
+    """
+    比较 A 和 B 目录下的文件，将有差异的文件从 A 复制到 C。
+    """
+    # 1. 获取 A 和 B 目录下的文件信息
+    print(f"Scanning directory A: {path_a}")
+    files_a = get_file_info(path_a)
+    print(f"Scanning directory B: {path_b}")
+    files_b = get_file_info(path_b)
+    
+    if not os.path.exists(path_c):
+        os.makedirs(path_c)
+        print(f"Created directory C: {path_c}")
+
+    diff_count = 0
+
+    # 2. 比较文件
+    for relative_path, size_a in files_a.items():
+        # 如果文件在 B 中不存在，或者大小不一致
+        if relative_path not in files_b or size_a != files_b[relative_path]:
+            source_file = os.path.join(path_a, relative_path)
+            dest_file = os.path.join(path_c, relative_path)
+            
+            # 3. 在 C 中建立与 A 相同的目录结构
+            dest_dir = os.path.dirname(dest_file)
+            if not os.path.exists(dest_dir):
+                os.makedirs(dest_dir)
+            
+            # 4. 复制文件
+            shutil.copy2(source_file, dest_file)
+            print(f"Copied '{relative_path}' to C.")
+            diff_count += 1
+    
+    print("-" * 30)
+    print(f"Diff complete. {diff_count} file(s) copied to '{path_c}'.")
+
+if __name__ == "__main__":
+    # 定义 A、B、C 路径
+    # 请根据你的实际情况修改以下路径
+    #path_a = '/home/cjk/out/fshu'
+    #path_b = '/home/cjk/out/fshu_2'
+    #path_c = '/home/cjk/out/fshu_output'
+    
+    # 示例用法
+    # path_a = './dir_A'
+    # path_b = './dir_B'
+    # path_c = './dir_C'
+
+    # 如果需要，可以创建示例目录和文件来测试
+    # os.makedirs(os.path.join(path_a, 'subdir1'), exist_ok=True)
+    # os.makedirs(os.path.join(path_b, 'subdir1'), exist_ok=True)
+    # with open(os.path.join(path_a, 'file1.txt'), 'w') as f: f.write('content1')
+    # with open(os.path.join(path_a, 'file2.txt'), 'w') as f: f.write('content2_new')
+    # with open(os.path.join(path_a, 'subdir1', 'file3.txt'), 'w') as f: f.write('content3')
+    # with open(os.path.join(path_b, 'file1.txt'), 'w') as f: f.write('content1')
+    # with open(os.path.join(path_b, 'file2.txt'), 'w') as f: f.write('content2')
+    # with open(os.path.join(path_b, 'file4.txt'), 'w') as f: f.write('content4')
+
+    incremental_diff(path_a, path_b, path_c)
+
 
 ```
 

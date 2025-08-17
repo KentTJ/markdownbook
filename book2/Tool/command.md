@@ -1714,7 +1714,7 @@ classes
 
 成功attach后，help一下，可以看到断点如何下等命令，注意class id 包括类的包名的！
 
-1
+
 
 luogw@luogw-MacBook-Pro temp$ jdb  -attach 127.0.0.1:7703
 设置未捕获的java.lang.Throwable
@@ -1725,6 +1725,7 @@ luogw@luogw-MacBook-Pro temp$ jdb  -attach 127.0.0.1:7703
 > ** 命令列表 **
 > connectors                -- 列出此 VM 中可用的连接器和传输
 
+```java
 run [class [args]]        -- 开始执行应用程序的主类
 
 threads [threadgroup]     -- 列出线程
@@ -1818,6 +1819,7 @@ exit (或 quit)            -- 退出调试器
 
 可以将启动命令置于 "jdb.ini" 或 ".jdbrc" 中
 位于 user.home 或 user.dir 中
+```
 
 
 

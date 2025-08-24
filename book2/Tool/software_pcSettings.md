@@ -294,6 +294,34 @@ bash.exe环境 是 linux下shell环境:----------->  命令友好
 
 
 
+
+
+## Miracast 无线显示器
+
+win11投放失败，正在连接后显示连接失败：
+
+```java
+2.dxdiag.exe 查询出 Miracast: Available, with HDCP Miracast: Not Supported by Graphics driver，对比同型号电脑，另一台电脑也有显卡不支持的提示，但是仍能正常投屏。
+
+2.netsh wlan show drivers 查询，显示图形驱动器和wlan驱动器都支持无线显示。
+
+3.设备管理器 Microsoft Wi-Fi Direct Virtual Adapter 正常启用
+
+4.ssdp以及WMPNetworkSvc 服务正常启用。
+
+5.u为7840hs，显卡驱动是最新。
+
+6.暂时关闭防火墙
+```
+
+
+
+
+
+参考：https://blog.csdn.net/guyuelin123/article/details/142626597  Windows：win11旗舰版连接无线显示器，连接失败
+
+
+
 ## 远程桌面：
 
 ### 远程桌面之内网穿透

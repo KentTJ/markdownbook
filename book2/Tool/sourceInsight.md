@@ -1201,6 +1201,14 @@ _STL_RESTORE_DEPRECATED_WARNING
 
 
 
+## TODO  java代码 黑色
+
+![image-20250825004218012](sourceInsight.assets/image-20250825004218012.png)
+
+
+
+
+
 ## 最优界面
 
 一个好的布局界面，应该**<font color='red'>同时展现各个结构</font>**：
@@ -1767,6 +1775,8 @@ Tab width:4
 
 # ~~del_linux下使用 Source Insight~~
 
+## 法一------------wine：
+
 参考：https://juejin.cn/s/linux source insight
 
 ----------> **验证ok**
@@ -1821,5 +1831,7 @@ Tab width:4
 
 
 
+## 法二：linux通过virtualbox安装 win
 
+在虚拟机的win，安装SI
 

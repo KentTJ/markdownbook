@@ -1083,7 +1083,7 @@ trace_end(void);
 
 
 
-#  Layout Inspector
+#  Layout Inspector（控件结构）
 
 最优观察viewTree的工具
 
@@ -1105,7 +1105,7 @@ trace_end(void);
 
 
 
-# winscope(快照)---闪屏问题
+# winscope(窗口结构)---闪屏问题
 
 **winscope本质：**
 
@@ -1133,13 +1133,33 @@ TODO:
 
 
 
+
+
+注意：Chrome浏览器打开
+
+
+
+
+
+
+
+
+
+
+
 ## 参考：
 
 https://source.android.com/docs/core/graphics/tracing-win-transitions?hl=zh-cn    官方文档
 
 https://www.jianshu.com/p/c28a81dc3a65
 
+ [千里马学框架](https://blog.csdn.net/learnframework)：
 
+>     好文！！！！[Winscope在aosp 13/14/15版本的使用总结](https://blog.csdn.net/learnframework/article/details/148973403) 
+>
+>   [android 14版本的winscope编译使用-手把手教你编译成功不报错](https://mp.weixin.qq.com/s/MgLw-fndG1CP9svka810Bw)
+>
+>   
 
 ## 官方文档
 

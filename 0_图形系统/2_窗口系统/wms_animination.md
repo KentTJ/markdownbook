@@ -669,6 +669,12 @@ https://www.youtube.com/watch?v=S20kdGUOnAw
 
 
 
+# 使用winscope观察动画
+
+
+
+
+
 # 参考
 
 首要参考： 

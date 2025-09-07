@@ -1103,7 +1103,9 @@ trace_end(void);
 
 （5）同dump一样，可以知道 TextView 具体的类
 
+## 官方文档
 
+https://developer.android.com/studio/debug/layout-inspector
 
 # winscope(窗口结构)---闪屏问题、窗口属性问题
 
@@ -1188,6 +1190,8 @@ TODO:
 
 https://source.android.com/docs/core/graphics/tracing-win-transitions?hl=zh-cn    官方文档
 
+https://source.android.com/docs/core/graphics/winscope/overview?hl=zh-cn   官方文档
+
 https://www.jianshu.com/p/c28a81dc3a65
 
  [千里马学框架](https://blog.csdn.net/learnframework)：
@@ -1204,9 +1208,7 @@ https://www.jianshu.com/p/c28a81dc3a65
 
 
 
-## 官方文档
 
-https://developer.android.com/studio/debug/layout-inspector
 
 
 

@@ -1105,15 +1105,40 @@ trace_end(void);
 
 
 
-# winscope(窗口结构)---闪屏问题
+# winscope(窗口结构)---闪屏问题、窗口属性问题
+
+## winscope的理解
 
 **winscope本质：**
 
-> -<font color='red'>每一帧</font>，**都给整个系统拍快照**  ----> 这也是理解复杂系统的关键
+>   > -<font color='red'>每一帧</font>，**都给整个系统拍快照**  ----> 这也是理解复杂系统的关键
+>
+>   --------------->  <font color='red'>基于帧，</font>1、所以，才可以解决闪屏问题
+>
+>   ​                                     2、TODO: 肯定可以解决其他很多问题
+>
 
---------------->  <font color='red'>基于帧，</font>1、所以，才可以解决闪屏问题
 
-​                                     2、TODO: 肯定可以解决其他很多问题
+
+-<font color='red'>winscope的优势：</font>
+
+>   1、<font color='red'>全日志</font>： 录屏、window dump、surfaceFlinger dump、日志log ---------> <font color='red'> 在时间上（基于帧）做到对齐 & 联动！！！！</font>
+>
+>   >   ![image-20250907160422893](Systrace.assets/image-20250907160422893.png)
+>   >
+>   >   ![image-20250907160433551](Systrace.assets/image-20250907160433551.png)
+>   >
+>   >   推论1：**（<font color='red'>极优</font>）因为时间对齐了，方便观察  视频的一帧，与各种 dump（log）的对应**
+>
+>   2、**windows的图形化展示**，比看数据快很多（aosp15的winscope）
+>
+>   3、show diff，**在海量的参数中，突出变化值（<font color='red'>优雅的设计</font>）**：
+>
+>   >   ![image-20250907161131755](Systrace.assets/image-20250907161131755.png)
+
+
+
+
 
 
 
@@ -1141,6 +1166,8 @@ TODO:
 
 
 
+
+
 ## 参考的勾选
 
 ![img](Systrace.assets/640)
@@ -1162,8 +1189,14 @@ https://www.jianshu.com/p/c28a81dc3a65
 >     好文！！！！[Winscope在aosp 13/14/15版本的使用总结](https://blog.csdn.net/learnframework/article/details/148973403) 
 >
 >   [android 14版本的winscope编译使用-手把手教你编译成功不报错](https://mp.weixin.qq.com/s/MgLw-fndG1CP9svka810Bw)
->
->   
+
+
+
+[Android15使用 Winscope](https://blog.csdn.net/ukynho/article/details/143023774  )          -----------> 已经验证OK！！！！
+
+>   ![image-20250907161931984](Systrace.assets/image-20250907161931984.png)
+
+
 
 ## 官方文档
 
@@ -1171,7 +1204,13 @@ https://developer.android.com/studio/debug/layout-inspector
 
 
 
+## 利用winscope定位问题
 
+https://blog.csdn.net/ukynho/article/details/143023774   小试牛刀 —— 闪屏问题分析
+
+## 背后的背后
+
+抛开这个
 
 
 

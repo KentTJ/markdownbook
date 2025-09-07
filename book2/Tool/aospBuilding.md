@@ -46,10 +46,17 @@ aptitude   install gcc gcc-c++
 ### repo下载安装
 
 ```java
-git clone https://mirrors.tuna.tsinghua.edu.cn/git/git-repo
+mkdir ~/bin
+PATH=~/bin:$PATH
+curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+chmod a+x ~/bin/repo
+
+配置环境变量：
+vim ~/.bashrc，添加行：
+export PATH=~/bin:$PATH
 ```
 
-
+参考： https://blog.csdn.net/weixin_44321972/article/details/140882631
 
 ## 下载aosp
 
@@ -62,6 +69,8 @@ repo init -u https://mirrors.tuna.tsinghua.edu.cn/git/AOSP/platform/manifest -b 
 
 repo init -u https://mirrors.tuna.tsinghua.edu.cn/git/AOSP/platform/manifest -b android-14.0.0_r28
 ------------->验证OK
+    
+repo init -u https://mirrors.tuna.tsinghua.edu.cn/git/AOSP/platform/manifest -b android-15.0.0_r32
 
 repo sync -c -j32
 ```

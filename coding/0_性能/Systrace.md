@@ -1199,6 +1199,12 @@ TODO:
 aosp15的 winscope需要编译：
 
 >   详细见 [Android15使用 Winscope](https://blog.csdn.net/ukynho/article/details/143023774  )      
+>
+>   报错：
+>
+>   ![image-20250907183243177](Systrace.assets/image-20250907183243177.png)
+>
+>   下载的问题 ----------> 办法：多次执行  npm run build:prod
 
 
 

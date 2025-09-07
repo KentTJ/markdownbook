@@ -1204,6 +1204,13 @@ aosp15的 winscope需要编译：
 >
 >   ![image-20250907183243177](Systrace.assets/image-20250907183243177.png)
 >
+>   ```java
+>   Downloading 194 files in //test/data
+>   失败
+>   Downloading 134 files in //test/data
+>   失败
+>   ```
+>
 >   下载的问题 ----------> 办法：多次执行  npm run build:prod
 
 

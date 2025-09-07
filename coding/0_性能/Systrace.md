@@ -1186,6 +1186,37 @@ TODO:
 
 
 
+## Android15使用 Winscope
+
+[Android15使用 Winscope](https://blog.csdn.net/ukynho/article/details/143023774  )          -----------> 已经验证OK！！！！
+
+>   ![image-20250907161931984](Systrace.assets/image-20250907161931984.png)
+>
+>   注意：aosp15的 winscope 可以抓 aosp14、aosp13的机器 ----------> 有图形显示！！！！！！！
+
+
+
+aosp15的 winscope需要编译：
+
+>   详细见 [Android15使用 Winscope](https://blog.csdn.net/ukynho/article/details/143023774  )      
+
+
+
+抓取步骤：
+
+```java
+1、~/workingspace_disk2/android_1500_r32/development/tools/winscope$ npm run start
+
+2、~/workingspace_disk2/android_1500_r32$ python3 development/tools/winscope/src/adb/winscope_proxy.py
+
+3、chrome输入： http://localhost:8080/
+    
+```
+
+
+
+
+
 ## 参考：
 
 https://source.android.com/docs/core/graphics/tracing-win-transitions?hl=zh-cn    官方文档
@@ -1199,14 +1230,6 @@ https://www.jianshu.com/p/c28a81dc3a65
 >     好文！！！！[Winscope在aosp 13/14/15版本的使用总结](https://blog.csdn.net/learnframework/article/details/148973403) 
 >
 >   [android 14版本的winscope编译使用-手把手教你编译成功不报错](https://mp.weixin.qq.com/s/MgLw-fndG1CP9svka810Bw)
-
-
-
-[Android15使用 Winscope](https://blog.csdn.net/ukynho/article/details/143023774  )          -----------> 已经验证OK！！！！
-
->   ![image-20250907161931984](Systrace.assets/image-20250907161931984.png)
-
-
 
 
 

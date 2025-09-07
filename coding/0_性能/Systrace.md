@@ -1122,7 +1122,7 @@ trace_end(void);
 
 -<font color='red'>winscope的优势：</font>
 
->   1、<font color='red'>全日志</font>： 录屏、window dump、surfaceFlinger dump、日志log ---------> <font color='red'> 在时间上（基于帧）做到对齐 & 联动！！！！</font>
+>   1、<font color='red'>全日志</font>： 录屏、window dump、surfaceFlinger dump、日志log（event log） ---------> <font color='red'> 在时间上（基于帧）做到对齐 & 联动！！！！</font>
 >
 >   >   ![image-20250907160422893](Systrace.assets/image-20250907160422893.png)
 >   >
@@ -1132,9 +1132,15 @@ trace_end(void);
 >
 >   2、**windows的图形化展示**，比看数据快很多（aosp15的winscope）
 >
+>   ​     更好观察结构
+>
 >   3、show diff，**在海量的参数中，突出变化值（<font color='red'>优雅的设计</font>）**：
 >
 >   >   ![image-20250907161131755](Systrace.assets/image-20250907161131755.png)
+>
+>    4、<font color='red'>基于帧：</font>
+>
+>   图形化设计 & 基于帧，可以更好的<font color='red'>放慢动画等快速变化的过程</font>
 
 
 
@@ -1210,9 +1216,13 @@ https://blog.csdn.net/ukynho/article/details/143023774   小试牛刀 —— 闪
 
 ## 背后的背后
 
-抛开这个
+抛开工具本身，**优美的设计：**
 
-
+>   1、<font color='red'>时间对齐 & 联动：</font>
+>
+>   推广：比如  **GPU 的readpixel 的argb文件  与  代码的对齐 & 联动** ---------> **argb文件名 加 log**
+>
+>   2、**数据尽量图形化**
 
 # 一些环境使用原则：
 

@@ -690,6 +690,54 @@ repo sync -c  -------> 根据 manifest.xml，跟新每个git仓最新代码（�
 
 
 
+
+
+## repo sync下载单个仓库
+
+例1：
+
+```java
+xml中：
+ <project path="prebuilts/misc" name="platform/prebuilts/misc" groups="pdk,sysui-studio" clone-depth="1" />
+
+// 下载单仓：
+repo sync platform/prebuilts/misc
+```
+
+
+
+例2：
+
+```java
+xml中：
+<project path="external/perfetto" name="platform/external/perfetto" groups="pdk,sysui-studio" />
+    
+// 下载单仓：    
+repo sync platform/external/perfetto
+```
+
+
+
+例3：下载多个仓
+
+```
+repo sync \
+  frameworks/base \
+  build/make \
+  build/soong \
+  prebuilts/build-tools \
+  prebuilts/jdk/jdk \
+  prebuilts/misc \
+  bionic \
+  libcore \
+  system/core \
+  art
+```
+
+
+
+
+
 # github
 
 ## create a new repository on the command line、

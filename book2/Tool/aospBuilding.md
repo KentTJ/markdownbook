@@ -7,10 +7,6 @@
 
 # AOSP编译
 
-
-
-
-
 ## ~~Ubuntu16.04需要的依赖设置:~~
 
 
@@ -1168,29 +1164,30 @@ adb push framework.jar   /system/framework
 >
 > 2、看日志，各种runtime的报错
 >
-> ```
->  2024-01-09 15:41:46.188 15781-15896 zygote64                pid-15781                            A  runtime.cc:655] Runtime aborting...
->                                                                                                      runtime.cc:655] All threads:
->                                                                                                      runtime.cc:655] DALVIK THREADS (6):
->                                                                                                      runtime.cc:655] "main" prio=10 tid=1 Runnable
->                                                                                                      runtime.cc:655]   | group="" sCount=0 dsCount=0 flags=0 obj=0x12e40000 self=0xb4000079c42d97b0
->                                                                                                      runtime.cc:655]   | sysTid=15781 nice=-20 cgrp=default sched=0/0 handle=0x7aeb1e64f8
->                                                                                                      runtime.cc:655]   | state=R schedstat=( 797723069 16104393 128 ) utm=59 stm=20 core=7 HZ=100
->                                                                                                      runtime.cc:655]   | stack=0x7fce43b000-0x7fce43d000 stackSize=8192KB
->                                                                                                      runtime.cc:655]   | held mutexes= "mutator lock"(shared held)
->                                                                                                      runtime.cc:655]   native: #00 pc 0000000000496628  /apex/com.android.art/lib64/libart.so (art::DumpNativeStack(std::__1::basic_ostream<char, std::__1::char_traits<char> >&, int, BacktraceMap*, char const*, art::ArtMethod*, void*, bool)+140)
->                                                                                                      runtime.cc:655]   native: #01 pc 00000000005a0164  /apex/com.android.art/lib64/libart.so (art::Thread::DumpStack(std::__1::basic_ostream<char, std::__1::char_traits<char> >&, bool, BacktraceMap*, bool) const+372)
->                                                                                                      runtime.cc:655]   native: #02 pc 00000000005bcda4  /apex/com.android.art/lib64/libart.so (art::DumpCheckpoint::Run(art::Thread*)+892)
->                                                                                                      runtime.cc:655]   native: #03 pc 00000000005a1020  /apex/com.android.art/lib64/libart.so (art::Thread::RunCheckpointFunction()+168)
->                                                                                                      runtime.cc:655]   native: #04 pc 000000000065d04c  /apex/com.android.art/lib64/libart.so (artTestSuspendFromCode+68)
->                                                                                                      runtime.cc:655]   native: #05 pc 000000000013c91c  /apex/com.android.art/lib64/libart.so (art_quick_test_suspend+156)
->                                                                                                      runtime.cc:655]   at java.lang.StringBuilder.append(StringBuilder.java:203)
->                                                                                                      runtime.cc:655]   at java.text.SimpleDateFormat.compile(SimpleDateFormat.java:912)
->                                                                                                      runtime.cc:655]   at java.text.SimpleDateFormat.initialize(SimpleDateFormat.java:720)
->                                                                                                      runtime.cc:655]   at java.text.SimpleDateFormat.<init>(SimpleDateFormat.java:691)
->                                                                                                      runtime.cc:655]   at java.text.SimpleDateFormat.<init>(SimpleDateFormat.java:666)
->                                                                                                      runtime.cc:655]   at android.util.TimeUtils.<clinit>(TimeUtils.java:46)
->                                                                                                      runtime.cc:655]   at java.lang.Class.classForName(Native method)
+> ```java
+> 2024-01-09 15:41:46.188 15781-15896 zygote64   pid-15781 
+> A  runtime.cc:655] Runtime aborting...
+>                                                                                                   runtime.cc:655] All threads:
+>                                                                                                   runtime.cc:655] DALVIK THREADS (6):
+>                                                                                                   runtime.cc:655] "main" prio=10 tid=1 Runnable
+>                                                                                                   runtime.cc:655]   | group="" sCount=0 dsCount=0 flags=0 obj=0x12e40000 self=0xb4000079c42d97b0
+>                                                                                                   runtime.cc:655]   | sysTid=15781 nice=-20 cgrp=default sched=0/0 handle=0x7aeb1e64f8
+>                                                                                                   runtime.cc:655]   | state=R schedstat=( 797723069 16104393 128 ) utm=59 stm=20 core=7 HZ=100
+>                                                                                                   runtime.cc:655]   | stack=0x7fce43b000-0x7fce43d000 stackSize=8192KB
+>                                                                                                   runtime.cc:655]   | held mutexes= "mutator lock"(shared held)
+>                                                                                                   runtime.cc:655]   native: #00 pc 0000000000496628  /apex/com.android.art/lib64/libart.so (art::DumpNativeStack(std::__1::basic_ostream<char, std::__1::char_traits<char> >&, int, BacktraceMap*, char const*, art::ArtMethod*, void*, bool)+140)
+>                                                                                                   runtime.cc:655]   native: #01 pc 00000000005a0164  /apex/com.android.art/lib64/libart.so (art::Thread::DumpStack(std::__1::basic_ostream<char, std::__1::char_traits<char> >&, bool, BacktraceMap*, bool) const+372)
+>                                                                                                   runtime.cc:655]   native: #02 pc 00000000005bcda4  /apex/com.android.art/lib64/libart.so (art::DumpCheckpoint::Run(art::Thread*)+892)
+>                                                                                                   runtime.cc:655]   native: #03 pc 00000000005a1020  /apex/com.android.art/lib64/libart.so (art::Thread::RunCheckpointFunction()+168)
+>                                                                                                   runtime.cc:655]   native: #04 pc 000000000065d04c  /apex/com.android.art/lib64/libart.so (artTestSuspendFromCode+68)
+>                                                                                                   runtime.cc:655]   native: #05 pc 000000000013c91c  /apex/com.android.art/lib64/libart.so (art_quick_test_suspend+156)
+>                                                                                                   runtime.cc:655]   at java.lang.StringBuilder.append(StringBuilder.java:203)
+>                                                                                                   runtime.cc:655]   at java.text.SimpleDateFormat.compile(SimpleDateFormat.java:912)
+>                                                                                                   runtime.cc:655]   at java.text.SimpleDateFormat.initialize(SimpleDateFormat.java:720)
+>                                                                                                   runtime.cc:655]   at java.text.SimpleDateFormat.<init>(SimpleDateFormat.java:691)
+>                                                                                                   runtime.cc:655]   at java.text.SimpleDateFormat.<init>(SimpleDateFormat.java:666)
+>                                                                                                   runtime.cc:655]   at android.util.TimeUtils.<clinit>(TimeUtils.java:46)
+>                                                                                                   runtime.cc:655]   at java.lang.Class.classForName(Native method)
 > ```
 >
 > 3、看日志zygote一直在重启
@@ -1215,7 +1212,7 @@ On Android version 8.1.0 project specific build with mm cmd is failing in /frame
 
 12:55:19 ninja failed with: exit status 1
 
---------》
+-------->
 
 mm compiles all modules in a directory, you are missing a dependency of one of the modules. This is pretty common because regular builds do not compile tests or their dependencies. You can run 'hmm' to see commands that do take dependencies into account. In this case, you want 'mma':
 

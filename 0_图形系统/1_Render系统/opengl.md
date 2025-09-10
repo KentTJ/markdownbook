@@ -2492,7 +2492,7 @@ GLUtils_saveRender(w, h, 1, "repiant_views_100");
 
 
 
-安卓如何dump：
+### 安卓如何dump：
 
 %accordion%GLESRenderEngine.cpp中添加%accordion%
 
@@ -2636,7 +2636,9 @@ GLUtils_saveRender(1440, 2960, 1, (char*)"repiant_views_100");
 
 %/accordion%
 
+注意：
 
+>   需要setenforce 0
 
 ## glReadPixels方法------github里的实现
 

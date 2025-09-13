@@ -21,6 +21,11 @@
 | 安卓手机linux命令不全  | busybox的二进制                                              |      |      |
 | 像素测量，pixel测量    | 法一：1、图片的像素测量：Dorado_1.1.exe<br />法二：2、图片的像素测量：windows右键，查看图片属性<br />法三：测量window或者Linux 屏幕上的像素 --------> <font color='red'>snipaste截屏时，自带px的标尺！！！</font> |      |      |
 | 看rgba（raw data）工具 | 1、TODO: mtk 的DumpViewCR<br /> 2、7yuv(YUV数据查看工具)破解版.exe      http://datahammer.de/downloads.html |      |      |
+| 磁盘分区/分区扩容软件  | 1、win:DiskGenius.exe<br />  2、linux：[gparted](https://blog.csdn.net/wangguchao/article/details/129064264#t2)    或者 命令 |      |      |
+|                        |                                                              |      |      |
+|                        |                                                              |      |      |
+
+
 
 
 

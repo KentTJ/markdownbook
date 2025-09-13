@@ -2433,9 +2433,57 @@ Acquire::https::Proxy "http://username:password@proxy-IP-address:proxyport";
 
 >   其他同正常ssh登录
 
-## vmware 挂载 物理硬盘（物理分区）-----扩容
+## 挂载 虚拟磁盘（文件）
 
----------------------->  vmware 非常大的优点：动态化扩容
+<img src="Docker.assets/image-20250913132247786.png" alt="image-20250913132247786" style="zoom:80%;" />
+
+![image-20250913132703007](Docker.assets/image-20250913132703007.png)
+
+### 虚拟磁盘（文件）的扩容
+
+https://blog.csdn.net/qq_37140721/article/details/125619393
+
+
+
+1、虚拟机外的操作：
+
+>   https://blog.csdn.net/wangguchao/article/details/129064264
+
+注意：
+
+>   **此时，linux环境内看到的磁盘大小 可能小于 虚拟机外设置的！！！！**
+
+--------->2、 linux环境内扩容：
+
+>   可视化工具 gparted：
+>
+>   ![image-20250913141856111](Docker.assets/image-20250913141856111.png)
+>
+>   参考：https://blog.csdn.net/wangguchao/article/details/129064264
+
+
+
+### 多个虚拟文件磁盘 -----> 单文件虚拟磁盘
+
+参考：https://blog.csdn.net/m0_60950859/article/details/138466216  合并多个vmdk文件
+
+有些情况，必须是单文件虚拟磁盘下才能做的：
+
+>   ![image-20250913153550750](Docker.assets/image-20250913153550750.png)
+
+合并操作：
+
+>   ```java
+>   C:\Windows\System32>"H:\Program Files (x86)\VMware\VMware Workstation\vmware-vdiskmanager.exe" -r "D:\ubuntu_VM\ubuntu2-disk1.vmdk" -t 0 "F:\softWare\software\tmp\new_virtual_disk_name.vmdk"
+>   ```
+>
+>   -------------> 最后把 new_virtual_disk_name.vmdk 重命名为  ubuntu2-disk1.vmdk
+
+
+
+## 挂载 物理硬盘（物理分区）-----可以扩容
+
+---------------------->  vmware 非常大的优点：1、动态化扩容   2、**文件虚拟磁盘容易出问题**（~~文件损坏，整个虚拟盘的东西都没了~~）
 
 ```powershell
 lsblk
@@ -2575,9 +2623,7 @@ https://blog.csdn.net/lsgzn/article/details/130199569   实现局域网内ssh远
 
 
 
-## 扩容
 
-https://blog.csdn.net/qq_37140721/article/details/125619393
 
 
 

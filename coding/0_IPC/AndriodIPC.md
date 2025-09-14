@@ -59,7 +59,7 @@ native 与 kernel进程之间（<font color='red'>TODO: 跨了进程？</font>�
 
 
 
-# 进程间通信（IPC）---Binder
+# Binder（进程间通信IPC）
 
 ## 前戏
 
@@ -442,6 +442,16 @@ mmap() 是操作系统中一种内存映射的方法。
 基于上图，一句话： <font color='red'>整个Binder机制，唯一核心的就是映射1（ kernel内存地址  和 物理内存 的映射）创建</font>
 
 ------->   在server端 ， Binder的创建流程中，见下
+
+
+
+
+
+## 流程1层------代码级
+
+![在这里插入图片描述](AndriodIPC.assets/afb40bb568a3391c16fd4e13dddea96f.png)
+
+https://blog.csdn.net/liaosongmao1/article/details/124842249
 
 
 

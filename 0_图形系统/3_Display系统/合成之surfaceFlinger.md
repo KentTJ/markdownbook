@@ -1,5 +1,15 @@
 # 目录
 
+# 0层结构-----SF与周边
+
+![Android图像显示系统框架图](合成之surfaceFlinger.assets/d4dbb4de9d72412f9a1a3d840469eecf.png)
+
+SF功能0层：
+
+
+
+
+
 
 
 # 合成

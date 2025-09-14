@@ -2652,7 +2652,17 @@ GLUtils_saveRender(1440, 2960, 1, (char*)"repiant_views_100");
 
 >   需要setenforce 0
 
-### 案例
+### TODO dump的文件名必须加时间戳、log内容
+
+
+
+### 定位案例 ------ 闪屏问题的暴力解法
+
+用上述方法，可以得到：
+
+>   <font color='red'>每一个layer图像 +  画layer的时间（ms级） +  画layer对应的log内容（layer的名字）</font>
+>
+>   ![image-20250914113107058](opengl.assets/image-20250914113107058.png)
 
 
 

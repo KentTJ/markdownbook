@@ -2775,6 +2775,16 @@ if (v_texcoord.x > (uTexture_x_max - 0.005) && v_texcoord.x < (uTexture_x_max + 
 
 屏幕上显示当前CPU时间 ----------> <font color='red'> **log时间  与 显示  在时间上ms级别对齐**</font>
 
+SF:
+
+>   <img src="opengl.assets/image-20250914235023691.png" alt="image-20250914235023691" style="zoom: 80%;" />
+
+weston：
+
+>   <img src="opengl.assets/image-20250914235322481.png" alt="image-20250914235322481" style="zoom: 67%;" />
+
+
+
 ### weston 和 surfaceflonger
 
 %accordion%固定功能代码（weston&SF都能使用）%accordion%

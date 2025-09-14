@@ -1,75 +1,5 @@
 # 目录
 
-# surfaceflinger的启动 之 .rc文件
-
-参考：
-
->  [android屏幕渲染之SurfaceFlinger的启动](https://www.jianshu.com/p/dcc37f81c119)
-
-系统文件：
-
-```java
- /system/bin/surfaceflinger
-```
-
-如何启动系统文件surfaceflinger：
-
-> 1、配置
->
-> ```java
->  /system/etc/init/surfaceflinger.rc
->  
->  service surfaceflinger /system/bin/surfaceflinger   // -----> 定义surfaceflinger服务
->      class core animation
->      user system                     //  ------> 用户
->      group graphics drmrpc readproc  // -----> 用户组
->      onrestart restart zygote        // -----> 重启条件
->      writepid /dev/stune/foreground/tasks   // ------>  surfaceflinger放到什么调频组
->      socket pdx/system/vr/display/client     stream 0666 system graphics u:object_r:pdx_display_client_endpoint_socket:s0
->      socket pdx/system/vr/display/manager    stream 0666 system graphics u:object_r:pdx_display_manager_endpoint_socket:s0
->      socket pdx/system/vr/display/vsync      stream 0666 system graphics u:object_r:pdx_display_vsync_endpoint_socket:s0
-> ```
->
-> 2、按照配置启动
->
-> LoadBootScripts解析
->
-> ParseConfigDir    解析路径，files收集目录下所有文件   ----> 不得不
->
-> for (file : files)  遍历所有文件
->
-> ParseConfigFile 解析文件
->
-> ParseData 解析数据
->
-> ServiceParser::ParseLineSection   解析行时，根据不同的关键词，选择不同的SectionParser。比如：service 选择  ServiceParser；import 选择 ImportParser
->
-> ServiceParser::ParseGroup
->
-> service_->proc_attr.gid = gid;   // 【】  最终赋值点
-
-# =====进入surfaceflinger  main 之后======
-
-参考：
-
->  [【安卓源码】SurfaceFlinger启动及其与应用通信](https://blog.csdn.net/qq_40587575/article/details/129657882)
->
-> ----------> 源码注释
-
-源码：
-
-TODO:
-
-设计美好： 统一的配置，剥离成文件
-
-
-
-
-
-
-
-
-
 
 
 # 合成
@@ -270,7 +200,9 @@ weston 代码： [Assign_planes](https://blog.csdn.net/u012839187/article/detail
 
 图，同上。
 
-> ![img](合成之surfaceFlinger.assets/1117305-20230817140910580-821209824.webp)
+> 部分GPU合成，部分HWC硬件合成：
+>
+> >   ![img](合成之surfaceFlinger.assets/1117305-20230817140910580-821209824.webp)
 >
 > [图来源](https://www.cnblogs.com/hellokitty2/p/17637480.html#:~:text=%E5%9B%BE%E6%89%80%E7%A4%BA%EF%BC%8C-,%E6%AD%A4%E5%9B%BE%E6%9D%A5%E6%BA%90%E4%BA%8EAndrod%E5%AE%98%E7%BD%91,-%EF%BC%9A)
 
@@ -1007,6 +939,80 @@ Android graphic系列文章： https://blog.csdn.net/tkwxty/category_11464526.ht
 
 
 [显示框架之深入Vsync原理 - 简书 (jianshu.com)](https://www.jianshu.com/p/f5e2f88c475c)  
+
+
+
+
+
+
+
+
+
+# 次要----SF的启动 之 .rc文件
+
+参考：
+
+>  [android屏幕渲染之SurfaceFlinger的启动](https://www.jianshu.com/p/dcc37f81c119)
+
+系统文件：
+
+```java
+ /system/bin/surfaceflinger
+```
+
+如何启动系统文件surfaceflinger：
+
+> 1、配置
+>
+> ```java
+> /system/etc/init/surfaceflinger.rc
+> 
+> service surfaceflinger /system/bin/surfaceflinger   // -----> 定义surfaceflinger服务
+>   class core animation
+>   user system                     //  ------> 用户
+>   group graphics drmrpc readproc  // -----> 用户组
+>   onrestart restart zygote        // -----> 重启条件
+>   writepid /dev/stune/foreground/tasks   // ------>  surfaceflinger放到什么调频组
+>   socket pdx/system/vr/display/client     stream 0666 system graphics u:object_r:pdx_display_client_endpoint_socket:s0
+>   socket pdx/system/vr/display/manager    stream 0666 system graphics u:object_r:pdx_display_manager_endpoint_socket:s0
+>   socket pdx/system/vr/display/vsync      stream 0666 system graphics u:object_r:pdx_display_vsync_endpoint_socket:s0
+> ```
+>
+> 2、按照配置启动
+>
+> LoadBootScripts解析
+>
+> ParseConfigDir    解析路径，files收集目录下所有文件   ----> 不得不
+>
+> for (file : files)  遍历所有文件
+>
+> ParseConfigFile 解析文件
+>
+> ParseData 解析数据
+>
+> ServiceParser::ParseLineSection   解析行时，根据不同的关键词，选择不同的SectionParser。比如：service 选择  ServiceParser；import 选择 ImportParser
+>
+> ServiceParser::ParseGroup
+>
+> service_->proc_attr.gid = gid;   // 【】  最终赋值点
+
+# 次要=====进入surfaceflinger  main 之后======
+
+参考：
+
+>  [【安卓源码】SurfaceFlinger启动及其与应用通信](https://blog.csdn.net/qq_40587575/article/details/129657882)
+>
+>  ----------> 源码注释
+
+源码：
+
+TODO:
+
+设计美好： 统一的配置，剥离成文件
+
+
+
+
 
 
 

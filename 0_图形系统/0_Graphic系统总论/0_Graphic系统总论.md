@@ -84,7 +84,7 @@ render系统:  1、是以 lib（.so）形式存在   2、运行时：在App GUI�
 >
 > 协调各窗口之间的关系
 
-<img src="https://mmbiz.qpic.cn/mmbiz_png/YHBSoNHqDiaFfIOgXF4sG1KhjLaX5qgTFJswdwnFTSX9s5GtzEctamsstibWoYCVtFicGWZmNSm8yuRkNnUm5nKSg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="Image" style="zoom:80%;" />
+<img src="0_Graphic系统总论.assets/640" alt="Image" style="zoom:80%;" />
 
 
 
@@ -94,7 +94,7 @@ render系统:  1、是以 lib（.so）形式存在   2、运行时：在App GUI�
 
 将buffer数据，最终到显示屏上
 
-<img src="https://mmbiz.qpic.cn/mmbiz_png/YHBSoNHqDiaFfIOgXF4sG1KhjLaX5qgTFKnicua9500EagAACY5ibncdw1Orgn9oibbehpcibibWeP0WITnbWCNN8YSg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="Image" style="zoom:80%;" />
+<img src="0_Graphic系统总论.assets/640" alt="Image" style="zoom:80%;" />
 
 
 
@@ -221,7 +221,7 @@ https://blog.csdn.net/tianzhaoai/article/details/128943124?spm=1001.2101.3001.66
 
 # View/ViewGroup
 
-view![image-20220913232228446](0_Graphic系统总论.assets/image-20220913232228446-1713691559670.png)
+![image-20220913232228446](0_Graphic系统总论.assets/image-20220913232228446-1757861707562.png)
 
 （G:\working_pan\doc_my\Draw\view_viewGroup.eddx）
 

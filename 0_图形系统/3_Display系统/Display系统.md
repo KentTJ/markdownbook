@@ -24,9 +24,9 @@ surface承载                          FramebufferNativeWindow
 
 
 
-[SurfaceFlinger详解](https://blog.csdn.net/rendong_yang/article/details/38494675 )   ----------->   好文!!!!!!!!
 
-[GUI显示系统之SurfaceFlinger---章节目录](https://blog.csdn.net/xuesen_lin/article/details/8954508 )          系列文章
+
+[GUI显示系统之SurfaceFlinger---章节目录](https://blog.csdn.net/vviccc/article/details/104860616 )          系列文章
 
 
 

@@ -362,7 +362,7 @@ RenderEngineType 配置处：
 > ```java
 > adb root && adb remount
 > adb shell setprop  debug.renderengine.backend  threaded
-> adb shell getprop | grep renderengine
+> --------> 反馈：adb shell getprop debug.renderengine.backend
 > ```
 >
 > [Android实用技巧之adb命令：getprop,setprop命令使用](https://gitcode.csdn.net/65ec51a41a836825ed798396.html?dp_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NDUyNjk2LCJleHAiOjE3MTgxMTIxNTAsImlhdCI6MTcxNzUwNzM1MCwidXNlcm5hbWUiOiJ3ZWl4aW5fMzgxOTkzODEifQ.Ez_sTs8Ke3zT7X6a7aHgIG0OpQxQHIv9tX_xybwUqH8)
@@ -1235,4 +1235,8 @@ TODO:  https://www.bilibili.com/video/BV1py411q7BV?t=8148.3
 [安卓模拟器图像合成介绍](https://www.ctyun.cn/developer/article/379837121056837)  -----> VirtIO-GPU !!!!!
 
 virtio-gpu   https://blog.csdn.net/stray2b/article/details/123487106
+
+
+
+
 

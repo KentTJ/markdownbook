@@ -715,15 +715,26 @@ adb shell rm -rf /system/framework/oat/
 
 ### 常用emulator命令：
 
-```
+比较重要的：
+
+```java
 ::查看有哪些模拟器镜像
 %emulator_exe%  -list-avds
 
+    
+ -cores <number>                                        Set number of CPU cores to emulator
+// -------> 使模拟器更流畅
+
+-writable-system 
+
+-memory 8000
 ```
+
+
 
 %emulator_exe%  -help：
 
-%accordion%折叠%accordion%
+%accordion%大全%accordion%
 
 ```java
 D:\Users\Administrator\AppData\Local\Android\Sdk\emulator>%emulator_exe%  -help

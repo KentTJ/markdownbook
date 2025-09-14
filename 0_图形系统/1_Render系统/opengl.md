@@ -2773,7 +2773,7 @@ if (v_texcoord.x > (uTexture_x_max - 0.005) && v_texcoord.x < (uTexture_x_max + 
 
 屏幕上显示当前CPU时间 ----------> <font color='red'> **log时间  与 显示  在时间上ms级别对齐**</font>
 
-
+### weston 和 surfaceflonger
 
 %accordion%固定功能代码（weston&SF都能使用）%accordion%
 
@@ -2947,6 +2947,16 @@ void get_time(int *h, int *m, int *s, int *ms) {
 %/accordion%
 
 
+
+### 安卓命令录屏 带时间戳
+
+注：**时间戳是精确的 ----------- 合成完的时间**
+
+TODO:
+
+```java
+screenrecord  --bugreport 
+```
 
 
 

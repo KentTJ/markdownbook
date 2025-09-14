@@ -1178,7 +1178,7 @@ adb push framework.jar   /system/framework
 > ```java
 > 2024-01-09 15:41:46.188 15781-15896 zygote64   pid-15781 
 > A  runtime.cc:655] Runtime aborting...
->                                                                                                   runtime.cc:655] All threads:
+>    runtime.cc:655] All threads:
 >                                                                                                   runtime.cc:655] DALVIK THREADS (6):
 >                                                                                                   runtime.cc:655] "main" prio=10 tid=1 Runnable
 >                                                                                                   runtime.cc:655]   | group="" sCount=0 dsCount=0 flags=0 obj=0x12e40000 self=0xb4000079c42d97b0

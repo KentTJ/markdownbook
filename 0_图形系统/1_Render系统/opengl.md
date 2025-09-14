@@ -2652,7 +2652,9 @@ GLUtils_saveRender(1440, 2960, 1, (char*)"repiant_views_100");
 
 >   需要setenforce 0
 
-### TODO dump的文件名必须加时间戳、log内容
+### 规定：超精确对齐------dump文件名默认必须加时间戳、log内容
+
+TODO 
 
 
 

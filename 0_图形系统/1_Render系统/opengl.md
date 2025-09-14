@@ -2320,7 +2320,7 @@ myglCheckError();
 
 
 
-## 捞取实时图片：glReadpixels 从缓冲区里-------大招
+## 捞取实时图片：glReadpixels 从缓冲区里
 
 大招：可以获取  <font color='red'>任意Tex（buffer）在任意时刻 的图片</font>
 
@@ -2340,13 +2340,21 @@ myglCheckError();
 
 
 
-## 截图 -----> log化
+## 截图 嵌入log里（图像与log时间、log内容的超精确对齐）-------万能
 
 log与截图绑定死  -----> 则 代码位置与 截图绑死：
 
-> 截图上加 log （1）截图文件名 加log  （2）TODO: 截图内部图像加 log！
+> 截图上加 log （1）截图文件名 加log、log时间戳   （2）TODO: 截图内部图像加 log！
 
 优点：理论上，<font color='red'>可以像log一样，一行代码 + 跟一个截图</font>
+
+效果：
+
+>   <font color='red'>**把截图精确地嵌入log里，无任何误差的对齐**</font>！！！！！
+>
+>   万能性：<font color='red'> **理论上，显示层面的任何问题都可以用这个解决**！！！！！</font>
+>
+>   唯一缺点：dump对性能有影响  --------- 即观察会影响试验本身
 
 ```java
 
@@ -2487,6 +2495,10 @@ glViewport(0, 0, go->area.width, go->area.height);
 // 任意一个想要获取 GPU缓冲区图像的位置 加入：
 GLUtils_saveRender(w, h, 1, "repiant_views_100");
 ```
+
+
+
+
 
 
 
@@ -2640,6 +2652,12 @@ GLUtils_saveRender(1440, 2960, 1, (char*)"repiant_views_100");
 
 >   需要setenforce 0
 
+### 案例
+
+
+
+
+
 ## glReadPixels方法------github里的实现
 
 
@@ -2677,7 +2695,9 @@ glGetBufferParameteriv
 
 
 
-## 向后输出-----颜色输出：
+## 向后输出-----颜色输出（shader级别）
+
+向后输出，即上屏观察
 
 ### 例1，判断颜色：
 
@@ -2715,17 +2735,222 @@ if (v_texcoord.x > (uTexture_x_max - 0.005) && v_texcoord.x < (uTexture_x_max + 
 
 >   ![image-20250629220008117](opengl.assets/image-20250629220008117.png)
 
-## 像素级操作：TODO
 
-> 查： 像素级 判断
+
+
+
+## 向后输出-----颜色输出（CPU级别）
+
+画一个debugLine -------------------  机器
+
+既然有了截图嵌入log里，为什么还需要debugLine？
+
+>   截图确实可以精确嵌入log里 ----------> **计算机自己的精确自闭环**
 >
-> 改：
+>   但是 <font color='red'>截图还是无法与人眼完全对其，比如：**存在多帧的截图是一样的**</font>，到底上屏的那一帧，对应哪个dump？？
 
 
 
-对比两张图片
+效果：
+
+>   小范围内的精确对齐
+>
+>   <font color='red'>**相同截图在时间上做区别**</font>
 
 
+
+## 向后输出-----时间戳输出_log时间ms级对齐（CPU级别）
+
+屏幕上显示当前CPU时间 ----------> <font color='red'> **log时间  与 显示  在时间上ms级别对齐**</font>
+
+
+
+%accordion%固定功能代码（weston&SF都能使用）%accordion%
+
+```java
+
+//===========================start==========================
+// 需要修改的参数
+static float scale = 0.3; // 缩放因子,根据屏幕分辨率调整
+static int offset_y = 500; // 数字整体向上偏移量,根据屏幕分辨率调整
+
+
+//----------------一下参数固定不变
+static int digit_space_pixel = 50; // 数字之间的间隔
+static int tmp_offset_x = 0;
+static int tmp_offset_y = 0;
+const int digits[10][7] = { // 定义每个数字对应的七段状态: 1为亮，0为灭
+    // a, b, c, d, e, f, g
+    {1,1,1,1,1,1,0}, // 0
+    {0,1,1,0,0,0,0}, // 1
+    {1,1,0,1,1,0,1}, // 2
+    {1,1,1,1,0,0,1}, // 3
+    {0,1,1,0,0,1,1}, // 4
+    {1,0,1,1,0,1,1}, // 5
+    {1,0,1,1,1,1,1}, // 6
+    {1,1,1,0,0,0,0}, // 7
+    {1,1,1,1,1,1,1}, // 8
+    {1,1,1,1,0,1,1}  // 9
+};
+
+struct Segment { // 每段的位置和大小
+    int x, y, width, height;
+};
+
+int digit_width = 100; // 每个数字的宽度（根据 segments 设置）
+int digit_height = 100;
+struct Segment segments[7] = {
+	// a: 顶部横段 (x, y, width, height)
+	{10, 90, 50, 10},
+	// b: 右上竖段
+	{60, 50, 10, 40},
+	// c: 右下竖段
+	{60, 10, 10, 40},
+	// d: 底部横段
+	{10, 0, 50, 10},
+	// e: 左下竖段
+	{0, 10, 10, 40},
+	// f: 左上竖段
+	{0, 50, 10, 40},
+	// g: 中间横段
+	{10, 45, 50, 10}
+};
+
+//  数字有可能是上下颠倒的 -------> 这里做颠倒
+//struct Segment segments[7] = {
+//	// a: 顶部横段 (x, y, width, height)
+//	{10, 90, 50, 10},
+//	// b: 右上竖段
+//	{60, 50, 10, 40},
+//	// c: 右下竖段
+//	{60, 10, 10, 40},
+//	// d: 底部横段
+//	{10, 0, 50, 10},
+//	// e: 左下竖段
+//	{0, 10, 10, 40},
+//	// f: 左上竖段
+//	{0, 50, 10, 40},
+//	// g: 中间横段
+//	{10, 45, 50, 10}
+//};
+
+bool has_segments_scaled = false;
+void scale_segments(struct Segment *segments, int count) {
+    for (int i = 0; i < count; ++i) {
+        segments[i].x *= scale;
+        segments[i].y *= scale;
+        segments[i].width *= scale;
+        segments[i].height *= scale;
+    }
+}
+
+void draw_digit(int digit, int tmp_offset_x) {
+	if (!has_segments_scaled) {
+		scale_segments(segments, 7);
+		has_segments_scaled = true;
+	}
+
+	if (digit < 0 || digit > 9) return; // 无效数字
+	glEnable(GL_SCISSOR_TEST); // 启用裁剪测试
+    for (int i = 0; i < 7; ++i) {
+        if (digits[digit][i]) {
+            glScissor(segments[i].x + tmp_offset_x, segments[i].y + tmp_offset_y, segments[i].width, segments[i].height);
+            glClearColor(1.0, 0.0, 0.0, 1.0); // 红色
+            glClear(GL_COLOR_BUFFER_BIT);
+        }
+    }
+	glDisable(GL_SCISSOR_TEST);
+}
+
+void draw_number(int number) {
+	tmp_offset_x +=digit_space_pixel*scale; 	// 时与分  之间的空格
+
+	int digits_arr[10];
+	int num_digits = 0;
+	if (number == 0) {
+		digits_arr[0] = 0;
+		num_digits = 1;
+	} else {
+		int n = number;
+		while (n > 0 && num_digits < 10) {
+			digits_arr[num_digits++] = n % 10;
+			n /= 10;
+		}
+	}
+
+	// 数组逆序输出
+	for (int i = num_digits - 1; i >= 0; --i) {
+		draw_digit(digits_arr[i], tmp_offset_x);
+		tmp_offset_x += (digit_width + 3)*scale; // 下一个数字的偏移，10为间隔
+	}
+}
+
+#include <sys/time.h>
+#include <time.h>
+
+void get_time(int *h, int *m, int *s, int *ms) {
+    struct timeval tv;
+    struct tm *tm_info;
+
+    gettimeofday(&tv, NULL);
+    tm_info = localtime(&tv.tv_sec);
+
+    *h = tm_info->tm_hour;
+    *m = tm_info->tm_min;
+    *s = tm_info->tm_sec;
+    *ms = tv.tv_usec / 1000;
+}
+
+//===========================end==========================
+```
+
+%/accordion%
+
+
+
+%accordion%具体使用（weston&SF都能使用）：%accordion%
+
+```java
+	int h, m, s, ms;
+	get_time(&h, &m, &s, &ms);
+
+	//===========================start 绘制数字==========================
+	tmp_offset_x = 0; // 一轮操作，重置偏移
+	tmp_offset_y = offset_y*scale;
+	// 清理数字的背景
+	glEnable(GL_SCISSOR_TEST);
+	glScissor(0, tmp_offset_y, (digit_width + digit_space_pixel) * 10 * scale, digit_height * scale);
+	glClearColor(1.0, 1.0, 1.0, 1.0); // 白色背景
+	glClear(GL_COLOR_BUFFER_BIT);
+	glDisable(GL_SCISSOR_TEST);
+
+	draw_number(h);
+
+	draw_number(m);
+
+	draw_number(s);
+
+	draw_number(ms);
+	//===========================end 绘制数字==========================
+```
+
+%/accordion%
+
+
+
+
+
+## TODO 向后输出---------能做到log内容超精确对齐嘛？
+
+思路1：如何画字母呢？
+
+思路2： 时间戳（ms级模糊对齐） +    count数字_转颜色debugLine（精确对齐）
+
+
+
+
+
+## TODO: 以上各种方法组合使用
 
 
 
@@ -2750,6 +2975,30 @@ if (v_texcoord.x > (uTexture_x_max - 0.005) && v_texcoord.x < (uTexture_x_max + 
 -<font color='red'> 向后输出前提：</font>  上屏流程没有问题
 
 
+
+## TODO: 思想------log时间对齐、log内容对齐
+
+补充技巧：
+
+>   TODO: dump截图的文件名上，加时间戳
+>
+>   TODO: 向后输出 + 时间戳
+
+
+
+
+
+
+
+## 像素级操作：TODO
+
+> 查： 像素级 判断
+>
+> 改：
+
+
+
+对比两张图片
 
 ## shader编译错误信息的获取
 

@@ -1961,6 +1961,60 @@ TODO: 角度之启动日志
 
 
 
+
+
+### 环境变量的配置位置1------------systemd的.service文件
+
+前提：自然systemd启动
+
+
+
+
+
+### 环境变量的配置位置2 ----------  本程序的main入口处
+
+
+
+```java
+// keyboard.c
+main(int argc, char *argv[])
+{
+// --------------【】控制开关！！！！！-----------------
+	const char *env_path = "/tmp/weston/env_file"; 
+	if (access(env_path, F_OK) == 0) {
+		setenv("WAYLAND_DEBUG", "1", 1);
+		fprintf(stderr,"chen WAYLAND_DEBUG=1 has been set due to %s existence\n", env_path);
+		printf("chen WAYLAND_DEBUG=1 has been set due to %s existence\n", env_path);
+	}
+}
+```
+
+
+
+### 环境变量的配置位置3
+
+父程序启动时，给子程序设置
+
+
+
+
+
+## wayland、fprintf、printf日志重定向到文件
+
+程序main入口，加入：
+
+```java
+	// --------------wayland、fprintf、printf日志重定向到文件-----------------
+	freopen("/tmp/keyboard_stderr.log", "a", stderr); // 1、错误流stderr，从终端重定向到文件。（包括：wayland日志、fprintf(stderr）打印等）
+	freopen("/tmp/keyboard_stderr.log", "a", stdout);
+	// freopen("/tmp/keyboard_stdout.log", "a", stdout); // 2、标准输出流stdout，从终端重定向到文件。（包括：printf打印等）
+	                                                  // 注意：stderr 与 stdout 是两个不同的流，可以分别重定向到不同的文件，也可以重定向到同一个文件
+	setbuf(stderr, NULL); // 3、设置stderr为无缓冲，立即写
+	setbuf(stdout, NULL);
+```
+
+
+
 ## dump
 
 dump  surfaceFlinger：

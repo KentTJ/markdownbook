@@ -33,6 +33,10 @@
 
 
 
+TODO:   如何穿越牛熊 ？？？？
+
+**耐心（三年）----------  底部低吸**
+
 
 
 -<font color='red'>买入的checklist：TODO</font>

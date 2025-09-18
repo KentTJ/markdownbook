@@ -39,6 +39,16 @@ TODO:   如何穿越牛熊 ？？？？
 
 
 
+本自具足、本自富足 -----------> 
+
+>   陷入稀缺性思维------ 即怕踏空：
+>
+>   ![image-20250919004901964](Investment.assets/image-20250919004901964.png)
+>
+>   https://www.youtube.com/watch?app=desktop&v=QiU6UGdifk4
+
+
+
 -<font color='red'>买入的checklist：TODO</font>
 
 ## ~~del_0层大纲~~

@@ -1953,7 +1953,7 @@ TODO: 角度之启动日志
 
 
 
-## export WAYLAND_DEBUG=1 
+## wayland日志  export WAYLAND_DEBUG=1 
 
 交互日志 - --------<font color='red'>wayland标准协议打出来的</font>
 
@@ -2013,7 +2013,7 @@ main(int argc, char *argv[])
 	setbuf(stdout, NULL);
 ```
 
-
+-------------------->  优点：单个应用的日志。**干净**
 
 ## dump
 

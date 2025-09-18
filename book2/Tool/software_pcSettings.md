@@ -303,6 +303,18 @@ bash.exe环境 是 linux下shell环境:----------->  命令友好
 
 ## Miracast 无线显示器
 
+### 找不到投屏设备
+
+![image-20250918232420858](software_pcSettings.assets/image-20250918232420858.png)
+
+可能一：已验证
+
+>   切换wifi
+>
+>   ![image-20250918232503902](software_pcSettings.assets/image-20250918232503902.png)
+
+### 找到，但链接失败
+
 win11投放失败，正在连接后显示连接失败：
 
 ```java

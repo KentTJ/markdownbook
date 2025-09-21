@@ -2550,6 +2550,12 @@ GLUtils_saveRender(1440, 2960, 1, (char*)"repiant_views_100");
 
 >   需要setenforce 0
 
+关于read_format的确定：
+
+>   看源码里glReadPixels到底用的是什么
+
+
+
 ### 规定：超精确对齐------dump文件名默认必须加时间戳、log内容
 
 TODO 

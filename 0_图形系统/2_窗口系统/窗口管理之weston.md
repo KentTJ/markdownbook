@@ -2015,6 +2015,14 @@ main(int argc, char *argv[])
 
 -------------------->  优点：单个应用的日志。**干净**
 
+
+
+wayland日志的本质： fprintf(stderr
+
+
+
+
+
 ## dump
 
 dump  surfaceFlinger：

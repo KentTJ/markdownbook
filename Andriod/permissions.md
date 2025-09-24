@@ -686,6 +686,12 @@ https://blog.csdn.net/li6151770/article/details/52782141   Android调用打电�
 
 # Selinux权限 ------ Android
 
+安卓权限:
+
+>   framework层定义的权限： xml里配置
+>
+>   selinux权限：先都关了
+
 
 
 # apparmor权限 ------ linux
@@ -693,6 +699,33 @@ https://blog.csdn.net/li6151770/article/details/52782141   Android调用打电�
 和Selinux类似的一种访问控制系统
 
 参考： https://blog.csdn.net/imliuqun123/article/details/127223556
+
+
+
+
+
+selinux 与 apparm 报错都有：avc
+
+```java
+08-19 11:24:39.848  3545  3545 W screenshellapk: type=1400 audit(0.0:95537): avc:  denied  { sendto } for  path=002F6D6E742F6464735F303037 scontext=u:r:system_app:s0 tcontext=u:r:surfaceflinger:s0 tclass=unix_dgram_socket permissive=0
+08-19 11:24:39.848  3545  3545 W plitscreenshell: type=1300 audit(0.0:95537): arch=c00000b7 syscall=211 success=no exit=-13 a0=58 a1=7fe8827fb8 a2=0 a3=75ca30a830 items=0 ppid=32230 auid=4294967295 uid=1001000 gid=1001000 euid=1001000 suid=1001000 fsuid=1001000 egid=1001000 sgid=1001000 fsgid=1001000 tty=(none) ses=4294967295 exe="/system/bin/app_process64" subj=u:r:system_app:s0 key=(null)
+```
+
+
+
+
+
+**结论：**
+
+>   1、apparm 权限管控具有继承性：
+>
+>   例子：wmshell  是 weston的子进程  ------------->  weston的规则适用于 wmshell
+>
+>   2、如果wmshell有自己的规则文件，不会继承weston的规则了
+
+
+
+
 
 
 

@@ -682,6 +682,22 @@ cp .repo/manifests/default.xml default.xml.bak
 
 注意：没有 -c
 
+
+
+## 最少、最轻原则
+
+不必:  repo替换manifest.xml，<font color='red'>全量git回退到节点</font>
+
+> ---------------->  你只需要<font color='red'>某一个git仓回退到某个节点 </font> & 编译OK就行  
+
+**repo更新，太重了！！！**
+
+**规定： 最大限度，不更新环境（代码、刷机的版本）**
+
+
+
+
+
 ## repo命令理解
 
 `repo init`   ------- > 更新 manifest.xml

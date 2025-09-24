@@ -3122,6 +3122,95 @@ prepare_texture_without_color(struct weston_output *output, struct weston_blurFi
 
 
 
+## glBlitFramebuffer 复制/复制 + 翻转/颜色转换
+
+前置设置：
+
+```java
+        glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, cp->cap_fbo_texture.fbo);
+```
+
+复制：
+
+```java
+    glBlitFramebuffer(0, 0, go->area.width, go->area.height,
+	 		 0, 0, go->area.width, go->area.height,
+	 		  GL_COLOR_BUFFER_BIT, GL_NEAREST);
+```
+
+
+
+复制 + 上下翻转：
+
+```java
+	glBlitFramebuffer(0, 0, go->area.width, go->area.height,
+                  0, cp->cap_fbo_texture.height, cp->cap_fbo_texture.width, 0,
+                  GL_COLOR_BUFFER_BIT, GL_NEAREST);
+```
+
+
+
+
+
+
+
+```java
+			GBM_FORMAT_ARGB8888  与  GBM_FORMAT_BGRA8888 似乎反了
+			安卓的bitmap只能吃argb的数据
+```
+
+
+
+特别注意：
+
+> glBlitFramebuffer 可以做 GBM_FORMAT_ARGB8888 与 GBM_FORMAT_BGRA8888  转换 
+>
+> 跟申请的buffer format有关！
+
+
+
+
+
+
+
+**完整操作：**
+
+> ```java
+> glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+> glBindFramebuffer(GL_DRAW_FRAMEBUFFER, cp->cap_fbo_texture.fbo);
+> glBlitFramebuffer(0, 0, go->area.width, go->area.height,
+>                0, cp->cap_fbo_texture.height, cp->cap_fbo_texture.width, 0,
+>                GL_COLOR_BUFFER_BIT, GL_NEAREST);
+> glBindFramebuffer(GL_FRAMEBUFFER, 0);
+> ```
+>
+> 
+>
+> **具体含义：**
+>
+> ```java
+> glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+> 
+> 将读取源设置为默认的帧缓冲区（屏幕缓冲区）
+> 0 表示默认帧缓冲区，即屏幕
+> 
+> glBindFramebuffer(GL_DRAW_FRAMEBUFFER, cp->cap_fbo_texture.fbo);
+> 将绘制目标设置为自定义的 FBO（帧缓冲对象）
+> cp->cap_fbo_texture.fbo 是一个离屏渲染缓冲区
+> 
+> glBlitFramebuffer(...)
+> 执行帧缓冲区之间的像素块传输（blit 操作）
+> 源区域：从 (0,0) 到 (go->area.width, go->area.height)
+> 目标区域：从 (0, cp->cap_fbo_texture.height) 到 (cp->cap_fbo_texture.width, 0)
+> 注意目标区域的 Y 坐标是颠倒的，这实现了垂直翻转效果
+> GL_COLOR_BUFFER_BIT 表示复制颜色数据
+> GL_NEAREST 表示使用最近邻插值进行缩放
+> 
+> glBindFramebuffer(GL_FRAMEBUFFER, 0);
+> 恢复默认帧缓冲区绑定
+> ```
+
 
 
 

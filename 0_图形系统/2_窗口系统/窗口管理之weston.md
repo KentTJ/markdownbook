@@ -819,6 +819,83 @@ https://wayland.arktoria.org/2-protocol-design/high-level.html        The Waylan
 
 https://wayland.app/protocols/               A better way to read Wayland documentation
 
+
+
+# client（weston 的）线程结构
+
+## 结构
+
+![image-20250924174304164](窗口管理之weston.assets/image-20250924174304164.png)
+
+
+
+## loop线程（可以不是主线程）
+
+执行：
+
+```java
+while (true) { // 主loop
+	wl_display_dispatch_pending(m_display);
+	// ...........
+
+	wl_display_roundtrip(m_display);
+}
+```
+
+
+
+结论：
+
+> （1）client ---> weston 调用，<font color='red'>要在主loop  &  主loop线程里执行</font>
+>
+> ~~（2）weston ---> client, 同样~~
+>
+> （3）安卓or weston：主loop线程，一定不能做耗时操作（会阻塞所有事件）
+
+## 线程切换
+
+结论：
+
+> dds/binder调用client，是一个随机线程。**要切换线程才能调用weston**
+
+**切换线程例子：**
+
+（1）安卓的handler（本质epoll）
+
+（2）weston client：
+
+```java
+ while (true) {
+    wl_display_dispatch_pending(m_display);
+
+
+    std::function<void()> task;
+    {
+        std::unique_lock<std::mutex> lock(m_mutex);
+        m_condition.wait(lock, [this] { return !m_tasks.empty() || m_stop; });
+        if (m_stop && m_tasks.empty()) {
+            break;
+        }
+        task = std::move(m_tasks.front());
+        m_tasks.pop();
+    }
+    task(); // exec task
+
+
+    wl_display_roundtrip(m_display);
+}
+```
+
+原理：
+
+> -> weston：任意一个线程，把调用转成task，**往loop线程的m_tasks队列抛**
+>
+> weston->：<font color='red'>往loop线程里拿到了weston给的结果</font>，   **会在loop线程直接执行**
+
+补充：
+
+> 线程切换，属于多对一模型，必然存在锁
+
 # 配置(~~weston.ini~~)
 
 ## 参考+

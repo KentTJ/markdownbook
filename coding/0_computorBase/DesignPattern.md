@@ -2158,6 +2158,37 @@ linsterner比较固定，大部分时候实现接口，固定不变。。。。�
 
 
 
+# 设计之通知
+
+主动轮询:
+
+> 例子1--------- <font color='red'>利用文件通知</font>：
+>
+> > 通过新建文件finished文件：发现有文件了，代表完成（文件是及时的。。。**但是如果要写入大量内容，不一定及时**）
+> >
+> > 规定：**检测有没有finished文件，不检测待写入文件大小有没有改变！！！！**
+>
+> 例子2---------- <font color='red'>settings数据库通知</font>：
+>
+> > 安卓的属性值  
+> >
+> > ```
+> >   - 清空分屏状态（android）：
+> >        settings put system persist.byd.baios.splitscreen.status ""
+> > ```
+
+
+
+
+
+被动调用：
+
+> callback
+>
+> 监听listener
+
+
+
 
 
 # 分层设计思想

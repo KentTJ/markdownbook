@@ -684,9 +684,15 @@ https://blog.csdn.net/li6151770/article/details/52782141   Android调用打电�
 
 
 
-# Selinux权限
+# Selinux权限 ------ Android
 
 
+
+# apparmor权限 ------ linux
+
+和Selinux类似的一种访问控制系统
+
+参考： https://blog.csdn.net/imliuqun123/article/details/127223556
 
 
 

@@ -5485,6 +5485,96 @@ wayland协议是  client 与  weston之间
 
 
 
+# 问题定位之  卡死
+
+图形buffer卡死（yocto没给安卓回）、跨进程接口调用卡死（）  ------------> 都是同步模型的问题
+
+解决同步模型卡死的问题，统一方法：
+
+> 转成异步
+
+
+
+trace看卡死：集中处的首，必然是卡的点
+
+
+
+
+
+-<font color='red'>占帧，是占buffer物理帧（不是时间上的帧！！！！！）</font>  ----> 即buffer轮转
+
+结论：
+
+1、无论GPU还是device合成，都是： <font color='red'>上一个buffer的release是被下一个buffer的commit顶出去的</font>  例子：gpu surface_commit释放buffer（<font color='red'>应用buffer顶</font>）、device合成 page_flip释放buffer（<font color='red'>display buffer顶</font>）
+
+
+
+
+
+卡16ms，**矮子里选将军**：
+
+> 1、可以有多个卡16ms的卡点
+>
+> 2、最少一个卡16ms的卡点
+>
+> 3、可以存在 < 16ms的点（前提：存在一个16ms的卡点）
+
+
+
+
+
+## 卡死
+
+android侧只是开启fence以及调整bufferqueue为同步模式，这样调整后Bufferqueue里的buffer会直接releaseBuffer，不会等你们yocto releaseCallback；但是如果yocto侧还帧还是太慢的话可能会导致卡fence
+
+
+
+
+
+理解：
+
+bufferqueue为同步模式：
+
+安卓侧主动releasebuffer（不等yocto侧的releasebuffer），但是新建了一套fence机制来解决异步问题
+
+---------------> 
+
+> 1、异步模型的问题不可避免：releasebuffer解决，还是fence解决
+>
+> 2、fence解决比较好，CPU与GPU之间的异步的充分利用
+>
+> 3、releasebuffer解决：问题只会出在 bufferqueue 上（没有fence机制）
+>
+> ​    fence机制解决：问题只会出在fence上，比如GPU 1s没有拿到fence signal，GPU会报crash
+>
+> ​                          （问题不会出在bufferqueue上）
+>
+> 4、
+
+
+
+
+
+
+
+## 显示上卡的判断
+
+前提：有合成器的帧率
+
+问题：APP显示上卡
+
+方法：
+
+启动一个simple-egl（<font color='red'>本质是拉满合成60fps作用</font>）：
+
+> （1）如果simple-egl没有到60fps，说明pageFlip回的慢了（拉低合成帧率）
+>
+> ​            1_1 如果连40 fps都没有（默认返回）
+>
+> （2）如果simple-egl有到60ms，说明APP应用自己提交慢了
+
+
+
 # 资料
 
 https://wayland.pages.freedesktop.org/weston/    weston官网

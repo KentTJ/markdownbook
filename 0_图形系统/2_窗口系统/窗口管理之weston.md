@@ -827,6 +827,8 @@ https://wayland.app/protocols/               A better way to read Wayland docume
 
 ![image-20250924174304164](窗口管理之weston.assets/image-20250924174304164.png)
 
+图来源：《weston_IPC.eddx》
+
 
 
 ## loop线程（可以不是主线程）

@@ -3215,6 +3215,68 @@ prepare_texture_without_color(struct weston_output *output, struct weston_blurFi
 
 
 
+
+
+# opengl实现截图（Android/weston）
+
+必然：client给buffer
+
+## 方式一：往给定buffer上绘制------GPU操作
+
+参考：dma-egl
+
+即：
+
+> （1）weston侧创建fbo，
+>
+> （2）绑定buffer
+>
+> （2）填充buffer
+
+截图：create_fbo_for_buffer
+
+实现接口 TODO：
+
+> request: pid + wl_buffer + callback(done的接口)
+
+
+
+
+
+GPU截图好处：
+
+> 1、快速-----us级别
+>
+> 2、<font color='red'>可以画到任意大小的目标buffer上 ----------> 即可以实现任意的放缩</font>
+
+
+
+方式三：glblitFramebuffer， 见对应章节
+
+注：<font color='red'> 像素的复制 -------->  没有 makeContext、栅格化、后处理等操作，效率非常高！！！！</font>
+
+
+
+
+
+
+
+## 方式二：绘制完后，readpixel到给定 buffer上------CPU操作
+
+即：
+
+> （1）weston侧在原有的fbo上叠图（合成）
+>
+> （2）readpixel到 buffer上
+
+
+
+## 方式三：glblit ------GPU操作
+
+
+
+
+
 # 网站
 
 正规的学习网站

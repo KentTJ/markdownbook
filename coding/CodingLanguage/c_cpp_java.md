@@ -1680,7 +1680,125 @@ prepare(BlurFilter blurFilter)
 
 
 
+# cpp多线程
 
+block 与 恢复：
+
+
+
+这几行代码展示了如何使用 C++ 的条件变量（`std::condition_variable`）来实现线程阻塞和唤醒机制。让我详细解释其工作原理：
+
+## 核心机制解析
+
+### 1. 条件变量等待机制
+
+```
+cppbool regionsSync::waitForCaptureSyncComplete(std::chrono::milliseconds timeout) {
+    std::unique_lock<std::mutex> lock(mSyncMutex);
+    ALOGD("chenjinke, regionsSync:waitForCaptureSyncComplete");
+    mSyncCompleted = false; // 【】添加这一行来重置状态
+    return mSyncCondition.wait_for(lock, timeout, [this] { return mSyncCompleted; });
+}
+```
+
+### 2. 工作流程
+
+1. **获取锁**：`std::unique_lock<std::mutex> lock(mSyncMutex);`
+    - 创建一个唯一锁并锁定 `mSyncMutex` 互斥量
+    - 确保对共享变量 `mSyncCompleted` 的访问是线程安全的
+2. **重置状态**：`mSyncCompleted = false;`
+    - 将同步完成标志重置为 false，确保后续等待是必要的
+3. **条件等待**：`mSyncCondition.wait_for(...)`
+    - 使用 lambda 表达式 `[this] { return mSyncCompleted; }` 作为等待条件
+    - 如果条件返回 false，线程会被阻塞并释放 `lock`
+    - 线程会一直阻塞直到：
+        - 条件变为 true（通过其他线程调用 `linuxCaptureCompleted`）
+        - 超时时间到达（500ms）
+    - 当线程被唤醒时，会重新获取 `lock` 并再次检查条件
+
+### 3. 唤醒机制
+
+```
+cppvoid regionsSync::linuxCaptureCompleted() {
+    {
+        std::lock_guard<std::mutex> lock(mSyncMutex);
+        mSyncCompleted = true;
+        ALOGD("chenjinke, regionsSync:linuxCaptureCompleted");
+    }
+    mSyncCondition.notify_one();
+}
+```
+
+1. **设置完成标志**：在锁保护下将 `mSyncCompleted` 设置为 `true`
+2. **通知等待线程**：调用 `mSyncCondition.notify_one()` 唤醒一个等待的线程
+
+## 线程阻塞的具体过程
+
+1. **线程A调用waitForCaptureSyncComplete()**：
+    - 获取 `mSyncMutex` 锁
+    - 将 `mSyncCompleted` 设置为 false
+    - 调用 `wait_for`，检查 lambda 条件（返回 false）
+    - 线程A被阻塞，同时释放 `mSyncMutex` 锁
+2. **线程B执行linuxCaptureCompleted()**：
+    - 获取 `mSyncMutex` 锁（如果线程A还没释放，会在此等待）
+    - 设置 `mSyncCompleted = true`
+    - 调用 `notify_one()` 发送唤醒信号
+    - 释放 `mSyncMutex` 锁
+3. **线程A被唤醒**：
+    - 重新获取 `mSyncMutex` 锁
+    - 再次检查 lambda 条件（现在返回 true）
+    - `wait_for` 返回 true，线程A继续执行
+
+## 超时处理
+
+`wait_for` 的第三个参数是超时时间（500ms），如果在指定时间内条件仍未满足，函数会返回 false，避免无限期阻塞。
+
+这种机制确保了截图操作能够与 Linux 端的同步操作协调，等待 Linux 端完成截图准备后再继续 Android 端的截图流程。
+
+
+
+
+
+## 锁的状态 与 notify_all 与超时机制
+
+```java
+// Timeout for waiting for an expected event
+static constexpr std::chrono::milliseconds WAIT_TIMEOUT{400};
+bool regionsSync::syncCapture2Linux(int32_t displayid) {
+    std::unique_lock<std::mutex> lock(mSyncMutex);  // 1. 获取锁
+    ALOGD("chenjinke, regionsSync:syncCapture2Linux start 11111");
+    
+    if (mSyncCompleted) {
+        mSyncCompleted = false;
+        mCaptureSyncClient->RequestAsync(displayid, 10);
+        ALOGD("regionsSync:syncCapture2Linux end");
+    }
+
+    // 2. 调用 wait_for 时会自动释放 mSyncMutex 锁
+    // 3. 线程进入等待状态
+    // 4. 当被唤醒时，会重新获取 mSyncMutex 锁
+    // 5. 然后检查谓词条件，决定是否继续等待或返回
+    bool result = mSyncCondition.wait_for(lock, WAIT_TIMEOUT, [this] { return mSyncCompleted;}); // wait_for返回值: false：表示等待超时了
+
+    // 超时状态等同于自然释放（重置状态以便下次调用能正常工作）
+    if (!result) {
+        ALOGD("regionsSync:syncCapture2Linux timeout, reset state");
+        mSyncCompleted = true;
+    }
+
+    return result;
+}
+
+void regionsSync::linuxCaptureCompleted() {
+    {
+        std::lock_guard<std::mutex> lock(mSyncMutex);
+        mSyncCompleted = true;
+        ALOGD("chenjinke, regionsSync:linuxCaptureCompleted");
+    }
+    // mSyncCondition.notify_one(); // 唤醒一个等待的线程（mSyncCondition.wait_for处）
+    mSyncCondition.notify_all();
+}
+```
 
 
 

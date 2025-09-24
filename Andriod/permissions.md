@@ -716,7 +716,7 @@ TODO：难道user版本不行？
 
 ![image-20231012001125761](permissions.assets/image-20231012001125761.png)
 
-![image-20231011003528215](permissions.assets/image-20231011003528215.png)
+![image-20231011003528215](permissions.assets/image-20231011003528215-1758728575717.png)
 
 ### 修改su文件读写权限
 

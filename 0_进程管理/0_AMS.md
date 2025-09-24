@@ -887,6 +887,196 @@ https://zhuanlan.zhihu.com/p/190151810
 
 
 
+# Activity销毁
+
+## Activity销毁&重建
+
+在Android中，当设备配置发生变化时（例如屏幕旋转、键盘可用性变化或语言更改），系统默认会销毁并重新创建Activity。为了**防止这种重建**并手动处理配置更改，可以采用以下方法：
+
+1. **在AndroidManifest.xml中指定configChanges**： 在你的[AndroidManifest.xml](javascript:void(0))文件中，对于你想要防止重建的特定Activity，添加`android:configChanges`属性，指定你想要手动处理的配置变化。
+
+    ```java
+    xml<activity
+        android:name=".YourActivity"
+        android:configChanges="orientation|screenSize|keyboardHidden">
+    </activity>
+    ```
+
+    上面的例子表明，当屏幕方向、屏幕尺寸或键盘隐藏状态发生变化时，Activity不会被重新创建。
+
+2. **在Activity中重写onConfigurationChanged方法**： 在你的Activity中，重写[onConfigurationChanged](javascript:void(0))方法来处理配置变化：
+
+    ```java
+    java@Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // 在这里处理配置变化
+        // 例如，检查屏幕方向并相应地调整UI
+    }
+    ```
+
+通过这种方式，当指定的配置发生变化时，Activity不会被销毁和重新创建，而是会调用`onConfigurationChanged`方法，允许你手动处理这些变化。这可以提高应用的性能，避免不必要的资源重新加载。
+
+
+
+
+
+### 应用角度，拦截系统事件，防止重建：
+
+```java
+android:configChanges="mnc|mcc|touchscreen|navigation|screenLayout|screenSize|smallestScreenSize|orientation|locale|keyboard|keyboardHidden|fontScale|uiMode|layoutDirection|density"
+
+// 全量config  -------> 任何config变化，activity都不会销毁
+```
+
+
+
+
+
+## wm_日志，可以很好的看到生命周期（应用侧执行、系统侧调度）：
+
+```java
+1、force-stop cn.example.application：
+08-27 12:11:27.407  5409  6080 I wm_finish_activity: [10,17986161,1000071,cn.example.application/.MainActivity,proc died without state saved]
+08-27 12:11:27.412  5409  6080 I wm_task_removed: [1000071,1000070,0,removeChild, last child = ActivityRecord{1127271 u10 cn.example.application/.MainActivity t-1 f}} in Task{ac700d7 #1000071 type=home A=1001000:cn.example.application}]
+08-27 12:11:27.412  5409  6080 I wm_task_removed: [1000070,1000070,0,removeChild, last child = Task{ac700d7 #1000071 type=home A=1001000:cn.example.application} in Task{483452c #1000070 type=home}]
+08-27 12:11:27.414  5409  6080 I wm_task_created: 1000072
+08-27 12:11:27.417  5409  6080 I wm_task_created: 1000073
+08-27 12:11:27.418  5409  6080 I wm_task_moved: [1000073,1000072,0,1,2147483647]
+08-27 12:11:27.418  5409  6080 I wm_task_moved: [1000072,1000072,0,1,0]
+08-27 12:11:27.418  5409  6080 I wm_create_task: [10,1000073,1000072,0]
+08-27 12:11:27.418  5409  6080 I wm_create_activity: [10,127259671,1000073,cn.example.application/.MainActivity,android.intent.action.MAIN,NULL,NULL,276824320]
+08-27 12:11:27.418  5409  6080 I wm_task_moved: [1000072,1000072,0,1,0]
+08-27 12:11:27.418  5409  6080 I wm_task_moved: [1000073,1000072,0,1,2147483647]
+08-27 12:11:27.418  5409  6080 I wm_task_to_front: [10,1000073,0]
+08-27 12:11:27.419  7654  7654 I wm_on_top_resumed_lost_called: [235713631,com.android.launcher3.home.MainActivity,topStateChangedWhenResumed]
+08-27 12:11:27.420  5409  6080 I wm_new_intent: [10,127259671,1000073,cn.example.application/.MainActivity,android.intent.action.MAIN,NULL,NULL,276824320]
+08-27 12:11:27.420  5409  6080 I wm_task_moved: [1000072,1000072,0,1,0]
+08-27 12:11:27.488  5409  8232 I wm_restart_activity: [10,127259671,1000073,cn.example.application/.MainActivity]
+08-27 12:11:27.489  5409  8232 I wm_set_resumed_activity: [10,cn.example.application/.MainActivity,minimalResumeActivityLocked - onActivityStateChanged]
+08-27 12:11:27.504  5409  8232 I wm_new_intent: [10,235713631,1000010,com.android.launcher3/.home.MainActivity,android.intent.action.MAIN,NULL,NULL,278921216]
+08-27 12:11:27.505  5409  8232 I wm_set_resumed_activity: [10,com.android.launcher3/.home.MainActivity,onChildPositionChanged]
+08-27 12:11:27.505  5409  8232 I wm_task_moved: [1000010,1000010,13,1,0]
+08-27 12:11:27.505  7654  7654 I wm_on_paused_called: [235713631,com.android.launcher3.home.MainActivity,performPause,0]
+08-27 12:11:27.505  7654  7654 I wm_on_resume_called: [235713631,com.android.launcher3.home.MainActivity,LIFECYCLER_RESUME_ACTIVITY,0]
+08-27 12:11:27.626 11213 11213 I wm_on_create_called: [127259671,cn.example.application.MainActivity,performCreate,127]
+08-27 12:11:27.626 11213 11213 I wm_on_start_called: [127259671,cn.example.application.MainActivity,handleStartActivity,0]
+08-27 12:11:27.627 11213 11213 I wm_on_resume_called: [127259671,cn.example.application.MainActivity,RESUME_ACTIVITY,0]
+08-27 12:11:27.655 11213 11213 I wm_on_top_resumed_gained_called: [127259671,cn.example.application.MainActivity,topStateChangedWhenResumed]
+08-27 12:11:27.655 11213 11213 I wm_on_top_resumed_lost_called: [127259671,cn.example.application.MainActivity,topStateChangedWhenResumed]
+08-27 12:11:27.656  7654  7654 I wm_on_top_resumed_gained_called: [235713631,com.android.launcher3.home.MainActivity,topStateChangedWhenResumed]
+
+
+2、系统侧configchanged：
+Line 26896: 2025-08-21 21:23:06.342  1000  1685  2064 I wm_relaunch_resume_activity: [10,3500745,1000007,com.android.launcher3/.home.MainActivity,200]
+Line 26903: 2025-08-21 21:23:06.343  1000  1685  2064 I wm_relaunch_resume_activity: [10,210212049,1000006,cn.example.application/.MainActivity,200]
+Line 26964: 2025-08-21 21:23:06.355 1001000  3902  3902 I wm_on_top_resumed_lost_called: [3500745,com.android.launcher3.home.MainActivity,pausing]
+Line 26966: 2025-08-21 21:23:06.355 1001000  3902  3902 I wm_on_paused_called: [3500745,com.android.launcher3.home.MainActivity,performPause,1]
+Line 27058: 2025-08-21 21:23:06.382 1001000  2181  2181 I wm_on_paused_called: [210212049,cn.example.application.MainActivity,performPause,1]
+Line 27068: 2025-08-21 21:23:06.384 1001000  2181  2181 I wm_on_stop_called: [210212049,cn.example.application.MainActivity,handleRelaunchActivity,0]
+Line 27333: 2025-08-21 21:23:06.444 1001000  2181  2181 I wm_on_destroy_called: [210212049,cn.example.application.MainActivity,performDestroy,60]
+```
+
+## Activity销毁和重新创建的场景大全
+
+进程有没有销毁
+
+1、oom系统低内存
+
+2、休眠唤醒，会杀进程
+
+3、onConfig
+
+
+
+###  配置变化（Configuration Changes）-------- 进程不会kill掉
+
+当设备配置发生变化时，系统默认会销毁并重新创建Activity：
+
+- 屏幕旋转（orientation change）
+- 键盘可用性变化（如物理键盘弹出/收起）
+- 语言或区域设置变化（locale change）
+- 字体缩放比例变化（font scale change）
+- 屏幕密度变化（density change）
+- UI模式变化（如夜间模式切换）
+
+你已经在 [AndroidManifest.xml](javascript:void(0)) 中通过 `android:configChanges` 属性处理了这些情况，避免了默认的销毁重建行为。
+
+### 系统资源紧张（Low Memory Conditions）
+
+当系统内存不足时，Android系统可能会销毁后台Activity以释放资源：
+
+- 系统杀死后台进程以回收内存
+
+- 用户长时间未使用应用，Activity进入后台
+
+- 其他高优先级应用需要更多资源
+
+
+
+  ### 休眠唤醒-----> 会杀进程
+
+
+
+### 用户操作（User Actions）
+
+- 用户按下返回键（默认情况下会销毁当前Activity）
+- 用户从最近任务列表中清除应用
+- 用户切换到其他应用，当前Activity进入后台
+
+### 应用生命周期管理（App Lifecycle Management）
+
+- 应用进程被系统终止（如应用长时间在后台）
+- 应用崩溃或异常退出后重新启动
+- 应用更新后首次启动
+
+###  多窗口模式变化（Multi-Window Mode Changes）
+
+在支持多窗口的设备上：
+
+- 用户进入或退出多窗口模式
+- 窗口大小发生变化
+- 窗口焦点发生变化
+
+###  主题和样式变化（Theme and Style Changes）
+
+- 应用主题发生变化
+- 系统UI模式发生变化（如深色模式切换）
+
+### 显式调用销毁方法（Explicit Destruction Calls）
+
+- 调用 `finish()` 方法
+- 调用 `finishAffinity()` 方法
+- 调用 `recreate()` 方法强制重建Activity
+
+###  权限变化（Permission Changes）
+
+- 运行时权限被授予或撤销（在某些Android版本中）
+
+###  屏幕相关变化（Screen-related Changes）
+
+- 屏幕分辨率变化
+- 屏幕刷新率变化
+- 多显示屏连接或断开
+
+### 针对你当前应用的特殊场景：
+
+由于你的应用是一个Home应用（具有 `CATEGORY_HOME`），还有一些特殊场景需要注意：
+
+1. **Home应用切换**：当系统默认Home应用发生变化时
+2. **系统UI可见性变化**：状态栏、导航栏的显示/隐藏
+3. **输入法相关变化**：虽然你设置了 `windowSoftInputMode="stateAlwaysHidden"`
+
+### 如何处理这些场景：
+
+1. **保存和恢复状态**：使用 [onSaveInstanceState()](javascript:void(0)) 和 [onRestoreInstanceState()](javascript:void(0))
+2. **使用 ViewModel**：在配置变化时保持数据
+3. **正确处理生命周期**：在 [onPause()](javascript:void(0)), [onStop()](javascript:void(0)), [onDestroy()](javascript:void(0)) 中进行适当清理
+4. **使用 `android:configChanges`**：像你已经做的那样，手动处理配置变化
+5. **持久化重要数据**：对于需要在进程终止后保持的数据，使用 SharedPreferences、数据库或其他持久化方式
+
+
+
 
 
 

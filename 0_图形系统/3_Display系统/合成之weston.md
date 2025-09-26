@@ -1660,11 +1660,23 @@ struct zwp_linux_buffer_release_v1_listener {
 
 
 
+
+
+
+
 ### c侧的帧率统计（驱动力的帧率）
 
 自然是， 统计redraw的 次数/时间
 
 redraw的本质，就是 合成器给的wl_callback 触发
+
+
+
+
+
+
+
+
 
 
 

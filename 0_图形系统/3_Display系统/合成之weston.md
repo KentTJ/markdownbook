@@ -5610,6 +5610,8 @@ https://blog.csdn.net/u012839187/article/details/116054755    agl-compositor
 
 [display:weston渲染流程:buffer+attach+damage+frame_wayland渲染函数-CSDN博客](https://blog.csdn.net/u012839187/article/details/100580627)       buffer+attach+damage+frame
 
+>   local download：
+
 [display:weston渲染流程:commit_weston display-CSDN博客](https://blog.csdn.net/u012839187/article/details/106469038)    commit
 
 [Wayland源码分析-Commit相关流程_wayland源码剖析-CSDN博客](https://blog.csdn.net/sinat_32596537/article/details/81625649?spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-3-81625649-blog-122790158.235^v43^pc_blog_bottom_relevance_base7&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-3-81625649-blog-122790158.235^v43^pc_blog_bottom_relevance_base7&utm_relevant_index=6)   commit
@@ -5639,6 +5641,115 @@ https://fossies.org/dox/weston-13.0.3/structivi__shell.html     struct的类图
 https://zhpower.github.io/blog/graphic/2002-05-15-Wayland&Weston.html           系列文章！！！！------>好文！！！！<font color='red'>好图</font>！！！！
 
 ​                  
+
+
+
+**系列文章：**  ------>  好文！
+
+>   ### wayland/weston介绍文章：
+>
+>   -   display:Wayland Architecture：：[display:Wayland Architecture_maze的专栏-CSDN博客](https://blog.csdn.net/u012839187/article/details/94599565)
+>       -   介绍了egl相关。
+>       -   介绍了渲染的流程。
+>       -   介绍x-server与weston的区别与联系。
+>   -   wayland详解：：[wayland详解_maze的专栏-CSDN博客_wayland](https://blog.csdn.net/u012839187/article/details/94728665)
+>       -   较为详细的介绍了wayland以及weston架构。
+>       -   介绍了protocol的作用，编译。
+>       -   介绍了渲染流水线，主要是opengl相关。
+>       -   介绍了窗口管理，view层级关系。
+>       -   介绍了输入管理。
+>   -   wayland protocal and programming：：[wayland protocal and programming_maze的专栏-CSDN博客](https://blog.csdn.net/u012839187/article/details/97135985)
+>       -   **详细介绍了wayland架构中多种协议，client和server之间，EGL和server之间，server和shell之间等。**
+>       -   **基本介绍了整个weston与drm架构，所有的知识点均有涉及。**
+>       -   **需要重写一下**
+>           -   **1，协议老旧**
+>           -   **2，commit接口老旧**
+>   -   wayland case：：[wayland case_maze的专栏-CSDN博客](https://blog.csdn.net/u012839187/article/details/94737563)
+>       -   以weston-shm为例，讲了client与weston交互的简单关系。
+>       -   **着重讲解了weston client与weston交互的消息传递机制，request与event。**
+>   -   display:weston渲染流程:buffer+attach+damage+frame：：[display:weston渲染流程:buffer+attach+damage+frame_maze的专栏-CSDN博客](https://blog.csdn.net/u012839187/article/details/100580627)
+>       -   **准确讲述了weston的渲染框架图。**
+>       -   **以weston-simple-shm为例子，讲述buffer/attach/damage/frame四个对应操作的客户端以及server端操作。**
+>       -   在线结构图网站：[weston: Main Page - doxygen documentation | Fossies Dox](https://fossies.org/dox/weston-9.0.0/)
+>   -   display:weston渲染流程:commit：：[https://blog.csdn.net/u012839187/article/details/106469038](https://blog.csdn.net/u012839187/article/details/106469038?spm=1001.2014.3001.5501)
+>       -   **以weston-simple-shm为例子，讲述commit对应的客户端以及server端操作。**
+>   -   display:weston初始化：：[display:weston初始化_maze的专栏-CSDN博客](https://blog.csdn.net/u012839187/article/details/103185857)
+>       -   **基本介绍weston初始化流程。**
+>   -   display:weston.ini文件配置：：[display:weston.ini文件配置_maze的专栏-CSDN博客_weston.ini](https://blog.csdn.net/u012839187/article/details/97397536)
+>       -   weston.ini文件的配置说明
+>   -   display:weston:man weston 相关：：[display:weston:man weston 相关_maze的专栏-CSDN博客](https://blog.csdn.net/u012839187/article/details/112054312)
+>       -   关于weston debug或者weston里面的使用命令，配置文件
+>   -   display:agl-compositor：：[display:agl-compositor_maze的专栏-CSDN博客](https://blog.csdn.net/u012839187/article/details/116054755)
+>       -   介绍agl-compositor
+>   -   display:weston结构体笔记：：[display:weston结构体笔记_maze的专栏-CSDN博客](https://blog.csdn.net/u012839187/article/details/117082326)
+>       -   介绍weston_head/weston_output/weston_view/weston_compositor/weston_surface/weston_buffer的详细内容和创建过程
+>
+>   ### Wayland-protocol
+>
+>   -   A better way to read Wayland documentation：：[Wayland Protocol Documentation | Wayland Explorer](https://wayland.app/protocols/) 
+>
+>   ### weston client介绍文章：
+>
+>   -   display:weston的client端绘画[subsurface,fullscreen]：：[https://blog.csdn.net/u012839187/article/details/10010675](https://blog.csdn.net/u012839187/article/details/100106753)
+>
+>       -   写了两个小功能，一个是subsurface,一个是fullscreen。
+>
+>   -   display:wesotn:clienst:simple-dmabuf-drm & simple-dmabuf-egl：：[display:wesotn:clienst:simple-dmabuf-drm & simple-dmabuf-egl_maze的专栏-CSDN博客](https://blog.csdn.net/u012839187/article/details/107535495)
+>
+>       -   介绍dmabuf-protocol
+>
+>   -   WayLand IVI Extension：：[WayLand IVI Extension_maze的专栏-CSDN博客](https://blog.csdn.net/u012839187/article/details/95503449)
+>
+>       -   介绍了ivi-shell。
+>       -   讲解了layer-add-surface与LayerManagerControl的使用方法。
+>
+>   -   display:weston:desktop & xdg-shell：：[display:weston:desktop & xdg-shell_maze的专栏-CSDN博客_xdg-shell](https://blog.csdn.net/u012839187/article/details/117549605)
+>
+>       -   讲解desktop-shell这个client的整个逻辑
+>
+>   -   #### **需要写一篇基于代码的ivi-shell**
+>
+>   -   display:weston:weston-simple-egl：：[display:weston:weston-simple-egl_maze的专栏-CSDN博客](https://blog.csdn.net/u012839187/article/details/112415876)
+>
+>       -   讲述了egl/opengles相关的东西。
+>
+>   -   display:weston:weston-simple-egl: server端：：[display:weston:weston-simple-egl: server端_maze的专栏-CSDN博客](https://blog.csdn.net/u012839187/article/details/113104654)
+>
+>       -   深入一些和simple-shm不一样的部分。
+>
+>   ### DRM/KMS介绍文章：
+>
+>   -   display:kernel送显流程:commit：：[display:kernel送显流程:commit_maze的专栏-CSDN博客](https://blog.csdn.net/u012839187/article/details/117409566)
+>       -   commit流程笔记
+>   -   tools:drm-kms调试手段[modetest]：：[tools:drm-kms调试手段[modetest\]_maze的专栏-CSDN博客_android drm kms](https://blog.csdn.net/u012839187/article/details/103507833)
+>       -   介绍modetest使用方法。
+>   -   tools:modetest代码逻辑：：[tools:modetest代码逻辑_maze的专栏-CSDN博客](https://blog.csdn.net/u012839187/article/details/105833584)
+>       -   介绍modetest代码逻辑。
+>   -   Linux DRM Developer's Guide：：[https://blog.csdn.net/u012839187/article/details/105165443](https://blog.csdn.net/u012839187/article/details/105165443?spm=1001.2014.3001.5501)
+>       -   **详细介绍drm/kms架构，主要是从驱动层讲解**
+>
+>   ### BUFFER相关介绍文章：
+>
+>   -   ION基本概念介绍和原理分析[转]：：[ION基本概念介绍和原理分析[转\]_maze的专栏-CSDN博客](https://blog.csdn.net/u012839187/article/details/105714090)
+>       -   讲述了整个ion的内核代码，相对老旧。
+>       -   讲述了libion。
+>   -   display:libdrm/libgbm/ion/gem/dma_buf：：[display:libdrm/libgbm/ion/gem/dma_buf_maze的专栏-CSDN博客](https://blog.csdn.net/u012839187/article/details/113558156)
+>       -   讲述了基本完整的libgbm->ion->gem->dma_buf的衔接。
+>
+>   
+>
+>   ### 外设接口介绍文章：
+>
+>   -   display:Displayport概念简述：：[display:Displayport概念简述_maze的专栏-CSDN博客](https://blog.csdn.net/u012839187/article/details/103924364)
+>       -   简单介绍了DP相关的架构。
+>   -   display:HDCP协议简述：：[display:HDCP协议简述_maze的专栏-CSDN博客_hdcp协议](https://blog.csdn.net/u012839187/article/details/104406281)
+>       -   简单介绍HDCP 1.x 2.x。
+>       -   HDCP协议官网：：[HDCP Specifications | Digital Content Protection](https://www.digital-cp.com/hdcp-specifications)
+>   -   display:dp:edid/e-edid/displayid：：[https://blog.csdn.net/u012839187/article/details/108316032](https://blog.csdn.net/u012839187/article/details/108316032?spm=1001.2014.3001.5501)
+>       -   讲述edid以及dpcd。
+>   -   https://groups.vesa.org/wg/AllMem/home/get-vesa-standards
+
+
 
 
 

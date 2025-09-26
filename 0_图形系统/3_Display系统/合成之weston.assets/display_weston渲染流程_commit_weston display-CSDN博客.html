@@ -1,9 +1,9 @@
-<!doctype html>
-<html lang="zh-CN">
- <head> 
-  <meta charset="utf-8"> 
+<!DOCTYPE html>
+<!-- saved from url=(0101)file:///C:/Users/Administrator/Desktop/display_weston%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B_commit.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+   
   <link rel="canonical" href="https://blog.csdn.net/u012839187/article/details/106469038"> 
-  <meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+   
   <meta name="renderer" content="webkit"> 
   <meta name="force-rendering" content="webkit"> 
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
@@ -11,17 +11,17 @@
   <meta name="report" content="{&quot;pid&quot;: &quot;blog&quot;, &quot;spm&quot;:&quot;1001.2101&quot;}"> 
   <meta name="referrer" content="always"> 
   <meta http-equiv="Cache-Control" content="no-siteapp">
-  <link rel="alternate" media="handheld" href="#">  
+  <link rel="alternate" media="handheld" href="file:///C:/Users/Administrator/Desktop/display_weston%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B_commit.html#">  
   <meta name="applicable-device" content="pc"> 
   <link href="https://g.csdnimg.cn/static/logo/favicon32.ico" rel="shortcut icon" type="image/x-icon"> 
   <title>display:weston渲染流程:commit_weston display-CSDN博客</title>  
   <meta name="keywords" content="weston display"> 
   <meta name="csdn-baidu-search" content="{&quot;autorun&quot;:true,&quot;install&quot;:true,&quot;keyword&quot;:&quot;weston display&quot;}"> 
   <meta name="description" content="文章浏览阅读7.4k次，点赞9次，收藏33次。接上一篇display:weston渲染流程:buffer+attach+damage+framehttps://blog.csdn.net/u012839187/article/details/100580627下面讲commit5.commithttps://happyseeker.github.io/graphic/2016/11/10/wayland-commit-relative-flow.htmlSurface state (input, opaqueand damag._weston display"> 
-  <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/release/blogv2/dist/pc/css/detail_enter-83d944990a.min.css">  
-  <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin-blackboard/skin-blackboard-3adcc2c475.min.css">    
+  <link rel="stylesheet" type="text/css" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/detail_enter-83d944990a.min.css">  
+  <link rel="stylesheet" type="text/css" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/skin-blackboard-3adcc2c475.min.css">    
   <meta name="toolbar" content="{&quot;type&quot;:&quot;0&quot;,&quot;fixModel&quot;:&quot;1&quot;}">    
-  <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css"> 
+  <link rel="stylesheet" type="text/css" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/sandalstrap.min.css"> 
   <style>
         .MathJax, .MathJax_Message, .MathJax_Preview{
             display: none
@@ -36,9 +36,9 @@
  </head>  
  <body class="nodata  " style=""> 
   <div id="toolbarBox" style="min-height: 48px;"></div>    
-  <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/pc/css/blog_code-01256533b5.min.css"> 
-  <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/chart-3456820cac.css"> 
-  <link rel="stylesheet" href="https://g.csdnimg.cn/lib/swiper/6.0.4/css/swiper.css">   
+  <link rel="stylesheet" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/blog_code-01256533b5.min.css"> 
+  <link rel="stylesheet" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/chart-3456820cac.css"> 
+  <link rel="stylesheet" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/swiper.css">   
   <div class="main_father clearfix d-flex justify-content-center mainfather-concision" style="height:100%;"> 
    <div class="container clearfix container-concision" id="mainBox">  
     <main>  
@@ -53,19 +53,19 @@
           最新推荐文章于&nbsp;2022-11-24 08:02:47&nbsp;发布
          </div> 
          <div class="article-bar-top"> 
-          <img class="article-type-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/original.png" alt=""> 
+          <img class="article-type-img" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/original.png" alt=""> 
           <div class="bar-content"> 
-           <a href="https://mall.csdn.net/vip" data-report-query="spm=3001.10404" data-report-click="{&quot;spm&quot;:&quot;3001.10404&quot;}" data-report-view="{&quot;spm&quot;:&quot;3001.10404&quot;}" class="article-vip-box" target="_blank"><img class="article-vip-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/identityVipNew.png" alt=""></a> 
+           <a href="https://mall.csdn.net/vip" data-report-query="spm=3001.10404" data-report-click="{&quot;spm&quot;:&quot;3001.10404&quot;}" data-report-view="{&quot;spm&quot;:&quot;3001.10404&quot;}" class="article-vip-box" target="_blank"><img class="article-vip-img-new" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/identityVipNew.png" alt=""></a> 
            <a class="follow-nickName " href="https://blog.csdn.net/u012839187" target="_blank" rel="noopener" title="maze.ma">maze.ma</a> 
-           <img class="article-time-img article-heard-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCurrentTime2.png" alt=""> 
+           <img class="article-time-img article-heard-img" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/newCurrentTime2.png" alt=""> 
            <span class="time blog-postTime" data-time="2020-06-01 11:25:52">最新推荐文章于&nbsp;2022-11-24 08:02:47&nbsp;发布</span> 
            <div class="read-count-box"> 
-            <img class="article-read-img article-heard-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/articleReadEyes2.png" alt=""> 
+            <img class="article-read-img article-heard-img" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/articleReadEyes2.png" alt=""> 
             <span class="read-count">阅读量7.4k</span> 
-            <a id="blog_detail_zk_collection" class="un-collection" data-report-click="{&quot;mod&quot;:&quot;popu_823&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4232&quot;,&quot;ab&quot;:&quot;new&quot;}"> <img class="article-collect-img article-heard-img un-collect-status isdefault" style="display:inline-block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollect2.png" alt=""> <img class="article-collect-img article-heard-img collect-status isactive" style="display:none" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollectionActive2.png" alt=""> <span class="name">收藏</span> <span class="get-collection"> 33 </span> </a> 
+            <a id="blog_detail_zk_collection" class="un-collection" data-report-click="{&quot;mod&quot;:&quot;popu_823&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4232&quot;,&quot;ab&quot;:&quot;new&quot;}"> <img class="article-collect-img article-heard-img un-collect-status isdefault" style="display:inline-block" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/tobarCollect2.png" alt=""> <img class="article-collect-img article-heard-img collect-status isactive" style="display:none" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/tobarCollectionActive2.png" alt=""> <span class="name">收藏</span> <span class="get-collection"> 33 </span> </a> 
             <div class="read-count-box is-like" data-type="top"> 
-             <img class="article-read-img article-heard-img" style="display:none" id="is-like-imgactive-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2023Active.png" alt=""> 
-             <img class="article-read-img article-heard-img" style="display:block" id="is-like-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2023Black.png" alt=""> 
+             <img class="article-read-img article-heard-img" style="display:none" id="is-like-imgactive-new" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/newHeart2023Active.png" alt=""> 
+             <img class="article-read-img article-heard-img" style="display:block" id="is-like-img-new" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/newHeart2023Black.png" alt=""> 
              <span class="read-count" id="blog-digg-num">点赞数 9 </span> 
             </div> 
            </div> 
@@ -102,8 +102,8 @@
       <div id="blogHuaweiyunAdvert" class=""></div> 
       <article class="baidu_pl"> 
        <div id="article_content" class="article_content clearfix"> 
-        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css"> 
-        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-704d5b9767.css"> 
+        <link rel="stylesheet" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/kdoc_html_views-1a98987dfd.css"> 
+        <link rel="stylesheet" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/ck_htmledit_views-704d5b9767.css"> 
         <div id="content_views" class="htmledit_views atom-one-light"> 
          <h3>接上一篇</h3> 
          <h3>display:weston渲染流程:buffer+attach+damage+frame</h3> 
@@ -115,8 +115,8 @@
          <p>表面状态（输入，不透明和损坏区域，附加缓冲区等）是双缓冲的。=&gt;[防止图像抖动]</p> 
          <p>commit操作本质上就是为double buffer而设计，多次操作、一次提交。注意到之前的操作attach,damage,frame等仅仅在commit以后才会生效。(之前的操作都是对pending结构体的操作，只有commit以后才会切换到current结构体上)</p> 
          <pre class="has"><code>client:
-wl_surface_commit(window-&gt;surface);</code ></pre> 
-         <pre class="has"><code  style="height: 50vh;">server:    weston/libweston/compositor.c::surface_commit
+wl_surface_commit(window-&gt;surface);</code></pre> 
+         <pre class="has"><code style="height: 50vh;">server:    weston/libweston/compositor.c::surface_commit
 surface_commit
 ...
 weston_surface_is_pending_viewport_source_valid  //对pending的buffer进行缩放/旋转相关操作
@@ -178,11 +178,11 @@ wl_list_for_each(sub, &amp;surface-&gt;subsurface_list, parent_link) {
 
     判断父子surface为同步或异步，并完成相应的commit操作
 ...
-</code ></pre> 
+</code></pre> 
          <p>目前weston在commit的逻辑里面加载了对fence的支持。 shm-buffer还不支持</p> 
          <p>&nbsp;buffer对应绘画的部分，viewport对应最终显示的状态，中间有一个缩放或者裁剪的过程。</p> 
          <p>&nbsp;补充：</p> 
-         <pre><code  style="height: 50vh;">wl_subsurface::set_sync - set sub-surface to synchronized mode
+         <pre><code style="height: 50vh;">wl_subsurface::set_sync - set sub-surface to synchronized mode
 Change the commit behaviour of the sub-surface to synchronized mode, also described
 as the parent dependent mode.
 
@@ -226,7 +226,7 @@ on set_desync.
 通常所做的那样。在父表面上调用wl_surface.commit对子表面的wl_surface状态没有影响。此模式允许子表
 面自行更新。
 如果在以非同步模式调用wl_surface.commit时存在缓存状态，则将挂起状态添加到缓存状态，并作为一个整
-体应用。这会使缓存失效。也就是，本来应该是对pending结构体做操作，变量换成了cached结构体</code ></pre> 
+体应用。这会使缓存失效。也就是，本来应该是对pending结构体做操作，变量换成了cached结构体</code></pre> 
          <p></p> 
          <pre class="has"><code>server:
 2.weston_surface_commit
@@ -238,12 +238,12 @@ on set_desync.
             ...【todo】
 
     weston_surface_schedule_repaint(surface);
-            //重绘界面,这块逻辑复杂</code ></pre> 
+            //重绘界面,这块逻辑复杂</code></pre> 
          <p></p> 
          <h4>&nbsp;weston_surface_commit::weston_surface_commit_state</h4> 
          <p>里面很多egl函数看不懂，见此参考gl-renderer.c的gl_renderer_setup 里面存在关联操作，如：</p> 
          <p>3728 &nbsp; &nbsp; gr-&gt;image_target_texture_2d =<br> 3729 &nbsp; &nbsp; &nbsp; &nbsp; (void *) eglGetProcAddress("glEGLImageTargetTexture2DOES");</p> 
-         <pre class="has"><code  style="height: 50vh;">weston_surface_commit_state
+         <pre class="has"><code style="height: 50vh;">weston_surface_commit_state
 0    surface-&gt;buffer_viewport = state-&gt;buffer_viewport;
      具体内容查看buffer_viewport结构体，主要与缩放设置相关
      把pending交给对应的surface
@@ -337,7 +337,7 @@ if(state-&gt;newly_attached) {
         gbm_bo_import + gbm_perform + gbm_bo_destroy
     4.gl_renderer_attach_shm通过gs-&gt;surface来传入buffer？
     5.gl_renderer_attach_egl通过gs-&gt;images[i] = egl_image_create创建egl_image来处理对应单独的buffer，用于texture
-    6.gl_renderer_attach_dmabuf通过image = linux_dmabuf_buffer_get_user_data(dmabuf); + gs-&gt;images[i] = egl_image_ref(image-&gt;images[i]); 填充gs参数，用于texture</code ></pre> 
+    6.gl_renderer_attach_dmabuf通过image = linux_dmabuf_buffer_get_user_data(dmabuf); + gs-&gt;images[i] = egl_image_ref(image-&gt;images[i]); 填充gs参数，用于texture</code></pre> 
          <h4>weston_surface_commit::weston_surface_commit_subsurface_order</h4> 
          <pre><code>weston_surface_commit_subsurface_order(struct weston_surface *surface)
     weston_surface_damage_subsurfaces
@@ -346,13 +346,13 @@ if(state-&gt;newly_attached) {
             weston_output_schedule_repaint
                 output-&gt;repaint_needed = true;
 //对此surface的子surface进行排序；并设定damage区域；标记surface的output属性，表明即将被重绘
-</code ></pre> 
+</code></pre> 
          <p></p> 
          <h4>weston_surface_commit::weston_surface_schedule_repaint</h4> 
          <p>output_repaint_timer_handler</p> 
          <p>NOTE:大多数情况，repaint走到这个位置就会因各种条件返回！如：output-&gt;repaint_status != REPAINT_NOT_SCHEDULED</p> 
          <p>整个repaint，初始化以同步vblank开始，以page flip finish 结束，然后再调用</p> 
-         <pre class="has"><code  style="height: 50vh;">weston_surface_schedule_repaint(struct weston_surface *surface)
+         <pre class="has"><code style="height: 50vh;">weston_surface_schedule_repaint(struct weston_surface *surface)
     weston_output_schedule_repaint(struct weston_output *output)
 
         output-&gt;idle_repaint_source = wl_event_loop_add_idle(loop, idle_repaint, output);
@@ -388,9 +388,9 @@ drm_output_start_repaint_loop(struct weston_output *output_base)
     //一堆基于时间戳的精准计算，随后引入output_repaint_timer_arm
 
 =================================
-</code ></pre> 
+</code></pre> 
          <h4>&nbsp;output_repaint_timer_arm</h4> 
-         <pre><code  style="height: 50vh;">
+         <pre><code style="height: 50vh;">
 
 output_repaint_timer_arm(struct weston_compositor *compositor)
     wl_event_source_timer_update(compositor-&gt;repaint_timer, msec_to_next);//硬性规定delay
@@ -519,12 +519,12 @@ weston_view_schedule_repaint
         	wl_list_for_each(output, &amp;compositor-&gt;output_list, link)
 		        weston_output_schedule_repaint(output);
 
-本质都是weston_output_schedule_repaint；所以不论发生什么改动，都是以output为单位进行重绘</code ></pre> 
+本质都是weston_output_schedule_repaint；所以不论发生什么改动，都是以output为单位进行重绘</code></pre> 
          <p>&nbsp;因为2是真正对图像进行渲染[其实是合成]的地方，并且看代码是先决定view属于哪个plane，然后对primary上进行render，生成一个scanout的fd；3，则是完成送显，这个地方送显不仅会送显scan-out，还会送显overlay以及cluster；</p> 
          <p>view决定单个窗口，最终view会被指定在plane上，而plane又分为scan-out/overlay/primary, plane最终会被通过atomic_commit送给drm/kms，然后又会经过crct里面的laymixer进行二次blending</p> 
          <p>注意这里是plane，那什么时候是layer呢？是sspp拿到对应的buffer，把这些plane传递给layer-mixer的时候，他才从plane变成layer，layer一般来说严格的一层layer对应一个plane；但是如果是split模式，可以是多个plane对应同一个layer</p> 
          <p>同样的，一个plane也不能对应多个layer，除非是split模式[source split configuration]</p> 
-         <pre><code  style="height: 50vh;">enum drm_output_propose_state_mode {
+         <pre><code style="height: 50vh;">enum drm_output_propose_state_mode {
 	DRM_OUTPUT_PROPOSE_STATE_MIXED, /**&lt; mix renderer &amp; planes */
 	DRM_OUTPUT_PROPOSE_STATE_RENDERER_ONLY, /**&lt; only assign to renderer &amp; cursor */
 	DRM_OUTPUT_PROPOSE_STATE_PLANES_ONLY, /**&lt; no renderer use, only planes */
@@ -582,7 +582,7 @@ drm_output_propose_state(struct weston_output *output_base,
 		drm_debug(b, "\t\t[view] failing state generation: "
 			     "atomic test not OK\n");
 		goto err;
-	}</code ></pre> 
+	}</code></pre> 
          <p>&nbsp;output_repaint_timer_handler结束以后还有一步。等kernel的page flip</p> 
          <pre><code>22491 on_drm_input++
 22492 atomic_flip_handler++
@@ -592,9 +592,9 @@ drm_output_propose_state(struct weston_output *output_base,
 22496 output_repaint_timer_arm--
 22497 weston_output_finish_frame--
 22498 drm_output_update_complete--natomic_flip_handler repaint finished
-22501 on_drm_input--</code ></pre> 
+22501 on_drm_input--</code></pre> 
          <h4>&nbsp;Assign_planes</h4> 
-         <pre><code  style="height: 50vh;">assign_planes
+         <pre><code style="height: 50vh;">assign_planes
 //讲一下几个重点
 1. primary = &amp;output_base-&gt;compositor-&gt;primary_plane;
     //这个primary很重要，一方面后续涉及到渲染是走overlay还是走gpu；[primary走gpu渲染]
@@ -639,8 +639,8 @@ Layer 包含layer properties，和 drawing buffer
        PostPrepare(output);
 
 
-sdm_layer-&gt;view-&gt;plane，这个结构体何用，目前不得而知，但是一定和渲染决策相关</code ></pre> 
-         <pre><code  style="height: 50vh;">7. 在sdmdispaly：：prepare里面 
+sdm_layer-&gt;view-&gt;plane，这个结构体何用，目前不得而知，但是一定和渲染决策相关</code></pre> 
+         <pre><code style="height: 50vh;">7. 在sdmdispaly：：prepare里面 
 
 Preprepare-&gt;PrePrepareLayerStack
 	1. FreeLayerStack （清空layer_stack_数组,visible&amp;dirty-region）
@@ -676,7 +676,7 @@ display_intf_-&gt;Prepare(&amp;layer_stack_);
 		最终调用display_base.cpp里面的perpare
 
 PostPrepare
-    1. 编译layer_stack,根据之前layer_stack的composition属性定义sdm_layer的类型，是gpu还是overlay</code ></pre> 
+    1. 编译layer_stack,根据之前layer_stack的composition属性定义sdm_layer的类型，是gpu还是overlay</code></pre> 
          <p></p> 
          <p><strong>总体来说，assign_planes：</strong><br> 1.初次判定wl_output的view是走gpu还是overlay<br> 2.创建sdm_layer<br> 3.再在prepare里面完全判断是走gpu还是overlay，赋值给sdm_layer<br> 4.GPU:Move to primary plane if Strategy set it to GPU composition;&nbsp;<br> &nbsp; &nbsp;Overlay:Composed by Display Hardware directly</p> 
          <p>NOTE:</p> 
@@ -685,7 +685,7 @@ PostPrepare
          <p>2.hw_layer会对之前的layer做一个处理，分为overlay以及唯一的一个gpu-layer</p> 
          <p></p> 
          <h4>Output_repaint</h4> 
-         <pre><code  style="height: 50vh;">output_repaint
+         <pre><code style="height: 50vh;">output_repaint
     1. drm_output_render
     2. SetVSyncState(display_id, ENABLE, output);
     3. Commit(display_id, output);
@@ -749,7 +749,7 @@ Commit
  Client shall call this method to submit layers for final composition. The composed output shall be displayed on the panel or written in output buffer. This method shall be called only once for each frame.
  In the event of an error as well, this call will cause any fences returned in the previous call to Commit() to eventually become signaled, so the client's wait on fences can be released to prevent deadlocks.
 
-</code ></pre> 
+</code></pre> 
          <p></p> 
          <p>drm_output_repaint利用modsetting接口将绘制的内容最终显示到屏幕上，其机制还比较复杂，主要利用了pageflip、vblank和plane，相关原理与drm的API编程强相关，内容比较多</p> 
          <p></p> 
@@ -773,38 +773,38 @@ Commit
 &nbsp; &nbsp; load_drm_backend -&gt;
 &nbsp; &nbsp; &nbsp; weston_compositor_load_backend -&gt;
 &nbsp; &nbsp; &nbsp; &nbsp; weston_load_module
-</code ></pre> 
+</code></pre> 
          <h4></h4> 
          <p><a href="https://www.jianshu.com/p/484e05a2c816" rel="nofollow" title="glActiveTexture和glBindTexture的关系 - 简书">glActiveTexture和glBindTexture的关系 - 简书</a></p> 
          <p style="margin-left:0cm;">关于ensure_texture的解释:</p> 
          <h3>glBindTexture:glBindTexture(GL_TEXTURE_2D, tex_id)</h3> 
          <ul>
           <li>表示 tex_id是一个二维纹理，设置过一次后，tex_id的类型就不可变了</li>
-          <li><code>opengl</code >采用状态机的设计，<code>glBindTexture</code >告诉opengl说，我选择tex_id作为当前纹理，后续对纹理的操作都将作用在此纹理上。</li>
+          <li><code>opengl</code>采用状态机的设计，<code>glBindTexture</code>告诉opengl说，我选择tex_id作为当前纹理，后续对纹理的操作都将作用在此纹理上。</li>
          </ul> 
-         <p>我们已经通过<strong>·glGenTextures</strong><code><strong>在显卡上开辟了一张纹理</strong>， 然后使用</code ><strong>glBindTexture</strong><code><strong>将该纹理选为当前操作目标</strong>， 接着也调用了</code ><strong>glTexParameter`函数族设置了纹理的属性</strong></p> 
-         <p>那么问题来了，纹理是怎么和<code>glsl</code >上的<code>sampler2D</code >关联起来的？</p> 
+         <p>我们已经通过<strong>·glGenTextures</strong><code><strong>在显卡上开辟了一张纹理</strong>， 然后使用</code><strong>glBindTexture</strong><code><strong>将该纹理选为当前操作目标</strong>， 接着也调用了</code><strong>glTexParameter`函数族设置了纹理的属性</strong></p> 
+         <p>那么问题来了，纹理是怎么和<code>glsl</code>上的<code>sampler2D</code>关联起来的？</p> 
          <h4>实际上</h4> 
-         <p>我也不理解为什么。实际上<code>opengl</code >在这块关联上绕了下路。<br> 纹理与<code>sampler2D</code >变量的关联是通过索引来关联的。<br> 我们可以给<code>sampler2D</code >变量赋int值。</p> 
+         <p>我也不理解为什么。实际上<code>opengl</code>在这块关联上绕了下路。<br> 纹理与<code>sampler2D</code>变量的关联是通过索引来关联的。<br> 我们可以给<code>sampler2D</code>变量赋int值。</p> 
          <pre><code>GLuint tex_loc = glGetUniformLocation(program, "tex");
 glUniform1i(tex_loc, 1);
-</code ></pre> 
+</code></pre> 
          <p>然后</p> 
          <pre><code>glActiveTexture(GL_TEXTURE1);
 glBindTexture(GL_TEXTURE_2D, tex_id);
-</code ></pre> 
-         <p>将纹理与<code>GL_TEXTURE1</code >关联起来。<code>tex_id</code >与<code>GL_TEXTUR1</code >关联<br><code>GL_TEXTURE1</code >又与值为<code>1</code >的<code>sampler2D</code >变量关联<br> 所以<code>tex_id</code > 就这样间接地与<code>sampler2D</code >变量关联了</p> 
+</code></pre> 
+         <p>将纹理与<code>GL_TEXTURE1</code>关联起来。<code>tex_id</code>与<code>GL_TEXTUR1</code>关联<br><code>GL_TEXTURE1</code>又与值为<code>1</code>的<code>sampler2D</code>变量关联<br> 所以<code>tex_id</code> 就这样间接地与<code>sampler2D</code>变量关联了</p> 
          <p></p> 
-         <p>平时使用单张纹理怎么不需要<code>glActiveTexture</code >?</p> 
+         <p>平时使用单张纹理怎么不需要<code>glActiveTexture</code>?</p> 
          <blockquote> 
-          <p><code>sampler2D</code >默认值为0，纹理也默认与<code>GL_TEXTURE0</code >关联。</p> 
+          <p><code>sampler2D</code>默认值为0，纹理也默认与<code>GL_TEXTURE0</code>关联。</p> 
          </blockquote> 
          <p><br> 作者：正向反馈<br> 链接：https://www.jianshu.com/p/484e05a2c816<br> 来源：简书<br> 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p> 
          <p></p> 
          <h4>感谢shilun无私的帮助，解惑&nbsp;</h4> 
          <h4>额外加一些vendor的东西</h4> 
          <h4></h4> 
-         <pre><code  style="height: 50vh;">compositor-sdm.c
+         <pre><code style="height: 50vh;">compositor-sdm.c
 	output_repaint 
 		 Commit(output-&gt;display_id, output); 
 		
@@ -873,7 +873,7 @@ display/display-hal/sdm/libs/core/drm/hw_device_drm.cpp
 		  } else {
 		    err = AtomicCommit(hw_layers);
 		  }
-</code ></pre> 
+</code></pre> 
          <p></p> 
         </div> 
        </div> 
@@ -883,7 +883,7 @@ display/display-hal/sdm/libs/core/drm/hw_device_drm.cpp
       <div class="directory-boxshadow-dialog-box"> 
       </div> 
       <div class="vip-limited-time-offer-box-new" id="vip-limited-time-offer-box-new"> 
-       <img class="limited-img limited-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/vip-limited-close-newWhite.png"> 
+       <img class="limited-img limited-img-new" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/vip-limited-close-newWhite.png"> 
        <div class="vip-limited-time-top">
          确定要放弃本次机会？ 
        </div> 
@@ -896,7 +896,7 @@ display/display-hal/sdm/libs/core/drm/hw_device_drm.cpp
         <span class="time-second"></span> 
        </div> 
        <div class="limited-time-vip-box"> 
-        <p> <img class="coupon-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/vip-limited-close-roup.png"> <span class="def">立减 ¥</span> <span class="active limited-num"></span> </p> 
+        <p> <img class="coupon-img" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/vip-limited-close-roup.png"> <span class="def">立减 ¥</span> <span class="active limited-num"></span> </p> 
         <span class="">普通VIP年卡可用</span> 
        </div> 
        <a class="limited-time-btn-new" href="https://mall.csdn.net/vip" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.9621&quot;}" data-report-query="spm=1001.2101.3001.9621">立即使用</a> 
@@ -906,7 +906,7 @@ display/display-hal/sdm/libs/core/drm/hw_device_drm.cpp
       <div class="left-toolbox"> 
        <div class="toolbox-left"> 
         <div class="profile-box"> 
-         <a class="profile-href" target="_blank" href="https://blog.csdn.net/u012839187"><img class="profile-img" src="https://profile-avatar.csdnimg.cn/8374773f57214e60a8c0a58b4fcf33fa_u012839187.jpg!1"> <span class="profile-name"> maze.ma </span> </a> 
+         <a class="profile-href" target="_blank" href="https://blog.csdn.net/u012839187"><img class="profile-img" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/8374773f57214e60a8c0a58b4fcf33fa_u012839187.jpg!1"> <span class="profile-name"> maze.ma </span> </a> 
         </div> 
         <div class="profile-attend"> 
          <a class="tool-attend tool-bt-button tool-bt-attend" href="javascript:;" data-report-view="{&quot;mod&quot;:&quot;1592215036_002&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4232&quot;,&quot;extend1&quot;:&quot;已关注&quot;}">已关注</a> 
@@ -915,15 +915,15 @@ display/display-hal/sdm/libs/core/drm/hw_device_drm.cpp
        </div> 
        <div class="toolbox-middle"> 
         <ul class="toolbox-list"> 
-         <li class="tool-item tool-item-size tool-active is-like" id="is-like" data-type="bottom"> <a class="tool-item-href"> <img style="display:none;" id="is-like-imgactive-animation-like" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarThumbUpactive.png" alt=""> <img class="isactive" style="display:none" id="is-like-imgactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/like-active.png" alt=""> <img class="isdefault" style="display:block" id="is-like-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/like.png" alt=""> <span id="spanCount" class="count "> 9 </span> </a> 
+         <li class="tool-item tool-item-size tool-active is-like" id="is-like" data-type="bottom"> <a class="tool-item-href"> <img style="display:none;" id="is-like-imgactive-animation-like" class="animation-dom active-animation" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/tobarThumbUpactive.png" alt=""> <img class="isactive" style="display:none" id="is-like-imgactive" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/like-active.png" alt=""> <img class="isdefault" style="display:block" id="is-like-img" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/like.png" alt=""> <span id="spanCount" class="count "> 9 </span> </a> 
           <div class="tool-hover-tip">
            <span class="text space">点赞</span>
           </div> </li> 
-         <li class="tool-item tool-item-size tool-active is-unlike" id="is-unlike"> <a class="tool-item-href"> <img class="isactive" style="margin-right:0px;display:none" id="is-unlike-imgactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/unlike-active.png" alt=""> <img class="isdefault" style="margin-right:0px;display:block" id="is-unlike-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/unlike.png" alt=""> <span id="unlikeCount" class="count "></span> </a> 
+         <li class="tool-item tool-item-size tool-active is-unlike" id="is-unlike"> <a class="tool-item-href"> <img class="isactive" style="margin-right:0px;display:none" id="is-unlike-imgactive" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/unlike-active.png" alt=""> <img class="isdefault" style="margin-right:0px;display:block" id="is-unlike-img" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/unlike.png" alt=""> <span id="unlikeCount" class="count "></span> </a> 
           <div class="tool-hover-tip">
            <span class="text space">踩</span>
           </div> </li> 
-         <li class="tool-item tool-item-size tool-active is-collection "> <a class="tool-item-href" href="javascript:;" data-report-click="{&quot;mod&quot;:&quot;popu_824&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4130&quot;,&quot;ab&quot;:&quot;new&quot;}"> <img style="display:none" id="is-collection-img-collection" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/collect-active.png" alt=""> <img class="isdefault" id="is-collection-img" style="display:block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/collect.png" alt=""> <img class="isactive" id="is-collection-imgactive" style="display:none" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCollectActive.png" alt=""> <span class="count get-collection " data-num="33" id="get-collection"> 33 </span> </a> 
+         <li class="tool-item tool-item-size tool-active is-collection "> <a class="tool-item-href" href="javascript:;" data-report-click="{&quot;mod&quot;:&quot;popu_824&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4130&quot;,&quot;ab&quot;:&quot;new&quot;}"> <img style="display:none" id="is-collection-img-collection" class="animation-dom active-animation" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/collect-active.png" alt=""> <img class="isdefault" id="is-collection-img" style="display:block" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/collect.png" alt=""> <img class="isactive" id="is-collection-imgactive" style="display:none" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/newCollectActive.png" alt=""> <span class="count get-collection " data-num="33" id="get-collection"> 33 </span> </a> 
           <div class="tool-hover-tip collect"> 
            <div class="collect-operate-box"> 
             <span class="collect-text" id="is-collection"> 收藏 </span> 
@@ -933,18 +933,18 @@ display/display-hal/sdm/libs/core/drm/hw_device_drm.cpp
            <div class="text">
              觉得还不错? 
             <span class="collect-text" id="tool-active-list-collection"> 一键收藏 </span> 
-            <img id="tool-active-list-close" src="https://csdnimg.cn/release/blogv2/dist/pc/img/collectionCloseWhite.png" alt=""> 
+            <img id="tool-active-list-close" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/collectionCloseWhite.png" alt=""> 
            </div> 
           </div> </li> 
          <li class="tool-item tool-item-size tool-active tool-item-comment"> 
           <div class="guide-rr-first"> 
-           <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/guideRedReward01.png" alt=""> 
+           <img src="./display_weston渲染流程_commit_weston display-CSDN博客_files/guideRedReward01.png" alt=""> 
            <button class="btn-guide-known">知道了</button> 
-          </div> <a class="tool-item-href go-side-comment" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7009&quot;}"> <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/comment.png" alt=""> <span class="count"> 7 </span> </a> 
+          </div> <a class="tool-item-href go-side-comment" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7009&quot;}"> <img class="isdefault" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/comment.png" alt=""> <span class="count"> 7 </span> </a> 
           <div class="tool-hover-tip">
            <span class="text space">评论</span>
           </div> </li> 
-         <li class="tool-item tool-item-size tool-active tool-QRcode" data-type="article" id="tool-share"> <a class="tool-item-href" href="javascript:;" data-report-view="{&quot;spm&quot;:&quot;3001.4129&quot;,&quot;extra&quot;:{&quot;type&quot;:&quot;blogdetail&quot;}}"> <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/share.png" alt=""> <span class="count">分享</span> </a> 
+         <li class="tool-item tool-item-size tool-active tool-QRcode" data-type="article" id="tool-share"> <a class="tool-item-href" href="javascript:;" data-report-view="{&quot;spm&quot;:&quot;3001.4129&quot;,&quot;extra&quot;:{&quot;type&quot;:&quot;blogdetail&quot;}}"> <img class="isdefault" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/share.png" alt=""> <span class="count">分享</span> </a> 
           <div class="QRcode active" id="tool-QRcode"> 
            <div class="share-bg-box"> 
             <div class="share-content"> 
@@ -959,18 +959,18 @@ display/display-hal/sdm/libs/core/drm/hw_device_drm.cpp
             <div class="share-code"> 
              <div class="share-code-box" id="shareCode"></div> 
              <div class="share-code-text"> 
-              <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/share/icon-wechat.png" alt="">扫一扫 
+              <img src="./display_weston渲染流程_commit_weston display-CSDN博客_files/icon-wechat.png" alt="">扫一扫 
              </div> 
             </div> 
            </div> 
           </div> </li> 
-         <li class="tool-item tool-item-size tool-active is-more" id="is-more"> <a class="tool-item-href"> <img class="isdefault" style="margin-right:0px;display:block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/more.png" alt=""> <span class="count"></span> </a> 
+         <li class="tool-item tool-item-size tool-active is-more" id="is-more"> <a class="tool-item-href"> <img class="isdefault" style="margin-right:0px;display:block" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/more.png" alt=""> <span class="count"></span> </a> 
           <div class="more-opt-box"> 
            <div class="mini-box"> 
-            <a class="tool-item-href" id="toolReportBtnHide"> <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/report.png" alt=""> <span class="count">举报</span> </a> 
+            <a class="tool-item-href" id="toolReportBtnHide"> <img class="isdefault" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/report.png" alt=""> <span class="count">举报</span> </a> 
            </div> 
            <div class="normal-box"> 
-            <a class="tool-item-href" id="toolReportBtnHideNormal"> <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/report.png" alt=""> <span class="count">举报</span> </a> 
+            <a class="tool-item-href" id="toolReportBtnHideNormal"> <img class="isdefault" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/report.png" alt=""> <span class="count">举报</span> </a> 
            </div> 
           </div> </li> 
         </ul> 
@@ -1008,11 +1008,11 @@ display/display-hal/sdm/libs/core/drm/hw_device_drm.cpp
   <div class="skin-boxshadow"></div> 
   <div class="directory-boxshadow"></div> 
   <div style="display:none;"> 
-   <img src="" onerror="setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){var test=&quot;\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74&quot;}},3000);"> 
+   <img src="file:///C:/Users/Administrator/Desktop/display_weston%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B_commit.html" onerror="setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){var test=&quot;\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74&quot;}},3000);"> 
   </div> 
   <div class="keyword-dec-box" id="keywordDecBox"></div> 
-  <link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/chart/chart.css">        
-  <link rel="stylesheet" href="https://g.csdnimg.cn/lib/cboxEditor/1.1.6/embed-editor.min.css"> 
-  <link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-dark.css">                  
- </body>
-</html>
+  <link rel="stylesheet" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/chart.css">        
+  <link rel="stylesheet" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/embed-editor.min.css"> 
+  <link rel="stylesheet" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/atom-one-dark.css">                  
+ 
+</body></html>

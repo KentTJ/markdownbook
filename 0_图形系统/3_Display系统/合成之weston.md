@@ -5025,10 +5025,6 @@ session_notify
 
 ### 原理：
 
-
-
-
-
 参考：   
 
  [按键screenshot](https://blog.csdn.net/yikunbai5708/article/details/103845086)   ------> 原理
@@ -5094,6 +5090,10 @@ malloc 图像的buffer：
 触发信号：
 wl_signal_emit(&output->frame_signal, output_damage);
 ```
+
+
+
+
 
 
 

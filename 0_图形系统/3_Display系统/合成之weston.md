@@ -5642,7 +5642,11 @@ https://fossies.org/dox/weston-13.0.3/structivi__shell.html     struct的类图
 
 https://zhpower.github.io/blog/graphic/2002-05-15-Wayland&Weston.html           系列文章！！！！------>好文！！！！<font color='red'>好图</font>！！！！
 
-​                  
+https://ppaalanen.blogspot.com/    <font color='red'>weston 原生开发者！！！！！！！！</font> [Pekka Paalanen](https://ppaalanen.blogspot.com/)
+
+
+
+
 
 
 

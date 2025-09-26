@@ -5477,6 +5477,47 @@ wayland协议是  client 与  weston之间
 
 
 
+
+
+# wayland, egl 和 gles2关系 --------> TODO
+
+参考：
+
+[wayland protocal and  programming](https://kenttj.github.io/markdownbook/0_%E5%9B%BE%E5%BD%A2%E7%B3%BB%E7%BB%9F/3_Display%E7%B3%BB%E7%BB%9F/%E5%90%88%E6%88%90%E4%B9%8Bweston.assets/wayland%20protocal%20and%20programming_mesa%20wayland-drm.xml-CSDN%E5%8D%9A%E5%AE%A2.html)
+
+![img](合成之weston.assets/EGL-Mesa-Wayland-arch.png)
+
+[图来源](https://ppaalanen.blogspot.com/2012/03/what-does-egl-do-in-wayland-stack.html#:~:text=do%20in%20the-,Wayland%20stack,-Recently%20I%20drew)
+
+
+
+
+
+egl和gles2的buffer: <font color='red'>TODO: buffer的管理</font>
+
+>   ![gles egl buffer](合成之weston.assets/76f85e317c54b978f85a43621a9c59ad.png)
+>
+>   [图来源](https://blog.csdn.net/u012839187/article/details/97135985#:~:text=%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%B0%B1%E6%98%AF-,buffer%20%E7%9A%84%E7%AE%A1%E7%90%86,-%EF%BC%8Crender%20%E9%83%A8%E5%88%86%E7%94%B1)
+
+使用gles2绘图的client的初始化过程大致是这样的：
+
+-   client 先要通过本地窗口系统获得一个窗口，把它作为参数传入 eglCreateWindowSurface()，获得 EGLSurface, 类型为 window surface，位于GPU的VRAM中。
+-   client 调用 eglMakeCurrent()，把 EGLSurface 和 EGLDisplay（通过 eglGetDisplay()得到，图中未画）绑定到一个 rendering context（通过 eglCreateContext()创建，图中未画）.
+-   client 使用 gles2 函数绘图，所有的操作都作用在egl 提供的 rendering context上，最后调用 glDrawElements() 或 glDrawArrays()告诉GPU开始绘图。OpenGL ES 2 只支持double buffer, 所有所有绘图操作都作用于 back bufffer上。
+-   client 调用 eglSwapBuffers()，切换 back buffer 和 front buffer 的内容，绘图内容呈现在显示器上。
+
+gles2 中的几个copy像素的函数：
+
+-   glTexImage2D()：把系统内存中存放像素的缓冲区拷贝到texture，System RAM => VRAM
+-   glReadPixels()： 把color buffer的内容(来自back buffer)拷贝到系统内存, VRAM => System RAM
+-   glCopyTexImage2D()： 把color buffer的内容拷贝到texture，VRAM => VRAM
+
+
+
+
+
+
+
 # TODO:  问题定位
 
 见微知著  之  突变点
@@ -5629,6 +5670,10 @@ https://blog.csdn.net/u012839187/article/details/116054755    agl-compositor
 
 
 [OpenHarmony 图形子系统（二）weston compositor分析-鸿蒙开发者社区-51CTO.COM](https://ost.51cto.com/posts/9993)        weston compositor分析
+
+
+
+[wayland protocal and  programming](https://kenttj.github.io/markdownbook/0_%E5%9B%BE%E5%BD%A2%E7%B3%BB%E7%BB%9F/3_Display%E7%B3%BB%E7%BB%9F/%E5%90%88%E6%88%90%E4%B9%8Bweston.assets/wayland%20protocal%20and%20programming_mesa%20wayland-drm.xml-CSDN%E5%8D%9A%E5%AE%A2.html)   ----------> wayland与egl关系
 
 
 

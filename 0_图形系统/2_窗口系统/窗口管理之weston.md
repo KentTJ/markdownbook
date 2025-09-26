@@ -821,6 +821,26 @@ https://wayland.app/protocols/               A better way to read Wayland docume
 
 
 
+
+
+# client的产生
+
+
+
+## 0层纵向流程
+
+
+
+![client server interaction](窗口管理之weston.assets/e42cb6ad9fdc29425edda38619301aa8.png)
+
+[图来源](https://blog.csdn.net/u012839187/article/details/97135985#:~:text=4.3-,client%E5%92%8Cserver%E7%9A%84%E4%BA%A4%E4%BA%92,-%E8%BF%99%E9%87%8C%EF%BC%8C%E6%88%91%E4%BB%AC%E6%8A%8A)
+
+
+
+
+
+参考：https://blog.csdn.net/u012839187/article/details/97135985  
+
 # client（weston 的）线程结构
 
 ## 结构

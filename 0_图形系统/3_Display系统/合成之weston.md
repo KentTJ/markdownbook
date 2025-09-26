@@ -5673,7 +5673,7 @@ https://blog.csdn.net/u012839187/article/details/116054755    agl-compositor
 
 
 
-[wayland protocal and  programming](https://kenttj.github.io/markdownbook/0_%E5%9B%BE%E5%BD%A2%E7%B3%BB%E7%BB%9F/3_Display%E7%B3%BB%E7%BB%9F/%E5%90%88%E6%88%90%E4%B9%8Bweston.assets/wayland%20protocal%20and%20programming_mesa%20wayland-drm.xml-CSDN%E5%8D%9A%E5%AE%A2.html)   ----------> wayland与egl关系
+[wayland protocal and  programming](https://kenttj.github.io/markdownbook/0_%E5%9B%BE%E5%BD%A2%E7%B3%BB%E7%BB%9F/3_Display%E7%B3%BB%E7%BB%9F/%E5%90%88%E6%88%90%E4%B9%8Bweston.assets/wayland%20protocal%20and%20programming_mesa%20wayland-drm.xml-CSDN%E5%8D%9A%E5%AE%A2.html)   ----------> 整体框架。。。图！！！
 
 
 
@@ -5688,6 +5688,8 @@ https://fossies.org/dox/weston-13.0.3/structivi__shell.html     struct的类图
 https://zhpower.github.io/blog/graphic/2002-05-15-Wayland&Weston.html           系列文章！！！！------>好文！！！！<font color='red'>好图</font>！！！！
 
 https://ppaalanen.blogspot.com/    <font color='red'>weston 原生开发者！！！！！！！！</font> [Pekka Paalanen](https://ppaalanen.blogspot.com/)
+
+----------------> <font color='red'>TODO: 找更多weston开发者的blog</font>
 
 
 

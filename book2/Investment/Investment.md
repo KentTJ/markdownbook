@@ -169,19 +169,29 @@ where：
 >
 >   ​                          去弱留强、**强者恒强！！！！**  <font color='red'>牛市不做波段，不做波段，不做波段！！！！</font>
 >
->   how ------------ 王八战法
+>   how ------------ <font color='red'>最好的战法是： 王八战法</font>
 
 
+
+### 牛市的判定----------分析框架
+
+https://mp.weixin.qq.com/s/bNEDw-zCyLk3PLJuySB-Ow    【深度】股市涨跌分析框架系统讲解（2025年会是大牛市么？）
+
+
+
+![img](Investment.assets/79a8caf9e9ad5f2fcff7973a473aeaae.jpeg)
 
 
 
 ### 牛市见顶信号
 
+1、开户数见顶信号 --------- <font color='red'>**优：早于 股市见顶**</font>
 
+![img](Investment.assets/c24343ecd4299a6ba1fc9715f21f16ca.jpeg)
 
+数据来源： https://www.sse.com.cn/aboutus/publication/monthly/investor/   上海证券交易所
 
-
-
+2、
 
 
 

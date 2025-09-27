@@ -243,7 +243,7 @@ Texture ------> 另一个翻译更贴切：贴图
 
 见《wl_surface_commit 大纲》，有各种详细代码
 
-### 已有shm构造纹理
+### 已有shm构造纹理 --------- glTexImage2D
 
 已有的代码参考：
 
@@ -287,6 +287,18 @@ TODO: color 与 texture，一般情况下，只有一个！！！！！！
 
 
 
+-<font color='red'>**glTexImage2D详解：**</font>
+
+>   who：cpu执行、驱动执行  -------->   **消耗CPU** 
+>
+>   作用： **将 CPU 内存中的图像数据加载并定义到 GPU 内存中的一个二维纹理对象上**
+>
+>   具体：
+>
+>   
+
+
+
 ### 已有dma 构造纹理
 
 法一(同shm)：~~mmap获取内存地址，直接读取为image  （<font color='red'>同shm， 存在copy</font>）~~
@@ -299,7 +311,7 @@ TODO: color 与 texture，一般情况下，只有一个！！！！！！
 
 
 
-### ~~jpg、png构造纹理~~（同shm）
+### ~~jpg、png构造纹理~~（与shm完全一样）
 
 加载纹理到 内存，成为pixels：
 

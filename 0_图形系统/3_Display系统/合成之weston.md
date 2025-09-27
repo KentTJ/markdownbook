@@ -1641,6 +1641,10 @@ surface_commit    -----server侧
 
 
 
+关于texture的生成，比如 glTexImage2D， **见《cpu侧（cpp侧）构造纹理》**
+
+
+
 总之，client侧的commit，server侧做的事情: 
 
 >   1、得到纹理数据

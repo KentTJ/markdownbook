@@ -1550,7 +1550,7 @@ wl_callback_listener 协议：
 
 ```java
 ├─ wl_surface_commit -----client侧
-└─ surface_commit
+└─ surface_commit    -----server侧
     └─ weston_surface_commit
         └─ weston_surface_commit_state
             └─ weston_surface_attach
@@ -1583,7 +1583,7 @@ wl_callback_listener 协议：
 
 ```java
 wl_surface_commit -----client侧
-surface_commit
+surface_commit    -----server侧
 	weston_surface_commit
 		weston_surface_commit_state
 			weston_surface_attach
@@ -1676,7 +1676,34 @@ redraw的本质，就是 合成器给的wl_callback 触发
 
 ### 次要：sub-surfaces的commit
 
-参考：https://ppaalanen.blogspot.com/2013/11/sub-surfaces-now.html   [Pekka Paalanen](https://ppaalanen.blogspot.com/)
+参考：
+
+>   https://ppaalanen.blogspot.com/2013/11/sub-surfaces-now.html   [Pekka Paalanen](https://ppaalanen.blogspot.com/)
+>
+>   [display:weston渲染流程: commit](https://kenttj.github.io/markdownbook/0_%E5%9B%BE%E5%BD%A2%E7%B3%BB%E7%BB%9F/3_Display%E7%B3%BB%E7%BB%9F/%E5%90%88%E6%88%90%E4%B9%8Bweston.assets/display_weston%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B_commit_weston%20display-CSDN%E5%8D%9A%E5%AE%A2.html)
+
+where-------大纲中的位置：
+
+```java
+wl_surface_commit -----client侧
+surface_commit    -----server侧
+	if (sub) weston_subsurface_commit(sub); // subsurface
+	weston_surface_commit
+```
+
+
+
+how：
+
+
+
+结论：必然：
+
+>   只需要client提交一次主surface（所有子surface在server自动）
+
+疑问：
+
+>   子surface的个数是变化的，怎么办？？？？？？
 
 
 

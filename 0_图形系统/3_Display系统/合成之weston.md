@@ -1546,36 +1546,43 @@ wl_callback_listener 协议：
 >   
 >
 
- wl_surface_commit 大纲：
+ **wl_surface_commit 大纲：**
 
 ```java
 ├─ wl_surface_commit -----client侧
 └─ surface_commit    -----server侧
+    ├─ if (sub) weston_subsurface_commit(sub); // subsurface
     └─ weston_surface_commit
-        └─ weston_surface_commit_state
-            └─ weston_surface_attach
-                ├─ gl_renderer_attach // 1、surface绑定新的buffer 2、可见，任意buffer类型，都可以用GPU
-                │   ├─ gl_renderer_attach_shm  // shm格式,似乎是做了转化？
-                │   │   ├─ ARRAY_COPY(gb->gl_format, gl_format); // 即 memcpy 【shm存在内存copy！！！！！做转化！！TODO】
-                │   │   └─ ensure_textures
-                │   │       └─ for glGenTextures(1, &gb->textures[i]); // 【从buffer生成纹理】【重要节点：textures来源!!!!】
-                │   ├─ gl_renderer_attach_dmabuf
-                │   │   └─ for glBindTexture(target, gb->textures[i]); // 【从buffer生成纹理】
-                │   ├─ gl_renderer_attach_egl  //
-                │   │   ├─ gl_buffer_state *gb = buffer->renderer_private
-                │   │   ├─ glBindTexture(target, gb->textures[i]); // TODO: 直接从weston_buffer里拿到纹理-----> 【共享纹理】
-                │   │   └─ gr->image_target_texture_2d(target, gb->images[i]); // 【】texture 与 image的绑定
-                │   ├─ gl_renderer_attach_solid
-                │   ├─ .// 【以上获取texture。获取完，以下自然释放buffer？】
-                │   ├─ weston_buffer_reference // 占有新buffer的使用权
-                │   │   └─ wl_buffer_send_release(old_ref.buffer->resource) // release老的buffer，让渡给client
-                │   │       └─ ----------------client侧 buffer_release
-                │   ├─ weston_buffer_release_reference
-                │   │   └─ weston_buffer_release_destroy
-                │   │       └─ zwp_linux_buffer_release_v1_send_fenced_release // 【利用fence机制释放buffer】TODO: fence来源；与上面区别
-                │   │           └─ -------------client侧
-                │   └─ .
-                └─ or：软件pixman_renderer_attach
+        ├─ weston_surface_commit_state(surface, &surface->pending); //【1】把pending里面存储的状态转移给surface
+        │   └─ weston_surface_attach // 【2】
+        │       ├─ gl_renderer_attach // 1、surface绑定新的buffer 2、
+        │       │   ├─ buffer->type：
+        │       │   ├─ gl_renderer_attach_shm  // shm格式,似乎是做了转化？
+        │       │   │   ├─ ARRAY_COPY(gb->gl_format, gl_format); // 即 memcpy 【shm存在内存copy！！！！！做转化！！TODO】
+        │       │   │   └─ ensure_textures
+        │       │   │       └─ for glGenTextures(1, &gb->textures[i]); // 【从buffer生成纹理】【重要节点：textures来源!!!!】
+        │       │   │           └─ glTexImage2D // 【3】数据copy：cpu操作，驱动copy cpu内存到GPU缓冲区
+        │       │   ├─ gl_renderer_attach_dmabuf
+        │       │   │   └─ for glBindTexture(target, gb->textures[i]);
+        │       │   │       └─ EGLImage = eglCreateImageKHR(dmabuf) // dmabuf ---> EGLImage
+        │       │   │           └─ glEGLImageTargetTexture2DOES // 【4】0 copy：EGLImage与 OpenGL ES 的Texture关联！！！！！
+        │       │   ├─ gl_renderer_attach_egl  //
+        │       │   │   ├─ gl_buffer_state *gb = buffer->renderer_private
+        │       │   │   ├─ glBindTexture(target, gb->textures[i]); // TODO: 直接从weston_buffer里拿到纹理-----> 【共享纹理】
+        │       │   │   └─ gr->image_target_texture_2d(target, gb->images[i]); // 【】texture 与 image的绑定
+        │       │   ├─ gl_renderer_attach_solid
+        │       │   ├─ .// 【以上获取texture。获取完，以下自然释放buffer？】
+        │       │   ├─ weston_buffer_reference // 占有新buffer的使用权
+        │       │   │   └─ wl_buffer_send_release(old_ref.buffer->resource) // release老的buffer，让渡给client
+        │       │   │       └─ ----------------client侧 buffer_release
+        │       │   ├─ weston_buffer_release_reference
+        │       │   │   └─ weston_buffer_release_destroy
+        │       │   │       └─ zwp_linux_buffer_release_v1_send_fenced_release // 【利用fence机制释放buffer】TODO: fence来源；与上面区别
+        │       │   │           └─ -------------client侧
+        │       │   └─ .
+        │       └─ or：软件pixman_renderer_attach
+        ├─ weston_surface_commit_subsurface_order // 更新subsurface的顺序，其实也是将subsurface从pending列表换到当前的列表中
+        └─ weston_surface_schedule_repaint(surface); // 重绘界面
 
 ```
 
@@ -1584,16 +1591,21 @@ wl_callback_listener 协议：
 ```java
 wl_surface_commit -----client侧
 surface_commit    -----server侧
+	if (sub) weston_subsurface_commit(sub); // subsurface
 	weston_surface_commit
-		weston_surface_commit_state
-			weston_surface_attach
+		weston_surface_commit_state(surface, &surface->pending); //【1】把pending里面存储的状态转移给surface
+			weston_surface_attach // 【2】
 				gl_renderer_attach // 1、surface绑定新的buffer 2、
+					buffer->type：
 					gl_renderer_attach_shm  // shm格式,似乎是做了转化？
 						ARRAY_COPY(gb->gl_format, gl_format); // 即 memcpy 【shm存在内存copy！！！！！做转化！！TODO】
 						ensure_textures 
 							for glGenTextures(1, &gb->textures[i]); // 【从buffer生成纹理】【重要节点：textures来源!!!!】
+								glTexImage2D // 【3】数据copy：cpu操作，驱动copy cpu内存到GPU缓冲区
 					gl_renderer_attach_dmabuf
-							for glBindTexture(target, gb->textures[i]); // 【从buffer生成纹理】
+							for glBindTexture(target, gb->textures[i]);
+								EGLImage = eglCreateImageKHR(dmabuf) // dmabuf ---> EGLImage
+								glEGLImageTargetTexture2DOES // 【4】0 copy：EGLImage与 OpenGL ES 的Texture关联！！！！！
 					gl_renderer_attach_egl  //
 						gl_buffer_state *gb = buffer->renderer_private
 						glBindTexture(target, gb->textures[i]); // TODO: 直接从weston_buffer里拿到纹理-----> 【共享纹理】
@@ -1609,9 +1621,23 @@ surface_commit    -----server侧
 								-------------client侧
 					.
 				or：软件pixman_renderer_attach
+		weston_surface_commit_subsurface_order // 更新subsurface的顺序，其实也是将subsurface从pending列表换到当前的列表中
+		weston_surface_schedule_repaint(surface); // 重绘界面
 ```
 
 %/accordion%
+
+【1】理解：
+
+>   双缓冲机制--------pending state
+>
+>   >   1、client ----> server之前，做了buffer+attach+damage操作，都是作用在pending上
+>   >
+>   >   2、对于client来说，<font color='red'>buffer+attach+damage操作只是设置状态，commit是真正生效 </font>（生效处：server的pending）
+
+【2】attach的<font color='red'>**根本目的-----------texture**</font>
+
+>   **都是生成纹理**   ----------> <font color='red'>不得不这样：只有纹理，才能让GPU去叠加</font>
 
 
 

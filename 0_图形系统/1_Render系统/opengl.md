@@ -229,7 +229,7 @@ Texture ------> 另一个翻译更贴切：贴图
 
 来源：
 
->   1、从现有的buffer内获取的（比如应用传过来的dma、shm等等） --------> TODO: 关键代码
+>   1、从现有的buffer内获取的（比如应用传过来的dma、shm等等） --------> 关键代码：见下
 >
 >   2、从图片（jpg）
 
@@ -237,7 +237,11 @@ Texture ------> 另一个翻译更贴切：贴图
 
 >   <font color='red'>拾取图片颜色，</font>将颜色值赋值给 `fragColor` 输出
 
-## cpp侧 构造纹理
+## 主要 ---- cpu侧（cpp侧）构造纹理
+
+### 0层
+
+见《wl_surface_commit 大纲》，有各种详细代码
 
 ### 已有shm构造纹理
 
@@ -287,7 +291,7 @@ TODO: color 与 texture，一般情况下，只有一个！！！！！！
 
 法一(同shm)：~~mmap获取内存地址，直接读取为image  （<font color='red'>同shm， 存在copy</font>）~~
 
-法一：dma import --------> <font color='red'>0 copy</font>
+法二：dma import ---->  EGLImage 对象 ---->关联到 texture对象上： <font color='red'>0 copy</font>
 
 已有的代码参考：
 
@@ -334,7 +338,7 @@ alpha：第四通道
 
 
 
-## glsl侧 接收纹理
+## GPU侧（glsl侧）接收纹理
 
 顶点着色器新增：
 
@@ -456,16 +460,6 @@ https://youtu.be/mZM15IKuNWY?list=PL0luF_aDUOooIB56NOFVTS4ahMzBHS_6z&t=1341
 
 
 
-
-## 纹理的获取 --------TODO
-
-png
-
-shm
-
-
-
-dma
 
 
 

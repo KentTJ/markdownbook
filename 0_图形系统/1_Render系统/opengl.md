@@ -289,7 +289,7 @@ TODO: color 与 texture，一般情况下，只有一个！！！！！！
 
 -<font color='red'>**glTexImage2D详解：**</font>
 
->   who：cpu端执行、驱动执行  -------->   **消耗CPU** 
+>   who：cpu端执行、驱动执行  -------->   **消耗CPU，性能开销大** 
 >
 >   ​           ---------> 推论：必然是一个同步操作，等待CPU操作完，GPU才.........
 >
@@ -304,6 +304,8 @@ TODO: color 与 texture，一般情况下，只有一个！！！！！！
 >   <font color='red'>存在内存copy的根本原因：</font>  系统内存（比如shm），无法让GPU直接使用
 >
 >   必然推论：图形领域，**应该避免 glTexImage2D使用**
+>
+>   **与之相反的操作**（GPU内存-->CPU内存）：glreadpixels
 
 
 

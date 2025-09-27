@@ -3665,7 +3665,9 @@ https://www.youtube.com/watch?v=Cj2O90rpobE  老登公关为什么总是让人�
 
 
 
+## 《惰者集》
 
+[小平邦彦](https://book.douban.com/search/小平邦彦)
 
 # 管理
 

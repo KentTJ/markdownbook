@@ -5830,7 +5830,7 @@ https://ppaalanen.blogspot.com/    <font color='red'>weston 原生开发者！�
 
 硬件图层分类：
 
-- **Primary Plane**：主平面，负责显示桌面或主画面。每个 CRTC（显示控制器）至少有**一个 Primary Plane**。
+- **Primary Plane**：主平面，主Overlay Plane。负责显示桌面或主画面。每个 CRTC（显示控制器）至少有**一个 Primary Plane**。
 - **Overlay Plane**：覆盖平面，负责显示叠加在主画面上的图像，比如视频播放窗口、硬件加速的图形层等。一个显示控制器可以有**多个 Overlay Plane**。
 - **Cursor Plane**：光标平面，专门用于显示鼠标指针。
 

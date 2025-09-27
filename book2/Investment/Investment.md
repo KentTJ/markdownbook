@@ -191,7 +191,19 @@ https://mp.weixin.qq.com/s/bNEDw-zCyLk3PLJuySB-Ow    【深度】股市涨跌分
 
 数据来源： https://www.sse.com.cn/aboutus/publication/monthly/investor/   上海证券交易所
 
-2、
+2、百度指数（微信指数）---------股市
+
+
+
+2015年中国股市牛市的顶点是[上海证券交易所综合股价指数（上证综指）](https://www.google.com/search?newwindow=1&cs=1&sca_esv=43c4ab87ea7f1f9b&sxsrf=AE3TifPekcA6Ez5i2jCf_6rq_4-LF4wUWQ%3A1758996609421&q=上海证券交易所综合股价指数（上证综指）&sa=X&ved=2ahUKEwjtxrSAxfmPAxXdKVkFHcVGA7QQxccNegQIAhAB&mstk=AUtExfBGHyoTU-TRbtKV7HrDSx9521iAw5ezBnqvACY6z7AHZPyFOUbu1c3hGNi1Jzu_WKTE-hIzjNa4jyrN-OANioI0an8UPUTXJ0ONZo6NTHw7o_pGeVQ06tbzubZRf0uqFGUZ5ZbpnjGJDQEzuQCOKxqageUmfqeFGandwiHyko1Wpb5kHWPMwTQzJG1Rm3TZSaNNpylb-L7CUh9xx3-lUJKwnrWFNd6F1tSyDOVFPWwzd_y4Ptubx34hxyAeBUl5itSfKJ6LN5mLMEUbOP3MD7j6&csui=3)在2015年6月12日创下的5178.19点。
+
+>   对应的搜索热度：
+>
+>   ![image-20250928021712511](Investment.assets/image-20250928021712511.png)
+
+![image-20250928020846997](Investment.assets/image-20250928020846997.png)
+
+2024年10月1号也是最高点
 
 
 

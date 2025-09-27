@@ -1674,7 +1674,9 @@ redraw的本质，就是 合成器给的wl_callback 触发
 
 
 
+### 次要：sub-surfaces的commit
 
+参考：https://ppaalanen.blogspot.com/2013/11/sub-surfaces-now.html   [Pekka Paalanen](https://ppaalanen.blogspot.com/)
 
 
 

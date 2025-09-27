@@ -133,6 +133,16 @@ glGenBuffers(1, &VBO);
 
 
 
+## 0层纵向流程
+
+![shader](opengl.assets/shader.png)
+
+![shader_2](opengl.assets/shader2.jpg)
+
+[图来源](https://zhpower.github.io/blog/jekyll/2003-08-20-OpenGL_misc.html#:~:text=Copy-,shader,-%E5%88%9D%E5%A7%8B%E5%8C%96)
+
+
+
 ## 输入
 
 ![image-20240327014627804](opengl.assets/image-20240327014627804.png)
@@ -171,11 +181,9 @@ glGenBuffers(1, &VBO);
 
 
 
-![img](opengl.assets/20200404154050786.png)
 
---------->  图来源：
 
->   [OpenGL ES 3. 着色器 shader的编译和使用](https://blog.csdn.net/u010281924/article/details/105309340)
+
 
 
 
@@ -221,7 +229,7 @@ Texture ------> 另一个翻译更贴切：贴图
 
 来源：
 
->   1、从现有的buffer内获取的（比如应用传过来的dma、shm等等）
+>   1、从现有的buffer内获取的（比如应用传过来的dma、shm等等） --------> TODO: 关键代码
 >
 >   2、从图片（jpg）
 
@@ -439,7 +447,13 @@ https://youtu.be/mZM15IKuNWY?list=PL0luF_aDUOooIB56NOFVTS4ahMzBHS_6z&t=1341
 
 
 
-## 纹理不要多次申请
+## 纹理不要多次申请 & 资源释放 -------> TODO
+
+[参考](https://zhpower.github.io/blog/jekyll/2003-08-20-OpenGL_misc.html#%E8%B5%84%E6%BA%90%E9%87%8A%E6%94%BE:~:text=%E4%BD%BF%E7%94%A8%E6%AD%A4%E5%8F%98%E9%87%8F%E3%80%82-,%E8%B5%84%E6%BA%90%E9%87%8A%E6%94%BE,-dmabuf%E8%B5%84%E6%BA%90%E9%87%8A%E6%94%BE)
+
+
+
+
 
 
 

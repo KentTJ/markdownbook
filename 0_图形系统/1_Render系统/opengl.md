@@ -241,7 +241,7 @@ Texture ------> 另一个翻译更贴切：贴图
 
 ### 0层
 
-见《wl_surface_commit 大纲》，有各种详细代码
+**见《wl_surface_commit 大纲》，有各种详细代码**
 
 ### 已有shm构造纹理 --------- glTexImage2D
 
@@ -289,25 +289,47 @@ TODO: color 与 texture，一般情况下，只有一个！！！！！！
 
 -<font color='red'>**glTexImage2D详解：**</font>
 
->   who：cpu执行、驱动执行  -------->   **消耗CPU** 
+>   who：cpu端执行、驱动执行  -------->   **消耗CPU** 
 >
->   作用： **将 CPU 内存中的图像数据加载并定义到 GPU 内存中的一个二维纹理对象上**
+>   ​           ---------> 推论：必然是一个同步操作，等待CPU操作完，GPU才.........
 >
->   具体：
+>   作用： **内存copy： 将 CPU 内存中的图像数据加载并定义到 GPU 内存中的一个二维纹理对象上**
 >
->   
+>   >   具体：（1）**分配和初始化** 一个 GPU 纹理对象------**GPU内存**
+>   >
+>   >   ​              (2)  内存copy
+>   >
+>   >   当 data = NULL的时候，仅做了（1）
+>
+>   <font color='red'>存在内存copy的根本原因：</font>  系统内存（比如shm），无法让GPU直接使用
+>
+>   必然推论：图形领域，**应该避免 glTexImage2D使用**
 
 
 
-### 已有dma 构造纹理
+### 已有dma 构造纹理 --------- glEGLImageTargetTexture2DOES
 
 法一(同shm)：~~mmap获取内存地址，直接读取为image  （<font color='red'>同shm， 存在copy</font>）~~
 
 法二：dma import ---->  EGLImage 对象 ---->关联到 texture对象上： <font color='red'>0 copy</font>
 
-已有的代码参考：
+已有的代码参考：TODO
+
+```java
+
+```
 
 
+
+-<font color='red'>**glEGLImageTargetTexture2DOES详解：**</font>
+
+>   dma import ----> EGL的EGLImage 对象 ---->关联到opengl的 texture对象
+>
+>   优势：**0 copy**
+>
+>   <font color='red'>0 copy的根本原因：dma，打通了各个进程和各个硬件（CPU、GPU、NPU）</font>
+>
+>   ​                              ------------><font color='red'> dma</font>在整个系统内都不需要copy。<font color='red'>是整个系统的硬通货</font>
 
 
 

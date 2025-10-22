@@ -346,7 +346,7 @@ YLAND_SOCKET=57sh-3.2#
 
 证明：weston-keyboard 与 weston
 
-> ```
+> ```java
 > sh-3.2# ps -ef | grep keyboa
 > weston     28849   28828  0 17:37 ?        00:00:00 /usr/libexec/weston-keyboard
 > root       31552    4627  0 17:47 pts/0    00:00:00 grep keyboa
@@ -360,10 +360,6 @@ YLAND_SOCKET=57sh-3.2#
 > n/user/21002DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/21002/busXDG_SESSION_TYPE=unspecifiedXDG
 > _SESSION_CLASS=backgroundWESTON_CONFIG_FILE=/etc/xdg/weston/weston.iniWAYLAND_DISPLAY=wayland-0WA
 > YLAND_SOCKET=57sh-3.2#
-> 
-> 
-> 
-> 
 > ```
 >
 > 
@@ -380,7 +376,7 @@ YLAND_SOCKET=57sh-3.2#
 > weston     28835   28828  0 17:37 ?        00:00:00 /usr/bin/weston --modules=systemd-notify.so -
 > -socket=wayland-0 --log=/tmp/weston.log --debug
 > weston     28849   28828  0 17:37 ?        00:00:00 /usr/libexec/weston-keyboard
-> weston     28850   28828  0 17:37 ?        00:00:00 /usr/libexec/boswmshell
+> weston     28850   28828  0 17:37 ?        00:00:00 /usr/libexec/wmshell
 > weston     28881   28872  0 17:37 ?        00:00:00 (sd-pam)
 > root       32287    4627  0 17:50 pts/0    00:00:00 grep weston
 > sh-3.2#
@@ -394,6 +390,107 @@ YLAND_SOCKET=57sh-3.2#
 > :path=/run/user/21002/busXDG_SESSION_TYPE=unspecifiedXDG_SESSION_CLASS=backgroundsh-3.2#
 > sh-3.2#
 > ```
+
+
+
+## fork进程，执行程序
+
+```java
+pid_t startWestonScreenshot() {
+    LOG("startWestonScreenshot in\n");
+    pid_t pid = fork();
+    
+    if (pid == 0) {
+        LOG("startWestonScreenshot pid=0\n");
+        // 带参数启动，例如指定特定输出
+        // execl("/usr/bin/weston-screenshot", "weston-screenshot", 
+        //         "-d", output_name.c_str(), (char*)nullptr);
+        // execl("/usr/bin/weston-screenshooter", "-d DSI-1", (char *) NULL); // execl("/usr/bin/weston-screenshooter", "-d DSI-1", (char *) NULL);
+        execl("/usr/bin/weston-screenshooter", "weston-screenshooter", "-d", "DSI-1", (char *) NULL);
+
+        // 如果execl返回，说明执行失败
+        LOG("startWestonScreenshot Failed to execute weston-screenshot\n");
+        _exit(1);
+    } else if (pid > 0) {
+        // 父进程，立即返回，不等待子进程结束
+        LOG("startWestonScreenshot, wmshell, pid:%d\n", pid);
+        return pid;
+    } else {
+        LOG("startWestonScreenshot Failed to fork process\n");
+        return -1;
+    }
+}
+```
+
+### pid 的含义
+
+
+
+```java
+    } else if (pid > 0) {
+        // 父进程，立即返回，不等待子进程结束
+        LOG("startWestonScreenshot, wmshell, pid:%d\n", pid);
+        return pid;
+    }
+```
+
+
+
+
+
+1. **`pid` 的含义**：
+
+    - [pid](javascript:void(0)) 是 `fork()` 返回给父进程的值，表示<font color='red'>新创建的子进程的进程ID（不是父进程的PID）</font>
+
+    - 父进程通过这个 [pid](javascript:void(0)) 来<font color='red'>跟踪它创建的子进程</font>
+
+        比如：父进程不应该等待子进程结束：
+
+        ```java
+        waitpid(pid, &status, 0)
+        ```
+
+        
+
+
+
+### fork并传递参数
+
+有个问题：参数无法传递过去
+
+> 解决：https://stackoverflow.com/questions/54225622/starting-program-using-execv-and-passing-arguments-with-out-raising-argc
+>
+> ```c
+> +---------+---------------------------------------+ 
+> | Args    | Environment                           |
+> +---------+---------+---------+---------+---------+
+> |  NULL   | envp[0] | envp[1] | envp[2] |  NULL   | 
+> +---------+---------+---------+---------+---------+
+>  ^         ^                   ^                     
+>  |         |                   |
+> argv[0]    argv[1]     ...     argv[3]
+> ```
+
+
+
+### char *argv[]的认识：
+
+-<font color='red'>argv 包含：</font>
+
+> 1、父进程传过来的参数 args
+>
+> 2、父进程的env （如果没有1，则直接是2）
+
+```
++---------+---------------------------------------+ 
+| Args    | Environment                           |
++---------+---------+---------+---------+---------+
+|  NULL   | envp[0] | envp[1] | envp[2] |  NULL   | 
++---------+---------+---------+---------+---------+
+    ^         ^                   ^                     
+    |         |                   |
+ argv[0]    argv[1]     ...     argv[3]
+```
 
 
 

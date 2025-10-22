@@ -96,6 +96,8 @@ so里已经有行号信息了。这时候需要指定源码：
 
 
 
+
+
 ## 控制之 wait-for-debugger ------------ raise(SIGSTOP) 
 
 
@@ -106,6 +108,20 @@ if (wait_for_debugger) {
     weston_log("Weston PID is %ld - waiting for debugger, send SIGCONT to continue...\n" (long)getpid());
     raise(SIGSTOP);  // 【】 关键一行
 }
+```
+
+
+
+## 启动过程断点 ------------ 双断点法
+
+启动过程， 函数无法及时断点问题：
+
+```java
+（1）代码中加入断点： raise(SIGSTOP)    #include <signal.h>
+（2）运行，大概率被各种 SIGSTOP   ---------> 止住
+（3）止住的情况下，加入 函数断点  --------> // 【】 优
+（4） handle SIGSTOP nostop
+（5）继续
 ```
 
 
@@ -264,9 +280,11 @@ CXX += "-g -O0"     // G++  编译.cPP
 
 ## 引入符号表 TODO
 
+```java
  symbol-file  /usr/lib64/libkwin.so.5
  add-symbol-file   /usr/lib64/plugins/kwin/effects/plugins/kwin4_effect_shapecorners.so
  add-symbol-file  /usr/lib64/plugins/kwin/effects/configs/kwin_shapecorners_config.so
+```
 
 
 

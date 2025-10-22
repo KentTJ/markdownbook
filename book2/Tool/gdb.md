@@ -224,8 +224,8 @@ LDFLAGS += ..........
 补充：
 
 ```java
-CFLAGS += ...      // CLANG 编译.c
-CXXFLAGS += ...    // CLANG++ 编译.cpp
+CFLAGS += "-g -O0"    // CLANG 编译.c
+CXXFLAGS += "-g -O0"    // CLANG++ 编译.cpp
 CC += "-g -O0"     // GCC  编译.c
 CXX += "-g -O0"     // G++  编译.cPP
 ```

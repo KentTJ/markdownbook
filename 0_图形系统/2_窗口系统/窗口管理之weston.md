@@ -2181,7 +2181,22 @@ output-order=dsi-1,dsi-2   // what：即把各个output放到 全局坐标哪个
 
 
 
+## 关闭某些output
 
+配置：
+
+```java
+在weston.ini里面加一下
+[output]
+name=dsi-2
+mode=off
+```
+
+影响是什么？
+
+>   1、不输出画面
+>
+>   2、会影响坐标系吗？
 
 # weston 原生自测试用例
 

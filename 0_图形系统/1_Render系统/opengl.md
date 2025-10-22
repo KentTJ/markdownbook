@@ -2576,7 +2576,7 @@ GLUtils_saveRender(w, h, 1, "repiant_views_100");
 
 char * path = (char*)"/data/plane_dump"; // when: 控制何时输出图片, 手动创建目录时 ----> 主控
 int read_format = GL_BGRA_EXT; // 【】BGRA 格式读取; RGBA 格式读取 ----GL_RGBA
-                               // 注意：对于安卓模拟器，必须使用GL_RGBA；mtk平台，使用GL_BGRA_EXT
+                               // 【】注意：对于安卓模拟器，必须使用GL_RGBA；mtk平台，使用GL_BGRA_EXT
 
 
 // ---------------------------配置参数 end-------------------------------------------

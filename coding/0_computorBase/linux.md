@@ -308,3 +308,92 @@ journalctl -o verbose > verbose.txt
 
 
 
+# journal日志
+
+
+
+```
+fprintf(stderr, "argc=:%d, argv[0]:%s, argv[1]:%s, argv[2]:%s, argv[3]:%s, argv[4]:%s, argv[5]:%s\n", argc, argv[0], argv[1], argv[2], argv[3],argv[4], argv[5]);
+```
+
+
+
+# 进程
+
+## 进程的环境变量
+
+### 查询：
+
+```
+sh-3.2# ps -ef | grep keyboa
+weston     28849   28828  0 17:37 ?        00:00:00 /usr/libexec/weston-keyboard
+root       31552    4627  0 17:47 pts/0    00:00:00 grep keyboa
+sh-3.2#
+sh-3.2#
+sh-3.2# cat /proc/28849/environ
+LANG=CLD_PRELOAD=/usr/lib64/libstdout-line-buffer.so:/usr/lib64/m/libc_dns.soPATH=/usr/local/sbin
+:/usr/local/bin:/usr/sbin:/usr/binNOTIFY_SOCKET=/run/systemd/notifyUSER=westonLOGNAME=westonHOME=
+/data/westonSHELL=/bin/shINVOCATION_ID=45bcaf4011a644269ae4e06f3bf41af3JOURNAL_STREAM=8:811021SYS
+TEMD_EXEC_PID=28828MOTD_SHOWN=pamMAIL=/var/spool/mail/westonXDG_SESSION_ID=c19XDG_RUNTIME_DIR=/ru
+n/user/21002DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/21002/busXDG_SESSION_TYPE=unspecifiedXDG
+_SESSION_CLASS=backgroundWESTON_CONFIG_FILE=/etc/xdg/weston/weston.iniWAYLAND_DISPLAY=wayland-0WA
+YLAND_SOCKET=57sh-3.2#
+```
+
+### 基本结论
+
+**fork出来的进程，会带有父进程的环境变量！！！！！！**
+
+证明：weston-keyboard 与 weston
+
+> ```
+> sh-3.2# ps -ef | grep keyboa
+> weston     28849   28828  0 17:37 ?        00:00:00 /usr/libexec/weston-keyboard
+> root       31552    4627  0 17:47 pts/0    00:00:00 grep keyboa
+> sh-3.2#
+> sh-3.2#
+> sh-3.2# cat /proc/28849/environ
+> LANG=CLD_PRELOAD=/usr/lib64/libstdout-line-buffer.so:/usr/lib64/m/libc_dns.soPATH=/usr/local/sbin
+> :/usr/local/bin:/usr/sbin:/usr/binNOTIFY_SOCKET=/run/systemd/notifyUSER=westonLOGNAME=westonHOME=
+> /data/westonSHELL=/bin/shINVOCATION_ID=45bcaf4011a644269ae4e06f3bf41af3JOURNAL_STREAM=8:811021SYS
+> TEMD_EXEC_PID=28828MOTD_SHOWN=pamMAIL=/var/spool/mail/westonXDG_SESSION_ID=c19XDG_RUNTIME_DIR=/ru
+> n/user/21002DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/21002/busXDG_SESSION_TYPE=unspecifiedXDG
+> _SESSION_CLASS=backgroundWESTON_CONFIG_FILE=/etc/xdg/weston/weston.iniWAYLAND_DISPLAY=wayland-0WA
+> YLAND_SOCKET=57sh-3.2#
+> 
+> 
+> 
+> 
+> ```
+>
+> 
+>
+> 
+>
+> ```java
+> sh-3.2# ps -ef | grep weston
+> weston      3600       1  0 16:12 ?        00:00:00 /usr/lib/systemd/systemd --user
+> weston      3601    3600  0 16:12 ?        00:00:00 (sd-pam)
+> weston     28828       1  2 17:37 ?        00:00:15 /usr/bin/weston --modules=systemd-notify.so -
+> -socket=wayland-0 --log=/tmp/weston.log --debug
+> weston     28829   28828  0 17:37 ?        00:00:00 (sd-pam)
+> weston     28835   28828  0 17:37 ?        00:00:00 /usr/bin/weston --modules=systemd-notify.so -
+> -socket=wayland-0 --log=/tmp/weston.log --debug
+> weston     28849   28828  0 17:37 ?        00:00:00 /usr/libexec/weston-keyboard
+> weston     28850   28828  0 17:37 ?        00:00:00 /usr/libexec/boswmshell
+> weston     28881   28872  0 17:37 ?        00:00:00 (sd-pam)
+> root       32287    4627  0 17:50 pts/0    00:00:00 grep weston
+> sh-3.2#
+> sh-3.2#
+> sh-3.2# cat /proc/28828/environ
+> LANG=CLD_PRELOAD=/usr/lib64/libstdout-line-buffer.so:/usr/lib64/m/libc_dns.soPATH=/usr/local/sbin
+> :/usr/local/bin:/usr/sbin:/usr/binNOTIFY_SOCKET=/run/systemd/notifyLISTEN_PID=28828LISTEN_FDS=1LI
+> STEN_FDNAMES=weston.socketUSER=westonLOGNAME=westonHOME=/data/westonSHELL=/bin/shINVOCATION_ID=45
+> bcaf4011a644269ae4e06f3bf41af3JOURNAL_STREAM=8:811021SYSTEMD_EXEC_PID=28828MOTD_SHOWN=pamMAIL=/va
+> r/spool/mail/westonXDG_SESSION_ID=c19XDG_RUNTIME_DIR=/run/user/21002DBUS_SESSION_BUS_ADDRESS=unix
+> :path=/run/user/21002/busXDG_SESSION_TYPE=unspecifiedXDG_SESSION_CLASS=backgroundsh-3.2#
+> sh-3.2#
+> ```
+
+
+

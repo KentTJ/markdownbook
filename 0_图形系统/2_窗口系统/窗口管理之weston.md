@@ -821,6 +821,77 @@ https://wayland.app/protocols/               A better way to read Wayland docume
 
 
 
+# wayland协议之 loop
+
+
+
+```java
+wl_display_run
+	while(true)
+		wl_display_flush_clients  // 刷事件给 所有client
+			wl_list_for_each_safe(client
+				wl_connection_flush
+					while (ring_buffer_size(&connection->out) > 0) {
+						build_cmsg
+						sendmsg // sockect通信
+						
+		wl_event_loop_dispatch
+			wl_event_loop_dispatch_idle  ------> TODO: 没懂这里为啥处理空闲任务，后面也有
+			
+			count = epoll_wait(loop->epoll_fd, ep, ARRAY_LENGTH(ep), timeout); // 这里监控了非常非常多的fd！！！！！
+			for (i = 0; i < count; i++) {
+				source->interface->dispatch(source, &ep[i]); 
+				//【】各种dispatch，即：
+					dispatch_1:	wl_event_source_fd_dispatch // wayland event类 <-- wl_event_loop_add_fd(对应的fd, func)添加的，本质epoll_ctl
+									for：fd_source->func
+									例1：wl_client_connection_data
+											wl_connection_read
+											log_closure // 【】 先打印wl日志
+												wl_closure_print
+													fprintf(stderr, "%s", buffer);
+									例2：handle_display_terminate
+									例3：socket_data 接受client的socket链接！！
+									例4：on_drm_input
+									例5：udev_drm_event
+									例6：wayland_backend_handle_event
+					dispatch_2: wl_event_source_timer_dispatch // timer类 <---- wl_event_loop_add_timer
+									例1：output_repaint_timer_handler // 【】合成的总入口就是一个timer
+					dispatch_3: wl_event_source_signal_dispatch // signal类 <----- 
+			}
+			
+			wl_event_loop_dispatch_idle // 【】 最后处理空闲任务
+```
+
+
+
+
+
+TODO:
+
+```java
+wl_log最终是 vfprintf(stderr, fmt, arg);
+
+
+wayland日志不是实时的
+
+事件发送机制：先缓存后统一发送的机制
+
+结论：
+	1、wl event日志真实输出时刻 与 事件发送不是同一时刻：先打印了wl日志；之后执行server的合成任务等;下一个while循环，flush一堆event给到client
+	2、两者时间差是可能一帧合成时间（一般16ms以内，server卡顿的话，可以达到600ms）
+
+
+
+
+
+static int
+wl_event_source_fd_dispatch(struct wl_event_source *source,
+			    struct epoll_event *ep)
+{
+	struct wl_event_source_fd *fd_source = (struct wl_event_source_fd *) source;
+--------->
+```
+
 
 
 # client的产生

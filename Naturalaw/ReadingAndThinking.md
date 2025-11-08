@@ -817,7 +817,13 @@ https://baijiahao.baidu.com/s?id=1743010636038377873&wfr=spider&for=pc
 
 ## 计算机 --------性能优化
 
+人需要负载均衡 --------- 身体与大脑
 
+优化脑袋：
+
+>   <font color='red'>增加cache</font>（my_command_he_ | grep 快速搜索）
+>
+>   <font color='red'>增加硬盘</font>（笔记、在线笔记）
 
 
 

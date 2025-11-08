@@ -860,6 +860,8 @@ https://baijiahao.baidu.com/s?id=1743010636038377873&wfr=spider&for=pc
 >   1、找化简方法，保留枝干
 >
 >   2、<font color='red'>如果做不到化简，那宁愿不要</font>
+>
+>   3、化简到极致 -----------  <font color='red'>归到一个物理模型里</font>
 
 
 

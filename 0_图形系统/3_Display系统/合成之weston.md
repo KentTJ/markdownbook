@@ -5757,9 +5757,17 @@ bufferqueue为同步模式：
 
 # 资料
 
-https://wayland.pages.freedesktop.org/weston/    weston官网
+weston官网：
 
-https://wayland.freedesktop.org/        wayland官网
+>   https://wayland.pages.freedesktop.org/weston/    
+>
+>   bug 列表：https://gitlab.freedesktop.org/wayland/weston/-/issues
+
+wayland官网：
+
+>   https://wayland.freedesktop.org/        
+>
+>   bug 列表： https://gitlab.freedesktop.org/wayland/wayland/-/issues
 
 https://gitlab.freedesktop.org/wayland     代码托管
 

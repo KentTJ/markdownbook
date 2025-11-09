@@ -2977,9 +2977,13 @@ Volume Booster
 
 ### Antimalware Service CPU占用过高     ---->扫描文件造成的
 
-https://www.cnblogs.com/WadeCai/p/6593568.html
+https://blog.csdn.net/weixin_65636377/article/details/147073681?spm=1001.2014.3001.5502 ------> 有效
 
 
+
+<img src="software_pcSettings.assets/image-20251109094554035.png" alt="image-20251109094554035" style="zoom:67%;" />
+
+-----------------> 自定义扫描 ，选择一个空格文件夹就行
 
 
 

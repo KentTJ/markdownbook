@@ -825,6 +825,10 @@ https://baijiahao.baidu.com/s?id=1743010636038377873&wfr=spider&for=pc
 >
 >   追逐热点新闻、热点投资
 
+财务自由的标准：
+
+>   不需要向他人证明
+
 
 
 

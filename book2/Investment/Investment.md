@@ -961,3 +961,10 @@ TODO: **仓位管理**:  所以真正好的交易者，仓位管理以及进攻�
 
 《战胜华尔街》---------彼得林奇
 
+
+
+# 网站
+
+[ 【“股神”巴菲特】全网最全合集(共24集)强烈推荐、受益匪浅](https://www.bilibili.com/video/BV1qK4y1p7wG?spm_id_from=333.788.player.switch&p=3)
+
+https://www.bilibili.com/video/BV1X5krBGEsa/?spm_id_from=333.337.search-card.all.click  【2小时完整版】方三文对话段永平

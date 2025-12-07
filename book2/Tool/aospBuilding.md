@@ -588,7 +588,7 @@ https://blog.csdn.net/yimelancholy/article/details/130462470
 
 
 
-
+#### 方法一：
 
 %accordion%~~同步时间脚本1：：~~%accordion%
 
@@ -626,6 +626,15 @@ Sat Nov 27 12:41:25 GMT 2021
 ```
 
 
+
+#### 方法二：网络时间同步
+
+ 解决pixel手机时间不能自动同步（已经验证）：
+
+```java
+默认 NTP 服务器 Google 的 time 服务器，你被墙着，连不上的。
+adb shell "settings put global ntp_server pool.ntp.org"
+```
 
 
 

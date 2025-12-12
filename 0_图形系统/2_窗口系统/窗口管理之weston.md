@@ -1069,7 +1069,7 @@ ini的来源 & 参考：
 
 ## 具体weston.ini
 
-配置panel：
+### 配置panel：
 
 ```java
 [shell]
@@ -1078,6 +1078,35 @@ panel-position=none          // -----> 没有panel
 ```
 
 
+
+
+
+### output-order
+
+```java
+[core]
+output-order=dsi-1,dsi-2   // what：即把各个output放到 全局坐标哪个位置上
+                                  // what1：可以设置client的位置  or  相对的，修改output的位置
+```
+
+
+
+### 关闭某些output
+
+配置：
+
+```java
+在weston.ini里面加一下
+[output]
+name=dsi-2
+mode=off
+```
+
+影响是什么？
+
+>   1、不输出画面
+>
+>   2、会影响坐标系吗？ ------> 会，weston看不到这个屏幕了
 
 
 
@@ -1881,11 +1910,49 @@ wet_shell_init
 
 
 
+
+
+
+
+
+
+
+
 # 输入法  Wayland Input Methods
 
 weston输入法：https://archive.fosdem.org/2013/schedule/event/waylandinput/attachments/slides/252/export/events/attachments/waylandinput/slides/252/FOSDEM2013_wayland_input_methods.pdf
 
 ------------> TODO: download
+
+
+
+# 屏幕旋转----w﻿eston的output旋转
+
+
+
+**本质：**  旋转了**显示  ＆ 事件**
+
+配置处：
+
+>   ​       承载：weston_output 中的transform
+>
+>   ​        时机：drm_backend_output_configure TODO: 调用栈
+
+生效处(显示)：
+
+>   ​         dmModeAtomicAddPropert(rotation), ﻿﻿﻿﻿﻿﻿即drm驱动支持 <font color='red'>设置plane的旋转</font>
+>
+>   ​          时机：apply_state_atomic
+
+生效处(事件)：
+
+>   libinput-devices.c: handle_touch_with_coords中，计算了coord_global
+
+与驱动的关系：**要求左上角的touch原点与 显示原点重合**（旋转本身由weston来做）
+
+
+
+
 
 # 实操
 
@@ -2240,34 +2307,7 @@ pixman_region32_t   的打印：
 > }
 > ```
 
-# weston.ini
 
-## output-order
-
-```java
-[core]
-output-order=dsi-1,dsi-2   // what：即把各个output放到 全局坐标哪个位置上
-                                  // what1：可以设置client的位置  or  相对的，修改output的位置
-```
-
-
-
-## 关闭某些output
-
-配置：
-
-```java
-在weston.ini里面加一下
-[output]
-name=dsi-2
-mode=off
-```
-
-影响是什么？
-
->   1、不输出画面
->
->   2、会影响坐标系吗？
 
 # weston 原生自测试用例
 

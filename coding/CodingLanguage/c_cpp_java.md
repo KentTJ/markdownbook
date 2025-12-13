@@ -107,6 +107,16 @@ c： char ** wordDict_c, int wordDictSize   ------>多重指针，指针的指�
 
 
 
+## snprint 作用：拼接字符串到buffer
+
+1、将字符串写入  char[]  ，即一个buffer里
+
+2、通过指针
+
+3、写入后，会在末尾自动加入 '\0'ssuanli
+
+
+
 ## memset、memcmp、strcmp比较
 
 **cpp没有字节级的处理**，最少也是基本数据类型的处理---->比如，char、string
@@ -414,10 +424,6 @@ if (dst == NULL) {
 // 使用 dst ...
 free(dst); // 必须手动释放
 ```
-
-
-
-
 
 
 

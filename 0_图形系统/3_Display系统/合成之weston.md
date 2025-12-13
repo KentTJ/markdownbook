@@ -4732,6 +4732,10 @@ Layer 3 (pos 0xb0000000):
 
 -<font color='red'>基本结论：cpu算力消耗，即时间</font>
 
+>   拆解，分析cpu算力：1、测各个tread算力   2、通过trace分析各个tread。。。。cpu算力=cpu运行时间=频率*每次运行时间。。每次运行时间，看各个函数段。。高频函数
+
+
+
 推论0：weston的cpu算力消耗 －－－－－ timer，即频率
 
 推论1：weston的劣势：多个client叠加帧率：30＋30 ＝ 60，<font color='red'>即 多个client commit的不齐造成的weston频率过大</font>
@@ -4749,6 +4753,26 @@ Layer 3 (pos 0xb0000000):
 >   driver 屏幕刷新，降频到30hz。------> 避免多个client不对齐造成的weston频率过大
 >
 >   修改配置处 TODO：1、屏幕上报  2、或 weston.ini配置？？？？？？？
+
+
+
+
+
+### 算力分析方法（通用）
+
+算力统计工具，统计k
+
+>   ----------> 统计系统总算力、某个进程A的算力、进程A下各个线程的算力
+
+算力分析工具1-----trace
+
+>   看cpu running哪一段长
+
+算力分析工具2-----perf
+
+>   看哪个函数耗时长、哪些函数是不必要的
+
+
 
 
 

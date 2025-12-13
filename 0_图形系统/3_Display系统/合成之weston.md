@@ -4730,23 +4730,25 @@ Layer 3 (pos 0xb0000000):
 
 ## cpu算力消耗，即cpu使用时间(频率)-------TODO
 
-基本结论：cpu算力消耗，即时间
+-<font color='red'>基本结论：cpu算力消耗，即时间</font>
 
 推论0：weston的cpu算力消耗 －－－－－ timer，即频率
 
-推论1：weston的劣势：多个client叠加帧率：30＋30 ＝ 60
+推论1：weston的劣势：多个client叠加帧率：30＋30 ＝ 60，<font color='red'>即 多个client commit的不齐造成的weston频率过大</font>
 
 推论2：安卓，不是：vsync对齐
 
-推论3：<font color='red'>repaint－timer设置小</font>，weston一次绘制等待时间便会长，则更多的client会被绘制 －－－－－> 则weston本身帧率会变低 -----> <font color='red'>可以降低算力</font>！！
+推论3---------cpu性能优化点：<font color='red'>repaint－timer设置小</font>，weston一次绘制等待时间便会长，则更多的client会被绘制 －－－－－> 则weston本身帧率会变低 -----> <font color='red'>可以降低算力</font>！！
 
-推论4：repaint－timer过小（<7ms），则容易丢帧
+>   推论4：repaint－timer过小（<7ms），则容易丢帧
+>
+>   推论5：TODO weston性能优化的可能方向：一个屏幕的各client对齐
 
-推论5：TODO weston性能优化的可能方向：一个屏幕的各client对齐
+推论6：某个屏幕，强行降低频率（需要确定app没有高刷）
 
-
-
-
+>   driver 屏幕刷新，降频到30hz。------> 避免多个client不对齐造成的weston频率过大
+>
+>   修改配置处 TODO：1、屏幕上报  2、或 weston.ini配置？？？？？？？
 
 
 
@@ -5805,13 +5807,21 @@ bufferqueue为同步模式：
 
 ## simple-egl  -l  7  -x 探针
 
-simple-egl  -l  7  -x     ------->    <font color='red'>探测问题出现在哪一层</font>
+simple-egl  -l  7  -x     ------->    <font color='red'>探测问题出现在哪一层：</font>
 
-wmtes －－－－－ z向探针
+>   利用1：**一层一层设置图层，把问题图层逼出来**
+>
+>   利用2：多启动几个egl，把所有应用都压到GPU上合成
 
-​      －－－－－－> **把可疑的窗口，设置一个偏移**
+wmtes －－－－－ z向探针、x向探针
+
+>   ​      －－－－－－> **把可疑的窗口，设置一个偏移**
 
 
+
+例1:
+
+>   全屏花屏问题（根本原因：某个硬件图层花屏了） ---------> 确定Z向来源（到底是哪个图层花屏了）
 
 
 

@@ -4743,7 +4743,7 @@ Layer 3 (pos 0xb0000000):
 
 推论1：weston的劣势：多个client叠加帧率：30＋30 ＝ 60，<font color='red'>即 多个client commit的不齐造成的weston频率过大</font>
 
-推论2：安卓，不是：vsync对齐
+>   推论2：**安卓不是：vsync对齐**
 
 推论3---------cpu性能优化点：<font color='red'>repaint-timer 设置小</font>，weston一次绘制等待时间便会长，则更多的client会被绘制 －－－－－> <font color='red'>则weston本身帧率会变低</font> -----> <font color='red'>可以降低算力</font>！！
 
@@ -4772,6 +4772,10 @@ Layer 3 (pos 0xb0000000):
 >   结论1：两个client（20Hz），会造成weston帧率叠加（即算力翻倍）
 >
 >   结论2：随着client个数越多，weston达到上限值60HZ(<font color='red'>这是物理上限</font>，屏幕决定的)
+>
+>   ​                -<font color='red'>**本质原因：应用之间没关系，vsync没有对齐**</font>   ----------> <font color='red'>**而安卓做到了！各个应用的vsync对齐了**</font>
+>
+>   ​                TODO: 测一下，给个trace数据
 >
 >   结论3：只要有一个client的频率 = 60HZ，则weston算力一定是60
 

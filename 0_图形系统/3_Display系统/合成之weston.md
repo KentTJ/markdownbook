@@ -1,4 +1,5 @@
-# 目录
+>   # 目录
+>
 
 
 
@@ -4728,13 +4729,15 @@ Layer 3 (pos 0xb0000000):
 
 ## 硬件加速 (Hardware Acceleration)----- weston原生机制
 
-## cpu算力消耗，即cpu使用时间(频率)-------TODO
+## 算力的理论分析-------cpu算力消耗，即cpu使用的总时间
 
--<font color='red'>基本结论：cpu算力消耗，即时间</font>
+-<font color='red'>基本结论：cpu算力消耗，即cpu使用的总时间</font>
 
->   拆解，分析cpu算力：1、测各个tread算力   2、通过trace分析各个tread。。。。cpu算力=cpu运行时间=频率*每次运行时间。。每次运行时间，看各个函数段。。高频函数
+算力公式：<font color='red'>cpu算力=占用cpu的总运行时间   =   频率   ×   每次运行时间</font>
 
+​                                                                           <font color='red'>   = 频率    ×   （∑各个函数段）</font>
 
+>   拆解，分析cpu算力：1、测各个tread算力   2、通过trace分析各个tread。。。。。。
 
 推论0：weston的cpu算力消耗 －－－－－ timer，即频率
 
@@ -4742,7 +4745,11 @@ Layer 3 (pos 0xb0000000):
 
 推论2：安卓，不是：vsync对齐
 
-推论3---------cpu性能优化点：<font color='red'>repaint－timer设置小</font>，weston一次绘制等待时间便会长，则更多的client会被绘制 －－－－－> 则weston本身帧率会变低 -----> <font color='red'>可以降低算力</font>！！
+推论3---------cpu性能优化点：<font color='red'>repaint-timer 设置小</font>，weston一次绘制等待时间便会长，则更多的client会被绘制 －－－－－> <font color='red'>则weston本身帧率会变低</font> -----> <font color='red'>可以降低算力</font>！！
+
+**生活化描述**：
+
+>   -<font color='red'>一次车可以拉更多的人（等待的时间长一些），则车子跑的次数就少一些（频率）</font>
 
 >   推论4：repaint－timer过小（<7ms），则容易丢帧
 >
@@ -4753,6 +4760,30 @@ Layer 3 (pos 0xb0000000):
 >   driver 屏幕刷新，降频到30hz。------> 避免多个client不对齐造成的weston频率过大
 >
 >   修改配置处 TODO：1、屏幕上报  2、或 weston.ini配置？？？？？？？
+
+
+
+## weston算力结论：
+
+单屏幕下，client个数与weston算力：
+
+>   ![image-20251214004411783](合成之weston.assets/image-20251214004411783.png)
+>
+>   结论1：两个client（20Hz），会造成weston帧率叠加（即算力翻倍）
+>
+>   结论2：随着client个数越多，weston达到上限值60HZ(<font color='red'>这是物理上限</font>，屏幕决定的)
+>
+>   结论3：只要有一个client的频率 = 60HZ，则weston算力一定是60
+
+
+
+多屏下，屏幕个数与weston算力：
+
+>   ![image-20251214010730099](合成之weston.assets/image-20251214010730099.png)
+>
+>   TODO:  确定一下，是不是这个趋势？ 上限的帧率是多少？？   TODO: mix_timer ?  极限情况是mix_timer =0，占满了CPU？？？？？？？？？
+
+
 
 
 
@@ -4768,9 +4799,9 @@ Layer 3 (pos 0xb0000000):
 
 >   看cpu running哪一段长
 
-算力分析工具2-----perf
+算力分析工具2-----perf（<font color='red'>从函数角度统计时长</font>）
 
->   看哪个函数耗时长、哪些函数是不必要的
+>   看哪个函数耗时长、哪些函数是不必要的、<font color='red'>优化高频函数、不合理的台阶函数</font>
 
 
 

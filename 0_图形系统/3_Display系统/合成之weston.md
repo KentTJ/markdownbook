@@ -4786,6 +4786,12 @@ afbc
 
 
 
+
+
+疑问：安卓我理解多线程久没有这个问题吗？
+
+
+
 # weston启动
 
 参考： 
@@ -5705,7 +5711,9 @@ gles2 中的几个copy像素的函数：
 
 
 
-# 问题定位之  卡死
+# 显示问题定位
+
+## 卡死
 
 图形buffer卡死（yocto没给安卓回）、跨进程接口调用卡死（）  ------------> 都是同步模型的问题
 
@@ -5743,7 +5751,7 @@ trace看卡死：集中处的首，必然是卡的点
 
 
 
-## 卡死
+## 卡死_
 
 android侧只是开启fence以及调整bufferqueue为同步模式，这样调整后Bufferqueue里的buffer会直接releaseBuffer，不会等你们yocto releaseCallback；但是如果yocto侧还帧还是太慢的话可能会导致卡fence
 
@@ -5792,6 +5800,20 @@ bufferqueue为同步模式：
 > ​            1_1 如果连40 fps都没有（默认返回）
 >
 > （2）如果simple-egl有到60ms，说明APP应用自己提交慢了
+
+
+
+## simple-egl  -l  7  -x 探针
+
+simple-egl  -l  7  -x     ------->    <font color='red'>探测问题出现在哪一层</font>
+
+wmtes －－－－－ z向探针
+
+​      －－－－－－> **把可疑的窗口，设置一个偏移**
+
+
+
+
 
 
 

@@ -4766,7 +4766,7 @@ afbc
 
 
 
-## 流畅性观测-----次要
+## 流畅性
 
 1、touch报点的均匀性(时间上）
 
@@ -4776,7 +4776,13 @@ afbc
 
 
 
+### 应用侧报点不均匀的来源：
 
+1、从trace上，可以看到驱动报点一般是均匀的
+
+2、<font color='red'>weston会造成报点不均匀</font>（<font color='red'>本质是因为weston是单线程</font>！！！！）：当报点发生，weston长时间处于repaint－output中，这个时候就不会处理报点
+
+3、应用拿到报点，应该是在loop里的，<font color='red'>如果应用此时也在做耗时操作，拿到的报点也会不均匀</font>
 
 
 

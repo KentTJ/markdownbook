@@ -1067,11 +1067,25 @@ trace_begin(const char* name);
 trace_end(void);
 ```
 
-原理：往tracing节点，按照固定格式写东西！！！！
+原理：
 
-```java
-"/sys/kernel/tracing/trace111", O_WRONLY | O_CLOEXEC)
-```
+>   往tracing节点，按照固定格式写东西！！！！
+>
+>   ```java
+>   "/sys/kernel/tracing/trace111", O_WRONLY | O_CLOEXEC)
+>   ```
+>
+>   手动写：
+>
+>   ```java
+>   echo "B|1|TAG" > /sys/kernel/tracing/trace111
+>   ```
+>
+>   
+
+
+
+
 
 ## 抓trace的源码分析--TODO
 

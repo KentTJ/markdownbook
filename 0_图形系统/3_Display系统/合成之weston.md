@@ -4722,7 +4722,31 @@ Layer 3 (pos 0xb0000000):
 
 
 
+
+
+
+
 ## 硬件加速 (Hardware Acceleration)----- weston原生机制
+
+## cpu算力消耗，即cpu使用时间(频率)-------TODO
+
+基本结论：cpu算力消耗，即时间
+
+推论0：weston的cpu算力消耗 －－－－－ timer，即频率
+
+推论1：weston的劣势：多个client叠加帧率：30＋30 ＝ 60
+
+推论2：安卓，不是：vsync对齐
+
+推论3：<font color='red'>repaint－timer设置小</font>，weston一次绘制等待时间便会长，则更多的client会被绘制 －－－－－> 则weston本身帧率会变低 -----> <font color='red'>可以降低算力</font>！！
+
+推论4：repaint－timer过小（<7ms），则容易丢帧
+
+推论5：TODO weston性能优化的可能方向：一个屏幕的各client对齐
+
+
+
+
 
 
 
@@ -4739,6 +4763,16 @@ Layer 3 (pos 0xb0000000):
 afbc
 
 
+
+
+
+## 流畅性观测-----次要
+
+1、touch报点的均匀性(时间上）
+
+补充：
+
+>   相同位置报点，不会上报（谁做的过滤？硬件中断还是有的，只是某个地方拦截）
 
 
 

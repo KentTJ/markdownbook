@@ -177,12 +177,39 @@ ctrl+b  1
 方法一：
 
 > 直接在~/.tmux.conf添加下列内容 set -g history-limit 50000 (默认为2000行，这里设置为5000行)，然后重启会话
+>
+> 验证----查：
+>
+> ```
+> tmux show-options -g | grep history-limit
+> # 输出示例：history-limit 2000
+> ```
+>
+> 
 
 方法二：优
 
 > 直接执行如下命令 tmux set-option history-limit 50000 然后重启会话。
 
 原文链接：https://blog.csdn.net/little1212/article/details/128965993
+
+
+
+# tmux下终端输出的复制
+
+tmux panel中执行：
+
+```java
+tmux capture-pane -pS -10000 > ~/tmux_history.txt
+```
+
+
+
+另一个正常可复制的窗口：
+
+```java
+tail -f ~/tmux_history.txt
+```
 
 
 

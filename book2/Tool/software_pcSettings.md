@@ -1350,9 +1350,22 @@ https://www.edrawmax.cn/support/ShapeOperation/ShapesOperation
 
 ### 亿图截图方法
 
-不要直接截图，而是选中，复制+粘贴  ------》 <font color='red'>极优：高清</font>
+-<font color='red'>最优：保存为svg</font>
 
-![image-20230312001917695](software_pcSettings.assets/image-20230312001917695.png)
+>   没有压缩，<font color='red'>图片可以复制文字</font>
+>
+>   文件体积也小
+>
+>   在浏览器里，可以<font color='red'>无限放大，可以放很大的图</font>
+>
+>   ![image-20251227070740135](software_pcSettings.assets/image-20251227070740135.png)
+
+ -<font color='red'>次优：高清</font>
+
+>   不要直接截图，而是选中，复制+粘贴 
+>
+>   ![image-20230312001917695](software_pcSettings.assets/image-20230312001917695.png)
+>
 
 
 

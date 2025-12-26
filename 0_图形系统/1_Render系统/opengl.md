@@ -1,5 +1,3 @@
-
-
 # 目录
 
 
@@ -1061,11 +1059,7 @@ glScissor(x, y, width, height)
 
 ![weston_opengL](opengl.assets/weston_opengL.svg)
 
-![image-20251227065226968](opengl.assets/image-20251227065226968.png)
 
-
-
-![image-20251227064925949](opengl.assets/image-20251227064925949.png)
 
 ## 画布坐标系（站在画布上看）------gl_FragCoord
 

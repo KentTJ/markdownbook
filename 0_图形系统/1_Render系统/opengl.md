@@ -1059,6 +1059,8 @@ glScissor(x, y, width, height)
 
 ## 0层 大纲 ------以weston为例
 
+![weston_opengL](opengl.assets/weston_opengL.svg)
+
 ![image-20251227065226968](opengl.assets/image-20251227065226968.png)
 
 

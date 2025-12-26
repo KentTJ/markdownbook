@@ -1037,13 +1037,35 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 }
 ```
 
-## OpenGL坐标系统
+
+
+## OpenGL裁剪
+
+glScissor(x, y, width, height)
+
+## 技巧：
+
+用屏幕所有
+
+
+
+# OpenGL坐标系统
+
+## 参考：
 
 [OpenGL之深入解析坐标系统_OpenGL ES-CSDN专栏](https://download.csdn.net/blog/column/10158151/107103061)
 
 左下是原点？？？
 
-### 画布坐标系（站在画布上看）------gl_FragCoord
+## 0层 大纲 ------以weston为例
+
+![image-20251227065226968](opengl.assets/image-20251227065226968.png)
+
+
+
+![image-20251227064925949](opengl.assets/image-20251227064925949.png)
+
+## 画布坐标系（站在画布上看）------gl_FragCoord
 
 参考:    [Shadertoy的坐标转换](https://zhuanlan.zhihu.com/p/35973705)
 
@@ -1120,7 +1142,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 
 
 
-### 窗口坐标系（站在屏幕，看画布）
+## 窗口坐标系（站在屏幕，看画布）
 
 已经验证的结论：
 
@@ -1128,11 +1150,11 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 >
 > **即 以 左上角为原点**
 
-### TODO 纹理坐标 -----v_texcoord 
+## TODO 纹理坐标 -----v_texcoord 
 
 https://blog.csdn.net/u014267091/article/details/140496467  [纹理坐标](https://blog.csdn.net/u014267091/article/details/140496467#1__3)
 
-### void glViewport(GLint x, GLint y, GLsizei width, GLsizei height);
+## void glViewport(GLint x, GLint y, GLsizei width, GLsizei height);
 
 参考：  [OpenGL 学了那么久了，glViewport 你真的会用吗？](https://cloud.tencent.com/developer/article/2323370)
 
@@ -1175,14 +1197,6 @@ glViewport<font color='red'>本质是映射</font>！！！！！！
 但是移动，为啥x, y不变？？？
 
 
-
-## OpenGL裁剪
-
-glScissor(x, y, width, height)
-
-## 技巧：
-
-用屏幕所有
 
 # 安卓GLSurfaceView源码分析
 

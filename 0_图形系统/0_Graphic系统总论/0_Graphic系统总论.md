@@ -378,6 +378,88 @@ Activity第二次之后调用onResume是有效
 
 
 
+
+
+# view-Graphic(HWUI) 纵向0层
+
+即一帧的整体流程：  **纵轴为时间**
+
+![/images/Systrace-Smooth%20e5d284a979a447ad8b45ff021d6e41cf/Untitled.png](0_Graphic系统总论.assets/Untitled.png)
+
+
+
+[图来源](  https://www.androidperformance.com/2021/04/24/android-systrace-smooth-in-action-1/#/%E4%BB%8E%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F%E7%9A%84%E8%A7%92%E5%BA%A6%E6%9D%A5%E7%9C%8B)
+
+
+
+![43bea16d5de1cd95d3b26fabba222e02.png](0_Graphic系统总论.assets/dcf5be4f97e737c1d31ccbbb2cc65fd5.png)
+
+[图来源](https://blog.csdn.net/feelabclihu/article/details/134657876#:~:text=%E5%9B%BE%E4%B8%80-,%E5%9B%BE%E4%BA%8C,-1.HWUI%20Skia)
+
+![898345ae318f0d8807bfb67dc087fb61.png](0_Graphic系统总论.assets/8551e078c9134e9024fbb804bdaba647.png)
+
+好文： https://blog.csdn.net/feelabclihu/article/details/134657876  多图文教你看懂单个图层的绘制流程
+
+
+
+
+
+为什么选取一帧呢？  一帧即是  for循环中一个
+
+
+
+TODO:  上图是一个好的纵向0层图，借鉴其画法：
+
+1、`纵轴是时间、横轴为 空间`（进程、线程、类）  ------->   跟时序图很像
+
+2、只列 最核心函数/功能  +  <font color='red'> 没有调用栈</font>         ------->   跟时序图差异
+
+
+
+证据+细节：
+
+![/images/Systrace-Smooth%20e5d284a979a447ad8b45ff021d6e41cf/Untitled%201.png](0_Graphic系统总论.assets/Untitled 1.png)
+
+
+
+
+
+
+
+## [Skia深入分析](https://blog.csdn.net/zhuhongshu/article/details/71435140)
+
+参考：https://huanle19891345.github.io/en/android/system/%E7%B3%BB%E7%BB%9F%E7%BB%98%E5%88%B6/%E8%BD%AF%E4%BB%B6%E7%BB%98%E5%88%B6/      
+
+
+
+==SkCanvas是按照SkBitmap的方法去关联GraphicBuffer==
+
+一、渲染层级 从渲染流程上分，Skia可分为如下三个层级：
+
+1.指令层：SkPicture、SkDeferredCanvas->SkCanvas
+
+这一层决定需要执行哪些绘图操作，绘图操作的预变换矩阵，当前裁剪区域，绘图操作产生在哪些layer上，Layer的生成与合并。
+
+2.解析层：SkBitmapDevice->SkDraw->SkScan、SkDraw1Glyph::Proc
+
+这一层决定绘制方式，完成坐标变换，解析出需要绘制的形体（点/线/规整矩形）并做好抗锯齿处理，进行相关资源解析并设置好Shader。
+
+3.渲染层：SkBlitter->SkBlitRow::Proc、SkShader::shadeSpan等
+
+这一层进行采样（如果需要），产生实际的绘制效果，完成颜色格式适配，进行透明度混合和抖动处理（如果需要）。
+
+
+
+
+
+![image](0_Graphic系统总论.assets/center.jpeg)
+
+
+
+![image](0_Graphic系统总论.assets/center-20201028173351983.jpeg)
+
+
+
 # Grapics
 
 
@@ -1145,40 +1227,6 @@ opengl是利用着色器shader（frag）去让GPU绘制的，单sf 应该不会�
 [Android 图形系统（Graphics）](https://www.jianshu.com/p/6474297924b6)
 
 [Android 14 HWUI 源码研究 View Canvas RenderThread ViewRootImpl skia](https://zhuanlan.zhihu.com/p/676082509)    ----------->  好文
-
-
-
-
-
-
-
-# view-Graphic 纵向0层
-
-即一帧的整体流程：  **纵轴为时间**
-
-![/images/Systrace-Smooth%20e5d284a979a447ad8b45ff021d6e41cf/Untitled.png](0_Graphic系统总论.assets/Untitled.png)
-
-
-
-[图来源](  https://www.androidperformance.com/2021/04/24/android-systrace-smooth-in-action-1/#/%E4%BB%8E%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F%E7%9A%84%E8%A7%92%E5%BA%A6%E6%9D%A5%E7%9C%8B)
-
-
-
-为什么选取一帧呢？  一帧即是  for循环中一个
-
-
-
-TODO:  上图是一个好的纵向0层图，借鉴其画法：
-
-1、`纵轴是时间、横轴为 空间`（进程、线程、类）  ------->   跟时序图很像
-
-2、只列 最核心函数/功能  +  <font color='red'> 没有调用栈</font>         ------->   跟时序图差异
-
-
-
-证据+细节：
-
-![/images/Systrace-Smooth%20e5d284a979a447ad8b45ff021d6e41cf/Untitled%201.png](0_Graphic系统总论.assets/Untitled 1.png)
 
 
 

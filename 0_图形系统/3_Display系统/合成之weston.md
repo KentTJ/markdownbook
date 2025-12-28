@@ -4721,9 +4721,15 @@ Layer 3 (pos 0xb0000000):
 
 原因，不详 
 
+## 显示带宽优化专项
+
+**格式精细化管理**：针对全屏不透明的应用窗口（如导航地图），我在 Weston 中强制协商 **RGBX** 或 **RGB565** 格式（视画质要求而定），<font color='red'>避免 Display Controller 读取</font>无用的 Alpha 通道数据。
+
+**YUV 直出通道**：针对倒车影像和视频流，利用 Wayland 协议扩展支持 **NV12** 格式的 Buffer 直接传输，并分配给支持 YUV 格式的 **Hardware Plane** 直接扫描输出，**避免了 GPU 将其转换为 ARGB 的带宽惩罚，带宽占用降低了 60% 以上。**  --------> <font color='red'>同时避免了GPU的使用</font>
 
 
 
+**压缩格式启用**：在 DRM/KMS 层面，确保 Framebuffer 创建时携带了 `DRM_FORMAT_MOD_ARM_AFBC` 等修饰符（Modifiers），全链路打通了硬件压缩机制。”
 
 
 
@@ -4814,6 +4820,10 @@ Layer 3 (pos 0xb0000000):
 ## 线程/进程优先级 ----> 只是流畅性优化
 
 没有优化cpu算力
+
+
+
+
 
 
 

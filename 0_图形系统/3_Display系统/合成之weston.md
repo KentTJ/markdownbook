@@ -5258,7 +5258,7 @@ drm驱动给到weston的plane日志，<font color='red'>但是似乎不是硬件
 
 
 
-# 休眠与唤醒
+# 休眠与唤醒TODO:
 
 ## weston12原生
 
@@ -5273,6 +5273,16 @@ session_notify
 	weston_compositor_offscreen;
 	for遍历：output->repaint_needed = false; // 关闭所有的
 ```
+
+
+
+
+
+休眠:
+
+>   1、<font color='red'>weston的主loop不会休眠</font>。。。原因: key消息是通过这个唤醒的
+>
+>   2、休眠主要做的事情: repaint的timer移除掉了
 
 
 

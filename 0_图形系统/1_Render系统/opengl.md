@@ -3390,6 +3390,61 @@ https://www.youtube.com/watch?v=W3gAzLwfIP0&list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GG
 
 [opengl 渲染管线](https://blog.csdn.net/pizi0475/article/details/103143328)
 
+https://www.shaderfans.com/  全量网站
+
+>   [S h a d e r  F a n s](https://www.shaderfans.com/)
+>
+>   [目录](javascript:;) [工具册](javascript:;)
+>
+>   ### 查询手册
+>
+>   -   [WebGL 官方主页](https://www.khronos.org/api/webgl)
+>   -   [OpenGL ES3 官方文档](https://www.khronos.org/registry/OpenGL-Refpages/es3.0/)
+>   -   [可视化查询表(部分)](https://thebookofshaders.com/glossary/)
+>   -   [docs.GL](https://docs.gl/)
+>
+>   ### 在线教程
+>
+>   -   [The Book Of Shaders](https://thebookofshaders.com/?lan=ch)
+>   -   [WebGL Fundamentals](https://webglfundamentals.org/)
+>   -   [WebGL2 Fundamentals](https://webgl2fundamentals.org/)
+>   -   [Three.js Manual](https://threejs.org/manual/)
+>   -   [Learn OpenGL](https://learnopengl-cn.github.io/)
+>
+>   ### 视频教程
+>
+>   -   [线性代数的本质](https://www.bilibili.com/video/BV1ys411472E/?vd_source=f7b7c2a087524f180bc8916c6d5ab8b8)
+>   -   [GAMES101-现代计算机图形学入门](https://www.bilibili.com/video/BV1X7411F744)
+>   -   [GAMES202-高质量实时渲染](https://www.bilibili.com/video/BV1YK4y1T7yY)
+>   -   [技术美术百人计划](https://space.bilibili.com/7398208/channel/seriesdetail?sid=1067039)
+>
+>   ### 在线可视化
+>
+>   -   [ShaderToy](https://www.shadertoy.com/browse)
+>   -   [GlslSandbox](http://glslsandbox.com/)
+>   -   [VertexShaderArt](https://www.vertexshaderart.com/)
+>   -   [ShaderFrog](https://shaderfrog.com/app/)
+>   -   [Sketch-Threejs](https://ykob.github.io/sketch-threejs/)
+>
+>   ### 图形大拿
+>
+>   -   [Inigo Quilez](http://www.iquilezles.org/index.html) (ShaderToy 创始人)
+>   -   [Steven Wittens](http://acko.net/) (MathBox 作者)
+>   -   [Mr.doob](https://github.com/mrdoob) (Three.js 作者)
+>   -   [Patricio Gonzalez Vivo](http://patriciogonzalezvivo.com/) (TheBookOfShader 作者)
+>   -   [Mike Bostock](https://bost.ocks.org/mike/) (D3.js 作者)
+>   -   [Tyler Hobbs](https://tylerxhobbs.com/) (图形艺术家)
+>   -   
+>
+>   ### 辅助工具
+>
+>   -   [Graphtoy](http://www.iquilezles.org/apps/graphtoy/) (公式可视化)
+>   -   [Calculator](https://www.desmos.com/calculator) (同左)
+>   -   [Photomosh](https://photomosh.com/) (滤镜效果编辑)
+>   -   [GL-Transition](https://gl-transitions.com/) (转场效果编辑)
+>   -   [ShaderToy](https://www.shadertoy.com/new) (Shader 在线编辑)
+>   -   [Creators 3D](https://www.creators3d.com/online-viewer) (3D模型在线查看器)
+
 
 
 # TODO：

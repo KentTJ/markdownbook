@@ -819,6 +819,10 @@ https://wayland.arktoria.org/2-protocol-design/high-level.html        The Waylan
 
 https://wayland.app/protocols/               A better way to read Wayland documentation
 
+https://wayland.freedesktop.org/docs/html/
+
+
+
 
 
 # wayland协议之 loop

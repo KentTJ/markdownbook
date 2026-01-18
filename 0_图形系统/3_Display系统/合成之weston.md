@@ -4909,9 +4909,11 @@ Layer 3 (pos 0xb0000000):
 
 
 
+## overlay的使用
 
+**原则：**<font color='red'>高帧率的buffer（比如游戏、视频）</font>放到overlay上，省带宽 & 省GPU合成
 
-
+例子：**视频衬底**   ------------ 有一个视频层和一个 UI 层： UI在上面挖洞，video在
 
 
 

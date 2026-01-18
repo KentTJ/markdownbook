@@ -933,6 +933,18 @@ resize2fs /storage/emulated/0/kali.img
 
 
 
+### deploy linux 作为host adb连安卓设备
+
+**一定要先充满电，因为host要输出5v的电压**
+
+```java
+//物理层查看
+lsusb
+
+```
+
+
+
 ### 其他网站：
 
 > https://magiskcn.com/       magisk中文网

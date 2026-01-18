@@ -2766,7 +2766,7 @@ glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixel_data);
 通过GBM创建gbm_<font color='red'>bo</font>（buffer object）：-----------参考：dmabuf-egl.c
 
 > ```java
-> gbm_bo_create
+> gbm_bo_create(display->gbm_device) // gbm_device通过/dev/
 > 变体：gbm_bo_create_with_modifiers2
 > ```
 
@@ -2779,6 +2779,7 @@ glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixel_data);
 > 
 > //次要，获取strides
 > buf->strides[i] = gbm_bo_get_stride_for_plane(buf->bo, i);
+> buf->offsets[i] = gbm_bo_get_offset(buf->bo, i); // TODO: offsets指的是啥？
 > ```
 
 注意： <font color='red'>（这里的fd用完需要释放）</font>
@@ -2793,11 +2794,88 @@ glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixel_data);
 
 
 
+#### 控制流 -----------0层：
+
+```java
+[阶段一：准备阶段 - 打开大门]
++----------------+
+|  Weston (Main) |
++----------------+
+       |
+       | 1. open("/dev/dri/card0", O_RDWR)
+       |    (为了同时拥有 KMS 显示权 + GEM 分配权)
+       |
+       v
++----------------+
+|  Kernel (DRM)  |  <--- 返回 fd (例如: 3)
++----------------+
+
+
+[阶段二：创建 GBM 设备 - 验明正身 & 加载驱动]
+       |
+       | 2. gbm_create_device(fd)
+       |
+       v
++----------------+                                +---------------------+
+|  libgbm.so     |                                |  Kernel (DRM Core)  |
++----------------+                                +---------------------+
+       |                                                     |
+       |--- 3. ioctl(fd, DRM_IOCTL_VERSION) ---------------->|
+       |    (只读操作：你是谁？)                             |
+       |                                                     |
+       |<-- 返回 Driver Name: "i915" (或 "msm", "amdgpu") ---|
+       |
+       |
+       | 4. 寻找后端库 (Based on name)
+       |    查找 /usr/lib/dri/i915_dri.so
+       |
+       | 5. 动态加载 (dlopen)
+       |    加载 i915_dri.so 到内存
+       |
+       v
++------------------------+
+|  i915_dri.so (Backend) |
++------------------------+
+       |
+       | 6. 初始化 & 挂载虚表 (Vtable Hooking)
+       |    struct gbm_device *gbm = malloc(...);
+       |    gbm->fd = fd;
+       |
+       |    // *** 关键时刻：多态绑定 ***
+       |    gbm->bo_create = intel_gbm_bo_create;  <-- 指向 Intel 特有实现
+       |    gbm->bo_import = dri_bo_import;
+       |    gbm->bo_map    = dri_bo_map;
+       |
+       v
++----------------+
+|  libgbm.so     |
++----------------+
+       |
+       | 7. 返回 gbm_device 指针
+       |
+       v
++----------------+
+|  Weston (Main) |  <--- 此时拿到的是一个“活”的对象
++----------------+       虽没写数据，但已绑定了 Intel 的操作方法
+
+
+[阶段三：真正使用 - 此时才开始“写”东西]
+       |
+       | 8. gbm_bo_create(gbm, w, h, ...)
+       |
+       v
+    (跳转) -> intel_gbm_bo_create()
+                 |
+                 v
+           ioctl(fd, DRM_IOCTL_I915_GEM_CREATE) --> 真正往 Kernel 写命令分配显存
+```
 
 
 
-
-
+| **节点**         | **路径**              | **核心能力**                | **典型使用者**                                |
+| ---------------- | --------------------- | --------------------------- | --------------------------------------------- |
+| **Primary Node** | `/dev/dri/card0`      | **KMS (显示)** + GEM (渲染) | **Weston / SurfaceFlinger** (系统合成器)      |
+| **Render Node**  | `/dev/dri/renderD128` | **仅 GEM (渲染)**           | **Chrome 浏览器 / 视频播放器** / 离屏渲染任务 |
 
 
 

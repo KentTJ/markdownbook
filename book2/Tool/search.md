@@ -140,6 +140,30 @@ https://savetube.app/en2  ---------->  download youtube videos
 
 
 
+# AI的利用
+
+AI时代：<font color='red'>解决问题的能力变廉价，昂贵的是提问题的能力</font>！！！！！
+
+**ALL IN AI!!!!!**
+
+## 提问方式
+
+常见好的提问方式：
+
+让AI自己回答，怎么提问你更有效？
+
+## 代码相关
+
+-<font color='red'>把整个工程导出给AI</font>，让AI
+
+（1）画架构图（<font color='red'>成为你的地图</font>）
+
+（2）说明代码关键逻辑
+
+（3）解释核心函数
+
+
+
 
 
 # 技巧
@@ -147,3 +171,71 @@ https://savetube.app/en2  ---------->  download youtube videos
 ## 复制网站链接，如何将浏览位置也复制记录下来
 
 选中，右键   复制指向突出.........
+
+
+
+
+
+
+
+```mermaid
+graph TB
+    subgraph "Android端"
+        A[Android HWC]
+        B[IRemoteConsumer/IRemoteConsumerMgrService]
+    end
+    
+    subgraph "Linux远程呈现服务"
+        subgraph "核心服务层"
+            RP[RemotePresentationService]
+            BP[BnRemotePresentationService]
+        end
+        
+        subgraph "通信层"
+            DDS[bosdds - DDS通信]
+            RC[IRemotePresentationCallback]
+            RSC[BpRemotePresentationCallback]
+        end
+        
+        subgraph "呈现层"
+            PC[PresentationConsumer]
+            WW[WaylandWindow]
+            WD[WaylandDisplay]
+        end
+        
+        subgraph "DMA缓冲区管理"
+            DBH[DmaBufInfoHelper]
+            DBI[DmaBufInfo]
+            DFB[DmaFrameBuffer]
+        end
+    end
+    
+    subgraph "Wayland协议层"
+        WL[Wayland客户端库]
+        XDG[XDG Shell协议]
+        LDB[Linux Dmabuf协议]
+    end
+    
+    subgraph "显示系统"
+        DS[DRM/KMS驱动]
+        COMP[合成器]
+    end
+    
+    A --> B
+    B -->|通过Binder| RP
+    RP --> BP
+    BP --> DDS
+    DDS --> RC
+    RC --> RSC
+    BP --> PC
+    PC --> WW
+    PC --> WD
+    PC --> DBH
+    PC --> DFB
+    WW --> WL
+    WD --> WL
+    WL --> XDG
+    WL --> LDB
+    XDG --> DS
+    LDB --> DS
+```

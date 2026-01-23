@@ -156,7 +156,7 @@ AI时代：<font color='red'>解决问题的能力变廉价，昂贵的是提问
 
 -<font color='red'>把整个工程导出给AI</font>，让AI
 
-（1）画架构图（<font color='red'>成为你的地图</font>）
+（1）画架构图（<font color='red'>成为你的地图</font>）：系统整体架构、详细组件架构、编译构建架构、时序图（运行时架构流程）
 
 （2）说明代码关键逻辑
 
@@ -164,7 +164,13 @@ AI时代：<font color='red'>解决问题的能力变廉价，昂贵的是提问
 
 
 
+画架构图：
 
+```java
+https://mermaid.live/edit#pako:eNqNlE2P0kAYx79KM2dgaQGhPZjw_tplI-ombj0UOi4NbaeZtqtIuGjiwcSsh008eHH1osaQ7MUYjfplrOi38JkOwbYYw5z6e_4z__8zL7BAE2JgpKBTqrtT4WZNcwQYXjDmBQ2Fny_WF2_Dq0ca4hob1RMNVV1XqFsmdnxPQ3e5hh2Df-zYjKbYslIuNXAZE---7TFxa8JGHaQW1W0sdHTHsDBNqiLIPDtZl6A-wvTMnGAQhJhSYCuIbe_R6vr9i_D8zXp1uX7-5OerT-H3x6m-G-BlmeOo9UR-E4TacCQcq8IRJT6ZEGuPvGPs-cQRoDuXeKZPaCqudbKdM9o5qDaIDezNfOL-Q-3wXW98IYLiPRoKn53_Wq1SXXRZF_rcguvYbs5LhPVYWAB92gI7hN1J_0l8-S38-vr3u6vwafqp9cG12R4c3A6sme4kAgds7zfUg746StRVqLdr6j5Xffnhx5ePqcRDtvzoVsJyyKJMz7X0OZyi41NixR9lKqEqZLPXhc1vqRZBPQ4NDnWRS9IGJY4Fjo2ImnFocWhG0ObQjqDDoRNBNw49Dt0I-hx6cehHMIiDymEQwSEHNQ5cGaIM_G-YBlLu6ZaHM8jG1NYZowWbpyF_im14cQp8GjqdsVNewiJXd-4QYiPFpwEsoyQ4nW5NAtfQfdwwdbikv1PghDGtk8DxkSJeiyyQskAPkFKUCrmCKEplsViQxWKplEFzpGTlnFSGURIrZbkiS_nSMoMeRqH5nJyHolTJ56FeliR5-QewpHvK
+```
+
+--------------> svg
 
 # 技巧
 

@@ -156,13 +156,16 @@ AI时代：<font color='red'>解决问题的能力变廉价，昂贵的是提问
 
 -<font color='red'>把整个工程导出给AI</font>，让AI
 
-（1）画架构图（<font color='red'>成为你的地图</font>）：系统整体架构、详细组件架构、编译构建架构、时序图（运行时架构流程）
-
-​        AI将代码转化为图像  -------> 你去理解图像
-
-（2）说明代码关键逻辑
-
-（3）解释核心函数
+>   （1）画架构图（<font color='red'>成为你的地图</font>）：系统整体架构、详细组件架构、编译构建架构、时序图（运行时架构流程）
+>
+>   ​        AI将代码转化为图像  -------> 你去理解图像
+>
+>     (2) 规定：每个项目的readme.md中加入 AI写的架构图
+>
+>   （3）说明代码关键逻辑
+>
+>   （4）解释核心函数
+>
 
 
 
@@ -174,6 +177,24 @@ https://mermaid.live/edit#pako:eNqNlE2P0kAYx79KM2dgaQGhPZjw_tplI-ombj0UOi4NbaeZt
 
 --------------> 导出svg
 
+
+
+# 链接是一切
+
+1、能做到极度化简
+
+2、规定：一定要做到<font color='red'>**极其容易的链接、可达：**</font>
+
+>   （1）  废弃win的使用！！！linux 容易搜索
+>
+>   （2）**一切文件云化**
+>
+>   （3）**文档路径下 必须构建目录**（TOOD:目录如何跳转到文件呢？？？）
+
+
+
+
+
 # 技巧
 
 ## 复制网站链接，如何将浏览位置也复制记录下来
@@ -182,68 +203,3 @@ https://mermaid.live/edit#pako:eNqNlE2P0kAYx79KM2dgaQGhPZjw_tplI-ombj0UOi4NbaeZt
 
 
 
-
-
-
-
-```mermaid
-graph TB
-    subgraph "Android端"
-        A[Android HWC]
-        B[IRemoteConsumer/IRemoteConsumerMgrService]
-    end
-    
-    subgraph "Linux远程呈现服务"
-        subgraph "核心服务层"
-            RP[RemotePresentationService]
-            BP[BnRemotePresentationService]
-        end
-        
-        subgraph "通信层"
-            DDS[bosdds - DDS通信]
-            RC[IRemotePresentationCallback]
-            RSC[BpRemotePresentationCallback]
-        end
-        
-        subgraph "呈现层"
-            PC[PresentationConsumer]
-            WW[WaylandWindow]
-            WD[WaylandDisplay]
-        end
-        
-        subgraph "DMA缓冲区管理"
-            DBH[DmaBufInfoHelper]
-            DBI[DmaBufInfo]
-            DFB[DmaFrameBuffer]
-        end
-    end
-    
-    subgraph "Wayland协议层"
-        WL[Wayland客户端库]
-        XDG[XDG Shell协议]
-        LDB[Linux Dmabuf协议]
-    end
-    
-    subgraph "显示系统"
-        DS[DRM/KMS驱动]
-        COMP[合成器]
-    end
-    
-    A --> B
-    B -->|通过Binder| RP
-    RP --> BP
-    BP --> DDS
-    DDS --> RC
-    RC --> RSC
-    BP --> PC
-    PC --> WW
-    PC --> WD
-    PC --> DBH
-    PC --> DFB
-    WW --> WL
-    WD --> WL
-    WL --> XDG
-    WL --> LDB
-    XDG --> DS
-    LDB --> DS
-```

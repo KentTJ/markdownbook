@@ -1,0 +1,863 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>编译 · Kent的博客</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-toggle-chapters/toggle.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-treeview/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-sidebar-style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-auto-scroll-table/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-click-reveal/click_reveal.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-accordion/accordion.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-pageview-count/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../02-编译weston.html" />
+    
+    
+    <link rel="prev" href="工程化.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../communication/communication.html">
+            
+                <a href="../communication/communication.html">
+            
+                    
+                    Communication
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../English/English.html">
+            
+                <a href="../English/English.html">
+            
+                    
+                    English
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../Investment/Investment.html">
+            
+                <a href="../Investment/Investment.html">
+            
+                    
+                    Investment
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Scriptures/">
+            
+                <a href="../Scriptures/">
+            
+                    
+                    Scriptures
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../Scriptures/金刚经.html">
+            
+                <a href="../Scriptures/金刚经.html">
+            
+                    
+                    金刚经
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Tool
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="aospBuilding.html">
+            
+                <a href="aospBuilding.html">
+            
+                    
+                    Aosp Building
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="AS.html">
+            
+                <a href="AS.html">
+            
+                    
+                    AS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="building.html">
+            
+                <a href="building.html">
+            
+                    
+                    Building
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="chroot.html">
+            
+                <a href="chroot.html">
+            
+                    
+                    Chroot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="clion.html">
+            
+                <a href="clion.html">
+            
+                    
+                    Clion
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="command.html">
+            
+                <a href="command.html">
+            
+                    
+                    Command
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="debugSkills.html">
+            
+                <a href="debugSkills.html">
+            
+                    
+                    Debug Skills
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8" data-path="Docker.html">
+            
+                <a href="Docker.html">
+            
+                    
+                    Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9" data-path="gdb.html">
+            
+                <a href="gdb.html">
+            
+                    
+                    Gdb
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.10" data-path="git.html">
+            
+                <a href="git.html">
+            
+                    
+                    Git
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.11" data-path="phoneCommand.html">
+            
+                <a href="phoneCommand.html">
+            
+                    
+                    Phone Command
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.12" data-path="search.html">
+            
+                <a href="search.html">
+            
+                    
+                    Search
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.13" data-path="software_pcSettings.html">
+            
+                <a href="software_pcSettings.html">
+            
+                    
+                    Software Pc Settings
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.14" data-path="sourceInsight.html">
+            
+                <a href="sourceInsight.html">
+            
+                    
+                    Source Insight
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.15" data-path="tmux_linux.html">
+            
+                <a href="tmux_linux.html">
+            
+                    
+                    Tmux Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.16" data-path="工程化.html">
+            
+                <a href="工程化.html">
+            
+                    
+                    工程化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6.17" data-path="编译.html">
+            
+                <a href="编译.html">
+            
+                    
+                    编译
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../02-编译weston.html">
+            
+                <a href="../02-编译weston.html">
+            
+                    
+                    02-编译weston
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../CheckList.html">
+            
+                <a href="../CheckList.html">
+            
+                    
+                    Check List
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../TOExChanged.html">
+            
+                <a href="../TOExChanged.html">
+            
+                    
+                    TO Ex Changed
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../waydroid.html">
+            
+                <a href="../waydroid.html">
+            
+                    
+                    Waydroid
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../修.html">
+            
+                <a href="../修.html">
+            
+                    
+                    修
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../编译flutter.html">
+            
+                <a href="../编译flutter.html">
+            
+                    
+                    编译flutter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../老罗Android之旅系列课件.html">
+            
+                <a href="../老罗Android之旅系列课件.html">
+            
+                    
+                    老罗Android之旅系列课件
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >编译</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x76EE;&#x5F55;"><b>1. </b>&#x76EE;&#x5F55;</a></li><li><span class="title-icon "></span><a href="#&#x5F00;&#x7BC7;&#x4E4B;&#x8A00;"><b>2. </b>&#x5F00;&#x7BC7;&#x4E4B;&#x8A00;</a></li><li><span class="title-icon "></span><a href="#cmake"><b>3. </b>cmake</a></li><ul><li><span class="title-icon "></span><a href="#cmakelist&#x7F16;&#x8BD1;&#xFF1A;"><b>3.1. </b>cmakeList&#x7F16;&#x8BD1;&#xFF1A;</a></li><li><span class="title-icon "></span><a href="#&#x7F16;&#x8BD1;&#x95EE;&#x9898;--------&#x627E;&#x4E0D;&#x5230;&#x5934;&#x6587;&#x4EF6;"><b>3.2. </b>&#x7F16;&#x8BD1;&#x95EE;&#x9898;--------&#x627E;&#x4E0D;&#x5230;&#x5934;&#x6587;&#x4EF6;</a></li><li><span class="title-icon "></span><a href="#&#x8FD0;&#x884C;&#x65F6;"><b>3.3. </b>&#x8FD0;&#x884C;&#x65F6;</a></li><li><span class="title-icon "></span><a href="#&#x4E00;&#x4E9B;&#x6559;&#x7A0B;&#xFF1A;"><b>3.4. </b>&#x4E00;&#x4E9B;&#x6559;&#x7A0B;&#xFF1A;</a></li></ul><li><span class="title-icon "></span><a href="#yocto"><b>4. </b>yocto</a></li><ul><li><span class="title-icon "></span><a href="#yocto&#x7684;arm&#x865A;&#x62DF;&#x673A;&#x73AF;&#x5883;--todo"><b>4.1. </b>yocto&#x7684;arm&#x865A;&#x62DF;&#x673A;&#x73AF;&#x5883;  TODO</a></li><li><span class="title-icon "></span><a href="#yocto&#x62A5;&#x9519;"><b>4.2. </b>yocto&#x62A5;&#x9519;</a></li><ul><li><span class="title-icon "></span><a href="#error-unable-to-connect-to-bitbake-server-or-start-one-server-startup-failures-would-be-in-bitbake-cookerdaemonlog"><b>4.2.1. </b>ERROR: Unable to connect to bitbake server, or start one (server startup failures would be in bitbake-cookerdaemon.log).</a></li></ul></ul><li><span class="title-icon "></span><a href="#&#x7F16;&#x8BD1;arm64-&#x5E94;&#x7528;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;"><b>5. </b>&#x7F16;&#x8BD1;arm64 &#x5E94;&#x7528;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;</a></li><li><span class="title-icon "></span><a href="#&#x5F00;&#x6E90;&#x4EE3;&#x7801;&#x7684;&#x7F16;&#x8BD1;&#x95EE;&#x9898;"><b>6. </b>&#x5F00;&#x6E90;&#x4EE3;&#x7801;&#x7684;&#x7F16;&#x8BD1;&#x95EE;&#x9898;</a></li><li><span class="title-icon "></span><a href="#&#x4F9D;&#x8D56;&#x5206;&#x6790;"><b>7. </b>&#x4F9D;&#x8D56;&#x5206;&#x6790;</a></li><ul><li><span class="title-icon "></span><a href="#todo"><b>7.1. </b>TODO:</a></li><li><span class="title-icon "></span><a href="#&#x62A5;&#x9519;&#xFF1A;"><b>7.2. </b>&#x62A5;&#x9519;&#xFF1A;</a></li></ul></ul></div><a href="#&#x76EE;&#x5F55;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><div class="treeview__container"><ul>
+<li><div><a href="#&#x5F00;&#x7BC7;&#x4E4B;&#x8A00;">&#x5F00;&#x7BC7;&#x4E4B;&#x8A00;</a><i></i></div></li>
+<li><div><a href="#cmake">cmake</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#cmakelist&#x7F16;&#x8BD1;&#xFF1A;">cmakeList&#x7F16;&#x8BD1;&#xFF1A;</a><i></i></div></li>
+<li><div><a href="#&#x7F16;&#x8BD1;&#x95EE;&#x9898;--------&#x627E;&#x4E0D;&#x5230;&#x5934;&#x6587;&#x4EF6;">&#x7F16;&#x8BD1;&#x95EE;&#x9898;--------&#x627E;&#x4E0D;&#x5230;&#x5934;&#x6587;&#x4EF6;</a><i></i></div></li>
+<li><div><a href="#&#x8FD0;&#x884C;&#x65F6;">&#x8FD0;&#x884C;&#x65F6;</a><i></i></div></li>
+<li><div><a href="#&#x4E00;&#x4E9B;&#x6559;&#x7A0B;&#xFF1A;">&#x4E00;&#x4E9B;&#x6559;&#x7A0B;&#xFF1A;</a><i></i></div></li>
+</ul></li>
+<li><div><a href="#yocto">yocto</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#yocto&#x7684;arm&#x865A;&#x62DF;&#x673A;&#x73AF;&#x5883;--todo">yocto&#x7684;arm&#x865A;&#x62DF;&#x673A;&#x73AF;&#x5883;  TODO</a><i></i></div></li>
+<li><div><a href="#yocto&#x62A5;&#x9519;">yocto&#x62A5;&#x9519;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#error-unable-to-connect-to-bitbake-server-or-start-one-server-startup-failures-would-be-in-bitbake-cookerdaemonlog">ERROR: Unable to connect to bitbake server, or start one (server startup failures would be in bitbake-cookerdaemon.log).</a><i></i></div></li>
+</ul></li>
+</ul></li>
+<li><div><a href="#&#x7F16;&#x8BD1;arm64-&#x5E94;&#x7528;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;">&#x7F16;&#x8BD1;arm64 &#x5E94;&#x7528;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;</a><i></i></div></li>
+<li><div><a href="#&#x5F00;&#x6E90;&#x4EE3;&#x7801;&#x7684;&#x7F16;&#x8BD1;&#x95EE;&#x9898;">&#x5F00;&#x6E90;&#x4EE3;&#x7801;&#x7684;&#x7F16;&#x8BD1;&#x95EE;&#x9898;</a><i></i></div></li>
+<li><div><a href="#&#x4F9D;&#x8D56;&#x5206;&#x6790;">&#x4F9D;&#x8D56;&#x5206;&#x6790;</a><i class="level__parent level__item level__parent--opened" state="opened" onclick="var curState = this.getAttribute(&apos;state&apos;);var nextState = curState === &apos;opened&apos; ? &apos;hidden&apos; : &apos;opened&apos;;this.setAttribute(&apos;state&apos;, nextState);this.className = this.className.split(curState).join(nextState);var list = this.parentNode.nextElementSibling;if (nextState === &apos;hidden&apos;) {    list.style.display = &apos;none&apos;;} else {    list.style.display = &apos;block&apos;;}"></i></div>
+<ul>
+<li><div><a href="#todo">TODO:</a><i></i></div></li>
+<li><div><a href="#&#x62A5;&#x9519;&#xFF1A;">&#x62A5;&#x9519;&#xFF1A;</a><i></i></div></li>
+</ul></li>
+</ul>
+</div>
+
+<h1 id="&#x76EE;&#x5F55;"><a name="&#x76EE;&#x5F55;" class="anchor-navigation-ex-anchor" href="#&#x76EE;&#x5F55;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x76EE;&#x5F55;</h1>
+<h1 id="&#x5F00;&#x7BC7;&#x4E4B;&#x8A00;"><a name="&#x5F00;&#x7BC7;&#x4E4B;&#x8A00;" class="anchor-navigation-ex-anchor" href="#&#x5F00;&#x7BC7;&#x4E4B;&#x8A00;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x5F00;&#x7BC7;&#x4E4B;&#x8A00;</h1>
+<p><strong>&#x5DE5;&#x7A0B;&#x80FD;&#x529B; &#x4E0E; &#x4E1A;&#x52A1;&#x80FD;&#x529B;&#xFF0C;&#x540C;&#x6837;&#x91CD;&#x8981;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;</strong></p>
+<p><font color="red">&#x5DE5;&#x7A0B;&#x80FD;&#x529B; &#x751A;&#x81F3;&#x66F4;&#x91CD;&#x8981; ------&gt; &#x901A;&#x7528;&#x80FD;&#x529B;&#xFF01;&#xFF01;&#xFF01;</font>&#xFF01;</p>
+<h1 id="cmake"><a name="cmake" class="anchor-navigation-ex-anchor" href="#cmake"><i class="fa fa-link" aria-hidden="true"></i></a>3. cmake</h1>
+<h2 id="cmakelist&#x7F16;&#x8BD1;&#xFF1A;"><a name="cmakelist&#x7F16;&#x8BD1;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#cmakelist&#x7F16;&#x8BD1;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. cmakeList&#x7F16;&#x8BD1;&#xFF1A;</h2>
+<p>cmake&#x5F15;&#x5165;so 1&#x3001; .h  .so  2&#x3001;&#x5C3D;&#x91CF;&#x73B0;&#x5728;&#x9644;&#x8FD1;&#x76EE;&#x5F55;&#x641C;&#x7D22; 3&#x3001;&#x5C42;&#x5C42;&#x5411;&#x4E0B;  3</p>
+<p><strong>&#x66B4;&#x529B;&#x94FE;&#x63A5;&#x5E93;</strong>&#x7684;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"> <span class="token function">include_directories</span><span class="token punctuation">(</span>     <span class="token punctuation">)</span>             <span class="token comment">//.h&#x6587;&#x4EF6;</span>
+
+
+ <span class="token function">target_link_libraries</span><span class="token punctuation">(</span>$<span class="token punctuation">{</span><span class="token constant">PROJECT_NAME</span><span class="token punctuation">}</span> <span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>lib<span class="token operator">/</span>libABC<span class="token punctuation">.</span>so<span class="token punctuation">)</span>  <span class="token comment">// so&#x6587;&#x4EF6;</span>
+</code></pre>
+<p>&#x53C2;&#x8003;&#xFF1A;  <a href="https://blog.csdn.net/qq_46515446/article/details/121498619" target="_blank">linux&#x77E5;&#x8BC6;&#x70B9;&#x2014;&#x2014;CMakeLists.txt&#x4E2D;&#x8C03;&#x7528;&#x81EA;&#x5DF1;&#x7F16;&#x5199;&#x7684;so&#x5E93;_cmake &#x94FE;&#x63A5;so&#x5E93;-CSDN&#x535A;&#x5BA2;</a></p>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x4E00;&#x822C; &#x6DFB;&#x52A0;&#x4E00;&#x4E2A;.h&#x5F15;&#x5165;&#xFF0C;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;so&#x5F15;&#x5165; --------------&gt; &#x4FDD;&#x8BC1;&#x4E00;&#x81F4;</p>
+<h2 id="&#x7F16;&#x8BD1;&#x95EE;&#x9898;--------&#x627E;&#x4E0D;&#x5230;&#x5934;&#x6587;&#x4EF6;"><a name="&#x7F16;&#x8BD1;&#x95EE;&#x9898;--------&#x627E;&#x4E0D;&#x5230;&#x5934;&#x6587;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#&#x7F16;&#x8BD1;&#x95EE;&#x9898;--------&#x627E;&#x4E0D;&#x5230;&#x5934;&#x6587;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. &#x7F16;&#x8BD1;&#x95EE;&#x9898;--------&#x627E;&#x4E0D;&#x5230;&#x5934;&#x6587;&#x4EF6;</h2>
+<pre class="language-"><code>#include &quot;server-protocol.h&quot;
+</code></pre><p>&#x4ECD;&#x7136;&#x627E;&#x4E0D;&#x5230;&#x5934;&#x6587;&#x4EF6;</p>
+<p>&#x89E3;&#x51B3;&#xFF1A;</p>
+<p>1&#x3001;&#x770B;&#x6709;&#x6CA1;&#x6709;&#x8FD9;&#x4E2A;&#x5934;&#x6587;&#x4EF6;</p>
+<p>2&#x3001;&#x4E0D;&#x65AD;&#x6DFB;&#x52A0;&#x8DEF;&#x5F84;&#x3002;&#x8BA9;&#x7F16;&#x8BD1;&#x7A0B;&#x5E8F;&#x627E;&#x5230;</p>
+<pre class="language-"><code class="lang-java">#include <span class="token string">&quot;protocol/wm-server-protocol.h&quot;</span>
+</code></pre>
+<p>3&#x3001;<strong><font color="red">&#x7EC8;&#x6781;&#x5927;&#x62DB;&#xFF0C;&#x4E07;&#x80FD;</font>&#xFF1A;</strong></p>
+<blockquote>
+<p>  &#x6DFB;&#x52A0;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;</p>
+</blockquote>
+<h2 id="&#x8FD0;&#x884C;&#x65F6;"><a name="&#x8FD0;&#x884C;&#x65F6;" class="anchor-navigation-ex-anchor" href="#&#x8FD0;&#x884C;&#x65F6;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. &#x8FD0;&#x884C;&#x65F6;</h2>
+<p>&#x8FD0;&#x884C;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#xFF0C;&#x627E;&#x4E0D;&#x5230;so&#xFF1A;</p>
+<p>error while loading shared libraries: libbinder.so.14: cannot open shared object file</p>
+<p><strong>&#x4E34;&#x65F6;&#x89E3;&#x51B3;&#x65B9;&#x6848;</strong>&#xFF1A; &#x5728;&#x8FD0;&#x884C;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x524D;&#xFF0C;&#x8BBE;&#x7F6E;&#x73AF;&#x5883;&#x53D8;&#x91CF; <code>LD_LIBRARY_PATH</code> &#x6765;&#x5305;&#x542B;&#x6240;&#x9700;&#x7684;&#x5E93;&#x8DEF;&#x5F84;&#xFF1A;</p>
+<pre class="language-"><code> export LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH
+ ./your_executable
+</code></pre><ul>
+<li>--------&gt; &#x9A8C;&#x8BC1;ok</li>
+</ul>
+<p><strong>&#x6C38;&#x4E45;&#x89E3;&#x51B3;&#x65B9;&#x6848;</strong>&#xFF1A;</p>
+<ul>
+<li><p>&#x5982;&#x679C;&#x5E0C;&#x671B;&#x6240;&#x6709;&#x7528;&#x6237;&#x90FD;&#x80FD;&#x591F;&#x5728;&#x8FD0;&#x884C;&#x6B64;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x65F6;&#x4E0D;&#x6DFB;&#x52A0;&#x989D;&#x5916;&#x7684;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x8BE5;&#x5E93;&#x8DEF;&#x5F84;&#x6DFB;&#x52A0;&#x5230;&#x5168;&#x5C40;&#x914D;&#x7F6E;&#x6587;&#x4EF6; <code>/etc/ld.so.conf</code> &#x6216;&#x8005;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x6587;&#x4EF6;&#x653E;&#x5165; <code>/etc/ld.so.conf.d/</code> &#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x5E76;&#x66F4;&#x65B0;&#x7F13;&#x5B58;&#xFF1A;</p>
+<p>Bash</p>
+<pre class="language-"><code> 1echo &quot;/usr/lib64&quot; &gt;&gt; /etc/ld.so.conf.d/binder.conf
+ 2sudo ldconfig
+</code></pre><p>&#x7136;&#x540E;&#x76F4;&#x63A5;&#x8FD0;&#x884C;&#x4F60;&#x7684;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x5373;&#x53EF;&#x3002;</p>
+</li>
+</ul>
+<p><strong>&#x91CD;&#x65B0;&#x7F16;&#x8BD1;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;</strong>&#xFF1A; &#x5982;&#x679C;&#x4F60;&#x6709;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x7684;&#x6E90;&#x4EE3;&#x7801;&#xFF0C;&#x5E76;&#x4E14;&#x80FD;&#x591F;&#x63A7;&#x5236;&#x5176;&#x7F16;&#x8BD1;&#x8FC7;&#x7A0B;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x7F16;&#x8BD1;&#x65F6;&#x6307;&#x5B9A; <code>-L/usr/lib64</code> &#x9009;&#x9879;&#x6765;&#x6307;&#x5B9A;&#x5E93;&#x7684;&#x641C;&#x7D22;&#x8DEF;&#x5F84;&#xFF0C;&#x5E76;&#x4F7F;&#x7528; <code>-lbinder</code> &#x6307;&#x5B9A;&#x94FE;&#x63A5;&#x5230; <code>libbinder.so</code> &#x5E93;&#xFF1A;</p>
+<pre class="language-"><code> 1gcc -o your_executable source_file.c -L/usr/lib64 -lbinder
+</code></pre><h2 id="&#x4E00;&#x4E9B;&#x6559;&#x7A0B;&#xFF1A;"><a name="&#x4E00;&#x4E9B;&#x6559;&#x7A0B;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x4E00;&#x4E9B;&#x6559;&#x7A0B;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4. &#x4E00;&#x4E9B;&#x6559;&#x7A0B;&#xFF1A;</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/602487280" target="_blank">https://zhuanlan.zhihu.com/p/602487280</a>   CMake&#x57FA;&#x7840;&#x4F7F;&#x7528;&#x548C;&#x5B9E;&#x6218;&#x8BE6;&#x89E3;</p>
+<h1 id="yocto"><a name="yocto" class="anchor-navigation-ex-anchor" href="#yocto"><i class="fa fa-link" aria-hidden="true"></i></a>4. yocto</h1>
+<h2 id="yocto&#x7684;arm&#x865A;&#x62DF;&#x673A;&#x73AF;&#x5883;--todo"><a name="yocto&#x7684;arm&#x865A;&#x62DF;&#x673A;&#x73AF;&#x5883;--todo" class="anchor-navigation-ex-anchor" href="#yocto&#x7684;arm&#x865A;&#x62DF;&#x673A;&#x73AF;&#x5883;--todo"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. yocto&#x7684;arm&#x865A;&#x62DF;&#x673A;&#x73AF;&#x5883;  TODO</h2>
+<p><a href="https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html" target="_blank">https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html</a></p>
+<h2 id="yocto&#x62A5;&#x9519;"><a name="yocto&#x62A5;&#x9519;" class="anchor-navigation-ex-anchor" href="#yocto&#x62A5;&#x9519;"><i class="fa fa-link" aria-hidden="true"></i></a>4.2. yocto&#x62A5;&#x9519;</h2>
+<h3 id="error-unable-to-connect-to-bitbake-server-or-start-one-server-startup-failures-would-be-in-bitbake-cookerdaemonlog"><a name="error-unable-to-connect-to-bitbake-server-or-start-one-server-startup-failures-would-be-in-bitbake-cookerdaemonlog" class="anchor-navigation-ex-anchor" href="#error-unable-to-connect-to-bitbake-server-or-start-one-server-startup-failures-would-be-in-bitbake-cookerdaemonlog"><i class="fa fa-link" aria-hidden="true"></i></a>4.2.1. ERROR: Unable to connect to bitbake server, or start one (server startup failures would be in bitbake-cookerdaemon.log).</h3>
+<pre class="language-"><code> rm -rf ./bitbake.lock
+</code></pre><p>&#x53C2;&#x8003;&#xFF1A;</p>
+<p><a href="https://blog.csdn.net/hhs_1996/article/details/121316806?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-8-121316806-blog-127298856.235^v43^pc_blog_bottom_relevance_base7&amp;spm=1001.2101.3001.4242.5&amp;utm_relevant_index=9" target="_blank">https://blog.csdn.net/hhs_1996/article/details/121316806?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-8-121316806-blog-127298856.235^v43^pc_blog_bottom_relevance_base7&amp;spm=1001.2101.3001.4242.5&amp;utm_relevant_index=9</a></p>
+<h1 id="&#x7F16;&#x8BD1;arm64-&#x5E94;&#x7528;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;"><a name="&#x7F16;&#x8BD1;arm64-&#x5E94;&#x7528;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;" class="anchor-navigation-ex-anchor" href="#&#x7F16;&#x8BD1;arm64-&#x5E94;&#x7528;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;"><i class="fa fa-link" aria-hidden="true"></i></a>5. &#x7F16;&#x8BD1;arm64 &#x5E94;&#x7528;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;</h1>
+<p>link&#x9636;&#x6BB5;&#xFF1A;</p>
+<blockquote>
+<p>kanz_sdk &#x91CC;&#x7684;so&#xFF0C;undefined reference to `__isoc23_strtol&apos;</p>
+</blockquote>
+<p>&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#xFF1A; &#x5E94;&#x7528; ----&gt; &#xFF08;1&#xFF09;kanz_sdk&#x91CC;&#x7684;so ---&gt; &#xFF08;2&#xFF09; __isoc23_strtol</p>
+<blockquote>
+<p>&#x5176;&#x4E2D;&#xFF1A;&#xFF08;1&#xFF09;&#x56E0;&#x4E3A;&#x662F;&#x522B;&#x4EBA;&#x7684;sdk&#xFF0C;&#x6CA1;&#x6CD5;&#x6539;</p>
+<p>&#x200B;             &#x53EA;&#x80FD;&#x6539;&#xFF08;2&#xFF09;</p>
+</blockquote>
+<p>&#x601D;&#x8DEF;&#xFF1A;</p>
+<blockquote>
+<p><strong>&#x4E3B;&#x8981;&#x8981;&#x77E5;&#x9053;   __isoc23_strtol  &#x6765;&#x6E90;&#x54EA;&#x4E2A;so&#xFF0C;&#x7136;&#x540E;&#x66F4;&#x65B0;&#x8FD9;&#x4E2A;so/&#x6216;&#x8005;so&#x7684;&#x73AF;&#x5883;</strong></p>
+<p>&#x89E3;&#x51B3;&#xFF1A;    &#x641C;&#x7D22;&#xFF0C;undefined reference to `__isoc23_strtol&apos;          ----------&gt;          <a href="https://github.com/llvm/llvm-project/issues/79283#:~:text=Note%20that%20this%20needs%20glibc%2D2.38" target="_blank">Note that this needs glibc-2.38</a>       </p>
+</blockquote>
+<p>&#x73B0;&#x6709;yammy&#x91CC; libc&#x7248;&#x672C;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java">root<span class="token annotation punctuation">@jia</span><span class="token operator">-</span><span class="token class-name">VirtualBox</span><span class="token operator">:</span><span class="token operator">/</span>workspace<span class="token operator">/</span>test_1028_kazni# dpkg <span class="token operator">-</span>l <span class="token operator">|</span>grep libc
+ii  libc<span class="token operator">-</span>bin                               <span class="token number">2.35</span><span class="token operator">-</span><span class="token number">0</span>ubuntu3                           arm64        <span class="token constant">GNU</span> <span class="token class-name">C</span> <span class="token class-name">Library</span><span class="token operator">:</span><span class="token class-name">Binaries</span>
+</code></pre>
+<p>&#x529E;&#x6CD5;&#xFF1A;<strong>libc&#x662F;yammy&#x81EA;&#x5E26;&#x7684;&#xFF0C;&#x4E0D;&#x80FD;&#x5347;&#x7EA7;</strong></p>
+<p>-----------&gt; <strong>&#x6362;ubuntu noble</strong></p>
+<h1 id="&#x5F00;&#x6E90;&#x4EE3;&#x7801;&#x7684;&#x7F16;&#x8BD1;&#x95EE;&#x9898;"><a name="&#x5F00;&#x6E90;&#x4EE3;&#x7801;&#x7684;&#x7F16;&#x8BD1;&#x95EE;&#x9898;" class="anchor-navigation-ex-anchor" href="#&#x5F00;&#x6E90;&#x4EE3;&#x7801;&#x7684;&#x7F16;&#x8BD1;&#x95EE;&#x9898;"><i class="fa fa-link" aria-hidden="true"></i></a>6. &#x5F00;&#x6E90;&#x4EE3;&#x7801;&#x7684;&#x7F16;&#x8BD1;&#x95EE;&#x9898;</h1>
+<p>&#x4EE5;mesa&#x4E3A;&#x4F8B;&#xFF0C;&#x6280;&#x5DE7;&#xFF1A;</p>
+<blockquote>
+<p>1&#x3001;&#x7248;&#x672C;&#x5339;&#x914D;&#x6781;&#x5176;&#x91CD;&#x8981;&#xFF0C;&#x591A;&#x8BD5;&#x7248;&#x672C;&#xFF1A;</p>
+<p>&#x6BD4;&#x5982;&#xFF1A; weston12 ----------------- OpenGL ES 3.1 Mesa 23.0.4 <strong>&#x5B8C;&#x7F8E;&#x5339;&#x914D;&#xFF0C;&#x4E0D;&#x5B58;&#x5728;&#x7F16;&#x8BD1;&#x95EE;&#x9898;</strong></p>
+<p>2&#x3001;<strong>&#x8C01;&#x7F16;&#x8BD1;&#x4E0D;&#x8FC7;&#xFF0C;&#x5C31;&#x6CE8;&#x91CA;&#x6389;&#x8C01;</strong></p>
+<p>--------------&gt;  <strong>&#x5927;&#x81F4;&#x80FD;&#x7F16;&#x8FC7;&#x5C31;&#x884C;&#xFF08;&#x4EE3;&#x7801;&#x4E0D;&#x4F1A;&#x90FD;&#x8DD1;&#x5230;&#xFF01;&#xFF01;&#xFF01;&#xFF09;</strong></p>
+</blockquote>
+<h1 id="&#x4F9D;&#x8D56;&#x5206;&#x6790;"><a name="&#x4F9D;&#x8D56;&#x5206;&#x6790;" class="anchor-navigation-ex-anchor" href="#&#x4F9D;&#x8D56;&#x5206;&#x6790;"><i class="fa fa-link" aria-hidden="true"></i></a>7. &#x4F9D;&#x8D56;&#x5206;&#x6790;</h1>
+<h2 id="todo"><a name="todo" class="anchor-navigation-ex-anchor" href="#todo"><i class="fa fa-link" aria-hidden="true"></i></a>7.1. TODO:</h2>
+<p>so&#x4F9D;&#x8D56;&#x5206;&#x6790;&#xFF08;open&#x65B9;&#x5F0F;&#x4E0D;&#x9002;&#x7528;&#xFF09;</p>
+<p>.h&#x4F9D;&#x8D56;</p>
+<p>&#x7F16;&#x8BD1;task&#x4F9D;&#x8D56;</p>
+<h2 id="&#x62A5;&#x9519;&#xFF1A;"><a name="&#x62A5;&#x9519;&#xFF1A;" class="anchor-navigation-ex-anchor" href="#&#x62A5;&#x9519;&#xFF1A;"><i class="fa fa-link" aria-hidden="true"></i></a>7.2. &#x62A5;&#x9519;&#xFF1A;</h2>
+<pre class="language-"><code class="lang-java"><span class="token operator">-</span><span class="token class-name">VirtualBox</span><span class="token operator">:</span><span class="token operator">~</span><span class="token operator">/</span>workingspace<span class="token operator">/</span>wayland_code$ weston<span class="token operator">-</span>simple<span class="token operator">-</span>dmabuf<span class="token operator">-</span>egl
+<span class="token class-name">VMware</span><span class="token operator">:</span> <span class="token class-name">No</span> <span class="token number">3D</span> enabled <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token class-name">Success</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+<span class="token constant">MESA</span><span class="token operator">-</span><span class="token constant">LOADER</span><span class="token operator">:</span> failed <span class="token keyword">to</span> <span class="token keyword">open</span> <span class="token namespace">zink</span><span class="token operator">:</span> <span class="token operator">/</span>home<span class="token operator">/</span>cjk<span class="token operator">/</span>weston_install<span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>dri<span class="token operator">/</span>zink_dri<span class="token punctuation">.</span>so<span class="token operator">:</span> cannot <span class="token keyword">open</span> <span class="token namespace">shared</span> object file<span class="token operator">:</span> <span class="token class-name">No</span> such file or directory <span class="token punctuation">(</span>search paths <span class="token operator">/</span>home<span class="token operator">/</span>cjk<span class="token operator">/</span>weston_install<span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>dri<span class="token punctuation">,</span> suffix _dri<span class="token punctuation">)</span>
+<span class="token class-name">Warning</span><span class="token operator">:</span> zwp_linux_explicit_synchronization_v1 not supported<span class="token punctuation">,</span>
+         will not use explicit synchronization
+<span class="token constant">KMS</span><span class="token operator">:</span> <span class="token constant">DRM_IOCTL_MODE_CREATE_DUMB</span> failed<span class="token operator">:</span> <span class="token class-name">Permission</span> denied
+create_bo failed
+</code></pre>
+<p>&#x5206;&#x6790;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java">cjk<span class="token annotation punctuation">@jia</span><span class="token operator">-</span><span class="token class-name">VirtualBox</span><span class="token operator">:</span><span class="token operator">~</span><span class="token operator">/</span>workingspace<span class="token operator">/</span>wayland_code$ ldd <span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>bin<span class="token operator">/</span>weston<span class="token operator">-</span>simple<span class="token operator">-</span>dmabuf<span class="token operator">-</span>egl
+        linux<span class="token operator">-</span>vdso<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token punctuation">(</span><span class="token number">0x00007fffd67da000</span><span class="token punctuation">)</span>
+        libwayland<span class="token operator">-</span>client<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>home<span class="token operator">/</span>cjk<span class="token operator">/</span>weston_install<span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libwayland<span class="token operator">-</span>client<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token punctuation">(</span><span class="token number">0x000077a6fa295000</span><span class="token punctuation">)</span>
+        libdrm<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">2</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libdrm<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">2</span> <span class="token punctuation">(</span><span class="token number">0x000077a6fa265000</span><span class="token punctuation">)</span>
+        libm<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libm<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token punctuation">(</span><span class="token number">0x000077a6fa17e000</span><span class="token punctuation">)</span>
+        libEGL<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>home<span class="token operator">/</span>cjk<span class="token operator">/</span>weston_install<span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libEGL<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token punctuation">(</span><span class="token number">0x000077a6fa131000</span><span class="token punctuation">)</span>
+        libGLESv2<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">2</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>home<span class="token operator">/</span>cjk<span class="token operator">/</span>weston_install<span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libGLESv2<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">2</span> <span class="token punctuation">(</span><span class="token number">0x000077a6fa126000</span><span class="token punctuation">)</span>
+        libgbm<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>home<span class="token operator">/</span>cjk<span class="token operator">/</span>weston_install<span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libgbm<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token punctuation">(</span><span class="token number">0x000077a6fa112000</span><span class="token punctuation">)</span>
+        libc<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libc<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token punctuation">(</span><span class="token number">0x000077a6f9e00000</span><span class="token punctuation">)</span>
+        libffi<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">8</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libffi<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">8</span> <span class="token punctuation">(</span><span class="token number">0x000077a6fa105000</span><span class="token punctuation">)</span>
+        <span class="token operator">/</span>lib64<span class="token operator">/</span>ld<span class="token operator">-</span>linux<span class="token operator">-</span>x86<span class="token operator">-</span><span class="token number">64.</span>so<span class="token punctuation">.</span><span class="token number">2</span> <span class="token punctuation">(</span><span class="token number">0x000077a6fa2be000</span><span class="token punctuation">)</span>
+        libglapi<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>home<span class="token operator">/</span>cjk<span class="token operator">/</span>weston_install<span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libglapi<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token punctuation">(</span><span class="token number">0x000077a6fa0d0000</span><span class="token punctuation">)</span>
+        libexpat<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libexpat<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token punctuation">(</span><span class="token number">0x000077a6fa09f000</span><span class="token punctuation">)</span>
+        libX11<span class="token operator">-</span>xcb<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libX11<span class="token operator">-</span>xcb<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token punctuation">(</span><span class="token number">0x000077a6fa09a000</span><span class="token punctuation">)</span>
+        libxcb<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libxcb<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token punctuation">(</span><span class="token number">0x000077a6fa06e000</span><span class="token punctuation">)</span>
+        libxcb<span class="token operator">-</span>dri2<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libxcb<span class="token operator">-</span>dri2<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token punctuation">(</span><span class="token number">0x000077a6fa067000</span><span class="token punctuation">)</span>
+        libxcb<span class="token operator">-</span>randr<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libxcb<span class="token operator">-</span>randr<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token punctuation">(</span><span class="token number">0x000077a6fa054000</span><span class="token punctuation">)</span>
+        libxcb<span class="token operator">-</span>xfixes<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libxcb<span class="token operator">-</span>xfixes<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token punctuation">(</span><span class="token number">0x000077a6fa04a000</span><span class="token punctuation">)</span>
+        libwayland<span class="token operator">-</span>server<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>home<span class="token operator">/</span>cjk<span class="token operator">/</span>weston_install<span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libwayland<span class="token operator">-</span>server<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token punctuation">(</span><span class="token number">0x000077a6fa02e000</span><span class="token punctuation">)</span>
+        libxcb<span class="token operator">-</span>dri3<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libxcb<span class="token operator">-</span>dri3<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token punctuation">(</span><span class="token number">0x000077a6f9df9000</span><span class="token punctuation">)</span>
+        libxcb<span class="token operator">-</span>present<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libxcb<span class="token operator">-</span>present<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token punctuation">(</span><span class="token number">0x000077a6f9df4000</span><span class="token punctuation">)</span>
+        libxcb<span class="token operator">-</span>sync<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libxcb<span class="token operator">-</span>sync<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token punctuation">(</span><span class="token number">0x000077a6f9dea000</span><span class="token punctuation">)</span>
+        libxshmfence<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libxshmfence<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token punctuation">(</span><span class="token number">0x000077a6f9de5000</span><span class="token punctuation">)</span>
+        libgcc_s<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libgcc_s<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">1</span> <span class="token punctuation">(</span><span class="token number">0x000077a6f9dc5000</span><span class="token punctuation">)</span>
+        libXau<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libXau<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token punctuation">(</span><span class="token number">0x000077a6f9dbf000</span><span class="token punctuation">)</span>
+        libXdmcp<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libXdmcp<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">6</span> <span class="token punctuation">(</span><span class="token number">0x000077a6f9db7000</span><span class="token punctuation">)</span>
+        libbsd<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libbsd<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token punctuation">(</span><span class="token number">0x000077a6f9d9f000</span><span class="token punctuation">)</span>
+        libmd<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libmd<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token punctuation">(</span><span class="token number">0x000077a6f9d92000</span><span class="token punctuation">)</span>
+</code></pre>
+<p>---------------&gt; &#x6CA1;&#x95EE;&#x9898;&#xFF0C;&#x539F;&#x56E0;&#x662F; MESA-LOADER <strong>&#x7528; open&#x65B9;&#x5F0F; &#x6307;&#x5B9A;&#x4E86;&#x8DEF;&#x5F84;&#xFF0C;</strong></p>
+<p><strong>open&#x65B9;&#x5F0F;&#xFF0C;&#x65E0;&#x6CD5;&#x7528; ldd &#x67E5;&#x770B;&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;</strong></p>
+
+<script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="工程化.html" class="navigation navigation-prev " aria-label="Previous page: 工程化">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../02-编译weston.html" class="navigation navigation-next " aria-label="Next page: 02-编译weston">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"编译","level":"1.6.17","depth":2,"next":{"title":"02-编译weston","level":"1.7","depth":1,"path":"02-编译weston.md","ref":"02-编译weston.md","articles":[]},"previous":{"title":"工程化","level":"1.6.16","depth":2,"path":"Tool/工程化.md","ref":"Tool/工程化.md","articles":[]},"dir":"ltr"},"config":{"//":["这是多行注释：    anchor-navigation-ex 是","anchor-navigation-ex 是","click-reveal 本地使用ok，但是github在build pages时，不识别click-reveal","accordion 也是折叠代码段","anchor-navigation-ex 是"],"plugins":["anchor-navigation-ex","toggle-chapters","expandable-chapters-small","splitter","code","page-treeview","popup","-search","-lunr","sidebar-style","auto-scroll-table","click-reveal","accordion","pageview-count","search-pro","prism","prism-themes","-highlight"],"root":"./markdownsFiles","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"Kent","title":"《prove》"},"tbfed-pagefooter":{"copyright":"Copyright &copy ershouche-FE 2019","modify_label":"文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"page-treeview":{"collapsed":false,"copyright":"Copyright © aleen42","minHeaderCount":"1","minHeaderDeep":"1"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"disqus":{"shortName":"gitbookuse"},"splitter":{},"search-pro":{},"accordion":{},"auto-scroll-table":{},"popup":{},"lunr":{"maxIndexSize":400000},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"click-reveal":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"pageview-count":{},"prism-themes":{},"expandable-chapters-small":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"toggle-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"bookname":"笔记","variables":{},"title":"Kent的博客","gitbook":"*"},"file":{"path":"Tool/编译.md","mtime":"2024-11-24T13:41:37.897Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-01-24T15:05:12.130Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-toggle-chapters/toggle.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sidebar-style/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-auto-scroll-table/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-click-reveal/click_reveal.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-accordion/accordionSelector.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-pageview-count/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

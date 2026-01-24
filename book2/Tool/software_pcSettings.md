@@ -23,6 +23,7 @@
 | 看rgba（raw data）工具                                       | 1、TODO: mtk 的DumpViewCR<br /> 2、7yuv(YUV数据查看工具)破解版.exe      http://datahammer.de/downloads.html |      |      |
 | 磁盘分区/分区扩容软件                                        | 1、win:DiskGenius.exe<br />  2、linux：[gparted](https://blog.csdn.net/wangguchao/article/details/129064264#t2)    或者 命令 |      |      |
 | 看视频每一帧工具<br />（1）可以一帧一帧看  （2）可以测量任意两帧之间的时间 | avidemux                                                     |      |      |
+| 各种类型文件查看管理大全（md、png、pdf）<br /><br />快速搜索 & 极强链接！！！！！！ | obsidian                                                     |      |      |
 |                                                              |                                                              |      |      |
 |                                                              |                                                              |      |      |
 

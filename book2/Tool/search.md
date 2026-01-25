@@ -181,62 +181,71 @@ https://mermaid.live/edit#pako:eNqNlE2P0kAYx79KM2dgaQGhPZjw_tplI-ombj0UOi4NbaeZt
 --------------> 导出svg
 
 -<font color='red'>把整个工程导出给AI，方法：</font>
-法一：有些AI可以导入文件夹（整个工程导入），比如通义
-法二（<font color='red'>极优秀，可以使用网页AI</font>）:  所有code -----> 生成一个txt，导入给网页端AI
 
-```
-import os
-
-# 配置：想要忽略的文件夹和文件后缀
-IGNORE_DIRS = {'.git', 'node_modules', 'build', 'dist', '__pycache__', '.idea', '.vscode', 'lib64'}
-IGNORE_EXTS = {'.png', '.jpg', '.jpeg', '.gif', '.so', '.dll', '.exe', '.bin', '.lock', '.pyc', '.o', '.a'}
-# 配置：只包含这些后缀的文件（如果为空，则包含所有非忽略文件）
-INCLUDE_EXTS = {'.java', '.cpp', '.c', '.h', '.hpp', '.py', '.js', '.ts', '.xml', '.gradle', '.properties', '.txt', '.md'}
-
-OUTPUT_FILE = "code_summary.txt"
-
-def pack_code():
-    with open(OUTPUT_FILE, 'w', encoding='utf-8') as outfile:
-        # 写入开头说明
-        outfile.write(f"Project Code Summary\n")
-        outfile.write("="*50 + "\n\n")
-
-        # 遍历目录
-        for root, dirs, files in os.walk("."):
-            # 1. 修改 dirs 列表以排除忽略的文件夹 (原地修改，这就不会进入这些目录了)
-            dirs[:] = [d for d in dirs if d not in IGNORE_DIRS]
-
-            for file in files:
-                file_path = os.path.join(root, file)
-                _, ext = os.path.splitext(file)
-
-                # 2. 过滤文件后缀
-                if ext in IGNORE_EXTS:
-                    continue
-                # 如果定义了白名单，只处理白名单内的文件
-                if INCLUDE_EXTS and ext not in INCLUDE_EXTS:
-                    continue
-
-                # 3. 写入文件内容
-                try:
-                    outfile.write(f"File: {file_path}\n")
-                    outfile.write("-" * 20 + "\n")
-                    
-                    with open(file_path, 'r', encoding='utf-8', errors='ignore') as infile:
-                        content = infile.read()
-                        outfile.write(content)
-                    
-                    outfile.write("\n\n" + "="*50 + "\n\n")
-                    print(f"Packed: {file_path}")
-                except Exception as e:
-                    print(f"Error reading {file_path}: {e}")
-
-    print(f"\n✅ 完成！所有代码已汇总到: {os.path.abspath(OUTPUT_FILE)}")
-
-if __name__ == "__main__":
-    pack_code()
-```
-
+> [!NOTE]
+> 法一：有些AI可以导入文件夹（整个工程导入），比如通义
+> 
+> 法二（<font color='red'>极优秀，可以使用网页AI</font>）:  所有code -----> 生成一个txt，导入给网页端AI
+> 
+> %accordion%pack_code.py%accordion%
+> 
+> 
+> ```
+> import os
+> 
+> # 配置：想要忽略的文件夹和文件后缀
+> IGNORE_DIRS = {'.git', 'node_modules', 'build', 'dist', '__pycache__', '.idea', '.vscode', 'lib64'}
+> IGNORE_EXTS = {'.png', '.jpg', '.jpeg', '.gif', '.so', '.dll', '.exe', '.bin', '.lock', '.pyc', '.o', '.a'}
+> # 配置：只包含这些后缀的文件（如果为空，则包含所有非忽略文件）
+> INCLUDE_EXTS = {'.java', '.cpp', '.c', '.h', '.hpp', '.py', '.js', '.ts', '.xml', '.gradle', '.properties', '.txt', '.md'}
+> 
+> OUTPUT_FILE = "code_summary.txt"
+> 
+> def pack_code():
+>     with open(OUTPUT_FILE, 'w', encoding='utf-8') as outfile:
+>         # 写入开头说明
+>         outfile.write(f"Project Code Summary\n")
+>         outfile.write("="*50 + "\n\n")
+> 
+>         # 遍历目录
+>         for root, dirs, files in os.walk("."):
+>             # 1. 修改 dirs 列表以排除忽略的文件夹 (原地修改，这就不会进入这些目录了)
+>             dirs[:] = [d for d in dirs if d not in IGNORE_DIRS]
+> 
+>             for file in files:
+>                 file_path = os.path.join(root, file)
+>                 _, ext = os.path.splitext(file)
+> 
+>                 # 2. 过滤文件后缀
+>                 if ext in IGNORE_EXTS:
+>                     continue
+>                 # 如果定义了白名单，只处理白名单内的文件
+>                 if INCLUDE_EXTS and ext not in INCLUDE_EXTS:
+>                     continue
+> 
+>                 # 3. 写入文件内容
+>                 try:
+>                     outfile.write(f"File: {file_path}\n")
+>                     outfile.write("-" * 20 + "\n")
+>                     
+>                     with open(file_path, 'r', encoding='utf-8', errors='ignore') as infile:
+>                         content = infile.read()
+>                         outfile.write(content)
+>                     
+>                     outfile.write("\n\n" + "="*50 + "\n\n")
+>                     print(f"Packed: {file_path}")
+>                 except Exception as e:
+>                     print(f"Error reading {file_path}: {e}")
+> 
+>     print(f"\n✅ 完成！所有代码已汇总到: {os.path.abspath(OUTPUT_FILE)}")
+> 
+> if __name__ == "__main__":
+>     pack_code()
+> ```
+> 
+> %/accordion%
+> 
+> 
 
 # 链接是一切
 

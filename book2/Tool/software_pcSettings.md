@@ -14,18 +14,18 @@
 
 推荐使用：
 
-| 功能：                                                       | 软件：                                                       |      |      |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ---- | ---- |
-| 事件分发/事件驱动 软件                                       | 时光序，桌面日历                                             |      |      |
-| 录屏                                                         | EV录屏                                                       |      |      |
-| 安卓手机linux命令不全                                        | busybox的二进制                                              |      |      |
-| 像素测量，pixel测量                                          | 法一：1、图片的像素测量：Dorado_1.1.exe<br />法二：2、图片的像素测量：windows右键，查看图片属性<br />法三：测量window或者Linux 屏幕上的像素 --------> <font color='red'>snipaste截屏时，自带px的标尺！！！</font> |      |      |
-| 看rgba（raw data）工具                                       | 1、TODO: mtk 的DumpViewCR<br /> 2、7yuv(YUV数据查看工具)破解版.exe      http://datahammer.de/downloads.html |      |      |
-| 磁盘分区/分区扩容软件                                        | 1、win:DiskGenius.exe<br />  2、linux：[gparted](https://blog.csdn.net/wangguchao/article/details/129064264#t2)    或者 命令 |      |      |
-| 看视频每一帧工具<br />（1）可以一帧一帧看  （2）可以测量任意两帧之间的时间 | avidemux                                                     |      |      |
-| 各种类型文件查看管理大全（md、png、pdf）<br /><br />快速搜索 & 极强链接！！！！！！ | obsidian + 大量插件能力！                                    |      |      |
-|                                                              |                                                              |      |      |
-|                                                              |                                                              |      |      |
+| 功能：                                                   | 软件：                                                                                                                                                     |     |     |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | --- |
+| 事件分发/事件驱动 软件                                          | 时光序，桌面日历                                                                                                                                                |     |     |
+| 录屏                                                    | EV录屏                                                                                                                                                    |     |     |
+| 安卓手机linux命令不全                                         | busybox的二进制                                                                                                                                             |     |     |
+| 像素测量，pixel测量                                          | 法一：1、图片的像素测量：Dorado_1.1.exe<br />法二：2、图片的像素测量：windows右键，查看图片属性<br />法三：测量window或者Linux 屏幕上的像素 --------> <font color='red'>snipaste截屏时，自带px的标尺！！！</font> |     |     |
+| 看rgba（raw data）工具                                     | 1、TODO: mtk 的DumpViewCR<br /> 2、7yuv(YUV数据查看工具)破解版.exe      http://datahammer.de/downloads.html                                                         |     |     |
+| 磁盘分区/分区扩容软件                                           | 1、win:DiskGenius.exe<br />  2、linux：[gparted](https://blog.csdn.net/wangguchao/article/details/129064264#t2)    或者 命令                                   |     |     |
+| 看视频每一帧工具<br />（1）可以一帧一帧看  （2）可以测量任意两帧之间的时间            | avidemux                                                                                                                                                |     |     |
+| 各种类型文件查看管理大全（md、png、pdf）<br /><br />快速搜索 & 极强链接！！！！！！ | obsidian + 大量插件能力！                                                                                                                                      |     |     |
+|                                                       |                                                                                                                                                         |     |     |
+|                                                       |                                                                                                                                                         |     |     |
 
 
 
@@ -2431,7 +2431,9 @@ body {
 ```
 
 ---------------> 验证ok
+## 往文档里copy png时，会自动copy到对应的资源文件路径下
 
+![[Pasted image 20260125151341.png]]
 # vscode
 
 ## bookmark使用：

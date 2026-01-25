@@ -208,6 +208,7 @@ https://mermaid.live/edit#pako:eNqNlE2P0kAYx79KM2dgaQGhPZjw_tplI-ombj0UOi4NbaeZt
 
 > [!NOTE]
 > 法一：有些AI可以导入文件夹（整个工程导入），比如通义
+>               再比如 ![[Pasted image 20260125221829.png]] 也可以导入
 > 
 > 法二（<font color='red'>极优秀，可以使用网页AI</font>）:  所有code -----> 生成一个txt(<font color='red'>记得做脱敏</font>)，导入给网页端AI
 > 

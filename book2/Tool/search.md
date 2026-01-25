@@ -152,6 +152,30 @@ AI时代：<font color='red'>解决问题的能力变廉价，昂贵的是提问
 
 让AI自己回答：怎么提问你更有效？有什么技巧吗？
 
+```
+不管用哪种工具，**Prompt（提示词）的质量决定了图的质量**。不要只说“画个图”，要按以下步骤来：
+
+#### 第一步：让 AI 理解业务
+
+> “@Codebase 请阅读代码，特别是 `src/core` 和 `src/network` 目录。告诉我这个系统主要由哪几个子系统组成？它们之间是如何通信的（HTTP? RPC? 共享内存?）”
+
+#### 第二步：让 AI 生成 Mermaid 代码
+
+> “基于上述分析，请生成一个 Mermaid `graph TB` 代码。 要求：
+> 
+> 1. 使用 `subgraph` 将不同模块（如 UI层、服务层、数据层）区分开。
+>     
+> 2. 标出关键的数据流向箭头，并在箭头上写明传输的数据对象（例如 `AuthToken`）。
+>     
+> 3. 忽略工具类（Utils）和日志类，只保留核心业务类。”
+>     
+
+#### 第三步：生成时序图（更深入的理解）
+
+架构图是静态的，你还需要动态图。
+
+> “请分析 `LoginService.java` 中的 `login` 方法。 生成一个 Mermaid `sequenceDiagram`，展示从用户点击登录到数据库返回结果的完整调用链路，包括异常处理流程。”
+```
 ## 代码相关
 
 -<font color='red'>把整个工程导出给AI</font>，让AI
@@ -185,7 +209,7 @@ https://mermaid.live/edit#pako:eNqNlE2P0kAYx79KM2dgaQGhPZjw_tplI-ombj0UOi4NbaeZt
 > [!NOTE]
 > 法一：有些AI可以导入文件夹（整个工程导入），比如通义
 > 
-> 法二（<font color='red'>极优秀，可以使用网页AI</font>）:  所有code -----> 生成一个txt，导入给网页端AI
+> 法二（<font color='red'>极优秀，可以使用网页AI</font>）:  所有code -----> 生成一个txt(<font color='red'>记得做脱敏</font>)，导入给网页端AI
 > 
 > %accordion%pack_code.py%accordion%
 > 

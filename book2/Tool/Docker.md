@@ -2487,7 +2487,7 @@ https://blog.csdn.net/qq_37140721/article/details/125619393
 
 ```powershell
 lsblk
-sudo mount -t ext4 /dev/sdb2 /home/chengang/workingspace_disk2       -----> 注意，必须指定类型，否则失败！！！！！
+sudo mount -t ext4 /dev/sdb2 /home/chenjinke/workingspace_disk2       -----> 注意，必须指定类型，否则失败！！！！！
 ```
 
 

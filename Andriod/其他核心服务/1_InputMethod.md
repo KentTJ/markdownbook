@@ -74,13 +74,54 @@ IMS.requestHideSelf ----> IMMS.hideMySoftInput ----> IMS.hideSoftInput()
 
 - 支持硬件键盘输入
 
-  
-
-
-
 ## 从systrace角度分析输入法
 
 TODO:
+
+
+# 0层框架补充 ------ic
+  
+![[mermaid-diagram-2026-01-27-002544.png]]
+
+```mermaid
+sequenceDiagram
+
+    autonumber
+
+    participant IMM as InputMethodManager
+
+    participant EI as EditorInfo
+
+    participant TV as TextView
+
+  
+
+    Note over IMM: 1. 执行 startInputInner 流程
+
+    activate IMM
+
+    Note left of IMM: 创建 EditorInfo 对象<br/>交由 View 填充具体配置
+
+    IMM ->> EI: new EditorInfo()
+
+    activate EI
+
+    EI -->> IMM: tba (EditorInfo 实例)
+
+    deactivate EI
+
+  
+
+    IMM ->> TV: onCreateInputConnection(tba)
+
+    Note right of TV: 关键步骤：<br/>1. 根据 XML/代码设置 tba.imeOptions<br/>2. 设置 tba.actionLabel<br/>3. 返回 InputConnection 通道
+
+    TV -->> IMM: ic (InputConnection 实例)
+
+    deactivate IMM
+```
+
+
 
 # 多屏互斥输入法
 

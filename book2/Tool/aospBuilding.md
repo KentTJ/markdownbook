@@ -1218,7 +1218,7 @@ adb push framework.jar   /system/framework
 
 或者整个 framework\路径push进去
 
-> adb push  X:\code\chengang\alps\out_sys\target\product\mssi_spm_64_cn\system\framework\  /system/
+> adb push  X:\code\chenjinke\alps\out_sys\target\product\mssi_spm_64_cn\system\framework\  /system/
 
 
 

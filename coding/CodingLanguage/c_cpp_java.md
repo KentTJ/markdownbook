@@ -3199,6 +3199,134 @@ https://zhuanlan.zhihu.com/p/645242002
 
 
 
+## Tesla笔试
+
+ 解决方案
+
+这是一个典型的 C++ 多线程并发编程问题。你需要实现一个多线程安全的“游戏”系统，其中多个客户端（`Client`）可以并发地获取物品、丢弃物品、互相赠送物品以及离开游戏。
+
+2、问题分析
+
+核心任务是实现 `MultithreadedGame` 类的成员函数，并确保在多线程环境下数据的**原子性**和**一致性**。
+
+**关键挑战：**
+
+1. **线程安全：** 多个线程可能同时操作同一个 `Client` 的物品清单，或者在 `onGiveItem` 时同时操作两个 `Client`。
+2. **死锁预防：** 在 `onGiveItem` 中，需要同时锁定两个 `Client` 对象。如果两个玩家互相赠送物品，且锁定顺序不当，会发生死锁。
+3. **连接管理：** 需要维护当前在线的客户端数量。
+4. **接口要求：** 使用 C++17 标准，保证 `getClientCount` 和 `getItemCount` 等查询操作也是线程安全的。
+
+3、解决方案
+
+我们需要在 `Client` 类中增加互斥锁来保护其内部物品数据，并在 `MultithreadedGame` 中维护一个线程安全的客户端计数。
+
+multithreaded_client.h / .cpp 修改建议
+
+```
+首先，确保 `Client` 类内部有自己的 `std::mutex` 来保护其 `items` 映射表。
+
+// multithreaded_client.h 示例结构
+class Client {
+public:
+    std::mutex mtx;
+    std::unordered_map<std::string, int> items;
+    // ... 其他成员
+};
+
+```
+
+
+multithreaded_game.cpp：
+
+这是核心代码实现。我们使用 `std::scoped_lock`（C++17）来同时锁定多个互斥量，以优雅地避免死锁。
+
+```
+#include "multithreaded_game.h"
+#include <mutex>
+#include <optional>
+#include <algorithm>
+
+// 假设 MultithreadedGame 类中有一个 std::atomic<size_t> clientCount 成员
+// 或者使用 std::mutex 保护一个 size_t
+
+void MultithreadedGame::onGetItem(Client *user, std::string_view name, int amount) {
+    if (!user || amount <= 0) return;
+    
+    std::lock_guard<std::mutex> lock(user->mtx);
+    user->items[std::string(name)] += amount;
+}
+
+std::optional<int> MultithreadedGame::onDropItem(Client *fromClientPtr, std::string_view name, int amount) {
+    if (!fromClientPtr || amount <= 0) return std::nullopt;
+
+    std::lock_guard<std::mutex> lock(fromClientPtr->mtx);
+    auto it = fromClientPtr->items.find(std::string(name));
+    
+    if (it == fromClientPtr->items.end() || it->second < amount) {
+        return std::nullopt;
+    }
+
+    it->second -= amount;
+    int remaining = it->second;
+    if (remaining == 0) {
+        fromClientPtr->items.erase(it);
+    }
+    return remaining;
+}
+
+void MultithreadedGame::onGiveItem(Client *fromClientPtr, Client *toClientPtr, std::string_view name, int amount) {
+    if (!fromClientPtr || !toClientPtr || fromClientPtr == toClientPtr || amount <= 0) return;
+
+    // 关键：使用 std::scoped_lock 同时锁定两个互斥量，防止死锁
+    std::scoped_lock lock(fromClientPtr->mtx, toClientPtr->mtx);
+
+    auto it = fromClientPtr->items.find(std::string(name));
+    if (it != fromClientPtr->items.end() && it->second >= amount) {
+        it->second -= amount;
+        if (it->second == 0) fromClientPtr->items.erase(it);
+        
+        toClientPtr->items[std::string(name)] += amount;
+    }
+}
+
+void MultithreadedGame::onLeave(Client *clientPtr) {
+    if (!clientPtr) return;
+    
+    // 假设这里需要从某个全局 Client 列表中移除，或者仅仅是减少计数
+    // 根据题目描述：amount of connected clients is decreased
+    {
+        std::lock_guard<std::mutex> lock(this->game_state_mtx);
+        if (this->connected_clients > 0) {
+            this->connected_clients--;
+        }
+    }
+}
+
+size_t MultithreadedGame::getClientCount() const {
+    std::lock_guard<std::mutex> lock(this->game_state_mtx);
+    return this->connected_clients;
+}
+
+// 假设在 MultithreadedClient 接口中
+std::optional<int> MultithreadedGame::getItemCount(Client *client, std::string_view name) {
+    if (!client) return std::nullopt;
+    
+    std::lock_guard<std::mutex> lock(client->mtx);
+    auto it = client->items.find(std::string(name));
+    if (it != client->items.end()) {
+        return it->second;
+    }
+    return std::nullopt;
+}
+```
+ 关键要点
+
+1. **死锁预防 (Deadlock Prevention):** 在 `onGiveItem` 中，最危险的情况是玩家 A 给 B 东西，同时玩家 B 给 A 东西。如果简单地先锁 `from` 再锁 `to`，会导致死锁。**`std::scoped_lock`** 会自动对互斥量进行排序锁定，是解决此问题的最佳实践。
+2. **粒度控制:** 我们为每个 `Client` 分配一个独立的 `mutex`，而不是整个游戏使用一把大锁。这保证了不同玩家之间可以并行操作，提高了吞吐量。
+3. **原子操作:** 对于 `getClientCount`，如果性能要求极高，可以使用 `std::atomic<size_t>` 来替代 `mutex` 保护。
+4. **参数校验:** 始终检查指针是否为 `nullptr` 以及 `amount` 是否合法（大于 0），防止逻辑错误或崩溃。
+5. **C++17 特性:** 利用 `std::optional` 返回不存在的物品状态，利用 `std::string_view` 减少不必要的字符串拷贝。
+
 # 所有题目的统一解法
 
 ## 任何一个题目都是一个<font color='red'>图（树）结构</font>：

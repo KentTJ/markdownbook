@@ -176,6 +176,22 @@ AI时代：<font color='red'>解决问题的能力变廉价，昂贵的是提问
 
 > “请分析 `LoginService.java` 中的 `login` 方法。 生成一个 Mermaid `sequenceDiagram`，展示从用户点击登录到数据库返回结果的完整调用链路，包括异常处理流程。”
 ```
+
+
+给AI一个明确的身份，比如：
+
+```
+作为面试官，你想.......................
+```
+
+
+## API网站
+
+https://bailian.console.aliyun.com/console?tab=app#/authority   阿里云百炼
+
+![[Pasted image 20260201120241.png]]
+
+
 ## 代码相关
 
 -<font color='red'>把整个工程导出给AI</font>，让AI

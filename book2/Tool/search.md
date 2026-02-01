@@ -189,7 +189,18 @@ AI时代：<font color='red'>解决问题的能力变廉价，昂贵的是提问
 
 https://bailian.console.aliyun.com/console?tab=app#/authority   阿里云百炼
 
-![[Pasted image 20260201120241.png]]
+
+![Pasted_image 20260201120241](search.assets/1111.png)
+
+https://api.aifuwu.icu/console   AI服务中心
+
+>   api调用地址 https://api.aifuwu.icu/          https://api.aifuwu.icu/v1  --------> 这个！！！！！！！
+>   https://www.yuque.com/u44392346/mogor8/rzzcx7ngtbwd4ozi
+
+https://aistudio.google.com/usage?project=gen-lang-client-0306075861&timeRange=last-28-days&tab=rate-limit   gemini
+
+>   api调用地址：https://generativelanguage.googleapis.com/v1beta/openai/
+
 
 
 ## 代码相关

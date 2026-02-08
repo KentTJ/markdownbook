@@ -189,6 +189,36 @@ client，sendEvent那条路，你没有说清楚
 
 # 理解代码架构
 
+## 专家不记忆代码，专家只理解约束（Constraints）
+
+推论：
+
+1、代码是  <font color='red'>基于约束</font>  <font color='red'>推导出来</font>的   <font color='red'>不得不</font> 
+
+2、  <font color='red'>每时每刻问自己：约束是什么？</font>  （物理约束、逻辑约束、业务约束！！！！！！！）
+
+3、  <font color='red'>代码都是垃圾 </font> 
+
+[![](https://mermaid.ink/img/pako:eNqdlFtPE0EUx7_KZggpJL3shW7bDTaR4qsxgfggNWTpzsLGdrdZtoIWkkKAAqGiIhYbKvebCSUGYkpL4csws9snvoLTexE10XnYzJyd33_PnP-ZjYOQJkEggFFdjI5Rg_1BlSJjPDZSCzyZjELdGH6uwAlq6Da_hnI_zMycdbRgHX28u8qYhUOc3SIRfLWKP6df1ujKkBQdhgxFU6nBvla0NQto6rihi4pqMF3m0on5fqGmJVBoYR6dbrhQ_hDlSi60vGUl0t1tpMPhb6PZLoJauUKDDjx-hnIZEnP1juguv5lL4_N1tJ_C2VlUOOz-kwzXdZvPoOWdZhKpVSuXw9tJlKwr4cVv-HQXpw_w5tYvMgNaOFY56vBAVAzBuHW0Z54UyukLgaqSt8U9c3sG3cyXd4po89i6-VJOrpSzu9O_q8t9rYr8VDlRtK4_4HfH6OwKJQu9sqYaVEgLa_ojmw4lm_82n0LXafLsdVXe-aeofqgrr6E0HCDmDj0EzE_f8el-U5H4V8-xtIsTM3UVYmYrrc7OceNNGN7rB1kJh4UOyMhuGdpJHbVXUOjgOK4-d0wokjEmsNHJhzJt7tdlZBnSI2xTRnZ7QjT9N5D9X5D7N7C9lHUy5IV8yNc6stcLuVCNhKrUKNtTzYDsEE5kzeKFuXSJrmfIhak2BONENyVz_cAsLljLs3dXK2j-HJ8fW9eX5vqKs9Y0rJOqeYI3zmxNg23EKrO4hr9uVjdxTqq8O4cW9_tioxUTSymzlKtfwnanHE7SpdV8gJ3cdEUCgqHHoB1EoB4RK0sQr1BBYIzBCAwCgUwlKIuxsBEEQXWaYFFRfaFpkQapa7HRscYiFpVEA_YrIvlpkB2yGB6vbCHFgHpAi6kGEFia8VZFgBAHk0DooXlnj9vnpnmfl-c9LGMHb4DgYDmPk6N9HEtzDO328Kx32g7eVr_LOBme9jI0T3Mehmd9HDf9Eyvj6hk?type=png)](https://mermaid.live/edit#pako:eNqdlFtPE0EUx7_KZggpJL3shW7bDTaR4qsxgfggNWTpzsLGdrdZtoIWkkKAAqGiIhYbKvebCSUGYkpL4csws9snvoLTexE10XnYzJyd33_PnP-ZjYOQJkEggFFdjI5Rg_1BlSJjPDZSCzyZjELdGH6uwAlq6Da_hnI_zMycdbRgHX28u8qYhUOc3SIRfLWKP6df1ujKkBQdhgxFU6nBvla0NQto6rihi4pqMF3m0on5fqGmJVBoYR6dbrhQ_hDlSi60vGUl0t1tpMPhb6PZLoJauUKDDjx-hnIZEnP1juguv5lL4_N1tJ_C2VlUOOz-kwzXdZvPoOWdZhKpVSuXw9tJlKwr4cVv-HQXpw_w5tYvMgNaOFY56vBAVAzBuHW0Z54UyukLgaqSt8U9c3sG3cyXd4po89i6-VJOrpSzu9O_q8t9rYr8VDlRtK4_4HfH6OwKJQu9sqYaVEgLa_ojmw4lm_82n0LXafLsdVXe-aeofqgrr6E0HCDmDj0EzE_f8el-U5H4V8-xtIsTM3UVYmYrrc7OceNNGN7rB1kJh4UOyMhuGdpJHbVXUOjgOK4-d0wokjEmsNHJhzJt7tdlZBnSI2xTRnZ7QjT9N5D9X5D7N7C9lHUy5IV8yNc6stcLuVCNhKrUKNtTzYDsEE5kzeKFuXSJrmfIhak2BONENyVz_cAsLljLs3dXK2j-HJ8fW9eX5vqKs9Y0rJOqeYI3zmxNg23EKrO4hr9uVjdxTqq8O4cW9_tioxUTSymzlKtfwnanHE7SpdV8gJ3cdEUCgqHHoB1EoB4RK0sQr1BBYIzBCAwCgUwlKIuxsBEEQXWaYFFRfaFpkQapa7HRscYiFpVEA_YrIvlpkB2yGB6vbCHFgHpAi6kGEFia8VZFgBAHk0DooXlnj9vnpnmfl-c9LGMHb4DgYDmPk6N9HEtzDO328Kx32g7eVr_LOBme9jI0T3Mehmd9HDf9Eyvj6hk)
+
+[^1]
+
+
+
+
+例子1: 以 Display 系统为例
+
+#### **第一层约束：物理层 (Hardware)**
+
+- **约束：** 显存带宽只有 20GB/s，屏幕是 4K @ 60Hz。
+    
+- **推导：** 每一帧的数据量是巨大的。
+    
+- **结果（代码形态）：** 代码里**绝对不能**有频繁的 `memcpy`（内存拷贝）。如果有，系统必挂。
+    
+    - _专家推断：_ 这个模块一定用了 `DMA-BUF` 或 `Zero-copy` 机制。
+
+
 ## <font color='red'>功能是架构的终极目的</font>
 
 -<font color='red'>功能是架构的终极目的，证明了功能对应的实现，才算彻底理解（才能彻底不记忆）</font>
@@ -882,7 +912,7 @@ https://www.yinwang.org/blog-cn/2020/02/05/how-to-read-code    -----wangyin
 
 注：字典只用于查阅（硬盘），不用做记忆（脑袋内存）
 
-## 第四部，做减法：抛开代码、抛开架构，做证明（基于功能为条件）
+## 第四部，做减法：抛开代码、抛开架构，做证明（基于功能与约束）
 
 证明：
 
@@ -2544,3 +2574,38 @@ EX:
 
 
 
+[^1]: graph TD
+	
+	    subgraph Expert_View [专家的视角：约束的漏斗]
+	
+	        direction TB
+	
+	        Constraint1(物理约束: 内存/带宽/功耗)
+	
+	        --> Constraint2(理论约束: CAP定理/<br/>算法复杂度)
+	
+	        --> Constraint3(业务约束: 协议标准/<br/>截止日期)
+	
+	        --> Solution_Space{解空间: <br/>代码必须在这里面}
+	
+	        Solution_Space -->|逻辑推导出<font color='red'>不得不</font>| Derived_Code[<font color='red'>由此推导出的代码形态</font>]
+	
+	  
+	
+	        %%style Expert_View fill:#e1f5fe,stroke:#333,stroke-width:2px
+	
+	        %%style Constraint1 fill:#ffe0b2,stroke:#f57c00
+	
+	        %%style Constraint2 fill:#ffe0b2,stroke:#f57c00
+	
+	        %%style Constraint3 fill:#ffe0b2,stroke:#f57c00
+	
+	        %%style Derived_Code fill:#c8e6c9,stroke:#388e3c
+	
+	    end
+	
+	  
+	
+	    Note2[思维特征：<br/>1.忽略细节，关注边界. <br/>2. 代码是'不得不'的结果<br/>3. 预判Bug的位置]
+	
+	    Expert_View -.-> Note2

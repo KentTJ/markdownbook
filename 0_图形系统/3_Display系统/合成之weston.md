@@ -2,6 +2,11 @@
 >
 
 
+# 抛开代码，从约束上看
+[![](https://mermaid.ink/img/pako:eNqlk02L00AYx79KGC9a05KXZtOMIGybxYuHRdmLxsOYTJrQZCYkE9u1FBRX6IIvBW-Lrxf1UFYPyx7cih9G0-ytX8FpsoRSXVF8Tnnm____nochMwQ2dTCAoBujyBOu37CIwGvztgVqtWwyno8n-cHe_OX09OjjYnaQPXqeH72dT6b5h5NazQJ3IIQ2jbFQr18V2hctkL-b_jg5zr-8n796s5g9yb49zveOedACl0pyu7BuFXxze2cVsmowOeva9k65wVq4w7XOL1qn1GQu9nHCKOF7R_4gROT7g4fZ4X729AU_oREm3eD06ye-ZXb4On_2Oen7Lks85OB4naVw1h-Sld0sV16OLl3C1k0-9F4a9DBZdy2hv1dUriQ9Hy1m4xJz2Y7SxWz_zGeR0m0HKElM7ArFxbt-EMALrmvzEhMW0x5ethKvs7be9x3mQSUaiDYNaFzJLiWs3sd-12PwLg2cKyU_YbsBFjYrslthVVU9l8mBq_H238Tlc-Od_4ub_x4HIn8CvgOgi4IEiyDEcYiWPRgWlw-Yh0NsAcg_HRT3LGCREQ9FiNyiNASQxSmPxTTtehUkjRzEsOkj_rrC6jTGhP9sHZoSBqCiKs2CAuAQDHivaA3NaLV0Q9cUSVc0TQS7AMqG1pANpdWU9JahS0pLH4ngfjFYaujShmzohqw3N2TV0NTRTx5IWjc?type=png)](https://mermaid.live/edit#pako:eNqlk02L00AYx79KGC9a05KXZtOMIGybxYuHRdmLxsOYTJrQZCYkE9u1FBRX6IIvBW-Lrxf1UFYPyx7cih9G0-ytX8FpsoRSXVF8Tnnm____nochMwQ2dTCAoBujyBOu37CIwGvztgVqtWwyno8n-cHe_OX09OjjYnaQPXqeH72dT6b5h5NazQJ3IIQ2jbFQr18V2hctkL-b_jg5zr-8n796s5g9yb49zveOedACl0pyu7BuFXxze2cVsmowOeva9k65wVq4w7XOL1qn1GQu9nHCKOF7R_4gROT7g4fZ4X729AU_oREm3eD06ye-ZXb4On_2Oen7Lks85OB4naVw1h-Sld0sV16OLl3C1k0-9F4a9DBZdy2hv1dUriQ9Hy1m4xJz2Y7SxWz_zGeR0m0HKElM7ArFxbt-EMALrmvzEhMW0x5ethKvs7be9x3mQSUaiDYNaFzJLiWs3sd-12PwLg2cKyU_YbsBFjYrslthVVU9l8mBq_H238Tlc-Od_4ub_x4HIn8CvgOgi4IEiyDEcYiWPRgWlw-Yh0NsAcg_HRT3LGCREQ9FiNyiNASQxSmPxTTtehUkjRzEsOkj_rrC6jTGhP9sHZoSBqCiKs2CAuAQDHivaA3NaLV0Q9cUSVc0TQS7AMqG1pANpdWU9JahS0pLH4ngfjFYaujShmzohqw3N2TV0NTRTx5IWjc)
+
+
+[^1]
 
 # Weston / wayland ----与A 无异
 
@@ -6325,3 +6330,34 @@ https://zhuanlan.zhihu.com/p/434869796
 
 ​          ------> L可以夹心A（目前已经做到了）
 
+[^1]: graph LR
+	
+	    A["**合成的本质：像素搬移**"]:::core --> B("硬件约束，必然：")
+	
+	    B --> E["**DPU**"]:::core
+	
+	    B --> D("GPU合成")
+	
+	    B --> C("CPU合成")
+	
+	    C --> C1("weston的pixman、安卓的opengl软件实现swiftshader")
+	
+	    C --> C2("安卓的opengl软件实现")
+	
+	    D --> D1("opengl ES、vulken")
+	
+	    D --> D2("vulken")
+	
+	    D --> D3("skia（opengl+cpu）")
+	
+	  
+	
+	    classDef core fill:#ffcccc,stroke:#ff0000,stroke-width:2px,color:#ff0000,font-weight:bold;
+	
+	    style A fill:#fff,stroke:#333,stroke-width:2px,color:#000
+	
+	    style B fill:#fff,stroke:#333,stroke-width:1px,color:#000
+	
+	    style C fill:#fff,stroke:#333,stroke-width:1px,color:#000
+	
+	    style D fill:#fff,stroke:#333,stroke-width:1px,color:#000

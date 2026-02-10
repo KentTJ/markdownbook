@@ -1484,7 +1484,7 @@ docker对应的是   "vEthernet (WSL (Hyper-V firewall))"  适配器：！！！
 
 ## 共享之  利用  sshfs挂载远程文件夹
 
-**<font color='red'>实在搞不定的问题，就想办法绕过去</font>！！！！！！！！**（既然samba 一直以来在window dcoker里无法配置成功）
+-**<font color='red'>实在搞不定的问题，就想办法绕过去</font>！！！！！！！！**（既然samba 一直以来在window dcoker里无法配置成功）
 
 
 

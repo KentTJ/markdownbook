@@ -875,3 +875,74 @@ TODO ------->办法:事件拦截机制
 2.  watch outside window
 3.  spy window
 4.  ANR
+
+
+
+
+
+# ======面试题======
+
+
+
+# Android Input 系统与事件分发面试考点总结
+
+本文档整理了 Android 输入系统从底层 IMS 到上层 View 分发的核心面试考点、原理分析及常见误区。
+
+---
+
+## 一、 Input 系统架构与原理（系统层）
+
+### 1. IMS (InputManagerService) 线程模型
+* **考点**：Input 系统主要由哪两个核心线程组成？分工是什么？
+* **答案**：
+    * **InputReaderThread**：负责从内核读取 Raw Motion Event（原始事件）。
+    * **InputDispatcherThread**：负责将事件分发给目标窗口。
+
+### 2. 事件分发的目标窗口确定（Touch 寻址）
+* **考点**：系统如何知道触摸事件该发给哪个窗口？ACTION_MOVE/UP 还需要重新寻找吗？
+* **答案**：
+    * **ACTION_DOWN**：根据触摸坐标 (x, y) 和窗口属性（Visible, Touchable）寻找目标窗口。
+    * **ACTION_MOVE / UP**：**不重新寻找**。系统会将 DOWN 确定的目标窗口保存在 `tempTouchState`，后续事件直接复用该目标。
+
+### 3. Touch 事件 vs Key 事件的区别
+* **考点**：触摸和按键在分发对象上的核心区别？
+* **答案**：
+    * **Touch 事件**：基于**位置**（坐标）分发。
+    * **Key 事件**：基于**窗口焦点**分发。
+
+### 4. 特殊按键拦截
+* **考点**：为什么应用层拦截不到 HOME 键？
+* **答案**：HOME 键在进入应用层之前，已被系统层（PhoneWindowManager）提前拦截处理。
+
+---
+
+## 二、 View 事件分发机制（应用层）
+
+### 1. 核心方法：三驾马车
+| 方法名                    | 拥有者                    | 职责                   | 返回值含义                     |
+| :------------------------ | :------------------------ | :--------------------- | :----------------------------- |
+| **dispatchTouchEvent**    | Activity, ViewGroup, View | **分发**：事件入口     | true: 消费; false: 不处理      |
+| **onInterceptTouchEvent** | **仅 ViewGroup**          | **拦截**：决定是否截断 | true: 拦截; false: 放行        |
+| **onTouchEvent**          | Activity, ViewGroup, View | **处理**：消费事件     | true: 消费; false: 不处理/回传 |
+
+### 2. 伪代码逻辑（本质关系）
+理解此伪代码即可掌握三者关系：
+```java
+// ViewGroup 的 dispatchTouchEvent
+public boolean dispatchTouchEvent(MotionEvent ev) {
+    boolean consume = false;
+    
+    // 1. 拦截判断 (ViewGroup 独有)
+    if (onInterceptTouchEvent(ev)) {
+        consume = onTouchEvent(ev); // 拦截后自己处理
+    } else {
+        consume = child.dispatchTouchEvent(ev); // 不拦截，分发给子 View
+    }
+
+    // 2. 兜底处理 (子 View 不处理，或者自己拦截了但没处理成功)
+    if (!consume) {
+        consume = onTouchEvent(ev);
+    }
+    return consume;
+}
+```

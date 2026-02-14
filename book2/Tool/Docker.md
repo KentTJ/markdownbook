@@ -2439,6 +2439,24 @@ Acquire::https::Proxy "http://username:password@proxy-IP-address:proxyport";
 
 ![image-20250913132703007](Docker.assets/image-20250913132703007.png)
 
+
+
+
+
+## cpu设置-------- 利用率 100%  且 不卡
+
+充分利用win的cpu----------> win侧cpu要100%：
+
+
+![[Pasted image 20260215010503.png]]
+
+设置：
+
+> [!NOTE]
+> 任务管理器 ------>  VMware Workstation VMX   ------> 右键 ------> 转到详细信息  -------->  vmware-vmx.exe 右键  --------> 设置优先级  ------> 设置为        <font color='red'>高于正常</font>
+> 
+> 注意：**不能是实时 or 高 ，会造成前台活跃窗口卡顿，从而没法并行使用电脑！！！！！！！！！！**
+
 ### 虚拟磁盘（文件）的扩容
 
 https://blog.csdn.net/qq_37140721/article/details/125619393

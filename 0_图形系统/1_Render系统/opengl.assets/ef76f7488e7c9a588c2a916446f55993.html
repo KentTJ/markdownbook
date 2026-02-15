@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<!-- saved from url=(0082)https://unlockdoc.smain.cn/online/2025-12-02/ef76f7488e7c9a588c2a916446f55993.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <style>
+      .nodata main {width:1000px;margin: auto;}
+    </style>
+  <style></style></head>
+  
+  <body class="nodata " style="">
+    <div class="main_father clearfix d-flex justify-content-center " style="height:100%;">
+      <div class="container clearfix " id="mainBox">
+        <main>
+          <div class="blog-content-box">
+            <meta name="referrer" content="no-referrer">
+            <link rel="stylesheet" type="text/css" href="./ef76f7488e7c9a588c2a916446f55993_files/13062df20.css">
+
+              <div class="article-header-box" id="article-header-box"> 
+ <div class="article-header"> 
+  <div class="article-title-box"> 
+   <h1 class="title-article" id="articleContentId" style="line-height: 1.5;">Mesa代码结构分析</h1> 
+  </div> 
+ </div> 
+</div> 
+<div id="blogHuaweiyunAdvert" class=""></div> 
+<div class="ai-abstract-box"> 
+ <div class="ai-abstract"> 
+  <div class="abstract-content"> 
+   <img class="lock-img" src="./ef76f7488e7c9a588c2a916446f55993_files/a7311a21245d4888a669ca3155f1f4e5.png" alt="">本文介绍了Mesa20.0.8源码树，为简化移除了tests相关内容。分析方法采用ninja -t browse让ninja工具自动生成构建依赖关系图，可在浏览器查看。还对gallium/drivers/vc4下多个文件及OSMesa相关文件进行了分析。 
+  </div> 
+ </div> 
+</div> 
+<article class="baidu_pl"> 
+ <div id="article_content" class="article_content clearfix"> 
+  <link rel="stylesheet" href="./ef76f7488e7c9a588c2a916446f55993_files/kdoc_html_views-1a98987dfd.css"> 
+  <link rel="stylesheet" href="./ef76f7488e7c9a588c2a916446f55993_files/ck_htmledit_views-10bf609291.css"> 
+  <div id="content_views" class="markdown_views prism-atom-one-dark"> 
+   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"> 
+    <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path> 
+   </svg> 
+   <p></p> 
+   <div class="toc"> 
+    <h4>文章目录</h4> 
+    <ul> 
+     <li><a href="https://unlockdoc.smain.cn/online/2025-12-02/ef76f7488e7c9a588c2a916446f55993.html#_5">官方源码树介绍</a></li> 
+     <li><a href="https://unlockdoc.smain.cn/online/2025-12-02/ef76f7488e7c9a588c2a916446f55993.html#Mesa2008_9">Mesa20.0.8源码树</a></li> 
+     <li><a href="https://unlockdoc.smain.cn/online/2025-12-02/ef76f7488e7c9a588c2a916446f55993.html#_365">分析方法</a></li> 
+     <li> 
+      <ul> 
+       <li><a href="https://unlockdoc.smain.cn/online/2025-12-02/ef76f7488e7c9a588c2a916446f55993.html#_368">准备</a></li> 
+       <li><a href="https://unlockdoc.smain.cn/online/2025-12-02/ef76f7488e7c9a588c2a916446f55993.html#_375">开始</a></li> 
+      </ul> </li> 
+     <li><a href="https://unlockdoc.smain.cn/online/2025-12-02/ef76f7488e7c9a588c2a916446f55993.html#galliumdriversvc4_381">gallium/drivers/vc4</a></li> 
+     <li> 
+      <ul> 
+       <li><a href="https://unlockdoc.smain.cn/online/2025-12-02/ef76f7488e7c9a588c2a916446f55993.html#srcgalliumwinsysvc4drmvc4_drm_winsysc_382">src/gallium/winsys/vc4/drm/vc4_drm_winsys.c</a></li> 
+       <li><a href="https://unlockdoc.smain.cn/online/2025-12-02/ef76f7488e7c9a588c2a916446f55993.html#srcgalliumdriversvc4vc4_screenc_386">src/gallium/drivers/vc4/vc4_screen.c</a></li> 
+       <li><a href="https://unlockdoc.smain.cn/online/2025-12-02/ef76f7488e7c9a588c2a916446f55993.html#srcgalliumauxiliarytargethelpersdrm_helperh_389">src/gallium/auxiliary/target-helpers/drm_helper.h</a></li> 
+       <li><a href="https://unlockdoc.smain.cn/online/2025-12-02/ef76f7488e7c9a588c2a916446f55993.html#srcgalliumauxiliarypipeloaderpipe_loader_drmc_392">src/gallium/auxiliary/pipe-loader/pipe_loader_drm.c</a></li> 
+       <li><a href="https://unlockdoc.smain.cn/online/2025-12-02/ef76f7488e7c9a588c2a916446f55993.html#srcgalliumauxiliarypipeloaderpipe_loaderc_492">src/gallium/auxiliary/pipe-loader/pipe_loader.c</a></li> 
+       <li><a href="https://unlockdoc.smain.cn/online/2025-12-02/ef76f7488e7c9a588c2a916446f55993.html#srcgalliumstate_trackersclovercoreplatformcpp_520">src/gallium/state_trackers/clover/core/platform.cpp</a></li> 
+      </ul> </li> 
+     <li><a href="https://unlockdoc.smain.cn/online/2025-12-02/ef76f7488e7c9a588c2a916446f55993.html#OSMesa_541">OSMesa</a></li> 
+    </ul> 
+   </div> 
+   <p></p> 
+   <hr color="#000000" size="1&quot;"> 
+   <h2><a id="_5"></a>官方源码树介绍</h2> 
+   <blockquote> 
+    <p><a href="https://docs.mesa3d.org/sourcetree.html#source-code-tree" rel="nofollow">Source Code Tree</a></p> 
+   </blockquote> 
+   <h2><a id="Mesa2008_9"></a>Mesa20.0.8源码树</h2> 
+   <blockquote> 
+    <p>为了简化，移除了tests相关的内容</p> 
+   </blockquote> 
+   <pre><code style="height: 50vh;" class="prism language-bash">├── bin <span class="token comment"># 一些python和shell脚本类工具</span>
+│   └── pick <span class="token comment"># git cherry-pick相关的python脚本</span>
+├── build-support
+├── docs <span class="token comment"># 文档</span>
+│   ├── relnotes <span class="token comment"># release notes</span>
+│   └── specs <span class="token comment"># Mesa相关的OpenGL扩展规范</span>
+│       └── OLD
+├── doxygen
+├── include <span class="token comment"># 公用的OpenGL头文件</span>
+│   ├── c11
+│   ├── CL
+│   ├── D3D9
+│   ├── d3dadapter
+│   ├── drm-uapi
+│   ├── EGL
+│   ├── GL
+│   │   └── internal
+│   ├── GLES
+│   ├── GLES2
+│   ├── GLES3
+│   ├── HaikuGL
+│   ├── KHR
+│   ├── pci_ids
+│   └── vulkan
+├── src
+│   ├── amd <span class="token comment"># AMD相关的源代码</span>
+│   │   ├── addrlib <span class="token comment"># common sources for creating images, (calculate texture addresses ??)</span>
+│   │   │   ├── inc
+│   │   │   └── src
+│   │   │       ├── chip
+│   │   │       │   ├── gfx10
+│   │   │       │   ├── gfx9
+│   │   │       │   └── r800
+│   │   │       ├── core
+│   │   │       ├── gfx10
+│   │   │       ├── gfx9
+│   │   │       └── r800
+│   │   ├── common <span class="token comment"># common code between RADV, randeonsi and ACO</span>
+│   │   ├── compiler <span class="token comment"># ACO shader compiler</span>
+│   │   ├── llvm <span class="token comment"># common code between RADV and radeonsi for compiling shaders using LLVM</span>
+│   │   ├── registers <span class="token comment"># register definitions</span>
+│   │   └── vulkan <span class="token comment"># RADV Vulkan implementation for AMD Southern Island and newer</span>
+│   │       └── winsys
+│   │           ├── amdgpu
+│   │           └── null
+│   ├── broadcom
+│   │   ├── cle
+│   │   ├── clif
+│   │   ├── common
+│   │   ├── compiler
+│   │   ├── drm-shim
+│   │   └── qpu
+│   ├── compiler <span class="token comment"># Common utility sources for different compilers</span>
+│   │   ├── glsl <span class="token comment"># the GLSL IR and compiler</span>
+│   │   │   └── glcpp
+│   │   ├── nir <span class="token comment"># the NIR IR and compiler</span>
+│   │   └── spirv <span class="token comment"># the SPIR-V compiler</span>
+│   ├── drm-shim
+│   ├── egl <span class="token comment"># EGL library sources</span>
+│   │   ├── drivers <span class="token comment"># EGL drivers</span>
+│   │   │   ├── dri2
+│   │   │   └── haiku
+│   │   ├── generate
+│   │   ├── main <span class="token comment"># main EGL library implementation. This is where all the EGL API functions are implemented, like eglCreateContext().</span>
+│   │   └── wayland
+│   │       └── wayland-drm
+│   ├── etnaviv
+│   │   ├── drm
+│   │   └── drm-shim
+│   ├── freedreno <span class="token comment"># Qualcomm Adreno-specific sources(高通)</span>
+│   │   ├── drm
+│   │   ├── drm-shim
+│   │   ├── fdl <span class="token comment"># mipmap layout manager</span>
+│   │   ├── ir3
+│   │   ├── perfcntrs
+│   │   ├── registers
+│   │   └── vulkan <span class="token comment"># Turnip is a Vulkan implementation for Qualcomm Adreno</span>
+│   ├── gallium <span class="token comment"># Galllium3D source code</span>
+│   │   ├── auxiliary <span class="token comment"># Gallium suport code</span>
+│   │   │   ├── cso_cache <span class="token comment"># Constant State Objects Cache. Used to filter out redundant state</span>
+│   │   │   │             <span class="token comment"># changes between frontends and drivers.</span>
+│   │   │   ├── draw <span class="token comment"># Software vertex processing and primitive assembly module.</span>
+│   │   │   │        <span class="token comment"># This include vertex program execution, clipping, culling and optional</span>
+│   │   │   │        <span class="token comment"># stages for drawing wide lines, stippled lines, polygon stippling, two-sided</span>
+│   │   │   │        <span class="token comment"># lighting, etc. Intended for use by drivers for hardware that does not have</span>
+│   │   │   │        <span class="token comment"># vertex shaders. Geometry shaders will also be implemented in this module. </span>
+│   │   │   │ 
+│   │   │   ├── driver_ddebug
+│   │   │   ├── driver_noop
+│   │   │   ├── driver_rbug <span class="token comment"># Gallium remote debug utility ???</span>
+│   │   │   ├── driver_trace
+│   │   │   ├── gallivm <span class="token comment"># LLVM module for Gallium. For LLVM-based compilation, optimization and </span>
+│   │   │   │           <span class="token comment"># code generation for TGSI shaders. Incomplete.??</span>
+│   │   │   │           
+│   │   │   ├── hud <span class="token comment"># Heads-Up Display, an overlay showing GPU statistics</span>
+│   │   │   ├── indices
+│   │   │   ├── nir
+│   │   │   ├── os
+│   │   │   ├── pipebuffer <span class="token comment"># utility module for managing buffers</span>
+│   │   │   ├── pipe-loader
+│   │   │   ├── postprocess
+│   │   │   ├── rbug
+│   │   │   ├── renderonly
+│   │   │   ├── rtasm <span class="token comment"># run-time assembly/machine code generation. Currently there's run-time code</span>
+│   │   │   │         <span class="token comment"># generation for x86/SSE, PowerPC and Cell SPU.</span>
+│   │   │   ├── target-helpers
+│   │   │   ├── tgsi <span class="token comment"># TG Shader Infrastructure. Code for encoding, manipulating and </span>
+│   │   │   │        <span class="token comment"># interpreting GPU programs.</span>
+│   │   │   ├── translate <span class="token comment"># module for translating vertex data from one format to another</span>
+│   │   │   ├── util <span class="token comment"># assorted utilities for arithmetic, hashing, surface creation, </span>
+│   │   │   │        <span class="token comment"># memory management, 2D blitting, simple rendering, etc.</span>
+│   │   │   └── vl <span class="token comment"># utility code for video decode/encode</span>
+│   │   ├── docs <span class="token comment"># 里面有个pipeline.txt需要仔细读一下</span>
+│   │   │   └── <span class="token function">source</span>
+│   │   │       ├── cso
+│   │   │       ├── drivers
+│   │   │       │   ├── freedreno
+│   │   │       │   └── openswr
+│   │   │       └── exts
+│   │   ├── drivers <span class="token comment"># Gallium3D device drivers</span>
+│   │   │   ├── etnaviv <span class="token comment"># Driver for Vivante.</span>
+│   │   │   │   └── hw
+│   │   │   ├── freedreno <span class="token comment"># Driver for Qualcomm Adreno</span>
+│   │   │   │   ├── a2xx
+│   │   │   │   ├── a3xx
+│   │   │   │   ├── a4xx
+│   │   │   │   ├── a5xx
+│   │   │   │   ├── a6xx
+│   │   │   │   └── ir3
+│   │   │   ├── i915 <span class="token comment"># Driver for Intel i915/i945.</span>
+│   │   │   ├── iris <span class="token comment"># Driver for Intel gen 8 (Broadwell) and newer.</span>
+│   │   │   ├── kmsro <span class="token comment">#</span>
+│   │   │   ├── lima <span class="token comment"># Driver for ARM Mali-400 (Utgard) series.</span>
+│   │   │   │   ├── ir
+│   │   │   │   │   ├── gp
+│   │   │   │   │   └── pp
+│   │   │   │   └── standalone
+│   │   │   ├── llvmpipe <span class="token comment"># Software driver using LLVM for runtime code generation.</span>
+│   │   │   ├── nouveau <span class="token comment"># Driver for NVIDIA GPUs.</span>
+│   │   │   │   ├── codegen
+│   │   │   │   │   └── lib
+│   │   │   │   ├── nv30
+│   │   │   │   ├── nv50
+│   │   │   │   └── nvc0
+│   │   │   │       └── mme
+│   │   │   ├── panfrost <span class="token comment"># Driver for ARM Mali Txxx (Midgard) and Gxx (Bifrost) GPUs.</span>
+│   │   │   │   └── nir
+│   │   │   ├── r300 <span class="token comment"># Driver for ATI R300 - R500.</span>
+│   │   │   │   └── compiler
+│   │   │   ├── r600 <span class="token comment"># Driver for ATI/AMD R600 - Northern Island (Terascale).</span>
+│   │   │   │   └── sb
+│   │   │   ├── radeon <span class="token comment"># Shared module for the r600 and radeonsi drivers.</span>
+│   │   │   ├── radeonsi <span class="token comment"># Driver for AMD Southern Island and newer (GCN, RDNA).</span>
+│   │   │   ├── softpipe <span class="token comment"># Software reference driver.</span>
+│   │   │   ├── svga <span class="token comment">#  Driver for VMware’s SVGA virtual GPU.</span>
+│   │   │   │   ├── include
+│   │   │   │   └── svgadump
+│   │   │   ├── swr <span class="token comment"># Software driver with massively parellel vertex processing.</span>
+│   │   │   │   └── rasterizer
+│   │   │   │       ├── archrast
+│   │   │   │       ├── codegen
+│   │   │   │       │   └── templates
+│   │   │   │       ├── common
+│   │   │   │       ├── core
+│   │   │   │       │   └── backends
+│   │   │   │       ├── jitter
+│   │   │   │       │   ├── functionpasses
+│   │   │   │       │   └── shader_lib
+│   │   │   │       └── memory
+│   │   │   ├── tegra <span class="token comment"># Driver for NVIDIA Tegra GPUs.</span>
+│   │   │   ├── v3d <span class="token comment"># Driver for Broadcom VideoCore 5 and newer.</span>
+│   │   │   ├── vc4 <span class="token comment"># Driver for Broadcom VideoCore 4.</span>
+│   │   │   │   └── kernel
+│   │   │   ├── virgl <span class="token comment"># Driver for Virtio virtual GPU of QEMU.</span>
+│   │   │   └── zink <span class="token comment"># Driver that uses Vulkan for rendering.</span>
+│   │   │       └── nir_to_spirv
+│   │   ├── include <span class="token comment"># Gallium3D header files which define the Gallium3D interfaces</span>
+│   │   │   ├── pipe
+│   │   │   └── state_tracker
+│   │   ├── state_trackers <span class="token comment"># fontends?  These implement various libraries using the device drivers</span>
+│   │   │   ├── clover <span class="token comment"># OpenCL frontend</span>
+│   │   │   │   ├── api
+│   │   │   │   ├── core
+│   │   │   │   ├── llvm
+│   │   │   │   │   └── codegen
+│   │   │   │   ├── nir
+│   │   │   │   ├── spirv
+│   │   │   │   └── util
+│   │   │   ├── dri <span class="token comment"># Meta frontend for DRI drivers, see mesa/state_tracker</span>
+│   │   │   ├── glx <span class="token comment"># Meta frontend for GLX</span>
+│   │   │   │   └── xlib
+│   │   │   ├── hgl <span class="token comment"># Haiku OpenGL</span>
+│   │   │   ├── nine <span class="token comment"># D3D9 frontend, see targets/d3dadapter9</span>
+│   │   │   ├── omx <span class="token comment"># OpenMAX Bellagio frontend</span>
+│   │   │   │   ├── bellagio
+│   │   │   │   └── tizonia
+│   │   │   ├── osmesa <span class="token comment"># Off-screen OpenGL rendering library</span>
+│   │   │   ├── va <span class="token comment"># VA-API frontend</span>
+│   │   │   ├── vdpau <span class="token comment"># VDPAU frontend</span>
+│   │   │   ├── wgl <span class="token comment"># Windows WGL frontend</span>
+│   │   │   ├── xa <span class="token comment"># XA frontend</span>
+│   │   │   └── xvmc <span class="token comment"># XvMC frontend</span>
+│   │   ├── targets <span class="token comment"># These control how the Gallium code is compiled into different libraries.</span>
+│   │   │   │       <span class="token comment"># Each of these roughly corresponds to one frontend.  </span>
+│   │   │   ├── d3dadapter9 <span class="token comment"># d3dadapter9.so for Wine</span>
+│   │   │   ├── dri <span class="token comment"># libgallium_dri.so loaded by libGL.so</span>
+│   │   │   ├── graw-gdi <span class="token comment"># 'graw' means ' raw Gallium interface without a frontend'</span>
+│   │   │   ├── graw-null
+│   │   │   ├── graw-xlib
+│   │   │   ├── haiku-softpipe
+│   │   │   ├── libgl-gdi
+│   │   │   ├── libgl-xlib
+│   │   │   ├── omx
+│   │   │   ├── opencl
+│   │   │   ├── osmesa
+│   │   │   ├── pipe-loader
+│   │   │   ├── va
+│   │   │   ├── vdpau
+│   │   │   ├── xa
+│   │   │   └── xvmc
+│   │   ├── tools
+│   │   │   └── trace
+│   │   └── winsys <span class="token comment"># The device drivers are platform-independent, the winsys connects them to </span>
+│   │       │      <span class="token comment"># various platforms. There is usually one winsys per device family, and within</span>
+│   │       │      <span class="token comment"># the winsys directory there can be multiple flavors connecting to different</span>
+│   │       │      <span class="token comment"># platforms</span>
+│   │       ├── amdgpu
+│   │       │   └── drm
+│   │       ├── etnaviv
+│   │       │   └── drm
+│   │       ├── freedreno
+│   │       │   └── drm
+│   │       ├── i915
+│   │       │   └── drm
+│   │       ├── iris
+│   │       │   └── drm
+│   │       ├── kmsro
+│   │       │   └── drm
+│   │       ├── lima
+│   │       │   └── drm
+│   │       ├── nouveau
+│   │       │   └── drm
+│   │       ├── panfrost
+│   │       │   └── drm
+│   │       ├── radeon
+│   │       │   └── drm
+│   │       ├── svga
+│   │       │   └── drm
+│   │       ├── sw
+│   │       │   ├── dri
+│   │       │   ├── gdi <span class="token comment"># Windows</span>
+│   │       │   ├── hgl
+│   │       │   ├── kms-dri
+│   │       │   ├── null
+│   │       │   ├── wrapper
+│   │       │   └── xlib <span class="token comment"># indirect rendering on X Window System</span>
+│   │       ├── tegra
+│   │       │   └── drm
+│   │       ├── v3d
+│   │       │   └── drm
+│   │       ├── vc4
+│   │       │   └── drm
+│   │       └── virgl
+│   │           ├── common
+│   │           └── drm
+│   ├── gbm <span class="token comment"># Generic Buffer Manager is memory allocator for device</span>
+│   │   ├── backends
+│   │   │   └── dri
+│   │   └── main
+│   ├── getopt
+│   ├── glx <span class="token comment"># The GLX library code for building libGL.so using DRI drivers.</span>
+│   │   ├── apple
+│   │   └── windows
+│   ├── hgl
+│   ├── imgui
+│   ├── intel <span class="token comment"># Intel-specific source</span>
+│   │   ├── blorp <span class="token comment"># BLit Or Resolve Pass is blit and HiZ resolve framework</span>
+│   │   ├── common
+│   │   ├── compiler
+│   │   ├── dev
+│   │   ├── genxml
+│   │   ├── isl
+│   │   ├── perf
+│   │   ├── tools
+│   │   │   └── imgui
+│   │   └── vulkan <span class="token comment"># Anvil is a Vulkan implementation for Intel gen 7(Ivy Bridge) and newer</span>
+│   ├── loader <span class="token comment"># Used by libGL.so to find and load the appropriate DRI driver.</span>
+│   ├── mapi <span class="token comment"># Mesa APIs</span>
+│   │   ├── es1api
+│   │   ├── es2api
+│   │   ├── glapi <span class="token comment"># OpenGL API dispatch layer. This is where all the GL entrypoints like glClear,</span>
+│   │   │   │     <span class="token comment"># glBegin, etc. are generated, as well as the GL dispatch table. All GL function</span>
+│   │   │   │     <span class="token comment"># calls jump through the dispatch table to functions found in main/.</span>
+│   │   │   │ 
+│   │   │   ├── gen
+│   │   │   └──registry
+│   │   ├── new
+│   │   └── shared-glapi
+│   ├── mesa <span class="token comment"># Main Mesa sources</span>
+│   │   ├── drivers <span class="token comment"># Mesa drivers(not used with Gallium)</span>
+│   │   │   ├── common <span class="token comment"># code which may be shared by all drivers</span>
+│   │   │   ├── dri <span class="token comment"># Direct Rendering Infrastructure drivers</span>
+│   │   │   │   ├── common <span class="token comment"># code shared by all DRI drivers</span>
+│   │   │   │   ├── i915 <span class="token comment"># driver for Intel i915/i945</span>
+│   │   │   │   ├── i965 <span class="token comment"># driver for Intel i965</span>
+│   │   │   │   ├── nouveau <span class="token comment"># driver for nVidia nv04/nv10/nv20</span>
+│   │   │   │   ├── r200 <span class="token comment"># driver for ATI R100</span>
+│   │   │   │   │   └── server
+│   │   │   │   ├── radeon <span class="token comment"># driver for ATI R200</span>
+│   │   │   │   │   └── server
+│   │   │   │   └── swrast <span class="token comment"># software rasterizer driver the uses the swrast module</span>
+│   │   │   ├── osmesa <span class="token comment"># off-screen software driver</span>
+│   │   │   └── x11 <span class="token comment"># Xlib-based software driver</span>
+│   │   ├── main <span class="token comment"># The core Mesa code(mainly state management)</span>
+│   │   ├── math <span class="token comment"># vertex array translation and transformation code(not used with Gallium)</span>
+│   │   ├── program <span class="token comment"># Vertex/fragment shader and GLSL compiler code</span>
+│   │   ├── sparc <span class="token comment"># Assembly code/optimizations for SPARC systems(not used with Gallium)</span>
+│   │   ├── state_tracker <span class="token comment"># Translator from Mesa to Gallium. This is basically a Mesa device</span>
+│   │   │   			  <span class="token comment"># driver the speaks to Gallium. This directory may be moved to 	</span>
+│   │   │                 <span class="token comment"># src/mesa/drivers/gallium at some point.</span>
+│   │   ├── swrast <span class="token comment"># Software rasterization module. For drawing points, lines, triangles,</span>
+│   │   │          <span class="token comment"># bitmaps, images, etc. in software. (not used with Gallium)</span>
+│   │   ├── swrast_setup <span class="token comment"># Software primitive setup. Does things like polygon culling, </span>
+│   │   │                <span class="token comment"># glPolygonMode, polygon offset, etc. (not used with Gallium)</span>
+│   │   ├── tnl <span class="token comment"># Software vertex Transformation and Lighting. (not used with Gallium)</span>
+│   │   ├── tnl_dd <span class="token comment"># TNL code for device drivers. (not used with Gallium)</span>
+│   │   ├── vbo <span class="token comment"># Vertex Buffer Object code. All drawing with glBegin/glEnd, glDrawArrays,</span>
+│   │   │       <span class="token comment"># display lists, etc. goes through this module. The results is a well-defined</span>
+│   │   │       <span class="token comment"># set of vertext arrays which are passed to the device driver (or tnl module)</span>
+│   │   │       <span class="token comment"># for rendering.</span>
+│   │   ├── x86 <span class="token comment"># Assembly code/optimizations for 32-bit x86 systems(not used with Gallium)</span>
+│   │   │   └── rtasm
+│   │   └── x86-64 <span class="token comment"># Assembly code/optimizations for 64-bit x86 systems(not used with Gallium)</span>
+│   ├── panfrost <span class="token comment"># Panfrost-specific sources(for ARM Mali Midgard and Bifrost GPUs).</span>
+│   │   ├── bifrost <span class="token comment"># shader compiler for the Bifrost generation GPUs</span>
+│   │   ├── encoder
+│   │   ├── include
+│   │   ├── midgard <span class="token comment"># shader compiler for the Midgard generations GPUs</span>
+│   │   ├── pandecode
+│   │   └── shared <span class="token comment"># shared Mali code between Lima and Panfrost</span>
+│   ├── util <span class="token comment"># Various utility codes</span>
+│   │   ├── <span class="token function">format</span>
+│   │   ├── sha1
+│   │   └── xmlpool
+│   └── vulkan <span class="token comment"># Common code for Vulkan drivers</span>
+│       ├── overlay-layer
+│       ├── registry
+│       ├── util
+│       └── wsi
+└── subprojects
+</code></pre> 
+   <h2><a id="_365"></a>分析方法</h2> 
+   <p>徒手去分析meson.build效率太低了，这里采用ninja -t browse的方式让ninja工具给我自动生成构建依赖关系图，并能够用浏览器打开方便查看。</p> 
+   <h3><a id="_368"></a>准备</h3> 
+   <p>参考我写的<a href="https://blog.csdn.net/fengningning/article/details/111226234">Mesa编译</a>，执行到</p> 
+   <pre><code class="prism language-bash">meson configure build/
+</code></pre> 
+   <p>就可以了</p> 
+   <h3><a id="_375"></a>开始</h3> 
+   <pre><code class="prism language-bash">ninja -C build/ -t browse
+</code></pre> 
+   <h2><a id="galliumdriversvc4_381"></a>gallium/drivers/vc4</h2> 
+   <h3><a id="srcgalliumwinsysvc4drmvc4_drm_winsysc_382"></a>src/gallium/winsys/vc4/drm/vc4_drm_winsys.c</h3> 
+   <blockquote> 
+    <p>vc4_drm_screen_create -&gt; vc4_screen_create<br> vc4_drm_screen_create_renderonly</p> 
+   </blockquote> 
+   <h3><a id="srcgalliumdriversvc4vc4_screenc_386"></a>src/gallium/drivers/vc4/vc4_screen.c</h3> 
+   <blockquote> 
+    <p>vc4_screen_create</p> 
+   </blockquote> 
+   <h3><a id="srcgalliumauxiliarytargethelpersdrm_helperh_389"></a>src/gallium/auxiliary/target-helpers/drm_helper.h</h3> 
+   <blockquote> 
+    <p>pipe_vc4_create_screen -&gt; vc4_drm_screen_create</p> 
+   </blockquote> 
+   <h3><a id="srcgalliumauxiliarypipeloaderpipe_loader_drmc_392"></a>src/gallium/auxiliary/pipe-loader/pipe_loader_drm.c</h3> 
+   <pre><code style="height: 50vh;" class="prism language-cpp"><span class="token keyword">static</span> <span class="token keyword">const</span> <span class="token keyword">struct</span> drm_driver_descriptor driver_descriptors<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{
+            
+      <!-- --></span>
+<span class="token comment">// 省略</span>
+    <span class="token punctuation">{
+            
+      <!-- --></span>
+        <span class="token punctuation">.</span>driver_name <span class="token operator">=</span> <span class="token string">"vc4"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">.</span>create_screen <span class="token operator">=</span> pipe_vc4_create_screen<span class="token punctuation">,</span>
+        <span class="token punctuation">.</span>driconf_xml <span class="token operator">=</span> <span class="token operator">&amp;</span>v3d_driconf_xml<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token comment">// 省略</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">static</span> <span class="token keyword">const</span> <span class="token keyword">struct</span> drm_driver_descriptor <span class="token operator">*</span>
+<span class="token function">get_driver_descriptor</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>driver_name<span class="token punctuation">,</span> <span class="token keyword">struct</span> util_dl_library <span class="token operator">*</span><span class="token operator">*</span>plib<span class="token punctuation">)</span>
+<span class="token punctuation">{
+            
+      <!-- --></span>
+<span class="token macro property">#<span class="token directive keyword">ifdef</span> GALLIUM_STATIC_TARGETS</span>
+   <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token function">ARRAY_SIZE</span><span class="token punctuation">(</span>driver_descriptors<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{
+            
+      <!-- --></span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">strcmp</span><span class="token punctuation">(</span>driver_descriptors<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>driver_name<span class="token punctuation">,</span> driver_name<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+         <span class="token keyword">return</span> <span class="token operator">&amp;</span>driver_descriptors<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+   <span class="token keyword">return</span> <span class="token operator">&amp;</span>default_driver_descriptor<span class="token punctuation">;</span>
+<span class="token macro property">#<span class="token directive keyword">else</span></span>
+<span class="token comment">// 省略</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">static</span> <span class="token keyword">bool</span>
+<span class="token function">pipe_loader_drm_probe_fd_nodup</span><span class="token punctuation">(</span><span class="token keyword">struct</span> pipe_loader_device <span class="token operator">*</span><span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token keyword">int</span> fd<span class="token punctuation">)</span>
+<span class="token punctuation">{
+            
+      <!-- --></span>
+   <span class="token keyword">struct</span> pipe_loader_drm_device <span class="token operator">*</span>ddev <span class="token operator">=</span> <span class="token function">CALLOC_STRUCT</span><span class="token punctuation">(</span>pipe_loader_drm_device<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">int</span> vendor_id<span class="token punctuation">,</span> chip_id<span class="token punctuation">;</span>
+
+   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>ddev<span class="token punctuation">)</span>
+      <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">loader_get_pci_id_for_fd</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> <span class="token operator">&amp;</span>vendor_id<span class="token punctuation">,</span> <span class="token operator">&amp;</span>chip_id<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{
+            
+      <!-- --></span>
+      ddev<span class="token operator">-</span><span class="token operator">&gt;</span>base<span class="token punctuation">.</span>type <span class="token operator">=</span> PIPE_LOADER_DEVICE_PCI<span class="token punctuation">;</span>
+      ddev<span class="token operator">-</span><span class="token operator">&gt;</span>base<span class="token punctuation">.</span>u<span class="token punctuation">.</span>pci<span class="token punctuation">.</span>vendor_id <span class="token operator">=</span> vendor_id<span class="token punctuation">;</span>
+      ddev<span class="token operator">-</span><span class="token operator">&gt;</span>base<span class="token punctuation">.</span>u<span class="token punctuation">.</span>pci<span class="token punctuation">.</span>chip_id <span class="token operator">=</span> chip_id<span class="token punctuation">;</span>
+   <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{
+            
+      <!-- --></span>
+      ddev<span class="token operator">-</span><span class="token operator">&gt;</span>base<span class="token punctuation">.</span>type <span class="token operator">=</span> PIPE_LOADER_DEVICE_PLATFORM<span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+   ddev<span class="token operator">-</span><span class="token operator">&gt;</span>base<span class="token punctuation">.</span>ops <span class="token operator">=</span> <span class="token operator">&amp;</span>pipe_loader_drm_ops<span class="token punctuation">;</span>
+   ddev<span class="token operator">-</span><span class="token operator">&gt;</span>fd <span class="token operator">=</span> fd<span class="token punctuation">;</span>
+
+   ddev<span class="token operator">-</span><span class="token operator">&gt;</span>base<span class="token punctuation">.</span>driver_name <span class="token operator">=</span> <span class="token function">loader_get_driver_for_fd</span><span class="token punctuation">(</span>fd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>ddev<span class="token operator">-</span><span class="token operator">&gt;</span>base<span class="token punctuation">.</span>driver_name<span class="token punctuation">)</span>
+      <span class="token keyword">goto</span> fail<span class="token punctuation">;</span>
+
+   <span class="token comment">/* For the closed source AMD OpenGL driver, we want libgbm to load
+    * "amdgpu_dri.so", but we want Gallium multimedia drivers to load
+    * "radeonsi". So change amdgpu to radeonsi for Gallium.
+    */</span>
+   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">strcmp</span><span class="token punctuation">(</span>ddev<span class="token operator">-</span><span class="token operator">&gt;</span>base<span class="token punctuation">.</span>driver_name<span class="token punctuation">,</span> <span class="token string">"amdgpu"</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{
+            
+      <!-- --></span>
+      <span class="token function">FREE</span><span class="token punctuation">(</span>ddev<span class="token operator">-</span><span class="token operator">&gt;</span>base<span class="token punctuation">.</span>driver_name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      ddev<span class="token operator">-</span><span class="token operator">&gt;</span>base<span class="token punctuation">.</span>driver_name <span class="token operator">=</span> <span class="token function">strdup</span><span class="token punctuation">(</span><span class="token string">"radeonsi"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+
+   <span class="token keyword">struct</span> util_dl_library <span class="token operator">*</span><span class="token operator">*</span>plib <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+<span class="token macro property">#<span class="token directive keyword">ifndef</span> GALLIUM_STATIC_TARGETS</span>
+   plib <span class="token operator">=</span> <span class="token operator">&amp;</span>ddev<span class="token operator">-</span><span class="token operator">&gt;</span>lib<span class="token punctuation">;</span>
+<span class="token macro property">#<span class="token directive keyword">endif</span></span>
+   ddev<span class="token operator">-</span><span class="token operator">&gt;</span>dd <span class="token operator">=</span> <span class="token function">get_driver_descriptor</span><span class="token punctuation">(</span>ddev<span class="token operator">-</span><span class="token operator">&gt;</span>base<span class="token punctuation">.</span>driver_name<span class="token punctuation">,</span> plib<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token comment">/* kmsro supports lots of drivers, try as a fallback */</span>
+   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>ddev<span class="token operator">-</span><span class="token operator">&gt;</span>dd<span class="token punctuation">)</span>
+      ddev<span class="token operator">-</span><span class="token operator">&gt;</span>dd <span class="token operator">=</span> <span class="token function">get_driver_descriptor</span><span class="token punctuation">(</span><span class="token string">"kmsro"</span><span class="token punctuation">,</span> plib<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>ddev<span class="token operator">-</span><span class="token operator">&gt;</span>dd<span class="token punctuation">)</span>
+      <span class="token keyword">goto</span> fail<span class="token punctuation">;</span>
+
+   <span class="token operator">*</span>dev <span class="token operator">=</span> <span class="token operator">&amp;</span>ddev<span class="token operator">-</span><span class="token operator">&gt;</span>base<span class="token punctuation">;</span>
+   <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+
+  fail<span class="token operator">:</span>
+<span class="token macro property">#<span class="token directive keyword">ifndef</span> GALLIUM_STATIC_TARGETS</span>
+   <span class="token keyword">if</span> <span class="token punctuation">(</span>ddev<span class="token operator">-</span><span class="token operator">&gt;</span>lib<span class="token punctuation">)</span>
+      <span class="token function">util_dl_close</span><span class="token punctuation">(</span>ddev<span class="token operator">-</span><span class="token operator">&gt;</span>lib<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token macro property">#<span class="token directive keyword">endif</span></span>
+   <span class="token function">FREE</span><span class="token punctuation">(</span>ddev<span class="token operator">-</span><span class="token operator">&gt;</span>base<span class="token punctuation">.</span>driver_name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token function">FREE</span><span class="token punctuation">(</span>ddev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">bool</span>
+<span class="token function">pipe_loader_drm_probe_fd</span><span class="token punctuation">(</span><span class="token keyword">struct</span> pipe_loader_device <span class="token operator">*</span><span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token keyword">int</span> fd<span class="token punctuation">)</span>
+<span class="token punctuation">{
+            
+      <!-- --></span>
+   <span class="token keyword">bool</span> ret<span class="token punctuation">;</span>
+   <span class="token keyword">int</span> new_fd<span class="token punctuation">;</span>
+
+   <span class="token keyword">if</span> <span class="token punctuation">(</span>fd <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> <span class="token punctuation">(</span>new_fd <span class="token operator">=</span> <span class="token function">fcntl</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> F_DUPFD_CLOEXEC<span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+     <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+   ret <span class="token operator">=</span> <span class="token function">pipe_loader_drm_probe_fd_nodup</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> new_fd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>ret<span class="token punctuation">)</span>
+      <span class="token function">close</span><span class="token punctuation">(</span>new_fd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">return</span> ret<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+   <h3><a id="srcgalliumauxiliarypipeloaderpipe_loaderc_492"></a>src/gallium/auxiliary/pipe-loader/pipe_loader.c</h3> 
+   <pre><code style="height: 50vh;" class="prism language-cpp"><span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>backends<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">struct</span> pipe_loader_device <span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">{
+            
+      <!-- --></span>
+<span class="token macro property">#<span class="token directive keyword">ifdef</span> HAVE_LIBDRM</span>
+   <span class="token operator">&amp;</span>pipe_loader_drm_probe<span class="token punctuation">,</span>
+<span class="token macro property">#<span class="token directive keyword">endif</span></span>
+   <span class="token operator">&amp;</span>pipe_loader_sw_probe
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token keyword">char</span> gallium_driinfo_xml<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span>
+   DRI_CONF_BEGIN
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"driinfo_gallium.h"</span></span>
+   DRI_CONF_END
+<span class="token punctuation">;</span>
+
+<span class="token keyword">int</span>
+<span class="token function">pipe_loader_probe</span><span class="token punctuation">(</span><span class="token keyword">struct</span> pipe_loader_device <span class="token operator">*</span><span class="token operator">*</span>devs<span class="token punctuation">,</span> <span class="token keyword">int</span> ndev<span class="token punctuation">)</span>
+<span class="token punctuation">{
+            
+      <!-- --></span>
+   <span class="token keyword">int</span> i<span class="token punctuation">,</span> n <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token function">ARRAY_SIZE</span><span class="token punctuation">(</span>backends<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+      n <span class="token operator">+</span><span class="token operator">=</span> backends<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>devs<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token function">MAX2</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> ndev <span class="token operator">-</span> n<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">return</span> n<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+   <h3><a id="srcgalliumstate_trackersclovercoreplatformcpp_520"></a>src/gallium/state_trackers/clover/core/platform.cpp</h3> 
+   <pre><code style="height: 50vh;" class="prism language-cpp">platform<span class="token operator">::</span><span class="token function">platform</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">adaptor_range</span><span class="token punctuation">(</span><span class="token function">evals</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> devs<span class="token punctuation">)</span> <span class="token punctuation">{
+            
+      <!-- --></span>
+   <span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token function">pipe_loader_probe</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>pipe_loader_device <span class="token operator">*</span><span class="token operator">&gt;</span> <span class="token function">ldevs</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token function">pipe_loader_probe</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>ldevs<span class="token punctuation">.</span><span class="token function">front</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">for</span> <span class="token punctuation">(</span>pipe_loader_device <span class="token operator">*</span>ldev <span class="token operator">:</span> ldevs<span class="token punctuation">)</span> <span class="token punctuation">{
+            
+      <!-- --></span>
+      <span class="token keyword">try</span> <span class="token punctuation">{
+            
+      <!-- --></span>
+         <span class="token keyword">if</span> <span class="token punctuation">(</span>ldev<span class="token punctuation">)</span>
+            devs<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>create<span class="token operator">&lt;</span>device<span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token keyword">this</span><span class="token punctuation">,</span> ldev<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>error <span class="token operator">&amp;</span><span class="token punctuation">)</span> <span class="token punctuation">{
+            
+      <!-- --></span>
+         <span class="token function">pipe_loader_release</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>ldev<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+   <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre> 
+   <h2><a id="OSMesa_541"></a>OSMesa</h2> 
+   <blockquote> 
+    <p>src/gallium/state_trackers/osmesa/osmesa.c<br> include/GL/osmesa.h</p> 
+   </blockquote> 
+  </div> 
+  <link href="./ef76f7488e7c9a588c2a916446f55993_files/markdown_views-375c595788.css" rel="stylesheet"> 
+  <link href="./ef76f7488e7c9a588c2a916446f55993_files/style-e504d6a974.css" rel="stylesheet"> 
+ </div> 
+</article>
+
+     <div class="directory-boxshadow-dialog" style="display:none;"> 
+      <div class="directory-boxshadow-dialog-box"> 
+      </div> 
+      <div class="vip-limited-time-offer-box-new" id="vip-limited-time-offer-box-new"> 
+       <img class="limited-img limited-img-new" src="./ef76f7488e7c9a588c2a916446f55993_files/vip-limited-close-newWhite.png"> 
+       <div class="vip-limited-time-top">
+         确定要放弃本次机会？ 
+       </div> 
+       <span class="vip-limited-time-text">福利倒计时</span> 
+       <div class="limited-time-box-new"> 
+        <span class="time-hour"></span> 
+        <i>:</i> 
+        <span class="time-minite"></span> 
+        <i>:</i> 
+        <span class="time-second"></span> 
+       </div> 
+       <div class="limited-time-vip-box"> 
+        <p> <img class="coupon-img" src="./ef76f7488e7c9a588c2a916446f55993_files/vip-limited-close-roup.png"> <span class="def">立减 ¥</span> <span class="active limited-num"></span> </p> 
+        <span class="">普通VIP年卡可用</span> 
+       </div> 
+       <a class="limited-time-btn-new" href="https://mall.csdn.net/vip" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.9621&quot;}" data-report-query="spm=1001.2101.3001.9621">立即使用</a> 
+      </div> 
+     </div> <a id="commentBox" name="commentBox"></a> 
+     <div id="pcCommentBox" class="comment-box comment-box-new2 login-comment-box-new" style="display:none"> 
+      <div class="has-comment" style="display:block"> 
+       <div class="one-line-box"> 
+        <div class="has-comment-tit go-side-comment"> 
+         <span class="count">0</span>&nbsp;条评论 
+        </div> 
+        <div class="has-comment-con comment-operate-item"></div> 
+        <a class="has-comment-bt-right go-side-comment focus">写评论</a> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="blog-footer-bottom" style="margin-top:10px;"></div>   
+
+
+            <link rel="stylesheet" type="text/css" href="./ef76f7488e7c9a588c2a916446f55993_files/skin-whitemove-2af9149bdc.min.css">
+            
+            <div class="directory-boxshadow-dialog" style="display:none;">
+              <div class="directory-boxshadow-dialog-box">
+              </div>
+              <div class="vip-limited-time-offer-box-new" id="vip-limited-time-offer-box-new">
+                <img class="limited-img limited-img-new" src="./ef76f7488e7c9a588c2a916446f55993_files/vip-limited-close-newWhite.png">
+                <div class="vip-limited-time-top">
+                  确定要放弃本次机会？
+                </div>
+                <span class="vip-limited-time-text">
+                  福利倒计时
+                </span>
+                <div class="limited-time-box-new">
+                  <span class="time-hour">
+                  </span>
+                  <i>
+                    :
+                  </i>
+                  <span class="time-minite">
+                  </span>
+                  <i>
+                    :
+                  </i>
+                  <span class="time-second">
+                  </span>
+                </div>
+                <div class="limited-time-vip-box">
+                  <p>
+                    <img class="coupon-img" src="./ef76f7488e7c9a588c2a916446f55993_files/vip-limited-close-roup.png">
+                    <span class="def">
+                      立减 yen
+                    </span>
+                    <span class="active limited-num">
+                    </span>
+                  </p>
+                  <span class="">
+                    普通VIP年卡可用
+                  </span>
+                </div>
+                <a class="limited-time-btn-new" href="https://mall.csdn.net/vip" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.9621&quot;}" data-report-query="spm=1001.2101.3001.9621">
+                  立即使用
+                </a>
+              </div>
+            </div>
+
+            <!-- -- -->
+            <div style="display:none;" class="more-toolbox-new more-toolbar" id="toolBarBox">
+              <div class="left-toolbox">
+                <div class="toolbox-left">
+                  <div class="profile-box">
+                     <div class="profile-box"> 
+         <a class="profile-href" target="_blank" href="javascript:void(0);"><img class="profile-img" src="./ef76f7488e7c9a588c2a916446f55993_files/default.jpg!1"> <span class="profile-name">  </span> </a> 
+        </div> 
+                  </div>
+                  <div class="profile-attend">
+                    <a class="tool-attend tool-bt-button tool-unbt-attend" href="javascript:;" data-report-view="{&quot;mod&quot;:&quot;1592215036_002&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4232&quot;,&quot;extend1&quot;:&quot;已关注&quot;}">
+                      已关注
+                    </a>
+                    <a class="tool-item-follow active-animation" style="display:none;">
+                      关注
+                    </a>
+                  </div>
+                </div>
+                <div class="toolbox-middle">
+                  <ul class="toolbox-list">
+                    <li class="tool-item tool-item-size tool-active is-like" id="is-like" data-type="bottom">
+                      <a class="tool-item-href">
+                        <img style="display:none;" id="is-like-imgactive-animation-like" class="animation-dom active-animation" src="./ef76f7488e7c9a588c2a916446f55993_files/tobarThumbUpactive.png" alt="">
+                        <img class="isactive" style="display:none" id="is-like-imgactive" src="./ef76f7488e7c9a588c2a916446f55993_files/like-active.png" alt="">
+                        <img class="isdefault" style="display:block" id="is-like-img" src="./ef76f7488e7c9a588c2a916446f55993_files/like.png" alt="">
+                        <span id="spanCount" class="count ">
+                          0
+                        </span>
+                      </a>
+                      <div class="tool-hover-tip">
+                        <span class="text space">
+                          点赞
+                        </span>
+                      </div>
+                    </li>
+                    <li class="tool-item tool-item-size tool-active is-unlike" id="is-unlike">
+                      <a class="tool-item-href">
+                        <img class="isactive" style="margin-right:0px;display:none" id="is-unlike-imgactive" src="./ef76f7488e7c9a588c2a916446f55993_files/unlike-active.png" alt="">
+                        <img class="isdefault" style="margin-right:0px;display:block" id="is-unlike-img" src="./ef76f7488e7c9a588c2a916446f55993_files/unlike.png" alt="">
+                        <span id="unlikeCount" class="count ">
+                        </span>
+                      </a>
+                      <div class="tool-hover-tip">
+                        <span class="text space">
+                          踩
+                        </span>
+                      </div>
+                    </li>
+                    <li class="tool-item tool-item-size tool-active is-collection ">
+                      <a class="tool-item-href" href="javascript:;" data-report-click="{&quot;mod&quot;:&quot;popu_824&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4130&quot;,&quot;ab&quot;:&quot;new&quot;}">
+                        <img style="display:none" id="is-collection-img-collection" class="animation-dom active-animation" src="./ef76f7488e7c9a588c2a916446f55993_files/collect-active.png" alt="">
+                        <img class="isdefault" id="is-collection-img" style="display:block" src="./ef76f7488e7c9a588c2a916446f55993_files/collect.png" alt="">
+                        <img class="isactive" id="is-collection-imgactive" style="display:none" src="./ef76f7488e7c9a588c2a916446f55993_files/newCollectActive.png" alt="">
+                        <span class="count get-collection " data-num="0" id="get-collection">
+                          0
+                        </span>
+                      </a>
+                      <div class="tool-hover-tip collect">
+                        <div class="collect-operate-box">
+                          <span class="collect-text" id="is-collection">
+                            收藏
+                          </span>
+                        </div>
+                      </div>
+                      <div class="tool-active-list">
+                        <div class="text">
+                          觉得还不错?
+                          <span class="collect-text" id="tool-active-list-collection">
+                            一键收藏
+                          </span>
+                          <img id="tool-active-list-close" src="./ef76f7488e7c9a588c2a916446f55993_files/collectionCloseWhite.png" alt="">
+                        </div>
+                      </div>
+                    </li>
+                    <li class="tool-item tool-item-size tool-active tool-item-comment">
+                      <div class="guide-rr-first">
+                        <img src="./ef76f7488e7c9a588c2a916446f55993_files/guideRedReward01.png" alt="">
+                        <button class="btn-guide-known">
+                          知道了
+                        </button>
+                      </div>
+                      <a class="tool-item-href go-side-comment" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7009&quot;}">
+                        <img class="isdefault" src="./ef76f7488e7c9a588c2a916446f55993_files/comment.png" alt="">
+                        <span class="count">
+                          0
+                        </span>
+                      </a>
+                      <div class="tool-hover-tip">
+                        <span class="text space">
+                          评论
+                        </span>
+                      </div>
+                    </li>
+                    <li class="tool-item tool-item-size tool-active tool-QRcode" data-type="article" id="tool-share">
+                      <a class="tool-item-href" href="javascript:;" data-report-view="{&quot;spm&quot;:&quot;3001.4129&quot;,&quot;extra&quot;:{&quot;type&quot;:&quot;blogdetail&quot;}}">
+                        <img class="isdefault" src="./ef76f7488e7c9a588c2a916446f55993_files/share.png" alt="">
+                        <span class="count">
+                          分享
+                        </span>
+                      </a>
+                      <div class="QRcode" id="tool-QRcode">
+                        <div class="share-bg-box">
+                          <div class="share-content">
+                            <a id="copyPosterUrl" data-type="link" class="btn-share">
+                              复制链接
+                            </a>
+                          </div>
+                          <div class="share-content">
+                            <a class="btn-share" data-type="qq">
+                              分享到 QQ
+                            </a>
+                          </div>
+                          <div class="share-content">
+                            <a class="btn-share" data-type="weibo">
+                              分享到新浪微博
+                            </a>
+                          </div>
+                          <div class="share-code">
+                            <div class="share-code-box" id="shareCode">
+                            </div>
+                            <div class="share-code-text">
+                              <img src="./ef76f7488e7c9a588c2a916446f55993_files/icon-wechat.png" alt="">
+                              扫一扫
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="tool-item tool-item-size tool-active tool-item-reward">
+                      <a class="tool-item-href" href="javascript:;" data-report-click="{&quot;mod&quot;:&quot;popu_830&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4237&quot;,&quot;dest&quot;:&quot;&quot;,&quot;ab&quot;:&quot;new&quot;}">
+                        <img class="isdefault reward-bt" id="rewardBtNew" src="./ef76f7488e7c9a588c2a916446f55993_files/reward.png" alt="打赏">
+                        <span class="count">
+                          打赏
+                        </span>
+                      </a>
+                      <div class="tool-hover-tip">
+                        <span class="text space">
+                          打赏
+                        </span>
+                      </div>
+                    </li>
+                    <li class="tool-item tool-item-size tool-active is-more" id="is-more">
+                      <a class="tool-item-href">
+                        <img class="isdefault" style="margin-right:0px;display:block" src="./ef76f7488e7c9a588c2a916446f55993_files/more.png" alt="">
+                        <span class="count">
+                        </span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div class="toolbox-right">
+                  <script type="text/javascript" crossorigin="" src="./ef76f7488e7c9a588c2a916446f55993_files/csdn-login-box.js.下载">
+                  </script>
+
+</div></div></div></div></main></div></div><div id="sidebarr-app"></div></body></html>

@@ -140,7 +140,7 @@ https://savetube.app/en2  ---------->  download youtube videos
 
 
 
-# AI的利用
+# ALL IN AI
 
 AI时代：<font color='red'>解决问题的能力变廉价，昂贵的是提问题的能力</font>！！！！！
 

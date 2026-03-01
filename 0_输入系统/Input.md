@@ -154,7 +154,7 @@ inputDispatcher 怎么知道窗口信息的？
 
 ###  ~~ACTION MOVE的分发~~
 
-```
+```java
 std::vector<InputTarget> InputDispatcher::findTouchedWindowTargetsLocked(
         nsecs_t currentTime, const MotionEntry& entry, bool* outConflictingPointerActions,
         InputEventInjectionResult& outInjectionResult) {
@@ -215,7 +215,6 @@ std::vector<InputTarget> InputDispatcher::findTouchedWindowTargetsLocked(
     return targets;
 }
 链接：https://juejin.cn/post/7202537103934177338
-
 ```
 
 一句话总结：
@@ -797,6 +796,54 @@ https://blog.csdn.net/learnframework/article/details/123571546?spm=1001.2014.300
 2、view层级的: https://blog.csdn.net/learnframework/article/details/124086882
 
 https://blog.csdn.net/learnframework/article/details/132797212?spm=1001.2014.3001.5502
+
+
+
+# touch事件的同构 --------- 多对一模型
+
+| **维度**                                 | **宏观宇宙：系统级 Touch (InputDispatcher)**                 | **微观宇宙：应用级 Touch (ViewGroup)**            | **物理/架构的必然性 (第一性原理)**                           |
+| ---------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------- | ------------------------------------------------------------ |
+| **空间数据**                             | **Z-Order Window List** (按层级从上到下排序)                 | **Children Array** (按绘制顺序逆序，从上到下)     | **画家算法逆推**：找目标必须从最上面（最靠近用户的层）开始找。 |
+| **寻址算法**                             | **Hit Testing** (检查 x, y 是否在 Window bounds 内)          | **Hit Testing** (检查 x, y 是否在 View bounds 内) | **几何碰撞**：点与矩形的包含关系计算。                       |
+| **状态锁定**                             | 找到目标后，生成并保存 **`InputTarget`**                     | 找到目标后，生成并保存 **`mFirstTouchTarget`**    | **流的连续性 (Invariant)**：DOWN 确定目标，后续的 MOVE/UP 必须直接发给它，不用再做碰撞检测。 |
+| **多点触控**                             | `Split` 机制 (不同手指分配给不同 Window)                     | `Split` 机制 (不同手指分配给不同 Child View)      | **资源并行**：多根手指是独立的输入流，可以有不同的 Target。  |
+| -**<font color='red'>拦截与截胡</font>** | **System Gesture Monitor** (系统级手势拦截)------pilferPointers() | **`onInterceptTouchEvent`** (父容器拦截)          | **中间层决策 (Indirection)**：上层管理者必须有权力剥夺下层的控制权。 |
+| -**<font color='red'>反悔机制</font>**   | 下发 **`ACTION_CANCEL`** 给被剥夺的 App                      | 下发 **`ACTION_CANCEL`** 给被剥夺的 Child View    | **状态机重置**：既然我把你的流掐断了，我必须给你一个收尾的信号，防止你死锁。 |
+
+
+
+TODO:  多点触控
+
+
+
+# key事件 -------  view焦点 
+
+
+
+
+
+# key事件的同构 --------- 多对一模型
+
+从物理本质上，就是解决： 多对一模型问题
+
+例1：**Window 焦点（系统级）** 和 **View 焦点（应用级）是同构的**
+
+| **维度**     | **宏观宇宙：Window Focus (WMS 层)**                     | **微观宇宙：View Focus (View 层)**                          | **同构本质 (第一性原理)**                                    |
+| ------------ | ------------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------ |
+| **管理者**   | **InputDispatcher / WMS**                               | **ViewRootImpl / ViewGroup**                                | **仲裁者 (Arbiter)**：必须有一个上帝视角来决定谁是天选之子。 |
+| **数据结构** | `DisplayContent` 下的 **Window List** (按 Z-order 排序) | `ViewGroup` 下的 **Children Array** (按 drawing order 排序) | **有序列表 (Ordered List)**：必须有优先级，通常“最上面”的优先。 |
+| **准入资格** | **Window Flag**: `FLAG_NOT_FOCUSABLE`                   | **View Attribute**: `android:focusable="false"`             | **能力声明 (Capability)**：你自己得先举手说“我也许能处理”。  |
+| **寻找逻辑** | 遍历 Window 列表，找最顶层且 `focusable` 的窗口         | 遍历 View 树，找最深层/最顶层且 `focusable` 的 View         | **遍历算法 (Traversal)**：这就是“责任链模式”的变体。         |
+| **状态持有** | `mFocusedWindow` (全局唯一)                             | `mFocused` (View树内唯一)                                   | **互斥锁 (Mutex)**：焦点资源是独占的，不可能有两个光标同时闪烁。 |
+| **抢夺机制** | `WMS.setFocusedWindow()`                                | `View.requestFocus()`                                       | **请求与授权 (Request/Grant)**：下级申请，上级批准。         |
+| **焦点转移** | ALT+TAB 切窗口，或点击新窗口                            | TAB 键切输入框，或点击新输入框                              | **导航策略 (Navigation)**：基于方向或历史记录的切换。        |
+
+-<font color='red'>数据结构级别都是一致的</font>！！
+
+
+
+例2：
+
 
 
 

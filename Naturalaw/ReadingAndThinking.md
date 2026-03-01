@@ -3162,7 +3162,13 @@ TODO: 延拓应用领域
 
 ## 0层架构
 
-![image-20260301110459222](ReadingAndThinking.assets/image-20260301110459222.png)
+
+
+![image-20260301124245087](ReadingAndThinking.assets/image-20260301124245087.png)
+
+
+
+
 
 
 
@@ -3322,7 +3328,9 @@ TODO: 延拓应用领域
 
 ## 执行系统  -------  cpu---各个硬件驱动
 
-checklist 
+-   <font color='red'>抵抗人性 </font>---------- checklist 
+
+-   <font color='red'>不再切割时间 （时间越切割，价值越低）</font>---------------  上下文切换代价极大
 
 
 

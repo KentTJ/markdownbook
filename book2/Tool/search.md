@@ -216,6 +216,7 @@ https://aistudio.google.com/usage?project=gen-lang-client-0306075861&timeRange=l
 >       如何画 1层架构图（<------------- <font color='red'>请结合具体的函数</font>）
 >    
 >    （2） 核心数据流（控制流）是什么？输入输出是什么？
+>    （3）本质解决什么数学（或物理）问题？
 >    
 >    （3）  有其他类似的 <font color='red'>同构的  模型（知识点）</font>嘛？
 >
@@ -225,7 +226,9 @@ https://aistudio.google.com/usage?project=gen-lang-client-0306075861&timeRange=l
 >        4_3 这样做的设计哲学是什么？第一性原理是是什么？
 >
 >        
->    (5)  如何把这些知识点<font color='red'>极度塌缩</font>，减轻记忆 与 认知的负担？
+>    (5)  如何把这些知识点<font color='red'>极度塌缩</font>，把认知负担彻底降到 0？减轻记忆的负担？
+>    
+>  （6）提示词之 5W2H + s(structure) + i(import, 什么是重要的)
 >     
 >    (4) 规定：每个项目的readme.md中加入 AI写的架构图
 >

@@ -223,7 +223,7 @@ https://aistudio.google.com/usage?project=gen-lang-client-0306075861&timeRange=l
 >    （4） 抛开代码，架构为啥这么设计？
 >        4_1  <font color='red'>软件物理约束是什么</font>
 >        4_2  基于软件约束，推导出的不得不
->        4_3 这样做的设计哲学是什么？第一性原理是是什么？
+>        4_3 这样做的<font color='red'>设计哲学</font>是什么？第一性原理是是什么？
 >
 >        
 >    (5)  如何把这些知识点<font color='red'>极度塌缩</font>，把认知负担彻底降到 0？减轻记忆的负担？

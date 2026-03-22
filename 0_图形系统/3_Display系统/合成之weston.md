@@ -177,37 +177,45 @@ atomic_flip_handler ----- 发车
 ```java
 ├─ 生命周期图 0层
 ├─ weston_output_maybe_repaint(compositor.c)
-└─ weston_output_repaint(compositor.c)
-    ├─ ------------------为views分配planes--------------------------
-    ├─ drm_assign_planes // 【】具体见下
-    ├─ ------------------【计算damage】---------------------------------
-    └─ drm_output_repaint
-        └─ drm_output_render-----------------只做了一件事情，拿到fd（内核的buffer）----------------------
-            ├─ if (scanout_state->fb) return // 【】霸屏模式scanout -----> 利用client的fd
-            ├─ if：drm_fb_ref  硬件合成  自然，条件：damage为空(也是gl被拦截的地方)？？？？？
-            ├─ eif:drm_output_render_pixman  软件合成
-            ├─ el：drm_output_render_gl //【】GPU合成    或 x11_output_repaint_gl  backend-x11/x11.c--->  weston合成器的output是X11
-            │   ├─ gl_renderer_repaint_output ----> 必然，在这里设置视口viewPort，视口是output级别的
-            │   │   ├─ get_surface_state(weston_surface)
-            │   │   │   └─ gl_renderer_create_surface
-            │   │   │       ├─ ------------------------attach？？？-----------------------------------
-            │   │   │       └─ gl_renderer_attach(weston_surface, weston_buffer) // 【】核心
-            │   │   ├─ repaint_views  // 【】这里遍历node，必然 从下往上叠图（合成的必然！！！）
-            │   │   │   ├─ ------------------【3】OpenGL合成, 前提：分配了primary plane--------------------------
-            │   │   │   └─ draw_paint_node  // 【】有些node会走gl，有些走pixman？ node级别的还是合成器级别的 ？ 必然：这里初始化shader的config
-            │   │   │       ├─ gl_shader_config_init_for_paint_node // 必然：where---draw_paint_node之子，repaint_region之前
-            │   │   │       ├─ repaint_region  //【】
-            │   │   │       └─ triangle_fan_debug 测试用的？？？
-            │   │   ├─ blit_shadow_to_output // 阴影。开关："color-management"改为true
-            │   │   └─ 【eglSwapBuffers】 // 关键一行，weston 与 drm侧交换buffer！！！！（不是与client侧！！！！！！！！）
-            │   ├─ bo = gbm_surface_lock_front_buffer  // 拿到gbm buffer---> 承载合成结果
-            │   ├─ drm_fb_get_from_bo(bo, BUFFER_GBM_SURFACE)
-            │   │   └─ drm_fb_addfb(~bo)
-            │   │       └─ drmModeAddFB2WithModifiers/drmModeAddFB2   //libdrm 【】通过gbm buffer创建帧缓冲区（FrameBuffer）
-            │   │           └─ 实际上，已经将数据写给drm设备了。图：https://download.csdn.net/blog/column/11175480/133747645
-            │   └─ return drm_fb（指向DRM的FrameBuffer），并记录
-            ├─ scanout_state->fb = fb  // 合成大图，由 drm_plane_state->drm_fb 承载
-            └─ drmModeCreatePropertyBlob // 【2】libdrm接口，创建属性（后续用来设置CRTC（Crtc）、连接器（Connector）、平面（Plane））
+└─ weston_output_repaint(compositor.c) // output级-----> 【】唯一目的：拿到各种fd，为flush做准备，提交给kernel
+        ├─ ------------------为views分配planes--------------------------
+        ├─ drm_assign_planes // 【】具体见下
+        ├─ ------------------计算damage---------------------------------
+        ├─ drm_output_repaint
+        │   └─ drm_output_render-----------1、只做了一件事情，拿到fd（内核的buffer）2、涉及render，非硬件合成-------
+        │       ├─ if (scanout_state->fb) return // 【】霸屏模式scanout -----> 利用client的fd
+        │       ├─ if：drm_fb_ref  硬件合成  自然，条件：damage为空(也是gl被拦截的地方)？？？？？
+        │       ├─ eif:drm_output_render_pixman  软件合成
+        │       ├─ el：drm_output_render_gl //【】GPU合成  或 x11_output_repaint_gl  backend-x11/x11.c--->  weston合成器的output是X11
+        │       │   ├─ gl_renderer_repaint_output ----> 必然，在这里设置视口viewPort，视口是output级别的
+        │       │   │   ├─ use_output(output) // 自然，开始时，初始化EGL的环境，比如 eglMakeCurrent
+        │       │   │   │   └─ eglMakeCurrent
+        │       │   │   ├─ get_surface_state(weston_surface)
+        │       │   │   │   └─ gl_renderer_create_surface
+        │       │   │   │       ├─ ------------------------attach？？？-----------------------------------
+        │       │   │   │       └─ gl_renderer_attach(weston_surface, weston_buffer) // 【】核心
+        │       │   │   ├─ repaint_views  // 【】这里遍历node，必然
+        │       │   │   │   ├─ ------------------【3】OpenGL合成, 前提：分配了primary plane--------------------------
+        │       │   │   │   └─ 【draw_paint_node】展开见下。 有些node会走gl，有些走pixman？ node级别的还是合成器级别的 ？ 必然：这里初始化shader的config
+        │       │   │   │       ├─ gl_shader_config_init_for_paint_node // 必然：where---draw_paint_node之子，repaint_region之前
+        │       │   │   │       ├─ repaint_region  //【】
+        │       │   │   │       └─ triangle_fan_debug 测试用的？？？
+        │       │   │   ├─ blit_shadow_to_output // 阴影。开关："color-management"改为true
+        │       │   │   ├─ 【eglSwapBuffers】 // 关键一行，weston 交换前后缓冲区buffer！！！！（不是与client侧！！！！！！！！）
+        │       │   │   ├─ .                     注意：对于应用，这里隐含wayland_commit
+        │       │   │   └─ .                           对于weston，没有隐含atomic_commit。后面显式执行
+        │       │   ├─ bo = gbm_surface_lock_front_buffer  // 拿到gbm buffer---> 承载合成结果
+        │       │   ├─ drm_fb_get_from_bo(bo, BUFFER_GBM_SURFACE)
+        │       │   │   └─ drm_fb_addfb(~bo)
+        │       │   │           └─ drmModeAddFB2WithModifiers/drmModeAddFB2   //libdrm 【】通过gbm buffer创建帧缓冲区（FrameBuffer）
+        │       │   │                   └─ 实际上，已经将数据写给drm设备了。图：https://download.csdn.net/blog/column/11175480/133747645
+        │       │   └─ return drm_fb（指向DRM的FrameBuffer），并记录
+        │       ├─ scanout_state->fb = fb  // 合成大图，由 drm_plane_state->drm_fb 承载
+        │       └─ drmModeCreatePropertyBlob // 【2】libdrm接口，创建属性（后续用来设置CRTC（Crtc）、连接器（Connector）、平面（Plane））
+        ├─ wl_resource_for_each_safe(cb, cnext, &frame_callback_list) {
+        │   └─ wl_callback_send_done(cb, frame_time_msec); // 【】redraw的callback
+        └─ animation->frame 计算下一帧的动画位置
+
 ```
 
 ​             
@@ -219,7 +227,7 @@ atomic_flip_handler ----- 发车
 ```java
 生命周期图 0层
 weston_output_maybe_repaint(compositor.c)
-weston_output_repaint(compositor.c) // output级
+weston_output_repaint(compositor.c) // output级-----> 【】唯一目的：拿到各种fd，为flush做准备，提交给kernel
 	------------------为views分配planes--------------------------
 	drm_assign_planes // 【】具体见下
 	------------------计算damage---------------------------------
@@ -243,15 +251,20 @@ weston_output_repaint(compositor.c) // output级
 							repaint_region  //【】
 							triangle_fan_debug 测试用的？？？
 					blit_shadow_to_output // 阴影。开关："color-management"改为true
-					【eglSwapBuffers】 // 关键一行，weston 与 drm侧交换buffer！！！！（不是与client侧！！！！！！！！）
+					【eglSwapBuffers】 // 关键一行，weston 交换前后缓冲区buffer！！！！（不是与client侧！！！！！！！！）
+					.                     注意：对于应用，这里隐含wayland_commit
+					.                           对于weston，没有隐含atomic_commit。后面显式执行
 				bo = gbm_surface_lock_front_buffer  // 拿到gbm buffer---> 承载合成结果
 				drm_fb_get_from_bo(bo, BUFFER_GBM_SURFACE)
 					drm_fb_addfb(~bo)
 						drmModeAddFB2WithModifiers/drmModeAddFB2   //libdrm 【】通过gbm buffer创建帧缓冲区（FrameBuffer）
-																			 实际上，已经将数据写给drm设备了。图：https://download.csdn.net/blog/column/11175480/133747645
+							实际上，已经将数据写给drm设备了。图：https://download.csdn.net/blog/column/11175480/133747645
 				return drm_fb（指向DRM的FrameBuffer），并记录
 			scanout_state->fb = fb  // 合成大图，由 drm_plane_state->drm_fb 承载
 			drmModeCreatePropertyBlob // 【2】libdrm接口，创建属性（后续用来设置CRTC（Crtc）、连接器（Connector）、平面（Plane））
+	wl_resource_for_each_safe(cb, cnext, &frame_callback_list) {
+		wl_callback_send_done(cb, frame_time_msec); // 【】redraw的callback
+	animation->frame 计算下一帧的动画位置
 ```
 
 %/accordion%
@@ -6341,7 +6354,7 @@ https://zhuanlan.zhihu.com/p/434869796
 ​          ------> L可以夹心A（目前已经做到了）
 
 [^1]: graph LR
-	
+
 	    A["**合成的本质：像素搬移**"]:::core --> B("硬件约束，必然：")
 	
 	    B --> E["**DPU**"]:::core
@@ -6359,9 +6372,10 @@ https://zhuanlan.zhihu.com/p/434869796
 	    D --> D2("vulken")
 	
 	    D --> D3("skia（opengl+cpu）")
-	
-	  
-	
+
+
+​	  
+​	
 	    classDef core fill:#ffcccc,stroke:#ff0000,stroke-width:2px,color:#ff0000,font-weight:bold;
 	
 	    style A fill:#fff,stroke:#333,stroke-width:2px,color:#000

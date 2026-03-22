@@ -733,6 +733,14 @@ TODO: 多个**`EGLContext`**
 
 
 
+一句话总结，多态：
+
+>   ---<font color='red'>初始化的context（display不一样），eglswap的实现不一样</font>
+
+
+
+#### 具体，字典
+
 `eglSwapBuffers` 想象成面向对象编程中的一个 **Virtual Function（虚函数）**。它的具体行为（Implementation），完全取决于程序在 `eglGetDisplay()` 时注入的 **Context（上下文环境）**。
 
 ```java
@@ -778,6 +786,11 @@ TODO: 多个**`EGLContext`**
 >
 >   -   **Client (App) 侧的初始化：** 当 App 启动时，它会把 Wayland 的显示句柄传给 EGL： `eglGetDisplay((EGLNativeDisplayType) wl_display)` Mesa 驱动一看：“哦，你传进来的 Native Display 是个 Wayland Display。” 于是，Mesa 在内部加载了 `platform_wayland` 后台。在这个后台的实现里，Mesa 把 `eglSwapBuffers` 这个函数指针，偷偷绑定到了一个包含了 `wl_surface_commit` 逻辑的内部函数上。
 >   -   **Weston (Compositor) 侧的初始化：** 当 Weston 启动时，它是直接跟底层硬件打交道的，它会把 GBM（Generic Buffer Manager）的设备句柄传给 EGL： `eglGetDisplay((EGLNativeDisplayType) gbm_device)` Mesa 驱动一看：“哦，老大来了，Native Display 是底层 GBM 裸设备。” 于是，Mesa 加载了 `platform_drm/gbm` 后台。在这个后台里，`eglSwapBuffers` 被绑定到了一个非常纯粹的函数上——只做 GPU 渲染管线的 Flush 和前后 Buffer 队列指针的推移。
+
+
+
+注：flutter应用走的左边，具体实现在：
+platform/linux_embedded/surface/elinux_egl_surface.cc
 
 
 

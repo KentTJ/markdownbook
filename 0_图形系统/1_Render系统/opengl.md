@@ -733,7 +733,51 @@ TODO: 多个**`EGLContext`**
 
 
 
+`eglSwapBuffers` 想象成面向对象编程中的一个 **Virtual Function（虚函数）**。它的具体行为（Implementation），完全取决于程序在 `eglGetDisplay()` 时注入的 **Context（上下文环境）**。
 
+```java
+[ Client (App, e.g., 浏览器/Flutter) ]           [ Compositor (Weston) ]
+                     |                                            |
+      1. 传入 wl_display (Wayland 协议句柄)           1. 传入 gbm_device (底层裸设备句柄)
+                     |                                            |
+                     v                                            v
+======================================================================================
+||                           EGL 统一接口层 (The Interface)                           ||
+||                              eglSwapBuffers()                                    ||
+======================================================================================
+                                     |
+                          (Mesa 驱动内部的多态路由机制)
+                                     |
+             +-----------------------+-----------------------+
+             |                                               |
+             v                                               v
+  [ Platform: Wayland (实现 A) ]                  [ Platform: GBM/DRM (实现 B) ]
+  (底层实例如: dri2_wl_swap_buffers)               (底层实例如: dri2_drm_swap_buffers)
+             |                                               |
+             |                                               |
+  +----------+----------+                         +----------+----------+
+  | 1. 触发 GPU 渲染管线  |                         | 1. 触发 GPU 渲染管线  |
+  | 2. 推进 Buffer 队列   |                         | 2. 推进 Buffer 队列   |
+  |---------------------|                         |---------------------|
+  | 3. 隐式组装 wl_buffer |                         | 3. (无附加操作，直接返回)|
+  | 4. 隐式调用           |                         | 4. 留下写好的 Back Buffer|
+  |    wl_surface_commit|                         |    等待被 Weston 提取  |
+  | 5. 通过 Socket 发送   |                         |                       |
+  +---------------------+                         +---------------------+
+             |                                               |
+             v                                               v
+    [ 跨进程通信 (IPC) ]                             [ 留在本进程内存池 ]
+  (将绘制结果交接给 Weston)                (等待后续 weston调用 drmModeAtomicCommit 上屏)
+```
+
+`eglSwapBuffers` 表面上是一个统一的 API 函数，但在底层，它其实是一个“虚函数”（函数指针）。它到底执行什么逻辑，完全取决于**程序在初始化 EGL 时，选择了哪个“平台环境”（Platform）**。
+
+分歧点：初始化的那一刻 (`eglGetDisplay`)：
+
+>   决定 `eglSwapBuffers` 命运的，根本不是绘制结束的时候，而是**在程序刚启动、初始化 EGL 环境的时候。**
+>
+>   -   **Client (App) 侧的初始化：** 当 App 启动时，它会把 Wayland 的显示句柄传给 EGL： `eglGetDisplay((EGLNativeDisplayType) wl_display)` Mesa 驱动一看：“哦，你传进来的 Native Display 是个 Wayland Display。” 于是，Mesa 在内部加载了 `platform_wayland` 后台。在这个后台的实现里，Mesa 把 `eglSwapBuffers` 这个函数指针，偷偷绑定到了一个包含了 `wl_surface_commit` 逻辑的内部函数上。
+>   -   **Weston (Compositor) 侧的初始化：** 当 Weston 启动时，它是直接跟底层硬件打交道的，它会把 GBM（Generic Buffer Manager）的设备句柄传给 EGL： `eglGetDisplay((EGLNativeDisplayType) gbm_device)` Mesa 驱动一看：“哦，老大来了，Native Display 是底层 GBM 裸设备。” 于是，Mesa 加载了 `platform_drm/gbm` 后台。在这个后台里，`eglSwapBuffers` 被绑定到了一个非常纯粹的函数上——只做 GPU 渲染管线的 Flush 和前后 Buffer 队列指针的推移。
 
 
 

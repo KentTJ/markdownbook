@@ -1702,7 +1702,7 @@ if __name__  "__main__":
 
 ## 云端linux 连adb 手机
 
-方式一：
+### 方式一：
 
 主机：
 
@@ -1728,7 +1728,7 @@ adb -H 192.168.31.200 -P 9999 devices
 
 
 
-方式二：win转
+### 方式二：win转---------adb方式
 
 ```java
 1、win与linux的adb版本号要完全一致
@@ -1738,15 +1738,40 @@ adb -H 192.168.31.200 -P 9999 devices
 
 > 参考： https://cloud.tencent.com/developer/article/1864005
 
-- ----------------> 优：只要win与linux在同一局域网即可
+---------------> 优：只要win与linux在同一局域网即可
 
 优化： 输入ip太麻烦  &  linux as 不能用
 
 > // 临时alias adb='adb -H 10.82.254.157 -P 5039'  // alias局部替换 adb devices// 持久化echo "alias adb='adb -H 10.82.254.157 -P 5039'" >> ~/.bashrcsource ~/.bashrc
 
-- --------------------------------------------> 方式二缺点： linux内AS 无法连手机
+-----------------> 方式二  <font color='red'>缺点： linux内AS 无法连手机</font>
 
-方式三：通过wifi直连
+
+
+### 方式三：通过ssh转（<font color='red'>极其优，因为ssh一定不会被禁</font>）
+
+win本地连手机，远端Linux（虚拟机、云端）连的方法三：
+
+```java
+1、完全相同的adb版本（下载最新的platform-tools版本，然后替换Linux和windows下的）
+
+2、本地、远端同时 adb kill-server、  killall adb
+      查看远端有没有占用5307， lsof -i :5037
+
+3、C:\Users\chen>adb -a -P 5037 nodaemon server
+
+4、ssh -R 5037:127.0.0.1:5037 chenjinke@10.82.254.157   // 【】 核心一步
+
+5、进入隧道后，export ADB_SERVER_SOCKET=tcp:127.0.0.1:5037
+```
+
+-<font color='red'>优点</font>：
+
+>   1、极其优，因为ssh一定不会被禁
+>
+>   2、也适用：linux1本地连手机，远端Linux2（虚拟机、云端）连
+
+### 方式三：通过wifi直连
 
 1、连同一局域网
 

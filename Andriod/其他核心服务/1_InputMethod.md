@@ -809,9 +809,9 @@ getImePolicyLocked时：
 
 总之：
 
-> 1、任何输入（键盘、鼠标、软键盘）必然依赖于焦点：<font color='red'>焦点的本质是绑定关系</font>
+> 1、任何输入（硬键盘、软键盘、key事件）必然依赖于焦点：<font color='red'>焦点的本质是绑定关系</font>
 >
-> 2、触摸下为什么安卓没有焦点？**因为绑定太明确了**，坐标在view范围内
+> 2、触摸下（or 鼠标）为什么安卓没有焦点？**因为绑定太明确了**，坐标在view范围内
 
  
 
@@ -855,7 +855,7 @@ InputMethodManager inputMethodManager = (InputMethodManager)context.getSystemSer
 
 # 疑问 TODO
 
-输入法窗口，应该是永远没法 获取   窗口焦点的（<font color='red'>只能触摸，不能被输入</font>）  ------>  代码的证明
+必然：输入法窗口，应该是永远没法 获取   窗口焦点的（<font color='red'>即 只能触摸，不能被输入</font>）  ------>  代码的证明
 
 
 
@@ -888,6 +888,8 @@ adb shell dumpsys activity  services          | findstr  ServiceRecord | findstr
 >   犹如神助力
 >
 >   mtk输入法专家
+>
+>   Google aosp 10上提出 Multi（<font color='red'>理想使用了</font>）， aosp 15上最终解决
 
 
 

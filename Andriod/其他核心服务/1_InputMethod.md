@@ -80,7 +80,7 @@ TODO:
 
 
 # 0层框架补充 ------ic
-  
+
 ![[mermaid-diagram-2026-01-27-002544.png]]
 
 ```mermaid
@@ -139,7 +139,7 @@ sequenceDiagram
 
 
 
-# 多屏同时输入------多屏多会话输入法
+# 多屏同时输入------多屏多会话输入法（单进程）
 
 
 
@@ -243,7 +243,7 @@ https://source.android.google.cn/devices/tech/display/multi_display/ime-support?
 
 
 
-# 多屏同时输入-------多屏输入法
+# 多屏同时输入-------多屏输入法（多进程）
 
 见《》  TODO
 
@@ -878,4 +878,59 @@ adb shell dumpsys activity  services          | findstr  ServiceRecord | findstr
 ```
 
 
+
+# 面试问题
+
+多输入法，**关键词**：
+
+>   普遍问题：致命缺陷，<font color='red'>与现有的生态不兼容</font>
+>
+>   犹如神助力
+>
+>   mtk输入法专家
+
+
+
+## 为啥imms也要重写呢？难点在哪里？有没有可能使用imms管理两个ims？如果这样做，难点在哪里？
+
+传统 IMMS 的设计基石是：**“一个设备，一个主屏幕，一个活跃用户，一个焦点窗口”**。
+
+核心难点和重写原因在于**状态机的强耦合与全局变量泛滥**：
+
+0.  IMMS目前**代码量7000行**
+
+1.  **全局状态锁死 (Global State Bottleneck)：** 打开 IMMS 的源码，你会看到<font color='red'>大量的全局单一状态变量</font>，比如：
+    -   `mCurMethodId` (当前选中的输入法)
+    -   `mCurClient` (当前连接的 App 客户端)
+    -   `mCurFocusedWindow` (当前获取焦点的窗口)
+    -   `mCurToken` (当前输入法的 Window Token) 如果要在 IMMS 中支持多屏/多客户端，你需要把几乎**所有**的全局变量重构为按 `displayId` 或 `clientId` 映射的集合（如 `Map<Integer, ClientState>`）。这牵一发而动全身。
+2.  **与 WindowManagerService (WMS) 的深度绑定：** IMMS 的焦点切换严重依赖 WMS 告知它“现在谁是 Focus Window”。在 Android 10 以前，WMS 也是全局单焦点的。如果直接改 IMMS，还需要同步大改 WMS 的焦点逻辑。旧系统的 IPC 通信逻辑（如 `startInputOrWindowGainedFocus`）完全没有考虑多路并发的情况。
+3.  **兼容性与稳定性风险：** IMMS 是 Android 系统中最复杂、Bug 最多、最容易引起 ANR 或卡顿的系统服务之一（因为它横跨了 App 进程、System Server 进程和 IME 进程）。如果在原有的 IMMS 上强行加上多路复用的逻辑，极易破坏现有的单屏手机体验。Google 采用“另起炉灶”的策略（通过 Flag 切换），是为了保证传统手机业务的绝对稳定。
+
+ 
+
+  **4.IPC 状态机爆炸与死锁风险**
+
+-   **难点：** IMMS 管理 IMS 的生命周期（绑定、解绑、Crash 重启）已经非常复杂。客户端 App 也是通过 `InputConnection` 与 IMS 进行跨进程通信的。
+-   **冲突：** 如果 IMMS 要管理两个 IMS，它内部的生命周期状态机必须翻倍。假设 IMS 1 崩溃了需要重启，同时 IMS 2 正在处理长按语音输入，**IMMS 内部的各种大锁（以前 IMMS 里有很多臭名昭著的 `synchronized (mMethodMap)`）极易引发系统级的死锁。**
+
+5.  <font color='red'>google自己也不敢改</font>
+
+
+
+## MultiClientInputMethodManagerService 这笔patch现在被回退了吗？为什么？Google在Android 15上是怎么解决的？
+
+已经移除：
+
+>   **`MultiClientInputMethodManagerService` 相关的核心代码和架构已经被 Google 彻底废弃并移除了（Removed/Reverted）。** 准确地说，在 **Android 14 (Android U)** 的开发周期中，Google 提交了清理这部分代码的 Patch，移除了 `ro.sys.multi_client_ime` 属性以及专门的 Multi-Client IMMS 框架。
+
+为什么：
+
+>   生态的巨大缺陷：生态的分裂（双重维护成本）
+
+最终如何解决的：
+
+>   -<font color='red'>Android 15： ims用多个进程   &  重新写了IMMS，即CarIMMS</font>                           
+
+方案优劣对比：我的方案，<font color='red'>只用了50行代码</font>
 

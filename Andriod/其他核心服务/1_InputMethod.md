@@ -934,5 +934,7 @@ adb shell dumpsys activity  services          | findstr  ServiceRecord | findstr
 
 >   -<font color='red'>Android 15： ims用多个进程   &  重新写了IMMS，即CarIMMS</font>                           
 
-方案优劣对比：我的方案，<font color='red'>只用了50行代码</font>
+方案优劣对比：我的方案，<font color='red'>1、只用了50行代码</font>  2、没有任何问题
+
+
 

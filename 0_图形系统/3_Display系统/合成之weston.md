@@ -1376,16 +1376,6 @@ compositor backend主要决定了compositor合成完后的结果怎么处置
 
 
 
-
-
-
-
-
-
-
-
->   
-
 # 临时，pending_state 概念：
 
 ```java
@@ -3537,12 +3527,6 @@ MODULE_LICENSE("GPL");
 2.  推荐使用 **DRM 子系统** 或 **DMA-BUF 框架** 来分配和管理 DMA 缓冲区。
 3.  如果需要完整控制，可以实现一个自定义内核模块来创建和管理 DMA 缓冲区。
 
-
-
-
-
-4o
-
 ##### You said:
 
  mmap可以将dma映射到CPU 地址空间，CPU可以进行操作。如果有Afbc，会影响吗
@@ -4836,6 +4820,16 @@ Layer 3 (pos 0xb0000000):
 
 
 **压缩格式启用**：在 DRM/KMS 层面，确保 Framebuffer 创建时携带了 `DRM_FORMAT_MOD_ARM_AFBC` 等修饰符（Modifiers），全链路打通了硬件压缩机制。”
+
+
+
+### AFBC原理
+
+![img](合成之weston.assets/4377.AFBC.png)
+
+参考：https://developer.arm.com/community/arm-community-blogs/b/mobile-graphics-and-gaming-blog/posts/should-have-gone-to-bandwidth-savers
+
+
 
 
 

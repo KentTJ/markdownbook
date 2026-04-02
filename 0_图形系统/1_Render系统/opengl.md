@@ -4025,3 +4025,18 @@ https://blog.csdn.net/fengningning/category_10663771.html    mesa系列
 #  3D 性能测试 ：GLmark2 
 
 编译： https://www.cnblogs.com/xiaomawo/p/17984783
+
+
+
+
+
+# 面试问题
+
+## 高斯模糊的优化
+
+1、高斯核的正交性拆解：N*N -------> 2N
+
+2、降采样 & 升采样：
+
+宽高 -------> 1/2 宽高(<font color='red'>在1/4区域内做高斯模糊，gpu算力降为1/4</font>)   ------------> 升采样：拉回 宽高
+

@@ -530,7 +530,7 @@ ip6tables -I forwarding_rule -p udp --dport 3389 -j ACCEPT
 
 
 
-### 优化之 ipv6租约时间
+#### 优化之 ipv6租约时间
 
 路由器定时修改ipc的 IPv4和ipv6???
 
@@ -540,7 +540,7 @@ https://github.com/jeessy2/ddns-go
 
 具体步骤，见md
 
-### 远程桌面之 音频传输
+#### 远程桌面之 音频传输
 
 远程桌面连接后听不到remote pc的视频播放声音：
 
@@ -561,6 +561,85 @@ https://github.com/jeessy2/ddns-go
 一个坑：
 
 > 验证步骤2时，不能用RDP远程操作。办法：  用向日葵或直接远程pc登录验证
+
+
+
+### 远程桌面之虚拟ip（极其优秀）
+
+优秀的点：利用windows原生的远程软件 --------->  **优点：本地两个屏，进入远端后，也是两个屏幕**
+
+本质：虚拟出两个处于局域网的ip
+
+>   ![image-20260528092519838](software_pcSettings.assets/image-20260528092519838.png)
+
+
+
+#### Tailscale 远程桌面落地部署教程(验证OK)
+
+以下是完整且详细的配置步骤，分为**家里电脑端**、**户外设备端**以及**连接验证**三个部分：
+
+#### 第一步：注册 Tailscale 账号
+
+Tailscale 对个人用户完全免费（支持多达 3 个用户和 100 台设备），不需要自己购买服务器。
+
+1.  在任意设备上访问 Tailscale 官网。
+2.  点击 **Log in** 或 **Get Started**，使用 Microsoft 账号、GitHub 账号、Google 账号或 Apple ID 注册并登录。
+
+#### 第二步：配置家里电脑（被控端 192.168.2......）
+
+1.  在家里的 Windows 电脑上，下载并安装 **Tailscale for Windows** 客户端。
+2.  安装完成后，任务栏右下角会出现一个“灰色小图标”，同时浏览器会自动弹出一个认证页面。
+3.  在浏览器页面中点击 **Connect**，登录你刚才注册的同一个账号。
+4.  认证成功后，任务栏的小图标会亮起。右键点击该图标，你会看到系统已经为你分配了一个固定的**虚拟局域网 IP 地址**（通常是以 `100.x.x.x` 或 `FD00::` 开头的 IPv4/IPv6 地址）。
+    -   *提示：请将这个 `100.x.x.x` 的 IP 地址复制并记录下来。*
+
+#### 第三步：配置户外设备（控制端，如笔记本、手机、平板）
+
+无论你在户外使用 Windows 笔记本、MacBook、iPad 还是安卓手机，步骤都完全一致：
+
+1.  在户外设备上下载对应的 Tailscale 客户端。
+
+2.  启动并选择**登录相同的账号**完成设备绑定。
+
+3.  登录成功后，打开户外设备上的 Tailscale 开关（在 macOS/iOS/Android 上会提示创建 VPN 配置，允许即可）。
+
+4.  此时在客户端的设备列表中，你应该能同时看到“当前设备”和“家里的电脑”，并且它们都处于在线（绿灯）状态。
+
+    ![image-20260528092519838](file://F:\working\markdown\markdownFiles\markdownsFile2\markdownsFiles\Tool\software_pcSettings.assets\image-20260528092519838.png?lastModify=1779931603)
+
+#### 第四步：在外网发起远程桌面连接
+
+现在，两台设备已经通过虚拟出来的加密大内网连接在了一起。
+
+1.  在户外的电脑上，按下 `Win + R` 输入 `mstsc` 打开 Windows 自带的远程桌面连接工具。
+2.  在“计算机”栏中，**不要**输入原来的 `192.168.2......`，而是输入在第二步中获得的 **Tailscale 分配的 `100.x.x.x` 地址**。
+3.  点击连接，输入你家里电脑的 Windows 本地账号和密码。
+4.  连接成功，直接进入家里电脑的桌面。
+
+
+
+#### 遇到的问题
+
+![image-20260528093105642](software_pcSettings.assets/image-20260528093105642.png)
+
+点击sign in 和 sign up没有任何反应。办法：
+
+```
+核心解决办法：通过命令行手动提取登录链接
+按下 Win + S，搜索并打开 Windows PowerShell（或命令提示符 CMD）。
+
+在窗口中输入以下命令并按回车：
+
+PowerShell
+tailscale up
+稍微等待几秒钟，命令行里会输出一段提示，并附带一个认证链接 (URL)，类似于：
+
+To authenticate, visit: https://login.tailscale.com/a/xxxxxxxxx
+
+用鼠标选中这个 https://... 开头的完整链接（在 PowerShell 中选中后按一下鼠标右键，或按 Ctrl+C 即可复制）。
+
+手动打开你平时常用的浏览器（如 Chrome、Edge），将链接粘贴到地址栏并按回车。
+```
 
 
 
@@ -2413,13 +2492,13 @@ DumpViewCR （mtk） -------------> 这个工具有bug，图片数据必须copy�
 如果你想在开启“可读行长度”的情况下，**自己精确控制宽度**（比如设为 1000px 而不是默认值），可以使用 CSS 脚本。
 
 - **操作步骤：**
-    
+  
     1. 进入 **设置** -> **外观 (Appearance)**。
-        
+      
     2. 拉到最下方找到 **CSS 代码片段 (CSS snippets)**，点击右侧的文件夹图标打开。
-        
+      
     3. 创建一个名为 `custom-width.css` 的文件，用记事本打开，粘贴以下内容：
-        
+      
 
 CSS
 

@@ -435,8 +435,6 @@ https://zhuanlan.zhihu.com/p/115826053?utm_source=wechat_session&utm_medium=soci
 
 
 
-
-
 方法一：路由器设置界面可以关掉
 
 **方法二：路由器界面就没有防火墙--------> 大招，进入系统：**

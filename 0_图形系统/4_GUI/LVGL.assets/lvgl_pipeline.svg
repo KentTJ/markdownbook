@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 950" width="100%" height="100%" style="background-color: #ffffff;">
+  
+  <defs>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#efa3a3"/>
+      <stop offset="100%" stop-color="#d95c5c"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c1eba8"/>
+      <stop offset="100%" stop-color="#96cc7a"/>
+    </linearGradient>
+    <linearGradient id="yellowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fceda6"/>
+      <stop offset="100%" stop-color="#edcd68"/>
+    </linearGradient>
+  </defs>
+
+  <g font-family="Arial, sans-serif" font-size="14" fill="#111111">
+    <rect x="30" y="30" width="16" height="16" fill="url(#greenGrad)" stroke="#598246" stroke-width="1"/>
+    <text x="60" y="43">Provided (LVGL 核心渲染引擎)</text>
+
+    <rect x="30" y="70" width="16" height="16" fill="url(#yellowGrad)" stroke="#b59838" stroke-width="1"/>
+    <text x="60" y="75">Available Drivers / Hardware</text>
+    <text x="60" y="95">(物理显存与 GPU 硬件)</text>
+
+    <rect x="30" y="125" width="16" height="16" fill="url(#redGrad)" stroke="#8b3a3a" stroke-width="1"/>
+    <text x="60" y="138">You have to write it (应用与 HAL)</text>
+  </g>
+
+  <g font-family="Arial, sans-serif" font-weight="bold" font-size="18" fill="#000000">
+
+    <rect x="300" y="50" width="400" height="50" rx="4" fill="url(#redGrad)" stroke="#8b3a3a" stroke-width="1.5"/>
+    <text x="500" y="80" text-anchor="middle">Application (UI Widgets, 业务逻辑)</text>
+
+    <rect x="300" y="160" width="400" height="50" rx="4" fill="url(#greenGrad)" stroke="#598246" stroke-width="1.5"/>
+    <text x="500" y="190" text-anchor="middle">LVGL Core (定时器, 脏区计算)</text>
+
+    <rect x="300" y="270" width="400" height="50" rx="4" fill="url(#greenGrad)" stroke="#598246" stroke-width="1.5"/>
+    <text x="500" y="300" text-anchor="middle">Draw Task Dispatcher (渲染分发中心)</text>
+
+    <rect x="100" y="410" width="350" height="50" rx="4" fill="url(#greenGrad)" stroke="#598246" stroke-width="1.5"/>
+    <text x="275" y="440" text-anchor="middle">CPU Draw Unit (软件渲染降级)</text>
+
+    <rect x="550" y="410" width="350" height="50" rx="4" fill="url(#greenGrad)" stroke="#598246" stroke-width="1.5"/>
+    <text x="725" y="440" text-anchor="middle">GPU Draw Unit (VG-Lite/DMA2D 接口)</text>
+
+    <rect x="550" y="520" width="350" height="50" rx="4" fill="url(#yellowGrad)" stroke="#b59838" stroke-width="1.5"/>
+    <text x="725" y="550" text-anchor="middle">Physical GPU 2D Engine (物理硬件)</text>
+
+    <rect x="100" y="630" width="800" height="50" rx="4" fill="url(#yellowGrad)" stroke="#b59838" stroke-width="1.5"/>
+    <text x="500" y="660" text-anchor="middle">Draw Buffer (SRAM / 外部 DDR 显存)</text>
+
+    <rect x="300" y="740" width="400" height="50" rx="4" fill="url(#redGrad)" stroke="#8b3a3a" stroke-width="1.5"/>
+    <text x="500" y="770" text-anchor="middle">Display HAL (disp_flush_cb 回调)</text>
+
+    <rect x="300" y="850" width="400" height="50" rx="4" fill="url(#yellowGrad)" stroke="#b59838" stroke-width="1.5"/>
+    <text x="500" y="880" text-anchor="middle">LCD Controller / DRM (送显控制器)</text>
+  </g>
+
+  <g stroke="#333333" stroke-width="2" fill="#333333" font-family="Arial, sans-serif" font-size="14">
+    
+    <line x1="500" y1="100" x2="500" y2="150" />
+    <polygon points="500,100 495,110 505,110" /> <polygon points="500,160 495,150 505,150" /> <text x="510" y="135" stroke="none">API 调用 / 事件回调</text>
+
+    <line x1="500" y1="210" x2="500" y2="260" />
+    <polygon points="500,270 495,260 505,260" />
+    <text x="510" y="245" stroke="none">生成绘制图层树</text>
+
+    <line x1="500" y1="320" x2="500" y2="360" />
+    <line x1="500" y1="360" x2="275" y2="360" />
+    <line x1="275" y1="360" x2="275" y2="400" />
+    <polygon points="275,410 270,400 280,400" />
+    <text x="285" y="350" stroke="none" fill="#d9534f" font-weight="bold">硬件不支持，走软件回退</text>
+
+    <line x1="500" y1="360" x2="725" y2="360" />
+    <line x1="725" y1="360" x2="725" y2="400" />
+    <polygon points="725,410 720,400 730,400" />
+    <text x="560" y="350" stroke="none" fill="#5cb85c" font-weight="bold">硬件支持，派发给 GPU</text>
+
+    <line x1="725" y1="460" x2="725" y2="510" />
+    <polygon points="725,520 720,510 730,510" />
+    <text x="735" y="495" stroke="none">提交 Command Buffer</text>
+
+    <line x1="275" y1="460" x2="275" y2="620" />
+    <polygon points="275,630 270,620 280,620" />
+    <text x="120" y="550" stroke="none" fill="#d9534f">纯 CPU 逐像素计算 (耗时！)</text>
+
+    <line x1="725" y1="570" x2="725" y2="620" />
+    <polygon points="725,630 720,620 730,620" />
+    <text x="735" y="605" stroke="none" fill="#5cb85c">DMA 硬件高速写回显存</text>
+
+    <line x1="500" y1="680" x2="500" y2="730" />
+    <polygon points="500,740 495,730 505,730" />
+    <text x="510" y="715" stroke="none">触发 Flush，移交显存指针</text>
+
+    <line x1="500" y1="790" x2="500" y2="840" />
+    <polygon points="500,850 495,840 505,840" />
+    <text x="510" y="825" stroke="none">修改寄存器 / DMA 搬运上屏</text>
+  </g>
+
+</svg>

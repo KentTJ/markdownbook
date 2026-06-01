@@ -14,6 +14,93 @@ https://lvgl.100ask.net/7.11/documentation/02_porting/02_project.html    百问�
 
 <img src="LVGL.assets/lvgl_pipeline.svg" alt="lvgl_pipeline" style="zoom: 25%;" />
 
+```
+src/draw/sw/lv_draw_sw.c
+	evaluate 调度机制：evaluate 竞标 --------> 混合渲染："竞标"其实就是能走加速器(VG-Lite)的尽量走，走不了的 CPU 兜底
+
+DMA2D（VG-Lite） 能做什么？
+	矩形填充  ✓
+	图片搬运  ✓
+	像素混合  ✓
+	文字排版  ✗  没有 CPU 根本排不出来
+	复杂路径  ✗  贝塞尔曲线怎么裁？不会
+	向量图形  ✗  DMA2D 不认 SVG	
+	
+为啥安卓的应用框架不需要混合渲染呢？可以默认走hwui？
+	A: GPU shader 是图灵完备的，任何像素计算它都能做
+
+安卓实际上也有混合渲染（隐藏在Skia内部）：
+	安卓渲染栈：
+		App 层:    View.draw(Canvas)     ← "全走 GPU" 的错觉
+				  ─────────────────────
+		Skia 层:   文字? → CPU: FreeType 光栅化 → 纹理上传 → GPU 合成
+				   SVG?  → CPU: 路径剖分为三角形 → 顶点上传 → GPU 渲染
+				   Bitmap? → CPU: 解码 JPEG/PNG → 纹理上传 → GPU 贴图
+				  ─────────────────────
+		GPU 层:    最终像素着色（shader 执行）
+	文字、路径剖分、图片解码全在 CPU 上做，只是 Skia 把这层藏起来了。框架层看到 "走 GPU"，但其实 CPU 干了大量脏活。
+
+本质原因	GPU 是指令可编的	VG-Lite 是功能固化的
+
+硬件            IP 来源           集成于           能力范围
+───────────────────────────────────────────────────────────
+DMA2D           ST 自研           STM32F4/F7/     填充 + 搬运 + 混合
+(Chrom-ART)                      H7/U5/L4        (4 种固定操作)
+
+VG-Lite         VeriSilicon       NXP i.MX RT     路径/渐变/描边/变换
+(gc355/gc555)   (授权 IP)         1050/1060/1170   (~20 种固定操作)
+
+OpenGL ES       ARM/Imagination   带 GPU 的 MPU    全部可编程 shader
+(Mali/Adreno)   /Qualcomm         (如树莓派等)     (图灵完备)
+
+
+混合渲染，并行的前提：CPU 和 GPU任务区域不重叠
+
+
+原生code默认CPU绘制
+打开GPU绘制（软件模拟的）：
+	（1）修改 lv_conf.h
+	// 第 318 行：从 0 改为 1
+	#define LV_USE_DRAW_VG_LITE 1
+	// 第 372 行：从 0 改为 1（在 #if LV_USE_DRAW_VG_LITE 块内）
+	#define LV_USE_VG_LITE_THORVG   1
+	2. CMake 路径修复
+	env_support/cmake/main.cmake 第 73 行已从 src/others/vg_lite_tvg 修正为 src/debugging/vg_lite_tvg
+
+软绘src/draw/sw/lv_draw_sw.c
+	case LV_DRAW_TASK_TYPE_IMAGE:
+    LV_LOG_ERROR("lv_draw_sw_image called");  // 加这行
+    lv_draw_sw_image(t, t->draw_dsc, &t->area);
+    break;
+硬绘：lv_draw_vg_lite_img.c:48  加入LV_LOG_ERROR("chen lv_draw_vg_lite_img");
+
+
+
+VG-Lite 绘制后端：
+	文件	                 功能
+	lv_draw_vg_lite.c	VG-Lite 后端入口，初始化/调度
+	lv_draw_vg_lite_arc.c	圆弧绘制
+	lv_draw_vg_lite_rect.c / _fill.c / _border.c	矩形填充/边框
+	lv_draw_vg_lite_label.c	文字绘制
+	lv_draw_vg_lite_img.c	图片渲染
+	lv_draw_vg_lite_line.c	线段绘制
+	lv_draw_vg_lite_triangle.c	三角形
+	lv_draw_vg_lite_vector.c	矢量图形
+	lv_draw_vg_lite_layer.c	图层混合
+	lv_draw_vg_lite_box_shadow.c	阴影
+	lv_vg_lite_path.c / _grad.c / _stroke.c / _utils.c	底层路径/渐变/描边/工具
+	lv_vg_lite_decoder.c	VG-Lite 图片解码器
+
+
+
+demo入口：
+	/lv_port_pc_vscode/src/main.c
+		lv_demo_widgets();函数 -------> (1)替换为 lv_demo_music() ........
+									    (2)替换为 lv_example_button_1 ........
+```
+
+
+
 ## **线程结构** ------ 驱动力
 
 ![lvgl_tread](LVGL.assets/lvgl_tread.svg)
@@ -22,11 +109,11 @@ https://lvgl.100ask.net/7.11/documentation/02_porting/02_project.html    百问�
 
 >   1、只有一个UI线程（也是渲染线程）
 >
->   2、接受硬件中断！！！！
+>   2、接受硬件中断！
 
 ## 美好之冲突解决（硬件中断与软件冲突）
 
-冲突：
+**冲突：**
 
 ```java
 我很难理解这个硬件中断，即使他快如闪电，但是对于UI线程来说，也是致命的，比如UI线程正在读一个变量，中断立刻改变了它。那么对于UI线程来说，这个变量就是不可预测的，不稳定的

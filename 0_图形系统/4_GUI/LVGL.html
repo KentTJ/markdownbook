@@ -1887,15 +1887,97 @@
 <p><img src="LVGL.assets/01_sys.png" alt="http://photos.100ask.net/lvgl/02_poring/01_sys/01_sys.png"></p>
 <h2 id="&#x6A21;&#x5757;&#x67B6;&#x6784;"><a name="&#x6A21;&#x5757;&#x67B6;&#x6784;" class="anchor-navigation-ex-anchor" href="#&#x6A21;&#x5757;&#x67B6;&#x6784;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x6A21;&#x5757;&#x67B6;&#x6784;</h2>
 <p><img src="LVGL.assets/lvgl_pipeline.svg" alt="lvgl_pipeline" style="zoom: 25%;"></p>
-<h2 id="&#x7EBF;&#x7A0B;&#x7ED3;&#x6784;--------&#x9A71;&#x52A8;&#x529B;"><a name="&#x7EBF;&#x7A0B;&#x7ED3;&#x6784;--------&#x9A71;&#x52A8;&#x529B;" class="anchor-navigation-ex-anchor" href="#&#x7EBF;&#x7A0B;&#x7ED3;&#x6784;--------&#x9A71;&#x52A8;&#x529B;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. &#x7EBF;&#x7A0B;&#x7ED3;&#x6784; ------ &#x9A71;&#x52A8;&#x529B;</h2>
+<pre class="language-"><code>src/draw/sw/lv_draw_sw.c
+    evaluate &#x8C03;&#x5EA6;&#x673A;&#x5236;&#xFF1A;evaluate &#x7ADE;&#x6807; --------&gt; &#x6DF7;&#x5408;&#x6E32;&#x67D3;&#xFF1A;&quot;&#x7ADE;&#x6807;&quot;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x80FD;&#x8D70;&#x52A0;&#x901F;&#x5668;(VG-Lite)&#x7684;&#x5C3D;&#x91CF;&#x8D70;&#xFF0C;&#x8D70;&#x4E0D;&#x4E86;&#x7684; CPU &#x515C;&#x5E95;
+
+DMA2D&#xFF08;VG-Lite&#xFF09; &#x80FD;&#x505A;&#x4EC0;&#x4E48;&#xFF1F;
+    &#x77E9;&#x5F62;&#x586B;&#x5145;  &#x2713;
+    &#x56FE;&#x7247;&#x642C;&#x8FD0;  &#x2713;
+    &#x50CF;&#x7D20;&#x6DF7;&#x5408;  &#x2713;
+    &#x6587;&#x5B57;&#x6392;&#x7248;  &#x2717;  &#x6CA1;&#x6709; CPU &#x6839;&#x672C;&#x6392;&#x4E0D;&#x51FA;&#x6765;
+    &#x590D;&#x6742;&#x8DEF;&#x5F84;  &#x2717;  &#x8D1D;&#x585E;&#x5C14;&#x66F2;&#x7EBF;&#x600E;&#x4E48;&#x88C1;&#xFF1F;&#x4E0D;&#x4F1A;
+    &#x5411;&#x91CF;&#x56FE;&#x5F62;  &#x2717;  DMA2D &#x4E0D;&#x8BA4; SVG    
+
+&#x4E3A;&#x5565;&#x5B89;&#x5353;&#x7684;&#x5E94;&#x7528;&#x6846;&#x67B6;&#x4E0D;&#x9700;&#x8981;&#x6DF7;&#x5408;&#x6E32;&#x67D3;&#x5462;&#xFF1F;&#x53EF;&#x4EE5;&#x9ED8;&#x8BA4;&#x8D70;hwui&#xFF1F;
+    A: GPU shader &#x662F;&#x56FE;&#x7075;&#x5B8C;&#x5907;&#x7684;&#xFF0C;&#x4EFB;&#x4F55;&#x50CF;&#x7D20;&#x8BA1;&#x7B97;&#x5B83;&#x90FD;&#x80FD;&#x505A;
+
+&#x5B89;&#x5353;&#x5B9E;&#x9645;&#x4E0A;&#x4E5F;&#x6709;&#x6DF7;&#x5408;&#x6E32;&#x67D3;&#xFF08;&#x9690;&#x85CF;&#x5728;Skia&#x5185;&#x90E8;&#xFF09;&#xFF1A;
+    &#x5B89;&#x5353;&#x6E32;&#x67D3;&#x6808;&#xFF1A;
+        App &#x5C42;:    View.draw(Canvas)     &#x2190; &quot;&#x5168;&#x8D70; GPU&quot; &#x7684;&#x9519;&#x89C9;
+                  &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;
+        Skia &#x5C42;:   &#x6587;&#x5B57;? &#x2192; CPU: FreeType &#x5149;&#x6805;&#x5316; &#x2192; &#x7EB9;&#x7406;&#x4E0A;&#x4F20; &#x2192; GPU &#x5408;&#x6210;
+                   SVG?  &#x2192; CPU: &#x8DEF;&#x5F84;&#x5256;&#x5206;&#x4E3A;&#x4E09;&#x89D2;&#x5F62; &#x2192; &#x9876;&#x70B9;&#x4E0A;&#x4F20; &#x2192; GPU &#x6E32;&#x67D3;
+                   Bitmap? &#x2192; CPU: &#x89E3;&#x7801; JPEG/PNG &#x2192; &#x7EB9;&#x7406;&#x4E0A;&#x4F20; &#x2192; GPU &#x8D34;&#x56FE;
+                  &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;
+        GPU &#x5C42;:    &#x6700;&#x7EC8;&#x50CF;&#x7D20;&#x7740;&#x8272;&#xFF08;shader &#x6267;&#x884C;&#xFF09;
+    &#x6587;&#x5B57;&#x3001;&#x8DEF;&#x5F84;&#x5256;&#x5206;&#x3001;&#x56FE;&#x7247;&#x89E3;&#x7801;&#x5168;&#x5728; CPU &#x4E0A;&#x505A;&#xFF0C;&#x53EA;&#x662F; Skia &#x628A;&#x8FD9;&#x5C42;&#x85CF;&#x8D77;&#x6765;&#x4E86;&#x3002;&#x6846;&#x67B6;&#x5C42;&#x770B;&#x5230; &quot;&#x8D70; GPU&quot;&#xFF0C;&#x4F46;&#x5176;&#x5B9E; CPU &#x5E72;&#x4E86;&#x5927;&#x91CF;&#x810F;&#x6D3B;&#x3002;
+
+&#x672C;&#x8D28;&#x539F;&#x56E0;    GPU &#x662F;&#x6307;&#x4EE4;&#x53EF;&#x7F16;&#x7684;    VG-Lite &#x662F;&#x529F;&#x80FD;&#x56FA;&#x5316;&#x7684;
+
+&#x786C;&#x4EF6;            IP &#x6765;&#x6E90;           &#x96C6;&#x6210;&#x4E8E;           &#x80FD;&#x529B;&#x8303;&#x56F4;
+&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;
+DMA2D           ST &#x81EA;&#x7814;           STM32F4/F7/     &#x586B;&#x5145; + &#x642C;&#x8FD0; + &#x6DF7;&#x5408;
+(Chrom-ART)                      H7/U5/L4        (4 &#x79CD;&#x56FA;&#x5B9A;&#x64CD;&#x4F5C;)
+
+VG-Lite         VeriSilicon       NXP i.MX RT     &#x8DEF;&#x5F84;/&#x6E10;&#x53D8;/&#x63CF;&#x8FB9;/&#x53D8;&#x6362;
+(gc355/gc555)   (&#x6388;&#x6743; IP)         1050/1060/1170   (~20 &#x79CD;&#x56FA;&#x5B9A;&#x64CD;&#x4F5C;)
+
+OpenGL ES       ARM/Imagination   &#x5E26; GPU &#x7684; MPU    &#x5168;&#x90E8;&#x53EF;&#x7F16;&#x7A0B; shader
+(Mali/Adreno)   /Qualcomm         (&#x5982;&#x6811;&#x8393;&#x6D3E;&#x7B49;)     (&#x56FE;&#x7075;&#x5B8C;&#x5907;)
+
+
+&#x6DF7;&#x5408;&#x6E32;&#x67D3;&#xFF0C;&#x5E76;&#x884C;&#x7684;&#x524D;&#x63D0;&#xFF1A;CPU &#x548C; GPU&#x4EFB;&#x52A1;&#x533A;&#x57DF;&#x4E0D;&#x91CD;&#x53E0;
+
+
+&#x539F;&#x751F;code&#x9ED8;&#x8BA4;CPU&#x7ED8;&#x5236;
+&#x6253;&#x5F00;GPU&#x7ED8;&#x5236;&#xFF08;&#x8F6F;&#x4EF6;&#x6A21;&#x62DF;&#x7684;&#xFF09;&#xFF1A;
+    &#xFF08;1&#xFF09;&#x4FEE;&#x6539; lv_conf.h
+    // &#x7B2C; 318 &#x884C;&#xFF1A;&#x4ECE; 0 &#x6539;&#x4E3A; 1
+    #define LV_USE_DRAW_VG_LITE 1
+    // &#x7B2C; 372 &#x884C;&#xFF1A;&#x4ECE; 0 &#x6539;&#x4E3A; 1&#xFF08;&#x5728; #if LV_USE_DRAW_VG_LITE &#x5757;&#x5185;&#xFF09;
+    #define LV_USE_VG_LITE_THORVG   1
+    2. CMake &#x8DEF;&#x5F84;&#x4FEE;&#x590D;
+    env_support/cmake/main.cmake &#x7B2C; 73 &#x884C;&#x5DF2;&#x4ECE; src/others/vg_lite_tvg &#x4FEE;&#x6B63;&#x4E3A; src/debugging/vg_lite_tvg
+
+&#x8F6F;&#x7ED8;src/draw/sw/lv_draw_sw.c
+    case LV_DRAW_TASK_TYPE_IMAGE:
+    LV_LOG_ERROR(&quot;lv_draw_sw_image called&quot;);  // &#x52A0;&#x8FD9;&#x884C;
+    lv_draw_sw_image(t, t-&gt;draw_dsc, &amp;t-&gt;area);
+    break;
+&#x786C;&#x7ED8;&#xFF1A;lv_draw_vg_lite_img.c:48  &#x52A0;&#x5165;LV_LOG_ERROR(&quot;chen lv_draw_vg_lite_img&quot;);
+
+
+
+VG-Lite &#x7ED8;&#x5236;&#x540E;&#x7AEF;&#xFF1A;
+    &#x6587;&#x4EF6;                     &#x529F;&#x80FD;
+    lv_draw_vg_lite.c    VG-Lite &#x540E;&#x7AEF;&#x5165;&#x53E3;&#xFF0C;&#x521D;&#x59CB;&#x5316;/&#x8C03;&#x5EA6;
+    lv_draw_vg_lite_arc.c    &#x5706;&#x5F27;&#x7ED8;&#x5236;
+    lv_draw_vg_lite_rect.c / _fill.c / _border.c    &#x77E9;&#x5F62;&#x586B;&#x5145;/&#x8FB9;&#x6846;
+    lv_draw_vg_lite_label.c    &#x6587;&#x5B57;&#x7ED8;&#x5236;
+    lv_draw_vg_lite_img.c    &#x56FE;&#x7247;&#x6E32;&#x67D3;
+    lv_draw_vg_lite_line.c    &#x7EBF;&#x6BB5;&#x7ED8;&#x5236;
+    lv_draw_vg_lite_triangle.c    &#x4E09;&#x89D2;&#x5F62;
+    lv_draw_vg_lite_vector.c    &#x77E2;&#x91CF;&#x56FE;&#x5F62;
+    lv_draw_vg_lite_layer.c    &#x56FE;&#x5C42;&#x6DF7;&#x5408;
+    lv_draw_vg_lite_box_shadow.c    &#x9634;&#x5F71;
+    lv_vg_lite_path.c / _grad.c / _stroke.c / _utils.c    &#x5E95;&#x5C42;&#x8DEF;&#x5F84;/&#x6E10;&#x53D8;/&#x63CF;&#x8FB9;/&#x5DE5;&#x5177;
+    lv_vg_lite_decoder.c    VG-Lite &#x56FE;&#x7247;&#x89E3;&#x7801;&#x5668;
+
+
+
+demo&#x5165;&#x53E3;&#xFF1A;
+    /lv_port_pc_vscode/src/main.c
+        lv_demo_widgets();&#x51FD;&#x6570; -------&gt; (1)&#x66FF;&#x6362;&#x4E3A; lv_demo_music() ........
+                                        (2)&#x66FF;&#x6362;&#x4E3A; lv_example_button_1 ........
+</code></pre><h2 id="&#x7EBF;&#x7A0B;&#x7ED3;&#x6784;--------&#x9A71;&#x52A8;&#x529B;"><a name="&#x7EBF;&#x7A0B;&#x7ED3;&#x6784;--------&#x9A71;&#x52A8;&#x529B;" class="anchor-navigation-ex-anchor" href="#&#x7EBF;&#x7A0B;&#x7ED3;&#x6784;--------&#x9A71;&#x52A8;&#x529B;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. &#x7EBF;&#x7A0B;&#x7ED3;&#x6784; ------ &#x9A71;&#x52A8;&#x529B;</h2>
 <p><img src="LVGL.assets/lvgl_tread.svg" alt="lvgl_tread"></p>
 <p>&#x7ED3;&#x8BBA;&#xFF1A;</p>
 <blockquote>
 <p>  1&#x3001;&#x53EA;&#x6709;&#x4E00;&#x4E2A;UI&#x7EBF;&#x7A0B;&#xFF08;&#x4E5F;&#x662F;&#x6E32;&#x67D3;&#x7EBF;&#x7A0B;&#xFF09;</p>
-<p>  2&#x3001;&#x63A5;&#x53D7;&#x786C;&#x4EF6;&#x4E2D;&#x65AD;&#xFF01;&#xFF01;&#xFF01;&#xFF01;</p>
+<p>  2&#x3001;&#x63A5;&#x53D7;&#x786C;&#x4EF6;&#x4E2D;&#x65AD;&#xFF01;</p>
 </blockquote>
 <h2 id="&#x7F8E;&#x597D;&#x4E4B;&#x51B2;&#x7A81;&#x89E3;&#x51B3;&#xFF08;&#x786C;&#x4EF6;&#x4E2D;&#x65AD;&#x4E0E;&#x8F6F;&#x4EF6;&#x51B2;&#x7A81;&#xFF09;"><a name="&#x7F8E;&#x597D;&#x4E4B;&#x51B2;&#x7A81;&#x89E3;&#x51B3;&#xFF08;&#x786C;&#x4EF6;&#x4E2D;&#x65AD;&#x4E0E;&#x8F6F;&#x4EF6;&#x51B2;&#x7A81;&#xFF09;" class="anchor-navigation-ex-anchor" href="#&#x7F8E;&#x597D;&#x4E4B;&#x51B2;&#x7A81;&#x89E3;&#x51B3;&#xFF08;&#x786C;&#x4EF6;&#x4E2D;&#x65AD;&#x4E0E;&#x8F6F;&#x4EF6;&#x51B2;&#x7A81;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. &#x7F8E;&#x597D;&#x4E4B;&#x51B2;&#x7A81;&#x89E3;&#x51B3;&#xFF08;&#x786C;&#x4EF6;&#x4E2D;&#x65AD;&#x4E0E;&#x8F6F;&#x4EF6;&#x51B2;&#x7A81;&#xFF09;</h2>
-<p>&#x51B2;&#x7A81;&#xFF1A;</p>
+<p><strong>&#x51B2;&#x7A81;&#xFF1A;</strong></p>
 <pre class="language-"><code class="lang-java">&#x6211;&#x5F88;&#x96BE;&#x7406;&#x89E3;&#x8FD9;&#x4E2A;&#x786C;&#x4EF6;&#x4E2D;&#x65AD;&#xFF0C;&#x5373;&#x4F7F;&#x4ED6;&#x5FEB;&#x5982;&#x95EA;&#x7535;&#xFF0C;&#x4F46;&#x662F;&#x5BF9;&#x4E8E;<span class="token constant">UI</span>&#x7EBF;&#x7A0B;&#x6765;&#x8BF4;&#xFF0C;&#x4E5F;&#x662F;&#x81F4;&#x547D;&#x7684;&#xFF0C;&#x6BD4;&#x5982;<span class="token constant">UI</span>&#x7EBF;&#x7A0B;&#x6B63;&#x5728;&#x8BFB;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#xFF0C;&#x4E2D;&#x65AD;&#x7ACB;&#x523B;&#x6539;&#x53D8;&#x4E86;&#x5B83;&#x3002;&#x90A3;&#x4E48;&#x5BF9;&#x4E8E;<span class="token constant">UI</span>&#x7EBF;&#x7A0B;&#x6765;&#x8BF4;&#xFF0C;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x5C31;&#x662F;&#x4E0D;&#x53EF;&#x9884;&#x6D4B;&#x7684;&#xFF0C;&#x4E0D;&#x7A33;&#x5B9A;&#x7684;
 &#x679C;&#x6CA1;&#x6709;&#x989D;&#x5916;&#x7684;&#x4FDD;&#x62A4;&#x673A;&#x5236;&#xFF0C;&#x786C;&#x4EF6;&#x4E2D;&#x65AD;&#x5BF9;&#x4E8E;&#x6B63;&#x5728;&#x8BFB;&#x53D6;&#x540C;&#x4E00;&#x5757;&#x5185;&#x5B58;&#x7684; <span class="token constant">UI</span> &#x7EBF;&#x7A0B;&#x6765;&#x8BF4;&#x5C31;&#x662F;&#x6BC1;&#x706D;&#x6027;&#x7684;&#x3002;
 </code></pre>
@@ -2146,7 +2228,7 @@ uint32_t <span class="token function">lv_tick_get</span><span class="token punct
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"LVGL","level":"1.2.5.1","depth":3,"next":{"title":"View","level":"1.2.5.2","depth":3,"path":"0_图形系统/4_GUI/View.md","ref":"0_图形系统/4_GUI/View.md","articles":[]},"previous":{"title":"4 GUI","level":"1.2.5","depth":2,"path":"0_图形系统/4_GUI/README.md","ref":"0_图形系统/4_GUI/README.md","articles":[{"title":"LVGL","level":"1.2.5.1","depth":3,"path":"0_图形系统/4_GUI/LVGL.md","ref":"0_图形系统/4_GUI/LVGL.md","articles":[]},{"title":"View","level":"1.2.5.2","depth":3,"path":"0_图形系统/4_GUI/View.md","ref":"0_图形系统/4_GUI/View.md","articles":[]}]},"dir":"ltr"},"config":{"//":["这是多行注释：    anchor-navigation-ex 是","anchor-navigation-ex 是","click-reveal 本地使用ok，但是github在build pages时，不识别click-reveal","accordion 也是折叠代码段","anchor-navigation-ex 是"],"plugins":["anchor-navigation-ex","toggle-chapters","expandable-chapters-small","splitter","code","page-treeview","popup","-search","-lunr","sidebar-style","auto-scroll-table","click-reveal","accordion","pageview-count","search-pro","prism","prism-themes","-highlight"],"root":"./markdownsFiles","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"Kent","title":"《约束 结构 不得不》"},"tbfed-pagefooter":{"copyright":"Copyright &copy ershouche-FE 2019","modify_label":"文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"page-treeview":{"collapsed":false,"copyright":"Copyright © aleen42","minHeaderCount":"1","minHeaderDeep":"1"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"disqus":{"shortName":"gitbookuse"},"splitter":{},"search-pro":{},"accordion":{},"auto-scroll-table":{},"popup":{},"lunr":{"maxIndexSize":400000},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"click-reveal":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"pageview-count":{},"prism-themes":{},"expandable-chapters-small":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"toggle-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"bookname":"笔记","variables":{},"title":"Kent的博客","gitbook":"*"},"file":{"path":"0_图形系统/4_GUI/LVGL.md","mtime":"2026-05-31T11:42:28.120Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-01T00:27:42.678Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"LVGL","level":"1.2.5.1","depth":3,"next":{"title":"View","level":"1.2.5.2","depth":3,"path":"0_图形系统/4_GUI/View.md","ref":"0_图形系统/4_GUI/View.md","articles":[]},"previous":{"title":"4 GUI","level":"1.2.5","depth":2,"path":"0_图形系统/4_GUI/README.md","ref":"0_图形系统/4_GUI/README.md","articles":[{"title":"LVGL","level":"1.2.5.1","depth":3,"path":"0_图形系统/4_GUI/LVGL.md","ref":"0_图形系统/4_GUI/LVGL.md","articles":[]},{"title":"View","level":"1.2.5.2","depth":3,"path":"0_图形系统/4_GUI/View.md","ref":"0_图形系统/4_GUI/View.md","articles":[]}]},"dir":"ltr"},"config":{"//":["这是多行注释：    anchor-navigation-ex 是","anchor-navigation-ex 是","click-reveal 本地使用ok，但是github在build pages时，不识别click-reveal","accordion 也是折叠代码段","anchor-navigation-ex 是"],"plugins":["anchor-navigation-ex","toggle-chapters","expandable-chapters-small","splitter","code","page-treeview","popup","-search","-lunr","sidebar-style","auto-scroll-table","click-reveal","accordion","pageview-count","search-pro","prism","prism-themes","-highlight"],"root":"./markdownsFiles","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-style":{"author":"Kent","title":"《约束 结构 不得不》"},"tbfed-pagefooter":{"copyright":"Copyright &copy ershouche-FE 2019","modify_label":"文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"page-treeview":{"collapsed":false,"copyright":"Copyright © aleen42","minHeaderCount":"1","minHeaderDeep":"1"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"],"lang":{"flow":"typescript"},"ignore":["mermaid","eval-js"]},"disqus":{"shortName":"gitbookuse"},"splitter":{},"search-pro":{},"accordion":{},"auto-scroll-table":{},"popup":{},"lunr":{"maxIndexSize":400000},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"click-reveal":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"pageview-count":{},"prism-themes":{},"expandable-chapters-small":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"toggle-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"bookname":"笔记","variables":{},"title":"Kent的博客","gitbook":"*"},"file":{"path":"0_图形系统/4_GUI/LVGL.md","mtime":"2026-06-01T08:16:04.889Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-06-01T08:20:51.986Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

@@ -341,16 +341,32 @@ lvgl_workspace/
 
 # code
 
-拉取纯FreeRTOS-Kernel内核仓库：
+~~拉取纯FreeRTOS-Kernel内核仓库：~~
 
 ```java
 git clone --branch V10.5.1 --depth=1 https://github.com/FreeRTOS/FreeRTOS-Kernel.git
 ```
 
-拉取 LVGL:
+~~拉取 LVGL:~~
 
 ```java
 git clone --branch v9.2.2 --depth=1 https://github.com/lvgl/lvgl.git
+```
+
+官方的Linux模拟器环境：
+
+```
+0.把 LVGL 的核心库（作为子模块）一并下载下来。
+git clone --recursive https://github.com/lvgl/lv_port_pc_vscode.git
+
+#编译：
+cd lv_port_pc_vscode
+2. 创建一个独立的编译目录（保持源码干净）并进入
+mkdir build && cd build
+3. 让 CMake 生成 Makefile 构建脚本（.. 代表上一级目录）
+cmake ..
+4. 开启多线程满血编译（你的 CPU 有几个核就火力全开）
+make -j$(nproc)
 ```
 
 

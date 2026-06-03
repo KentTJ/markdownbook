@@ -337,7 +337,90 @@ lvgl_workspace/
     └── docs/                  ▶ [未展开] 官方使用文档的 Markdown 源文件。
 ```
 
+# 运行时代码调用栈
 
+🌲 LVGL 9.2.2 渲染流水线 (带异步 Task 分发)
+
+```
+lv_timer_handler()  [位于 lv_timer.c - 主循环入口]
+ │
+ └── _lv_timer_core()
+      │
+      └── lv_display_refr_timer()  [位于 lv_refr.c - UI 管线主引擎]
+           │
+           ├─► 【阶段 1：Layout & Measure 同步排版】
+           │   lv_obj_update_layout(display->act_scr)
+           │    │
+           │    └── layout_update_core(obj)  (递归计算树)
+           │         │
+           │         ├─► [Measure] lv_obj_send_event(obj, LV_EVENT_GET_SELF_SIZE, &size)
+           │         └─► [Layout]  lv_obj_send_event(obj, LV_EVENT_LAYOUT_CHANGED, NULL)
+           │             └─► 触发 flex/grid 等布局引擎，确立绝对物理坐标 (x,y,w,h)。
+           │
+           ├─► 【阶段 2：脏矩形计算 (Dirty Area)】
+           │   _lv_display_refr_join_area(display) 
+           │   └─► 合并需要重绘的无效区域，存入 display->inv_areas。
+           │
+           ├─► 【阶段 3：Task Generation (同步指令生成，取代老版的同步渲染)】
+           │   lv_refr_area(display, &area)
+           │    │
+           │    ├─► 创建根图层: layer = lv_draw_layer_create(display, &draw_area)
+           │    │
+           │    └── lv_obj_redraw(display->act_scr, layer)  [核心变化点: 传入的是 layer]
+           │         │
+           │         ├─► lv_obj_send_event(obj, LV_EVENT_DRAW_MAIN, layer)
+           │         │   └─► (例如：Button 控件接收事件)
+           │         │       └── lv_draw_rect(layer, &rect_dsc, &coords)  [注意：此处只记录，不画点！]
+           │         │            └─► lv_draw_add_task(layer, &coords) 
+           │         │                └─► 申请一个 lv_draw_task_t，填入颜色/圆角/坐标参数。
+           │         │                └─► 将该 task 挂载到 layer->task_list 链表尾部。
+           │         │
+           │         ├─► 递归调用子节点 lv_obj_redraw(child, layer) -> 继续向链表塞 Task
+           │         │
+           │         └─► [图层缓存机制 (Layer Buffer)] 
+           │             如果控件设置了 opacity 或 transform，会触发 lv_draw_layer_alloc_buf()，
+           │             为该节点开辟独立离屏缓存，并将后续的 child_tasks 挂载到新的 sub_layer 上。
+           │
+           └─► 【阶段 4：异步唤醒 (Async Dispatch Request)】
+               lv_draw_dispatch_request()  [位于 lv_draw.c]
+                └─► 如果配置了 LV_USE_OS == 1，此处会释放一个信号量 (Semaphore/Condition Variable)，
+                    唤醒后台的专属渲染线程；随后主线程直接返回，继续处理下一轮的触摸事件。
+
+========================= 线程级物理隔离 =========================
+
+【阶段 5：Asynchronous Task Dispatch & Execution (异步渲染消费线程/中断)】
+[由独立的 OS 线程或硬件 DMA 中断驱动 - 位于 lv_draw.c]
+
+lv_draw_thread()  (独立线程死循环)
+ │
+ └── while(1) {
+      lv_draw_dispatch_wait_for_request(); // 阻塞等待主线程发出指令
+      │
+      └── lv_draw_dispatch()  // 全局渲染任务调度器
+           │
+           └─► lv_draw_dispatch_layer(display, layer)
+                │
+                └─► 遍历 layer->task_list 中的所有待处理的 lv_draw_task_t
+                     │
+                     └─► 查询系统中注册的所有渲染引擎 (Draw Units):
+                         [Draw Unit 1]: VG-Lite GPU 加速器 (如果是 NXP/STM32 某些带 2.5D GPU 的芯片)
+                         [Draw Unit 2]: PXP / DMA2D 硬件搬运器
+                         [Draw Unit 3]: SW 纯软件光栅化引擎
+                         │
+                         └─► 匹配算法：哪个 Unit 处于空闲 (idle)，且声称自己能处理该 task (evaluate_cb)？
+                             │
+                             └─► 将 Task 交给特定的 Unit 执行 (dispatch_cb)
+                                 │
+                                 └── 【执行终点】：以默认纯软件引擎为例
+                                     lv_draw_sw_dispatch()  [位于 lv_draw_sw.c]
+                                      │
+                                      └── 执行实际的算术和内存写入：
+                                          lv_draw_sw_rect() -> 像素混合，将颜色写到内存 framebuffer 中。
+                                          (如果是 GPU Unit，则在此处构造 GPU 命令列表并提交)
+                                      │
+                                      └── 标记 Task 完成 (state = LV_DRAW_TASK_STATE_READY)
+    }
+```
 
 # code
 

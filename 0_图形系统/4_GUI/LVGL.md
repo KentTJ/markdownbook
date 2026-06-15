@@ -222,7 +222,7 @@ uint32_t lv_tick_get(void)
 
 **生活化同构 --------- 一写多读（1读）：**
 
->   <font color='red'>多个人抄写</font>高铁站的“滚动时刻表”（最完美的对应）
+>   -<font color='red'>多个人抄写</font>高铁站的“滚动时刻表”（最完美的对应）
 >   想象你正在高铁站候车，抬头看着那个巨大的滚动航班/列车信息大屏。
 >
 >   大屏的后台刷新系统 = 硬件中断 (ISR)： 它极其霸道，时间一到，“唰”地一下就会刷新屏幕上的车次信息。它绝对不可能因为有个旅客正在抄信息，就停下来等。
@@ -339,42 +339,31 @@ lvgl_workspace/
 
 # 运行时代码调用栈
 
-🌲 LVGL 9.2.2 渲染流水线 (带异步 Task 分发)
+##  LVGL 9.2.2 渲染流水线 (带异步 Task 分发)
 
 ```
 lv_timer_handler()  [位于 lv_timer.c - 主循环入口]
- │
  └── _lv_timer_core()
-      │
       └── lv_display_refr_timer()  [位于 lv_refr.c - UI 管线主引擎]
-           │
            ├─► 【阶段 1：Layout & Measure 同步排版】
            │   lv_obj_update_layout(display->act_scr)
-           │    │
            │    └── layout_update_core(obj)  (递归计算树)
-           │         │
            │         ├─► [Measure] lv_obj_send_event(obj, LV_EVENT_GET_SELF_SIZE, &size)
            │         └─► [Layout]  lv_obj_send_event(obj, LV_EVENT_LAYOUT_CHANGED, NULL)
            │             └─► 触发 flex/grid 等布局引擎，确立绝对物理坐标 (x,y,w,h)。
-           │
            ├─► 【阶段 2：脏矩形计算 (Dirty Area)】
            │   _lv_display_refr_join_area(display) 
            │   └─► 合并需要重绘的无效区域，存入 display->inv_areas。
-           │
            ├─► 【阶段 3：Task Generation (同步指令生成，取代老版的同步渲染)】
            │   lv_refr_area(display, &area)
-           │    │
            │    ├─► 创建根图层: layer = lv_draw_layer_create(display, &draw_area)
-           │    │
            │    └── lv_obj_redraw(display->act_scr, layer)  [核心变化点: 传入的是 layer]
-           │         │
            │         ├─► lv_obj_send_event(obj, LV_EVENT_DRAW_MAIN, layer)
            │         │   └─► (例如：Button 控件接收事件)
            │         │       └── lv_draw_rect(layer, &rect_dsc, &coords)  [注意：此处只记录，不画点！]
            │         │            └─► lv_draw_add_task(layer, &coords) 
            │         │                └─► 申请一个 lv_draw_task_t，填入颜色/圆角/坐标参数。
            │         │                └─► 将该 task 挂载到 layer->task_list 链表尾部。
-           │         │
            │         ├─► 递归调用子节点 lv_obj_redraw(child, layer) -> 继续向链表塞 Task
            │         │
            │         └─► [图层缓存机制 (Layer Buffer)] 
@@ -392,28 +381,20 @@ lv_timer_handler()  [位于 lv_timer.c - 主循环入口]
 [由独立的 OS 线程或硬件 DMA 中断驱动 - 位于 lv_draw.c]
 
 lv_draw_thread()  (独立线程死循环)
- │
  └── while(1) {
       lv_draw_dispatch_wait_for_request(); // 阻塞等待主线程发出指令
-      │
       └── lv_draw_dispatch()  // 全局渲染任务调度器
-           │
            └─► lv_draw_dispatch_layer(display, layer)
-                │
                 └─► 遍历 layer->task_list 中的所有待处理的 lv_draw_task_t
-                     │
                      └─► 查询系统中注册的所有渲染引擎 (Draw Units):
                          [Draw Unit 1]: VG-Lite GPU 加速器 (如果是 NXP/STM32 某些带 2.5D GPU 的芯片)
                          [Draw Unit 2]: PXP / DMA2D 硬件搬运器
                          [Draw Unit 3]: SW 纯软件光栅化引擎
                          │
                          └─► 匹配算法：哪个 Unit 处于空闲 (idle)，且声称自己能处理该 task (evaluate_cb)？
-                             │
                              └─► 将 Task 交给特定的 Unit 执行 (dispatch_cb)
-                                 │
                                  └── 【执行终点】：以默认纯软件引擎为例
                                      lv_draw_sw_dispatch()  [位于 lv_draw_sw.c]
-                                      │
                                       └── 执行实际的算术和内存写入：
                                           lv_draw_sw_rect() -> 像素混合，将颜色写到内存 framebuffer 中。
                                           (如果是 GPU Unit，则在此处构造 GPU 命令列表并提交)
@@ -421,6 +402,149 @@ lv_draw_thread()  (独立线程死循环)
                                       └── 标记 Task 完成 (state = LV_DRAW_TASK_STATE_READY)
     }
 ```
+
+## Label 绘制与硬件提交
+
+### 异步：
+
+```java
+lv_draw_label()  [LVGL 绘图分发层]
+ └── lv_draw_vglite_label()  [VG-Lite 专属 Label 绘制入口]
+      ├── 1. 上下文准备：获取目标 Buffer 地址、字体信息、文本颜色、透明度等
+      ├── 2. lv_draw_label_iterate_characters()  [LVGL 核心字符迭代器]
+      │    │  (遍历字符串，处理换行、字间距、Bidi 双向文本对齐等逻辑)
+      │    └── _draw_vglite_letter()  [逐字回调函数 - 针对单个字符]
+      │         └── _vglite_draw_letter()  [第189-214行：核心硬件指令封装]
+      │              ├── 检查当前字符字形 (Glyph) 是否支持硬件加速 (格式/对齐)
+      │              ├── 若不支持 -> 触发 Fallback (降级到 CPU 软件绘制)
+      │              └── 若支持 -> 构建 GPU 渲染指令
+      │                   └── vg_lite_blit_rect() / vg_lite_blit()
+      │                       └── 写入 VG-Lite Command Buffer (此时 GPU 仍在休眠或处理上一批指令)
+      │
+      └── 3. 退出 Label 绘制函数 (此时整个 Label 的指令都在 Buffer 中，尚未执行)
+
+==================== 异步/延迟提交分界线 ====================
+
+[触发 Flush / Finish 的时机 (见下文详细解释)]
+ ├── 场景 A：VG-Lite 底层命令缓冲区满了 (驱动层自动触发)
+ ├── 场景 B：发生 CPU 软件绘制降级 (需同步硬件结果)
+ └── 场景 C：整个图层或帧绘制完毕 (LVGL 调度层主动触发)
+      └── lv_draw_vglite_wait_for_finish() / lv_draw_vglite_flush()
+           └── vg_lite_finish() 或 vg_lite_flush()  [VG-Lite 核心 API]
+                ├── 发送中断/寄存器信号给 GPU 硬件
+                ├── GPU 开始读取 Command Buffer，执行像素光栅化、混合 (Alpha Blending)
+                └── 等待 GPU 硬件完成中断 (如果是 finish 的话)
+```
+
+
+
+为什么每个字形都要 `blit` 一次，而不是整个字符串一起给 GPU？
+
+>   GPU 的 2D 引擎（像 VG-Lite）本质上只认“矩形色块”或“矢量路径”。它不认识“字符串”。LVGL 必须通过 CPU 算出每个字体的排版位置（Kerning、换行），然后把每一个字符当成一张“小图片”，单独命令 GPU 去贴图（Blit）。
+
+`vg_lite_blit_rect` 只是存指令，那么真正的触发点在哪？LVGL 的 VG-Lite 驱动在以下三种情况下会发生实际的提交：
+
+-   **触发点 1：Command Buffer 填满（底层被动触发）** VG-Lite 驱动在初始化时会分配一块定长的命令缓冲区（通常是 64KB 或 128KB）。如果你的 Label 极长（比如一屏幕密密麻麻的小字），当 `vg_lite_blit_rect` 发现当前缓冲区不够写了，它会自动在内部触发一次 `flush`，然后清空指针，继续记录剩余字符。
+-   **触发点 2：发生软硬件切换 (CPU Fallback Sync)** 假设你画了一个 Label (GPU 构建指令) -> 紧接着画了一个复杂的多边形蒙版 (VG-Lite 不支持，LVGL 必须用 CPU 画)。 在这个瞬间，如果 CPU 直接去改写显存，就会和 GPU 还没执行的 Label 绘制发生**数据竞争冲突**。 所以，当 LVGL 发现需要动用 CPU 渲染器前，会强制调用 `vg_lite_finish()`，让 GPU 把之前积攒的 Label 赶紧画完，然后 CPU 再接手。
+-   **触发点 3：当前 Layer/Task 绘制结束（主动触发）** 在 LVGL 的绘图流水线（Draw Thread）末尾，当一个图层（Layer）上的所有节点都遍历完了，或者准备要把缓冲区送到屏幕控制器（LCDC/eLCDIF）显示之前，LVGL 底层会调用 `lv_draw_vglite_wait_for_finish()` 或类似回调，强制提交并等待所有 GPU 操作完成。
+
+### 同步：
+
+
+
+```java
+lv_draw_dispatch() / lv_refr_vdb_flush()  [LVGL 核心调度器 / 刷新引擎]
+ ├── 1. 判定需要同步：当前图层的 GPU 任务队列已下发完毕，或即将发生软硬件渲染切换
+ ├── 2. lv_draw_vglite_wait_for_finish()  [LVGL 的 VG-Lite 移植层同步入口]
+ │    ├── (步骤 A) 缓存同步：执行 CPU D-Cache Clean (确保 CPU 生成的指令和图像数据已写入主存 RAM)
+ │    └── (步骤 B) vg_lite_finish()       [VG-Lite 驱动层核心同步 API]
+ │         ├── 1. vg_lite_flush()         [内部强制调用，把当前 Command Buffer 立即推给 GPU]
+ │         ├── 2. 硬件寄存器操作：向 GPU 发送 "START" 或类似触发信号
+ │         ├── 3. OS 级线程挂起：调用 xSemaphoreTake / tx_semaphore_get 等 RTOS 接口
+ │         │    │  (★ 此时当前 LVGL 绘图线程进入睡眠，交出 CPU 使用权)
+ │         │    │  ... CPU 去执行其他任务，GPU 开始在后台疯狂进行像素光栅化和混合 ...
+ │         │    │
+ │         ├── 4. GPU 硬件中断 (IRQ)：GPU 画完所有像素，向中断控制器 (NVIC/GIC) 发送中断信号
+ │         │    │
+ │         ├── 5. VG-Lite 中断服务函数 (ISR)：在中断上下文中，调用 xSemaphoreGive 释放信号量
+ │         │    │
+ │         └── 6. 线程唤醒：vg_lite_finish 成功获取到信号量，解除阻塞，函数返回！
+ │
+ └── 3. 返回 LVGL 层：此时显存中的画面已经 100% 准备好。
+        (后续动作：CPU 执行软件降级绘制，或者调用屏幕控制器的 DMA 把这帧画面刷到 LCD 上)
+```
+
+
+
+
+
+### “必须”同步？
+
+在实际的 GUI 开发中，滥用同步会导致严重的卡顿（因为 CPU 和 GPU 没有并行工作），但在以下三种情况下，**必须严丝合缝地执行同步栈**：
+
+-   **场景一：CPU Fallback（软件降级渲染）** 如果 LVGL 发现一个复杂的圆角渐变阴影 VG-Lite 硬件不支持，必须用 CPU 的软件算法画。此时**必须**调用同步栈，等 GPU 把之前的纯色背景和文字先画完。否则，CPU 和 GPU 会同时读写同一块显存，导致画面出现随机的撕裂或马赛克。
+-   **场景二：Buffer Swap（双缓冲切换）** 当整个 Frame Buffer（帧缓冲）画完了，准备把这块内存的地址交给 LCD 屏幕控制器显示前。如果不调用 `finish` 同步，屏幕可能会显示出一张 GPU 才画了一半（比如文字只显示了上半截）的半成品画面。
+-   **场景三：Command Buffer** 已满 系统分配给 VG-Lite 的命令缓冲区内存是有限的。当这些缓冲区全部写满，且之前的指令 GPU 还没执行完时，CPU 只能被迫进入同步等待，等 GPU 消费掉一部分指令，腾出空间后，CPU 才能继续往里写新的渲染指令。
+
+
+
+
+
+# 维测
+
+## FPS
+
+开关：
+
+```java
+/* 1. 开启系统监视器 (LVGL v9+) */
+#define LV_USE_SYSMON           1
+
+/* 2.(可选) 开启性能监控悬浮窗 (显示 FPS, CPU 占用, 渲染时间等) */
+#define LV_USE_PERF_MONITOR     1
+
+/* 3. (可选) 控制监控数据的输出方式 */
+/* 在屏幕上显示悬浮窗 (默认通常开启) */
+#define LV_USE_PERF_MONITOR_POS LV_ALIGN_BOTTOM_RIGHT
+/* 是否将性能数据通过 LV_LOG_INFO 打印到串口 (产生你看到的那条 log) */
+#define LV_USE_PERF_MONITOR_LOG_MODE 1 
+
+/* 4. (可选) 搭配开启内存监控，排查内存泄漏 */
+#define LV_USE_MEM_MONITOR      1
+```
+
+日志：
+
+```java
+lvgl-sysmon-fps: 12 FPS (refr_cnt: 5 | redraw_cnt: 5), refr 66ms (render 56ms | flush 2ms), CPU 100 -
+```
+
+| **字段**            | **含义**                                                     | **诊断意义**                                                 |
+| ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **`12 FPS`**        | **当前帧率 (Frames Per Second)**。                           | 12 FPS 属于明显卡顿，通常流畅的 UI 需要 30+，丝滑需要 60。   |
+| **`refr_cnt: 5`**   | **刷新区域数量**。LVGL 计算出屏幕上有 5 个不相交的“脏矩形”（Dirty Areas）需要更新。 | 数量越多，LVGL 合并脏矩形的开销越大。若本该一起更新的 UI 碎片化了，需优化布局。 |
+| **`redraw_cnt: 5`** | -**<font color='red'>重绘次数</font>**。实际调用绘图指令的次数。 | 通常与 `refr_cnt` 对应。如果远大于 `refr_cnt`，说明发生了很多透明图层的反复重绘（Overdraw）。 |
+| **`refr 66ms`**     | **单次刷新的总耗时**。从开始计算脏区到最终送显完成。         | **核心卡点**。66ms 意味着一秒最多只能跑 1000/66 ≈ 15 帧（与你的 12 FPS 吻合）。 |
+| **`render 56ms`**   | -**<font color='red'>纯渲染耗时</font>**。CPU 或 GPU（VG-Lite/PXP等）进行光栅化、混合、画图的总耗时。 | 56ms 占比极大！说明**瓶颈在渲染端**。可能：1. 没开启硬件加速；2. 使用了大量高斯模糊、复杂遮罩；3. 图层叠得太多。 |
+| **`flush 2ms`**     | -**<font color='red'>送显耗时</font>**。将算好的画面像素拷贝/DMA传给 LCD 屏幕的耗时。 | 2ms 非常健康，说明你的底层 LCD 驱动（如 DMA 或 SPI 刷屏）效率很高，没有拖后腿。 |
+| **`CPU 100`**       | **CPU 占用率 100%**。                                        | 证实了上面的猜想，CPU 被彻底榨干了。它完全在做纯软件的算力运算（可能在死磕软渲染）。 |
+
+## 显示面板
+
+要让它显示在屏幕右下角，只需确保你的 `lv_conf.h` 中有以下配置：
+
+```java
+/* 1. 开启系统监视器核心组件 (v9+ 必须) */
+#define LV_USE_SYSMON           1
+
+/* 2. 开启性能监视器 (显示 FPS, CPU 等) */
+#define LV_USE_PERF_MONITOR     1
+
+/* 3. 决定悬浮窗显示在屏幕的哪个角落 (核心宏) */
+#define LV_USE_PERF_MONITOR_POS LV_ALIGN_BOTTOM_RIGHT
+```
+
+
 
 # code
 

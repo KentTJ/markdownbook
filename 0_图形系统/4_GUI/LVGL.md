@@ -488,6 +488,20 @@ lv_draw_dispatch() / lv_refr_vdb_flush()  [LVGL 核心调度器 / 刷新引擎]
 
 
 
+# 设计原则
+
+## 软件兜底原则
+
+LVGL 的设计逻辑是：只要硬件（VG-Lite）接管失败，最后一定会掉进 **SW (Software) 渲染流水线**。
+
+```c
+void lv_draw_sw_letter(lv_draw_ctx_t * draw_ctx, const lv_draw_label_dsc_t * dsc, const lv_point_t * pos_p, uint32_t letter) {
+    // 探针：如果发现是我们要查的画面区域或特定的绘制，直接打印
+    LV_LOG_ERROR("WARNING: CPU FALLBACK triggered for letter: %c", letter);
+    // ... 原始代码 ...
+}
+```
+
 
 
 # 维测

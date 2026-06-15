@@ -2512,6 +2512,35 @@ body {
 ![[Pasted image 20260125151341.png]]
 # vscode
 
+
+
+##  C/C++ 代码精准跳转 (多 CMakeLists 场景)  ----->验证ok
+
+在包含多个 `CMakeLists.txt` 的复杂工程中，使用 `clangd` 配合 `bear` 是实现精准代码跳转的最佳实践。
+
+**配置步骤：**
+
+1. **生成编译数据库：**
+   在 Linux 终端中，使用 `bear` 包装你的构建命令，以此生成 `compile_commands.json` 文件。
+   ```bash
+   bear -- ./build.sh xxx
+   ```
+
+**安装 VS Code 插件：** 在 VS Code 扩展市场中搜索并安装 **clangd** 插件（通常由 LLVM 提供）。
+
+**安装系统依赖：** 确保 Linux 服务器端已安装 `clangd` 核心程序。
+
+```
+# 例如 Ubuntu/Debian 系统：
+sudo apt-get install clangd
+```
+
+**重启生效：** 重启 VS Code 以使插件和配置生效。
+
+**验证与排错：** 在 VS Code 底部的 **OUTPUT（输出）** 面板的下拉菜单中选择 `clangd`，可以查看解析日志和运行状态。
+
+
+
 ## bookmark使用：
 
 > [vscode的Bookmarks如何使用？_vscode bookmarks-CSDN博客](https://blog.csdn.net/m0_57236802/article/details/131736325)
@@ -2810,6 +2839,30 @@ AS 有同样的Hierarchy
 参考： https://blog.51cto.com/englyf/6429156
 
 3、通义灵码 ------> AI编程
+
+
+
+### GitLens 与工作区 Git 检测配置
+
+代码行内 Git 信息提示及<font color='red'>多层级仓库的自动检测：</font>
+
+配置添加到 VS Code 的 `settings.json` 中
+
+```
+{
+    // GitLens 行内提示与 CodeLens 配置
+    "gitlens.currentLine.enabled": true,
+    "gitlens.codeLens.enabled": true,
+    "gitlens.hovers.currentLine.over": "line",
+
+    // Git 仓库深度扫描配置 (适用于庞大的多仓库工程)
+    "gitlens.advanced.repositorySearchDepth": 3,
+    "git.repositoryScanMaxDepth": 4,
+    "git.autoRepositoryDetection": true
+}
+```
+
+
 
 ## vscode 查看 某一笔提交：
 

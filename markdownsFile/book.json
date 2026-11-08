@@ -1,0 +1,62 @@
+{
+  "root": "./markdownsFiles",
+  "bookname": "笔记",
+
+   "//": "单行注释",
+   "//": ["这是多行注释：    anchor-navigation-ex 是",
+                            "anchor-navigation-ex 是",
+                            "click-reveal 本地使用ok，但是github在build pages时，不识别click-reveal",
+                            "accordion 也是折叠代码段",
+                            "anchor-navigation-ex 是"
+         ],
+  "plugins": [
+    "anchor-navigation-ex",
+    "toggle-chapters",
+    "expandable-chapters-small",
+    "splitter",
+    "code",
+    "page-treeview",
+    "popup",
+    "-search", 
+    "-lunr",
+    "sidebar-style",
+    "auto-scroll-table",
+    "click-reveal",
+    "accordion",
+    "pageview-count",
+    "search-pro",
+	"prism",
+	"prism-themes",
+	"-highlight"
+  ],
+  "title": "Kent的博客",
+  "pluginsConfig": {
+	    "tbfed-pagefooter": {
+			  "copyright":"Copyright &copy ershouche-FE 2019",
+			  "modify_label": "文件修订时间：",
+			  "modify_format": "YYYY-MM-DD HH:mm:ss"
+	    },
+	    "disqus": {
+			"shortName": "gitbookuse"
+	    },
+		"lunr": {
+				"maxIndexSize": 400000
+	    },
+	    "sidebar-style": {
+				"title": "《约束 结构 不得不》",
+				"author": "Kent"
+	    },
+		"prism": {
+            "css": [
+                "prismjs/themes/prism-tomorrow.css"
+            ],
+            "lang": {
+                "flow": "typescript"
+            },
+            "ignore": [
+                "mermaid",
+                "eval-js"
+            ]
+        }
+	}
+}

@@ -1,0 +1,2241 @@
+{
+  "content": [
+    {
+      "name": "book1",
+      "label": "技术与思考",
+      "type": "group",
+      "items": [
+        {
+          "name": "note-67162a7bd2eb8e08",
+          "label": "0_Graphic系统总论",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/0_Graphic系统总论/0_Graphic系统总论.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-4eef004d2209985d",
+          "label": "opengl",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/1_Render系统/opengl.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-667fccb24bdb4eae",
+          "label": "0_窗口系统总论",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/2_窗口系统/0_窗口系统总论/0_窗口系统总论.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-4d32c9fc46167975",
+          "label": "SurfaceControl",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/2_窗口系统/SurfaceControl.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-8ae440d6b59647d8",
+          "label": "virtualDisplay",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/2_窗口系统/virtualDisplay.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-fd689c84b2be8c0d",
+          "label": "wms_animination",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/2_窗口系统/wms_animination.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-6b46d433677520a2",
+          "label": "virtualDisplay",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/2_窗口系统/次要/virtualDisplay.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-8e0c4601eb7c779c",
+          "label": "自由窗口",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/2_窗口系统/次要/自由窗口.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-41f83a9b2e245429",
+          "label": "窗口管理之weston",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/2_窗口系统/窗口管理之weston.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-dd55e528e2da8a8f",
+          "label": "窗口管理器WMS",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/2_窗口系统/窗口管理器WMS.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-f766afe737c22aad",
+          "label": "3dof",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/3_Display系统/3dof.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-8ed3a4d19d2b49a3",
+          "label": "Display系统",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/3_Display系统/Display系统.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-556470228138ad00",
+          "label": "DRM",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/3_Display系统/DRM.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-8f4156175fbea65a",
+          "label": "sf特效",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/3_Display系统/sf特效.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-2a1e66969e63cce2",
+          "label": "合成之surfaceFlinger",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/3_Display系统/合成之surfaceFlinger.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-c235eebe8d155898",
+          "label": "合成之weston",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/3_Display系统/合成之weston.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-c53d0595397ae670",
+          "label": "LVGL",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/4_GUI/LVGL.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-039023b37c6dcfac",
+          "label": "View",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/4_GUI/View.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-984f8213edff5134",
+          "label": "GStreamer",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/5_多媒体/GStreamer.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-492a4c942aaf20c3",
+          "label": "QT",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/其他/QT.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-7930e99a875aeb03",
+          "label": "多屏显示分析",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/其他/多屏显示分析.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-b0e7920f82540db5",
+          "label": "虚拟化",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_图形系统/虚拟化.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-e2254baa0d324f07",
+          "label": "输入系统",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_输入系统/Input.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-944f3e1ef3e2bbbf",
+          "label": "全局手势",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_输入系统/全局手势.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-224b609997617f52",
+          "label": "0_AMS",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_进程管理/0_AMS.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-918ce10ede6c95f8",
+          "label": "App保活的方式",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_进程管理/App保活的方式.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-3d7efdd26bd61bc3",
+          "label": "后台杀进程",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_进程管理/后台杀进程.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-be8183b24f644fda",
+          "label": "杀进程原理",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_进程管理/杀进程原理.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-976263b776bbb77a",
+          "label": "进程与子进程",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_进程管理/进程与子进程.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-3e15200c6068c317",
+          "label": "进程管理系列0_总论",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_进程管理/进程管理系列0_总论.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-fe466eb46901d266",
+          "label": "进程管理系列1之进程的创建",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_进程管理/进程管理系列1之进程的创建.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-9bb8520ae72ceb28",
+          "label": "进程管理系列2之进程的优先级",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_进程管理/进程管理系列2之进程的优先级.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-6be04f5a7ca5f5ef",
+          "label": "进程管理系列3之内存回收",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/0_进程管理/进程管理系列3之内存回收.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-c87d68a546909f0c",
+          "label": "0_AndriodSystem",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/Andriod/0_AndriodSystem.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-79d35782bd4cc269",
+          "label": "log框架",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/Andriod/log框架.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-db1a0052090ea9d6",
+          "label": "permissions",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/Andriod/permissions.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-39fd96345b069262",
+          "label": "InitSystem",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/Andriod/关键流程/InitSystem.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-19cd4c38b7f65917",
+          "label": "startAPP",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/Andriod/关键流程/startAPP.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-d88be140a140f84f",
+          "label": "1_InputMethod",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/Andriod/其他核心服务/1_InputMethod.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-4288157339df4816",
+          "label": "multi-client-ime",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/Andriod/其他核心服务/multi-client-ime.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-458470e93e2de7cc",
+          "label": "无障碍_",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/Andriod/其他核心服务/无障碍_.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-99341b3a8afbed10",
+          "label": "功耗",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/Andriod/功耗.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-823800a06f95bc81",
+          "label": "模型",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/Andriod/模型.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-dae8539351395bb9",
+          "label": "book2",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/book2.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-c0670ea6c4c3bcd6",
+          "label": "CheckList",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/CheckList.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-8b2e678cb0ab94f1",
+          "label": "DesignPattern",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/0_computorBase/DesignPattern.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-56408c0fa1a9f026",
+          "label": "阅读代码与定位问题",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/0_computorBase/HowToReadCode.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-ad66c809a7cf2be0",
+          "label": "编写代码",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/0_computorBase/HowWritecode.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-053434a2395d2448",
+          "label": "linux",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/0_computorBase/linux.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-a8721a2d595d8fcb",
+          "label": "linux文件系统",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/0_computorBase/linux文件系统.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-83c1fde9787a6055",
+          "label": "OperateSystem",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/0_computorBase/OperateSystem.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-f730804bad6d2257",
+          "label": "refactor",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/0_computorBase/refactor.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-1ed9860b561f316c",
+          "label": "用户_用户组",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/0_computorBase/用户_用户组.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-eeb5e00544db34fb",
+          "label": "解耦",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/0_computorBase/解耦.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-fd1c22d4413b4e73",
+          "label": "AndriodIPC",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/0_IPC/AndriodIPC.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-48741a895527ed55",
+          "label": "IPC前提_序列化",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/0_IPC/IPC前提_序列化.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-83467e5c57a9d4d8",
+          "label": "socket",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/0_IPC/socket.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-e4278b0a2d42582d",
+          "label": "线程间通信",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/0_IPC/线程间通信.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-f66e30b8b874c0c1",
+          "label": "profiler",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/0_性能/profiler.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-f4dbe14129bd257f",
+          "label": "Systrace",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/0_性能/Systrace.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-afbebca2344cc62b",
+          "label": "内存",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/0_性能/内存.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-583a2a7df64a6570",
+          "label": "性能优化",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/0_性能/性能_.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-d3eb13f463fe4119",
+          "label": "ANR",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/1_稳定性/ANR.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-241f7ffbb509ea86",
+          "label": "WatchDog",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/1_稳定性/WatchDog.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-1702f68918b6878c",
+          "label": "稳定性通用",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/1_稳定性/稳定性通用.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-1609ef8d0e572e8c",
+          "label": "CarService",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/AndriodCar/CarService.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-f4ff8f282b1339d3",
+          "label": "HierarchyView",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/AndroidTool/HierarchyView.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-a54361217ccce41b",
+          "label": "APK_64bit_32bit",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/App/APK_64bit_32bit.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-d11a2677c505f211",
+          "label": "APP开发",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/App/APP开发.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-d17e0dd86ae6db98",
+          "label": "launcher3",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/App/launcher3.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-c883c4ed04841fd5",
+          "label": "SystemUI",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/App/SystemUI.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-bc3047a863c8daa0",
+          "label": "小程序",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/App/小程序.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-a01c0da9530a323c",
+          "label": "c_cpp_java",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/CodingLanguage/c_cpp_java.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-f883c3b1a330b3c8",
+          "label": "java反射",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/CodingLanguage/java反射.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-68df83109d4be8d1",
+          "label": "JNI",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/CodingLanguage/JNI.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-a0fa670a3154284a",
+          "label": "js",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/CodingLanguage/js.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-0c4029d5bb87a41a",
+          "label": "python",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/CodingLanguage/python.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-2d1343225b65a84f",
+          "label": "R",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/CodingLanguage/R.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-b3629b550b47e2c6",
+          "label": "内存问题_工具",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/CodingLanguage/内存问题_工具.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-3a3379967b967dbd",
+          "label": "其他特性",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/Features/其他特性.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-2331bc1fc52a56aa",
+          "label": "多用户",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/Features/多用户.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-327358d497a85650",
+          "label": "OpenHarmony",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/other OS/OpenHarmony.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-0acf7dbf6c038f85",
+          "label": "otherOS",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/other OS/otherOS.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-7f81cf8e46e94cc8",
+          "label": "kwin",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/wayland/kwin.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-5337f46b6e768aa2",
+          "label": "多线程的模型",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/多线程/多线程的模型.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-6b84faa544f35b65",
+          "label": "线程池与binder线程池",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/多线程/线程池与binder线程池.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-8a51c354f9b766d2",
+          "label": "文件系统结构",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/文件系统结构/文件系统结构.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-19d621ea83d3ac3e",
+          "label": "虚拟化",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/coding/虚拟化/虚拟化.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-e7b429b90a974eef",
+          "label": "思考与学习",
+          "type": "file",
+          "path": "markdownsFile/markdownsFiles/Naturalaw/ReadingAndThinking.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "book2",
+      "label": "投资、生活与工具",
+      "type": "group",
+      "items": [
+        {
+          "name": "note-f1a0ae66468f7de5",
+          "label": "02-编译weston",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/02-编译weston.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-133b71f44dcb7947",
+          "label": "CheckList",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/CheckList.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-4e16b3c860a6b509",
+          "label": "沟通与管理",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/communication/communication.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-63693b0224ce8ab7",
+          "label": "English",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/English/English.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-3c253456ec589551",
+          "label": "投资",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Investment/Investment.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-03a380287207cdec",
+          "label": "金刚经",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Scriptures/金刚经.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-c49a250ac63c5eca",
+          "label": "TOExChanged",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/TOExChanged.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-fcbad704c3349079",
+          "label": "aospBuilding",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Tool/aospBuilding.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-f3d67bc8b956c601",
+          "label": "AS",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Tool/AS.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-12737b7ffac831c6",
+          "label": "building",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Tool/building.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-a1b2173ec1a55771",
+          "label": "chroot",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Tool/chroot.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-2c79a075c9b7edcb",
+          "label": "clion",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Tool/clion.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-d457d9cb88c48b79",
+          "label": "command",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Tool/command.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-57df364f69238159",
+          "label": "调试技巧",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Tool/debugSkills.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-40e6339226857095",
+          "label": "Docker",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Tool/Docker.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-a8a9b1652bf73459",
+          "label": "gdb",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Tool/gdb.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-b286ecbcfb1e986d",
+          "label": "git",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Tool/git.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-156a225a481670d1",
+          "label": "phoneCommand",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Tool/phoneCommand.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-45bcce4025b696fc",
+          "label": "search",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Tool/search.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-9d9237e669209e70",
+          "label": "software_pcSettings",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Tool/software_pcSettings.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-ec3c4149b7f57f00",
+          "label": "sourceInsight",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Tool/sourceInsight.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-f5f111fdc81fcb85",
+          "label": "tmux_linux",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Tool/tmux_linux.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-847a65321dbfdd35",
+          "label": "工程化",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Tool/工程化.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-4fbda236aa773c8e",
+          "label": "编译",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/Tool/编译.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-8442cb9ef19b038f",
+          "label": "waydroid",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/waydroid.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-ca85b68f20387b2a",
+          "label": "修",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/修.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-22954e94e1acae83",
+          "label": "编译flutter",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/编译flutter.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        },
+        {
+          "name": "note-97bc3d1d39134a36",
+          "label": "老罗Android之旅系列课件",
+          "type": "file",
+          "path": "markdownsFile2/markdownsFiles/老罗Android之旅系列课件.md",
+          "format": "yaml-frontmatter",
+          "operations": {
+            "rename": false,
+            "delete": false
+          },
+          "fields": [
+            {
+              "name": "body",
+              "label": "正文（Markdown）",
+              "type": "text",
+              "description": "修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

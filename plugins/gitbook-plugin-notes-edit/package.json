@@ -1,0 +1,6 @@
+{
+  "name": "gitbook-plugin-notes-edit",
+  "version": "1.0.0",
+  "main": "index.js",
+  "engines": { "gitbook": ">=3.2.3" }
+}

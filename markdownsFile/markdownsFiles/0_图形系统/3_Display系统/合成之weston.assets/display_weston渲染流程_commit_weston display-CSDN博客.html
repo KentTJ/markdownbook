@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<!-- saved from url=(0101)file:///C:/Users/Administrator/Desktop/display_weston%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B_commit.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+   
+  <link rel="canonical" href="https://blog.csdn.net/u012839187/article/details/106469038"> 
+   
+  <meta name="renderer" content="webkit"> 
+  <meta name="force-rendering" content="webkit"> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+  <meta name="report" content="{&quot;pid&quot;: &quot;blog&quot;, &quot;spm&quot;:&quot;1001.2101&quot;}"> 
+  <meta name="referrer" content="always"> 
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <link rel="alternate" media="handheld" href="file:///C:/Users/Administrator/Desktop/display_weston%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B_commit.html#">  
+  <meta name="applicable-device" content="pc"> 
+  <link href="https://g.csdnimg.cn/static/logo/favicon32.ico" rel="shortcut icon" type="image/x-icon"> 
+  <title>display:weston渲染流程:commit_weston display-CSDN博客</title>  
+  <meta name="keywords" content="weston display"> 
+  <meta name="csdn-baidu-search" content="{&quot;autorun&quot;:true,&quot;install&quot;:true,&quot;keyword&quot;:&quot;weston display&quot;}"> 
+  <meta name="description" content="文章浏览阅读7.4k次，点赞9次，收藏33次。接上一篇display:weston渲染流程:buffer+attach+damage+framehttps://blog.csdn.net/u012839187/article/details/100580627下面讲commit5.commithttps://happyseeker.github.io/graphic/2016/11/10/wayland-commit-relative-flow.htmlSurface state (input, opaqueand damag._weston display"> 
+  <link rel="stylesheet" type="text/css" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/detail_enter-83d944990a.min.css">  
+  <link rel="stylesheet" type="text/css" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/skin-blackboard-3adcc2c475.min.css">    
+  <meta name="toolbar" content="{&quot;type&quot;:&quot;0&quot;,&quot;fixModel&quot;:&quot;1&quot;}">    
+  <link rel="stylesheet" type="text/css" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/sandalstrap.min.css"> 
+  <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>    
+ 	<style>
+	main div.blog-content-box pre {
+		max-height: 100%;
+		overflow-y: hidden;
+	}
+	</style>
+ </head>  
+ <body class="nodata  " style=""> 
+  <div id="toolbarBox" style="min-height: 48px;"></div>    
+  <link rel="stylesheet" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/blog_code-01256533b5.min.css"> 
+  <link rel="stylesheet" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/chart-3456820cac.css"> 
+  <link rel="stylesheet" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/swiper.css">   
+  <div class="main_father clearfix d-flex justify-content-center mainfather-concision" style="height:100%;"> 
+   <div class="container clearfix container-concision" id="mainBox">  
+    <main>  
+     <div class="blog-content-box"> 
+      <div class="article-header-box"> 
+       <div class="article-header"> 
+        <div class="article-title-box"> 
+         <h1 class="title-article" id="articleContentId">display:weston渲染流程:commit</h1> 
+        </div> 
+        <div class="article-info-box"> 
+         <div class="up-time">
+          最新推荐文章于&nbsp;2022-11-24 08:02:47&nbsp;发布
+         </div> 
+         <div class="article-bar-top"> 
+          <img class="article-type-img" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/original.png" alt=""> 
+          <div class="bar-content"> 
+           <a href="https://mall.csdn.net/vip" data-report-query="spm=3001.10404" data-report-click="{&quot;spm&quot;:&quot;3001.10404&quot;}" data-report-view="{&quot;spm&quot;:&quot;3001.10404&quot;}" class="article-vip-box" target="_blank"><img class="article-vip-img-new" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/identityVipNew.png" alt=""></a> 
+           <a class="follow-nickName " href="https://blog.csdn.net/u012839187" target="_blank" rel="noopener" title="maze.ma">maze.ma</a> 
+           <img class="article-time-img article-heard-img" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/newCurrentTime2.png" alt=""> 
+           <span class="time blog-postTime" data-time="2020-06-01 11:25:52">最新推荐文章于&nbsp;2022-11-24 08:02:47&nbsp;发布</span> 
+           <div class="read-count-box"> 
+            <img class="article-read-img article-heard-img" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/articleReadEyes2.png" alt=""> 
+            <span class="read-count">阅读量7.4k</span> 
+            <a id="blog_detail_zk_collection" class="un-collection" data-report-click="{&quot;mod&quot;:&quot;popu_823&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4232&quot;,&quot;ab&quot;:&quot;new&quot;}"> <img class="article-collect-img article-heard-img un-collect-status isdefault" style="display:inline-block" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/tobarCollect2.png" alt=""> <img class="article-collect-img article-heard-img collect-status isactive" style="display:none" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/tobarCollectionActive2.png" alt=""> <span class="name">收藏</span> <span class="get-collection"> 33 </span> </a> 
+            <div class="read-count-box is-like" data-type="top"> 
+             <img class="article-read-img article-heard-img" style="display:none" id="is-like-imgactive-new" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/newHeart2023Active.png" alt=""> 
+             <img class="article-read-img article-heard-img" style="display:block" id="is-like-img-new" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/newHeart2023Black.png" alt=""> 
+             <span class="read-count" id="blog-digg-num">点赞数 9 </span> 
+            </div> 
+           </div> 
+          </div> 
+         </div> 
+         <div class="blog-tags-box"> 
+          <div class="tags-box artic-tag-box"> 
+           <span class="label">分类专栏：</span> 
+           <a class="tag-link" href="https://blog.csdn.net/u012839187/category_9294500.html" target="_blank" rel="noopener">weston/wayland</a> 
+           <a class="tag-link" href="https://blog.csdn.net/u012839187/category_9663042.html" target="_blank" rel="noopener">dispaly</a> 
+           <a class="tag-link" href="https://blog.csdn.net/u012839187/category_8659517.html" target="_blank" rel="noopener">hal</a> 
+           <span class="label">文章标签：</span> 
+           <a rel="noopener" data-report-query="spm=1001.2101.3001.4223" data-report-click="{&quot;mod&quot;:&quot;popu_626&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4223&quot;,&quot;strategy&quot;:&quot;wayland/weston&quot;,&quot;ab&quot;:&quot;new&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;wayland/weston\&quot;}&quot;}" data-report-view="{&quot;mod&quot;:&quot;popu_626&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4223&quot;,&quot;strategy&quot;:&quot;wayland/weston&quot;,&quot;ab&quot;:&quot;new&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;wayland/weston\&quot;}&quot;}" class="tag-link" href="https://so.csdn.net/so/search/s.do?q=wayland%2Fweston&amp;t=all&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=&amp;from_tracking_code=tag_word&amp;from_code=app_blog_art" target="_blank">wayland/weston</a> 
+          </div> 
+         </div> 
+         <div class="slide-content-box"> 
+          <div class="article-copyright"> 
+           <div class="creativecommons">
+             版权声明：本文为博主原创文章，遵循
+            <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。 
+           </div> 
+           <div class="article-source-link">
+             本文链接：
+            <a href="https://blog.csdn.net/u012839187/article/details/106469038" target="_blank">https://blog.csdn.net/u012839187/article/details/106469038</a> 
+           </div> 
+          </div> 
+         </div> 
+         <div class="operating"> 
+          <a class="href-article-edit slide-toggle">版权</a> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div id="blogHuaweiyunAdvert" class=""></div> 
+      <article class="baidu_pl"> 
+       <div id="article_content" class="article_content clearfix"> 
+        <link rel="stylesheet" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/kdoc_html_views-1a98987dfd.css"> 
+        <link rel="stylesheet" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/ck_htmledit_views-704d5b9767.css"> 
+        <div id="content_views" class="htmledit_views atom-one-light"> 
+         <h3>接上一篇</h3> 
+         <h3>display:weston渲染流程:buffer+attach+damage+frame</h3> 
+         <p><a href="https://blog.csdn.net/u012839187/article/details/100580627" title="display:weston渲染流程:buffer+attach+damage+frame_maze的专栏-CSDN博客">display:weston渲染流程:buffer+attach+damage+frame_maze的专栏-CSDN博客</a></p> 
+         <p></p> 
+         <h3>5.commit</h3> 
+         <p><a href="https://happyseeker.github.io/graphic/2016/11/10/wayland-commit-relative-flow.html" rel="nofollow" title="Wayland源码分析-Commit相关流程">Wayland源码分析-Commit相关流程</a></p> 
+         <p>Surface state (input, opaque&nbsp;and damage regions, attached buffers, etc.) is double-buffered.</p> 
+         <p>表面状态（输入，不透明和损坏区域，附加缓冲区等）是双缓冲的。=&gt;[防止图像抖动]</p> 
+         <p>commit操作本质上就是为double buffer而设计，多次操作、一次提交。注意到之前的操作attach,damage,frame等仅仅在commit以后才会生效。(之前的操作都是对pending结构体的操作，只有commit以后才会切换到current结构体上)</p> 
+         <pre class="has"><code>client:
+wl_surface_commit(window-&gt;surface);</code></pre> 
+         <pre class="has"><code style="height: 50vh;">server:    weston/libweston/compositor.c::surface_commit
+surface_commit
+...
+weston_surface_is_pending_viewport_source_valid  //对pending的buffer进行缩放/旋转相关操作
+这里写错了，没有旋转相关操作！只有裁剪或者缩放
+weston_surface_is_pending_viewport_dst_size_int  //缩放相关校验，服务为wp_viewporter；
+...
+if (surface-&gt;pending.acquire_fence_fd &gt;= 0) {    //fence相关的内容，同步保证互斥buffer的fence
+		/* We support fences for both wp_linux_dmabuf and opaque EGL
+		 * buffers, as mandated by minor version 2 of the
+		 * zwp_linux_explicit_synchronization_v1 protocol. Since
+		 * renderers that support fences currently only support these
+		 * two buffer types plus SHM buffers, we can just check for the
+		 * SHM buffer case here.
+		 */
+    if(!surface-&gt;pending,buffer)
+        fd_clear(&amp;surface-&gt;pending.acquire_fence_fd);
+    if(wl_shm_buffer_get(surface-&gt;pending.buffer-&gt;resource))
+        fd_clear(******fd);
+
+    如果没buffer，清空对应fence，如果buffer是shm的，清空fence
+...
+}
+...
+if (sub) {
+ 	weston_subsurface_commit(sub); //1
+ 	return;
+}
+weston_surface_commit(surface);
+...
+
+wl_list_for_each(sub, &amp;surface-&gt;subsurface_list, parent_link) {
+    if (sub-&gt;surface != surface)
+			weston_subsurface_parent_commit(sub, 0); //看上去主要是处理subsurface的view对应的位置
+                ...
+                weston_view_set_position //这个是绝对坐标
+                ...
+}    
+
+如果是subsurface则走subsurface_commit,否则走surface_commit
+
+
+1.weston_subsurface_commit(struct weston_subsurface *sub)
+    if (weston_subsurface_is_synchronized(sub)) {
+	    weston_subsurface_commit_to_cache(sub);
+    } else {
+	    if (sub-&gt;has_cached_data) {
+		    /* flush accumulated state from cache */
+		    weston_subsurface_commit_to_cache(sub);
+		    weston_subsurface_commit_from_cache(sub);
+	    } else {
+		    weston_surface_commit(surface);
+	    }
+
+	    wl_list_for_each(tmp, &amp;surface-&gt;subsurface_list, parent_link) {
+		    if (tmp-&gt;surface != surface)
+			    weston_subsurface_parent_commit(tmp, 0);
+	    }
+    }
+
+    判断父子surface为同步或异步，并完成相应的commit操作
+...
+</code></pre> 
+         <p>目前weston在commit的逻辑里面加载了对fence的支持。 shm-buffer还不支持</p> 
+         <p>&nbsp;buffer对应绘画的部分，viewport对应最终显示的状态，中间有一个缩放或者裁剪的过程。</p> 
+         <p>&nbsp;补充：</p> 
+         <pre><code style="height: 50vh;">wl_subsurface::set_sync - set sub-surface to synchronized mode
+Change the commit behaviour of the sub-surface to synchronized mode, also described
+as the parent dependent mode.
+
+In synchronized mode, wl_surface.commit on a sub-surface will accumulate the
+committed state in a cache, but the state will not be applied and hence will not
+change the compositor output. The cached state is applied to the sub-surface
+immediately after the parent surface's state is applied. This ensures atomic
+updates of the parent and all its synchronized sub-surfaces. Applying the cached
+state will invalidate the cache, so further parent surface commits do not
+(re-)apply old state.
+
+wl_subsurface::set_sync—将subsurface设置为同步模式
+将子表面的提交行为更改为同步模式，也就是描述作为父依赖模式。
+在同步模式下，子表面上的wl_surface.commit将提交状态累积在缓存中，
+if (weston_subsurface_is_synchronized(sub)) {
+		weston_subsurface_commit_to_cache(sub);
+但是该状态不会被应用，因此也不会被更改compositor的输出。
+在应用父表面的状态之后立即执行“缓存的状态应用于子表面”。
+这样可以确保原子性父类及其所有同步子表面的更新。
+已经使用的subsurface的缓存将被使用后无效话，下次父表面的提交将不会再次应用子表面的老的state.
+
+
+
+另外一种：
+wl_subsurface::set_desync - set sub-surface to desynchronized mode
+Change the commit behaviour of the sub-surface to desynchronized mode, also described as 
+independent or freely running mode.
+In desynchronized mode, wl_surface.commit on a sub-surface will apply the pending state 
+directly, without caching, as happens normally with a wl_surface. Calling
+wl_surface.commit on the parent surface has no effect on the sub-surface's wl_surface
+state. This mode allows a sub-surface to be updated on its own.
+If cached state exists when wl_surface.commit is called in desynchronized mode, the
+pending state is added to the cached state, and applied as a whole. This invalidates the cache.
+
+Note: even if a sub-surface is set to desynchronized, a parent sub-surface may override
+it to behave as synchronized. For details, see wl_subsurface.
+If a surface's parent surface behaves as desynchronized, then the cached state is applied
+on set_desync.
+将子表面的提交行为更改为去同步模式，也称为独立或自由运行模式。
+在不同步模式下，子表面上的wl_surface.commit将直接应用挂起状态，而不使用缓存，就像在wl_surface上
+通常所做的那样。在父表面上调用wl_surface.commit对子表面的wl_surface状态没有影响。此模式允许子表
+面自行更新。
+如果在以非同步模式调用wl_surface.commit时存在缓存状态，则将挂起状态添加到缓存状态，并作为一个整
+体应用。这会使缓存失效。也就是，本来应该是对pending结构体做操作，变量换成了cached结构体</code></pre> 
+         <p></p> 
+         <pre class="has"><code>server:
+2.weston_surface_commit
+    weston_surface_commit_state(surface, &amp;surface-&gt;pending);
+            //注意参数，一个是之前的pending；把pending里面存储的状态转移给surface
+                      
+    weston_surface_commit_subsurface_order(surface);
+            //更新subsurface的顺序，其实也是将subsurface从pending列表换到当前的列表中
+            ...【todo】
+
+    weston_surface_schedule_repaint(surface);
+            //重绘界面,这块逻辑复杂</code></pre> 
+         <p></p> 
+         <h4>&nbsp;weston_surface_commit::weston_surface_commit_state</h4> 
+         <p>里面很多egl函数看不懂，见此参考gl-renderer.c的gl_renderer_setup 里面存在关联操作，如：</p> 
+         <p>3728 &nbsp; &nbsp; gr-&gt;image_target_texture_2d =<br> 3729 &nbsp; &nbsp; &nbsp; &nbsp; (void *) eglGetProcAddress("glEGLImageTargetTexture2DOES");</p> 
+         <pre class="has"><code style="height: 50vh;">weston_surface_commit_state
+0    surface-&gt;buffer_viewport = state-&gt;buffer_viewport;
+     具体内容查看buffer_viewport结构体，主要与缩放设置相关
+     把pending交给对应的surface
+...
+if(state-&gt;newly_attached) {
+     fence相关,也是把pending的acquire_fence_fd给到surface，
+//attach。之前已经画好的图，在attach里面绑定到surface上面，gl_renderer创建texture。将之前client自己画好的buffer和这个[不一定一个]texture关联上。
+1    weston_surface_attach(surface, state-&gt;buffer);  
+        weston_buffer_reference(&amp;surface-&gt;buffer_ref, buffer);     //先关联weston_surface和weston_buffer
+        surface-&gt;compositor-&gt;renderer-&gt;attach(surface, buffer);    //一般来说，有gl_renderer就不会使用pixman等软件渲染backend;关于attach，本质上是执行ensure_textures(gs, num_planes); 
+            gl_renderer_attach(struct weston_surface *es, struct weston_buffer *buffer)
+                weston_buffer_reference(&amp;gs-&gt;buffer_ref, buffer);  //再关联gl_surface_state和weston_buffer
+            最终调用gl_renderer_attach；根据buffer-&gt;resource的不同，调用不同的attch函数：
+                gl_renderer_attach_shm                    //不同的图像格式需要的plane不一样，yuv普遍多一些[yuv分开存放,一个存y,一个存v或者uv...];app申请了shm的server,有wl_shm_buffer的实例，会走入这个逻辑;
+                //创建gl_sruface_state gs对象指针，填充gs结构体，为gs对象生成并绑定GL_TEXTURE_2D texture对象
+                    gs-&gt;target = GL_TEXTURE_2D; //设置为2D纹理
+                    gs-&gt;surface = es;  //es是weston_surface;gs是gl_surface_state
+                    ensure_textures(gs, GL_TEXTURE_2D, num_planes); //为从client传过来的buffer创建2d纹理;不同format的纹理数不一样,shm里面的逻辑只有在第一次创建次client的时候才有，后续无论图片如何变化都不再进入。也就是为新的buffer创建texture
+                gl_renderer_attach_egl
+                    buffer-&gt;legacy_buffer = (struct wl_buffer *)buffer-&gt;resource;   
+                    ensure_textures //同上
+                    egl_image_create //为对应buffer创建egl_image
+                        eglCreateImage    //这部分请查看我文章对eglapi的笔记！！！ 
+                    image_target_texture_2d //猜测是把texture和egl_image的，同上
+                        eglImageCreateTexture2D
+                    EGLImageKHR绑定；This EGL* image is then bound to GL_TEXTURE_2D with glEGLImageTargetTexture2DOES(), to be used as any texture can be used in OpenGL* ES  
+                gl_renderer_attach_dmabuf                 //A，判断从app传来的资源是否使用linux_dmabuf_buffer实例，如有，则调用此函数;实质上还是对应client端申请的buffer的server种类，将fd塞入egl-image： attribs[atti++] = attributes-&gt;fd[0];
+                    linux_dmabuf_buffer_get_user_data  
+                    ensure_textures
+                    image_target_texture_2d
+                gl_renderer_attach_gbm_buffer             //与A类似，判断从app传来的资源是否有对应的gbm_buffer类型，使用对应的buffer;实质上还是对应client端申请的buffer的server种类
+                    ensure_textures(gs, gs-&gt;num_images);
+                    //以上四则函数均会调用;实际调用glGenTextures + glBindTexture + glTexParameteri;参考opengl，对应操作是创建纹理，绑定target，设置边界截取
+                    gr-&gt;image_target_texture_2d(gs-&gt;target, gs-&gt;images[i]-&gt;image);
+                    //创建texture并且将weston_buffer,weston_surface与egl-image关联;gs对象保存了一切。     
+        weston_surface_calculate_size_from_buffer(surface);
+	    weston_presentation_feedback_discard_list(&amp;surface-&gt;feedback_list); 
+}       
+2    weston_surface_state_set_buffer(state, NULL);
+        //绑定buffer；将surface_attch的时候放在weston_surface_state里的buffer与weston_surface的buffer绑定。实际上是将pending-buffer送到currect_buffer。
+        //本意是绑定state-&gt;buffer与buffer,因为这里传入buffer为NUll,将state-&gt;buffer置空
+3    weston_surface_build_buffer_matrix(surface, &amp;surface-&gt;surface_to_buffer_matrix);         
+     weston_matrix_invert
+        //对surface进行旋转，裁剪，缩放等矩阵操作。 matrix是一个4x4的矩阵。
+        //对应的client代码是wl_surface_set_buffer_transform
+4    weston_surface_update_size(surface);
+        /重新设置surface大小；默认是buffer的宽和高，如果有weston_buffer_viewport的设置，会是weston_buffer_viewport的宽和高。
+
+5    if (state-&gt;newly_attached || state-&gt;buffer_viewport.changed) {
+        weston_surface_update_size(surface);    
+        surface-&gt;committed(surface, state-&gt;sx, state-&gt;sy);
+        //若desktop，则surface.c:: weston_desktop_surface_committed, 看上去是设置buffer在surface上的位置，窗口管理一部分;主要是update了size，需要做对应的改动
+
+这里0，1给了两样东西，分别是weston_buffer_viewport(描述buffer以及surface大小，缩放)和weston_buffer
+
+这里3，4，5应该都是根据0里面的结构体内容做旋转，裁剪，缩放等动作，处理完以后重新设置surface的w,h参数。做完后对state里面的参数置空
+	state-&gt;sx = 0;
+	state-&gt;sy = 0;
+	state-&gt;newly_attached = 0;
+	state-&gt;buffer_viewport.changed = 0;
+......
+
+6    wl_surface.damage与wl_surface.damage_buffer相关内容处理
+     ...
+     pixman_region32_union(&amp;surface-&gt;damage, &amp;sufrace-&gt;damage, &amp;state-&gt;damage_surface)
+     // surface-&gt;damage = surface-&gt;damage + state-&gt;dameage_surface 区域相加
+     apply_damage_buffer
+     pixman_region32_intersect_rect(&amp;surface-&gt;damage, &amp;surface-&gt;damage,	0, 0, surface-&gt;width, surface-&gt;height);
+     //surface-&gt;damage = surface-&gt;damage &amp; surface_region; 区域相与
+     最终得到这个surface-&gt;damage
+     ...
+
+7    wl_surface.set_input_region相关操作；wl_surface.set_opaque_region相关操作
+
+这里6，7基本都是通过pixman函数实现。也是理所当然的，计算damage区域啥的就应该用pixman去做
+
+8    wl_surface.frame相关操作；对应的是frame_callbake_list的处理
+     wl_list_insert_list(&amp;surface-&gt;frame_callback_list,	&amp;state-&gt;frame_callback_list);
+	 wl_list_init(&amp;state-&gt;frame_callback_list);
+     //为什么这个时候可以callbake? 因为所有的操作会暂时存在surface_pending state里面，而刚刚已经把state置空，自然可以让client去做对应的操作了。
+
+9    wl_signal_emit(&amp;surface-&gt;commit_signal, surface);//发出commit_signal,那么之前绑定于此的信号的事件将激活，触发。这个地方也是重点！
+
+总体上：1方面将pending state更新到current state中，state包括前面描述的诸多内容
+从上到下处理attach,damage,frame,相关client端的操作   
+
+关于attch需要多讲几点：
+    1.本质上都是去申请对应的texture；texture才是gpu能够处理的包含图像数据的类型
+    2.不同的图像格式需要的texture不一样，rgb相关都是1，yuv可能是2或者3，因为yuv分开存储
+    3.gbm-ob是用来统一管理buffers的，比方说查询buffer的某些状态
+        gbm_bo_import + gbm_perform + gbm_bo_destroy
+    4.gl_renderer_attach_shm通过gs-&gt;surface来传入buffer？
+    5.gl_renderer_attach_egl通过gs-&gt;images[i] = egl_image_create创建egl_image来处理对应单独的buffer，用于texture
+    6.gl_renderer_attach_dmabuf通过image = linux_dmabuf_buffer_get_user_data(dmabuf); + gs-&gt;images[i] = egl_image_ref(image-&gt;images[i]); 填充gs参数，用于texture</code></pre> 
+         <h4>weston_surface_commit::weston_surface_commit_subsurface_order</h4> 
+         <pre><code>weston_surface_commit_subsurface_order(struct weston_surface *surface)
+    weston_surface_damage_subsurfaces
+        weston_surface_schedule_repaint
+        ...
+            weston_output_schedule_repaint
+                output-&gt;repaint_needed = true;
+//对此surface的子surface进行排序；并设定damage区域；标记surface的output属性，表明即将被重绘
+</code></pre> 
+         <p></p> 
+         <h4>weston_surface_commit::weston_surface_schedule_repaint</h4> 
+         <p>output_repaint_timer_handler</p> 
+         <p>NOTE:大多数情况，repaint走到这个位置就会因各种条件返回！如：output-&gt;repaint_status != REPAINT_NOT_SCHEDULED</p> 
+         <p>整个repaint，初始化以同步vblank开始，以page flip finish 结束，然后再调用</p> 
+         <pre class="has"><code style="height: 50vh;">weston_surface_schedule_repaint(struct weston_surface *surface)
+    weston_output_schedule_repaint(struct weston_output *output)
+
+        output-&gt;idle_repaint_source = wl_event_loop_add_idle(loop, idle_repaint, output);
+        //将idle_repaint加入idle loop事件中，当服务端没有其它epoll事件时，会执行idle_repaint
+            idle_repaint(void *data) -&gt; output-&gt;start_repaint_loop(output);
+
+关于start_repaint_loop,compositor用的不一样，则对应函数不一致；我这里是compositor-drm.c
+https://github.com/randcd-APY/QuectelShare/blob/0cbf32c65b5ab6bf266db60e51793009eb6330ec/display/weston/src/compositor-sdm.c
+
+
+
+//调用在前面wayland_output_create初始化的接口，由于默认使用drm_output_start_repaint_loop  
+drm_output_start_repaint_loop(struct weston_output *output_base)
+...
+	drmVBlank vbl = {
+		.request.type = DRM_VBLANK_RELATIVE,
+		.request.sequence = 0,
+		.request.signal = 0,
+	};
+...
+	/* Try to get current msc and timestamp via instant query */
+	vbl.request.type |= drm_waitvblank_pipe(output-&gt;crtc);
+        确定要用于输出的vblank同步的类型。管道参数表示使用哪个CRTC。知道了这一点，我们就可以确定使用哪种vblank序列类型。传统的卡只有两个CRTC, CRTC 0没有使用特殊标志，CRTC 1使用RM_VBLANK_SECONDARY。管道参数的第一个位指明了这一点。
+        pipe参数的1 ~ 5位为0 ~ 31之间的5位宽管号。如果这是非零，它表明我们正在处理一个多gpu的情况，我们需要使用DRM_BLANK_HIGH_CRTC_MASK计算vblank同步。
+	ret = drmWaitVBlank(backend-&gt;drm.fd, &amp;vbl);
+...
+//先等vblank事件。对应的两个函数都是重点！！
+
+    //Read the current time from the Presentation clock
+    weston_compositor_read_presentation_clock(output_base-&gt;compositor, &amp;ts); 
+                       
+    weston_output_finish_frame(output_base, &amp;ts, WP_PRESENTATION_FEEDBACK_INVALID);
+    //一堆基于时间戳的精准计算，随后引入output_repaint_timer_arm
+
+=================================
+</code></pre> 
+         <h4>&nbsp;output_repaint_timer_arm</h4> 
+         <pre><code style="height: 50vh;">
+
+output_repaint_timer_arm(struct weston_compositor *compositor)
+    wl_event_source_timer_update(compositor-&gt;repaint_timer, msec_to_next);//硬性规定delay
+    即使我们应该立即重新绘画，添加最小1毫秒的延迟。这是一种解决方案，允许将多个输出重绘(特别是从weston_output_finish_frame())合并到同一个调用中，如果直接调用output_repaint_timer_handler()就不会发生这种情况。
+    因为repaint_timer在weston_compositor_create中添加进loop里面的：
+    ec-&gt;repaint_timer =
+		wl_event_loop_add_timer(loop, output_repaint_timer_handler, ec);
+    又调用
+         wl_event_source_timer_update(compositor-&gt;repaint_timer, msec_to_next)
+    决定什么时候触发。
+
+    //故此处会在msec_to_next以后调用output_repaint_timer_handler
+
+
+        output_repaint_timer_handler(void *data)
+1            compositor-&gt;backend-&gt;repaint_begin(compositor);
+                //申请了一份drm_pending_state结构体，传递给weston_output_maybe_repaint的repaint_data；主要是print debug log，也就是repaint开始了的log
+/**
+ * Begin a new repaint cycle
+ *
+ * Called by the core compositor at the beginning of a repaint cycle. Creates
+ * a new pending_state structure to own any output state created by individual
+ * output repaint functions until the repaint is flushed or cancelled.
+ */
+
+2            weston_output_maybe_repaint(output, &amp;now, repaint_data);
+                weston_output_repaint(struct weston_output *output, void *repaint_data)
+                    /* Rebuild the surface list and update surface transforms up front. */先对不需要绘画的view做隐藏，然后把view绑在compositor上面
+	                weston_compositor_build_view_list(ec);
+...
+hdcp部分
+...
+                    output-&gt;assign_planes(output, repaint_data);  //这个其实就是决策部分。
+                        drm_assign_planes(struct weston_output *output_base) //这个地方还会执行一次atomic_commit_test，这个test是测试对应的commit走overlay或者gpu底层驱动是否支持，如果支持没问题，不支持则可能转而走gpu合成
+                            enum drm_output_propose_state_mode mode = DRM_OUTPUT_PROPOSE_STATE_PLANES_ONLY;//默认先尝试overlay
+                            state = drm_output_propose_state(output_base, pending_state, mode); //后续详解;; 以output为顺序，为每个output中的view分配对应plane； primary/overlay等等；分配好plane，也就决定了用什么对这些个view进行合成；另外，如果没确认target_plane的，默认也是gpu合成
+                            这里会调用多次drm_output_propose_state，先尝试overlay的行不行，如果失败再尝试mixed行不行，再最终尝试only-gpu的行不行。如果三者都失败，这次assign就凉凉，会直接crash
+                    else {weston_view_move_to_plane(ev, &amp;ec-&gt;primary_plane);}//如果没有assign_plane，直接全部交给primary_plane
+
+
+###############################sdm：接drm_assign_planes(struct weston_output *output_base)
+                            assign_planes(struct weston_output *output_base, bool is_virtual_output)  //以output为顺序，为每个output中的view分配对应plane； primary/overlay等等；分配好plane，也就决定了用什么对这些个view进行合成；另外，如果没确认target_plane的，默认也是gpu合成
+                                //不论是overlay还是gpu，本质都是填充drm_plane_state结构体 + 关联weston_plane与weston_view并且回调weston_surface_schedule_repaint;即，决定是overlay还是gpu渲染，然后重新交给渲染函数
+                                    /**
+                                     * Plane state holds the dynamic state for a plane: where it is positioned,
+                                     * and which buffer it is currently displaying.
+
+                                     * The plane state is owned by an output state, except when setting an initial
+                                     * state. See drm_output_state for notes on state object lifetime.
+                                     */
+
+                    compositor_accumulate_damage(ec);
+                    weston_output_update_matrix(output);
+###############################sdm
+
+                    output-&gt;repaint(output, &amp;output_damage, repaint_data); //这个部分就是根据是否有scan-out的图(overlay)，判断是否要primary的图(gpu)也就是屏幕大小的图作为“底色“
+                        drm_output_repaint(struct weston_output *output_base, pixman_region32_t *damage)
+                            drm_output_render     //1.如果已经达成scanout的，不再需要render ;2.如果我们在primary平面上没有任何损坏，并且我们已经有一个激活的渲染缓冲区，我们可以重用它;3.否则，我们将损坏的区域传递到渲染器中，重新渲染受影响的区域。但是，如果任何屏幕捕获都是挂起的，我们仍然必须调用渲染器，否则捕获将无法完成。* /
+                                fb = drm_output_render_gl(state, damage); //render完primary的plane，返回fd；并且这个fd会scanout_state-&gt;fd = fd
+                                    output-&gt;base.compositor-&gt;renderer-&gt;repaint_output::gl_renderer_repaint_output
+                                    gl_renderer_repaint_output
+                                        repaint_views
+                                            draw_view //最终一个output合成为一张图
+                                    bo = gbm_surface_lock_front_buffer(output-&gt;gbm_surface);//画好以后拿到gbm_bo
+                                    ret = drm_fb_get_from_bo(bo, b, true, BUFFER_GBM_SURFACE);//通过gbm_bo拿到drm_fb
+                                    ...
+                                    填充scanout结构体，以及后续尝试计算真damage区域，如果失败就是0，那么也就是全图
+                                    drmModeCreatePropertyBlob(b-&gt;drm.fd, rects, sizeof(*rects) * n_rects, &amp;scanout_state-&gt;damage_blob_id);
+                                    ...
+                                //拿到最终经过gpu渲染，或者pixman渲染，拿到drm_fb;填充给对应的drm_plane_state
+
+注意这个地方有一段代码：
+      	wl_list_for_each_safe(cb, cnext, &amp;frame_callback_list, link) {
+		    wl_callback_send_done(cb-&gt;resource, frame_time_msec);
+		    wl_resource_destroy(cb-&gt;resource);
+	}
+也就是说，这个地方会后续告诉client端的surface， callback-&gt;done 这个事件！
+                  
+3            compositor-&gt;backend-&gt;repaint_flush(compositor, repaint_data);  //debug log少不了；真正atomic_commit的地方
+                drm_pending_state_apply
+                    drm_pending_state_apply_atomic
+                        drm_output_apply_state_atomic//注意是以plane_list遍历
+                        drmModeAtomicCommit //这个就是commit，没什么好讲的;
+
+4           output_repaint_timer_arm(compositor);
+                	if (!any_should_repaint) {
+		                printf("%s:!any_should_repaint\n",__func__);
+		                return;
+		            }//因为完成了repaint，直接退出
+
+
+5          on_drm_input//这个函数的来源在drm.c::wl_event_loop_add_fd(loop, b-&gt;drm.fd, WL_EVENT_READABLE, on_drm_input, b);监听drmfd的pageflip,也就是说，event过来，说明之前modeset的参数已经应用到屏幕
+                atomic_flip_handler
+                    drm_output_update_complete
+                        weston_output_finish_frame//计算下次repaintloop的启动时间 
+                            refresh_nsec = millihz_to_nsec(output-&gt;current_mode-&gt;refresh);//先拿到当前mode下的每一帧的时间
+                            ...
+                            timespec_add_msec(&amp;output-&gt;next_repaint, &amp;output-&gt;next_repaint, -compositor-&gt;repaint_msec);     //根据repaint-window的时间，计算这个下一次调用repaintloop的时间
+                            output_repaint_timer_arm(compositor);
+                                output-&gt;atomic_complete_pending = true; //准备等待page flip
+                                wl_event_source_timer_update(compositor-&gt;repaint_timer, msec_to_next);//执行循环，msec_to_next是等待多少毫秒开始repaint_loop
+            //最后调用原函数，完成循环
+
+对于5，创建compositor的时候，绑定了一个drm_source，在on_drm_input里面，创建处理时间并通过
+drmHandleEvent来执行page_filp对应处理。两个处理函数atomic_flip_handler和page_flip_handler区别很大。
+page_flip仅仅标记此次渲染的图片已经上屏（真实与否取决于底层）；二atomic会先确认是哪个屏幕，然后再做标记。
+
+
+       
+
+
+1，2是真正对图像进行决策，并确认scan-out plane的地方；3是最终送显的地方；
+1,2,3在之前的attch以及repaint设置相关的kms相关的[plane?]属性以后，通过flush设置crtc，connector以及plane的prop，并且最终调用drmModeAtomicCommit(b-&gt;drm.fd, req, flags, b);交给kernel层，完成用户层全部操作
+
+关于sechedule_repaint我看到四个不同的：
+weston_compositor_schedule_repaint
+    	wl_list_for_each(output, &amp;compositor-&gt;output_list, link)
+		    weston_output_schedule_repaint(output);
+
+weston_surface_schedule_repaint
+    	wl_list_for_each(output, &amp;surface-&gt;compositor-&gt;output_list, link)
+		    if (surface-&gt;output_mask &amp; (1u &lt;&lt; output-&gt;id))
+			    weston_output_schedule_repaint(output);
+
+weston_view_schedule_repaint
+        	wl_list_for_each(output, &amp;compositor-&gt;output_list, link)
+		        weston_output_schedule_repaint(output);
+
+本质都是weston_output_schedule_repaint；所以不论发生什么改动，都是以output为单位进行重绘</code></pre> 
+         <p>&nbsp;因为2是真正对图像进行渲染[其实是合成]的地方，并且看代码是先决定view属于哪个plane，然后对primary上进行render，生成一个scanout的fd；3，则是完成送显，这个地方送显不仅会送显scan-out，还会送显overlay以及cluster；</p> 
+         <p>view决定单个窗口，最终view会被指定在plane上，而plane又分为scan-out/overlay/primary, plane最终会被通过atomic_commit送给drm/kms，然后又会经过crct里面的laymixer进行二次blending</p> 
+         <p>注意这里是plane，那什么时候是layer呢？是sspp拿到对应的buffer，把这些plane传递给layer-mixer的时候，他才从plane变成layer，layer一般来说严格的一层layer对应一个plane；但是如果是split模式，可以是多个plane对应同一个layer</p> 
+         <p>同样的，一个plane也不能对应多个layer，除非是split模式[source split configuration]</p> 
+         <pre><code style="height: 50vh;">enum drm_output_propose_state_mode {
+	DRM_OUTPUT_PROPOSE_STATE_MIXED, /**&lt; mix renderer &amp; planes */
+	DRM_OUTPUT_PROPOSE_STATE_RENDERER_ONLY, /**&lt; only assign to renderer &amp; cursor */
+	DRM_OUTPUT_PROPOSE_STATE_PLANES_ONLY, /**&lt; no renderer use, only planes */
+};
+关于mode，有以上三种。
+
+static struct drm_output_state *
+drm_output_propose_state(struct weston_output *output_base,
+			 struct drm_pending_state *pending_state,
+			 enum drm_output_propose_state_mode mode)
+...
+    /*我们通过逐步创建和测试,scanout+overlay+cusor的增量状态来实现混合模式。因为我们从上到下遍历视图，所以scan-out plane是最后一个，但是我们总是需要它在我们的场景中，以便测试modeset是有意义的。为了做到这一点，如果我们认为最后一个渲染器framebuffer基本兼容的话，我们就偷一个对它的引用。如果我们没有这个，那么我们保守地退回到只使用渲染器进行重绘。* /
+    if (mode == DRM_OUTPUT_PROPOSE_STATE_MIXED) {
+        struct drm_fb *scanout_fb = plane-&gt;state_cur-&gt;fb; //这个plane之前渲染的drm_fb，接下来的处理要保证是一张全屏大小的drm-fb
+        scanout_state-&gt;zpos = plane-&gt;zpos_min; //设置一个plane的最小zpos
+        //他可以设置plane的zpos，这样就可以自由交换overlay plane和primary plane的显示层级了
+...
+
+    Renderer_region包含渲染器将覆盖的全部区域。Occluded_region包含了将被渲染器和硬件平面覆盖的总区域，其中视图的可见和不透明区域在这两种情况下都被添加(视图的不透明区域为每个视图积累);如果它被完全遮挡，它将被用来跳过视图;包括occluded_region覆盖整个输出区域的情况。
+    pixman_region32_init(&amp;renderer_region);
+	pixman_region32_init(&amp;occluded_region);
+    wl_list_for_each(ev, &amp;output_base-&gt;compositor-&gt;view_list, link) {//对所有view进行处理
+    ...
+    根据遮挡区域去忽略一些完全不需要绘画的view
+    /* We only assign planes to views which are exclusively present on our output. */
+    ..
+    /*因为我们从上到下处理视图，我们知道如果视图相交于计算的渲染区域，它(view)必须是它(渲染)的一部分，或被它(渲染区域)遮挡，(view)不能在一个平面上。*/
+    ..
+    /*在强制模式下的内容保护不为一个不安全输出的受保护表面分配平面*/
+    ...
+
+    在经历了上面所有的判断以后，尝试overlay，把view放在plane上。
+    if (!force_renderer) {
+        ps = drm_output_prepare_plane_view(state, ev, mode,
+							   scanout_state,
+							   current_lowest_zpos);
+            fb = drm_fb_get_from_view(state, ev); //从view中拿到drm_fb
+            /* assemble a list with possible candidates */ 查看哪个plane是空的,可以用来assign-plane
+	        wl_list_for_each(plane, &amp;b-&gt;plane_list, link) {
+		        if (!drm_plane_is_available(plane, output))
+                ...
+                    ps = drm_output_try_view_on_plane(plane, state, ev, //最终放到plane上
+						      mode, fb, zpos);
+    ...
+    /* In renderer-only mode, we can't test the state as we don't have a renderer buffer yet. */
+	if (mode == DRM_OUTPUT_PROPOSE_STATE_RENDERER_ONLY)
+		return state;
+
+	/* check if we have invalid zpos values, like duplicate(s) */
+	drm_output_check_zpos_plane_states(state);
+
+	/* Check to see if this state will actually work. */
+	ret = drm_pending_state_test(state-&gt;pending_state); //Aotmic_commit test测试这个assign plane的view的整套是否能够显示
+	if (ret != 0) {
+		drm_debug(b, "\t\t[view] failing state generation: "
+			     "atomic test not OK\n");
+		goto err;
+	}</code></pre> 
+         <p>&nbsp;output_repaint_timer_handler结束以后还有一步。等kernel的page flip</p> 
+         <pre><code>22491 on_drm_input++
+22492 atomic_flip_handler++
+22493 drm_output_update_complete++
+22494 weston_output_finish_frame++
+22495 output_repaint_timer_arm++
+22496 output_repaint_timer_arm--
+22497 weston_output_finish_frame--
+22498 drm_output_update_complete--natomic_flip_handler repaint finished
+22501 on_drm_input--</code></pre> 
+         <h4>&nbsp;Assign_planes</h4> 
+         <pre><code style="height: 50vh;">assign_planes
+//讲一下几个重点
+1. primary = &amp;output_base-&gt;compositor-&gt;primary_plane;
+    //这个primary很重要，一方面后续涉及到渲染是走overlay还是走gpu；[primary走gpu渲染]
+    另一方面在flush_damage里面，目前还不知道这个地方是干嘛的
+
+2. bool is_skip = false;
+    /* Some views may neither be composited by GPU nor display engine directly,
+     * they are in the "skip" status, even no buffer is attached. We can't pass them
+     * to SDM because format check will fail which may cause SDM can't filter
+     * correct strategy result. If so, assign those views directly to primary plane.
+     */
+    对于is_skip为true的view，直接走primary_plane,也就如同上面的1，走gpu渲染。
+
+3. es-&gt;keep_buffer = true;
+    看上去是个保留buffer的标识位，具体是为什么不得而知。
+
+4. sdm_layer = create_sdm_layer(output, ev, &amp;surface_overlap, is_cursor, is_skip);
+    一个view对应一个sdm-layer,将很多之前weston-buffer的东西传递给了sdm-layer结构体
+
+5. output-&gt;view_count++;
+    /*
+     * SDM always need FB target layer, however, in Weston there is no explicit
+     * fb target view, need to fake one
+     */
+    如果你专注绘图，你会发现实际上dump出来的layer会比你绘画的多一个，这是因为gpu会将所有的gpu绘画
+的layer合成为一张大的layer，所以此函数在执行完view_count++以后任然会再额外做一次view_count++
+    
+6. int error = Prepare(display_id, output);
+https://github.com/randcd-APY/QuectelShare/blob/0cbf32c65b5ab6bf266db60e51793009eb6330ec/display/weston/sdm-service/sdm_display.cpp
+    
+    //最终是sdmdisplay::prepare
+    //客户端应使用此方法发送与当前显示目标帧关联的所有图层，并检查可在显示管理器中完全处理的图层。
+    //此方法可以多次调用，但仅以最后一个调用为准。此方法后必须跟 Commit（）。
+
+
+Layer 包含layer properties，和 drawing buffer
+
+7. sdmdisplay::prepare
+       PrePrepare(output);
+       GetLayerStackDump(&amp;layer_stack_, dump_buffer, sizeof(dump_buffer));
+       display_intf_-&gt;Prepare(&amp;layer_stack_);
+       PostPrepare(output);
+
+
+sdm_layer-&gt;view-&gt;plane，这个结构体何用，目前不得而知，但是一定和渲染决策相关</code></pre> 
+         <pre><code style="height: 50vh;">7. 在sdmdispaly：：prepare里面 
+
+Preprepare-&gt;PrePrepareLayerStack
+	1. FreeLayerStack （清空layer_stack_数组,visible&amp;dirty-region）
+        [This structure defines a layer stack that contains layers which need to be composed and rendered onto the target]
+
+        2. AllocLayerStackMemory(output);根据output-&gt;view_count数量申请layer_stack中layer的数量
+
+	3. PrepareNormalLayerGeometry  创建gbmbuffer等操作
+	4. AddGeometryLayerToLayerStack
+		a. AllocateMemoryForLayerGeometry（将visible&amp;dirty_rect push入 vector）
+		b. PopulateLayerGeometryOnToLayerStack（如函数名，layer_geometry赋值给layer_buffer&amp;layer结构体）
+	5. FreeLayerGeometry(glayer); 完成b以后，清空layer_geometry结构
+
+	6. PrepareFbLayerGeometry 直接把drm_output的属性赋值给LayerGeometry结构的的指针fb_layer
+	7. AddGeometryLayerToLayerStack 动作同4
+	8. FreeLayerGeometry 动作同5
+
+GetLayerStackDump
+	1. Dump layer-stack 信息
+
+display_intf_-&gt;Prepare(&amp;layer_stack_);
+	1. 这里面有多个派生函数，实际用哪一个是由display_type确定的
+		enum DisplayType {
+		  kPrimary,         //!&lt; Main physical display which is attached to the handheld device.              
+                    display_primary.cpp
+		  kHDMI,            //!&lt; HDMI physical display which is generally detachable.    
+                    display_hdmi.cpp
+		  kVirtual,         //!&lt; Contents would be rendered into the output buffer provided by the client     
+                    display_virtual.cpp
+		                    //!&lt; e.g. wireless display.
+		  kDisplayMax,
+		};
+		最终调用display_base.cpp里面的perpare
+
+PostPrepare
+    1. 编译layer_stack,根据之前layer_stack的composition属性定义sdm_layer的类型，是gpu还是overlay</code></pre> 
+         <p></p> 
+         <p><strong>总体来说，assign_planes：</strong><br> 1.初次判定wl_output的view是走gpu还是overlay<br> 2.创建sdm_layer<br> 3.再在prepare里面完全判断是走gpu还是overlay，赋值给sdm_layer<br> 4.GPU:Move to primary plane if Strategy set it to GPU composition;&nbsp;<br> &nbsp; &nbsp;Overlay:Composed by Display Hardware directly</p> 
+         <p>NOTE:</p> 
+         <p>注意这里面的layer变换，sdm_layer -&gt; layer_stack.layer -&gt; hw_layer</p> 
+         <p>1.hw_layer-&gt;app_layer_count,上层client传下来的layer数量。</p> 
+         <p>2.hw_layer会对之前的layer做一个处理，分为overlay以及唯一的一个gpu-layer</p> 
+         <p></p> 
+         <h4>Output_repaint</h4> 
+         <pre><code style="height: 50vh;">output_repaint
+    1. drm_output_render
+    2. SetVSyncState(display_id, ENABLE, output);
+    3. Commit(display_id, output);
+
+
+
+1. drm_output_render
+   //(use_pixman)? drm_output_render_pixman(output, damage):drm_output_render_gl(output, damage);[各家细节不同]；
+   //后续判断use_pixman? render_pixman:render_gl
+
+    假设是drm_output_render_gl
+        1. output-&gt;base.compositor-&gt;renderer-&gt;repaint_output(&amp;output-&gt;base,damage);
+            gl_renderer_repaint_output
+
+                A. repaint_views(output, &amp;total_damage);//这地方是个重点
+                    if (view-&gt;plane == &amp;compositor-&gt;primary_plane) {
+
+                        //gpu render，后续就是pixman色湖之绘画区域+gl API 实现绘画？
+                       draw_view(view, output, damage);
+                    }
+                    else {
+                      /* this view is composed directly by overlay */
+                    ...
+                    ...
+                        //pixman+gl API 清理view？
+                       clear_view(view, output, damage);
+                    }
+
+                B. 
+                    if (gr-&gt;swap_buffers_with_damage) {
+		        ...
+		        ret = gr-&gt;swap_buffers_with_damage(gr-&gt;egl_display,
+				             go-&gt;egl_surface,
+				             egl_damage, nrects);
+		        ...
+	            } else {
+		        ret = eglSwapBuffers(gr-&gt;egl_display, go-&gt;egl_surface);
+	            }
+
+        2. bo = gbm_surface_lock_front_buffer(output-&gt;surface);
+        //锁定surface当前的frontbuffer,返回此surface的bufferobject.调用eglSwapBuffer以后需要立刻调用此函数。
+        //要想释放此suface的buffer，必须释放所有的关于此surface的bo.
+
+        3. output-&gt;next = drm_fb_get_from_bo(bo, b, output-&gt;format);
+        //填充drm_fb *fb，并返回给output-&gt;next
+
+
+2. SetVSyncState(display_id, ENABLE, output);
+   //Method to enable VSync State, i.e. whether to generate callback on next frame.
+
+3. Commit(display_id, output);
+
+
+Flush
+ Method to flush any pending buffers/fences submitted previously via Commit() call.
+ Client shall call this method to request the Display manager to release all buffers and respective fences currently in use. This operation may result in a blank display on the panel until a new frame is submitted for composition.
+ For virtual displays this would result in output buffer getting cleared with border color.
+ 
+Commit
+ Method to commit layers of a frame submitted in a former call to Prepare()
+ Client shall call this method to submit layers for final composition. The composed output shall be displayed on the panel or written in output buffer. This method shall be called only once for each frame.
+ In the event of an error as well, this call will cause any fences returned in the previous call to Commit() to eventually become signaled, so the client's wait on fences can be released to prevent deadlocks.
+
+</code></pre> 
+         <p></p> 
+         <p>drm_output_repaint利用modsetting接口将绘制的内容最终显示到屏幕上，其机制还比较复杂，主要利用了pageflip、vblank和plane，相关原理与drm的API编程强相关，内容比较多</p> 
+         <p></p> 
+         <p>为什么wayland中要有repaint操作？不是号称都是Client绘图、wayland负责合成？<br> 确实Client绘图，compositor(服务端)负责合成。但由于client绘图实际实现为double buffer，client最初的绘图操作都是在pending buffer中进行的，并没有直接绘制到framebuffer中，所以，在client完成绘制后，需要进行commit操作，commit后，服务端会将相应的buffer会更新到当前的surface中，此时，需要<strong>进行repaint操作，将客户端相应的绘制内容最终拷贝到framebuffer中</strong>。</p> 
+         <p>这里的<strong>repaint操作，本质上只是将客户端更新的绘制内容(damage区域)提交给compositor，最后由compositor进行合成后绘制到界面上</strong>。</p> 
+         <h4></h4> 
+         <h4></h4> 
+         <p>output初始化</p> 
+         <p>两个关键的地方：</p> 
+         <p>&nbsp; &nbsp; weston支持在不同的backend(后端)上运行，包括drm、wayland和X11。这里需要注意这集中后端的区别，尤其是wayland后端，很容易弄混。</p> 
+         <ol>
+          <li> <p>drm后端，是wayland环境中默认使用的后端，其使用Linux KMS输出，使用evdev作为输入，实际就是利用drm的接口实现合成。利用了硬件加速。</p> </li>
+          <li> <p>wayland后端，这是指让weston运行于另一个wayland compositor(比如另一个weston，嵌套运行)之上，作为wayland的客户端运行，此时的weston实例表现为另一个compositor上的一个窗口。注意：这个不是默认的方式，这是嵌套方式，使用较少。</p> </li>
+          <li> <p>X11后端，即weston运行在X11之上，每个weston output作为一个X window。这种方式对于weston的测试非常有用(可以在现有的Xorg环境中测试weston的功能)。</p> </li>
+         </ol> 
+         <p>&nbsp; &nbsp; 使用特定后端的情况下，绘图时，支持使用不同的renderer（绘图引擎），比如OpenGL(EGL,硬件加速)或者时pixman(软件绘制)，使用wayland作为后端时，默认使用OpenGL作为renderer。</p> 
+         <p>这两点的实现，都需要进行抽象、分层，以便于隔离，减少耦合，比较常见的实现手法，函数指针(回调函数)（对应于OO语言（如C++、Java）中的多态）。典型的依赖倒置原则。</p> 
+         <p>对于关键点1的实现还有点不一样(虽然思想是类似的)，其实现为在运行时动态加载共享库，使用其中的接口，简单说，就是用dlopen，然后每个backend实现为相应的动态库。相应流程为：</p> 
+         <pre><code>main -&gt;
+&nbsp; load_backend -&gt;
+&nbsp; &nbsp; load_drm_backend -&gt;
+&nbsp; &nbsp; &nbsp; weston_compositor_load_backend -&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; weston_load_module
+</code></pre> 
+         <h4></h4> 
+         <p><a href="https://www.jianshu.com/p/484e05a2c816" rel="nofollow" title="glActiveTexture和glBindTexture的关系 - 简书">glActiveTexture和glBindTexture的关系 - 简书</a></p> 
+         <p style="margin-left:0cm;">关于ensure_texture的解释:</p> 
+         <h3>glBindTexture:glBindTexture(GL_TEXTURE_2D, tex_id)</h3> 
+         <ul>
+          <li>表示 tex_id是一个二维纹理，设置过一次后，tex_id的类型就不可变了</li>
+          <li><code>opengl</code>采用状态机的设计，<code>glBindTexture</code>告诉opengl说，我选择tex_id作为当前纹理，后续对纹理的操作都将作用在此纹理上。</li>
+         </ul> 
+         <p>我们已经通过<strong>·glGenTextures</strong><code><strong>在显卡上开辟了一张纹理</strong>， 然后使用</code><strong>glBindTexture</strong><code><strong>将该纹理选为当前操作目标</strong>， 接着也调用了</code><strong>glTexParameter`函数族设置了纹理的属性</strong></p> 
+         <p>那么问题来了，纹理是怎么和<code>glsl</code>上的<code>sampler2D</code>关联起来的？</p> 
+         <h4>实际上</h4> 
+         <p>我也不理解为什么。实际上<code>opengl</code>在这块关联上绕了下路。<br> 纹理与<code>sampler2D</code>变量的关联是通过索引来关联的。<br> 我们可以给<code>sampler2D</code>变量赋int值。</p> 
+         <pre><code>GLuint tex_loc = glGetUniformLocation(program, "tex");
+glUniform1i(tex_loc, 1);
+</code></pre> 
+         <p>然后</p> 
+         <pre><code>glActiveTexture(GL_TEXTURE1);
+glBindTexture(GL_TEXTURE_2D, tex_id);
+</code></pre> 
+         <p>将纹理与<code>GL_TEXTURE1</code>关联起来。<code>tex_id</code>与<code>GL_TEXTUR1</code>关联<br><code>GL_TEXTURE1</code>又与值为<code>1</code>的<code>sampler2D</code>变量关联<br> 所以<code>tex_id</code> 就这样间接地与<code>sampler2D</code>变量关联了</p> 
+         <p></p> 
+         <p>平时使用单张纹理怎么不需要<code>glActiveTexture</code>?</p> 
+         <blockquote> 
+          <p><code>sampler2D</code>默认值为0，纹理也默认与<code>GL_TEXTURE0</code>关联。</p> 
+         </blockquote> 
+         <p><br> 作者：正向反馈<br> 链接：https://www.jianshu.com/p/484e05a2c816<br> 来源：简书<br> 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p> 
+         <p></p> 
+         <h4>感谢shilun无私的帮助，解惑&nbsp;</h4> 
+         <h4>额外加一些vendor的东西</h4> 
+         <h4></h4> 
+         <pre><code style="height: 50vh;">compositor-sdm.c
+	output_repaint 
+		 Commit(output-&gt;display_id, output); 
+		
+sdm-service/sdm_display_connect.cpp
+	int Commit(int display_id, struct drm_output *output)
+		error = display_[display_id]-&gt;Commit(output);
+		
+sdm-service/sdm_display.cpp
+	DisplayError SdmDisplay::Commit(struct drm_output *output)
+		    PreCommit();
+		    ret = display_intf_-&gt;Commit(&amp;layer_stack_);
+		    PostCommit(&amp;output-&gt;retire_fence_fd);
+		
+不同display type不同实现：
+display/display-hal/sdm/libs/core/core_impl.cpp
+	CoreImpl::CreateDisplay(int32_t display_id, DisplayEventHandler *event_handler, DisplayInterface **intf) 
+		  switch (display_type) {
+		    case kBuiltIn:
+		      display_base = new DisplayBuiltIn(display_id, event_handler, hw_info_intf_,
+		                                        buffer_sync_handler_, buffer_allocator_, &amp;comp_mgr_);
+		      break;
+		    case kPluggable:
+		      display_base = new DisplayPluggable(display_id, event_handler, hw_info_intf_,
+		                                          buffer_sync_handler_, buffer_allocator_, &amp;comp_mgr_);
+		      break;
+		    case kVirtual:
+		      display_base = new DisplayVirtual(display_id, event_handler, hw_info_intf_,
+		                                        buffer_sync_handler_, buffer_allocator_, &amp;comp_mgr_);
+		      break;
+		…
+
+
+只有builtin有commit对应如下文件：
+display/display-hal/sdm/libs/core/display_builtin.cpp
+	DisplayBuiltIn::Commit(LayerStack *layer_stack)
+		  error = DisplayBase::Commit(layer_stack);
+
+display/display-hal/sdm/libs/core/display_base.cpp
+	DisplayBase::Commit(LayerStack *layer_stack)
+		error = comp_manager_-&gt;Commit(display_comp_ctx_, &amp;hw_layers_);
+		
+		if (color_mgr_)
+		    error = color_mgr_-&gt;Commit();
+		
+		error = hw_intf_-&gt;Commit(&amp;hw_layers_);
+		
+		error = comp_manager_-&gt;PostCommit(display_comp_ctx_, &amp;hw_layers_);
+		
+		
+display/display-hal/sdm/libs/core/comp_manager.cpp
+	CompManager::Commit(Handle display_ctx, HWLayers *hw_layers)
+		 return resource_intf_-&gt;Commit(display_comp_ctx-&gt;display_resource_ctx, hw_layers);
+	…
+	CompManager::PostCommit(Handle display_ctx, HWLayers *hw_layers)
+		error = resource_intf_-&gt;PostCommit(display_comp_ctx-&gt;display_resource_ctx, hw_layers);
+		
+
+hw_interface.h
+	Commit(HWLayers *hw_layers)
+	
+
+display/display-hal/sdm/libs/core/drm/hw_device_drm.cpp
+	 HWDeviceDRM::Commit(HWLayers *hw_layers)
+		  if (default_mode_) {
+		    err = DefaultCommit(hw_layers);
+		  } else {
+		    err = AtomicCommit(hw_layers);
+		  }
+</code></pre> 
+         <p></p> 
+        </div> 
+       </div> 
+      </article>  
+     </div> 
+     <div class="directory-boxshadow-dialog" style="display:none;"> 
+      <div class="directory-boxshadow-dialog-box"> 
+      </div> 
+      <div class="vip-limited-time-offer-box-new" id="vip-limited-time-offer-box-new"> 
+       <img class="limited-img limited-img-new" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/vip-limited-close-newWhite.png"> 
+       <div class="vip-limited-time-top">
+         确定要放弃本次机会？ 
+       </div> 
+       <span class="vip-limited-time-text">福利倒计时</span> 
+       <div class="limited-time-box-new"> 
+        <span class="time-hour"></span> 
+        <i>:</i> 
+        <span class="time-minite"></span> 
+        <i>:</i> 
+        <span class="time-second"></span> 
+       </div> 
+       <div class="limited-time-vip-box"> 
+        <p> <img class="coupon-img" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/vip-limited-close-roup.png"> <span class="def">立减 ¥</span> <span class="active limited-num"></span> </p> 
+        <span class="">普通VIP年卡可用</span> 
+       </div> 
+       <a class="limited-time-btn-new" href="https://mall.csdn.net/vip" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.9621&quot;}" data-report-query="spm=1001.2101.3001.9621">立即使用</a> 
+      </div> 
+     </div> 
+     <div class="more-toolbox-new more-toolbar" id="toolBarBox"> 
+      <div class="left-toolbox"> 
+       <div class="toolbox-left"> 
+        <div class="profile-box"> 
+         <a class="profile-href" target="_blank" href="https://blog.csdn.net/u012839187"><img class="profile-img" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/8374773f57214e60a8c0a58b4fcf33fa_u012839187.jpg!1"> <span class="profile-name"> maze.ma </span> </a> 
+        </div> 
+        <div class="profile-attend"> 
+         <a class="tool-attend tool-bt-button tool-bt-attend" href="javascript:;" data-report-view="{&quot;mod&quot;:&quot;1592215036_002&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4232&quot;,&quot;extend1&quot;:&quot;已关注&quot;}">已关注</a> 
+         <a class="tool-item-follow active-animation" style="display:none;">已关注</a> 
+        </div> 
+       </div> 
+       <div class="toolbox-middle"> 
+        <ul class="toolbox-list"> 
+         <li class="tool-item tool-item-size tool-active is-like" id="is-like" data-type="bottom"> <a class="tool-item-href"> <img style="display:none;" id="is-like-imgactive-animation-like" class="animation-dom active-animation" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/tobarThumbUpactive.png" alt=""> <img class="isactive" style="display:none" id="is-like-imgactive" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/like-active.png" alt=""> <img class="isdefault" style="display:block" id="is-like-img" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/like.png" alt=""> <span id="spanCount" class="count "> 9 </span> </a> 
+          <div class="tool-hover-tip">
+           <span class="text space">点赞</span>
+          </div> </li> 
+         <li class="tool-item tool-item-size tool-active is-unlike" id="is-unlike"> <a class="tool-item-href"> <img class="isactive" style="margin-right:0px;display:none" id="is-unlike-imgactive" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/unlike-active.png" alt=""> <img class="isdefault" style="margin-right:0px;display:block" id="is-unlike-img" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/unlike.png" alt=""> <span id="unlikeCount" class="count "></span> </a> 
+          <div class="tool-hover-tip">
+           <span class="text space">踩</span>
+          </div> </li> 
+         <li class="tool-item tool-item-size tool-active is-collection "> <a class="tool-item-href" href="javascript:;" data-report-click="{&quot;mod&quot;:&quot;popu_824&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4130&quot;,&quot;ab&quot;:&quot;new&quot;}"> <img style="display:none" id="is-collection-img-collection" class="animation-dom active-animation" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/collect-active.png" alt=""> <img class="isdefault" id="is-collection-img" style="display:block" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/collect.png" alt=""> <img class="isactive" id="is-collection-imgactive" style="display:none" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/newCollectActive.png" alt=""> <span class="count get-collection " data-num="33" id="get-collection"> 33 </span> </a> 
+          <div class="tool-hover-tip collect"> 
+           <div class="collect-operate-box"> 
+            <span class="collect-text" id="is-collection"> 收藏 </span> 
+           </div> 
+          </div> 
+          <div class="tool-active-list"> 
+           <div class="text">
+             觉得还不错? 
+            <span class="collect-text" id="tool-active-list-collection"> 一键收藏 </span> 
+            <img id="tool-active-list-close" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/collectionCloseWhite.png" alt=""> 
+           </div> 
+          </div> </li> 
+         <li class="tool-item tool-item-size tool-active tool-item-comment"> 
+          <div class="guide-rr-first"> 
+           <img src="./display_weston渲染流程_commit_weston display-CSDN博客_files/guideRedReward01.png" alt=""> 
+           <button class="btn-guide-known">知道了</button> 
+          </div> <a class="tool-item-href go-side-comment" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7009&quot;}"> <img class="isdefault" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/comment.png" alt=""> <span class="count"> 7 </span> </a> 
+          <div class="tool-hover-tip">
+           <span class="text space">评论</span>
+          </div> </li> 
+         <li class="tool-item tool-item-size tool-active tool-QRcode" data-type="article" id="tool-share"> <a class="tool-item-href" href="javascript:;" data-report-view="{&quot;spm&quot;:&quot;3001.4129&quot;,&quot;extra&quot;:{&quot;type&quot;:&quot;blogdetail&quot;}}"> <img class="isdefault" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/share.png" alt=""> <span class="count">分享</span> </a> 
+          <div class="QRcode active" id="tool-QRcode"> 
+           <div class="share-bg-box"> 
+            <div class="share-content"> 
+             <a id="copyPosterUrl" data-type="link" class="btn-share">复制链接</a> 
+            </div> 
+            <div class="share-content"> 
+             <a class="btn-share" data-type="qq">分享到 QQ</a> 
+            </div> 
+            <div class="share-content"> 
+             <a class="btn-share" data-type="weibo">分享到新浪微博</a> 
+            </div> 
+            <div class="share-code"> 
+             <div class="share-code-box" id="shareCode"></div> 
+             <div class="share-code-text"> 
+              <img src="./display_weston渲染流程_commit_weston display-CSDN博客_files/icon-wechat.png" alt="">扫一扫 
+             </div> 
+            </div> 
+           </div> 
+          </div> </li> 
+         <li class="tool-item tool-item-size tool-active is-more" id="is-more"> <a class="tool-item-href"> <img class="isdefault" style="margin-right:0px;display:block" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/more.png" alt=""> <span class="count"></span> </a> 
+          <div class="more-opt-box"> 
+           <div class="mini-box"> 
+            <a class="tool-item-href" id="toolReportBtnHide"> <img class="isdefault" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/report.png" alt=""> <span class="count">举报</span> </a> 
+           </div> 
+           <div class="normal-box"> 
+            <a class="tool-item-href" id="toolReportBtnHideNormal"> <img class="isdefault" src="./display_weston渲染流程_commit_weston display-CSDN博客_files/report.png" alt=""> <span class="count">举报</span> </a> 
+           </div> 
+          </div> </li> 
+        </ul> 
+       </div> 
+       <div class="toolbox-right"> 
+        <div class="tool-directory"> 
+         <a class="bt-columnlist-show" data-id="9663042" data-free="true" data-description="" data-subscribe="false" data-title="dispaly" data-img="https://i-blog.csdnimg.cn/columns/default/20201014180756918.png?x-oss-process=image/resize,m_fixed,h_224,w_224" data-url="https://blog.csdn.net/u012839187/category_9663042.html" data-sum="57" data-people="95" data-price="0" data-hotrank="0" data-status="true" data-oldprice="0" data-join="false" data-studyvip="true" data-studysubscribe="false" data-report-view="{&quot;spm&quot;:&quot;1001.2101.3001.6334&quot;,&quot;extend1&quot;:&quot;专栏目录&quot;}" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.6334&quot;,&quot;extend1&quot;:&quot;专栏目录&quot;}">专栏目录</a> 
+        </div> 
+       </div> 
+      </div> 
+     </div>    
+     <a id="commentBox" name="commentBox"></a> 
+    </main> 
+   </div> 
+   <div class="recommend-right1  align-items-stretch clearfix" id="rightAsideConcision" data-type="recommend"> 
+    <aside class="recommend-right_aside"> 
+     <div id="recommend-right-concision"> 
+      <div class="flex-column aside-box groupfile" id="groupfileConcision"> 
+       <div class="groupfile-div1"> 
+        <h3 class="aside-title">目录</h3> 
+        <div class="align-items-stretch group_item"> 
+         <div class="pos-box"> 
+          <div class="scroll-box"> 
+           <div class="toc-box"></div> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </aside> 
+   </div> 
+  </div> 
+  <div class="mask-dark"></div> 
+  <div class="skin-boxshadow"></div> 
+  <div class="directory-boxshadow"></div> 
+  <div style="display:none;"> 
+   <img src="file:///C:/Users/Administrator/Desktop/display_weston%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B_commit.html" onerror="setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){var test=&quot;\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74&quot;}},3000);"> 
+  </div> 
+  <div class="keyword-dec-box" id="keywordDecBox"></div> 
+  <link rel="stylesheet" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/chart.css">        
+  <link rel="stylesheet" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/embed-editor.min.css"> 
+  <link rel="stylesheet" href="./display_weston渲染流程_commit_weston display-CSDN博客_files/atom-one-dark.css">                  
+ 
+</body></html>

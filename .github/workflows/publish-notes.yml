@@ -1,0 +1,52 @@
+name: 更新笔记网页
+
+on:
+  push:
+    branches: [notes-source]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: notes-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 10.24.1
+          cache: npm
+      - name: 安装锁定的构建依赖
+        run: npm ci --ignore-scripts --no-audit
+      - name: 检查手机和电脑同步
+        run: node scripts/test-sync.js
+      - name: 构建两本笔记
+        id: build
+        run: node scripts/build-notes.js
+      - name: 检查编辑链接和源文件完整性
+        run: node scripts/test-publishing.js
+      - name: 打包网页
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ steps.build.outputs.site }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 发布网页
+        id: deployment
+        uses: actions/deploy-pages@v4

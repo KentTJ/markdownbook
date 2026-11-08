@@ -57,7 +57,7 @@ books.forEach(function (book) {
     repository: 'KentTJ/markdownbook', branch: 'notes-source', sourcePrefix: book.name + '/markdownsFiles'
   };
   config.pluginsConfig.prism = config.pluginsConfig.prism || {};
-  config.pluginsConfig.prism.lang = Object.assign({}, config.pluginsConfig.prism.lang, { flow: 'typescript', shell: 'bash' });
+  config.pluginsConfig.prism.lang = Object.assign({}, config.pluginsConfig.prism.lang, { flow: 'typescript', shell: 'bash', CPP: 'cpp' });
   fs.writeFileSync(path.join(staged, 'book.json'), JSON.stringify(config, null, 2) + '\n');
   fs.writeFileSync(path.join(staged, '.bookignore'), '_book\nnode_modules\n');
   // GitBook 3 scans the book's own node_modules directory, not ancestor folders.

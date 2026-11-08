@@ -19,6 +19,9 @@ entries.forEach(function (e) {
   var text = fs.readFileSync(html, 'utf8');
   assert(text.indexOf('https://app.pagescms.org/KentTJ/markdownbook/notes-source/file/' + e.name) >= 0, 'Missing exact editor link ' + e.path);
   assert(text.indexOf('notes-edit-bar') >= 0, 'Missing edit toolbar ' + e.path);
+  var advanced = 'https://github.dev/KentTJ/markdownbook/blob/notes-source/' + e.path.split('/').map(encodeURIComponent).join('/');
+  assert(text.indexOf(advanced) >= 0, 'Missing exact advanced editor link ' + e.path);
+  assert(text.indexOf('Commit &amp; Push') >= 0, 'Missing advanced editor publish instructions ' + e.path);
   checks.push(e.path);
 });
 build.manifest.forEach(function (file) {

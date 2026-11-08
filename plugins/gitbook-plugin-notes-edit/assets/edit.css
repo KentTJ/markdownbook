@@ -18,6 +18,20 @@
   font-weight: 600;
 }
 .notes-edit-bar .notes-edit-primary:hover { background: #1d4ed8; color: #fff; }
+.notes-edit-bar .notes-edit-advanced {
+  padding: 0 14px;
+  border: 1px solid #2563eb;
+  border-radius: 8px;
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+.notes-edit-bar .notes-edit-advanced:hover { background: rgba(37,99,235,.08); }
+.notes-edit-help { flex-basis: 100%; line-height: 1.7; }
+.notes-edit-help summary { cursor: pointer; min-height: 32px; }
+.notes-edit-help div { padding: 8px 12px; background: rgba(128,128,128,.08); border-radius: 8px; }
+.notes-edit-help p { margin: 4px 0 8px; }
+.notes-edit-help kbd { font-size: .9em; }
 .notes-edit-bar a:focus-visible { outline: 3px solid #60a5fa; outline-offset: 3px; }
 @media (max-width: 600px) {
   /* The desktop splitter leaves inline offsets after the viewport narrows. */

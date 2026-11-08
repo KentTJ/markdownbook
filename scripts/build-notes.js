@@ -41,7 +41,8 @@ function run(args, cwd) {
   if (result.error) throw result.error;
   if (result.status !== 0) throw new Error('Build step failed, exit ' + result.status + '\n' + ((result.stdout || '') + '\n' + (result.stderr || '')).slice(-6000));
   if (/Failed to load prism syntax|(?:^|\n)(?:Error|TypeError|SyntaxError|ReferenceError):/.test((result.stdout || '') + (result.stderr || ''))) {
-    throw new Error('Build reported a rendering error');
+    var lines = ((result.stdout || '') + '\n' + (result.stderr || '')).split('\n');
+    throw new Error('Build reported a rendering error\n' + lines.filter(function (line) { return /Failed to load prism syntax|Error:|Cannot find module/.test(line); }).join('\n').slice(-6000));
   }
 }
 books.forEach(function (book) {

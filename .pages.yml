@@ -10,7 +10,7 @@
           "label": "0_Graphic系统总论",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/0_Graphic系统总论/0_Graphic系统总论.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -29,7 +29,7 @@
           "label": "opengl",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/1_Render系统/opengl.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -48,7 +48,7 @@
           "label": "0_窗口系统总论",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/2_窗口系统/0_窗口系统总论/0_窗口系统总论.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -67,7 +67,7 @@
           "label": "SurfaceControl",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/2_窗口系统/SurfaceControl.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -86,7 +86,7 @@
           "label": "virtualDisplay",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/2_窗口系统/virtualDisplay.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -105,7 +105,7 @@
           "label": "wms_animination",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/2_窗口系统/wms_animination.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -124,7 +124,7 @@
           "label": "virtualDisplay",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/2_窗口系统/次要/virtualDisplay.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -143,7 +143,7 @@
           "label": "自由窗口",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/2_窗口系统/次要/自由窗口.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -162,7 +162,7 @@
           "label": "窗口管理之weston",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/2_窗口系统/窗口管理之weston.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -181,7 +181,7 @@
           "label": "窗口管理器WMS",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/2_窗口系统/窗口管理器WMS.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -200,7 +200,7 @@
           "label": "3dof",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/3_Display系统/3dof.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -219,7 +219,7 @@
           "label": "Display系统",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/3_Display系统/Display系统.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -238,7 +238,7 @@
           "label": "DRM",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/3_Display系统/DRM.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -257,7 +257,7 @@
           "label": "sf特效",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/3_Display系统/sf特效.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -276,7 +276,7 @@
           "label": "合成之surfaceFlinger",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/3_Display系统/合成之surfaceFlinger.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -295,7 +295,7 @@
           "label": "合成之weston",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/3_Display系统/合成之weston.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -314,7 +314,7 @@
           "label": "LVGL",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/4_GUI/LVGL.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -333,7 +333,7 @@
           "label": "View",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/4_GUI/View.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -352,7 +352,7 @@
           "label": "GStreamer",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/5_多媒体/GStreamer.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -371,7 +371,7 @@
           "label": "QT",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/其他/QT.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -390,7 +390,7 @@
           "label": "多屏显示分析",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/其他/多屏显示分析.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -409,7 +409,7 @@
           "label": "虚拟化",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_图形系统/虚拟化.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -428,7 +428,7 @@
           "label": "输入系统",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_输入系统/Input.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -447,7 +447,7 @@
           "label": "全局手势",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_输入系统/全局手势.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -466,7 +466,7 @@
           "label": "0_AMS",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_进程管理/0_AMS.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -485,7 +485,7 @@
           "label": "App保活的方式",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_进程管理/App保活的方式.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -504,7 +504,7 @@
           "label": "后台杀进程",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_进程管理/后台杀进程.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -523,7 +523,7 @@
           "label": "杀进程原理",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_进程管理/杀进程原理.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -542,7 +542,7 @@
           "label": "进程与子进程",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_进程管理/进程与子进程.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -561,7 +561,7 @@
           "label": "进程管理系列0_总论",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_进程管理/进程管理系列0_总论.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -580,7 +580,7 @@
           "label": "进程管理系列1之进程的创建",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_进程管理/进程管理系列1之进程的创建.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -599,7 +599,7 @@
           "label": "进程管理系列2之进程的优先级",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_进程管理/进程管理系列2之进程的优先级.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -618,7 +618,7 @@
           "label": "进程管理系列3之内存回收",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/0_进程管理/进程管理系列3之内存回收.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -637,7 +637,7 @@
           "label": "0_AndriodSystem",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/Andriod/0_AndriodSystem.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -656,7 +656,7 @@
           "label": "log框架",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/Andriod/log框架.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -675,7 +675,7 @@
           "label": "permissions",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/Andriod/permissions.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -694,7 +694,7 @@
           "label": "InitSystem",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/Andriod/关键流程/InitSystem.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -713,7 +713,7 @@
           "label": "startAPP",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/Andriod/关键流程/startAPP.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -732,7 +732,7 @@
           "label": "1_InputMethod",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/Andriod/其他核心服务/1_InputMethod.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -751,7 +751,7 @@
           "label": "multi-client-ime",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/Andriod/其他核心服务/multi-client-ime.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -770,7 +770,7 @@
           "label": "无障碍_",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/Andriod/其他核心服务/无障碍_.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -789,7 +789,7 @@
           "label": "功耗",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/Andriod/功耗.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -808,7 +808,7 @@
           "label": "模型",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/Andriod/模型.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -827,7 +827,7 @@
           "label": "book2",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/book2.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -846,7 +846,7 @@
           "label": "CheckList",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/CheckList.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -865,7 +865,7 @@
           "label": "DesignPattern",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/0_computorBase/DesignPattern.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -884,7 +884,7 @@
           "label": "阅读代码与定位问题",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/0_computorBase/HowToReadCode.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -903,7 +903,7 @@
           "label": "编写代码",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/0_computorBase/HowWritecode.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -922,7 +922,7 @@
           "label": "linux",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/0_computorBase/linux.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -941,7 +941,7 @@
           "label": "linux文件系统",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/0_computorBase/linux文件系统.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -960,7 +960,7 @@
           "label": "OperateSystem",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/0_computorBase/OperateSystem.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -979,7 +979,7 @@
           "label": "refactor",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/0_computorBase/refactor.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -998,7 +998,7 @@
           "label": "用户_用户组",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/0_computorBase/用户_用户组.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1017,7 +1017,7 @@
           "label": "解耦",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/0_computorBase/解耦.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1036,7 +1036,7 @@
           "label": "AndriodIPC",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/0_IPC/AndriodIPC.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1055,7 +1055,7 @@
           "label": "IPC前提_序列化",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/0_IPC/IPC前提_序列化.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1074,7 +1074,7 @@
           "label": "socket",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/0_IPC/socket.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1093,7 +1093,7 @@
           "label": "线程间通信",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/0_IPC/线程间通信.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1112,7 +1112,7 @@
           "label": "profiler",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/0_性能/profiler.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1131,7 +1131,7 @@
           "label": "Systrace",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/0_性能/Systrace.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1150,7 +1150,7 @@
           "label": "内存",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/0_性能/内存.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1169,7 +1169,7 @@
           "label": "性能优化",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/0_性能/性能_.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1188,7 +1188,7 @@
           "label": "ANR",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/1_稳定性/ANR.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1207,7 +1207,7 @@
           "label": "WatchDog",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/1_稳定性/WatchDog.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1226,7 +1226,7 @@
           "label": "稳定性通用",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/1_稳定性/稳定性通用.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1245,7 +1245,7 @@
           "label": "CarService",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/AndriodCar/CarService.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1264,7 +1264,7 @@
           "label": "HierarchyView",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/AndroidTool/HierarchyView.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1283,7 +1283,7 @@
           "label": "APK_64bit_32bit",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/App/APK_64bit_32bit.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1302,7 +1302,7 @@
           "label": "APP开发",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/App/APP开发.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1321,7 +1321,7 @@
           "label": "launcher3",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/App/launcher3.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1340,7 +1340,7 @@
           "label": "SystemUI",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/App/SystemUI.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1359,7 +1359,7 @@
           "label": "小程序",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/App/小程序.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1378,7 +1378,7 @@
           "label": "c_cpp_java",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/CodingLanguage/c_cpp_java.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1397,7 +1397,7 @@
           "label": "java反射",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/CodingLanguage/java反射.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1416,7 +1416,7 @@
           "label": "JNI",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/CodingLanguage/JNI.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1435,7 +1435,7 @@
           "label": "js",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/CodingLanguage/js.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1454,7 +1454,7 @@
           "label": "python",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/CodingLanguage/python.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1473,7 +1473,7 @@
           "label": "R",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/CodingLanguage/R.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1492,7 +1492,7 @@
           "label": "内存问题_工具",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/CodingLanguage/内存问题_工具.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1511,7 +1511,7 @@
           "label": "其他特性",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/Features/其他特性.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1530,7 +1530,7 @@
           "label": "多用户",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/Features/多用户.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1549,7 +1549,7 @@
           "label": "OpenHarmony",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/other OS/OpenHarmony.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1568,7 +1568,7 @@
           "label": "otherOS",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/other OS/otherOS.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1587,7 +1587,7 @@
           "label": "kwin",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/wayland/kwin.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1606,7 +1606,7 @@
           "label": "多线程的模型",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/多线程/多线程的模型.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1625,7 +1625,7 @@
           "label": "线程池与binder线程池",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/多线程/线程池与binder线程池.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1644,7 +1644,7 @@
           "label": "文件系统结构",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/文件系统结构/文件系统结构.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1663,7 +1663,7 @@
           "label": "虚拟化",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/coding/虚拟化/虚拟化.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1682,7 +1682,7 @@
           "label": "思考与学习",
           "type": "file",
           "path": "markdownsFile/markdownsFiles/Naturalaw/ReadingAndThinking.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1708,7 +1708,7 @@
           "label": "02-编译weston",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/02-编译weston.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1727,7 +1727,7 @@
           "label": "CheckList",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/CheckList.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1746,7 +1746,7 @@
           "label": "沟通与管理",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/communication/communication.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1765,7 +1765,7 @@
           "label": "English",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/English/English.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1784,7 +1784,7 @@
           "label": "投资",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Investment/Investment.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1803,7 +1803,7 @@
           "label": "金刚经",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Scriptures/金刚经.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1822,7 +1822,7 @@
           "label": "TOExChanged",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/TOExChanged.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1841,7 +1841,7 @@
           "label": "aospBuilding",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Tool/aospBuilding.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1860,7 +1860,7 @@
           "label": "AS",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Tool/AS.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1879,7 +1879,7 @@
           "label": "building",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Tool/building.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1898,7 +1898,7 @@
           "label": "chroot",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Tool/chroot.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1917,7 +1917,7 @@
           "label": "clion",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Tool/clion.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1936,7 +1936,7 @@
           "label": "command",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Tool/command.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1955,7 +1955,7 @@
           "label": "调试技巧",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Tool/debugSkills.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1974,7 +1974,7 @@
           "label": "Docker",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Tool/Docker.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -1993,7 +1993,7 @@
           "label": "gdb",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Tool/gdb.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -2012,7 +2012,7 @@
           "label": "git",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Tool/git.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -2031,7 +2031,7 @@
           "label": "phoneCommand",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Tool/phoneCommand.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -2050,7 +2050,7 @@
           "label": "search",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Tool/search.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -2069,7 +2069,7 @@
           "label": "software_pcSettings",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Tool/software_pcSettings.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -2088,7 +2088,7 @@
           "label": "sourceInsight",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Tool/sourceInsight.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -2107,7 +2107,7 @@
           "label": "tmux_linux",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Tool/tmux_linux.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -2126,7 +2126,7 @@
           "label": "工程化",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Tool/工程化.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -2145,7 +2145,7 @@
           "label": "编译",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/Tool/编译.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -2164,7 +2164,7 @@
           "label": "waydroid",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/waydroid.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -2183,7 +2183,7 @@
           "label": "修",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/修.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -2202,7 +2202,7 @@
           "label": "编译flutter",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/编译flutter.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false
@@ -2221,7 +2221,7 @@
           "label": "老罗Android之旅系列课件",
           "type": "file",
           "path": "markdownsFile2/markdownsFiles/老罗Android之旅系列课件.md",
-          "format": "yaml-frontmatter",
+          "format": "raw",
           "operations": {
             "rename": false,
             "delete": false

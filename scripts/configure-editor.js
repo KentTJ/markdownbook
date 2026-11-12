@@ -25,7 +25,10 @@ function walk(folder, prefix) {
         name: plugin.entryName(rel),
         label: (labels[e.name] || e.name.slice(0, -3)),
         type: 'file', path: rel,
-        format: 'yaml-frontmatter',
+        // These are plain Markdown notes, with no metadata fields. Read and
+        // write the whole body verbatim so repeated saves cannot add empty
+        // frontmatter delimiters that Pages CMS later parses as null.
+        format: 'raw',
         operations: { rename: false, delete: false },
         fields: [{ name: 'body', label: '正文（Markdown）', type: 'text', description: '修改后点击 Save 保存。网页会在自动构建成功后更新；代码块、图片链接和原有格式请保留。' }]
       });

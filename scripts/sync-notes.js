@@ -2,11 +2,35 @@
 var cp = require('child_process');
 var path = require('path');
 var fs = require('fs');
+function findWindowsGit() {
+  var folders = (process.env.Path || process.env.PATH || '').split(path.delimiter);
+  [process.env.ProgramFiles, process.env['ProgramFiles(x86)'],
+    process.env.LOCALAPPDATA && path.join(process.env.LOCALAPPDATA, 'Programs')
+  ].filter(Boolean).forEach(function (folder) { folders.push(path.join(folder, 'Git')); });
+  for (var i = 0; i < folders.length; i++) {
+    var folder = folders[i].trim().replace(/^"|"$/g, '');
+    if (!folder) continue;
+    var candidates = ['git.exe', 'cmd/git.exe', 'bin/git.exe'];
+    for (var j = 0; j < candidates.length; j++) {
+      var candidate = path.resolve(folder, candidates[j]);
+      try { if (fs.statSync(candidate).isFile()) return candidate; } catch (e) { /* Try the next location. */ }
+    }
+  }
+  throw new Error('未找到 Git。请安装 Git for Windows，或将 Git 安装目录下的 cmd 文件夹加入 PATH。');
+}
 function synchronize(root, action, remote, log) {
 root = fs.realpathSync.native(path.resolve(root));
 log = log || console.log;
+var gitCommand = 'git';
 function git(args, allowFailure) {
-  var r = cp.spawnSync('git', args, { cwd: root, encoding: 'utf8', windowsHide: true, maxBuffer: 16 * 1024 * 1024 });
+  var options = { cwd: root, encoding: 'utf8', windowsHide: true, maxBuffer: 16 * 1024 * 1024 };
+  var r = cp.spawnSync(gitCommand, args, options);
+  if (r.error && r.error.code === 'ENOENT' && process.platform === 'win32' && gitCommand === 'git') {
+    // Ordinary CMD may have the Git installation root on PATH instead of cmd.
+    gitCommand = findWindowsGit();
+    log('使用 Git：' + gitCommand);
+    r = cp.spawnSync(gitCommand, args, options);
+  }
   if (r.error) throw r.error;
   if (r.status && !allowFailure) throw new Error((r.stderr || r.stdout || 'Git failed').trim());
   return r;

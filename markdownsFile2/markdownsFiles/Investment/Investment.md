@@ -2,7 +2,7 @@
 
 https://kenttj.github.io/markdownbook/book2/
 
-# 投资第一条:  市场永远无法预测
+# 投资第一准则:  市场永远无法预测
 人无法预测市场
 永远不做预测，只知道便宜或者贵
 
